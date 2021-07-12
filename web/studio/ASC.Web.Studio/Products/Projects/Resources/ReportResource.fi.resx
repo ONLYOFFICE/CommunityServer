@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Aktiiviset tehtävät</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Luo vastaava raportti automaattisesti</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Ajanjakso</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Luontipäivä</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Ajanjakso</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Lajittele tämän sarakkeen mukaan</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Luo Malli</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Käyttäjän nimi</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Takaraja</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Sinun täytyy määrittää mallin nimi</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Joka päivä</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Joka kuukausi</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Joka viikko</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Luo raportti</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Virheellinen ajanjakso</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Edellinen kuukausi</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Edellinen viikko</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Edellinen vuosi</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Tämä projekti ei sisällä välitavoitteita tai tehtäviä</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Muut</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Jäsenet</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Maksujen tilat</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Suljetut tehtävät -raportti</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Käyttäjät ilman avoimia tehtäviä -raportti näyttää luettelon käyttäjistä, joilla ei ole avoimia tehtäviä tällä hetkellä. {3}{2}Tarkastellaksesi kaikkien projektien kaikkia käyttäjiä ilman tehtäviä, klikkaa 'Luo raportti' painiketta.{3}{2}Jos haluat valita tietyn ryhmän tai käyttäjän, määritä ensin raportin parametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} ilman avoimia tehtäviä</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Työmäärä -raportti näyttää käyttäjille annettujen tehtävien määrän niiden tilan mukaan ryhmiteltynä.{3}{2}Tarkastellaksesi tietoa kaikilta käyttäjiltä, klikkaa 'Luo raportti' painiketta. {3}{2}Jos haluat valita tietyn ryhmän tai käyttäjän, määritä ensin raportin parametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Työmäärä</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Erääntyneet välitavoitteet -raportti näyttää luettelon erääntyneistä välitavoitteista.{3}{2}Voit tarkastella erääntyneitä välitavoitteita kaikissa projekteissa klikkaamalla 'Luo raportti' painiketta.{3}{2}Jos haluat tarkastella vain tietyn projektin erääntyneitä välitavoitteita, valitse ensin haluamasi projekti alasvetovalikosta ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Myöhästyneet välitavoitteet</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Erääntyneet tehtävät -raportti näyttää luettelon erääntyneistä tehtävistä.{3}{2}Tarkastellaksesi erääntyneitä tehtäviä kaikissa projekteissa, klikkaa 'Luo raportti' painiketta.{3}{2}Voit tarkastella vain tietyn projektin erääntyneitä tehtäviä valitsemalla ensin haluamasi projekti alasvetovalikosta ja klikkaamalla sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Myöhästyneet tehtävät</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Avoimet tehtävät -raportti</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Raportti «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Projektiluettelo -raportti näyttää luettelon kaikista projekteista.{3}{2}Voit tarkastella kaikkia aktiivisia projekteja johtajineen, tehtävineen, välitavoitteineen, tapahtumineen ja ryhmänjäsenineen klikkaamalla 'Luo raportti' painiketta.{3}{2}Tarkastellaksesi tietyn ryhmän projekteja ja/tai tarkastellaksesi sekä aktiivisia että suljettuja projekteja, määritä ensin raporttiparametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Projektiluettelo</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Projektit ilman avoimia välitavoitteita -raportti näyttää luettelon projekteista, joilla ei ole avoimia välitavoitteita.{3}{2}Tarkastellaksesi kaikkia projekteja ilman avoimia välitavoitteita, klikkaa 'Luo raportti' painiketta.{3}{2}Nähdäksesi vastaavat projektit tietyn ryhmän tai käyttäjän osalta, valitse ensin haluttu ryhmä tai käyttäjä ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projektit ilman avoimia välitavoitteita</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Projektit ilman avoimia tehtäviä -raportti näyttää luettelon projekteista, joissa ei ole avoimia tehtäviä.{3}{2}Tarkastellaksesi kaikkia projekteja, joissa ei ole avoimia tehtäviä, klikkaa 'Luo raportti' painiketta.{3}{2}Nähdäksesi vastaavat projektit tietyn ryhmän tai käyttäjän osalta, valitse ensin haluttu ryhmä tai käyttäjä ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projektit ilman avoimia tehtäviä</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Raportit</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Projektitehtävät-raportti näyttää luettelon tehtävistä, jotka on ryhmitelty niihin kiinnitettyjen projektien ja välitavoitteiden mukaan.{3}{2}Tarkastellaksesi luetteloa kaikkien projektien kaikista tehtävistä vastuuhenkilöineen ja tiloineen, klikkaa 'Luo raportti' painiketta.{3}{2}Tarkastellaksesi esimerkiksi vain tietyn projektin tehtäviä tai tehtäviä tietyssä tilassa, määritä ensin raportin parametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Projektitehtävät</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}Ajan seuranta -raportti näyttää luettelon käyttäjistä kokonaistyömäärineen.{3}{2}Tämä raportti helpottaa tehtäviin käytetyn ajan seuraamista.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Ajanseuranta</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Tulevat välitavoitteet -raportti näyttää luettelon tulevista välitavoitteista.{3}{2}Tarkastellaksesi tulevan viikon välitavoitteita kaikissa projekteissa, klikkaa 'Luo raportti' painiketta.{3}{2}Tarkastellaksesi tulevia välitavoitteita tietyssä projektissa tai tietyllä aikavälillä, valitse ensin haluttu projekti alasvetovalikosta tai aseta päivämäärä ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Tulevat välitavoitteet</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Käyttäjän toiminta -raportti näyttää valitun käyttäjän aktiviteetit projekteissa annetulla aikavälillä.{3}{2}Nähdäksesi oman toimintasi edellisen viikon ajalta, klikkaa 'Luo raportti' painiketta.{3}{2}Asettaaksesi eri aikavälin tai valitaksesi eri käyttäjän, määritä ensin raportin parametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Käyttäjän toiminta</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Käyttäjän tehtävät -raportti näyttää luettelon tehtävistä ryhmiteltynä vastuuhenkilöiden mukaan.{3}{2}Tarkastellaksesi kaikkien käyttäjien kaikkia tehtäviä tiloineen, klikkaa 'Luo raportti' painiketta.{3}{2}Nähdäksesi esimerkiksi vain valitun projektin tehtävät tai tehtävät valitussa tilassa, määritä ensin raportin parametrit ja klikkaa sitten 'Luo raportti' painiketta.{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Käyttäjän tehtävät</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Näytä tehtävät</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Mallit</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Mallin otsikko</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Nykyinen kuukausi</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Nykyinen viikko</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Nykyinen vuosi</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Näytä käyttäjän mukaan</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Tarkastele {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Näytä projektin mukaan</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Näytä käyttäjän mukaan</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Näytä käyttäjän tehtävien mukaan</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Näytä suljetut projektit</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Viikko</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Viikkoa</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Viikkoa</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Eilen</value>
+  </data>
+</root>

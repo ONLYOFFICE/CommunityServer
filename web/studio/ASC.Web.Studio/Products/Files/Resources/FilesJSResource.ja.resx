@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessSettingsHeader" xml:space="preserve">
+    <value>{0}のアクセス設定</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>ユーザー設定フィルター</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>フォーム記入</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>所有者</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>フルアクセス</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>アクセスを拒否する</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>見直し</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>異なっています</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>作成者</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>サブフォルダなし</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>全てのファイル</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>イメージズ</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>コンテンツに</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>メディア</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>プレゼンテーション</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>スプレッドシート</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>もっと表示する{0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>アップロード中...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>の{0}詳細を表示{1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>変更日</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>コードーはクリップボードにコピーされました</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>あなたは'ドキュメント'モジュールから{0}を削除してもよろしいですか？これは、どのような方法であなたの{1}のアカウントには影響しません。</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>あなたはごみ箱を空にしてもよろしいですか？</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>あなたは、現在のページを残してもよろしいですか？ファイルのダウンロードが中断されます。</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>このファイルを削除しようとしています。そうすると、共有されたユーザーに利用可能できなくなります。ファイルを削除したいを確認してください。</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>このフォルダーを削除しようとしています。そうすると、共有されたユーザーに利用可能できなくなります。フォルダーを削除したいを確認してください。</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>この要素を削除しようとしています。そうすると、共有されたユーザーに利用可能できなくなります。要素を削除したいを確認してください。</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>｛１｝ディレクトリーから要素を移動しようとするところです。その場合に、｛１｝アカウントからファイルが削除されたり、共有されたユーザーに不利用可能になったりするようになります。要素を移動したいを確認してください。</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>共有文書</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>カスタム形式</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>データのアーカイブ</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>データを変更する</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>バージョン形成</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>創造</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>DocuSignを介して署名する</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>ロードバージョン...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>読み取り専用としてマーク</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>削除しています...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>リネーム</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>バージョンの更新</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>暗号化にファイルを準備しています</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>ファイル暗号</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>暗号ファイルを保存しています</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>文書の署名する({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>ダウンロードするには、少なくとも1つのフォルダ/ドキュメントを選択</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>コメントを入力する</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>あなたは空のファイルやフォルダをアップロードすることはできません</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>変換誤差</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>すべてのフィールドを記入する必要がある</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>最大ファイルサイズを超えています</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>あなたが追加できるようにするにはログインする必要があります</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>申し訳ありませんが、このファイル形式はサポートされていません</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>入力したパスワードは間違っています。もう一度やり直してください。</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>それを完了またはキャンセルするために、前のダウンロードのためしばらくお待ちください</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>この操作を実行するための十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>このフォルダーでそのようなアクションを実行することはできません</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>タイトルは、次のいずれかの文字を含めることはできません：{0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>ポータルストレージ利用可能領域がなくなりました。{0}のよりも大きなファイルをアップロードできません。</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>{0}という名前のファイルがフォルダ{1}にすでに存在しています。</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>変換</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>変換</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0}は、同じ名前の文書が既にフォルダ'{1}'に存在します。ファイルを上書きしますか？</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>BOXのディレクトリ</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSignアカウント</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropboxのディレクトリ</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Googleのディレクトリ</value>
+  </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>kDriveディレクトリ</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePointディレクトリ</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDriveのディレクトリ</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAVディレクトリ</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandexディレクトリ</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value> '{0}' は '{1}'の所有者になりました</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value> '{0}' は '{1}'アイテムの所有者になりました</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}'に変更</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>{1}{0}{2}をコピーする</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0}の要素をコピー</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}'のコピー</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>｛０｝エレメント</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>新しいファイル '{0}'が作成されます</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>新しい'{0}'ファイルが'{1}'に作成された</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>新しいフォルダ'{0}'が作成されます</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>あなたは、そのサブフォルダにフォルダをコピーすることはできません</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>あなたは、そのサブフォルダにフォルダを移動することはできません</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>ファイルを移動するアクセス権を持っていません。</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>{1}{0}{2}を移動する</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0}要素は移動された</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}'に移動</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>文書'{0}'は削除されます</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>フォルダ'{0}'は削除されます</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>それが正常から{0}は削除されました{1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>'{0}'第三者は切断されました</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>文書'{0}'は'{1}'に名前が変更され</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>フォルダ'{0}'は'{1}'に名前が変更され</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}'は '{1}'に追加</value>
+  </data>
+  <data name="InfoTemplateAdd" xml:space="preserve">
+    <value>テンプレートに追加されたファイル</value>
+  </data>
+  <data name="InfoTemplateRemove" xml:space="preserve">
+    <value>テンプレートから削除されたファイル</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0}のドキュメントが正常にアップロードされ</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>私の文書</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>元のフォーマット</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>プレゼンテーション</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>表示するようにファイル｛0｝のアップロードが失敗してしまいました</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>プライバシールーム</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>プロジェクト文書</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>見直し：{0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>{0}文書へのアクセスを許可されていただきました。文書を開くように、下であるリンクをクリックしてください。</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>{0}文書へのアクセスを許可されていただきました</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>｛０｝</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>ユーザーまたはグルップを追加し、「読むのみ」、「見直す」及び「編集」のアクセス権限｛０｝を付与します</value>
+  </data>
+  <data name="SharingSettingsHeader" xml:space="preserve">
+    <value>{0}の共有設定</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>スプレッドシート</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>データのアーカイブ</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>複写</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>読み取り専用としてマーク</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0}操作</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>変更{0}の接続設定</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>これは、現在編集されている</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>それは現在によって編集されています：{0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>ロックされた</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>｛０｝によってロックされました</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>多くの機能</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>新しいプレゼンテーション</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>新しいスプレッドシート</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>新しいドキュメント</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>新規フォルダ</value>
+  </data>
+  <data name="TitleSettingsAdmin" xml:space="preserve">
+    <value>管理者設定</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>アカウントを接続する</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandexディスク</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>原因不明のエラー…</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>アップロードは完了です</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value> {0} ファイルアップロード({1}% 完了)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>｛1｝の｛０｝は使用されました</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+</root>

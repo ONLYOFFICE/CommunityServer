@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Portaalin käyttöoikeudet</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Lisää välitavoite</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Lisää projektipäällikkö</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Lisää tehtävä</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Projektipäällikkö voi</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>lisää tai poista käyttäjiä projektiryhmään/ryhmästä </value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>Aseta käyttöoikeuksia projektin jäsenille (vain {0}yksityisille projekteille{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Hallinnoi (luo, muokkaa, poista) välitavoitteita, tehtäviä, keskusteluja, asiakirjoja ja {2}{0}rajoita niiden pääsyoikeuksia{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Hallinnoi (luo/muokkaa/poista) välitavoitteita, tehtäviä, keskusteluja, asiakirjoja</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Ota yhteyttä Talk toiminnon kautta</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Lähetä sähköposti</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Sulje projekti</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Luo ensimmäinen projekti</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Luo uusi projekti</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Poista projekti</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa tämän projektin?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Suodatintasi vastaavia projekteja ei löytynyt</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Muokkaa projektia</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Työskentele tehokkaasti projektien avulla</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Projektiluettelo on tyhjä</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Seuraa tätä projektia</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Lisää tehtävä välitavoitteelle</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Kaikki vastuuhenkilöt</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Määritä vastuuhenkilöt</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Kokoruututila</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Vasemman paneelin tila</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Luo linkki</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Linkkiä luodaan</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Tuplaklikkaa paneelin vasemman laidan otsikkoa</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Klikkaa oikealla hiiren painikkeella vastuuhenkilöä paneelin vasemmassa laidassa</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Muokkaa otsikkoa</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Sinun on valittava ainakin yksi projekti Gantt-kaaviota varten.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Yhtään projektia ei ole valittu.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantt kaavio</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Korkea prioriteetti</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Kuvateksti</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Aktiivinen</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Kaavion objekteilla voi olla erilainen ulkoasu riippuen tilanteesta:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Myöhässä</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Voit käynnistää paneelin pääkomennoista näppäimellä H</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Virheellinen linkki</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Allaolevat symbolit näkyvät, kun ylläpidät hiiren osoitinta kaavion objektien päällä:</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Kaavion kuvateksti</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Linkitä tehtävät</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Siirrä hiiri tehtävän päälle. Klikkaa neliösymbolia, jonka keskellä on valkoinen piste. Raahaa hiiren osoitin haluamasi tehtävän päälle ja vapauta se neliösymbolin päällä.</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Linkin tyyppi</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Linkitä </value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Vain avoimet tehtävät ja välitavoitteet</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Tulosta</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Tee uudelleen</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Avaa uudelleen</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Klikkaa oikealla hiiren painikkeella tehtävää (välitavoitetta)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Avaa tiputusvalikko</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Klikkaa oikealla hiiren painikkeella tyhjää tilaa.</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Luo uusi tehtävä</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Klikkaa oikealla hiiren painikkeella tyhjää tilaa ja raahaa oikealle</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Luo uusi tehtävä määräpäivällä</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Lue lisää</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Sovita ruutuun</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Tehtävä ilman määräpäivää</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Kuukausi</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Aikajanan skaala</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Viikko</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Käytä hiiren pyörää muuttaaksesi aikajanan skaalaa</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Siirry nopeasti tämän päivän aktiviteetteihin mistä tahansa paikasta</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Kumoa</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Myös 'Peru' luettelo tyhjennetään, joten et voi enää perua aikaisempia muutoksiasi.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Siirrä vasemmalle</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Siirrä oikealle</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Yksityinen projekti</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Tallenna projekti yksityisenä</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Projektiryhmän hallinta</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Manuaalinen Ajan syöttö</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Et voi sulkea projektia, jossa on avoimia välitavoitteita.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Et voi sulkea avoimia tehtäviä sisältävää projektia.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Ilmoita projektipäällikölle sähköpostitse</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Poista projekti</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Projektipäällikkö</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Projektin tila</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Projektiryhmä</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Projektimalli</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Projektimallit</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Virkistä kaavio</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Tallenna projekti</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Valitse projektimalli</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tunnisteet</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Suljetut tehtävät. Klikkaa nähdäksesi luettelon tämän välitavoitteen suljetuista tehtävistä.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Avoimet tehtävät. Klikkaa nähdäksesi koko luettelon nykyiselle välitavoitteelle.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Välitavoitteen vastuuhenkilö. Klikkaa nähdäksesi luettelon tämän henkilön vastaamista välitavoitteista.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Projektipäällikkö. Klikkaa nähdäksesi luettelon tämän henkilön vastaamista projekteista.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Avoimet tehtävät. Klikkaa nähdäksesi koko luettelon nykyiselle projektille.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Projektiryhmä. Klikkaa nähdäksesi luettelon sen kaikista jäsenistä.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Avoimet alitehtävät. Klikkaa nähdäksesi koko luettelon nykyiselle tehtävälle.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Tehtävän vastuuhenkilö. Klikkaa nähdäksesi luettelon tämän henkilön vastaamista tehtävistä.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Tehtävän vastuuhenkilöt. Klikkaa nähdäksesi kaikki tämän tehtävän vastuuhenkilöt.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Näytä aktiiviset välitavoitteet</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Näytä avoimet tehtävät</value>
+  </data>
+</root>

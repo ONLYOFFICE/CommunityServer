@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Изберете потребител</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="LblByType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="LblOther" xml:space="preserve">
+    <value>Друг</value>
+  </data>
+  <data name="LblPending" xml:space="preserve">
+    <value>В очакване на</value>
+  </data>
+  <data name="LblStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Хора с увреждания</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Хора</value>
+  </data>
+  <data name="SelectedCount" xml:space="preserve">
+    <value>Избран е {0}</value>
+  </data>
+  <data name="SuccessChangeUserStatus" xml:space="preserve">
+    <value>Състоянието на потребителя бе успешно променено</value>
+  </data>
+  <data name="SuccessChangeUserType" xml:space="preserve">
+    <value>Типът на потребителя бе променен успешно</value>
+  </data>
+  <data name="SuccessSendInvitation" xml:space="preserve">
+    <value>Поканата бе изпратена успешно</value>
+  </data>
+  <data name="TariffActiveUserLimit" xml:space="preserve">
+    <value>Вашият текущ ценови план ви позволява да добавите {0} {1} по-активни потребители {2}.</value>
+  </data>
+  <data name="TariffActiveUserLimitExcludingGuests" xml:space="preserve">
+    <value>Вашият текущ ценови план ви позволява да добавите {0} {1} активни потребители {2} (гостите не се вземат под внимание).</value>
+  </data>
+</root>

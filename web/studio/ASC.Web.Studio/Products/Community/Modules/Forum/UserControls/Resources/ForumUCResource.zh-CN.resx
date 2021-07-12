@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>取消置顶</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>您确定要执行这项操作吗？</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>已编辑</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>空文件</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>很抱歉，您没有权限执行这项操作</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>删除帖子时发生错误</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>请输入至少两个选项</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>请填写话题名称</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>填写消息内容</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>还有其他帖子与此帖相链，因此暂时无法删除这篇帖子。</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>文件太大</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>添加附件</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>标签之间用半角逗号“,”分隔。</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>附件大小不能超过{0}MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>版主功能</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>填写名称</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>发布新帖</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>总体进度</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>帖子</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>请填写投票主题</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>引用</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>写道</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>该话题的最新帖子</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>最近更新</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>在页面上显示</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>置顶</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>请填写话题名称</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>订阅此话题</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>话题已被取消置顶</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>该话题已完满结束</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>附件已删除</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>该帖已删除</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>话题已删除</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>话题已修改</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>话题已成功创建</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>话题已置顶</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>填写消息内容</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>话题</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>次点击</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+</root>

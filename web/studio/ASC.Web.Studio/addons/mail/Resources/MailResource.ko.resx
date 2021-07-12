@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>포털 액세스 권한</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>제발, 당신​​이 입력 한 모든 계정 설정을 확인합니다. 귀하의 설정이 올바른지 경우 사용하는 메일 서비스에 로그인하고 확인 질문을 확인, 경우에 몇 가지가 있습니다. 그 뒤에 다시 시도하십시오.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>계정 이름</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>계정 설정</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>귀하의 계정을 활성화 한 후 메일 받기 재개</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>계정 활성화</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>활성화</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>참조/ 숨은참조 추가</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>이메일 주소 추가</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>이메일 주소</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>연락처</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>태그 추가</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>고급</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>전체 이미지를 보여줌</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>이미지를 항상 보여줌.</value>
+  </data>
+  <data name="ApplyBtnLabel" xml:space="preserve">
+    <value>필터 적용</value>
+  </data>
+  <data name="ApplyFilterBtnLabel" xml:space="preserve">
+    <value>기존 메시지에 필터 적용</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>문서에서 파일을 첨부</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>첨부 파일</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>CRM 연락처에 연결</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>숨은 참조</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>새 계정 만들기</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>이미지가 비활성화되어 있습니다.</value>
+  </data>
+  <data name="ChangeAccountPasswordLabel" xml:space="preserve">
+    <value>비밀번호 변경</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>빈 폴더</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>일반설정</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>참조</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>새 계정 만들기</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>새 태그를 만듭니다</value>
+  </data>
+  <data name="CreateUserFolderLabel" xml:space="preserve">
+    <value>새 메일함</value>
+  </data>
+  <data name="DashboardCollectAllEmailsInOnePlaceThirdLine" xml:space="preserve">
+    <value>어디서든 전자 메일을 볼 수 있습니다.</value>
+  </data>
+  <data name="DashboardStructureCorrespondenceFirstLine" xml:space="preserve">
+    <value>태그 추가, CRM에 링크 대화와 단일메시지</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>계정 비활성화 후 메일 비 수신</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>계정을 삭제하면 모든 메시지가 사서함에서 제거됩니다.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>태그 삭제</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>당신이 목록에서 태그를 삭제하면, 그것은 또한로 표시된 연락처 및 메시지에서 제거됩니다.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>문서 편집기에서 열기</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>이 주소가 이미 존재합니다</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>임시보관함</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>받은 편지함</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>보낸편지함</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>스팸</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>휴지통</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>전달</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>전체 크기</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>기본 설정을 가져 오기</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP 서버</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>중대한</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>은 지난 30 일 가져 오기 메시지</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>메일</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>중요 표시</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>읽은 상태로 표시</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>에서 모든 메시지를 표시</value>
+  </data>
+  <data name="MessageFilterSettingsLabel" xml:space="preserve">
+    <value>필터 설정</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>이 계정이 비활성화되었습니다.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>더</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>더</value>
+  </data>
+  <data name="MoveTo" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>새 태그를 만듭니다</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>no address</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>제목 없음</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>중대한</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>중대한</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>읽음</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>읽음</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>읽지 않은</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>읽지 않은</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>첨부 파일이있는</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>첨부 파일이있는</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>모든 선택 해제</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>선택된</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP 서버</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>포트</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>메일</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>메일을 수신</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>새 메시지를 가져 오기</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>답변</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>내 문서에 저장</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>프로젝트 문서에 저장</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>에 저장</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>메일 보내기</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>서버</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>더 많은 태그를 표시</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>페이지에 표시</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>새 탭에서 열기</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP 서버</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>태그를 수정합니다</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>태그 이름</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>당신은 메시지와 태그를 사용하여 연락처를 표시 할 수 있습니다. 그것은 미래에 옵션을 필터링 태그를 사용하여 필요한 것들에 대한 검색을 쉽게합니다.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>당신은 메일에서 만든 태그를 편집하고 삭제할 수 있습니다. CRM 모듈에서 가져온 태그 중 하나 편집 또는 삭제 할 수 없습니다. 그들은 관리자가 바로 CRM 모듈에서 변경 될 수 있습니다.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>태그 관리</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>IMAP 서버에 SSL을 사용</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>POP 서버에 대한 SSL 사용</value>
+  </data>
+  <data name="UserFolderCreateFolderLink" xml:space="preserve">
+    <value>새 메일함</value>
+  </data>
+  <data name="UserFolderSettingsLabel" xml:space="preserve">
+    <value>메일함 설정</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>SMTP 서버에 대한 SSL을 사용하여</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>뷰</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>연락처 프로필보기</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>메일 작성</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>새 이메일을 작성</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>어제</value>
+  </data>
+</root>

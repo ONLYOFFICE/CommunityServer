@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Sukurti naują užduotį</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Sukurti užduotį</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Pagal terminą</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Baigta užduotis</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Susieti su kontaktu</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Sukurti pirmą užduotį</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Sukurti užduotį</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Pasirinktinis laikotarpis</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Kiti naudotojai</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Naikinti užduotį</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Terminas</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Keisti užduotį</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Užduočių pagalba galite lengvai prisiminti ką reikia padaryti. Pavyzdžiui, užduotį galite panaudoti norėdami nustatyti priminimą apie susitikimą ar skambutį. Galite sukurti {0} skirtingų kategorijų {1} užduotis, susieti jas su kontaktais, pardavimais ar renginiais, arba paprasčiausiai sukurti priminimą sau.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Šiame skirsnyje nėra Jūsų filtrą atitinkančių užduočių. Pasirinkite kitas filtro nuostatas arba išvalykite filtrą, kad galėtumėte matyti visas šio skirsnio užduotis. Taip pat galite reikalingų užduočių paieškoti kontaktuose, pardavimuose arba renginiuose.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Šiam filtrui nėra užduočių</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Užduočių sąrašas tuščias</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>
+Tinkamai suformuotą CSV dokumentą pasirinkite iš kompiuterio HDD. Jame privalo būti laukeliai arba stulpeliai, atskirti pagal pasirinktas ribas, kurios bus naudojamas importuoti užduotis. Dokumentai, kuriuose yra daugiau nei {0} eilučių turėtų būti padalinti į mažesnes dalis, siekiant užtikrinti tinkamą importuoti.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Pasirinkti CSV failą</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Suderinkite savo dokumento stulpelius su atitinkamais ONLYOFFICE™ CRM laukeliais. Atkreipkite dėmesį, užduotys bus teisingai importuotos tik tuo atveju, jei bent šie stulpeliai iš Jūsų dokumento bus suderinti su ONLYOFFICE™ CRM laukeliais: "Užduoties Pavadinimas", "Atsakingas asmuo", "Galutinis terminas". Laukeliai, kuriuose yra datos, privalo būti suformatuoti pagal formatą: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prašome patikrinti laukus</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Eiti į uduočių sąrašą</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Užduočių importavimas gali užtrukti kelias minutes priklausimai nuo duomenų kiekio.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importavimas prasidėjo</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Importo užduotys</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Mano užduotys</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>niekada</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Baigta</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Pradelsta</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 minučių</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 minutės</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>pusvalandis</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>valanda</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>diena</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 valandos</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Atsakingas</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Užduotis išsaugoma</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Pradėti importą</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Užduotys</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Užduočių kategorijos</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Užduoties kategorija</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Skambutis</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Pardavimas</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Pristatymas</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>El. paštas</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Faksas</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Vykdymo kontrolė</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Pietūs</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Susitikimas</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Pastaba</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Siuntimas</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Socialiniai tinklai</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Padėka</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Užduoties aprašymas</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Priskirti</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Užduotys</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Būklė</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Užduoties būklė</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Uždaryta</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Užduoties pavadinimas</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Būsimos</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 dienos</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Laikas</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šiandien</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Šiandien</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Užduočių kategorijos leidžia suskirstyti Jūsų užduotis į grupes priklausomai nuo norimų pasiekti tikslų. Numatytosios užduočių kategorijos yra skambutis, pardavimas, pristatymas, el. laiškas, faksas, vykdymo kontrolė, verslo pietūs, susitikimas, pastaba, siuntimas, socialiniai tinklai, padėka. Norint jas keisti, reikia administratoriaus teisių.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Visos užduotys</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Savaitė</value>
+  </data>
+</root>

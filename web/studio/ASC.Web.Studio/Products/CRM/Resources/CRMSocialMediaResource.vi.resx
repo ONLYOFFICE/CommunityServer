@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
+    <value>Để khách hàng nhận biết sản phẩm và thương hiệu của bạn trên mạng xã hội. Đơn giản chỉ cần liên kết tài khoản twitter với địa chỉ liên hệ và theo dõi các tweet ngay trên cổng thông tin của bạn.</value>
+  </data>
+  <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
+    <value>Không có tài khoản Twitter được liên kết</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Lỗi máy chủ nội bộ</value>
+  </data>
+  <data name="ErrorTwitterAccountNotFound" xml:space="preserve">
+    <value>Không thể tìm thấy tài khoản Twitter</value>
+  </data>
+  <data name="ErrorTwitterConnectionFailure" xml:space="preserve">
+    <value>Không thể kết nối Twitter</value>
+  </data>
+  <data name="ErrorTwitterRateLimit" xml:space="preserve">
+    <value>Vượt quá số lượng tối đa yêu cầu cho phép của Twitter. Thử lại sau.</value>
+  </data>
+  <data name="ErrorTwitterUnauthorized" xml:space="preserve">
+    <value>Ứng dụng không có quyền truy cập Twitter. Vui lòng kết nối lại tài khoản Twitter.</value>
+  </data>
+  <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
+    <value>Tài khoản Twitter không xác định</value>
+  </data>
+  <data name="LinkTwitterAccount" xml:space="preserve">
+    <value>Liên kết với tài khoản Twitter</value>
+  </data>
+  <data name="NoAccountsHasBeenFound" xml:space="preserve">
+    <value>Không tìm thấy tài khoản nào</value>
+  </data>
+  <data name="NoCompaniesHasBeenFound" xml:space="preserve">
+    <value>Không tìm thấy công ty nào</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Vui lòng chờ...</value>
+  </data>
+  <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
+    <value>Tài khoản Twitter không được kết nối</value>
+  </data>
+</root>

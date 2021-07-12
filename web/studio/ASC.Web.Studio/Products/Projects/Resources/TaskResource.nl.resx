@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Taak accepteren</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Accepteren</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Eerste taak toevoegen</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Nieuwe subtaak toevoegen</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Nieuwe taak toevoegen</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Subtaak toevoegen</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Nieuwe taak toevoegen</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Alle taken</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Toegewezen aan</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>De beste manier is teruggaan en de subtaken handmatig afsluiten. Probeer daarna opnieuw de taak af te sluiten.</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>De beste methode om terug te keren is alle subtaken handmatig te sluiten en probeer dan de taken te sluiten</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Verantwoordelijke</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Status wijzigen</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Type koppeling kiezen</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Project kiezen</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Taak kiezen</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Afgesloten</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Afgesloten door</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Afsluitingsdatum</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Taken sluiten</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Taak afsluiten</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Er zijn geen opmerkingen gevonden voor deze taak.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Geen opmerkingen gevonden</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Taak kopiëren</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Gemaakt door</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Nieuwe koppeling maken</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Datum gemaakt</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>In deze sectie kunnen geen taken worden weergegeven die voldoen aan je filter.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Elke taak moet een titel hebben.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Taak bewerken</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Alle subtaken sluiten, dan de taak afsluiten</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Sluit alle subtaken en sluit dan alle taken</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Fout bij maken nieuwe koppeling</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Taak volgen</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Naar de taak gaan</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Hoog</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Melden aan verantwoordelijke</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Versturen van het bericht is gelukt.</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Mijlpaal</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Taken verplaatsen naar een ander Mijlpaal</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Verplaatsen naar mijlpaal</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Taak verplaatsen naar andere mijlpaal</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Verplaatsen naar mijlpaal</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>geen</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Niemand</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Er zijn geen taken die voldoen aan dit filter</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Er zijn nog geen taken gemaakt.</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioriteit</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Ongeldige koppeling. Zorg ervoor dat de start- en vervaldatum juist zijn.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Gerelateerde taken</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Interval tussen start- en einddatum van twee taken</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Er zijn geen andere taken gekoppeld aan deze taak.</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Geen gekoppelde taken gevonden</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Taak verwijderen</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Weet je zeker dat je deze taak wilt verwijderen?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Verwijder taken</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Weet u zeker dat u deze taken wilt verwijderen?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Verantwoordelijke gebruikers</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Taken zonder verantwoordelijke tonen</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Subtaak</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Subtaken</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Er zijn geen subtaken gemaakt voor deze taak.</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Geen subtaken gevonden</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Taak</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Gemaakt door</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Toegewezen aan</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Taken</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Taken Telling</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Met behulp van taken kan de projectmanager al het werk gelijkmatig verdelen over de projectdeelnemers en verantwoordelijke personen instellen voor verschillende delen van het project. Begin taken toe te voegen, voer ze uit, bepaal wie er verantwoordelijk is, beheer het teamwerk.</value>
+  </data>
+  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
+    <value>Taken helpen de beheerder al het werk gelijk te verdelen tussen de projectmedewerkers, verantwoordelijken aan te duiden voor de verschillende onderdelen van het project.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Tijd registreren</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>U probeert taken te sluiten met open subtaken</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Je probeert een taak af te sluiten die open subtaken heeft.</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Taak niet meer volgen</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Niet-gesorteerde taken</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Word verplaatst naar mijlpaal</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Niemand</value>
+  </data>
+</root>

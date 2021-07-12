@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Середній бюджет угод</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Середня тривалість успішної угоди, дні</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Оплачено</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Оплачені рахунки-фактури</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Порожній шаблон Builder документа </value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>За бюджетом</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>За номером</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Закрито</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Закриті завдання</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Контакти за температурним рівнем</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Контакти за типом</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Із угодами</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Без угод</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Розмова</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Створено</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Щоб створити звіт, бюджет угоди повинен бути вказаний у базовій валюті. Встановіть використані курси обміну валют.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Параметри грошової одиниці
+</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Поточний місяць</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Поточна чверть</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Поточний тиждень</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Поточний рік</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Бюджет угод</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Угоди за бюджетом</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Угоди за номером</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Угоди за сценарієм</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Угоди за статусом</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Номер угод</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Протягом усього часу</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Створені звіти</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Тут відображаються усі створені вами звіти. Ви можете редагувати, видаляти або завантажувати файли звіту. Щоб створити звіт, виберіть шаблон зі списку ліворуч, встановіть фільтри та натисніть кнопку «Створити».</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Згенерувати звіт</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Рахунки-фактури за статусом</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Рахунки-фактури за період</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Пункт</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Втрата</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Менеджер</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Менеджери</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Закінчиться в найближчі 30 днів</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Новий</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Нові контакти</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Нові контакти з можливостями та без них</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Нові завдання</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Наступного місяця</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Наступної чверті</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Наступного тижня</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Наступного року</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Немає даних для звіту. Виберіть інший фільтр.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Відкрито</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Прострочений</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Прострочені завдання</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Оплачено</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Минулий місяць</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Минулий квартал</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Минулий тиждень</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Минулий рік</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Відхилено</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Створення звіту</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Ви можете переглядати, завантажувати, редагувати або видаляти всі створені звіти у {0} CRM / Звіти / Згенеровані звіти {1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Створення звіту ({0}% завершено)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Звіти</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Продаж менеджерами за день</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Продаж менеджерами за годину</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Продажі менеджерів</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Цей звіт призначений для демонстрації успішно закритих угод обраного {1} періоду часу {2} для всіх або обраних менеджерів. {0} Якщо вибраний період тижня чи місяця, у звіті відображатимуться результати, згруповані за дні, періоди кварталу та року.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Продаж менеджерами за місяць</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Прогноз продажів</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Цей звіт призначений для демонстрації прогнозу продажу протягом певного періоду часу з урахуванням ймовірності появи угод. Він показує кількість угод за обраний {1} період часу {2} для всіх або обраних менеджерів. {0} Дані включають загальний бюджет для угод, за якими оцінюється дата закриття, у вибраний період часу.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Послідовність продажів за бюджетом угод</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Послідовність продажів за номером угод</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Послідовність продажів</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Цей звіт призначений для створення послідовності продажів на певний період часу. Він показує кількість угод за обраний {1} період часу {2} для всіх або обраних менеджерів.
+{0} Основні дані включають кількість послідовних угод, середній можливий бюджет, середню тривалість успішно закритих угод, співвідношення відкритих та закритих угод.
+{0} Дані сортуються за номером угод та бюджетом.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Етап</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Цей звіт призначений для того, щоб показати зведені дані про угоди, контакти, завдання та рахунки-фактури за обраний {1} період часу {2} для всіх або вибраних менеджерів. У звіті буде показано угоди, визначені за статусом та стадією, контакти за типом та стадією, завдання та рахунки-фактури за статусом.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Сумарно на момент</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Сумарно на період</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Цей звіт призначений для демонстрації сумарних даних про  угоди, контакти, завдання та рахунки-фактури для вибраного періоду {1} Time period {2} для всіх або вибраних менеджерів. Звіт відображатиме угоди, визначені за бюджетом та їх кількістю, контактами за типом, завданнями та рахунками до періоду часу.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Завдання за статусом</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Завдання за період</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Проміжок часу</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Загалом</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Загальний бюджет угод</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Загальний номер угод</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Загальний обсяг продажів менеджерами за період </value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Виграти</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Цей звіт призначений для показу загальної кількості контактів для обраного {1} періоду часу {2} для всіх або вибраних менеджерів. У звіті будуть показані нові контакти, вказані за типом, наявністю та відсутністю угод. Дані згруповані лише менеджерами.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Контакти менеджерів</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Цей звіт призначений для показу загальної завантаженості виграних та втрачених угод для обраного {1} періоду часу {2} для всіх або вибраних менеджерів. Дані згруповані лише менеджерами.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Угоди за менеджерами</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Цей звіт призначений для показу загальної кількості рахунків-фактур для вибраного {1} періоду часу {2} для всіх або вибраних менеджерів. У звіті буде показано загальну кількість відправлених рахунків-фактур, а також кількість оплачених, відхилених та прострочених рахунків-фактур. Дані згруповані лише менеджерами.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Рахунки-фактури за менеджерами</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Цей звіт призначений для демонстрації загальної кількості завдань для обраного {1} періоду часу {2} для всіх або вибраних менеджерів. У звіті буде показано закриті, нові та прострочені завдання, задані за типом. Дані згруповані лише менеджерами.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Заданная менеджерам</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчора</value>
+  </data>
+</root>

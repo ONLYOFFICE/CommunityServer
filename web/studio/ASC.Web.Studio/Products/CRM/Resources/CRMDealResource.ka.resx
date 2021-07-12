@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>დაამატე და შექმენი ახალი გარიგება</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>ამ გარიგების დამატება</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>ყველა ხელშეკრულება</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>ფსონი</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>ფიქსირებული</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>დღეში</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>საათში</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>თვეში</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>კვირაში</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>წელიწადში</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>გადახდის პერიოდულობა</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>ხელშეკრულების კონტაქტი</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>პირველი ხელშეკრულების დამატება</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>ახალი ხელშეკრულების დამატება</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>ხელშეკრულების სტადია</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>ხელშეკრულება</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>ჯამი</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>გარიგების სტადიები</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>დისკუსია</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>დასაწყისი ან წარუმატებლობა. გარიგება არ დაწყებულა ან უკვე დაკეტეს პერსპექტივის არქონის გამო</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>ნულოვანი წერტილი</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>პოტენციური მყიდველი დათანხმდა შეხვედრაზე ან/და შეაფასოს თქვენი შეთავაზება</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>შეფასება</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>პოტენციურმა მყიდველმა ტეტალურად განიხილა თქვენი შეტთავაზება</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>მოლაპარაკება</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>პოტენციური მყიდველი დაინტერესდა თქვენი შეთავაზებით</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>დასაწყისი</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>პოტენციური მყიდველმა გამოხატა სიტყვიერი თანხმობა აწარმოოს თქვენთან საქმიანობა</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>წინაპირობა</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>შემდგარი გარიგება. დაკეტვის მიზეზი, მისი წარმატებით დასრულება</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>წარმატება</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>სტადიის ტიპი</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>ხელშეკრულებები</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>ხელშეკრულების წაშლა</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>ხელშეკრულების აღწერა</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>დავალების კორექტირება «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>ამ გარიგების რედაქტირება</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>გარიგებები ხელს გიწყობთ აკონტროლოტ პოტენციური გაყიდვები თქვენს კლიენტებთან.
+         განსაზღვრეთ გარიგების ეტაპები ტქვენი ბიზნეს პროცესების შესაბამისად, შეიყვანეთ ისტორია, დასახეთ ამოცანები, ატვირთეთ დოკუმენტები, გამოითვალეთ მოგება ყოველი კლინტიდან.</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>შეიყვანეთ გარიგების დასახელება</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>ყოველ გარიგებას უნდა ყავდეს პასუხისმგებელი პირი</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>გარიგების მონაწილეთა სია ცარიელია</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>ბიუჯეტი</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>ჩემი ხელშეკრულებები</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>გარიგების დასახელება</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>ბიუჯეტი არ არის მითითებული</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>გარიგების სხვა მონაწილეები</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>მონაწილეები</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>გარიგებაზე დაშვების შეზღუდვა</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>წარმატების ალბათობა</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>ხელშეკრულებაზე პასუხისმგებელი</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>სულ გვერდზე</value>
+  </data>
+</root>

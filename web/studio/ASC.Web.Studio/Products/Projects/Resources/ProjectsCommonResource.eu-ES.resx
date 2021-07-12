@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Harpidedunen kudeaketa</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Guztia</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>{!groups} guztiak</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Mugitu lotutako atazekin</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>{!users} guztiak</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Abiarazi/Gelditu Tenporizadorea</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Denbora gehitu</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Berrezarri</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Hasi</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>ONLYOFFICE™ Proiektuak</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Probatu mugikorretarako aplikazioa</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Ezkutatu</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiatu</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Sortu</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Proiektu berria hasi</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ezabatu</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumentuak</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editatu</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Estekatu edo gehitu kontaktua</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Kudeatzen duzun proiektuarekin estekatu nahi dituzun kontaktuak CRM-ko zerrendatik aukeratu, edo berriak gehitu. Kontaktuen informazio pertsonala editatu. CRM-kin zenbat eta gehiago integratu orduan eta eraginkorragoa izango da zure lanaren kudeaketa.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kontaktuen zerrenda hutsik dago</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Ez dago filtro horrekin bat egiten duen proiekturik</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Jarraitu</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Markatu kutxa hau sortzen ari zaren proiektuaren kudeatzailea ez bazara baina proiektuko aldaketen berri izan nahi baduzu. Mugarri, ataza eta eztabaida guztiei buruzko informazioa gehituo zaio atariaren berri batzen dituen eguneroko jakinarazpenari.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Proiektu pribatua2} zure proiektuetarako sarbidea mugatzeko era bat da, horrela soilik zure taldeko kideak sartu ahal izango dira. Zure proiektua pribatu gisa gordez gero kide bakoitzak proiektuan dituen baimenak ezarri ahal izango dituzu. </value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Proiektu Pribatua{2} zure proiektua babesteko modu bat da, horrela zure taldekideak baino ezin izango dira sartu.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Mugarri giltzarria bestak baino garrantzitsuagoa den mugarri bat sortzeko erabiltzen da. {0} Mugarri giltzarri guztiek dute giltz gorri baten ikonoa tituloaren ondoan.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Proiektuaren hiru egoera desberdin artean aldatu ahal duzu:{0}{1}Atkiboa.{2} Normalean lan egiten duzun proiektuak aktibo gisa markatzen dira zeuk pausatu edo bukatutzat eman arte.{0}{1}Pausatuta.{2} Tarte batean Proiektuan lan egiteari utzi nahi badiozu aldatu bere egoera Pausatuta egoerara. Proiektuari berriro ekiteko egizu aktibo dagokion egoera hautatuta.{0}{1}Itxita.{2} Proiektuko lana eginda dagoenean eta ataza guztiak itxita, osatu zure proiektua egoera Itxita ezarriz. Ondoren egon daitezkeen lanetarako berraktibatu beharko duzu.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Zure taldera kideak gehitzeko {1}Taldea kudeatu{2} loturan eta hautatu zerrendatik gehitu nahi dutuzun erabiltzaileak.{0} Era berean taldekideak gehitu/ezabatu ahal dituzu geroago {1}Taldea{2} atalera joanda {1}Proiektuaren deskripzioa{2} orrialdean eta {1}Taldea kudeatu{2} botoia sakatuta.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Lehenespen gisa, proiektuko partaide bakoitzak hautatutako proiektuko eduki guztia ikusi ahal izango du: mugarriak, atazak, dokumentuak eta eztabaidak. Sarbidea mugatzeko, taldekide bat aukeratu eta eskuineko esteketan klik egin besterik ez duzu egin behar. Era berean sarbide baimenak berrezarri ahal dituzu  proiektuko kide bakoitzean, horietako bat atari kudeatzailea izan ezean. ONLYOFFICE-n kudeatzaileak proiektu guztietan eduki guztira sartu ahal da.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Zer da "Jarraitu proiektu hau"?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Zer da proiektu pribatu bat?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Zer da mugarri giltzarri bat?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Zeintzuk dira Proiektu egoerak?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Nola kudeatu zure taldea?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ezkutatu</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Erabiltzaile honek ez ditu eztabaida honetako jakinarazpenak jasotzen proiektua pribatua delako eta erabiltzailea ez da proiektu honetako partaidea.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Informazio gehiago...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Gaituta</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Jarraitzen ditudan proiektuak</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Berriena</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Nire eztabaidak</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Nire proiektuak</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontaktuak</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Proiektuak</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Mugitu ataza</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Iruzkin berriak eztabaidetan</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Iruzkin berriak atazetan</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Kontakturik ez estekarako</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Daturik ez</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Ataza beste batzuekin lotuta dago, ezabatuz gero loturak desagertuko dira.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Ezabatu estekak eta lekuz aldatu</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Oharra: ekintza hau ezin da desegin.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Aurrebista</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Proiektuaren kudeatzaileak egiten duena egin|Proiektuaren kudeatzailea izendatu|Edozein proiektu Sortu, editatu eta ezabatu|Txantiloiak sortu/editatu</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Sortu taldeak eta atazak esleitu. Programatu proiektuaren mugarriak, proiektuaren aktibitatea jarraitu eta txostenak sortu.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Sortu taldeak eta atazak esleitu. Programatu proiektuaren mugarriak, proiektuaren aktibitatea jarraitu eta txostenak sortu.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Proiektuak</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Proiektuka ikusi eta parte hartu eztabaidetan|Sortu eta editatu mugarriak, atazak, eztabaidak, dokumentuak|Atazetarako denbora kudeatu, txostenak sortu|Proiektuaren taldea sortu eta sarbide baimenak ezarri</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Proiektuari lotuko zaizkion kontaktuak</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Proiektuaren Izenburua</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Informazio gehiago</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Ezabatu erabiltzailea taldetik</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Ordeztu</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Txostenak</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Gorde</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Gorde eta Ataza Berria sortu</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Gorde aldaketak</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Bilatu</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Hautatu</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Kontaktuen artean bat hautatu edo berri bat gehitu</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ezarpenak</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Erakutsi</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Orrialdean erakutsi</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Fakturatutako denbora</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Erabilitako denbora</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Egoera</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Iruzkinak harpidetu</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Ataza gehitu da</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Hasiera datak bukaera data baino lehenago izan behar du</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Mugituko duzun ataza beste batzuekin lotuta dago. {0} Mesedez hautatu egin nahi duzuna:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Ezabatu estekak eta eguneratu</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Hautatu eztabaiden zerrendatik edo jarioetatik ezkutatu nahi duzun testua eta sakatu "Testua Moztu" botoia.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Testua Moztu</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Denbora</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Denboraren erregistroa</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Gaur</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Guztira</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Proiektua kontatuarekin duen lotura kendu</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Iruzkinetarako harpidetza kendu</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Muga data eguneratu</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Eguneratu nahi duzun ataza beste batzuekin lotuta dago. {0} Mesedez, hautatu egin nahi duzuna:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Iruzkina gehitu</value>
+  </data>
+</root>

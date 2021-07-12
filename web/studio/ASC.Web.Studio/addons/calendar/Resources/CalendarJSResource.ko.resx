@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>달력</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>새 이벤트를 만들</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>새로 만들기</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>하루 종일</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>기간</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>새 캘린더 만들기</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>색상 :</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>캘린더 수정</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>텍스트 색상 :</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>시간대 :</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>내 캘린더</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>다른 캘린더</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>관리</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>새 이벤트를 만들</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15분</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2시간</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>삼십분</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>오분</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>기본</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>알림 :</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>절대</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>이 하루 종일 이벤트입니다.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>하루 종일 이벤트</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>캘린더 :</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>설명 :</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>보낸 사람 :</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>이 이벤트는 하루 종일 없습니다.</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>소유자 :</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>사용자 정의</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>매일</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>반복 :</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>매월</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>절대</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>매주</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>매년</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>이 이벤트는 공유되지 않습니다.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>받는 사람 :</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>수신 거부</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>표시 할 이벤트가 없습니다.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>미니 캘린더 숨기기</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>미니 캘린더 표시</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d events</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>공유 사용자를 추가</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>% 절망 사용자를 표시</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>공유 :</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>캘린더 수정</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>소유자 :</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>목록에서 숨기기</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>빠른 검색</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>다른 캘린더를 관리합니다</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>캘린더보기</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>목록보기</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>시리즈의 모든 이벤트</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>적용하세요</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>이 이벤트와 모든은 다음과 같습니다</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>반복 일정 삭제</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>이 행사 만</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>파일을 선택</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>ONLYOFFICE™ 캘린더에서 이벤트를 보냅니다</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>파일이 선택되지 않습니다</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>파일이 선택되었습니다</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>가져 오기 / 내보내기</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>ONLYOFFICE™ 캘린더로 가져 오기 이벤트</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>iCal 파일의 형식이 잘못</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>iCal을 피드 링크를 입력</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>iCal을 피드에서 캘린더</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal 피드 링크 :</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>로 시작</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>후</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>처음</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>재발 설정</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>년</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>마지막</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>작성</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>개월</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>년</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>횟수</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>절대</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>끝에서 두번째</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>초</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>세번째</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>시대</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>끝</value>
+  </data>
+</root>

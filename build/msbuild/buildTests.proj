@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.AssemblyInfo" />
+
+  <PropertyGroup>
+    <ASCDir>..\..\</ASCDir>
+    <Configuration  Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ConfigurationSites  Condition=" '$(ConfigurationSites)' == '' ">Debug</ConfigurationSites>
+    <BuildTargets   Condition=" '$(BuildTargets)' == ''  ">Build</BuildTargets>
+
+    <DeploySites Condition="'$(DeploySites)' == ''">0</DeploySites>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NuGetCommand Condition=" '$(OS)' == 'Windows_NT'">$(ASCDir).nuget\NuGet.exe</NuGetCommand>
+    <NuGetCommand Condition=" '$(OS)' != 'Windows_NT' ">mono $(ASCDir).nuget\NuGet.exe</NuGetCommand>
+    <PackagesConfig>$(ASCDir)Tests.sln</PackagesConfig>
+    <RestoreCommand>$(NuGetCommand) restore $(PackagesConfig)</RestoreCommand>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <CreateItem Include="$(ASCDir)\build\msbuild\">
+      <Output ItemName="AlToolPath" TaskParameter="Include"/>
+    </CreateItem>
+
+    <Exec Command="$(RestoreCommand)" Condition="Exists('$(PackagesConfig)')" />
+
+    <MSBuild
+		BuildInParallel="true"
+        Projects="$(ASCDir)Tests.sln"
+        Targets="$(BuildTargets)"
+        Properties="Configuration=$(Configuration);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants)"
+        RebaseOutputs="true"
+        StopOnFirstFailure="true"/>
+
+  </Target>
+
+  <Target Name="SetAssemblyInfo">
+    <Message Text="%(ProjectToBuild.Filename)"/>
+    <AssemblyInfo CodeLanguage="CS"
+                  OutputFile="%(ProjectToBuild.RootDir)%(ProjectToBuild.Directory)Properties\AssemblyInfo.cs"
+                  AssemblyProduct="ONLYOFFICE"
+                  AssemblyTitle="%(ProjectToBuild.Filename)"
+                  AssemblyCompany="Ascensio System SIA"
+                  AssemblyCopyright="Ascensio System SIA 2015"
+                  AssemblyTrademark="ONLYOFFICE™"
+                  AssemblyVersion="8.0.0.0"
+                  AssemblyFileVersion="8.0.0.0"/>
+  </Target>
+
+</Project>

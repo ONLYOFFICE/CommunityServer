@@ -1,0 +1,1299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Direitos de acesso</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Acesso ao módulo {0} é concedido a</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Adicionar {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Adicionar {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Todos os utilizadores</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Alterar o dono do portal</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>As alterações serão aplicadas após confirmação através de e-mail.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Para alterar o proprietário do Portal, por favor, escolha o nome do novo proprietário abaixo.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>O módulo {0} está desativado e não é mostrado no portal. Para ativá-lo use o link à direita</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>A lista de utilizadores está vazia</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Acesso total</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Têm os mesmos direitos de acesso que o proprietário do portal, exceto o direito de|Alterar o Prorpietário do Portal|Desactivar ou eliminar o portal</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>O proprietário do portal pode</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Fazer o mesmo que o módulo de administratores|Nomear o módulo de administrador|Indique os direitos de acesso aos módulos|Gerir a configuração do portal|Gerir as contas dos utilizadores|Alterar o proprietário do portal|Dados de backup do portal|Desativar ou eliminar portal</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administradores podem</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} utilizadores podem</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} utilizadores tendo direitos de acesso diferentes podem</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Utilizadores da lista</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Sua conta está quase ativa</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Confirmação</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Desativação do portal</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Link para confirmar que a operação foi enviada para: email (endereço de e-mail do gestor do portal).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Eliminar portal</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Link para confirmar que a operação foi enviada para: e-mail (o endereço de e-mail do gestor do portal).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Envie o código novamente</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Digite o código:</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Ativar o e-mail mais uma vez</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Código de validação não pode estar vazio</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Digite o número do telemóvel</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Adicionar {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Adicionar grupos</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Adicionar comentário</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Adicionar domínio confiável</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Adicionar utilizadores</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Notificações de administrador</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Enviar mensagem</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Não é possível aceder ao portal?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Endereço de e-mail que pode ser usado para contactá-lo</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Entre em contato com a administração do portal</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>A sua mensagem foi enviada com sucesso. Será contactado pelo administrador do portal.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Ativar</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Configurações de mensagem do administrador</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Por favor, descreva o seu problema</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Se tiver problemas ao aceder a este portal, ou se precisar de entrar no portal, mas não sabe como fazê-lo, entre em contato com o administrador do portal usando o formulário abaixo.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administradores</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Todos os domínios</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Ligar</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Ligado</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Desligar</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Desligado</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>em</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Autorização</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Ir para a página de título</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Cópia de segurança</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>{0}Pode efetuar o download do backup para a unidade local usando o link acima. O link estará ativo durante 24 horas desde a hora em que tenha sido solicitado.{1} Um e-mail com as instruções e o link foi enviado para seu endereço de e-mail.
+                                    {2}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Data de nascimento</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Adicionar novo contato</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Todos os dados que inseriu serão perdidos. Tem a certeza de que deseja continuar?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Mudar o logotipo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Link para confirmar que a operação foi enviada para: e-mail (o endereço de e-mail do gestor do portal).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Limpar filtro</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentários</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>comentário foi eliminado</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Por favor, confirme que deseja desativar a sua conta</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Por favor, confirme que pretende eliminar a sua conta</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Tem a certeza que pretende alterar o endereço do portal {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>O proprietário do portal foi alterado com sucesso. {0}Dentro de 10 segundos será redirecionado {1} aqui {2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Por favor, confirme que deseja alterar o proprietário do portal para {0}</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Por favor, confirme que pretende reativar a sua conta</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Tem a certeza que deseja eliminar o comentário?</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>criar backup</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Nome de domínio personalizado</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Personalizado</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Backup de dados</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Desativar</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Desativar</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>A sua conta foi desativada com sucesso.{0}Em 10 segundos você será redirecionado {1} aqui {2}</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>{0}Use esta opção para desactivar temporariamente o seu portal.{1}</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Esta ação não pode ser desfeita.
+Tem a certeza que quer eliminar o {!group} '{0}'?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>A sua conta foi eliminada com sucesso. {0}Dentro de 10 segundos será redirecionado {1} aqui {2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Eliminar o meu perfil</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Envie as instruções de perfil de eliminação para o endereço de e-mail</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Excluir caixa de diálogo do perfil</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Eliminar perfil</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Use esta opção para eliminar permanentemente o seu portal.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Desativado</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Desativar</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>O {!user} não será exibido na lista de {!users} ativos </value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Link para confirmar que a operação foi enviada para {0} (o endereço de e-mail do gestor do portal).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Configurações de DNS</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} atrás</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>dia {0}</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} dias</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} dias</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>apenas</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} hora</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} horas</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} horas</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minuto</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minutos</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minutos</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} mês</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} meses</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} meses</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} ano</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} anos</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} anos</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Anteontem</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Hoje</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Amanhã</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Ontem</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>As instruções de ativação serão enviadas para o e-mail indicado</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Ativação de E-mail</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Confirmar password</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>O seu portal está registado no seguinte domínio:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Senha incorreta</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Endereço de e-mail incorreto</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>O portal está registado a partir do seguinte email:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>As configurações foram salvas com sucesso</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Alterar</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Escreva a password</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Password e confirmação não coincidem</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>As instruções de ativação serão enviadas para o e-mail digitado</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Mudança de e-mail</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>E-mail não está ativado</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Todos {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Pesquisar staff</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Não há dados a ocupar espaço de armazenamento</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Habilitar o SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ativar</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>O {!user} será exibido como ativo novamente</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Digite um novo endereço de e-mail</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Não tem permissões para ver esta página</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Erro 403 - Proibido</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Não tem permissão para executar esta ação</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>E-mail inválido ou link expirado</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} com este e-mail já está registado</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Campo de e-mail está vazio</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>O e-mail atual e o novo e-mail são os mesmos</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Por favor, preencha todos os campos</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Não foi possível encontrar o ficheiro enviado</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Digite o seu endereço de e-mail</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Digite seu primeiro nome</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Digite seu último nome</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Link expirou</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Link de ativação inválido</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>E-mail inválido</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Nome de domínio inválido</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>A password está vazia.</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>A nova palavra-passe está incorrecta. Deve conter</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Deve conter</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>dígitos</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>caracteres especiais</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>letras maiúsculas</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>O utilizadore não pôde ser encontrado</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>O utilizador com "{0}" e-mail não foi encontrado</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>O tamanho máximo do ficheiro foi excedido</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Nota: o tamanho do ficheiro não pode exceder {1} {0} {2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>por um período</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>últimos 3 meses</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>último mês</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>A semana passada</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>O link para confirmar a sua conta foi enviado para o e-mail especificado</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Primeiro nome</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Esqueceu-se da senha?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Para assinar, por favor siga este {0} link {1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logotipo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Configurações de saudação</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Líder de grupo</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Grupos</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Se pretender {1}desativar{2} o portal, todo o portal e informação associada com ele serão bloqueados de modo a que ninguém aceda a ele durante determinado período. Para tal, clique no botão {1}Desativar{2}. Será enviado um link com para o e-mail do proprietário do portal a confirmar a operação.{0} No caso de pretender reativar o portal ONLYOFFICE™, deverá usar o segundo link enviado no mesmo e-mail. Assim, deve conservar este e-mail em local seguro.{0} Se pensa que não mais irá necessitar de utilizar o portal e pretender {1}eliminá-lo{2} de forma permanente, envie o seu pedido udando o botão {1}Eliminar{2}. Por favor, tenha em atenção que não poderá nunca mais reativar o o portal ou recuperar informação associada a ele.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}As configurações de DNS {2} são uma maneira de definir um URL alternativo para o portal ONLYOFFICE™.{0}Você pode digitar um alias no {1} campo de endereço do Portal {2} ou verificar {1} a caixa do nome do domínio {2} e especificar seu próprio nome de domínio para o portal ONLYOFFICE™ no campo abaixo.{0} Para confirmar as alterações que fez clique {1} no botão salvar {2} na parte inferior da secção.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}A configuração de saudação {2} é uma maneira de alterar o título de portal padrão e logotipo a mostrar na página {1} de Boas Vindas {2} do seu portal.{0}Digite o nome que pretender no {1} {2} campo título. Para substituir o logotipo, clique no link {1} Mudar o Logotipo {2} e selecione a imagem armazenada no seu computador para carregá-lo no portal.{0}Por favor, tenha em atenção que pode fazer o upload de uma imagem não maior do que {1} 250 x 100 pixis {2}, caso contrário será efetuado um  redimensionamento automático. Não pode exceder o tamanho máximo da imagem {1} 1MB {2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>O Link do convite é usado para convidar os seus colegas e amigos para se juntarem ao portal.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Idioma e configuração do fuso horário {2} permite alterar o idioma do portal para todos os utilizadores e configurar a zona de tempo, para que todos os eventos do portal ONLYOFFICE™ sejam mostrados com a data e hora corretas.{0}Abra as listas correspondentes para definir os parâmetros necessários.{0} Para confirmar use o botão {1} Guardar {2} na parte inferior da secção.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Configurações de domínio de email confiável{2} é uma maneira de especificar os servidores de email que podem ser usados para registo automático de utilizadores no ONLYOFFICE™.{0} Pode também alterar a opção {1}Domínios personalizados{2} e confirmar  o servidor de e-mail no campo abaixo.{0}Neste caso qualquer membro da sua organização que possua uma conta no servidor de email indicado poderá registar-se clicando no link {1}Aderir{2} na página {1}Assinar{2} ao digitar um email desse domínio.{0}Para desactivar esta opção verifique e mude a opção activa do botão de escolha existentente para o efeito.{0}Para confirmar as alterações use o botão {1}Guardar{2} no fim da secção.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>A {1}configuração do nível de segurança da senha {2} é a maneira de determinar a força da senha (a eficácia de uma senha em resistir a que alguém a descubra e utilize os seus dados).{0}Use a barra de comprimento {1} mínimo da password {2} {1} para determinar {2}  o quanto a senha é considerada forte. Selecione as caixas adequadas em baixo na barra para determinar o conjunto de carateres que devem ser usados na senha.{0} Para confirmar as alterações que fez,  {1} salve {2} utilizando o botão na parte inferior da secção.
+</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Modelo do Team {2} é uma maneira de dar um nome à organização (ou grupo), seus membros e suas atividades.{0} Selecione o {1} Template {2} da lista para escolher um dos padrões disponíveis ou digite o nome selecionando a opção  {1}Personalizar{2}  na lista.{0}Para confirmar o padrão selecionado use o botão{1} Guardar {2} na parte inferior da secção.</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Insira a sua conta de AIM</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Insira o seu perfil de Blogger</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Digite o seu E-mail</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Insira o seu perfil do Facebook</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Insira a sua conta do GoogleTalk</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Digite o seu perfil GoogleBuzz</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Insira a sua conta do Google</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Insira a sua conta de ICQ</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Insira a sua conta Jabber</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Insira o seu perfil de LiveJournal</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Digite o seu número de telemóvel</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Digite a sua conta MSN</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Digite seu perfil de MySpace</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Digite o seu número de telefone</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Insira a sua conta Skype</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Digite seu perfil de Twitter</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Insira a sua conta de Yahoo</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>O utilizador já existe</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Nenhum contacto foi recebido.{0}Também pode importar contactos de outros perfis.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Digite o primeiro nome de utilizador</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Digite o último nome do utilizador</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Digite o seu e-mail</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Digite seu primeiro nome</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Erro de importação</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Digite o seu último nome</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Por favor, digite o primeiro nome, último nome e e-mail de um utilizador que será adicionado ao portal nos campos acima. Clique no botão 'Adicionar' para acrescentar o utilizador à lista.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Primeiro nome</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Do ficheiro</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>O ficheiro selecionado para importação tem um formato errado.{0}Por favor, selecione outro ficheiro e repita o processo de importação mais uma vez.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Adicionar utilizadores ao portal</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Certifique-se que todos os campos de utilizador, incluindo o primeiro nome, último nome e endereço de email são preenchidos corretamente</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Último nome</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Nome de utilizador ou senha inválidos.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Para começar a trabalhar no portal deve verificar se o seu {0} nome {1} e o {0} último nome {1} estão corretos, e definir uma {0} senha pessoal {1} para efetuar o login.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Link para convidar</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Recebeu o link para este portal de um amigo ou de um colega seu</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Você foi adicionado a este portal por um amigo conhecido ou colega seu</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Está convidado a juntar-se a este portal!</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Língua</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Último nome</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Saiba Mais...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Carregando...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Assinar</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Aderir</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>ou faça o login com:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Não é possível localizar a conta associada de terceiros</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Por favor, autorizar a si próprio</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>As instruções de ativação de e-mail foram enviadas para o endereço de email {0}</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>As instruções de alteração de e-mail foram enviadas para o endereço de email {0}</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>O seu e-mail foi ativado com sucesso</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Enviar as instruções de convite para o endereço de email {0}</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Envie o e-mail com as instruções de ativação para o endereço de email {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Enviar as instruções de mudança de e-mail para o endereço de email {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Enviar as instruções de alteração de senha para o endereço de email {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Por favor, digite o endereço de e-mail que usou durante o registo no portal. As instruções de recuperação de senha serão enviadas para esse endereço de e-mail.</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Telemóvel principal</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Alterar o número de telefone</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>As instruções para alterar o número de telemóvel serão enviadas para o seu endereço de e-mail</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Alterar telemóvel</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>O telefone do utilizador será apagado e as instruções para alterar o número de telemóvel do utilizador serão enviadas para o endereço de e-mail</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>O meu perfil</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Modelo do Team</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Notificar por:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>E-mail &amp; Talk</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Desativado</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Alteração de senha</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Comprimento mínimo da senha</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Recuperação de senha</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>carateres</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Usar algarismos</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Usar caracteres especiais</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Usar letras maiúsculas</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Criar nova password</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Histórico de pagamentos</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Pendente</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Pessoas</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Aguarde...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Porta</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Proprietário do portal</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Perfil foi removido</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Reativar</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>A sua conta foi reativada com sucesso. {0}Dentro de 10 segundos será redirecionado {1} aqui {2}</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Data de registo</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Lembrar</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>O convite será enviado para o e-mail digitado</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Reenviar</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Deseja enviar convites mais uma vez?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Voltar a enviar convite</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Repor valores padrão</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Certifique-se que todas as palavras estão escritas corretamente. Tente usar palavras-chave diferentes.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Nada foi encontrado.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Resultados da pesquisa</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Enviar convite mais uma vez</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Enviar convite</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Clique aqui para participar</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Quer tornar-se utilizador do portal?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Por favor, digite o endereço de e-mail para onde será enviado o convite:</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>O software de servidor encontrou um erro ao processar o seu pedido. Por favor aguarde algum tempo e tente novamente. Se o erro persistir, provavelmente precisará de entrar em contacto com o administrador do site.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Erro de servidor</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Esta é já a versão atual</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Versão do portal incorreta</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Mostrar Todos</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Mostrar todos os resultados</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Registo está disponível para os utilizadores com uma conta de e-mail em qualquer domínio.
+Para registar-se, digite o seu e-mail e clique em enviar convite.  Uma mensagem de e-mail com um link para ativar a sua conta do ONLYOFFICE™ será enviada para o e-mail especificado.</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Surpresa</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Louco</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Chorar</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Dançar</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Beber</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Zangado</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Wink</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Sorriso Hollywood</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Triste</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Música</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Sorriso</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Gargalhada</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Desculpe</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Língua</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hurra</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>Esta opção permite habilitar ou desabilitar a autenticação 'two-factor' que exige o método de senha e SMS para todos os utilizadores para aceder ao portal</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Código incorreto</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>O seu código para efetuar login no portal: {0}</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Autenticação 'Two-Factor'</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>Configurações SMTP</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Estatísticas</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Configurações de domínio de email confiável</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Configuração do nível de segurança da senha</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Idioma e configuração de fuso horário</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Versão do portal</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Subscrever</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Subscrições</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Configurações de saudação foram salvas com sucesso</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>As configurações foram atualizadas com sucesso</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Instruções sobre como excluir o seu perfil foram enviadas para o seu endereço de e-mail</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Convites foram reenviados com sucesso</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Extras</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Criado</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Espaço de armazenamento utilizado</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Total de utilizadores</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Fuso horário</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Telemóvel</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Número de telefone</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Total encontrado</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Domínios personalizados</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>O registo está disponível para utilizadores com uma conta de e-mail em {0}. 
+Para registar-se, digite o seu e-mail e clique em enviar convite.  Uma mensagem de e-mail com um link para ativar a sua conta do ONLYOFFICE™ será enviada para o e-mail especificado.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Ocorreu um erro desconhecido</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Cancelar subscrição</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Fazer upload</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Utilizador</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Utilizadores</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Profissão/título</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>acessos</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>anfitriões</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Gráfico de utilização</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Visitas</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Obrigado por escolher ONLYOFFICE™! Por razões de segurança deve efetuar o procedimento de configuração de senha.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Bem-vindo ao seu Portal ONLYOFFICE™</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>O que há de novo</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Idioma e configuração de fuso horário</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Instalação do portal - siga os passos seguintes para iniciar o seu web office de modo fácil.</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

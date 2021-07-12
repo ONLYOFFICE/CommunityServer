@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Selectează responsabilul</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Contacte</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Adauga sarcina noua</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Numele companiei</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>zi</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>zile</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Discuții</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Editare sarcina</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Fiecare mesaj trebuie sa aiba un titlu</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Fiecare proiect trebuie sa aiba un manager</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Fiecare proiect trebuie să aiba un titlu</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>sarcini active</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d.</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>adaugă</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>închis</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>ridicat</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>Deschis</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Prioritate</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Responsabil</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>Repere</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Sarcină</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Detalii</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>sarcini</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>săptămână</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>an</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>selectat</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Formatul data nu este valid</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Repere</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Mută</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Următorul</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Niciun reper</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>În pauză</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Sarcini</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Echipă</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Template salvat</value>
+  </data>
+</root>

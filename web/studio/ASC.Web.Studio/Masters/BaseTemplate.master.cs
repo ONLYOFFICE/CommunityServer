@@ -198,16 +198,11 @@ namespace ASC.Web.Studio.Masters
 
         private void InitProductSettingsInlineScript()
         {
-            var isAdmin = false;
+            var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
 
-            if (!CoreContext.Configuration.Personal)
+            if (!isAdmin)
             {
-                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
-
-                if (!isAdmin)
-                {
-                    isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
-                }
+                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
             }
 
             RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);

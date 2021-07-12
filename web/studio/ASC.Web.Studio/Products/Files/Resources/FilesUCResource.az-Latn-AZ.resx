@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Yalnız oxumaq üçün</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Tam giriş</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Girişi yasaqla</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box hesabı əlavə et</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox hesabı əlavə et</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google hesabı əlavə et</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive hesabı əlavə et</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Üçüncü tərəf bilgisini dəyişdir</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Filtri təmizlə</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Qapat</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Köçür</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Yarat</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Qovluq</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Təqdimat</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Cədvəl</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Sənəd</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Üçüncü tərəfı sil</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Endir</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Səbəti boşalt</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Qovluqlar</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Şəkillər</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Təqdimatlar</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Cədvəllər</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Sənədlərimə keç</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Daha çox öyrənin...</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Yerləşdir</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Yenidən adlandır</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Bərpa et</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Bütün</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Paylaşma ayarları</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Versiyaları göstər</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Burax</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Geri qovluğa qayıt</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Yuxarı</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Yüklə</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Sənədi çevir və aç</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Endirilməli olan fayllardan hər birinin formatını seçin</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Üzərinə yazmanın təsdiqlənməsi</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Təsdiq</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Qeyd: Bu hərəkət geri qaytarıla bilməz.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Diqqət: Hesabınızın silinməsini geri döndərmək olmayacaq.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Həmçinin faylın nüsxəsini original formatda qeyd et</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Açdığınız sənədin faylı Office Open XML formatına çevriləcək ki, tez baxmaq və redaktə etmək olsun.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Faylın nüsxəsi {0}Sənədlərim{1} qovluğunda yaradılacaq</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Həmçinin sənədləri original formatda endir</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Bu elementləri siyahıdan silmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Eyni adlı faylın üstünə yaz</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Çevir və endir</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Çevrilmə uğurla tamamlandı</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Çevrilmə xətası</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Çevrilir...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Ortaq sənədlər</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Çevir</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Endir</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Endir</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>'Ümumi Sənədlər' bölməsində portal administratoru tərəfindən ümumi giriş üçün açılmış bütün sənədlər göstərilir. Yalnız portalın administratoru bu bölmədə qovluqlar yarada bilər, amma giriş hüququ almış portal istifadəçiləri də buraya öz fayllarını yükləyə bilərlər.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Faylları buraya kompüterdən daşıyın ki, onları portala daha asan yol ilə yükləmək olsun.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>'Mənə açıq' bölməsi dostlarınızın və ya həmkarlarınızın Sizə giriş verdiyi faylların göstərişi üçün istifadə olunur. Əgər siz bu sənədlərdə sonuncu dəyişikliyi görməmisinizsə, onlar 'yeni' işarəsi ilə işarələnirlər. Siz uyğun düyməni basmaqla, faylları siyahıdan silə bilərsiniz.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>'Sənədlərim' bölməsində, Sizin {0}yaratdığınız{1} və ya  portala {2}yüklədiyiniz{3} sənədlər və şəkillər saxlanılırlar. Siz onları ONLYOFFICE™ redaktoru vasitəsi ilə {4}aça{5} və {6}redaktə edə{7}, dostlara və ya həmkarlara keçid verə, qovluqlara görə düzənləyə bilərsiniz.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Bu bölmədə Sizin yaratdığınız və ya layihə üçün yüklədiyiniz sənədlər və şəkillər saxlanılırlar. Siz onları aça və ya ONLYOFFICE™ redaktorunun köməyi ilə redaktə edə, qovluqlara görə düzənləyə bilərsiniz.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>'Səbət' bölməsinə bütün silinmiş fayllar yerləşdirilirlər. Əgər onlar səhvən siliniblərsə, Siz onları bərpa edə bilərsiniz, və ya onları ömürlük silə bilərsiniz. Lütfən, nəzərə alın ki, 'Səbətdən' silinən fayllar bir də bərpa oluna bilməyəcəklər.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Burada bu filtrə uyğun heç bir fayl yoxdur</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Bu bölmədə Sizin filtrə uyğun olan fayl və ya qovluq yoxdur. Letfən, digər filtr seçənəklərini seçin və ya bütün faylları görmək üçün filtri təmizləyin. Sizə gərək olan faylı həmçinin digər bölmələrdə axtara bilərsiniz.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Burada göstəriləsi heç bir fayl yoxdur</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Birləşmiş hesablar yoxdur</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtr</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Qovluqlar</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>elektron poçt vasitəsi ilə</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Hamısını seç</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Sənədlərim</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parol</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Layihə sənədləri</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Oxunmuş kimi işarələ</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Qovluq seç</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Mənimlə paylaşılmış</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Portaldan kənar adamlara giriş verin</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Yığcam görüntüyə keç</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Adi görüntüyə keç</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Hesabı birləşdir</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Hesabları birləşdir</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Siz növbəti hesabları ONLYOFFICE™ Sənədlər moduluna birləşdirə bilərsiniz. Onlar 'Sənədlərim' qovluğunda göstəriləcəklər və Siz onları birbaşa portalda, hamısını bir yerdə redaktə edə və qeyd edə bilərsiniz.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Hesablar birləşdirilir</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Üçüncü tərəfı sil</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>İstifadəçilər üçün üçüncü tərəf ayarlarını açıq et</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Qovluq başlığı</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Paylaşılan et və Ümumi Sənədlərə qoy</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Siz sənədlər ({0}), cədvəllər ({1}), prezentasiyalar ({2}) yarada və onları ən geniş yayılmış formatlarda endirə bilərsiniz.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Bu faylları redaktə edə bilərsiniz: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Bu genişlənmədə faylları aça bilərsiniz: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Siz Sənədlərə istədiyiniz faylları yükləyə bilərsiniz.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Səbət</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Siyahıdan yığışdır</value>
+  </data>
+</root>

@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Opmerking in discussie bewerkt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een opmerking in de discussie bewerkt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Opmerking bewerkt voor taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een opmerking bewerkt voor de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen wilt ontvangen over deze taak, kun je je "afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Discussie bewerkt: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de discussie bewerkt: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projecten. Gegevens importeren uit Basecamp
+
+De nieuwe gegevens zijn met succes geïmporteerd.
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__ VirtualRootPath}":"${__ VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Je bent toegevoegd aan het projectteam: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft je toegevoegd aan het team voor het project: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ge je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Melding over te late mijlpaal: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+De vervaldatum van de mijlpaal "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" van het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" is verstreken. 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Discussie verwijderd: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de discussie "$EntityTitle" verwijderd uit het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Mijlpaal gesloten: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de mijlpaal "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" gesloten.
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Mijlpaal gemaakt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$ __AuthorName": "$ __AuthorUrl" heeft een nieuwe mijlpaal toegevoegd: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" aan het project: "$ ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "$ {__VirtualRootPath}": "$ {__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen": "$ RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Herinnering vervaldatum mijlpaal: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Over minder dan 48 uur is de vervaldatum van de mijlpaal "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" van het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Mijlpaal verwijderd: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de mijlpaal "$EntityTitle" verwijderd uit het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Mijlpaal bewerkt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de mijlpaal "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" van het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" gewijzigd.
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Mijlpaal hervat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de mijlpaal "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" hervat in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Nieuwe opmerking in discussie: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een nieuwe opmerking toegevoegd aan de discussie: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Je onvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Nieuwe opmerking voor taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een nieuwe opmerking toegevoegd aan de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData 
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Je ontvangt deze mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen berichten over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Nieuw bestand voor discussie: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een nieuw bestand toegevoegd aan de discussie "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen berichten meer wilt ontvangen over deze discussie, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Nieuw bestand voor taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft een nieuw bestand toegevoegd aan de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen berichten meer wilt ontvangen over deze taak, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Nieuwe discussie gemaakt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" is een nieuwe discussie begonnen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID":
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Meer informatie":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Project verwijderd: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft het project "$EntityTitle" verwijderd.
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Je bent toegevoegd aan het projectteam</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Discussie verwijderd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal gesloten: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal gemaakt: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal verwijderd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal hervat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuwe discussie: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projecten. Project verwijderd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Aan jou toegewezen mijlpaal: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Je bent aangewezen als projectmanager</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak aan jou toegewezen: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Aan jou toegewezen taak: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak afgesloten: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak gemaakt: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak verwijderd: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak hervat: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak afgesloten: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak gemaakt: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak verwijderd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak hervat: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Herinnering voor de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" herinnert je aan de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Herinnering voor de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Vandaag is de deadline van de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je  "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Je bent verwijderd uit het projectteam: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft je verwijderd uit het team van het project: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Taak niet meer aan jou toegewezen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime je bent niet meer verantwoordelijk voor de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription")
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Mijlpaal aan jou toegewezen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft jou verantwoordelijk gemaakt voor de mijlpaal: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Je bent aangewezen als projectmanager: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft je aangewezen als projectmanager voor het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Aan jou toegewezen subtaak: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft jou verantwoordelijk gemaakt voor de subtaak: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" die is toegevoegd aan de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Je ontvangt deze e-mail oomdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Aan jou toegewezen taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft jou verantwoordelijk gemaakt voor de taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in het project 
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription")
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Subtaak afgesloten: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de subtaak afgesloten die is toegevoegd aan de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Subtaak gemaakt: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de nieuwe subtaak: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" toegevoegd aan de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+De subtaak is toegewezen aan "$Responsible". 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Subtaak verwijderd: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de subtaak: "$SubEntityTitle" van de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" verwijderd.
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen berichten over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Subtaak bewerkt: "$SubEntityTitle":"$ {__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de subtaak "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" van de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" bewerkt. 
+
+De subtaak is toegewezen aan "$Responsible".
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen wilt ontvangen over deze taak, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Subtaak hervat: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft subtaak: "$SubEntityTitle" van de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" hervat. 
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen berichten wilt ontvangen over deze taak, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Taak afgesloten: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak  
+$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" voor het project
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" gesloten:
+
+$AdditionalData
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Taak gemaakt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de nieuwe taak: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" toegevoegd aan het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData.get_item("TaskDescription")
+
+De taak is toegewezen aan "$Responsible".
+
+ ^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Taak verwijderd: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak "$EntityTitle" verwijderd uit het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Je ontvangt deze email omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Taak bewerkt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" gewijzigd.
+
+^Je ontvangt deze e-mail omdat je een geregisteerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Taak verplaatst: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" verwijderd van de mijlpaal "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+De taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" hoort nu niet meer bij een mijlpaal. 
+
+^Je ontvangt deze e-mail omdat je een geregisteerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar het beheer van je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Taak verplaatst: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" verplaatst naar de mijlpaal "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Je ontvangt deze e-mail omdat je een geregisteerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". Als je de soort meldingen wilt wijzigen, ga je naar je "Abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Taak hervat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" heeft de taak "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in het project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" hervat:
+
+$AdditionalData
+
+^Je ontvangt deze e-mail omdat je een geregistreerd gebruiker bent van de portal "${__VirtualRootPath}":"${__VirtualRootPath}". als je geen meldingen over deze taak wilt ontvangen, kun je je "Afmelden":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projecten [$ ProjectTitle]. Opmerking bewerkt in discussie: $ EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projecten [$ ProjectTitle]. Opmerking bewerkt voor taak: $ EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Discussie bewerkt: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projecten. Gegevens importeren uit Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Je bent toegevoegd aan het projectteam</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Project [$ProjectTitle]. Melding te late mijlpaal: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Discussie verwijderd: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal gesloten: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal gemaakt: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Melding over vervaldatum mijlpaal: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal verwijderd: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal bewerkt: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Mijlpaal hervat: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuwe opmerking in discussie: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuwe opmerking voor taak: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuw bestand voor discussie: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuw bestand voor taak: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Nieuwe discussie: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projecten. Project verwijderd: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Je bent toegevoegd aan het projectteam</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Discussie is verwijderd.</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Mijlpaal is gesloten.</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Er is een nieuwe mijlpaal gemaakt. </value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Mijlpaal is verwijderd.</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Mijlpaal is hervat.</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Er is een nieuwe discussie gemaakt.</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projecten. Project verwijderd</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Er is een mijlpaal aan jou toegewezen.</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Je bent aangewezen als projectmanager</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Subtaak is aan jou toegewezen</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Taak is aan jou toegewezen</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Subtaak is afgesloten </value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Er is een nieuwe subtaak gemaakt. </value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Subtaak is verwijderd </value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Subtaak is hervat</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Taak is gesloten</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Er is een nieuwe taak gemaakt. </value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Taak is verwijderd</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Taak is hervat</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Herinnering voor taak: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Herinnering voor taak: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Je bent verwijderd uit het projectteam</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak niet meer aan jou toegewezen: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Aan jou toegewezen mijlpaal: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Je bent aangewezen als projectmanager</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak aan jou toegewezen: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Aan jouw toegewezen taak: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak afgesloten: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak gemaakt: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak verwijderd: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projecten [$ ProjectTitle]. Subtaak bewerkt: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Subtaak hervat: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak afgesloten: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak gemaakt: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak verwijderd: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak bewerkt: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak verwijderd: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak verplaatst: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projecten [$ProjectTitle]. Taak hervat: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Niemand</value>
+  </data>
+</root>

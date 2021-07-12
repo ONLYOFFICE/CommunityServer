@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Ataza onartu</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Onartu</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Gehitu</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Lehenengo ataza gehitu</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Azpiataza gehitu</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Ataza berria gehitu</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Azpiataza gehitu</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ataza berria gehitu</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Ataza guztiak</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Nori esleitua</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Arduraduna</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Egoera aldatu</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Esteka mota aukeratu</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Hautatu proiektua</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Ataza aukeratu</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Itxita</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Nork itxita</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Itxiera data</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Atazak ixten</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Ataza ixten</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Iruzkinik ez</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Ez dago iruzkinik</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Ataza kopiatu</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Sortzailea</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Esteka berria sortu</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Sortze data</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Epe muga</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Ez dago atazarik iragazki horrekin bat egiten dutenak</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Ataza bakoitzak izenburu bat eduki behar du</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editatu</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Editatu ataza</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Azpiataza guztiak amaitu eta ataza itxi</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Itxi azpiataza guztiak eta atazak amaitu</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Epe muga</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Errorea esteka berria sortzean</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Atazaren jarraipena egin</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Atazera joan</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Altua</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Arduraduna jakinarazi</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Mugarria</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Atazak beste mugarri batera mugitu</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Mugarrira eraman</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Ataza beste mugarri batera mugitu</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Mugarrira eraman</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>bat ere ez</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Inor ez</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Oraindik ez da atazarik sortu</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Irekita</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Lehentasuna</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Proiektua</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Baliogabeko esteka. Mesdez egiaztatu hasiera eta amaiera datak.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Estekatutako atazak</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Hasiera eta amaiera dataren arteko tartea 2 astekoa da</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Ez dago estekatutako atazarik</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Ataza ezabatu</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Ziur zaude ataza hau ezabatu nahi duzula?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Atazak ezabatu</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Ziur zaude ataza hauek ezabatu nahi dituzula?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Arduradunak</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Esleitu gabeko atazakk erakutsi</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Azpiataza</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Azpiatazak</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Ez dago azpiatazarik</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Ez dago azpiatazarik</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Ataza</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Sortzailea</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Arduraduna</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Atazak</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Atazak guztira</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Hasiera data</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Denboraren erregistroa</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Atazaren jarraipena utzi</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Mugarririk gabeko atazak</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Mugarrira eramango da</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Inor ez</value>
+  </data>
+</root>

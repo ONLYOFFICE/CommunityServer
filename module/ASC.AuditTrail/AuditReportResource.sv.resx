@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Aktions-ID</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Aktionstyp</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Tillagd Administratör:{0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Raderad Administratör: {0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Administratörsmeddelande Inställningar Uppdaterade</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Administratörer [{0}]. Fullständig Tillgång Öppen </value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Bifoga</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Webbläsare</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Kontakttyper</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>All Exporterad Data</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Koppla från</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskussioner</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>DNS-inställningar, uppdaterade</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Överskrivningsinställningar uppdaterade</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Mappar</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Följ</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Generell</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Välkomstsida Inställningar Uppdaterade</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Grupper</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>Språkinställningar, uppdaterade</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>Inloggning via SSO misslyckades</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>Inloggning via Socialt konto, lyckades</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Mejlserviceinställningar, uppdaterade</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>Flytta</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>Andra inställningar</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>Andra</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>Sida</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>Styrkan på lösenordet har uppdaterats</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>Personer</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>Person Skapad: {0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>Person Raderad: {0}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>Person Ändrad: {0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>Plattform</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>Portal deaktiverad</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>Portal raderad</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>Produkter</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>Projekt skapats: {0}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Projekt raderats: {0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>Nya backupkoder skapade</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>Språk uppdaterat</value>
+  </data>
+</root>

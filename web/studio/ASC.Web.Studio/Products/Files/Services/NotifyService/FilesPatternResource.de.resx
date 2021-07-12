@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Alle Unterzeichner haben den Signiervorgang erfolgreich abgeschlossen $DocumentTitle
+
+Durch diese E-Mail-Benachrichtigung werden Sie darüber informiert, dass alle Unterzeichner den Signiervorgang abgeschlossen haben. "$DocumentTitle":"$DocumentURL".
+
+^Sie erhalten diese E-Mail, weil Sie ein registrierter Benutzer/in von "${__VirtualRootPath}":"${__VirtualRootPath}" Portal sind.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Für weitere Informationen melden Sie sich bei Ihrem DocuSign Konto an.
+
+^Sie erhalten diese E-Mail, da Sie registrierter Benutzer/in"${__VirtualRootPath}":"${__VirtualRootPath}" des Portals sind.^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" hat Sie im Kommentar zum Dokument erwähnt.
+
+Diese Nachricht informiert Sie, dass "$__AuthorName":"$__AuthorUrl" Sie im Kommentar zum Dokument "$DocumentTitle":"$DocumentURL" erwähnt hat:
+
+$Message
+
+^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. E-Mailversand ist abgeschlossen
+
+Der E-Mailversand von $MailsCount Nachrichten ist nun abgeschlossen.
+
+Sie können den Status dieser E-Mail-Nachrichten im "Gesendet":"$__VirtualRootPath/addons/mail/#sent"-Ordner des Mail-Moduls überprüfen.
+
+^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1.Zugriff auf das Dokument "$DocumentTitle":"$DocumentURL" erteilt
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hat Ihnen den Zugriff auf das Dokument "$DocumentTitle":"$DocumentURL" mit der Berechtigung "$AccessRights" gewährt.
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareEncryptedDocument" xml:space="preserve">
+    <value>h1. Zugriff auf das verschlüsselte Dokument $DocumentTitle erteilt
+
+h1. $Image "$DocumentTitle":"$DocumentURL"
+
+Diese Datei ist verschlüsselt und kann nur in "ONLYOFFICE Desktop Editoren":"https://www.onlyoffice.com/de/desktop.aspx" geöffnet werden. Finden Sie weitere Informationen "in dieser Anleitung":"https://helpcenter.onlyoffice.com/de/installation/desktop-private-room.aspx".
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hat Ihnen den Zugriff auf das Dokument "$DocumentTitle":"$DocumentURL" mit folgenden Zugriffsrechten: "$AccessRights" gewährt.
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1.Zugriff auf den Ordner "$DocumentTitle":"$DocumentURL" erteilt
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hat Ihnen den Zugriff auf den Ordner "$DocumentTitle":"$DocumentURL" mit der Zugriffsberechtigung "$AccessRights" gewährt.
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Dokumente. Alle Unterzeichner/innen haben $DocumentTitle abgeschlossen</value>
+  </data>
+  <data name="subject_DocuSignComplete_tg" xml:space="preserve">
+    <value>Dokumente. Alle Unterzeichner/innen haben [$DocumentTitle]($DocumentURL) abgeschlossen</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Dokumente. Der Signiervorgang-Status wurde geändert</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Dokumente. Sie wurden im Dokument erwähnt.</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Dokumente. Mailing ist abgeschlossen.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Dokumente. Zugriff auf das Dokument $DocumentTitle erteilt</value>
+  </data>
+  <data name="subject_ShareDocument_tg" xml:space="preserve">
+    <value>Dokumente. Zugriff auf das Dokument [$DocumentTitle]($DocumentURL) erteilt</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument" xml:space="preserve">
+    <value>Dokumente. Zugriff auf das verschlüsselte Dokument $DocumentTitle erteilt</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument_tg" xml:space="preserve">
+    <value>Dokumente. Zugriff auf das verschlüsselte Dokument [$DocumentTitle]($DocumentURL) erteilt</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Dokumente. Ihnen wurde der Zugriff auf den Ordner $DocumentTitle gewährt</value>
+  </data>
+  <data name="subject_ShareFolder_tg" xml:space="preserve">
+    <value>Dokumente. Zugriff auf das Verzeichnis [$DocumentTitle]($DocumentURL) erteilt</value>
+  </data>
+</root>

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arhivēt</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arhīvs</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Autors</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentāri</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Izveidot jaunu diskusiju</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Uzsākt Apspriešanu</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Uzdevuma izveidošana uz diskusiju</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst šo diskusiju?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Dzēst diskusiju</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Nav diskusijas, kas atbilst filtram un var būt parādītas šajā sadaļā.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Diskusijas tiek izmantoti, lai atrastu pareizo risinājumu ar projekta komandг jebkāda veida problēmam, kas var rasties, kad projekts jau ir uzsākts. Varat apspriest visus jautājumus ar kolēģiem, uzaicināt lietotājus no citiem projektiem pievienoties jūsu diskusijai.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Nekādas diskusijas ir uzsāktas</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Abonenti</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Rediģēt apspriešanu</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Katrā ziņojumā ir jābūt tekstam</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Nav nekādas diskusijas, kas atbilst šim filtram</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Apspriešana</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Teksts</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Apspriešanas</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Lasīt tālāk</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Atlasiet projektu</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Sākt pirmo diskusiju</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Cilvēkiem, kurus jūs izvēlēsieties, tiks nosūtīts paziņojums par ziņojumu un publicētiem komentāriem.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Paziņot</value>
+  </data>
+</root>

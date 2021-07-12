@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Запис</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Коментари</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Създаване на нова дискусия</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Започни дискусия</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Съаздаване на задача по дискусията</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете тази дискусия ?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Изтрий дискусията</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Няма дискусии, отговарящи на вашите критерии</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Дискусиите се използват за</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Дискусиите се използват, за да се намери правилното решение с вашия екип на проекта за всякакъв вид проблеми, които могат да възникнат, когато проектът е в ход. Обсъдете всички проблеми с колегите си.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>В момента няма активни дискусии</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Абонати</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Редактирай дискусията</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Всяко съобщение трябва </value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Няма дискусии, отговарящи на този филтър</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Дискусия</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Дискусии</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Прочети още ...</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Избор на проект</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Начало на първата дискусия</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Хората, които изберете, ще бъдат информирани за съобщението и за коментарите към него.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Информирай</value>
+  </data>
+</root>

@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>バイ</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>箋注</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>作成者</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>マイルストーン</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="ByOrder" xml:space="preserve">
+    <value>順</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>参加者</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>優先順位</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>タグ付き</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>フィルタリセット</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>サブスクライブして議論</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>続いて</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>私</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>マイディスカッション</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>自分のタスクとマイルストーン</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>マイプロジェクト</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>私の仕事</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>一切責任ない</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>他のマイルストーン</value>
+  </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>別の参加者</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>その他のプロジェクト</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>他のユーザー</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>期限を過ぎた</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>支払済み</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>支払済まない</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>有料ではない</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>前の月</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>前の週</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>プロジェクトマネージャ</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>最後の7日間</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>未了</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>活動中</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>一時停止</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>チームメンバー</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>今後の
+</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>今後の</value>
+  </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>タグ無し</value>
+  </data>
+</root>

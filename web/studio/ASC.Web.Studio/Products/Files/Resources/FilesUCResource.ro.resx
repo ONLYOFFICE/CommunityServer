@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Adaugă cont</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Adaugă cont Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Adaugă cont DropBox</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Adaugă cont Google</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Adaugă cont OneDrive</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Anulează toate</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Crează o copie</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Crează</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Dosar</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Descarcă</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arhive</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Toate fișierele</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Dosare</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Imagini</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blocare</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>De acord</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Redenumește</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Restaurează</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Toate</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Trimite</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Trimite prin email</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Treci mai departe</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Încarcă</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Încarcă fișiere</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Încarcă dosar</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Anulat</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>Fișierul este protejat cu parolă. Introduceți parola pentru conversie.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Confirmare</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Sigur doriți să eliminați aceste elemente din listă?</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convertește</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Pentru orice întrebare despre achiziții, trimiteți-ne un e-mail la {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Bine ați venit pe portalul dvs.!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Felicitări</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Salvează în directorul:</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Adaugă mesaj</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Adaugă {!user}</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Descarcă</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Descarcă</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Dimensiune</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Automat</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrează</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Dosare</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Începe acum</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>prin email</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Selectează tot</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Invitați-vă colegii sau subcontractanții și beneficiați de funcții suplimentare:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Bine ați venit la ONLYOFFICE ™ pentru echipe!</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Partajează</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Setări</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Titlul dosarului</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Cont</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Caută în</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Recycle Bin</value>
+  </data>
+</root>

@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Akcije</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Dodaj {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Dodatne informacije</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Dodaj mail račun</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Dodaj oznaku</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Dodaj suradnika</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Dodaj ovaj događaj</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Dodavanje zabilješke...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Dodaj {!user}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Upozorenje</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Odgovarajuće ONLYOFFICE™ CRM polje</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Privici</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Poveži s kontaktom</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Natrag</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Saznajte više...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Događaji</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Izmjeni</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Odaberi</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Zatvori ovaj prozor</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Zatvori prozor</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Dvotočka</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Kolona u datoteci</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Zarez</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Sastavite pismo koje će biti poslano svim klijentima koje ste odabrali iz Vašeg popisa kontakata. Možete provjeriti broj odabranih klijenata u polju 'Za', unijeti zajednički 'Subjekt' i koristiti 'Osobne oznake' da biste uvrstili sve potrebne informacije u Vašem pismu. Ovo je beta verzija za one koji žele probati nove značajke ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potvrda</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Sigurno želite pobrisati ove elemente?</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Postavke Kontakta</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Sadržaj</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Pretvarač valuta</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Kreiraj</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Datum kreiranja</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Kreiraj</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Kreiraj novi kontakt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Kreiraj projekt</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Dodaj novu oznaku</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Osnovne valute</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Trenutni {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Prilagođeno</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Određeni period</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Ostali korisnici</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dan(a) prekoračenja</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Obriši ovaj događaj</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Obriši sudionika</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Obriši oznaku</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Obriši korisnika</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Odznači sve</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Navodnici</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Dupliciraj zapise</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Shodno ovom filteru nije pronađen niti jedan zapis ovdje</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Unesite iznos</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Izvezi trenutni popis u CSV datoteku</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Datum kreiranja</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Krajnji rok</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Pronađite tvrtku ili osobu po imenu...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Povijest</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Sastanak</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Zabilješka</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignoriraj prvi red tijekom uvoza</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Dupliciraj</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Pretraga za duplikatima biti će obavljena temeljem e-mail polja.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Razdjeljnik</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kodiranje</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV Postavke datoteke</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Zadnji mjesec</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Tekst poruke</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Poveži s</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Tekst e-mail poruke</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Neuspjela isporuka poruke za {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Isprouka nije uspjela - ponovni pokušaj za {0} sekundi.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Subjekt</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulator</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Moje</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Moji događaji</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Sljedeći zapis</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Nema zapisa</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Nema podudaranja</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Nije definirano</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Obavijesti</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>U redu</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Na vrh</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ostalo</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Dostupan za {!users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Prava pristupa</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Kreirajte kontakte, zadatke, događaje, mogućnosti s ograničavanjem pristupa istim|Uredite kontakte, zadatke, događaje, mogućnosti s podešenim pravima pristupa</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Povezano s</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Obavijesti korisnike</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Novi događaji</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Novi kontakti</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Izvoz završen</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Pristup dodijeljen</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Kompanija/Osoba</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Dodaj privitak</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Pozivi</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Zajedničko</value>
+  </data>
+</root>

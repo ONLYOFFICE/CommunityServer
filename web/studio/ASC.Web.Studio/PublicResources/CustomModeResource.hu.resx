@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Minden jog fenntartva.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>online word szerkesztése, online szövegszerkesztő, online word i onlingyenesen, word office online</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Ellenőrizze emailcímét a fiók megerősítéséhez.</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Kényelmes együtt-szerkesztés és felülvizsgálat</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Dokumentum együttműködés</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100%-ban kompatibilis a M$ Office formátumaival.</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Kapcsolódási instrukciók</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Hozzon létre egy fiókot</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Felhő létrehozása</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Dokumentummegbeszélés</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Adja meg emailcímét</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Elfelejtett jelszó?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Itt tudja megváltoztatni portálja címét. Adja meg azt a részt, ami az onlyoffice.com/onlyoffice.eu portálcím mellett jelenik majd meg.{0}
+{1}Vegye figyelembe{2}: a régi portálcíme elérhetővé válik az új ONLYOFFICE felhasználóknak, amint a {1}Mentés{2} gombra kattint.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Online Dokumentum-szerkesztők {1}{0}Dokumentumkezelés{1}{0}Levezés{1}{0}Projektek{1}{0}CRM{1}{0}Naptár{1}{0}Közösség{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Fiókbelépés</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Kapcsolódjon felhőhöz</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Csatlakozzon felhőhöz az ONLYOFFICE-szal, hogy közösen dolgozhassanak dokumentumokon az alkalmazás elhagyása nélkül.</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Tiszelt $UserName!
+
+A felhasználói profilja sikeresen részévé vált a portálnak itt: "${__VirtualRootPath}":"${__VirtualRootPath}". Kezdjen hozzá még ma!
+
+h3.Kezdjen dokumentumokkal dolgozni:
+
+# Hozzon létre és szerkesszen dokumentumokat, munlafüzeteket és bemutatókat.
+# Csatlakoztassa a saját felhőtárolóit, egyetlen felületet létrehozva ezzel az összes dokumentumának.
+# Ossza meg dokumentumait csapattársaival.
+# Fedezze fel a közös munka különböző módjait: két valós idejű közös szerkesztési mód, felülvizsgálati lehetőség, hozzászólások, chat áll rendelkezésére.
+
+h3.Próbáljon egyéb ${LetterLogoText} esközöket:
+
+# Csatlakoztassa email-fiókját ide: "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/".
+# Hozzon létre projekteket a "Projects"-ben:"${__VirtualRootPath}/products/projects/" és kezelje munkafolyamatait mérföldkövek és feladatok hozzáadásával.
+# Kezelje ügyfélkapcsolatait a "CRM" használatával:"${__VirtualRootPath}/products/crm/".
+# Hasznája a "Community"-t:"${__VirtualRootPath}/products/community/" és indíthat saját blogot, fórumot, hozzáadhat eseményeket, megoszthat könyvjelzőket.
+# Szervezze munkarendjét a beépített "Calendar"-ral:"${__VirtualRootPath}/addons/calendar/".
+# Kezdjen beszélni "Talk"-on keresztül:"${__VirtualRootPath}/addons/talk/" és csetelhet a csapattársaival online.
+
+$GreenButton
+
+Őszinte tisztelettel,
+A ${LetterLogoText} Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.Üdvözöljük az Onlyoffice Personal-ban!
+
+Éppen most hozta létre személyes felhőirodáját.
+
+h3.Ez egy virtuális munkaterület, ahol szerkeszthet és tárolhat fájlokat, dolgozhat azokkal bárhonnan, hozzáférést adva azokhoz barátainak és kollégáinak.
+
+Az ONLYOFFICE kompatibilis a Microsoft Office™ dokumentumformátumokkal és garantálja hogy a létrehozott objektumok nem szenvednek el semmilyen formátum-, vagy minőségveszteséget. Ígérjük, hogy mentesítjük a minden fejfájástól a formázás terén, és egy teljes, professzionális eszközkészletet adunk az Ön kezébe. 
+
+h3.Kezdésként lássuk, mihez is kezdhet az ONLYOFFICE-ben:
+
+- Feltölthet fájlokat a számítógépéről, vagy újakat is létrehozhat;
+
+- Minden népszerű fájlformátumban dolgozhat;
+
+- Szerkesszen alakzatokat, diagramokat, táblázatokat, egyenleteket és egyéb objektumokat;
+
+- Használjon különböző kiegészítőket a kiterjesztett képességek eléréséhez;
+
+- Érje el személyes felhőjét a "Chrome kiterjesztéssel":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US". 
+
+Szerkesztheti offline is a dokumentumait az "asztali editorokkal":"https://www.onlyoffice.com/download-desktop.aspx" vagy beszerezheti a "mobil szerkesztőcsomagot":"https://www.onlyoffice.com/mobile.aspx" IOS és Android készülékére.
+
+Baráti üdvözlettel,
+Az ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart Csatlakoztassa kedvenc felhőtárolóját az  ONLYOFFICE-hoz! $PersonalHeaderEnd
+
+Egy hete vette használatba felhőirodáját, így úgy gondoltuk, ideje fellebbenteni a fátylat néhány hasznos képességről, amelyeket eddig lehet nem fedezett még fel.
+ 
+Csatlakoztassa *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* or *Yandex.Disk* fiókját az ONLYOFFICE-hoz és hozzon létre egységes teret dokumentumai számára. Szerkesztheti a külső fájlokat ONLYOFFICE-ban és mentheti őket a abba tárba, ahol tárolja a dokumentumokat. Olvasson többet a fájltárolók ONLYOFFICE-hoz csatlakoztatásáról "itt":"${__HelpLink}/tipstricks/add-resource.aspx".
+
+Az ONLYOFFICE editorok Google Drive-hoz csatlakoztatásához használja a "csatlakoztató alkalmazásunkat":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
+
+Többet szeretne tudni a dokumentumkezelésről?
+
+h3.Próbálja ki a vállalati ONLYOFFICE-t "a felhőben":"https://www.onlyoffice.com/cloud-office.aspx", vagy "a saját szerverén":"https://www.onlyoffice.com/server-solutions.aspx" 30 napig ingyenesen és vegye szemügyre a kiterjesztett dokumentumkezelési lehetőségeket a hozzá biztosított üzleti eszköztárral:
+
+- kezelje a csapatdokumentumait projektekben;
+
+- Integrálja a dokumentumokat a CRM-mel és az Email-lal;
+
+- Osszon meg fájlokat a felhasználók csoportjával;
+
+- Optimalizálja munkafolyamatát a csapatkommunikációs eszközökkel.
+
+Érdekli? Tudjon meg többet az "üzleti ONLYOFFICE-ról":"http://www.onlyoffice.com/document-management.aspx".
+
+Barátsággal,
+az ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Üdvözöljük!
+
+Éppen most regisztrált egy fiókot a személyes felhasználású ONLYOFFICE-ban. Kattintson "ide":"$InviteLink" a regisztáció megerősítéséhez és a jelszó létrehozásához.
+
+Ha nem tudja megnyitni a linket, másolja a következőket "$InviteLink":"$InviteLink" és illessze be böngészője címsorába.
+
+Barátsággal,
+az ONLYOFFICE team</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Tisztelt $UserName!
+
+A(z) "$FromUserName":"$FromUserLink" felhasználó adatait eltávolító folyamat sikeresen véget ért. 
+
+A törlés következtében szabaddá vált:
+
+# Documents - $DocsSpace
+# Mail - $MailSpace
+# Talk - $TalkSpace
+
+^Azért kapta ezt az emailt, mert regisztrált felhasználója a "${__VirtualRootPath}":"${__VirtualRootPath}" portálnak.^</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Tegye ugyanazt mint egy felhasználó|Csatlakoztasson Dropbox, Box és egyéb fiókot a "Közös dokumentumok" részben|Hozzáférési jogok beállítása a dokumentumokhoz és mappákhoz a "Közös dokumentumok" részben</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Saját dokumentumok létrehozása és szerkersztése, a megfelelő jogosultságokkal rendelkező megosztott dokumentumok szerkesztése| Más felhasználók számára hozzáférést biztosít a dokumentumokhoz és mappákhoz | Dropbox, Box és egyéb fiókok csatolása a "Dokumentumok" szakaszban</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>Elkészítés most</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>Fel szeretnék iratkozni az ONLYOFFICE hírlevelére</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>Egyetértek a ONLYOFFICE {0}Felhasználási feltételeivel{1}</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Az aktivációs e-mail kiküldve</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>A {0}kétfaktoros azonosítás{1} egy biztonságosabb felhasználói bejelentkezési lehetőség.{2}Engedélyezze az összes felhasználó számára a biztonságosabb portálhozzáférés érdekében.{2}A változtatások érvényesítéséért kattintson a{0}Mentés{1} gombra a szekció alján.{2}</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>Üdvözöljük az ONLYOFFICE Personal-ban</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Csatlakoztassa kedvenc felhőszolgáltatóját az ONLYOFFICE-hez.</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. Felhasználó adatainak eltávolítása sikeres</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Együttműködési felhő</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>Követés változtatása</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>Quick módban láthatja, amit a munkatársa éppen gépel, és ő is látja, amit Ön gépel. Strict módban önállóan szerkeszti a dokumentumot és mentés után válnak láthatóvá a változtatások a többiek számára. </value>
+  </data>
+</root>

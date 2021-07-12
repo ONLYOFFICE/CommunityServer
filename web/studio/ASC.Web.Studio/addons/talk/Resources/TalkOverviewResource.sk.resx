@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Zoznam kontaktov sa automaticky aktualizuje keď sú ľudia pridaní/odstránení zo zoznamu zamestnancov. Nemusíte ho kontrolovať ručne.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Oznámenie v prehliadači</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Miestnosť</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Karty rozhovorov</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Zoznam kontaktov s nastaveniami</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>V predvolenom nastavení sa všetky upozornenia budú odosielať na Vašu e-mailovú adresu aj do Rozhovoru. Môžete ich nakonfigurovať v:</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Vymazať odoslané súbory</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Zoznam kontaktov v skupinách</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>tu</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Skryť offline kontakty</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Korešpondencia</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Viac informácií o upozorneniach je k dispozícii {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Nastavenie upozornení</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Rozhovor je firemný IM systém na výmenu okamžitých textových správ medzi zamestnancami v reálnom čase.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Služba Rozhovor ponúka všetky tradičné funkcie, ktoré očakávate od messenger-a: výber stavu, archivácia histórie, prenos súborov, podpora skupinových rozhovorov a ďalšie.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Rozhovor </value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Spustite nášho webového klienta, aby ste mohli hneď začať používať aplikáciu Rozhovor bez predchádzajúcich nastavení.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Stránka profilu</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Odoslať správy pomocou klávesov Ctrl + Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Možnosti vkladania</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Spustiť webového klienta</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Žiadne ďalšie nastavenia! Kliknutím spustite webového klienta a začnite hneď komunikovať</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Sekcia odberu : {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Hlasy udalostí</value>
+  </data>
+</root>

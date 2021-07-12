@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>فایل حذف شود؟</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>صفحه حذف شود؟</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>انتشار</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>آپلود</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>نسخهٔ {0}</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>فایل جدید</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>صفحه جدید</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>صفحه اصلی</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>ویرایش فایل</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>ویرایش صفحه</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>آپلود فایل</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>ایجاد صفحه جدید</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>حذف صفحه</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>ویرایش صفحه</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>چاپ صفحه</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>مشاهده تاریخچه</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>ویکی</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>صفحات جدید</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>جستجو در ویکی</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>فایل اضافه شد</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>فایل حذف شد</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>صفحه اضافه شد</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>صفحه ویرایش شد</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>آپلود فایل</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>تاریخچه</value>
+  </data>
+</root>

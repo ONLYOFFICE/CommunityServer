@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Utwórz zakładkę</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Dodaj zakładkę do ulubionych</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Dodaj do ulubionych</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Tworzenie zakładki ...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Szczegółowe informacje o zakładce</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Dodane przez</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Szukaj w zakładkach</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Liczba osób, które dodały tą zakładkę do ulubionych</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Zakładki</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Wprowadź tagi oddzielając je przecinkami</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Sprawdź URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Sprawdzanie URL ...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Komentarza</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Przejdź do komentarzy zakładek</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Komentarz</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Utwórz nową zakładkę</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Szczegóły</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Edytuj zakładkę</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Edytuj zakładkę</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>Pole zakładki nie może być puste</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>Żadne zakładki nie zostały jeszcze dodane</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>Utwórz pierwszą zakładkę</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Brak znalezionych zakładek</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Stwórz zakładki, przechowuj i udostępniaj przydatne informacje swoim kolegom bezpośrednio na portalach, zachowując linki do zasobów internetowych, co pozwoli łatwo wrócić do ulubionego miejsca.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Ulubione</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Najnowsze</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Najpopularniejsze</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Usuń zakładkę z ulubionych</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę zakładkę?</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć {0} zakładkę z ulubionych?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Usuń zakładkę</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Usuwanie zakładki ...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Pokaż:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaż na stronie</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Subskrybuj komentarze</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Najlepsze dzisiaj</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Wszystkie</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Rezygnuj z subskrypcji komentarzy</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Tydzień</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+</root>

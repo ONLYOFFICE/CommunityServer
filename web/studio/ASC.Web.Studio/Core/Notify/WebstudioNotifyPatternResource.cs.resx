@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blog byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Záložka byla vytvořena na</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>Případ CRM byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Komentář byl přidán na</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>Kontakt CRM byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Příležitost CRM byla vytvořena na</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Diskuze byla vytvořena v</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Událost byla vytvořena v</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Dokument byl vytvořen/nahrán na</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Složka byla vytvořena na</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Forum bylo vytvořeno na</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Anketa byla vytvořena na</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Příspěvek byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Milník byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Projekt byl vytvořen na</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Úkol byl vytvořen na</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Přístupový ovládací panel</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Přístup k vašemu portálu</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Přístup k vaší webové kanceláři</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Konfigurovat nyní</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Pozvat hned teď</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Požádejte o hovor</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Vyberte si cenový plán hned teď</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Dozvědět se více &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.Aktivujte Váš e-mail pro "${__VirtualRootPath}":"$InviteLink" portál.
+
+Ahoj!
+
+Jste zváni, abyste se připojili k "${__VirtualRootPath}":"$InviteLink" života na portálu, potřebujete aktivovat Vaší e-mailovou adresu. To se provádí z bezpečnostních důvodů.
+
+$GreenButton
+
+Tento odkaz je platný pouze 7 dní. V této lhůtě prosím dokončete Vaší e-mailovou aktivaci.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" vytvořena záloha portálu
+
+Vážený $OwnerName,
+
+Byl vytvořen zálohový soubor obsahující data z Vašeho "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
+
+Další informace o postupu zálohování naleznete v naší uživatelské příručce "Zálohování dat":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx".
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, prosím neváhejte nás kontaktovat na "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Žádost o změnu hesla pro "${__VirtualRootPath}":"${__VirtualRootPath}" portál
+
+Požádali jste o změnu hesla používaného pro vstup do "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
+
+Prosím, pro změnu Vašeho hesla následujte odkaz níže:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze po dobu 7 dní: Prosím, proveďte změnu hesla v rozmezí tohoto období.
+
+Pokud si nechte změnit heslo nebo jste tento e-mail obdrželi omylem, ignorujte ho prosím nebo kontaktujte Vašeho "${__VirtualRootPath}":"${__VirtualRootPath}" administrátora portálu a zjistěte více informací.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Žádost o změnu mobilního telefonu
+
+Požádali jste o změnu mobilního telefonu používaného pro vstup do ${LetterLogoText} portálu.
+
+Prosím následujte odkaz níže, abyste změnili Váš mobilní telefon:
+
+$GreenButton
+
+Pokud nechcete změnit svůj mobilní telefon nebo jste tento e-mail obdrželi omylem, ignorujte ho nebo kontaktujte svého správce portálu a zjistěte podrobnosti.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Změna "${__VirtualRootPath}":"${__VirtualRootPath}" vlastníka portálu
+
+Vážený $OwnerName,
+
+Byla podaná žádost o změnu "${__VirtualRootPath}":"${__VirtualRootPath}" vlastníka portálu na $UserName.
+
+Postupujte prosím podle následujícího odkazu:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze 7 dní. Prosím, proveďte proces změny vlastníka portálu v tomto období.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Změna adresy portálu
+
+Vážený $OwnerName,
+
+Byla podaná žádost o změnu "${__VirtualRootPath}":"${__VirtualRootPath}" adresy portálu na "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end.
+
+Postupujte prosím podle následujícího odkazu:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze 7 dní. Prosím, proveďte proces změny vlastníka portálu v tomto období.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.Zpráva z "${__VirtualRootPath}":"${__VirtualRootPath}" portálu
+
+E-mail: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.Pozvánka k připojení k "${__VirtualRootPath}":"$InviteLink" portálu
+
+Dobrý den,
+
+Požádali jste o připojení k "${__VirtualRootPath}":"$InviteLink" portálu na ${LetterLogoText} - platformu pro správu dokumentů a projektů. Připojte se k portálu a začněte okamžitě spolupracovat se svými kolegy nebo přáteli.
+
+Pro akceptaci pozvánky zadejte prosím své jméno a heslo na následujícím odkaze:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze 48 hodin. Prosím, dokončete operaci v této době.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Chyba při migraci portálu dalšího regionu
+
+Při migraci do  $RegionName regionu se objevila chyba. Prosím, zkuste to znovu později. Váš portál je teď dostupný na staré adrese "$PortalUrl":"$PortalUrl"
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Obdržel jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Chcete-li změnit typ oznámení, prosím upravte své "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Chyba při migraci portálu dalšího regionu
+
+Při migraci do dalšího regionu se objevila chyba. Prosím, zkuste to znovu později. Váš portál je teď dostupný na staré adrese "$PortalUrl":"$PortalUrl"
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Obdržel jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Chcete-li změnit typ oznámení, prosím upravte své "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Migrace portálu do dalšího regionu začala
+
+Migrace portálu do $RegionName regionu je spuštěná. V závislosti na množství dat to může chvíli trvat.
+
+*Poznámka*: Během procesu migrace portál nebude dostupný. Po dokončení migrace bude změněna adresa URL portálu a všechny sdílené odkazy  dokumentů budou nepřístupné.
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Obdržel jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Deaktivace  "${__VirtualRootPath}":"${__VirtualRootPath}" portálu
+
+Vážený $OwnerName,
+
+Požádali jste o dočasnou deaktivaci Vašeho "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Prosím postupujte podle odkazu níže, abyste potvrdil operaci:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze 7 dní. Prosím, dokončete v této době deaktivaci portálu.
+
+Portál můžete kdykoli znovu aktivovat kliknutím na následující odkaz:
+p=. "Znovu aktivovat portál":"$ActivateUrl" (tento odkaz nemá časové omezení)
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.Vymazání "${__VirtualRootPath}":"${__VirtualRootPath}" portálu
+
+Vážený $OwnerName,
+
+Požádal jste o trvalé odstranění Vašeho "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
+
+*Důležité! Všechna data uložená na portálu, stejně jako Vaše registrační údaje budou ztraceny a nemohou být obnoveny.*
+
+#if($AutoRenew == "True")
+Než odstraníte portál, ujistěte se, že automatické vyúčtování je vypnuté. Můžete si zkontrolovat stav automatické fakturace v Vašem "Avangate učtu"::"https://secure.avangate.com/myaccount/".
+#end
+
+*Poznámka*: tento odkaz je platný pouze 7 dní. Prosím, proveďte proces odstranění portálu v tomto období.
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Změna dresy portálu
+
+Vážený $UserDisplayName,
+
+Vaše $PortalUrl portálová adresa by změněna na novou "${__VirtualRootPath}":"${__VirtualRootPath}" adresu.
+
+*Poznámka*: Všechny sdílené odkazy dokumentu jsou nyní nedostupné, stejně jako nastavení DNS a možnosti jednotné přihlášení přestanou fungovat, dokud je nezměníte. Odkazy třetí strany iCal přidané do Vašeho kalendáře se přestanou aktualizovat, dokud je znovu načtete.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Odstranění profilu z "${__VirtualRootPath}":"${__VirtualRootPath}" portálu 
+
+Požádali jste o trvalé odstranění Vašeho profilu z "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
+
+Pokud stále chcete odstranit Váš profil, prosím následujte odkaz níže pro potvrzení operace:
+
+$GreenButton
+
+*Poznámka*: tento odkaz je platný pouze 7 dní. Prosím, dokončete proces vymazání profilu v tomto období.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Váš profil na "$__VirtualRootPath":"$__VirtualRootPath" byl změněn
+
+Vážený $UserName,
+
+Vaše podrobnosti profilu uživatele na "$__VirtualRootPath":"$__VirtualRootPath" byly změněny "$__AuthorName":"$__AuthorUrl".
+
+Pro zobrazení Vašeho profilu následujte odkaz níže:
+"$UserName":"$MyStaffLink"
+
+^Obdržel jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Vážený $UserName,
+
+Proces opětovného přiřazení dat od uživatele "$FromUserName":"$FromUserLink" uživateli "$ToUserName":"$ToUserLink" byl úspěšně dokončen.
+
+^Obdrželi jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^
+
+</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Žádost o licenci Enterprise
+
+h3.Křestní jméno
+$UserName
+
+h3.Přijmení
+$UserLastName
+
+h3.Pozice
+$Position
+
+h3.E-mail
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefon
+$Phone
+
+h3.Webová stránka společnosti
+$Website
+
+h3.Jméno společnosti
+$CompanyTitle
+
+h3.Velikost společnosti
+$CompanySize
+
+h3.Obsah žádosti
+$Body
+
+h3.Portálová adresa
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Obnova portálu byla zahájena
+
+Obnova portálu je spuštěna. Může to trvat nějaký čas v závislosti na množství dat.
+
+*Poznámka*: portál nebude k dispozici během procesu obnovy.
+
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+S pozdravem,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Obdrželi jste tento e-mail, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Chcete-li změnit typ oznámení, spravujte své "nastavení odběru":"$RecipientSubscriptionConfigURL".^
+
+
+</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" oznámení o změně profilu portálu 
+
+"$__AuthorName":"$__AuthorUrl" změnil/a svoje detaily profilu na "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
+
+^Obdržel jste tento e-mail, protože jste administrátorem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Pokud nechcete dostávat oznámení o aktualizacích profilu, prosím upravte Vaše "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Co je nového na "${__VirtualRootPath}":"${__VirtualRootPath}" portálu pro $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Autor*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^ Tento e-mail jste obdrželi, protože jste registrovaným uživatelem portálu "${__VirtualRootPath}":"${__VirtualRootPath}". Pokud nechcete dostávat oznámení o nových událostech na "${__VirtualRootPath}":"${__VirtualRootPath}" portálu, prosím  upravte své "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP testovací zpráva
+
+Tato zpráva byla automaticky generována pro otestování nastavení SMTP. Pokud ji prohlížíte, znamená to, že nastavení je správná a můžete je použít na svém portálu.
+
+
+S pozdravem,
+tým ONLYOFFICE</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.Nový uživatel přidaný do "${__VirtualRootPath}":"${__VirtualRootPath}" portálu
+
+"$__AuthorName":"$__AuthorUrl" se připojil k portálu na "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Obdržel jste tento e-mail, protože jste administrátorem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Pokud nechcete dostávat oznámení o nových uživatelích, tak si prosím nastavte Vaše "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Prosím, aktivujte svou e-mailovou adresu</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}.${__ VirtualRootPath} byl vytvořen záložní portál </value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} pomoc s heslem</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Žádost o změnu mobilního telefonu</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Změna vlastníka portálu</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Změna adresy portálu</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Uživatelská zpráva správcům</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Pozvání k připojení ${__VirtualRootPath} portálu</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Další chyba migrace regionálního portálu</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Zahájena další migrace regionálního portálu</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Migrace portálu jiného regionu úspěšně dokončena</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Deaktivace ${__VirtualRootPath} portálu </value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>Vymazání ${__VirtualRootPath} portálu</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Změna adresy portálu</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Vymazání Vašeho profilu z ${__VirtualRootPath} portálu</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Váš profil na ${__VirtualRootPath} byl změněn</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Změna přiřazení uživatelských dat je dokončena</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Žádost Enterprise licence</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>Žádost o SaaS cenový plán</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Obnovení dokončeno</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Obnovení spuštěno</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} oznámení o změně profilu</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Co je nového na Vašem portálu ke dni $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>Testovací zpráva SMTP</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Nový uživatel byl přidán ${LetterLogoText} do portálu </value>
+  </data>
+</root>

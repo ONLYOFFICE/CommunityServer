@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>احفظ ثم انشئ فرصه جديدة</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>كل الفرص</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>عربون</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>ثابت</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>باليوم</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>بالساعة</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>بالشهر</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>بالاسبوع</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>بالسنة</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>الدفعه مكرره</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>خطوة</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>نوع الخطوة</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>جهه اتصال الفرصه</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>اضف الفرصة الأولى</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>انشاء فرصه جديدة</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>الفرصه في الخطوه</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>فترة مخصصة</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>مستخدمين اخرين</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>فرصه</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>اجمالي</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>خطوات الفرصه</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>يجب على اخصائي المبيعات تقديم عدد من الاسئله والحصول على اجابات لكي يتم تحديد متطلبات العميل المحتمل</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>تحتاج الى مساعدة</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>التواصل مع العميل مطلوب لفهم احتياج العميل المستقبلي</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>تواصل اولي</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>A failure. وتعني بأن الفرصه تم اغلاقها بسبب عدم وعي احتياج العميل</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>لم يتم الاغلاق بنجاح</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>العميل المحتمل قد اوضح اهتماما لما تم عرضه عليه من قبل اخصائي المبيعات</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>عميل مؤهل</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>اخصائي المبيعات يقوم بتحديد ما اذا كان العميل هو عميل محتمل</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>التواصل المبدئي يطابق المطلوب</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>العميل المحتمل قد استلم عرض اسعار مكتوب من اخصائي المبيعات</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>عرض اسعار</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>العميل المحتمل هو شخص او جهه لديها القدره الشرائيه والاهتمام اللازم لشراء خدمه او منتج</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>مشتبه</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>العميل المحتمل قد قام بمناقشه عرضك سابقا</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>مفاوضات</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>A deal. وتعني ان الفرصه تم تحقيقها بنجاح</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>اغلاق/تحويل</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>نوع الخطوة</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>المشارك في الفرصه</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>المشاركين في الفرصه</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>الفرص</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>علامة الفرصه</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>قائمه علامه الفرص</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>علامات الفرصه</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>احذف الفرصه</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>حذف الفرص</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>حرر «{0}» فرص</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>حرر الفرصه</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>يتيح لك نظام الفرص متابعة فرص البيع مع عملائك المحتملين. حدد {0}مرحلة الفرصة{1} بالتوافق مع طريقه عملك في الشركة, احتفظ بسجل تاريخي, قم بتعيين مهام, ارفع ملفات, احتسب ربحك مع كل عميل.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>لا توجد فرص تطابق عامل التصفيه في هذا القسم. الرجاء تحديد خيار اخر لعامل التصفيه او امسح الخيارات الحالي لعرض كل الفرص في هذا القسم.او تستطيع اضافه الفرصه اذا لم تجدها في القائمه.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>لا توجد فرص للعرض لعامل التصفيه هذا</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>قائمة الفرص فارغة</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>ادخل عنوان الفرصه</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>كل فرصه لابد ان تحتوي على شخص مسؤول</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>قائمه المشاركين فارغة</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>اضف مشاركين الى فرصك وذلك من قائمه الشركات او الاشخاص. بعد الانتهاء من عمل ذلك ستعرف اي جهه اتصال تعمل على هذه الفرصه وكيف تقوم بالاتصال بهم</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>الموعد النهائي الحقيقي/ المتوقع</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>الميزانية</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>جهة اتصال</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>مشارك</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>خطوة/نوع الخطوة</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>استيراد الفرص</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>يجب عليك اختيار ملف CSV من جهازك الحاسوبي تنطبق عليه شروط فورم الملف الصحيحه. يجب ان يحتوي على الحقول مفصول بالفاصل المحدد عند استيراد الفرص. الملفات التي تحتوي على {0} سطر يجب ان تقسم الى اجزاء اصغر لكي يتم استيرادها بشكل صحيح. تأكد من انك قد منحت الصلاحيات الصحيحه للمستخدم الذي سوف يقوم بالتعامل مع هذه البيانات المستورده والا سوف تكون هذه البيانات متاحه للجميع للإطلاع عليها.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>اختر ملف CSV وحدد الصلاحيات قبل استيراد الفرص</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>يجب ان تتطابق الاعمد الموجوده في الملف مع الحقول الموجوده في نظام اداره علاقات العملاء على تيم لاب. الرجاء الاخذ في عين الاعتبار الحقول التاليه ان تكون موجوده على الاقل في الملف الذي تريد استيراده لكي تتم عمليه الاستيراد بالشكل الصحيح: 'عنوان الفرصه', 'المسؤول عن الفرصه'. الحصول التي تحتوي على التاريخ يجب ان تكون على النحو التالي: {0}. حقل العمله يجب ان يحتوي على النظام العالمي لتعريف العمله وهو عباره عن 3 احرف (e.g. USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>الرجاء التأكد من الحقول</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>اذهب الى قائمة الفرصة</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>استيراد الفرص قد يستغرق عده دقائق اعتمادا على كميه البيانات المستورده. سيتم ابلاغك عند الانتهاء</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>بداء الاستيراد</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>فرصي</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>عنوان الفرصه</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>الميزانية لم يتم تعيينها</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>مشاركين الفرص الاخرى</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>مشاركين</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>حدد صلاحيات الدخول الى الفرصه</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>نسبة التقدم</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>المسؤول عن الفرصه</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>اذهب الى الملف الشخصي</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>اعرض المبلغ الاجمالي</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>بدء الاستيراد</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>خطوات الفرص تسمح لك ببناء الطريقه الصحيحه لإكمال الفرصه. الخطوات الافتراضيه التي تتخذ عند البدء في فرصه هي. الاتصال بالعميل,مناقشه,تحديد المتطلبات,تفاوض,الموافقه الإلتزام,النجاح,لاشيء وذلك في حال الفشل. لكي تستطيع تغيير هذه الفرصه يجب ان تكون مدير للموقع.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>المبلغ الاجمالي</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>كل الفرص</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>اجمالي الصفحه</value>
+  </data>
+</root>

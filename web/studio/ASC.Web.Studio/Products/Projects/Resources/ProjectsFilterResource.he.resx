@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>מחבר</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>על-ידי</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>לפי תאריך יצירה</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>תאריך יעד</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>לפי משך זמן</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>אבן דרך</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>תיאור</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>לפי משתתף</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>לפי עדיפות</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>לפי פרוייקט</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>לפי שם האחראי</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>סטטוס</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>מכיל תגית</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>לפי כותרת</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>אפס מסנן</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>מותאם אישית</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>תאריך יעד</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>דיונים שביקשתי להיות מנוי עליהם</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>מעקב אחרי הפרוייקט</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>קבוצה</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>קבוצות</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>אני</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>הדיונים שלי</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>אבני דרך שמכילות משימות שלי</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>הפרוייקטים שלי</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>המשימות שלי</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>אינו אחראי</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>אחר</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>אבני דרך אחרות</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>פרוייקטים אחרים</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>משתמשים אחרים</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>תאריך היעד חלף</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>מנהל פרוייקט</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>שבעה ימים אחרונים</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>בוצעה/סגורה</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>בוצע/נסגר</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>בוצעה/סגורה</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>בביצוע/בתהליך</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>פרוייקט פעיל</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>בביצוע/בתהליך</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>מושהה</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>תגית</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>משימות</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>חבר צוות</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>היום</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>עתידיים</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>עתידיות</value>
+  </data>
+</root>

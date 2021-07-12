@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Acces</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Comentariu</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Acces complet</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Acces refuzat</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Revizuire</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>CONTINUÂ</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Nu îmi mai arăta asta</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Introdu numele fișierului</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Selectează tipul fișierului</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Eu</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Descarcă</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comentariu</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Copiat</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Creat</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Editat</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Criptat</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Suprascris</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Restaurat din modificarea documentului din {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Încarcat</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Adresă URL de conectare</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Convertește în</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Numele documentului</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Refuzat</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Adaugă un comentariu</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Fișier gol</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Titlu incorect</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Prea multe descărcări.</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>Operațiunea a fost anulată</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Nu se poate șterge folderul, deoarece unul dintre fișiere este deschis pentru editare</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Nu aveți suficiente drepturi pentru a șterge folderul</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Utilizatorul nu a putut fi găsit</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fișier</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Dosar</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Numele directorului</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonim</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Căutare după conținutul documentelor</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>nou</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Restaurează</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Crează, editează și partajează</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Crează, editează și partajează. Colaborează în timp real. Compatibilitate garantată 100% cu formatele MS Office.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} șters</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Caută</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Partajează</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Afișați versiunile</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Dimensiune</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Titlul dosarului</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Reconectare</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Cont</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Creat</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Actualizat</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Șters</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Selectare</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Încărcat</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Marchează ca versiune</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versiuni și revizii</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

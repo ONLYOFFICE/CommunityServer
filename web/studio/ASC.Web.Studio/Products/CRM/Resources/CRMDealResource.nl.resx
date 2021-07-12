@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Opslaan en Nieuwe Kans Aanmaken</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Alle Kansen</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Aandeel</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fix</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per dag</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per uur</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per maand</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per week</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per jaar</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Herhaling betaling</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Fase</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Type fase</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Kans contact</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>De eerste kans toevoegen</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Nieuwe kans aanmaken</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Kans in fase</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Aangepaste periode</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andere gebruikers</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Kans</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>De toestemmingen worden ingesteld op de kansen waar u de auteur van bent</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Som</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Kansfasen</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>De verkoper voert een reeks vraag-en-antwoord sessies om de vereisten van de prospect te identiceren</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Behoeftebeoordeling </value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Contact met de potentiële koper is nodig om het toekomstige verkoopvooruitzicht te begrijpen</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Initieel contact</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Mislukt. De kans is gesloten vanwege gebrek aan perspectief</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Niet succesvol gesloten</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>De potentiële koper heeft zijn interesse aangegeven in de goederen of diensten van de verkoper</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Gekwalificeerde prospect</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>De verkoper probeert te identificeren of de klant zijn/haar potentiële koper kan zijn</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Toepassing van initiële fit criteria</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>De potentiële koper heeft een schriftelijke offert van de verkoper ontvangen</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Voorstel</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>De potentiële koper is aangewezen als een persoon of entiteit die interesse en de autoriteit heeft een product of dienst te kopen</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Verdacht</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>De potentiële koper heeft uw aanbod al tot in detail besproken</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Onderhandelingen</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Een deal. De kans is succesvol afgesloten</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Afsluiting/Transactie</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Type fase</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Deelnemer Kans</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Deelnemer Kansen</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Kansen</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Tag Kans</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Taglijst Kansen</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Tags Kansen</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Kans verwijderen</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Kansen verwijderen</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Bewerken «{0}» kans</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Bewerken kans</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Met Kansen kunt u de potentiële verkoop aan uw klanten bijhouden. Bepaal de {0}kansfasen{1} die overeenkomen met uw bedrijfsproces, houd de geschiedenis bij, wijs taken toe, upload documenten, bereken de winst voor elke klant.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Er zijn geen kansen die overeenkomen met uw filter die in dit gedeelte kunnen worden weergegeven. Selecteer alstublieft andere filteropties of verwijder het filter om alle kansen in dit gedeelte te bekijken. Of u kunt de kans aanmaken indien deze niet in de lijst aanwezig is.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Er zijn geen kansen om hier voor dit filter weer te geven</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>De kansenlijst is leeg</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>De titel van de kans invoeren</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Elke kans moet een verantwoordelijke hebben</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>De deelnemerslijst is leeg</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Voeg deelnemers toe aan uw kans uit de lijst van bedrijven of personen. Nadat dit gedaan is, weet u welke contacten met deze kans verbonden zijn en met wie u kunt onderhandelen.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Geschatte/Werkelijke vervaldatum</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Contact opnemen</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Deelnemer</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Fase/type fase</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Kansen importeren</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Een goed opgesteld CSV-bestand moet op de harde schijf van uw computer worden geselecteerd. Het moet de velden of kolommen bevatten die gescheiden zijn door de geselecteerde afbakening die gebruikt wordt om kansen te importeren. De bestanden die meer dan {0} rijen bevatten, moeten worden opgedeeld in kleinere delen voor een correcte import. Zorg ervoor dat u de portaalgebruikers heeft geselecteerd die toegang moeten krijgen tot de informatie die moet worden geïmporteerd, anders is de data uit het CSV-bestand beschikbaar voor alle portaalgebruikers.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Een CSV-bestand selecteren en toegangsrechten instellen voordat u kansen importeert</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Koppel uw bestandskolommen met de bijbehorende ONLYOFFICE ™ CRM-velden. Houd er alstublieft rekening mee dat, om de kansen correct te importeren, u tenminste de volgende kolommen uit uw bestand gekoppeld moet hebben met de velden van de ONLYOFFICE™ CRM: 'Titel van Kans', 'Verantwoordelijke voor Kans'. De velden die de data bevatten, moeten het volgende formaat hebben: {0}. Het valutaveld moet worden ingesteld met de internationale drie letter code (bijvoorbeeld USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Verifieer alstublieft de velden</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Ga naar de kansenlijst</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Importeren van kansen kan enkele minuten duren, afhankelijk van de hoeveelheid data.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importeren is begonnen</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Kans koppelen of aanmaken</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Mijn kansen</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Titel van kans</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budget is niet ingesteld</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Andere deelnemers kans</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Deelnemers</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Toegang tot de kans beperken</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Succeskans</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Verantwoordelijke voor de kans</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Ga naar profiel</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Open in een nieuw tabblad</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Toon totale hoeveelheid</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Beginnen met Importeren</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Kansfasen laat u de stappen vaststellen die nodig zijn om de deal te voltooien. De standaard kansfasen zijn aanpak, discussie, evaluatie, onderhandeling, inzet, succes, nulpunt. Om ze te kunnen bewerken, zijn portaalbeheerderrechten nodig.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Totale hoeveelheid</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Alle kansen</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Totaal op pagina</value>
+  </data>
+</root>

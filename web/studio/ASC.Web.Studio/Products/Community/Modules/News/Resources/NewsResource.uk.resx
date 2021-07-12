@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Додати новини</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Коментар к новинам</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Редагувати новини</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Останні події, оголошення и опитування компанії</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Події</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Ви впевнені, що хочете видалити цю подію?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>Створити перше оголошення</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>Не додано жодних оголошень</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>Створити першу подію</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>Не додано жодних подій</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>Не додано жодних новин</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>Створити першу подію</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>Створити перше замовлення</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>Не додано жодних замовлень</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>Створити перше опитування</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>Не додано жодних опитувань</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Створюйте власні події, розміщуйте важливі оголошення, діліться останніми новинами та додавайте опитування для того, щоб висвітлювати думки колег на вашому порталі.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Доступ заборонено</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Введіть питання для голосування</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Введіть хоча б 2 варіанти відповіді</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Подія видалена</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Новини</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Опитування</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Створити нову подію</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Створити нове опитування</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Оголошення</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Всі події</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Редагувати подію</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Редагування опитування</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Накази</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>Тип події</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>Коментарі події</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Нові події</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Опублікувати</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Поле Назва обов'язково для заповнення</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Пошук подій</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Відображати на сторінці</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Підписатися на коментарі</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всього</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Відписатися від коментарів</value>
+  </data>
+</root>

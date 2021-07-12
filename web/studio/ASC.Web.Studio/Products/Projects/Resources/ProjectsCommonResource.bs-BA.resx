@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Ažuriraj pratioce</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Sve {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Pomjeri sa povezanim zadatcima</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Svi {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Pokreni/Zaustavi mjerač vremena</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Dodaj vrijeme</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauza</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Resetuj</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Pokreni</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab projekti</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Probaj mobilnu aplikaciju</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Promjeni boju</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Statusi su dostupni samo korisniku koji je kreirao zadatak</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Zamjeni ikonu</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Uobičajene postavke</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Kreiraj</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Pokreni novi projekat</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Postavite potreban redoslijed statusa zadatka. Svaka kategorija mora imati najmanje jedan status.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Novi status</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Linkuj ili dodaj kontakt</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Izaberite postojeće CRM kontakte sa liste da biste ih povezali sa projektom kojim upravljate ili dodajte nove kontakte. Uredite lične podatke kontakata. Dublja integracija sa CRM-om će vam pomoći da efikasnije upravljate svojim poslom.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Lista kontakata je prazna</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Svaki status mora imati naslov</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Nema projekata koji odgovaraju pretrazi</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Prati</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Označite ovaj kvadratić ako niste menadžer projekta koji kreirate, ali želite pratiti sve promjene unutar njega. Informacije o svim novostvorenim prekretnicama, zadacima i diskusijama bit će uključene u dnevnu obavijest "Šta je novo".</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Privatni projekat{2} je način da se ograniči pristup vašem projektu tako da mu mogu pristupiti samo članovi vašeg tima. {0} Čuvanje projekta kao privatnog omogućava vam da postavite prava pristupa za svakog partnera u ovom projekta.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1} Privatni projekat {2} je način da ograničite pristup vašem projektu tako da mu mogu pristupiti samo članovi vašeg tima.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Ključna prekretnica se koristi za kreiranje prekretnice za koju smatrate da je važnija od drugih. {0} Sve ključne prekretnice označene su crvenom ikonom ključa smještenom blizu njenog naslova.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Možete se prebacivati između tri statusa projekta: {0} {1} Aktivno. {2} Svi kreirani projekti na kojima trenutno radite označeni su kao aktivni dok ne odlučite da ih pauzirate ili dovršite. {0} {1} Pauzirano {2} Ako odlučite da privremeno prekinete rad na projektu, promijenite njegov status u Paused. Da biste nastavili sa projektom, samo aktivirajte podešavanje odgovarajućeg statusa. {0} {1} Zatvoreno. {2} Kada je posao na projektu završen i svi zadaci su zatvoreni, dovršite projekat promenom statusa na Zatvoreno. Za dalji rad trebat ćete ga ponovno aktivirati.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Da biste dodali članove svom timu odmah kliknite na vezu {1} Upravljanje timom {2} i odaberite korisnike s popisa koje želite dodati. {0} Također možete dodati / ukloniti suigrače koji se kasnije prebacuju na {1} tim { 2} kartica na stranici projekta {1} Pregled {2} i klikom na gumb {1} Upravljanje timom {2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Po defaultu, svaki član projektnog tima može pregledati sav sadržaj unutar odabranog projekta: prekretnice, zadatke, dokumente i diskusije. Da biste ograničili pristup, samo izaberite korisnika za kojeg želite da postavite prava pristupa i kliknite na jednu od desnih linkova. Na isti način možete postaviti prava pristupa za svakog člana vašeg projektnog tima, osim ako on / ona nema privilegije administratora portala. ONLYOFFICE administrator ima puni pristup svim sadržajima u svim projektima.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Šta "Prati ovaj projekat" znači?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Šta je privatni projekat?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Šta "Ključna prekretnica" znači?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Koji statusi projekta postoje?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Kako upravljati vašim timom?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Sakrij entitete u zaustavljenim projektima</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Ovaj korisnik ne prima obaveštenja za ovu diskusiju, jer projekat ima privatni status i korisnik nije član projektnog tima.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Nauči više...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projekti koje pratim</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Posljednji</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Moje diskusije</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Moji projekti</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Premjesti zadatak</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Novi komentari u diskusijama</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Novi komentari u zadacima</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Nema kontakta za link</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nema podataka</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Zadatak je povezan sa drugim zadacima, u slučaju da ga obrišete, svi linkovi će biti uklonjeni.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Ukloni linkove i premjesti</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Personalne postavke</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Obavještenje: ova akcija ne može biti vraćena.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Učinite isto kao i menadžer projekta | Imenuj menadžera projekta | Kreirajte i uredite, izbrišite bilo koji projekt | Kreirajte / uredite predloške</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Napravi tim i dodijeli zadatke. Planiraj prekretnice projkeata, prati aktivnost i kreiraj izveštaje.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Napravi tim i dodijeli zadatke. Planiraj prekretnice projekata, prati aktivnost i kreiraj izveštaje.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Sastavite timove i dodijelite zadatke. Zakažite glavni događaj na projektu, pratite aktivnosti projekta i generirajte izvještaje.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Pregledajte projekte i učestvujte u diskusijama | Kreirajte i uredite prekretnice, zadatke, diskusije, dokumente | Pratite vrijeme za zadatke, generirajte izvještaje | Formirajte projektni tim i postavite prava pristupa</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontakti koji će biti povezani</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Naslov projekta</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Opširnije</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Ukloni korisnika iz tima</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Zamjeni</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Prijavi folder</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Izvještaji</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Sačuvaj i dodaj</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Sačuvaj izmjene</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Odaberi</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Izaberi od postojećih kontakata ili dodaj novi</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Bilo koji korisnik može kreirati projekat</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Prikaži</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Prikaži na strani</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Naplaćeno vrijeme</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Potrošeno vrijeme</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Početna stranica</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Prati komentare</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Zadaci dodati</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Datum početka mora biti ranije od datuma dospijeća</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Zadatak koji ćete premestiti povezan je sa drugim zadacima. {0} Odaberite jednu od akcija:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Status zadataka</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Ukloni linkove i ažuriraj</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Izaberite tekst koji želite da bude sakriven sa stranica sa feedova i stranice za listu diskusija i kliknite na dugme "Izreži tekst".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Izreži tekst</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vrijeme</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Praćenje vremena</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Ukupno</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Prekini sa praćenjem</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Odvoji projekt od kontakta</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Preknini sa praćenjem komentara</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Ažuriraj rok</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Zadatak koji ćete ažurirati je povezan sa drugim zadacima. {0} Odaberite jednu od akcija:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>sat</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+</root>

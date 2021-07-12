@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>某些輸入參數無效。</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>存取文件被拒</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>未找到文件或是在不存在所選位置</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>不支援空的檔案</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>找不到消息。</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>所有附件的總大小超出限制。</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>發生了一些意外的錯誤。請稍後再試。</value>
+  </data>
+  <data name="CreatingLinkHeader" xml:space="preserve">
+    <value>建立連結中</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>該消息是由郵件傳遞軟件自動創建的。</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>改變你的訊息</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>如果錯誤仍然存在，請閱讀{url_begin}常見問題解答部分{url_end}以了解有關此問題的更多信息。</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>自{date}開始發送主題為“ {subject}”的郵件失敗。</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>無法將郵件傳遞給收件人</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>請檢查您的郵件收件人地址和郵件格式。如果確定您的消息正確無誤，請檢查所有{account_name}帳戶設置，如果一切正確，請登錄到您使用的郵件服務並確認所有驗證問題（如果有的話）。之後，再試一次。</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>郵件傳遞失敗</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>1%欄位是空的</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>％1字段中的電子郵件地址不正確</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>標籤％1已存在</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>標籤名稱不能為空</value>
+  </data>
+  <data name="ErrorUserFoldeNameCantBeEmpty" xml:space="preserve">
+    <value>文件夾名稱不能為空</value>
+  </data>
+  <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
+    <value>文件夾％1已存在</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>密件副本</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>副本</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>自</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="FinishedHeader" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="GetAttachmentsHeader" xml:space="preserve">
+    <value>獲取附件</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>IMAP服務器連接超時已超過。</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP回應：</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>超出POP3服務器連接超時。</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3回應：</value>
+  </data>
+  <data name="PreparationArchiveHeader" xml:space="preserve">
+    <value>準備檔案</value>
+  </data>
+  <data name="SetupTenantAndUserHeader" xml:space="preserve">
+    <value>設置租戶和用戶</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>超過SMTP服務器連接超時。</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP響應：</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>壓縮附件</value>
+  </data>
+</root>

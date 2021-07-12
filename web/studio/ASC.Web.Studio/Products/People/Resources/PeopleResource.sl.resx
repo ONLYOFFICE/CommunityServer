@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Pravice za dostop portala</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>dejanja</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Dodaj {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Dodaj člane</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Onemogočeno</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Spremeni status</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Spremeni status uporabnika</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Nadgradite svoj načrt in postopek ponovite, ali pa statusi drugih uporabnikov ne bodo spremenjeni.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Spremeni status uporabnika</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Statusa ne morete spremeniti za lastnika portala in zase</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Uporabniki s statusom 'Onemogočeni' bodo omogočeni.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Uporabniki s statusom 'Aktiven' bodo onemogočeni</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Spremeni vrsto</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Nadgradite svoj načrt in ponovite postopek, drugače tip drugih uporabnikov ne bo spremenjen.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Spremeni tip uporabnika</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Vrste ne morete spremeniti za administratorje portala in zase</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Uporabniki z '{!User}' vrsto bodo premaknjeni v '{!Guest}' vrsto</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Uporabniki z '{!Guest}' vrsto bodo premaknjeni v '{!User}' vrsto</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Ponastavi filter</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Le uporabniki ali gosti z statusom 'Onemogočen' so lahko izbrisani</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Uporabnike izbriši s portala</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Prekliči izbor</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Onemogoči</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Omogoči</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Vnesi ime</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Naložene datoteke ni bilo mogoče najti</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Velikost slike je prevelika</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Velikost datoteke slike je prevelika</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Neznana vrsta slikovne datoteke</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Skrij seznam izbranih uporabnikov</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Uvozi ljudi</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Povezava povabila</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Spremeni e-naslov</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Spremeni geslo</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Izbriši profil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Ponovno pošlji vabila</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Ponovno pošlji aktivacijsko povezavo</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Pošlji e-sporočilo</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Pošlji sporočilo</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Naročila</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Onemogočeno</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Namigi</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>člani</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Na tem oddelku ni mogoče prikazati ljudi, ki se ujemajo z vašim filtrom. Prosim izberite druge možnosti filtra ali ga počistite, da vidite vse ljudi v tem oddelku.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Ni bilo mogoče najti rezultatov, ki se ujemajo z vašim iskanjem</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Na vrhu</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Dodaj nove uporabnike, jih povabi ali uvozi. Upravljaj uporabnike in si oglej njihove podrobne informacije.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Osebe</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Ali {0}beri o ne-profitni uporabi{1}.</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Ko bodo uporabniki potrdili vabilo na portal, se bo njihov status spremenil v 'Aktiven'</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Ponovno pošlji povabilo</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Povabilo bo ponovno poslano izbranim uporabnikom s statusom 'V teku', ki niso onemogočeni.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaži na strani</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Oglej si seznam izbranih uporabnikov</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Uporabnik je bil uspešno izbrisan</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Skupen seštevek</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Čakam na potrditev</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Napiši pismo</value>
+  </data>
+</root>

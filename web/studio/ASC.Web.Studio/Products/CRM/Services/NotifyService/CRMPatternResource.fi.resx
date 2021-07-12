@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. Uusi merkintä lisätty kohteeseen "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt uuden merkinnän kohteeseen "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}": $AdditionalData.get_item("EventContent") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VisirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa ilmoituksia uusista merkinnöistä, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. Asiakkuudenhallinnan Uusi kontakti luotu.
+
+$__DateTime Uusi kontakti luotu käyttäen sivuston yhteydenottolomaketta: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+Kontakti:
+
+#foreach($contactInfo in $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item($contactInfo)
+
+#end
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "Tilauksen asetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. Asiakkuudenhallinnan tietojen vienti suoritettu onnistuneesti 
+
+Voit ladata arkistotiedoston täältä: "exportdata.zip":"${EntityRelativeURL}". 
+
+*Huomio*: Tämä linkki toimii vain 24 tuntia.
+
+Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Terveisin, 
+ONLYOFFICE™ Asiakastuki 
+"www.onlyoffice.com":"http://onlyoffice.com/" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "Tilauksen asetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. Asiakkuudenhallinnan tiedon tuonti suoritettu onnistuneesti 
+
+Löydät uudet kontaktit täältä:"$__VirtualRootPath/Products/CRM/" 
+
+Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Terveisin, 
+ONLYOFFICE™ Asiakastuki 
+"www.onlyoffice.com":"http://onlyoffice.com/" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "Tilausten asetuksia":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Sinut on nimitetty vastuuhenkilöksi mahdollisuudelle: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimittänyt sinut vastuuhenkilöksi mahdollisuudelle: $EntityTitle .
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Kuvaus:
+$AdditionalData.get_item("OpportunityDescription")
+#end
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Uusi tehtävä sinulle: $EntityTitle 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimittänyt sinut vastuuhenkilöksi tehtävälle: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Tehtäväluokka:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Linkitetty kontaktiin: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Linkki tapaukseen: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Linkki mahdollisuuteen: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Tehtävän kuvaus:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Määräpäivä: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Siirry "tehtävälistaan":"${__VirtualRootPath}/Products/CRM/Tasks.aspx".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Pääsy myönnetty kohteeseen "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on myöntänyt sinulle pääsyn kohteeseen "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa ilmoituksia myönnetyistä pääsyoikeuksista, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Muistutus tehtävästä: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Tehtäväluokka:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Kontaktin linkki: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Tapauksen linkki: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Mahdollisuuden linkki: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Tehtävän kuvaus:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Määräpäivä: $AdditionalData.get_item("DueDate")
+
+Siirry "Tehtäviin":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^Saat tämän viestn koska olet rekisteröitynyt käyttäjä: "${__VirtualRootPath}":"${__VirtualRootPath}" portaaliin.^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>Asiakkuudenhallinnan Uusi tapahtuma lisätty: $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>Asiakkuudenhallinnan Uusi kontakti luotu sivuston yhteydenottolomakkeen kautta.</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>Asiakkuudenhallinta. Tietojen vienti suoritettu onnistuneesti</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>Asiakkuudenhallinnan tietojen tuonti suoritettu onnistuneesti</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Asiakkuudenhallinta. Sinut on nimitetty vastuuhenkilöksi mahdollisuudelle: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Asiakkuudenhallinnan tehtävä osoitettu sinulle: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>Asiakkuudenhallinta. Käyttöoikeus myönnetty: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>Asiakkuudenhallinta. Muistutus tehtävästä: $EntityTitle</value>
+  </data>
+</root>

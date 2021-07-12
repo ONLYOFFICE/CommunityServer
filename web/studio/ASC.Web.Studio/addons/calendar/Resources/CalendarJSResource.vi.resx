@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Đã chấp nhận:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Kết nối tài khoản mail</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>gửi lời mời</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Lịch</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Sự kiện</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Tạo sự kiện mới</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>cả ngày</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Giai đoạn</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Tạo lịch mới</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Màu sắc:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Chỉnh sửa lịch</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Màu chữ:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Múi giờ:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Lịch của tôi</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Lịch khác</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Tạo sự kiện mới</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 phút</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 giờ</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>nửa giờ</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 phút</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>một ngày</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>mặc định</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>một giờ</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Cảnh báo:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>không bao giờ</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Sự kiện này kéo dài cả ngày.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Sự kiện cả ngày</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Khách:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Bắt đầu nhập địa chỉ email hoặc tên liên hệ từ các liên hệ cá nhân, CRM của bạn hoặc người dùng cổng thông tin hoặc bất kỳ email khác để mời mọi người đến sự kiện của bạn.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Lịch:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Mô tả:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Từ:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Tạo sự kiện mới</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Chỉnh sửa sự kiện</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Xem sự kiện</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Địa điểm:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Chi tiết hơn</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Sự kiện này không kéo dài cả ngày</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Tùy chọn</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Người tổ chức:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Người sở hữu:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>tuỳ chỉnh</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>hàng ngày</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Lặp lại:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>hàng tháng</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>không bao giờ</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>hàng tuần</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>hàng năm</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Bắt buộc</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Người dùng để chia sẻ</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Thêm người dùng</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Sự kiện này không được chia sẻ.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>ĐÃ HỦY</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>ĐÃ XÁC NHẬN</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>DỰ KIẾN</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Tên sự kiện:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Tới</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Hủy đăng ký</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Không có sự kiện để hiển thị.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Ẩn lịch mini</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Hiển thị lịch mini</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d sự kiện</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Thêm người dùng để chia sẻ</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Hiển thị thêm %d người dùng</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Chia sẻ với:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Chỉnh sửa lịch</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Người sở hữu:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Ẩn khỏi danh sách</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Tìm kiếm nhanh</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Quản lý lịch khác</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Xem lịch</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Xem danh sách</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Sự kiện đã bị hủy</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Bạn có muốn gửi lời mời đến các khách mời?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Đang gửi lời mời</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Đừng Gửi</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Khách Mới &amp; Đã Xóa</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Mọi người</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Bạn có muốn gửi lệnh hủy đến các khách hiện tại?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Đang gửi lệnh hủy</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Xảy ra lỗi trong khi gửi thông báo</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Đã gửi thông báo thành công</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Bạn có muốn gửi cập nhật đến các khách hiện tại?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Đang gửi cập nhật</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Vui lòng lựa chọn người mà bạn muốn thông báo về các cập nhật: chỉ các khách mời mới và đã bị xóa hay tất cả mọi người. Nếu bạn chọn 'Đừng Gửi', thì không có thông báo nào được gửi.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Đã từ chối:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Toàn bộ sự kiện trong chuỗi</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Sự kiện này và tất cả những gì đi kèm</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Xóa sự kiện tái diễn</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Sự kiện đã xóa không thể được khôi phục. Bạn có chắc là muốn tiếp tục?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Xóa sự kiện</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Chỉ sự kiện này</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Tất cả những thay đổi tiếp theo sẽ chỉ được áp dụng cho lịch của bạn.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Khách mời sự kiện sẽ không được thông báo. Dùng lịch của riêng bạn để gửi thông báo.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Khách:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Chọn file</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Xuất sự kiện từ lịch ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>Không có file nào được chọn</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>file được chọn</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Xuất/Nhập</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Nhập sự kiện vào lịch ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Sai định dạng của file iCal</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Nhập liên kết từ iCal feed</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Lịch từ iCal feed</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>Liên kết iCal feed:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>bắt đầu với</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>sau</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>mỗi</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>mỗi</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>đầu tiên</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Thiết lập tái diễn</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>tháng</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>tuần</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>năm</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>cuối cùng</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>bởi</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>tháng</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>tuần</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>năm</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>số lần</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>không bao giờ</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>gần cuối</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>thứ hai</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>thứ ba</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>lần</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>kết thúc</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Có thể</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Tham gia</value>
+  </data>
+</root>

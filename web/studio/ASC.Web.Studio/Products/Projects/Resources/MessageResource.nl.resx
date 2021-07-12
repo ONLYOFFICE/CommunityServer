@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Archief</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Archief</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Nieuwe discussie maken</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Discussie starten</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Taak maken voor discussie</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Weet je zeker dat je deze discussie wilt verwijderen?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Discussie verwijderen</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>In deze sectie kunnen geen discussies worden weergegeven die voldoen aan je filter.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Discussies worden gebruikt om met je projectteam de juiste oplossingen te vinden voor problemen die tijdens het project kunnen optreden. Bespreek alle zaken met je collega's of nodig gebruikers van andere projecten uit om deel te nemen aan de discussie.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Discussies worden gebruikt om de juiste oplossing te vinden met uw projectteam voor eender welk probleem dat kan voorkomen eens het project is gestart. Bespreek al de issues met uw collega's.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Er zijn nog geen discussies gestart.</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Abonnees</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Discussie bewerken</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Elk bericht moet tekst bevatten</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Er zijn geen discussies die voldoen aan dit filter</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Discussie</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Discussies</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Meer informatie</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Project selecteren</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Eerste discussie starten</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>De personen die je selecteert, worden geïnformeerd over het bericht en de bijbehorende opmerkingen.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Melden</value>
+  </data>
+</root>

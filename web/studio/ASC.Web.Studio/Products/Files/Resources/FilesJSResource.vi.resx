@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Người sở hữu</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Chỉ đọc</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Truy cập đầy đủ</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Từ chối truy cập</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Xem lại</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Khác nhau</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Lưu trữ</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Thư mục</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Trình chiếu</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Bảng tính</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Hiển thị thêm {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Đang tải lên...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Hiển thị thêm {0} trên {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Kích thước</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Mã đã được sao chép vào bộ nhớ tạm</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa {0} khỏi mô-đun 'Tài liệu'? Điều này sẽ không ảnh hưởng đến tài khoản {1} của bạn.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Bạn có chắc là muốn làm rỗng thùng rác?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Bạn có chắc là muốn rời khỏi trang hiện tại? Quá trình tải xuống sẽ bị hủy.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa tài liệu này?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa thư mục này?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa những phần tử này?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Bạn sắp di chuyển các phần tử từ thư mục {1}. Trong trường hợp đó, chúng sẽ bị xóa khỏi tài khoản {1} của bạn và người dùng khác sẽ không thể truy cập được nữa nếu trước đó các phần tử đã được chia sẻ. {0}Bạn có chắc là muốn di chuyển các phần tử này?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Tài liệu Cộng tác</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Tùy chỉnh định dạng</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Đang lưu trữ dữ liệu</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Thay đổi dữ liệu</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Tạo phiên bản hoàn chỉnh</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Ký bằng DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Đang tải phiên bản...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Đánh dấu đã Đọc</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Đang xóa...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Đổi tên</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Đang cập nhật phiên bản</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Ký tài liệu ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Chọn ít nhất một thư mục/tài liệu để tải về</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Nhập bình luận</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Bạn không thể tải lên một file hoặc thư mục rỗng</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Lỗi chuyển đổi</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Phải điền tất cả trường</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Vượt quá kích thước tối đa của file</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Bạn cần đăng nhập để có thể thêm</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Rất tiếc, định dạng file này không được hỗ trợ</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Vui lòng chờ tải về trước đó được hoàn thành hoặc hủy nó</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để thực hiện thao tác</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Bạn không thể thực hiện tác vụ như vậy trong thư mục này</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Tiêu đề không được có các ký tự sau: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Dung lượng lưu trữ cổng thông tin đã đầy. Bạn không thể tải lên file lớn hơn {0}</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>File có tên {0} đã tồn tại trong thư mục {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Đã chuyển đổi</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Đang chuyển đổi</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} tài liệu có cùng tên đã tồn tại trong thư mục {1}.</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Đã tải lên</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Đang tải lên</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Thư mục Box</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>Tài khoản DocuSign</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Thư mục Dropbox</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Thư mục Google</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>Thư mục SharePoint</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>Thư mục OneDrive</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>Thư mục WebDAV</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Thư mục Yandex</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Giờ '{1}' là người sở hữu của '{0}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Giờ '{0}'là người sở hữu của các mục '{1}'</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' đã thay đổi</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} phần tử được sao chép</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' đã được sao chép</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>File mới '{0}'đã được tạo</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>File '{0}' được tạo trong '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Thư mục mới '{0}' đã được tạo</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Bạn không thể sao chép thư mục vào thư mục con của nó</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Bạn không thể di chuyển thư mục vào thư mục con của nó</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Bạn không có quyền di chuyển một số file</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} phần tử được di chuyển</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' đã được di chuyển</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Tài liệu '{0}' đã được xóa</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Thư mục '{0}' đã được xóa</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Đã xóa thành công {0} ra khỏi {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Bên thứ ba '{0}' đã được xóa</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Tài liệu '{0}' đã được đổi tên thành '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Thư mục '{0}' đã được đổi tên thành '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' đã được thêm vào '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} tài liệu được tải lên thành công</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Tài liệu của tôi</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Định dạng gốc</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Trình chiếu</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Không thể tải lên file {0} để hiển thị</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Tài liệu Dự án</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>bản sửa lại: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Bạn đã được cấp quyền truy cập vào tài liệu {0}. Bấm vào liên kết bên dưới để mở tài liệu ngay bây giờ: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Bạn đã được cấp quyền truy cập vào tài liệu {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Thêm người dùng hoặc nhóm và cho họ quyền{0} đọc, xem hoặc chỉnh sửa tài liệu.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Bảng tính</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Đang lưu trữ dữ liệu</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Đang sao chép</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Đang xóa</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Đánh dấu đã Đọc</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} hoạt động</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Thay đổi {0} thiết lập kết nối</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Hiện đang được sửa</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Hiện đang được chỉnh sửa bởi: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Đã khóa</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Khóa bởi: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Thêm Tính Năng</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Bản trình chiếu mới</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Bảng tính mới</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Tài liệu mới</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Thư mục mới</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Cài đặt chung</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Kết nối tài khoản</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Lỗi không xác định...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Hoàn tất tải lên</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Đang tải lên...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Đang tải {0} file ({1}% hoàn thành)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} trên {1} đã dùng</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+</root>

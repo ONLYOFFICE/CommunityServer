@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>დამატება</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>ახალი {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>ჯგუფების დამატება</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>კომენტარის დამატება</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>მომხმარებლების დამატება</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>ადმინისტრატორები</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>პასუხი</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>დაბადებით თარიღი</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>ლოგოს შეცვლა</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%d %b</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>დახურვა</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>კომენტარები</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>დეაქტივირება</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>დეაქტივირება</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>ჩემი პროფილის წაშლა</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>დეაქტივირებულია</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>დეაქტივირება</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} დღე</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} დღე</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} დღე</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} საათი</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} საათი</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} საათი</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} წუთი</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} წუთი</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} წუთი</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} თვე</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} თვე</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} თვე</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} წელი</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} წელი</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} წელი</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>დღეს</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>გუშინ</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>რედაქტირება</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>პროფილის შეცვლა</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>შეცვლა</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>შეიყვანეთ კოდი</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>ყველა {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL–ის აქტივირება</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>აქტივირება</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>არასწორი ელ. ფოსტის მისამართი</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>მდედრობითი</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>მოლო 3 თვე</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>ბოლო თვე</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>ბოლო კვირაში</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>სახელი</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>ლოგო</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>ჯგუფი</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>ენა</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>გვარი</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>მამრობითი</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>ჩემი პროფილი</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>სახელი</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>დეაქტივირებულია</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>კოდი</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>გთხოვთ დაიცადოთ...</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>შემოწმება</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>პროფილი</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>გამოქვეყნება</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>დამახსოვრება</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>შენახვა</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>გაგზავნა</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>სქესი</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>გიჟი</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>მწვანე</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>მუსიკა</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>მობოდიშება</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>სტატისტიკა</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>შექმნილია</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>ტელეფონის ნომერი</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>ტოპ 10</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>ატვირთვა</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>მომხმარებელი</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>მომხმარებლები</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmailError" xml:space="preserve">
+    <value>同时增加了邮寄地址错误</value>
+  </data>
+  <data name="AddPhoneError" xml:space="preserve">
+    <value>错误添加电话号码时</value>
+  </data>
+  <data name="CacheCleared" xml:space="preserve">
+    <value>缓存被清除</value>
+  </data>
+  <data name="CacheClearError" xml:space="preserve">
+    <value>而清除缓存出错</value>
+  </data>
+  <data name="DownloadLogError" xml:space="preserve">
+    <value>
+下载日志时出错</value>
+  </data>
+  <data name="EditorsCoAuthoring_AccessError" xml:space="preserve">
+    <value>访问错误</value>
+  </data>
+  <data name="EditorsFileConverter_AccessError" xml:space="preserve">
+    <value>访问错误</value>
+  </data>
+  <data name="EditorsSpellchecker_AccessError" xml:space="preserve">
+    <value>访问错误</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>您的资费方案不支持此选项</value>
+  </data>
+  <data name="ErrorSendNotification" xml:space="preserve">
+    <value>发送失败的信</value>
+  </data>
+  <data name="FeedService_NewsGenerationError" xml:space="preserve">
+    <value>不产生新闻的磁带</value>
+  </data>
+  <data name="GetDriveSpaceError" xml:space="preserve">
+    <value>错误获取磁盘信息</value>
+  </data>
+  <data name="GetNotifiersError" xml:space="preserve">
+    <value>错误检索数据</value>
+  </data>
+  <data name="GetNotifySettingsError" xml:space="preserve">
+    <value>检索时出错的通知设置</value>
+  </data>
+  <data name="HostError" xml:space="preserve">
+    <value>误</value>
+  </data>
+  <data name="HttpDescription" xml:space="preserve">
+    <value>用于无保护负载/发送数据到现场</value>
+  </data>
+  <data name="HttpsDescription" xml:space="preserve">
+    <value>用于安全上传/发送数据到现场</value>
+  </data>
+  <data name="ImapDescription" xml:space="preserve">
+    <value>它是用来通过IMAP收信服务OnlyOffice邮件</value>
+  </data>
+  <data name="ImapsDescription" xml:space="preserve">
+    <value>它是用来收邮件服务OnlyOffice邮件协议IMAPS</value>
+  </data>
+  <data name="MonoServeRestartError" xml:space="preserve">
+    <value>服务monoserve重启错误：{0}</value>
+  </data>
+  <data name="NoSuchEmailAddress" xml:space="preserve">
+    <value>找不到一个邮件地址。</value>
+  </data>
+  <data name="NoSuchHardDrive" xml:space="preserve">
+    <value>无法找到指定名称的光盘</value>
+  </data>
+  <data name="NoSuchPnone" xml:space="preserve">
+    <value>我无法找到一个电话号码</value>
+  </data>
+  <data name="NotExpectedState" xml:space="preserve">
+    <value>
+不要指望服务状态</value>
+  </data>
+  <data name="Pop3Description" xml:space="preserve">
+    <value>
+它是用来通过POP3收取邮件服务OnlyOffice邮件</value>
+  </data>
+  <data name="Pop3sDescription" xml:space="preserve">
+    <value>
+它是用来收邮件服务OnlyOffice邮件协议POP3S</value>
+  </data>
+  <data name="PortStatusClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="PortStatusClosedForIncomingRequests" xml:space="preserve">
+    <value>关闭传入请求</value>
+  </data>
+  <data name="PortStatusClosedForOutgoingRequests" xml:space="preserve">
+    <value>关闭传出请求</value>
+  </data>
+  <data name="PortStatusOpen" xml:space="preserve">
+    <value>开业</value>
+  </data>
+  <data name="RemovePhoneSuccess" xml:space="preserve">
+    <value>电话号码删除</value>
+  </data>
+  <data name="SendNotificationError" xml:space="preserve">
+    <value>发送错误通知</value>
+  </data>
+  <data name="ServiceCheckFailed" xml:space="preserve">
+    <value>错误检查服务</value>
+  </data>
+  <data name="ServiceProblem" xml:space="preserve">
+    <value>在服务异常问题{0}。请检查其状态和性能。状态：{1}。消息：{2}</value>
+  </data>
+  <data name="ServiceRestartError" xml:space="preserve">
+    <value>未能重新启动该服务</value>
+  </data>
+  <data name="ServiceStartError" xml:space="preserve">
+    <value>错误启动服务</value>
+  </data>
+  <data name="ServiceStillNotStoped" xml:space="preserve">
+    <value>配件|一直没有停止</value>
+  </data>
+  <data name="ServiceStopError" xml:space="preserve">
+    <value>无法停止服务</value>
+  </data>
+  <data name="SmallDriveSpace" xml:space="preserve">
+    <value>完磁盘空间</value>
+  </data>
+  <data name="SmtpDescription" xml:space="preserve">
+    <value>它用于通过不受保护的网络的客户端OnlyOffice邮件发送消息</value>
+  </data>
+  <data name="SmtpsDescription" xml:space="preserve">
+    <value>它被用于安全地通过web的客户端OnlyOffice邮件发送消息</value>
+  </data>
+  <data name="StatusServiceError" xml:space="preserve">
+    <value>误</value>
+  </data>
+  <data name="StatusServiceStartWorking" xml:space="preserve">
+    <value>运行</value>
+  </data>
+  <data name="StatusServiceStoped" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="StatusServiceWork" xml:space="preserve">
+    <value>推出</value>
+  </data>
+  <data name="WrongEmailAddress" xml:space="preserve">
+    <value>无效的街道地址。</value>
+  </data>
+  <data name="WrongParameter" xml:space="preserve">
+    <value>无效的参数{0}</value>
+  </data>
+  <data name="WrongPhone" xml:space="preserve">
+    <value>不正确的电话号码</value>
+  </data>
+  <data name="WrongServiceName" xml:space="preserve">
+    <value>无效的服务名称</value>
+  </data>
+  <data name="XmppDescription" xml:space="preserve">
+    <value>
+二手的Jabber服务器建立连接和数据传输</value>
+  </data>
+</root>

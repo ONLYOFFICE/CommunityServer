@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_PostInTopicEmailPattern" xml:space="preserve">
+    <value>h1。論壇主題中的新帖子：“ $ TopicTitle”：“ $ PostURL”
+
+$ Date“ $ UserName”：“ $ UserURL”在“ $ TopicTitle”：“ $ PostURL”主題中創建了新帖子：
+
+$ PostText
+
+“閱讀更多”：“ $ PostURL”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想在此論壇主題中收到有關新帖子的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
+    <value>
+h1。論壇中的新主題：“ $ TopicTitle”：“ $ TopicURL”
+
+$ Date“ $ UserName”：“ $ UserURL”創建了一個新主題：“ $ TopicTitle”：“ $ TopicURL”
+
+$ PostText
+
+“閱讀更多”：“ $ PostURL”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想接收有關在論壇中創建的新主題的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
+    <value>社群。論壇話題有新文章：$TopicTitle</value>
+  </data>
+  <data name="subject_PostInTopicEmailPattern_tg" xml:space="preserve">
+    <value>社區。論壇主題中的新帖子：[$ TopicTitle]（$ PostURL）</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
+    <value>社群：論壇有新話題：$TopicTitle</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern_tg" xml:space="preserve">
+    <value>社區。論壇中的新主題：[$ TopicTitle]（$ PostURL）</value>
+  </data>
+</root>

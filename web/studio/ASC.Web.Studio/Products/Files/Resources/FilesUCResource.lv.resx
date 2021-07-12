@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Tikai lasīšana</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Pilna piekļuve</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Aizliegt piekļuvi</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Apskats</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Pievienot kontu</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Pievienot Box kontu</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Pievienot Dropbox kontu</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Pievienot Google kontu</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Pievienot Nextcloud kontu</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Pievienot OneDrive kontu</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Cits konts</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Atcelt visu</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Mainīt īpašnieku</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Mainītu trešās puses info</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Notīrīt filtru</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Izveidot kopiju</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Prezentācija</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Tabula</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokuments</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Izdzēst trešo pusi</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lejuplādēt</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Izveidot faila kopiju</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Iekļauj dokumentu</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Iztukšot atkritni</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arhīvi</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mapes</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Attēli</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Prezentācijas</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Tabulas</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Pāriet uz '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Iet uz Mani Dokumenti</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Uzziņiet vairāk ...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Bloks</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Pārvietot vai kopēt</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Pārvietot</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Pārrakstīt ar versijas atjaunināšanu</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Pārdēvēt</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Viss</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Nosūtīt ar DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Sūtīt</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Koplietošanas iestatījumi</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Parādīt versiju vēsturi</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Izlaist</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Atpakaļ uz vecākmapi</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Atbloķēt</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Uz augšu</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Augšupladēt</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Versijas vēsture</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Pabeigt versija</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Atcelts</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konvertēt un atvērt failu</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Kolīdz tiek piemērots izmaiņas, šībrīža faila/mapes īpašnieks saņems piekļuves tiesības atbilstoši viņam/viņai piederošās grupas piekļuves uzstādījumiem vai saskaņā ar noklusējuma mapes atļaujām.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Mainīt īpašnieku</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Izvēlieties formātu katram failam, lai lejuplādētu</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Kopēji iestatījumi</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Rādīt ziņojumu, kad elements tiek pārvietots uz atkritni</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Mapē būs divi atšķirīgi faili.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Pārraksta apstiprināšana</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Fails tiks pievienots failam ar tādu pašu nosaukumu kā versija.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Dzešanas apstiprinājums</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Piezīme: Šo darbību nevarēs atcelt</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Piezīme: noņemšanu no Jūsu konta nevar atsaukt.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Fails netiks kopēts. Oriģinālais gails paliks mērķa mapē.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Saglabāt failu kopiju arī sākotnējā formātā</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Dokumentu fails jūs atverat tiks konvertēts Office Open XML formātā ātrākai apskatei un rediģēšanai.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Faila kopija tiks izveidota mapē {0}Mani dokumenti{1}</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Augšupielādēt dokumentus arī oriģinālajā formātā</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Pārvietošanas apstiprinājums</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Vai jūs tiešām vēlaties izdzēst šo elementu no saraksta?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Atjaunot esoša faila versiju ar tādu pašu nosaukumu. {0} Pretējā gadījumā faila kopija tiks izveidota.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Savienojuma URL adrese</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konvertēt</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Lejuplādēt kā</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Konversija bija veiksmīga.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Fails ir izveidots '{0}' mapē</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Konversijas kļūda</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Konvertēšana...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Kopēji dokumenti</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Jūs tikko izveidojāt savu ONLYOFFICE portālu.{0} Augšupielādējiet savus bezsaistes failus portālā, lai sadarbotos ar citiem bez lietotnes pamešanas.{0}{0} Atveriet savu portālu pārlūkā, lai iegūtu vairāk iespēju, tostarp {1}Projektus{2}, {1}CRM{2}, {1}Kalendāru{2}, {1}Pastu{2} un daudz ko citu.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Atvērt pārlūkā</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Ja radušies jautājumi par pirkumu, rakstiet mums uz {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Ja jums radušās tehniskas problēmas, sazinieties ar mums uz {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Laipni lūgti savā portālā!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Apsveicam</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Saglabāt mapē:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Ziņojums</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Pievienot ziņu</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Noņemt ziņojumu</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Dokumenta nosaukums</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Pievienot {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Saņēmēju saraksts</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Lejuplādēt kā</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Lejuplādēt</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Lejuplādēt</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Izmērs</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Automātiski</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Augstums</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Platums</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>"Kopēji Dokumenti" Sadaļā rādīti visi dokumenti, kuriem portāla administrators uzstādija kopēju piekļuvi. Tikai portāla administrators var izveidot mapes šajā sadaļā, bet lietotāji kuriem bija piešķirta piekļuve var arī augšupielādēt savus failus šeit.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Velciet un nometiet failus no datora šeit, lai augšupielādētu to uz jūsu portālu vēl vieglāk.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>"Pieejams man" sadaļā tiek izmantota, lai parādītu failus, kuriem jūsu draugi vai kolēģi deva jums piekļuvi. Gadījumā, ja neesat redzējuši jaunākās izmaiņas dokumentos tie ir marķēti "jauns". Jūs varat izņemt failus no saraksta, noklikšķinot uz atbilstošās pogas.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Dokumenti un attēlu faili jūs {0}izveidojat{1} vai {2}augšupielādējat{3} jūsu projektam tiek glabāti šajā sadaļā. Varat {4}atvērt{5} un {6}rediģēt tos{7}, izmantojot ONLYOFFICE™ portāla redaktoru, ka arī organizēt mapēs.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Dokumenti un attēlu faili, kurus {2}augšupielādējat{3} portālā, tiek glabāti sadaļā "Mani dokumenti". Jūs varat kopīgot tos ar draugiem vai kolēģiem un kārtot tos pa mapēm.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Dokumenti un attēlu faili jūs izveidojat vai augšupielādējat jūsu projektam tiek glabāti šajā sadaļā. Varat atvērt un rediģēt tos, izmantojot ONLYOFFICE™ portāla redaktoru, ka arī organizēt mapēs.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>"Akritne" ir sadaļā kur ir pārvietoti visi izdzēstie faili. Jūs varat vai nu atjaunot tos, ja tie tiek izdzēsti kļūdas dēļ vai izdzēst pavisam. Lūdzu, ņemiet vērā, ka, ja izdzēšat failus no "Akritne" tās vairs nevar būt atjaunoti.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Nav failus kuri atbilst šim filtram</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Nav failus vai mapes kuri atbilst Jūsu filtram var tikt parādītas šajā sadaļā. Lūdzu, izvēlieties citus filtru opcijas vai notīriet filtru, lai skatītu visus failus šajā sadaļā. Varat arī meklēt failu, citās sadaļās.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Nav failus kuri var būt parādīti šajā sekcijā</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Nav savienotus kontus</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Kļūda</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrs</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Mapes</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Sākt tagad</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>caur epastu</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Izvēlēties visu</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Maksimālais faila izmērs ir {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Vai jums ir komanda,{0}ar kuru sadarboties? {0}{1}Uzziniet vairāk{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Dokumentu pārvaldība</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM un rēķina izrakstīšana</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Uzdevumu pārvaldība un Ganta diagramma</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>E-pasta agregators</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Vai jums ir projekts un komanda, ar kuru sadarboties?{0}Esam jums ko sagatavojuši.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Uzaiciniet savus kolēģus vai līgumslēdzējus un iegūstiet no šādām papildu iespējām:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Laipni lūgti ONLYOFFICE™ darbam komandā!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mani dokumenti</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Slēpt dokumentu sarakstu</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Parādīt dokumentu sarakstu</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projekta dokumenti</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Atzīmēt kā izlasīto</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Atzīmēt visu kā izlasītu</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Izvēlēties direktoriju</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Lūdzu, izvēlieties darbību:</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Kopējie uzstādījumi</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dalīties</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Pieejams man</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Piekļuve ārējai saitei</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Nodrošina piekļuvi saite un iegulšanas kodu</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Parādīt vairāk</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Parādīt šo logu minimizētu</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Pārslēgties uz kompakt-skatu</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Pārslēgties uz kopējo skatu</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Trešo pušu konti</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Pieslēgt kontu</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Pieslēgt kontus</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Jūs varat savienot šādus kontus ar ONLYOFFICE™ dokumentiem. Tie tiks parādīti "Mani dokumenti" mapē un jums būs iespēja rediģēt un saglabāt tos tiešī portālā.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>Lai nodrošinātu veiksmīgu savienojumu, ievadiet nepieciešamos datus {0}šajā lapā{1}.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Savieno kontu</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Aizpildiet, lai veiktu izmaiņas</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Izdzēst trešo pusi</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Ļautu trešās puses uzstādījumus lietotājiem</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mapes nosaukums</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Atkārtoti savienot</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Konts</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Dalīties un ielikt koplietojamos dokumentos</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint/OneDrive biznesam</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Atlasīt</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Jūs varat izveidot dokumentus ({0}), tabulas ({1}), prezentācijas ({2}) un lejupielādēt tās populārākajos formātos.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Jūs varat regiģēt failus: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Jūs varat atvērt failus ar šādiem paplašinājumiem: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Jūs varat augšupielādēt jebkuru failu Dokumentos.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Akritne</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Noņemt no saraksta</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Pārrakstīt esošu failu ar tādu pašu nosaukumu.</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Atjauniniet savu plānu</value>
+  </data>
+</root>

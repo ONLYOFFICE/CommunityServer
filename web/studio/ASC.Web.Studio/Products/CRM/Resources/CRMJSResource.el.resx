@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Προσθήκη τηλεφώνου</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>διευθύνσεις</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>διευθύνσεις</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Διεύθυνση</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>ανά ημέρα</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>ανά ώρα</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>ανά μήνα</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>ανά εβδομάδα</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>ανά έτος</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Εταιρία</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Χώρα</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Τρέχον μήνας</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Τρέχουσα εβδομάδα</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Προσαρμοσμένη περίοδος</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Διεύθυνση παράδοσης</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Γίνεται αποθήκευση αλλαγών...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Γίνεται αποθήκευση αλλαγών...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Επεξεργασία τηλεφώνου</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Επεξεργασία εργασίας</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Η μορφή εικόνας δεν υποστηρίζεται</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Μετάβαση στις ρυθμίσεις</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Φόρτωση...</value>
+  </data>
+  <data name="MakeVoIPCall" xml:space="preserve">
+    <value>Πραγματοποίηση κλήσης VoIP</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>επαφές</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>συμβάντα</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>άτομα</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>εργασίες</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Δεν υπάρχουν εταιρίες</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Δεν υπάρχουν επαφές</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Δεν υπάρχουν συμβάντα</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Δεν υπάρχουν άτομα</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>χωρίς θέμα</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Δεν υπάρχουν εργασίες</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>επαφή</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>συμβάν</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>άτομο</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>εργασία</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Παρακαλούμε περιμένετε...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Επιλέξτε ένα αρχείο CSV</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Ρυθμίσεις έχουν ενημερωθεί με επιτυχία</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Δείτε περισσότερα</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Επίπεδο θερμοκρασίας</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Πολιτεία</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Ημερομηνία</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Διάρκεια</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="VoipSettingsPanelHeader" xml:space="preserve">
+    <value>Κλήσεις VoIP</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>ΤΚ</value>
+  </data>
+</root>

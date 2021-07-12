@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Sivuston käyttöoikeudet</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Tarkista tiliasetuksesi. Jos ne ovat mielestäsi oikein, kirjaudu sähköpostipalveluusi ja yritä sen jälkeen uudelleen.</value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>Tämä tili ei voi vastaanottaa sähköposteja.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>Tämä tili ei voi lähettää sähköposteja.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Tilin nimi</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Voit hallinnoida tilejä ja niiden asetuksia tältä listalta.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Tilejä, jotka on on liitetty käyttäen OAuth metodia, ei voi muokata. Voit ainoastaan muuttaa niiden nimeä.</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Tilien asetukset</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Tilin aktivoinnin jälkeen alat vastaanottamaan siihen lähetettyjä sähköposteja.</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktivoi tili</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktivoi</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Lisää kopio</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Lisää sähköpostiosoite</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Lisää sähköpostiosoite</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontaktit</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Lisää tunniste</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Lisäasetukset</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Näytä aina kuvat kaikilta</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Näytä aina kuvat lähettäjältä</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Poista kaikki</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Lataa Kaikki</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Liitä linkit tiedostoihin</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Liitä tiedostoja Asiakirjoista</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Liitteet</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Liitä kontaktiin</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Tunnistustapa</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Vastaa automaattisesti kaikkiin saapuviin viesteihin, esim. kun olet poissa. Jos tietty kontakti lähettää sinulle useita viestejä, niin automaatti vastaa korkeintaan kerran joka {0} .</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>Piilokopio</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Lisää uusi tili</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Luo postilaatikko</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Perusta verkkotunnus</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Kuvat on estetty</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Viesti</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>Lataa lukemattomat viestit saapuneiden viestien laatikon kansiosta välimuistiin, jotta voit avata ne nopeammin.</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Siirrä välimuistiin lukemattomat saapuneet viestit</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>Nykyinen kellonaika näytetään kalenterisi asetusten mukaisesti.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Tyhjennä kansio</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Yleiset Asetukset</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Kirjoita</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Kopioi Omiin asiakirjoihini</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopio</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Haluatko lisätä Asiakkuudenhallinnan kontaktin ja linkin tähän keskusteluun?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Luo ja linkitä</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Luo vain kontakti</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Luo sähköposti lähettäjälle</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Luo postilaatikko</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Lisää uusi tili</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Lisää uusi tunniste</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Poistettuasi tilin käytöstä et enää vastaanota siihen lähetettyjä sähköposteja.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Poista tili käytöstä</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Jos poistat tilin, kaikki sen viestit poistetaan.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Poista tili</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Poista tunniste</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Jos poistat tägin/tunnisteen luettelosta, se poistetaan myös kontakteista ja viesteistä.</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Näytä kuvat</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Valmis ja ilmainen verkkotunnus on nyt saatavillasi, jos haluat heti luoda uuden postilaatikon.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Tämä verkkotunnus on yhteinen kaikille portaaleille, joten on suositeltavaa että sinun yrityksesi verkkotunnusta käytetään yrityksen sähköposteihin.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Muokkaa tiliä</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Avaa asiakirja editorissa</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Muokkaa kontaktia</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Aktivoi keskustelut</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Sähköpostin automaattivastaaja on aktivoitu tälle tilille</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Salattu salasana</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Tämä osoite on jo olemassa. Ihan totta, on se!</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Viestikenttä ei voi olla tyhjä</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Tallenna kaikki Omiin Asiakirjoihin</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Ole hyvä ja valitse Asiakkuudenhallinnan nimikkeet, johon haluat liittää tämän viestin:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Vie</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Vie &gt;:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Postitushistoria on saatavilla Asiakkuudenhallinnan käyttäjille heidän käyttöoikeuksien mukaan.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Vie Asiakkuudenhallintaan</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>Sinulla on "Vain selaus" pääsyoikeudet tiettyyn liitettyyn tiedostoon, joten et voi jakaa sitä muiden kanssa. {0}{0} Nämä tiedostot voidaan kopioida "Omat Asiakirjat" kansioon ja liittää linkkeinä myöhemmin. {0}{0} Vaihtoehtoisesti voit pyytää asiakirjan omistajaa antamaan sinulle "Täysien oikeuksien" oikeudet tiedostoihin, jotka haluat liittää linkkeinä. Tämän jälkeen voit toistaa toiminnon uudelleen.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Joitakin tiedostoja ei voida liittää linkkeinä.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Poista linkki kansioon</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Luonnokset</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Saapuneet</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Lähetetyt</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Roskaposti</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Roskakori</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Lähetä edelleen</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Täysi pääsyoikeus</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Yhteiskoko</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Hae oletusasetukset</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>Muussa tapauksessa palaa saapuvien viestien postilaatikkoon.</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Siirry seuraavaan viestiin sen jälkeen kun tällä hetkellä nähtävillä oleva viesti siirretään tai poistetaan</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Sähköpostiryhmä, muokataan vain pääkäyttäjän paneelissa</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>Palvelintyyppi</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Tärkeä</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Linkitä Asiakkuudenhallintaan</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Valitse nimike:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Tapaus</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Mahdollisuus</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Ole hyvä ja valitse Asiakkuudenhallinnan nimikkeet, johon haluat liittää tämän keskustelun:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Kaikki tämän viestiketjun viestit (myös tulevat) näytetään Asiakkuudenhallinnan moduulissa. Viestihistoria näkyy Asiakkuudehhallinnan käyttäjille käyttöoikeuksien mukaisesti.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Linkitä:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Etsi nimellä</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Poista kaikki linkit</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Ladataan...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Hae viestit vain edelliseltä 30 päivältä</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Merkitse tärkeäksi</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Merkitse Ei tärkeäksi</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Merkitse luetuksi</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Merkitse Lukemattomaksi</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Merkitse kaikki viestit vastaanottajalta</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Tämä tili on poistettu käytöstä.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>lisää</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Muut vaihtoehdot</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Lisää uusi tunniste</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>ei osoitetta</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>ei aihetta</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>tai linkitä:</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Lähetä automaattinen vastaus vain henkilöille Kontakteissa</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Päällimmäisenä</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Avaa uuteen välilehteen</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>tai</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>kaikki</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>tärkeä</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>tärkeää</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>luettu</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>luettu</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>lukematon</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>lukematonta</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>sisältää liitteitä</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>sisältää liitteitä</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Poista kaikki valinnat</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>valittu</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Puhelin</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>Palvelintyyppi</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Portti</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Vain luku</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Saapuvat sähköpostit</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Hae viestit</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Vastaa kaikille</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Vastaa</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Tarkasta</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Tallenna &amp; Lähetä Viesti</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Tallenna Kalenteriin</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Tallenna Asiakirjoihin</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Tallenna Omiin Asiakirjoihin</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Tallenna projektin asiakirjoihin</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Tallennettu kohteeseen</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Valitse kaikki</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Kansio liitteille</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Kansio liitteille</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Lähtevä sähköposti</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Palvelin</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Sähköpostin automaattinen vastaaja</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>Tiedostot, jotka olet liittänyt linkkeinä, jaetaan sähköpostin vastaanottajille linkin kautta, joka on suunnattu portaalin ulkopuolisille henkilöille. Voit myöhemmin muuttaa tiedostojen käyttöoikeutta Asiakirjojen moduulissa.</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Perusta käyttöoikeudet sähköpostin vastaanottajille liitteenä oleviin linkitettyihin tiedostoihin:</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Näytä lisää tilejä</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Näytä lisää tunnisteita</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Normaali salasana</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Avaa uudessa välilehdessä</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP-palvelin</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Muokkaa tunnistetta</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Tunnistenimi</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Voit merkitä viestejä ja kontakteja tägien/tunnisteiden avulla. Se helpottaa niiden löytämistä suodattimien avulla.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Voit muokata ja poistaa tägejä Sähköposti moduulissa, mutta et Asiakkuudenhallinnasta tuotuja. Niitä voi muokata Asiakkuudenhallinnassa.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Tunnisteiden hallinta</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Aktivoi automaattivastaaja</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Voit poistaa sen käytöstä.</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Laita se päälle</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Haluatko todellakin poistaa linkin tästä keskustelusta Asiakkuudenhallinnasta?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Tämän keskustelun linkin poistaminen Asiakkuudenhallinnasta poistaa sen kaikista kontakteista, mahdollisuuksista ja tapauksista, jotka olet valinnut aikaisemmin. 
+Kaikki viestit, jotka vastaanotettiin aikaisemmin, jäävät Asiakkuudenhallinnan postituksen historiaan, mutta tulevat viestit keskusteluista eivät näy Asiakkuudenhallinnassa.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Poista linkki</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Lataa tiedosto</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Yhteyden suojaus</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Yhteyden suojaus</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Yhteyden suojaus</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Näytä yhteyshenkilön tiedot</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Luo sähköposti</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Luo uusi viesti</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Eilen</value>
+  </data>
+</root>

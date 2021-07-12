@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Активні користувачі - це учасники порталу, за винятком гостей та користувачів із статусом "вимкнено"</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Додати вибір опитування</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Новий {!user}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Додати новий соціальний профіль</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Додати супровідний текст</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Загальна кількість голосів</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Вибір голосування</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Прикріпити файли
+</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Прикріпити файл з "Документів"
+</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Прикріпити файл з документів проекту
+</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Скорочення посилань зпрошень до порталу та посилання для спільних документів за допомогою Bitly</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Увійдіть на портал, використовуючи свої аккаунти в соціальних мережах та шукайте контакти</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Підключіть свої улюблені служби зберігання на хмарі й зберігайте всі ваші файли в одному місці</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Створити презентацію</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Створити таблицю</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Створити документ</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Докладніше...
+</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Ви можете змінити ім'я домену пізніше за допомогою розділу порталу "Налаштування".</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Розмір компанії</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Компанія</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Завантажуйте документи в оригінальному форматі
+</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Для швидшого редагування всі файли, які ви завантажуєте, буде перетворено у формат Office Open XML. </value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Видалити файл</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Редагувати файл
+</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Створюйте{1} файли прямо на своєму порталі або {2}завантажуйте{3} їх сюди, щоб ви могли {4}відкривати{5} і {6}редагувати{7} їх за допомогою редактора ONLYOFFICE™, надати до них доступ друзям чи колегам, організувати по папках.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Завантажити файли{3} безпосередньо на вашому порталі.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Список документів порожній</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Введіть питання для голосування</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Виберіть вибір голосування</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Назва не повинна містити таких символів:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Всі</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Додати повідомлення</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Додати закладку</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Перейти до документів</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Створити нову компанію</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Створити нову персону</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Створити новий проект</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Все, що додається до Спільного модуля, буде показано тут. Користувачі можуть ділитися цікавою інформацією, думками та досвідом з іншими, висловлювати свої міркування та отримувати відгуки від інших.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Не додано жодних подій</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Тут буде показано події для доступного для вас модуля CRM. Нові, додані або  редаговані компанії та особи, нові випадки, можливості та створені завдання - все, що стосується CRM, перейде на цю вкладку.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Події CRM  ще не додано</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Зміни у доступному Вам модулі проектів відображатимуться тут. Проекти, членами або послідовниками яких ви є, ваші нові завданя або зміни  існуючих, допоможуть вам не пропустити нічого.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Ще не було додано жодних проектів</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Зміни до доступних для вас документів порталу відображатимуться тут. Нові доступні вам документи, зміни до існуючих доступних документів, загальні документи, доступні для всіх користувачів порталу, відображаються тут.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Додати подію</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Канал
+</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Дозволити кілька варіантів для цього опитування</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Немає новин за цим фільтром
+</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>У цьому розділі відсутні новини, що відповідають параметрам фільтру.
+</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Немає дзвінків, що відповідають цьому фільтру</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Жодні дзвінки, що відповідають вашому фільтру, не можуть відображатися в цьому розділі.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Посилання для користувачів порталу</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Якщо ви хочете оплатити свій портал ONLYOFFICE, натисніть кнопку Купити зараз.</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Будь ласка, сплачуйте за свій ONLYOFFICE і отримайте:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Фільтр:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>введіть запит
+</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Від</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Обрати</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Сортування по</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>по</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Натиснувши на цей прапорець, ви приймаєте умови {0}Ліцензійних угод{1}</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Термін дії ліцензії минув або квота користувача не відповідає ліцензії</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Файл активації ліцензії</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Ключ ліцензії невірний</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Ви повинні ввести ліцензійний ключ</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>Модулі та інструменти ONLYOFFICE:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Редактори онлайн-документів{1}{0}Управління документами{1}{0}Пошта{1}{0}Проекти{1}{0}CRM{1}{0}Календар{1}{0}Спільнота{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} активних користувачів</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0} + активних користувачів</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Вийти</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Ввести номер</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>SMS із кодом доступу до порталу було відправлено на номер мобільного телефону {0}{1}{2}. {5}Введіть код і натисніть кнопку "{3}". Якщо повідомлення не було отримано протягом більш ніж 3 хвилин, натисніть кнопку "{4}".
+</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Ваш поточний номер мобільного телефону: {0}
+</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Введіть номер мобільного телефону
+</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Щоб продовжити роботу на порталі, введіть новий номер телефону. Номер мобільного телефону необхідно вводити в міжнародному форматі з кодом країни.
+</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Більше</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Новий документ</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Новий файл</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Відсутні елементи для відображення
+</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Усі дії на порталі відображаються в цьому розділі. Зараз події на порталі, які можна відобразити, відсутні. Почніть використовувати свій портал, заповніть його вмістом, і всі новини відображатимуться на цій сторінці. </value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Наступний</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Немає коментарів</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Примітка. Цю дію скасувати не можна.
+</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Дозволити лише одну відповідь для цього опитування</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Питання для опитування</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Тип опитування</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Попередній</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Видалити цей файл?
+</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Прочитайте про некомерційне використання</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Видалити зі списку</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Прибрати повідомлення</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Скинути фільтр
+</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Пошук в модулі</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Вибрати все</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Надіслати сповіщення</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Додайте користувачів або групи та надайте їм право.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Налаштування спільного доступу</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Показати наступні новини
+</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Веб-сайт</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Вихідний код доступний на {0} GitHub (1)</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Базова ціна</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Дивіться авангамат для повного переліку валют</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>У вашому тарифному плані є великі обмеження щодо розміру файлу.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Великий розмір файлу</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Безкоштовно
+</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Відкрити повний прайс-лист</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Вибрати новий тарифний план?
+</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Обмежена пропозиція часу</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Так, оновити план
+</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0} 1 місяць {2} {1} передплата</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0} 1 рік (2) {1} передплата</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0} 3 роки (1) передплата</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Ви використовуєте план для некомерційної організації.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Термін дії платежу вашого порталу закінчився.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Ви використовуєте {0} - {1} план активних користувачів. {2} Оплата прострочена. {3} {4} Щоб продовжити використання ONLYOFFICE, продовжте існуючий план або змініть його, використовуючи таблицю, наведену нижче.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Ви використовуєте {0} - {1} план активних користувачів.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Ви використовуєте ONLYOFFICE ™ Enterprise Edition.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>місяць</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>рік</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 роки</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Пропозиція доступна лише для річних абонентів.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Найпопулярніша підписка</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Додавання нового порталу перевищить максимальну кількість порталів, дозволених вашим поточним планом ціноутворення.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Зберегти {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} для користувача / місяць</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Надішліть свій запит</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Запит вмісту</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Будь-ласка, опишіть деталі вашого запиту тут</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Будь ласка, напишіть своє повідомлення тут</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Простір для зберігання даних порталу перевищено
+</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Видаліть весь застарілий вміст з порталу або змініть поточний тарифний план на тарифний план з більшим простором для зберігання.
+</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Недостатньо вільного простору для зберігання
+</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Виберіть кількість ваших товаришів по команді</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Скільки користувачів вам потрібно?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>План, який підходить для вашої команди {0} {2} - {3} активних користувачів {7} + {4} {1} Диск Storage</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Неможливо двічі додати той самий обліковий запис і контакт.
+</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Додавання нових користувачів призведе до перевищення максимально дозволену кількість учасників порталу згідно з поточним тарифним планом.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Додавання нових користувачів</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>Плани ціноутворення з більш ніж {0} активними користувачами {1} доступні лише за запитом.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Ви не можете знизити плану ціноутворення.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Ви можете створювати документи ({0}), електронні таблиці ({1}), презентації ({2}) і завантажувати їх в найбільш поширених форматах.
+</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Можна редагувати такі файли: {0}.
+</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Можна відкривати файли з такими розширеннями: {0}.
+</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>У модуль "Документи" можна завантажувати будь-які файли.
+</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Призвіще</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Оновлення тарифа
+</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Вибір</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>вер.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Відсутні елементи для відображення
+</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Відсутні елементи для відображення
+</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Проголосувати</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Новини
+</value>
+  </data>
+</root>

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Görevi Al</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Kabul Et</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>İlk görevi ekle</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Yeni alt görev ekle</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Yeni görev ekle</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Alt görev ekle</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Yeni Görev Ekle</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Tüm Görevler</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Atandığı kişi</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>En iyi yol geri dönmek ve alt görevleri elle sonlandırmak ve sonrasında görevi kapatmaktır.</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>En iyi yöntem alt görevleri elle kapatmaktır, daha sonra görevleri kapatmaya çalışabilirsiniz</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Sorumlu</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Durumu Değiştir</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Bağlantı tipi seçin</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Projeyi seç</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Görev seçin</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Tarafından kapatıldı</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Kapanış tarihi</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Görevler kapatılıyor</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Görev kapatılıyor</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Yorum Yok</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Yorum Yok</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Konuyu Kopyala</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Oluşturan</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Yeni bağlantı oluştur</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Oluşturulma Tarihi</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Bitiş tarihi</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen görev yok.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Her görevin bir başlığı olmalıdır</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Görevi düzenle</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Tüm alt görevleri bitir ve kapat</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Tüm alt görevleri kapat, daha sonra görevleri kapat</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Vade tarihi</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Yeni görev oluştururken hata</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Görevi takip et</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Göreve git</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Yüksek</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Sorumluya bildir</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Mesaj başarılı şekilde yollandı</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Aşama</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Görevleri başka bir Aşamaya taşı</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Aşamaya taşı</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Görevi başka bir aşamaya taşı</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Aşamaya taşı</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>hiçbiri</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Hiçkimse</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Bu süzgeçle eşleşen görev yok</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Henüz hiçbir görev oluşturulmamış</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Öncelik</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Proje</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Geçersiz bağlantı. Lütfen başlangıç ve bitiş tarihlerinin doğru olduğundan emin olunuz.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>İlgili görevler</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>İki görevin başlangıç ve bitiş tarihleri arasındaki aralık</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Ilgili Konular</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Ilgili Konular</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Görevi kaldırma</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Bu görevi silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Görevleri sil</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Bu görevi kaldırmak istediğinize emin misiniz?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Sorumlular</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Sorumlusu olmayan görevleri göster</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Alt görev</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Alt görevler</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Altkonu Yok</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Altkonu Yok</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Görev</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Oluşturan</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Atanan</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Görevler</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Görev Sayısı</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Görevler, yöneticinin, işi proje katılımcılarına yaymasına ve belirli bölümleri belirli sorumlulara vermesine yardım eder. Görev eklemeye başlayın, yapılmasını sağlayın, sorumluları belirleyin ve takım çalışmasını yönetin.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Takip süresi</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>Açık alt görevli görevleri kapatmaya çalışıyorsunuz</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Görevi kapatıyorsunuz</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Görevi takip etmeyi bırak</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Sıralanmamış Görevler</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Aşamaya taşınacak</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Kimse</value>
+  </data>
+</root>

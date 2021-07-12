@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Piekļuve liegta. Nepieciešamas administratora privilēģijas.</value>
+  </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>Kontakta dzēšanas laikā radās kļūda. Lūdzu, pārbaudiet tīkla savienojumu vai sazinieties ar tīkla vai portāla administratoru.</value>
+  </data>
+  <data name="ErrorDkimPublicKeyInUse" xml:space="preserve">
+    <value>Šī publiskā DKIM atslēga jau tiek izmantota. Lūdzu, no jauna atveriet vedni.</value>
+  </data>
+  <data name="ErrorDuplicateAlias" xml:space="preserve">
+    <value>Jūs vēlaties izveidot pseidonīmu ar jau pastāvošu adresi.</value>
+  </data>
+  <data name="ErrorDuplicateDomain" xml:space="preserve">
+    <value>Domēns jau tiek izmantots.</value>
+  </data>
+  <data name="ErrorDuplicateGroup" xml:space="preserve">
+    <value>Jūs vēlaties izveidot pasta grupu ar jau pastāvošu adresi.</value>
+  </data>
+  <data name="ErrorDuplicateMailbox" xml:space="preserve">
+    <value>Jūs vēlaties izveidot pastkasti ar jau pastāvošu adresi.</value>
+  </data>
+  <data name="ErrorDuplicateMailGroupAddress" xml:space="preserve">
+    <value>Jūs vēlaties pievienot jau pastāvošu adresi.</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Iekšējā servera kļūda. Mēģiniet vēlāk vēlreiz.</value>
+  </data>
+  <data name="ErrorInvalidAddress" xml:space="preserve">
+    <value>Nederīga adrese.</value>
+  </data>
+  <data name="ErrorInvalidAlias" xml:space="preserve">
+    <value>Nederīgs pseidonīma nosaukums.</value>
+  </data>
+  <data name="ErrorInvalidDomain" xml:space="preserve">
+    <value>Nederīgs domēna nosaukums.</value>
+  </data>
+  <data name="ErrorInvalidMailbox" xml:space="preserve">
+    <value>Nederīgs pastkastes nosaukums.</value>
+  </data>
+  <data name="ErrorInvalidMailGroup" xml:space="preserve">
+    <value>Nepareiza grupa</value>
+  </data>
+  <data name="ErrorMailboxLimit" xml:space="preserve">
+    <value>Pārsniegts lietotāja pastkastu limits.</value>
+  </data>
+  <data name="ErrorUnknownUser" xml:space="preserve">
+    <value>Nezināms lietotājs.</value>
+  </data>
+  <data name="ErrorUnpaidAccessDenied" xml:space="preserve">
+    <value>Nav pieejams neapmaksātajā versijā</value>
+  </data>
+  <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
+    <value>Nederīgs koplietošanas domēna operācija.</value>
+  </data>
+</root>

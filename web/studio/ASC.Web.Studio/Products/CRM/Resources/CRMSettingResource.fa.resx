@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOption" xml:space="preserve">
+    <value>افزودن یک گزینه</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>افزودن این دسته بندی</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>افزودن این مرحله</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>افزودن این فیلد</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>افزودن این نوع</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>افزودن این برچسب</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>ستون ها</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>تنظیمات متداول</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>تنظیمات ارز</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>ارز پیش فرض</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>حذف دسته بندی</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>حذف نوع</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>حذف فیلد</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>حذف برچسب</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>ویرایش دسته بندی</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>ویرایش نوع</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>ویرایش فیلد</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>ویرایش مرحله</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>صادر کردن</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>صادر کردن تمام داده ها</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>لیست فیلدها</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>میزبان</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>پورت</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>حذف گزینه</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>انتخابها</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>حجم</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>ارسال اطلاعات</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>متن</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+</root>

@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.ข้ออภิปรายถูกแก้ไข: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แก้ไขข้ออภิปราย: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"อ่านเพิ่มเติม":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.โครงการ. นำข้อมูลเข้าจาก Basecamp
+
+ข้อมูลใหม่ได้ถูกนำเข้าอย่างสมบูรณ์แล้ว
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.คุณได้ถูกเพิ่มเข้าไปในทีมโครงการ: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มคุณเข้าทีมโครงการ:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.แจ้งเตือนขั้นตอนสำคัญเกินกำหนด: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" ขั้นตอนสำคัญของโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" เกินกำหนด. 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.ขั้นตอนสำคัญเสร็จ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้จบขั้นตอนสำคัญ "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+ ^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.ขั้นตอนสำคัญถูกสร้าง: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มขั้นตอนสำคัญใหม่: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.แจ้งเตือนขั้นตอนสำคัญครบกำหนด: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+เหลือเวลาไม่ถึง 48 ชั่วโมงก่อนจะครบกำหนดขั้นตอนสำคัญ "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.ขั้นตอนสำคัญถูกแก้ไข: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แก้ไขขั้นตอนสำคัญ "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.มีความคิดเห็นใหม่ในข้ออภิปราย: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มความเห็นใหม่ในข้ออภิปราย: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"อ่านเพิ่มเติม":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.มีความคิดเห็นใหม่ในงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มความเห็นใหม่ในงาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"อ่านเพิ่มเติม":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.ข้ออภิปรายใหม่ถูกสร้างขึ้น: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เริ่มข้ออภิรายใหม่: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"อ่านเพิ่มเติม":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.เตือนความจำของงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" เตือนคุณเรื่องงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.เตือนความจำของงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+วันนี้เป็นวันครบกำหนดของงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.คุณได้ถูกปลดออกจากทีมโครงการ: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" ได้ปลดคุณออกจากทีมโครงการ: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.ขั้นตอนสำคัญถูกกำหนดให้คุณ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แต่งตั้งให้คุณรับผิดชอบขั้นตอนสำคัญ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.คุณได้ถูกแต่งตั้งให้เป็นผู้จัดการโครงการ: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แต่งตั้งคุณเป็นผู้จัดการโครงการ  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.มีงานย่อยถูกกำหนดให้คุณ: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แต่งตั้งคุณให้รับผิดชอบงานย่อย: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ถูกเพิ่มไปที่งาน  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.งานถูกกำหนดให้คุณ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แต่งตั้งคุณให้รับผิดชอบงาน: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.งานย่อยเสร็จ: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้จบงานย่อยของงาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.งานย่อยถูกสร้าง: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มงานย่อยใหม่: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ไปที่งาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+งานย่อยถูกกำหนดให้รับผิดชอบโดย "$Responsible".
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.งานย่อยถูกลบ: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" ได้ลบงานย่อย: "$SubEntityTitle" ของงาน  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.งานย่อยถูกเริ่มใหม่: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เริ่มงานย่อยใหม่อีกครั้ง: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ของงาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.งานเสร็จ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้จบงาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.งานถูกสร้าง: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เพิ่มงานใหม่: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ไปที่โครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+ $AdditionalData.get_item("TaskDescription") 
+
+งานถูกกำหนดให้รับผิดชอบโดย"$Responsible"
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.งานถูกลบ: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้ลบงาน "$EntityTitle" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.งานถูกแก้ไข: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้แก้ไขงาน "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.งานถูกเริ่มใหม่:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ได้เริ่มงานใหม่ "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ในโครงการ "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^คุณได้รับอีเมลนี้เพราะว่าคุณได้ลงทะเบียนไว้ที่ "${__VirtualRootPath}":"${__VirtualRootPath}". หากต้องการจะเปลี่ยนแปลงการแจ้งเตือน, กรุณาเข้าไปปรับที่ "การตั้งค่าลงทะเบียน":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. ข้ออภิปรายถูกแก้ไข: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. นำเข้าข้อมูลจาก Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. คุณถูกเพิ่มเข้าไปในทีมโครงการ</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. แจ้งเตือนขั้นตอนสำคัญเกินกำหนด: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. ขั้นตอนสำคัญเสร็จ: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. ขั้นตอนสำคัญถูกสร้าง: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. แจ้งเตือนขั้นตอนสำคัญครบกำหนด: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. ขั้นตอนสำคัญถูกแก้ไข: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. มีความเห็นใหม่ที่ข้ออภิปราย: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. มีความเห็นใหม่ที่งาน: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. มีความเห็นใหม่: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. เตือนความจำงาน: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. เตือนความจำงาน: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. คุณถูกปลดออกจากทีมโครงการ</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. ขั้นตอนสำคัญถูกกำหนดให้คุณ: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. คุณถูกแต่งตั้งเป็นผู้จัดการโครงการ</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. มีงานย่อยถูกกำหนดให้คุณ: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. มีงานถูกกำหนดให้คุณ: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานย่อยเสร็จ: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานย่อยถูกสร้าง: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานย่อยถูกลบ: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. เริ่มงานย่อยใหม่อีกครั้ง: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานเสร็จ: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานถูกสร้าง: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานถูกลบ: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. งานถูกแก้ไข: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>โครงการ [$ProjectTitle]. เริ่มงานใหม่อีกครั้ง: $EntityTitle</value>
+  </data>
+</root>

@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Prava za dostup do portala</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Dodaj prekretnicu</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Snimi</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Dodaj vođu projekta</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Dodaj zadatak</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Vođa projekta može</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>dodaj ili izbriši korisnika u/iz tima projekta</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>Postavi prava upotrebe projekta (samo za {0}privatne projekte{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Upravljaj (kreiraj, mijenjaj, briši) prekretnice, zadatke, rasprave, dokumente i {2}{0}ograniči pristup do njih{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Upravljaj (kreiraj, mijenjaj, briši) prekretnice, zadatke, rasprave, dokumente</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Kontaktirajte preko razgovora</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Pošalji email</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Zatvori projekt</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Kreirajte prvi projekt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Kreiraj novi projekt</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Obriši projekt</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Sigurni ste da želite obrisati ovaj projekt?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Obriši projekte</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Sigurni ste da želite obrisati ove projekte?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>U ovoj sekciji nije moguće pokazati projekte koji odgovaraju vašem filteru</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Uredite projekt</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Kreirajte projekte i radite produktivno</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Kreirajte projekte i radite produktivno</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Lista projekata je prazna</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Slijedite ovom projektu</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Dodaj zadatak prekretnici</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Svi odgovorni korisnici</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Odredite odgovorne korisnike</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Pogled preko cijelog ekrana</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Način lijevog panela</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Kreirajte link</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Link se kreira</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Dvokliknite naslov na lijevi strani panela</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Kliknite (desni klik) na odgovornog korisnika na lijevom panelu</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Uredite naslov</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Za prikaz Ganttovoga grafa morate izabrati barem jedan projekt koji želite vizualizirati.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Nijedan projekt nije izabran.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantogram</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Visoka prioriteta</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Aktivan</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Zatvoren</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Objekti u grafu mogu imati različit izgled, ovisno o situaciji:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Prekoračen rok</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Možete otvoriti panel sa osnovnim funkcijama sa tipkom H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Nevažeći link</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Simboli se prikažu kada sa strelicom miša prelazite preko objekata grafa.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Legenda grafa</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Povežite zadatke</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Zadržite strelicu iznad zadatka, kliknite na bijeli krug, povucite strelicu na drugi zadatak i onda je ispustite preko bijelog kruga koji se tamo pojavi</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Vrsta veze</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Veza sa</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Samo otvoreni zadaci i prekretnice</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Tiskaj</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Ponovi unos</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Ponovo otvori</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Kliknite (desni klik) na zadatak (prekretnicu)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Otvorite padajući meni</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Kliknite (desni klik) na prazan prostor</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Kreirajte novi zadatak</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Kliknite (desni klik) na prazan prostor i pomjerite desno</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Kreirajte novi zadatak sa rokom</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Više o tome</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Prilagodite ekranu</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Zadatak bez određenog roka</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Dani</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Vremenska ljestvica</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Tjedan</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Upotrijebi kotač miša za mijenjanje vremenske ljestvice</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Trenutno vračanje današnjim aktivnostim iz bilo kojeg mjesta</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Vrati</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Lista brisanja će biti obrisana i više neće biti moguće povratiti protekle radnje.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Pomakni lijevo</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Pomakni desno</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Privatni projekt</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Snimi ovaj projekt kao privatni</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Uredite podatke o timu</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Upravljaj unos vremena</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Ne možete zatvoriti projekt sa aktivnim prekretnicama.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Ne možete zatvoriti projekt sa otvorenim zadacima.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Obavijesti vođu projekta preko emaila</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Obriši projekt</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Vođa projekta</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Status projekta</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Tim</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Predložak projekta</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Predlošci projekta</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Osvježi graf</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Snimi projekt</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Izaberi predložak projekta</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Odaberi</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Zaključeni zadaci. Kliknite da otvorite cijelu listu za trenutnu prekretnicu.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Otvoreni zadaci. Klikni za otvaranje cijele liste za trenutnu prekretnicu.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Korisnik odgovoran za prekretnicu. Kliknite na pregled svih prekretnica, koje upravlja trenutni korisnik.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Vođa projekta. Kliknite za pregled svih projekata koje vodi trenutni korisnik.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Otvoreni zadaci. Klikni za otvaranje cijele liste zadataka trenutnog projekta.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Tim. Klikni za otvaranje liste svih članova projektnog tima.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Otvorite podzadatke. Kliknite da bi otvorili cijelu listu za trenutni zadatak.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Korisnik odgovoran za zadatak. Klikni za pregled svih zadataka dodijeljenih trenutnom korisniku.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Korisnici odgovorni za zadatake. Klikni za pregled svih korisnika dodijeljenih trenutnom zadatku.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Pregledaj aktivne prekretnice</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Pregledaj otvorene zadatke</value>
+  </data>
+</root>

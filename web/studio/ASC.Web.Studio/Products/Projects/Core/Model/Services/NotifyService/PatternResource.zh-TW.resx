@@ -1,0 +1,794 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.討論評論已編輯："$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"閱讀更多"："${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^您收到此電郵是因為您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 平台的註冊用戶。要變更通知類別，請管理您的"訂閱設定":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.為任務編輯的註釋："$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 任務: 
+
+$AdditionalData
+
+"閱讀更多":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此任務的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.編輯討論項目: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已編輯了討論:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"想了解更多":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+你的入口網站網址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"編輯訂閱設定":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.項目. 從Basecamp導入數據
+
+新數據已成功導入.
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.您已添加到項目團隊: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已將您添加到項目團隊:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.逾期里程碑通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" is overdue. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶
+ "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.討論已刪除: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已刪除討論 "$EntityTitle" 在 "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+
+^
+您收到此電子郵件是因為您是註冊用戶  "${__VirtualRootPath}":"${__VirtualRootPath}" 
+門戶. 
+要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.里程碑關閉:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.里程碑創建： "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 增加了一個新的里程碑: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" to the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.里程碑到期通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+距離"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 專案中的"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"里程碑截止日期剩下不到48小時。
+
+^由於您是"${__VirtualRootPath}":"${__VirtualRootPath}" 的註冊使用者，所以您會收到此封電子郵件。若要變更通知類型, 請編輯您的"訂閱設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.里程碑已刪除: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 
+已刪除里程碑 "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+$AdditionalData 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. : "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 
+已刪除里程碑 "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+$AdditionalData 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.里程碑已編輯:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶"${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.里程碑恢復: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the milestone "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.有新的討論: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the discussion:
+
+$AdditionalData
+
+"想更進一步了解":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+你的入口網站網址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"編輯訂閱設定":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.新增任務註釋: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 己經新增註釋到這項任務:
+
+$AdditionalData
+
+"顯示更多":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+您的入口網站網址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"編輯訂閱設定":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.要討論的新文件:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" discussion: 
+
+$AdditionalData
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.新任務文件: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task.
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶
+ "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.新討論: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"開始了一個新的討論:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"顯示更多":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+您的入口網站網址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"編輯訂閱設定":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.項目已刪除:  "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the project "$EntityTitle" 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶
+ "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>項目[$ ProjectTitle].您</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle]. </value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>[$ProjectTitle] 的專案。恢復的里程碑： $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>項目[$ ProjectTitle].新</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>項目. 專案已刪除</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>項目[$ ProjectTitle].您</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.關於任務的提醒: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.關於任務的提醒:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Today is the deadline for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.您已從項目團隊中刪除: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" 已將您從項目團隊中刪除: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.不再分配任務 "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime you are no longer responsible for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData.get_item("TaskDescription")
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.您被指派了一個時程表"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已經指派您負責這個時程表： "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 在"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 專案。
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.您被任命為項目經理: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已任命您為該項目的經理 "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.分配給您的子任務:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the subtask: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.分配給您的任務:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已經任命您負責這項任務: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" project.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 
+要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.子任務已關閉: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the subtask added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.子任務已創建: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 添加了一個新的子任務: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+子任務已分配給 "$Responsible". 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.子任務已刪除:"$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.子任務已編輯: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" subtask of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+子任務已分配給 "$Responsible". 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.子任務已重啟: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.任務已關閉: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the task "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData 
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.任務創建: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+ $AdditionalData.get_item("TaskDescription") 
+
+任務分配給 "$Responsible"
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.任務已刪除:  "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the task "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+$AdditionalData 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.任務已編輯: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.任務已移動: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has removed the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task from the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 任務現在不屬於任何里程碑.
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.任務已移動: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task to the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 要更改通知類型，請管理您的“訂閱設置”:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.任務恢復:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the task "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData
+
+ ^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" portal. 如果您不想收到有關此討論的通知，請“退訂”:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_EditedCommentForMessage_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 編輯評論以供討論: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_EditedCommentForTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 編輯任務註釋: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_EditMessage_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).
+討論已編輯: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>項目. 數據導入</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>項目[$ ProjectTitle].您</value>
+  </data>
+  <data name="subject_InviteToProject_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 您已添加到項目團隊</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MessageDeleted_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 討論已刪除: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneClosed_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).
+里程碑關閉: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed)</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneCreated_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 里程碑創建: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneDeleted_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).里程碑已刪除: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneEdited_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 里程碑已編輯: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_MilestoneResumed_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 里程碑恢復: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>[$ProjectTitle] 的專案。新注釋商榷： $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 討論新評論: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].新</value>
+  </data>
+  <data name="subject_NewCommentForTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 對任務的新評論: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>項目[$ ProjectTitle].新</value>
+  </data>
+  <data name="subject_NewFileForDiscussion_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 討論新文件: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].新</value>
+  </data>
+  <data name="subject_NewFileForTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).新文件到任務: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>項目[$ ProjectTitle].新</value>
+  </data>
+  <data name="subject_NewMessage_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 
+新討論: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>項目. 專案已刪除</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>您已被加入到項目團隊</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>討論已被刪除</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>里程碑已關閉</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>創建了壹個新的裏程碑</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>里程碑已刪除</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>里程碑已經</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>創建壹個新的討論</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>項目. 專案已刪除</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>里程碑已經</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>你被任命為專案經理</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>子任務已分配</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>任務已指派給你</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>子任務已關閉</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>創建了壹個新的子任務</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>子任務已被刪除</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>子任務已恢復</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>任務已關閉</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>創建了壹個新的任務</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>任務已刪除</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>任務已恢復</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_ReminderAboutTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 提醒任務: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 提醒任務: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>項目[$ ProjectTitle].您</value>
+  </data>
+  <data name="subject_RemoveFromProject_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 您已從項目團隊中刪除</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 
+任務不再分配給您: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).
+分配給您的里程碑: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>項目[$ ProjectTitle].您</value>
+  </data>
+  <data name="subject_ResponsibleForProject_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 您被任命為項目經理</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).分配給您的子任務: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).分配給您的任務: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_SubTaskClosed_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).子任務已關閉: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_SubTaskCreated_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).
+子任務已創建: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_SubTaskDeleted_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 子任務已刪除: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_SubTaskEdited_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 子任務已編輯: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>項目[$ProjectTitle].</value>
+  </data>
+  <data name="subject_SubTaskResumed_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).
+子任務已恢復: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskClosed_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 任務已關閉: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskCreated_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).任務已創建: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskDeleted_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 
+任務已刪除: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskEdited_tg" xml:space="preserve">
+    <value>專案[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 任務已編輯: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 任務已刪除: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone_tg" xml:space="preserve">
+    <value>專案$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 
+任務已移動: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>項目[$ ProjectTitle].任務</value>
+  </data>
+  <data name="subject_TaskResumed_tg" xml:space="preserve">
+    <value>專案 [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).任務恢復: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>沒人</value>
+  </data>
+</root>

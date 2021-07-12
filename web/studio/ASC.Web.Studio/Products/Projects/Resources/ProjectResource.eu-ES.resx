@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Atarirako Sarbide Baimenak</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Gehitu mugarria</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Gorde</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Gehitu proiektuaren kudeatzailea</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ataza gehitu</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Projektuaren kudeatzaileak egin ahal du:</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>erabiltzaileak gehitu edo ezabatu proiektuko lantaldetik</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>Proiektuko partaideen sarbide baimenak ezarri (bakarrik {0}proiektu pribaturako{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>kudeatu (sortu, editatu, ezabatu) mugarriak, atazak, eztabaidak dokumentuak eta {2}{0}horietarako sarbidea mugatu{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>kudeatu (sortu, editatu, ezabatu) mugarriak, atazak, eztabaidak, dokumentuak</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Harremanetan jarri txat bitartez</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Posta bidali</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Itxi Proiektua</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Sortu Lehenengo Proiektua</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Proiektu berria sortu</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Ezabatu Proiektua</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Ziur zaude proiektu hau ezabatu nahi duzula?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Ezin da zure iragazkiekin bat datorren proiekturik erakutsi atal honetan</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Editatu Proiektua</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Sortu proiektuak eta eraginkortasunez lan egin</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Proiektuen zerrenda hutsik dago</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Jarraitu proiektu hau</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Gehitu ataza mugarriari</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Arduradun guztiak</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Esleitu arduradunak</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Pantaila osoko modua</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Ezkerreko panel modua</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Itxi</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Esteka sortu</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Esteka sortzen ari da</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Ezkerreko paneleko tituluan klik bikoitza egin</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Klik egin eskuin botoiaz arduradunaren gainean ezker panelean</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Editatu izenburua</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Gantt diagrama ikusi ahal izateko, gutxienez diagrama moduan ireki nahi duzun proiektu bat hautatu.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Ez da proiekturik hautatu.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantt Diagrama</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Lehentasun altua</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Oharra</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Gaituta</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Amaituta</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Grafikak itxura ezberdina izan ahal du kokapenaren arabera:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Iraungita</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Panela ekintza nagusiekin ireki ahal duzu H tekla erabiliz.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Esteka baliogabea</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Hurrengo ikurrak sagua grafikako objektuen gainetik pasatzen bistaratuko dira.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Grafikoaren azalpena</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Atazak estekatu</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Mantendu kursorea ataza baten gainean, sakatu biribil zuri bat, eraman kursorea beste ataza batera eta askatu botoia agertuko den biribil zuriaren gainean</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Esteka mota</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Honekin estekatu</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Irekita dauden ataza eta mugarriak baino ez</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Gaur</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Inprimatu</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Berregin</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Berrireki</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Klik egin eskuineko botoiaz atazan (mugarrian)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Menu desplegablea ireki</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Klik egin eskuineko botoiaz gune zuri batean</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Ataza berria sortu</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Klik egin eskuineko botoiaz gune zuri batean eta arrastratu eskuinera</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Ataza berria sortu epe mugarekin</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Informazio gehiago</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Pantailara doitu</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Epe mugarik gabeko ataza</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Egun</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>hilabete</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Denbora lerroa</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Astea</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Denbora lerroren eskala aldatzeko erabili saguaren gurpila</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Azkar itzuli gaurko aktibitateetara edozein tokitan zaudela</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Desegin</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Desegin zerrenda ere ezabatuko da, ezin izango duzu lehen egindakoak desegin.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Ezkerrera eraman</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Eskuinera eraman</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Proiektu Pribatua</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Proiektu hau pribatu gisa gorde</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Kudeatu Taldea</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Ordua eskuz sartu</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Ezin duzu mugarri aktiboak dituen proiektu bat itxi.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Ezin da proiektua itxi ataza irekiak baditu.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Proiektuaren kudeatzailea e-postaz jakinarazi</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Ados</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Proiektua</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Ezabatu Proiektua</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Proiektuaren Kudeatzailea</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proiektuak</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Proiektuaren Egoera</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Taldea</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Proiektuaren Txantiloia</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Proiektu Txantiloiak</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Freskatu grafika</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Proiektua Gorde</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Hautatu proiekturako txantiloia</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketak</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Atazak itxita. Klik egin mugarri honetako zerrenda osoa ikusteko.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Atazak ireki. Klik egin mugarri honetako zerrenda osoa irekitzeko.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Mugarriaren ardura duen erabiltzailea. Klik egin erabiltzaile honek kudeatzen dituen mugarri guztiak ikusteko.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Proiektuaren Kudeaketa. Klik egin erabiltzaileak kudeatzen dituen proiektu guztiak ikusteko.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Irekitako atazak. Klik egin proiektuko zerrenda osoa ikusteko.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Taldea. Klik egin proiektuko taldekide guztien zerrenda ikusteko.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Azpiatazak ireki. Klik egin oraingo atazarako zerrenda osoa ikusteko.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Atazaren ardura duen erabiltzailea. Klik egin erabiltzaileari esleitutako ataza guztiak ikusteko.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Atazaren ardura duten erabiltzaileak. Klik egin atazaren ardura duten erabiltzaile guztiak ikusteko.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Mugarri aktiboak ikusi</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Ataza irekiak ikusi</value>
+  </data>
+</root>

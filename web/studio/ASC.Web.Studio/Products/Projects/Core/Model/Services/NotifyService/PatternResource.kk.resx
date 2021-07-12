@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Comment тапсырма үшін өңделеді: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" комментті "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": $ AdditionalData "Толығырақ оқу":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^"${__VirtualRootPath}":"${__VirtualRootPath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алды. Осы тапсырма туралы ескертуді қаламасаңыз, "жазылымды болдырмау":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Comment тапсырма үшін өңделеді: "$ EntityTitle":"${_VirtualRootPath}/Products/Projects/Tasks.aspx? $__DateTime "$__AuthorName":"$__AuthorUrl" комментті "$EntityTitle":"${_VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $ AdditionalData "Толығырақ оқу":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^"${__VirtualRootPath}":"${__VirtualRootPath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алды. Осы тапсырма туралы ескертуді қаламасаңыз, "жазылымды болдырмау": "${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>$ {_Virtual Root Path}":" $ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projects. Basecamp деректерін импорттау жаңа деректер сәтті импортталды.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Сіз жоба командасына қосыласыз: "$ ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?"$ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз "$ {_VirtualRootPath} Портал": "$ {_VirtualRootPath} "тіркелген пайдаланушыңыз болғандықтан, бұл хатты алдыңыз .  Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Маңызды оқиға туралы хабарлама: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?$ EntityTitle":" $ { _ } VirtualRo projects / milestones.aspx? prjID = $ ProjectID "$ ProjectTitle "жобасының кезеңі:" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID " мерзімі өткен.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1. "$ Entity Title" $ _ DateTime "$ _ Author Name": "$ _ Author Url" "$ Project Title": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID = $ ProjectID " жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз.</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$_AuthorUrl "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?$ Projecttitle $ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ ProjectID " жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Milestone құрды: "$ EntityTitle": "$ {__ VirtualRootPath} /Products/Projects/Milestones.aspx?"$_AuthorUrl" жаңа кезеңді қосты: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?$ {_VirtualRootPath} / product / jects prjID = $ ProjectID " жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Milestone аяқтау күні туралы хабарлама: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true "аяқталған күнге дейін" $ EntityTitle "48 сағаттан аз уақыт қалды": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$ProjectTitle" кезеңі: "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ ProjectID " жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1."$_AuthorUrl" "$ EntityTitle" "$ ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз" $ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1."$ Entitytitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$_AuthorUrl" "$ EntityTit"": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$ProjectTitle" кезеңі: "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ ProjectID " жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Milestone жаңартылды: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?$ EntityTitle " кезеңін қайта бастады: $ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$ProjectTitle" жобасында $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз "$ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты аласыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Жаңа пікір: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" талқылауға жаңа пікір қосты:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $ AdditionalData "Толығырақ":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^"${__VirtualRootPath}":"${__VirtualRootPath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері":"$ RecipientSubscriptionConfigURL"параметрін таңдаңыз.^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Тапсырманың жаңа түсініктемесі: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: $ AdditionalData "Read more":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^"${__VirtualRootPath}":"${__VirtualRootPath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Осы тапсырма туралы ескертуді қаламасаңыз, "жазылымды болдырмау":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Талқылау үшін жаңа файл: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID "$ _ DateTime "$ _ AuthorName": "$ _ AuthorUrl" "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Messages талқылауға жаңа файлды қосты.aspx?сіз осы хатты аласыз, себебі сіз тіркелген пайдаланушы "$ {_VirtualRootPath" Портал}": "$ {_VirtualRootPath} ". Егер сіз осы талқылау туралы хабарлама алғыңыз келмесе, жазылымды болдырмау: "$ {__Virtual Root Path}/Products/Projects / messages.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Жаңа тапсырма файлы:" $ EntityTitle": "$ {_VirtualRootPath} /өнімдер/жобалар/есептер.aspx?"$_AuthorUrl": "$ _ AuthorUrl" "$ EntityTitle "міндетіне жаңа файлды қосты:" $ {_VirtualRootPath} /өнімдер/жобалар/есептер.aspx?prjID=$ProjectID&amp;ID=$EntityID".  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Егер осы тапсырма туралы ескертуді қаламасаңыз, " $ {__виртуалды түбірлік жол} /өнімдер/жобалар/міндеттер.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>$ {_Virtual Root Path}":" $ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Жоба жойылған:" $ Entity Title "$ _ DateTime" $ _ Author Name":" $ _ Author Url ""$ Entity Title "жобасын жойып, сіз бұл хатты алдыңыз, өйткені сіз" $ {_VirtualRootPath}": "$ {_VirtualRootPath} " портал. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сіз жоба командасына қосылдыңыз</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Талқылау жойылған: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха жабық: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха құрылды: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Веха жойылды: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха жаңартылды: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Жаңа талқылау: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Жобалар. Жоба жойылған: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сізге тағайындалған Веха: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сіз жобаның жетекшісі болып тағайындалдыңыз</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сізге тағайындалған подзача: $ Sub Entity Title</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сізге арналған тапсырма: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жабық: $ Sub Entity Title</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма құрылды: $ Sub Entity Title</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жойылды: $ Sub Entity Title</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жаңартылды: $ SubEntity Title</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жабық: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма құрылды: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жойылған: $ Entity Title</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жаңартылды: $ Entity Title</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Projects. Basecamp деректерін импорттау жаңа деректер сәтті импортталды.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Есеп туралы еске салу: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID= $ EntityID" бүгін тапсырманың соңғы мерзімі: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $ AdditionalData.get_item ("TaskDescription") ^ сіз бұл хатты алды, өйткені сіз" $ {_VirtualRootPath}": "$ {_VirtualRootPath} порталы ". Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Сіз жоба командасынан: "$ ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?"$ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз "$ {_VirtualRootPath} "тіркелген пайдаланушы болғандықтан, бұл хатты аласыз:" $ {_VirtualRootPath}"порталы. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Task енді сізге тағайындалмайды: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?сіз "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID project: $ AdditionalData.get_item ("TaskDescription") ^ сіз бұл хатты алдыңыз, өйткені сіз "$ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болып табыласыз:" $ {_VirtualRootPath}". Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>Сізге тағайындалған h1.$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$_AuthorUrl "сізді келесі кезеңге жауапты етіп тағайындады: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Milestones.aspx?$ ProjectTitle$ Projectid= $ ProjectID#my = true" $ ProjectTitle":" $ {_VirtualRootPath} / products / projects / projects .aspx? жобаның prjID = $ ProjectID ".  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Сіз жобаның менеджері болып тағайындалдыңыз: "$ ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?"$_AuthorUrl "сізді" $ ProjectTitle "жобасының менеджері етіп тағайындады:" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз " $ {_VirtualRootPath}": "$ {_VirtualRootPath} "тіркелген пайдаланушыңыз болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>Сізге тағайындалған h1.$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl "Сізді қосымша беруге жауапты етіп тағайындады: "$ SubEntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?$ Projectid=$ProjectID&amp;ID=$EntityID" $ EntityTitle":" $ {_VirtualRootPath} / products / projects / tasks. aspx? $ Projectid &amp; ID = $ EntityID "міндеті: $ AdditionalData.get_item ("TaskDescription") ^ сіз бұл хатты алдыңыз, өйткені сіз" $ {_VirtualRootPath} "порталының тіркелген пайдаланушысы болып табыласыз:" $ {_VirtualRootPath}". Егер осы тапсырма туралы хабарлама алғыңыз келмесе, жазылымды жойыңыз:</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Task, Сізге тағайындалған: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" Сізге жауапты: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx ? prjid = $ ProjectID &amp; ID = $ EntityID "project: $ AdditionalData.get_item ("TaskDescription") ^ сіз бұл хатты алдыңыз, өйткені сіз" $ {_VirtualRootPath} "порталының тіркелген пайдаланушысы болып табыласыз:" $ {_VirtualRootPath}". Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1."${_Виртуалды түбірлік жол} /өнімдер/жобалар / есептер.aspx?"$_Authorurl "$ EntityTitle":" $ {_VirtualRootPath} /өнімдер/жобалар/есептер.aspx?prjID=$ProjectID&amp;ID=$EntityID".  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Егер осы тапсырма туралы ескертуді қаламасаңыз, " $ {__виртуалды түбірлік жол} /өнімдер/жобалар/міндеттер.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Subtask құрды: "$ SubEntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" Жаңа "кіші желілерді қосты: $ SubEntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?$ Projectid=$ProjectID&amp;ID=$EntityID "" $ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspxpr ProjectID &amp; ID = $ EntityID " тапсырма. Тапсырма $ Responsible-ға тағайындалды.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Егер осы тапсырма туралы ескертуді қаламасаңыз, жазылымды жойыңыз: "$ {_Virtual Root Path} / products / projects / tasks.</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Подзадача алып тасталды: "$ суб мәнін" атағы $ __ Күні "Время$ __ ортасынан authorname": "$ __ AuthorUrl" жойылады подзадачу: "$ суб мәнін атауы үшін" "$ мәні атағын": "$ {__ VirtualRootPath} /азық-түлік/жобалар/міндеттері. prjID = $ ProjectID &amp; ID = $ EntityID " тапсырма.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алды. Егер осы тапсырма туралы ескертуді қаламасаңыз, " $ {__виртуалды түбірлік жол} /өнімдер/жобалар/міндеттер.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Subtask: "$ SubEntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" $ _ AuthorUrl "бөлімшесін редакциялады:" $ {_VirtualRootPath} /Products/Projects/Tasks.aspx?$ Projectid=$ProjectID&amp;ID = $ EntityID" $ EntityTitle "тапсыру": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?prjID=$ $ EntityID " тапсырма. Тапсырма $ Responsible-ға тағайындалды.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Егер осы тапсырма туралы ескертуді қаламасаңыз, жазылымды жойыңыз: "$ {_Virtual Root Path} / products / projects / tasks.</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1."$AuthorUrl": "$ _ AuthorUrl": "$ салынған мәндер," $ EntityTitle":" $ {_VirtualRootPath} /pjects ?PST/pjects / pjects prjID = $ ProjectID &amp; ID = $ EntityID "есеп.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Егер осы тапсырма туралы ескертуді қаламасаңыз, " $ {__виртуалды түбірлік жол} /өнімдер/жобалар/міндеттер.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Есеп жабық: "$ EntityTitle": "$ {_VirtualRootPath} /өнімдер/жобалар/есептер.aspx?"$_AuthorUrl "$ EntityTitle "тапсырмасын" $ EntityTitle": "$ {_VirtualRootPath} /өнімдер/жобалар/есептер.aspx?"$ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз " $ {_virtualrootpath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Егер осы тапсырма туралы ескертуді қаламасаңыз, " $ {__виртуалды түбірлік жол} /өнімдер/жобалар/міндеттер.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Task құрды: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" жаңа тапсырманы қосты: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID= ProjectID " project: $ AdditionalData.get_item ("TaskDescription") тапсырма "$ Responsible "^ Сіз бұл хатты алдыңыз, өйткені сіз" $ {_VirtualRootPath " порталының тіркелген пайдаланушысы болып табыласыз} ":"${__VirtualRootPath}". Егер осы тапсырма туралы хабарлама алғыңыз келмесе, жазылымды жойыңыз:</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1."$Entitytitle "$ _ DateTime" $ _ AuthorName":" $ _ AuthorUrl "$ EntityTitle" $ ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз" $ {_VirtualRootPath} " порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Task: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl": "$ _ AuthorUrl" "$ EntityTit": "$ {_VirtualRootPath} /Products/Projects/Tasks редакциялады.aspx?"$ProjectTitle":" $ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID жоба.  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін "жазылым параметрлері": "$ RecipientSubscriptionConfigURL"параметрін таңдаңыз. ^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Task жылжыған: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" $ EntityTitle":" $ {_VirtualRootPath} /Products/Projects/Tasks.aspx?$ Projectid=$ProjectID&amp;ID=$EntityID" $ SubEntityTitle " тапсырмасынан:" $ {_VirtualRootPath} /Products/Projects/Milestones.aspx?"$ProjectTitle "жобасында my = true": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID ". Есеп "$ Entity Title": "$ {_Virtual Root Path} /Products/Projects / tasks.aspx?prtid=$Project ID&amp;ID=$Entity ID " қазіргі уақытта кез келген кезеңнің бөлігі емес. ^ Сіз бұл хатты алдыңыз, себебі сіз тіркелген пайдаланушысыз.</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Task жылжыған: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" $ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$SubEntityTitle " үшін${_VirtualRootPath} /Products/Projects/Milestones.aspx?"$ProjectTitle" жобасындағы prjectID my = true": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID ".  Сіз "$ {_Virtual Root Path} " порталының тіркелген пайдаланушысы болғандықтан, бұл хатты алдыңыз. Ескерту түрін өзгерту үшін жазылым параметрлері»: «</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Task жаңартылған: "$ EntityTitle": "$ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$_AuthorUrl" $ Entity " тапсырмасын қайта бастады:" $ {_VirtualRootPath} /Products/Projects/Tasks.aspx?"$ProjectTitle": "$ {_VirtualRootPath} /Products/Projects/Projects.aspx?сіз " $ {_VirtualRootPath}" порталының тіркелген пайдаланушысы болғандықтан, сіз бұл хатты алдыңыз. Осы тапсырма туралы ескертуді қаламасаңыз, жазылымды болдырмау: "$ {_Virtual Root Path} /Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Талқылаудың редакцияланған түсініктемесі: $ Entity Title</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Есептегі редакцияланған пікір: $ Entity Title</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Талқылау редакцияланды: $ Entity Title</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Жобалар. Basecamp деректерін импорттау</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Сіз жоба командасына қосылдыңыз</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Маңызды оқиға туралы мерзімі өткен хабарлама: $ Entity Title</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Талқылау жойылған: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха жабық: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха құрылды: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Кезеңнің аяқталу күні туралы хабарлама: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха жойылды: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха редакцияланды: $ Entity Title</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Веха жаңартылды: $ Entity Title</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Талқылауға жаңа пікір: $ Entity Title</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырмаға жаңа пікір: $ Entity Title</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Жаңа талқылау файлы: $ Entity Title</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Жаңа тапсырма файлы: $ Entity Title</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Жаңа талқылау: $ Entity Title</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Жобалар. Жоба жойылған: $ Entity Title</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Сіз жоба командасына қосылдыңыз</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Талқылау жойылды</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Веха жабық болды</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Жаңа кезең құрылды</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Веха жойылған</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Веха жаңартылды</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Жаңа талқылау болды</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Жобалар. Жоба жойылған</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Веха сізге тағайындалды</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Сіз жобаның жетекшісі болып тағайындалдыңыз</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Тапсырма сізге тағайындалды</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Тапсырма тағайындалған</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Тапсырыс жабық </value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Жаңа тапсырма болды</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Тапсырыс жойылған</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Тапсырма болған</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Тапсырма жабық</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Жаңа міндет болды</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Тапсырма жойылған</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Тапсырма болған</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма туралы еске салу: $ Entity Title</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма туралы еске салу: $ Entity Title</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Сіз жоба командасынан жойылдыңыз</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма енді сізге тағайындалмайды: $ Entity Title</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сізге тағайындалған Веха: $ Entity Title</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сіз жобаның жетекшісі болып тағайындалдыңыз</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Сізге тағайындалған тапсырма: $ Sub Entity Title</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Сізге арналған тапсырма: $ Entity Title</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Жоба [$ Project Title]. Тапсырма жабық: $ Sub Entity Title</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма құрылды: $ Sub Entity Title</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жойылды: $ Sub Entity Title</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма редакцияланды: $ Entity Title</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жаңартылды: $ SubEntity Title</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жабық: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма құрылды: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жойылған: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма өңделеді: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жойылған: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма ауыстырылғын: $ Entity Title</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Жобалар [$ Project Title]. Тапсырма жаңартылды: $ Entity Title</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Ешкім</value>
+  </data>
+</root>

@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Drets d'accés al portal</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Accions</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Afegir</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Deshabilitat</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Canvia l'estat</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Els estats dels altres usuaris no es canviaran</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Canvia l'estat de l'usuari</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>No podeu canviar l'estat del propietari del portal ni el vostre.</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Els usuaris amb l'estat "Desactivat" es reactivaran</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Els usuaris amb l'estat "Actiu" es desactivaran.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Canvia el tipus</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Els tipus d'usuaris no es canviarà</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Canvia el tipus de l'usuari</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>No podeu canviar el tipus d'usuari del propietari del portal ni el vostre</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Els usuaris del tipus "Usuari" es mouran al tipus "Invitat"</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Els usuaris del tipus "Invitat" es mouran al tipus "Usuari"</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Reiniciar el filtre</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmació</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Anul·la la selecció</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Deshabilita</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correu electrònic</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Habilita</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>El fitxer pujat no s'ha pogut trobar</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>La mida de la imatge és massa gran</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>La mida del fitxer de la imatge és massa gran</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>El tipus de fitxer és desconegut</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Amaga la llista d'usuaris seleccionats</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Actiu</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Canviar el correu electrònic</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Canviar la contrasenya</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Esborra el perfil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Edita</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>Accepta</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Reenvia les invitacions una vegada més</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Reenvia el vincle d'activació una vegada més</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Envia correu electrònic</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Envia un missatge</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Subscripcions</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Deshabilitat</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>No hi ha persones que coincideixin amb el vostre filtre en aquesta secció. Si us plau, seleccioneu un altre filtre d'opcions o netejeu el filtre per veure totes les persones d'aquesta secció.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>No s'han trobat resultats que coincideixin amb la vostra cerca</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>A dalt</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Afegiu, inviteu o importeu nous usuaris. Gestioneu els usuaris i consulteu-ne la seva informació detallada.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Persones</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Quan els usuaris confirmin la invitaicó al portal el seu estat canviarà a "Actiu"</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Reenvia la invitació una vegada més</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>La invitació al portal serà enviada una vegada més als usuaris amb estat "Pendent" que no estiguin desactivats.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selecciona-ho tot </value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configuració</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Mostra a la pàgina</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Veure la llista d'usuaris seleccionats</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>L'usuari s'ha eliminat correctament</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Número total</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Esperant confirmació</value>
+  </data>
+</root>

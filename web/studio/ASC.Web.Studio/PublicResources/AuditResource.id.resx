@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="AuditLatestText" xml:space="preserve">
+    <value>Hanya aktivitas terbaru yang ditampilkan di Halaman ini. Data akan disimpan selama periode, yang dapat dimasukkan ke field di bawah ini (ukuran hari, maksimal 180):</value>
+  </data>
+  <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
+    <value>Saat portal aktif dipakai, seluruh aktivitas pengguna: pembuatan dan editing dokumen, keikutsertaan dalam proyek, CRM dan modul-modul lain, serta berbagai informasi lain akan ditampilkan di sini.</value>
+  </data>
+  <data name="AuditTrailEmptyScreenHeader" xml:space="preserve">
+    <value>Tidak ada yang dapat ditampilkan</value>
+  </data>
+  <data name="AuditTrailNav" xml:space="preserve">
+    <value>Riwayat Audit</value>
+  </data>
+  <data name="AuditTrailOnlineUsers" xml:space="preserve">
+    <value>Pengguna Online</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DownloadReportBtn" xml:space="preserve">
+    <value>Unduh dan buka laporan</value>
+  </data>
+  <data name="EmailNotSpecified" xml:space="preserve">
+    <value>Email tidak ditentukan</value>
+  </data>
+  <data name="GenerateText" xml:space="preserve">
+    <value>Silakan tunggu, laporan sedang dibuat...</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
+    <value>Saat portal aktif dipakai, seluruh aktivitas login yang berhasil dilakukan oleh pengguna serta login yang tidak berhasil dilakukan akan ditampilkan di sini.</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenHeader" xml:space="preserve">
+    <value>Tidak ada yang dapat ditampilkan</value>
+  </data>
+  <data name="LoginHistoryNav" xml:space="preserve">
+    <value>Riwayat Login</value>
+  </data>
+  <data name="LoginHistoryTitle" xml:space="preserve">
+    <value>Riwayat Login</value>
+  </data>
+  <data name="LoginLatestText" xml:space="preserve">
+    <value>Hanya aktivitas terbaru yang ditampilkan di Halaman ini. Data akan disimpan selama periode, yang dapat dimasukkan ke field di bawah ini (ukuran hari, maksimal 180):</value>
+  </data>
+  <data name="StoragePeriod" xml:space="preserve">
+    <value>Periode penyimpanan</value>
+  </data>
+  <data name="TotalAuditItems" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+</root>

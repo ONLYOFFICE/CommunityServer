@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>チャットルームへの招待</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>消去する</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>全てのミニチャットを閉じる</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>アイテムを閉じる</value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>ウィンドウを閉じる</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>ミニ・チャットを拡張する</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>チャットに切り替えてください。</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>音声を有効にする</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>メッセージを入力してください</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>ミニ・チャットウィンドウを最小化にする</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>ピントが合っていないがないときは、全てのウィンドウを最小化します</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>ウィンドウを最小化する</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>新メッセージ</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>全のミニチャットウィンドウを展開する</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>ウィンドウを展開する</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>サーバ内エラー。</value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>ミニ・チャットを表示/隠す</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>見えない対話ウインドウを表示</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>顔文字</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>外出</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>無効です</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>オフライン</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>オンライン</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>メッセージを入力しています…</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>このリストでは検索条件に一致する連絡先が見つかりません</value>
+  </data>
+</root>

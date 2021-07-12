@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Išsaugoti ir sukurti naują pardavimą</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Pridėti šią galimybę</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Visi pardavimai</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Dalis (Ставка)</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fiksuotas</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per dieną</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per valandą</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per mėnesį</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per savaitę</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per metus</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Mokėjimo pasikartojimas</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Stadija</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Būsenos tipas</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Pardavimo kontaktas</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Pridėti pirmąjį pardavimą</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Sukurti naują pardavimą</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Pardavimas etape</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Pasirinktinis laikotarpis</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Kiti vartotojai</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Pardavimas</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Prieigos leidimai bus suteikti pardavimams, kurių autorius esate Jūs</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Pardavimo etapai</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Potencialus pirkėjas parodė savo suinteresuotumą ir tikrina, kaip jūsų siūlymas atitinka jo tikslą</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Aptarimas</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Susisiekimas su potencialiu pirkėju yra reikalingas, dėl ateities pardavimo perspektyvų išsiaiškinimo</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Pradinis kontaktas</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Nesėkmė. Pardavimas baigtas kaip neperspektyvus</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Nulinis taškas</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potencialus pirkėjas sutiko susitikti ir (arba) įvertinti jūsų siūlymą</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Įvertinimas</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Pardavėjas bando nustatyti ar klientas gali tapti potencialiu pirkėju</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Taikomi atrankos kriterijai</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potencialus pirkėjas jau detaliai aptarė Jūsų siūlymą</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Derybos</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potencialus pirkėjas susidomėjo Jūsų siūlymu</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Pradžia</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potencialus pirkėjas žodžiu sutiko bendradarbiauti su jumis</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Žodinis susitarimas</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Sandoris. Pardavimas yra baigtas sėkmingai</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Sėkmė</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Stadijos tipas</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Pardavimo dalyvis</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Pardavimo dalyviai</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Pardavimai</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Pardavimo žyma</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Pardavimo žymų sąrašas</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Pardavimo žymos</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Panaikinti pardavimą</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Pašalinami pardavimai</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Galimybės aprašymas</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Redaguoti pardavimą „{0}“</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Redaguoti pardavimą</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Pardavimai leidžia sekti potencialius sandorius su klientais. Nustatykite {0} pardavimų etapus {1} pagal jūsų verslo procesus, saugokite istoriją, priskirkite užduotis, įkelkite dokumentus, apskaičiuokite pelną su kiekvienu klientu.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Nėra pardavimų, atitinkančių jūsų filtrą, kurie gali būti rodomi šiame skyriuje. Prašome pasirinkti kitus filtrų nustatymus arba išvalykite filtrą, kad galėtumėte peržiūrėti visus pardavimus šiame skyriuje. Arba galite sukurti pardavimą, jei jo nėra sąraše.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Nėra pardavimų, atitinkančių šį filtrą</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Pardavimų sąrašas yra tuščias</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Įrašykite pardavimo pavadinimą</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Kiekvienas pardavimas turi turėti atsakingą asmenį</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Dalyvių sąrašas yra tuščias</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Pridėkite prie savo pardavimo dalyvių iš bendrovių ar asmenų sąrašo. Vėliau žinosite, kurie kontaktai yra susiję su šiuo pardavimu ir su galima susisiekti dėl pardavimo.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Apytikslė/faktinė pabaigos data</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Biudžetas</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontaktas</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Dalyvis</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Stadija/stadijos tipas</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Importuoti pardavimus</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Kompiuterio diske nurodykite tinkamai parengtą CSV failą. Failas privalo turėti stulpelius, atskirtus žemiau nurodytais stulpelių skirtukais. Teisingam duomenų importavimui, failai su daugiau nei {0} eilučių turėtų būti padalinti į mažesnes dalis. Įsitikinkite, kad nurodėte portalo vartotojus, kuriems bus suteikta prieiga prie importuotos informacijos, kitaip informacija taps prieinama visiems portalo vartotojams.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Prieš pradėdami pardavimų importavimą, pasirinkite CSV failą ir nustatykite prieigos teises.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Suderinkite savo failo stulpelius su atitinkamais ONLYOFFICE™ CRM laukeliais. Prašome atkreipti dėmesį į tai, kad teisingam pardavimų importavimui jums reikia turėti bent šiuos failo stulpelius, suderintus su ONLYOFFICE™ CRM laukeliais: „Galimybės pavadinimas“, „Atsakingas“. Laukeliai, kuriuose yra datos turi būti tokiu formatu:{0}. Valiutos laukelis turi būti nustatytas pagal tarptautinį trijų raidžių kodą (pvz., USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prašome patvirtinti laukelius</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Eiti į galimybių sąrašą</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Pardavimų importavimas gali užtrukti keletą minučių priklausomai nuo duomenų kiekio.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importavimas prasidėjo</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Susieti arba sukurti pardavimą</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Mano pardavimai</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Pardavimo pavadinimas</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Biudžetas nenustatytas</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Kiti pardavimo dalyviai</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Dalyviai</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Apriboti prieigą prie pardavimo</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Sėkmės tikimybė</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Atsakingas už pardavimą</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Eiti į profilį</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Atverti naujoje kortelėje</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Rodyti bendrą sumą</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Pradėti importą</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Pardavimų etapai leidžia įvertinti žingsnius reikalingus įvykdyti sandorį. Numatytieji pardavimų etapai yra susisiekimas, diskusija, įvertinimas, derybos, įsipareigojimas, pasisekimas, nulinis taškas. Norint juos redaguoti reikia turėti svetainės administratoriaus teises</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Viso</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Visi pardavimai</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Iš viso puslapio</value>
+  </data>
+</root>

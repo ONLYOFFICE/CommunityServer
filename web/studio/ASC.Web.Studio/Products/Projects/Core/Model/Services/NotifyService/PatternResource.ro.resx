@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Discutie Editata: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a editat discutia:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"Cititi mai departe":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Adresa portalului dvs.: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscriptiei":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Proiecte. Importati datele din Basecamp
+
+Noile date au fost importate cu succes.
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Ati fost adaugat in echipa de proiect.
+
+"$__AuthorName":"$__AuthorUrl" v-a adaugat in echipa proiectului ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] .
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Notificare depasire termen punct intermediar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Termenul pentru punctul intermediar al proiectului ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] a fost depasit: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+Adresa portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile ":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Punct intermediar inchis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a inchis punctul intermediar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" in proiectul "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"..
+
+^Ati primit acest mail pentru ca sunteti utilizator inregistrat in portalul: "${__VirtualRootPath}":"${__VirtualRootPath}". Pentru a modifica tipul de notificare, va rugam administrati  "setarile subscrierii":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Punct intermediar creat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a adaugat punctul intermediar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" la proiectul "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Ati primit acest mail pentru ca sunteti utilizator inregistrat in portalul: "${__VirtualRootPath}":"${__VirtualRootPath}". Pentru modificarea tipului de notificare, va rugam administrati "setarile subscrierii":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Notificare Reper Intermediar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+Au ramas mai putin de 48 de ore pana la aceasta data de referinta din proiect ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+Adresa portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile de abonare":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Nou comentariu la discutie: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a adaugat un nou comentariu la discutie:
+
+$AdditionalData
+
+"Cititi mai departe":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+Adresa portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile de abonare":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Comentariu nou la Sarcina: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a adaugat un nou comentariu la sarcina:
+
+$AdditionalData
+
+"Cititi mai departe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Ati primit acest mail pentru ca sunteti utilizator inregistrat al portalului: "$__VirtualRootPath":"$__VirtualRootPath". Daca nu vreti sa primiti notificari la aceasta sarcina va rugam sa va dezabonazi: "${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Discutie noua creata: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a deschis o discutie:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"Cititi mai departe":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Reamintire asupra unei sarcini: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" va reaminteste asupra sarcinii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Adresa portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Reamintire asupra unei sarcini: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Astazi expira termenul pentru sarcina: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ab.
+
+$AdditionalData.get_item("TaskDescription")
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Ati fost exclus din echipa de proiect.
+
+Ati fost exclus din echipa proiectului: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] .
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>H1.Punct intermediar atribuit dumneavoastra: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" $__DateTime "$__AuthorName":"$__AuthorUrl" v-a numit responsabil pentru punctul intermediar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" în cadrul proiectului "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Ati primit acest email pentru că sunteţi un utilizator înregistrat al portalului "${__VirtualRootPath}": "${__VirtualRootPath}". Pentru a modifica tipul de notificare, vă rugăm să gestioneze "setările abonamentului": "$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Ati fost numit conducatorul proiectului: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+"$__AuthorName":"$__AuthorUrl" v-a numit conducatorul proiectului: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] benannt.
+
+$AdditionalData
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>Sarcina intermediara atribuita dvs.: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+"$__AuthorName":"$__AuthorUrl" v-a numit responsabil pe sarcina intermediara: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"
+</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Sarcina atribuita dvs.: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" v-a atribuit urmatoarea sarcina: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Sarcina intermediara inchisa: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a inchis sarcina intermediara pentru ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID"].
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Sarcina intermediara creata: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" a creat sarcina intermediara: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+Proiectul: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Sarcina intermediara stearsa: "$EntityTitle"
+$__DateTime "$__AuthorName":"$__AuthorUrl" a sters sarcina intermediara: "$EntityTitle" la sarcina principala "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Ati primit acest email pentru ca sunteti utilizator inregistrat al portalului "${__VirtualRootPath}":"${__VirtualRootPath}". Daca nu mai vreti notificari la aceasta sarcina, va rugam "dezabonati-va":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Sarcina inchisa: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a inchis sarcina pentru proiectul ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+$AdditionalData
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Sarcina creata: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" a creat sarcina: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+Proiect: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Adresa Portalului: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Editati setarile subscrierii":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Sarcina stearsa: "$EntityTitle" 
+$__DateTime "$__AuthorName":"$__AuthorUrl" a sters sarcina "$EntityTitle" din proiectul "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData
+
+^Ati primit acest mail pentru ca sunteti utilizator inregistrat al portalului "${__VirtualRootPath}":"${__VirtualRootPath}" . Pentru a modifica tipul de notificare, va rugam administrati "setarile subscrierii":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Editare discutie: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Proiecte. Import date din Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Schimbari in echipa de proiect</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Notificare de termen depasit la punctul intermediar: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Punct intermediar inchis: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Punct intermediar creat: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Notificare despre termenul unui punct intermediar: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Comentariu nou asupra discutiei: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Nou comentariu la activitatea: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Discuţii noi: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Ai fost adăugat la echipa de proiect</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Discuția a fost Ștearsă</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Un Nou Reper Intermediar a fost Creat</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Punctul de reper a fost reluat</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>O Nouă Discuție a fost Creată</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Milestone v-a fost atribuit</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Ai fost numit manager de proiect</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>O Noua Sub-sarcină a fost Creată</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>O Nouă Sarcină a fost Creată</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Aminteşte despre sarcina: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Aminteşte despre sarcina: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Proiectul [$ProjectTitle]. Ati fost exclus din echipa de proiect</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Punct intermediar atribuit dumneavoastra: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Ai fost desemnat ca Proiect Manager</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina intermediara atribuita dumneavoastra: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina atribuita dumneavoastra: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina intermediara închisa: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina intermediara creata: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina intermediara stearsa: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina închisa: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina creata: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Proiecte [$ProjectTitle]. Sarcina stearsă: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Fără responsabil</value>
+  </data>
+</root>

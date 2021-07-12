@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Dodaj i kreiraj novi</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Dodaj adresu naplate</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Dodaj adresu dostave</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Dodaj liniju</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adresa je uspješno uređena</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Stvorite novi porez</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Kreiranje poreza</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Spremi i stvori novu stavku</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Dodaj ovaj račun</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Svi računi</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Količina</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Priložite dokument</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>automatski generirano</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Račun Za</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Promijenite format</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Svi budući računi će</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Promenite status</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Bilješke klijenta</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Koristite ovo polje da izrazite zahvalnost kupcu na kupovini i / ili pružite posebnu ponudu, na primjer, popust od 20% ako je račun plaćen u roku od 5 dana.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>koincidira s klijentom</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Kreirajte prvu fakturu</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Kreirajte prvu stavku</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Kreirajte prvi porez</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Kreirajte stavku</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Izrada stavke računa</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Kreirajte porez</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Kreirajte novu fakturu</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Kreirajte novi predmet</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Stvorite novi porez</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati valutu</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dana</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Ovi zadani izrazi koristit će se na budućim fakturama.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati fakturu '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Brisanje fakture ...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Brisanje stavke ...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati stavku «{0}»?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati porez «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Brisanje poreza ...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Izbrišite ovu fakturu</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Brisanje fakture</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Popust</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Preuzmi</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Molimo postavite prilagođeni rok roka ili odaberite jednu od unaprijed postavljenih postavki da biste taj datum povezali sa datumom izdavanja.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Datum izdavanja veći od roka dospijeća</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>dospijeva po prijemu</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati rok dospijeća</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Duplicirajte i napravite novu fakturu</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Duplicirajte fakturu</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Duplicirajte fakturu</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Duplicirajte fakturu «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Uređivanje adrese za naplatu</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Uređivanje adrese za dostavu</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Uređivanje fakture</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Uredi fakturu «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Izmjeni</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Uređivanje poreza</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>U ovom se odjeljku možete postaviti popis stavki koje se mogu uključiti u fakture. Nakon što je popis kreiran, možete odabrati potrebnu stavku s koje ćete dodati dokument o plaćanju. Možete dodati i nove stavke kad god je to potrebno.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>U ovom se odjeljku ne mogu prikazivati stavke faktura koje odgovaraju vašem filtru. Odaberite druge opcije filtra ili očistite filtar da biste vidjeli sve stavke fakture u ovom odjeljku. Ili možete stvoriti stavku fakture ako je nema sa liste.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Ovdje se za ovaj filter ne prikazuju stavke računa</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Lista proizvoda i usluga je prazna</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Odjeljak 'Računi' omogućuje vam kreiranje dokumenata o plaćanju koje možete pružiti svojim klijentima. Nakon dodavanja računa, ovdje će se prikazati popis dostupnih.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>U ovom se odjeljku ne mogu prikazati računi koji odgovaraju vašem filtru. Odaberite druge opcije filtra ili očistite filtar da biste vidjeli sve fakture u ovom odjeljku. Ili možete stvoriti fakturu ako ona izostane s popisa.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Ovde se za ovaj filtar ne prikazuju računi</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Lista računa je prazna</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Porezi za fakture omogućuju vam stvaranje dodatnih poreza specifičnih za zemlje ili područja u kojima ili vaši klijenti žive. Možete dodati porezno ime, kamatnu stopu i opis. Možete dodati i nove poreze kad god je to potrebno.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Lista poreza na fakturi je prazna</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Nisu pronađene mogućnosti</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Odaberite stavku</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Polje s poreznim nazivom ne može biti prazno</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Polje za stopu ne može biti prazno</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Nijedan</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Cijena je prazna</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Cena je netačna</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Količina je netačna</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>vrijednost stope je netočna</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Kurs</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Morate ispuniti ovo polje</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Porezni naziv već postoji</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Zalihe</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Naziv predmeta</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Količina zaliha</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Porezi</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Pronađite prema naslovu, šifri proizvoda ili opisu</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Klijent</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati klijenta</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Primalac robe</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Vaša zadana CRM valuta koristi se za postavljanje cijena u Katalogu proizvoda i usluga. &lt;br/&gt; Da biste je promijenili, idite na &lt;a href="settings.aspx?type=currency" target="_blank"&gt; Postavke valute &lt;/ a &gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Arhivirano</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Jedna ili više stavki na računu imaju negativne količine zaliha</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Sa zalihama</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Bez zaliha</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Jezik fakture</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Svaka faktura mora imati jezik</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Broj fakture</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Broj računa već je zauzet</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Porez 1 ime</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Porez 1 stopa</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Porez 2 ime</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Stopa poreza 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Porez s takvim nazivom već je registriran</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Porezne kategorije omogućuju vam stvaranje dodatnih poreza specifičnih za zemlje ili područja u kojima živite ili klijenti. Možete dodati porezno ime, kamatnu stopu i opis.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Poreznu kategoriju možete izbrisati samo u slučaju da se ne koristi u odjeljku Proizvodi i usluge.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Porezni naziv</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Ocijeni</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Datum računa</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati datum</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Predmet</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Vaša zadana CRM valuta. &lt;br/&gt; Da biste je promijenili, idite na &lt;a href="?type=currency" target="_blank"&gt; Postavke valute &lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Dodajte količinu predmeta koje trenutno imate na zalihi. Taj će se broj smanjivati svaki put kada se stavka doda u fakturu. Kad dobijete više zaliha, jednostavno ga dodajte svom trenutnom inventaru ovdje.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Povežite se sa mogućnostima</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Izradite fakturu</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Označi kao skicu</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Označi kao plaćeno</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Označi kao odbijeno</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Označi kao naplaćeno</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Broj</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Format je neispravan ili faktura s istim brojem već postoji</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Početni broj je prazan</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati broj</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>PO broj</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Prefiks</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Štampaj</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Proizvodi i usluge</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Izaberite proizvod ili uslugu sa liste ili dodajte nove</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati stavke</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Količina</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Količina</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Spremanje postavki broja ...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Spremanje postavki termina ...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Došlo je do pogreške "{0}" prilikom spremanja računa. Pokušajte ponovo kasnije.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Prodavac</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Pošaljite e-poštom</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Postavi zadano</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Postavite zadane uvjete</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Postavite prazno</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Ship To</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Prikaži profil fakture</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Otvorite u novoj kartici</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Početni broj</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Jedinica za čuvanje zaliha (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Sumirano</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Porez</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Uslovi</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Svaka faktura mora imati uvijete</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Faktura ukupno</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Ukupni računi</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Pratite inventar</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Ažuriraj stavku «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Ažurirajte porez «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Spremanje promjena ...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Upozorenje</value>
+  </data>
+</root>

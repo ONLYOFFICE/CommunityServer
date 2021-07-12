@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Доступ заборонено. Потрібні права адміністратора.</value>
+  </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>Під час видалення контакту сталася помилка. Будь-ласка, перевірте з'єднання з мережею або зверніться до адміністратора мережі або порталу.</value>
+  </data>
+  <data name="ErrorDkimPublicKeyInUse" xml:space="preserve">
+    <value>Цей відкритий ключ DKIM вже використовується. Будь ласка, знову відкрийте майстер.</value>
+  </data>
+  <data name="ErrorDuplicateAlias" xml:space="preserve">
+    <value>Ви хочете створити псевдонім з вже існуючою адресою.</value>
+  </data>
+  <data name="ErrorDuplicateDomain" xml:space="preserve">
+    <value>Домен уже використовується</value>
+  </data>
+  <data name="ErrorDuplicateGroup" xml:space="preserve">
+    <value>Ви хочете створити групу повідомлень з вже існуючою адресою.</value>
+  </data>
+  <data name="ErrorDuplicateMailbox" xml:space="preserve">
+    <value>Ви хочете створити поштову скриньку з вже існуючою адресою.</value>
+  </data>
+  <data name="ErrorDuplicateMailGroupAddress" xml:space="preserve">
+    <value>Ви хочете додати вже існуючу адресу.</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Внутрішня помилка сервера. Спробуйте ще раз пізніше</value>
+  </data>
+  <data name="ErrorInvalidAddress" xml:space="preserve">
+    <value>Недійсна адреса</value>
+  </data>
+  <data name="ErrorInvalidAlias" xml:space="preserve">
+    <value>Недійсний псевдонім</value>
+  </data>
+  <data name="ErrorInvalidDomain" xml:space="preserve">
+    <value>Недійсне доменне ім'я</value>
+  </data>
+  <data name="ErrorInvalidMailbox" xml:space="preserve">
+    <value>Недійсна назва поштової скриньки.</value>
+  </data>
+  <data name="ErrorInvalidMailGroup" xml:space="preserve">
+    <value>Неправильна група</value>
+  </data>
+  <data name="ErrorMailboxLimit" xml:space="preserve">
+    <value>Обмеження поштових скриньок користувача перевищено.</value>
+  </data>
+  <data name="ErrorUnknownUser" xml:space="preserve">
+    <value>Невідомий користувач</value>
+  </data>
+  <data name="ErrorUnpaidAccessDenied" xml:space="preserve">
+    <value>Не доступний у безкоштовній версії</value>
+  </data>
+  <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
+    <value>Недійсна операція для спільного домену</value>
+  </data>
+</root>

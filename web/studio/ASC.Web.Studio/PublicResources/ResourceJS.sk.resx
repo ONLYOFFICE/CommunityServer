@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Pole validačného kódu nemôže byť prázdne</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Zadajte číslo mobilného telefónu</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Pomocou symbolov {0}?{1} a {0}*{1} môžete vyhľadávať jeden alebo viacero znakov. Ak chcete napríklad vyhľadávať všetky slová začínajúce na {0}O{1}, použite dotaz {0}O*{1}. Ak chcete vyhľadať presnú frázu, použite úvodzovky. {2}Viac informácií ...{3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Kópia zálohy bola úspešne vytvorená.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Zaneprázdnený</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Úspešný nákup čísla</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Prichádzajúci hovor</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Zmeškaný hovor</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Zmeny sa uplatňujú</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Zmeny sa úspešne uplatnili.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Vyskytla sa chyba. Prosím kontaktujte svojho správcu.</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Chcete pokračovať?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Vytvoriť nový kontakt</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>V tomto zozname nie sú žiadne kontakty</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Zadajte názov spoločnosti</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Nie sú k dispozícii žiadne kontakty</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Žiadny takýto kontakt</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Neexistuje žiadna takáto spoločnosť</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Vytvoriť</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Chyba pri vytváraní reportu</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Komentár nemôže byť prázdny</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Zadajte e-mail</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Vyplňte prosím toto pole</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Zadajte názov skupiny</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Zadajte krstné meno</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Zadajte priezvisko</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Neexistuje žiadna takáto skupina</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Neexistuje taká osoba</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>Maximálne 64 znakov</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Dátum registrácie musí byť neskorší ako dátum narodenia</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Nedá sa pridať rovnaký účet a kontakt dvakrát.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Do tohto poľa môžete zadať až 64 znakov.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nesprávny e-mail</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Názov portálu už bol prijatý</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Nepovolené znaky v názve portálu</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Názov portálu je príliš krátky</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Názov portálu nebol zmenený</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Používatelia boli úspešne pridaní.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Krstné meno</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Skupina {0} bola úspešne vytvorená.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Vytvoriť novú skupinu</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>V tomto zozname nie sú žiadne skupiny</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Žiadna takáto skupina</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Nesprávny formát IP adresy </value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Pozvať</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Nastavenia boli úspešne aktualizované</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Prázdne pole</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Nesprávne číslo portu</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>Musíte prečítať a súhlasiť s licenčnou zmluvou</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Licencia nie je správna</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Odkaz bol skopírovaný do schránky</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Čakajte prosím...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Načítava sa, prosím čakajte.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nahrávam...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>celý deň</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Udalosť bola zrušená.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Zrušené: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Udalosť bola dokončená.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} predbežne prijal pozvánku na</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} odmietol pozvánku na</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Odpoveď: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} prijal pozvánku na</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} Vás pozýva na</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Pozvánka: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>približný</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>deň</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>dní</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>každý</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>pre</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>hodina</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>hodiny</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>v</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>Posledný</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>mesiac</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>mesiace</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>alebo</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>Neznámy formát</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>čas</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>časy</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>Pracovný deň</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>Víkendové dni</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>Týždeň</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>Týždne</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>rokov</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Udalosť bola zmenená.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Aktualizácia: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>Predbežne ste pozvánku prijali</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>Odmietli ste pozvánku na </value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>Prijali ste pozvanie na </value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Pozvánku ste poslali na </value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Pri pokuse o odoslanie tejto správy sa vyskytol problém.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Oznámenie o zrušení udalosti bolo odoslané účastníkom.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Vaša žiadosť bola odoslaná účastníkom.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Vaša odpoveď bola odoslaná organizátorovi.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Správa bola odoslaná.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Žiadny míľnik v tomto projekte</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Žiadny takýto míľnik</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nikdy nezobrazovať</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Chyba pri vykonávaní operácie.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Operácia bola úspešne dokončená.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Chystáte sa premenovať svoj portál.{1}{0}Naozaj chcete pokračovať?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Potvrdenie premenovania portálu</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Vytvoriť nový projekt</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>V tomto zozname nie sú žiadne projekty</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Každý projekt musí mať manažéra</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Každý projekt musí mať názov</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Žiadne projekty v tejto skupine</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Žiadny takýto projekt</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Žiadna takáto osoba</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Rovnaké obmedzenia</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Nastavenia sa úspešne uložili</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Vybrať súbor</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Vybrať priečinok</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Spoločnosť</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Názov spoločnosti</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Typ kontaktu</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Krstné meno</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Vedúci</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Manažér</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Osoba</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>vybrané</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Používateľ</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Návštevník</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Vytvoril som vlastnú webovú kanceláriu. Pridajte sa sem: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Zobraziť nasledujúce</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} používateľ/lia bol/i úspešne pridaný/í do portálu</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Nastavenia boli úspešne aktualizované</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Chystáte sa odhlásiť zo všetkých upozornení modulu "{0}". Naozaj chcete pokračovať?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Prázdny súbor</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Chyba pri nahrávaní súboru</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Podporovaný formát: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Veľkosť súboru nesmie presiahnuť 5 MB</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Profil pre {0} bol úspešne vytvorený</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Vytvoriť nový profil</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>V tomto zozname nie sú žiadni používatelia</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Prekročený počet maximálnych aktívnych používateľov</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Na portáli zatiaľ neboli vytvorené žiadne skupiny. Prejdite do modulu Ľudia a zoskupujte používateľov.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>V tejto skupine nie sú žiadni používatelia</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Žiadny takýto používateľ</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Ak teraz odídete, všetky zadané alebo neuložené údaje sa stratia.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}To znamená, že môžete:{1}zobraziť obsah portálu otvorený pre všetkých používateľov portálu,{2}zanechať komentáre,{3}priložiť a stiahnuť súbory. {4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>V prípade, že potrebujete ďalšie práva, kontaktujte správcu portálu.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Vitajte v ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>Správca portálu Vás pozval na portál ako hosťa.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Začať pracovať</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Vitajte v ONLYOFFICE!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Nezadali ste žiadne heslo. Môžete to urobiť neskôr pomocou funkcie "Zabudli ste heslo?" na prihlasovacej stránke portálu. Naozaj chcete pokračovať?</value>
+  </data>
+</root>

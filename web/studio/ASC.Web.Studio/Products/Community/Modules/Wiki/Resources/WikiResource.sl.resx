@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Izbrišem datoteko?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Izbriši stran?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Primerjaj izbrane različice</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Povrnjeno</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Naloži</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Različica {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Nove kategorije še niso bile ustvarjene</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Vse kategorije wiki člankov so navedene tu. Ko je kategorija na strani ustvarjena, je dodana na seznam kategorij tu.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>V tem oddelku ni datotek za prikaz</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Datoteke naložene na wiki strani s svojimi avtorji so hranjene v tem oddelku. Te datoteke so lahko pripete na strani z uporabo wiki ali html oznake.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>V tem oddelku ni strani za prikaz</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Indeks stran navaja vse strani, ki so jih ustvarili wiki avtorji v abecednem zaporedju. Ko je stran ustvarjena, je samodejno dodana v indeks.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>V tem oddelku ni strani za prikaz</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Vse novo ustvarjene in nedavno urejene strani s svojimi avtorji so navedene tu. Na seznam so dodani samodejno, razporejeni po svojem času ustvaritve in urejanja.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>V tem oddelku ni strani za prikaz</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Vse nedavno urejene strani s svojimi avtorji so navedene tu. Na seznam so dodane samodejno, razvrščene po svojem času urejanja.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Nova datoteka</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Nova stran</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Dom</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Uredi datoteko</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Uredi stran</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Datoteka na obstaja. {0Ustvari} datoteka s tem imenom[[ ali išči v {1rezultatih iskanja}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Zahtevana stran ne obstaja. &lt;/div&gt;Ali jo želite {0create} [[ iskati v {1search result}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Naloži datoteko</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Ustvari novo stran</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Izbriši stran</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Uredi stran</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kategorija: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Natisni stran</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Poglej zgodovino</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>poslovna wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Datoteka za nalaganje ni izbrana.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Prišlo je do notranje napake. Prosim kontaktirajte administratorja.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Napaka v oznaki strani</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Ni sprememb.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Stran je uredil drug uporabnik. Prosim osvežite stran za ogled najnovejše različice.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Polje naslova strani je prazno.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Ime strani je nepravilno. Prosim poskusite vnesti alternativno ime.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Stran s tem naslovom že obstaja.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Spremembe so bile shranjene</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Dodaj stran v kategorijo</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Posodobitve/komentarji strani</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Nove strani</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Naroči na stran</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wiki iskanje</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Odjavi se od strani</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>komentar dodan</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>komentar izbrisan</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>komentar urejen</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>datoteka dodana</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>datoteka izbrisana</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>stran dodana</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>stran urejena</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>različica strani povrnjena</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,Č,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,Š,T,U,V,W,X,Y,Z,Ž</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Primerjanje Raz.{0} z Raz.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Naloži datoteko</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Zgodovina</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Zadnje spremembe z {0} na {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Ali želite povrniti to različico?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

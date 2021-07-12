@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Lägga till och Skapa Ny Faktura</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Lägga till faktureringsadress</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Lägga till faktureringsadress</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Lägga till Linje</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adressen har uppdaterats</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Skapa ny skatt</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Skapar en skatt</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Spara och Skapa Ny Element</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Lägga till Denna Faktura</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Alla fakturor</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Bifoga dokument</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>automatiskt genererad</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Fakturera Till</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Ändra format</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Ändra status</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>matchar med kunden</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Skapa första faktura</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Skapa första element</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Skapa första skatt</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Skapa element</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Skapar fakturelement</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Skapa skatt</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Skapa ny faktura</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Skapa nytt element</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Skapa ny skatt</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha en valuta</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dagar</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera '{0}' fakturan?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Raderar fakturan...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Raderar element...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera «{0}» elementet?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera «{0}» skatten?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Raderar skatt...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Radera denna faktura</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Raderar fakturor</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Rabatt</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha ett förfallodatum</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Duplicera och Skapa Ny Faktura</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Duplicera faktura</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Duplicera Faktura</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Duplicera «{0}» fakturan</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Redigera faktureringsadress</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Redigera leveransadress</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Redigera faktura</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Redigera «{0}» fakturan</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Redigera skatt</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Listan över Produkter &amp; Tjänster är tom</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Fakturlistan är tom</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Välj Element</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Inga</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Priset är tomt</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Priset är felaktigt</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Antalet är korrekt</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Växelkurs</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Elementnamn</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Pris</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Skatter</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Hitta med titel, SKU eller beskrivning</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Kund</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha en kund</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Arkiverad</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Pris</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Fakturaspråk</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Varje faktura måste ha ett språk</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Fakturanummer</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Fakturanumret är redan taget</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Fakturadatum</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha ett datum</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Element</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Länka med möjlighet</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Markera som utkast</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Markera som betald</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Markera som avvisat</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Markera som fakturerad</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Formatet är felaktigt eller en faktura med samma nummer finns redan</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Startnumret är tomt</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha ett nummer</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Försenad</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Prefix</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Pris</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Skriva ut</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkter &amp; Tjänster</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Välj produkt eller tjänst från listan eller lägg till ny</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha element</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Antal</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Antal</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Sparar nummerinställningar...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Sparar termer inställningar...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Ett "{0}" fel inträffade under sparandet av fakturan. Vänligen försök igen senare.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Säljare</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Skicka via mejl</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Sätta som standard</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Sätta standardinställningar</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Tömma</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Leverera Till</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Visa fakturprofil</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Öppna i en ny flik</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Startnummer</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Termer</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Varje faktura måste ha termer</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Sparar ändringar...</value>
+  </data>
+</root>

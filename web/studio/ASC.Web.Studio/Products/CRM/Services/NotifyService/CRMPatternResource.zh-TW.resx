@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>
+h1。新事件已添加到“ $ EntityTitle”：“ $ {__ VirtualRootPath} / $ {EntityRelativeURL}”
+$ __ DateTime“ $ __ AuthorName”：“ $ __ AuthorUrl”已將一個新事件添加到“ $ EntityTitle”：“ $ {__ VirtualRootPath} / $ {EntityRelativeURL}”：
+          $ AdditionalData.get_item（“ EventContent”）
+
+          #foreach（$ AdditionalData.get_item（“ Files”）。Keys中的$ fileInfo）
+
+          #beforeall
+
+          ----------------------------------------
+
+          ＃每
+
+          “ $ fileInfo”：“ $ AdditionalData.get_item（” Files“）。get_item（$ fileInfo）”
+
+          ＃結束
+
+          ^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想接收有關CRM模塊中添加的新事件的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>1。客戶關係管理。使用“網站聯繫表單”“ $ EntityTitle”創建的新聯繫人：“ $ {__ VirtualRootPath} /Products/CRM/Default.aspx?ID=$EntityID”
+
+$ __ DateTime已使用“網站聯繫表單”“ $ EntityTitle”創建了新聯繫人：“ $ {__ VirtualRootPath} /Products/CRM/Default.aspx?ID=$EntityID”
+
+聯繫信息：
+
+#foreach（$ AdditionalData.Keys中的$ contactInfo）
+＃每
+
+$ contactInfo：$ AdditionalData.get_item（$ contactInfo）
+
+＃結束
+
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1。客戶關係管理。數據導出成功完成
+
+請點擊以下連結下載存檔：“ exportdata.zip”：“ $ {EntityRelativeURL}”
+
+*注意*：此連結僅在24小時內有效。
+
+如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ http://support.onlyoffice.com”
+
+最好的祝福，
+ONLYOFFICE™支持團隊
+“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>
+h1。客戶關係管理。數據導入成功完成
+
+轉到“聯繫人”：“ $ __ VirtualRootPath / Products / CRM /”列表。
+
+如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ http://support.onlyoffice.com”
+
+最好的祝福，
+ONLYOFFICE™支持團隊
+“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1。您被任命對機會負責：“ $ EntityTitle”：“ $ {__ VirtualRootPath} /Products/CRM/Deals.aspx?id=$EntityID”
+
+$ __ DateTime“ $ __ AuthorName”：“ $ __ AuthorUrl”已指定您對此機會負責：$ EntityTitle。
+
+#if（$ AdditionalData.get_item（“ OpportunityDescription”）&amp;&amp; $ AdditionalData.get_item（“ OpportunityDescription”）！=“”）
+
+機會描述：
+$ AdditionalData.get_item（“ OpportunityDescription”）
+＃結束
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1。分配給您的任務：$ EntityTitle
+
+$ __ DateTime“ $ __ AuthorName”：“ $ __ AuthorUrl”已指定您負責任務：$ EntityTitle。
+#if（$ AdditionalData.get_item（“ TaskCategory”））
+
+任務類別：$ AdditionalData.get_item（“ TaskCategory”）
+＃結束
+#if（$ AdditionalData.get_item（“ ContactRelativeUrl”））
+
+與聯繫人的連結：“ $ AdditionalData.get_item（” ContactTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” ContactRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ CaseRelativeUrl”））
+
+連結大小寫：“ $ AdditionalData.get_item（” CaseTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” CaseRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ DealRelativeUrl”））
+
+與機會連結：“ $ AdditionalData.get_item（” DealTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” DealRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ TaskDescription”）&amp;&amp; $ AdditionalData.get_item（“ TaskDescription”）！=“”）
+
+任務描述：
+$ AdditionalData.get_item（“ TaskDescription”）
+＃結束
+
+截止日期：$ AdditionalData.get_item（“ DueDate”）
+
+
+#foreach（$ AdditionalData.get_item（“ Files”）。Keys中的$ fileInfo）
+
+#beforeall
+
+----------------------------------------
+
+＃每
+
+“ $ fileInfo”：“ $ AdditionalData.get_item（” Files“）。get_item（$ fileInfo）”
+
+＃結束
+
+轉到“任務”：“ $ {__ VirtualRootPath} /Products/CRM/Tasks.aspx”列表。
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>
+h1。授予“ $ EntityTitle”的存取權限：“ $ {__ VirtualRootPath} / $ {EntityRelativeURL}”
+
+$ __ DateTime“ $ __ AuthorName”：“ $ __ AuthorUrl”授予您對“ $ EntityTitle”：“ $ {__ VirtualRootPath} / $ {EntityRelativeURL}”的存取權限。
+
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想收到有關授予CRM項目存取權限的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1。關於任務的提醒：$ EntityTitle
+#if（$ AdditionalData.get_item（“ TaskCategory”））
+
+任務類別：$ AdditionalData.get_item（“ TaskCategory”）
+＃結束
+#if（$ AdditionalData.get_item（“ ContactRelativeUrl”））
+
+與聯繫人的連結：“ $ AdditionalData.get_item（” ContactTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” ContactRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ CaseRelativeUrl”））
+
+連結大小寫：“ $ AdditionalData.get_item（” CaseTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” CaseRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ DealRelativeUrl”））
+
+與機會鏈接：“ $ AdditionalData.get_item（” DealTitle“）”：“ $ {__ VirtualRootPath} / $ AdditionalData.get_item（” DealRelativeUrl“）”
+＃結束
+#if（$ AdditionalData.get_item（“ TaskDescription”）&amp;&amp; $ AdditionalData.get_item（“ TaskDescription”）！=“”）
+
+任務描述：
+$ AdditionalData.get_item（“ TaskDescription”）
+＃結束
+
+截止日期：$ AdditionalData.get_item（“ DueDate”）
+
+轉到“任務”：“ $ {__ VirtualRootPath} /Products/CRM/Tasks.aspx”列表。
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>客戶關係管理。新事件已添加到$ EntityTitle</value>
+  </data>
+  <data name="subject_AddRelationshipEvent_tg" xml:space="preserve">
+    <value>客戶關係管理。新事件已添加到[$ EntityTitle]（$ {__ VirtualRootPath} / $ {EntityRelativeURL}）</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>客戶關係管理。使用“網站聯繫表”創建的新聯繫人</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>客戶關係管理。數據導出成功完成</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>客戶關係管理。數據導入成功完成</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>客戶關係管理。您被任命為該機會的負責人：$ EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity_tg" xml:space="preserve">
+    <value>客戶關係管理。您被任命為該機會的負責人：[$ EntityTitle]（$ {__ VirtualRootPath} /products/crm/deals.aspx?id=$EntityID）</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>客戶關係管理。分配給您的任務：$ EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>客戶關係管理。分配給您的任務：[$ EntityTitle]（$ {__ VirtualRootPath} /products/crm/tasks.aspx）</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>客戶關係管理。授予$ EntityTitle的存取權限</value>
+  </data>
+  <data name="subject_SetAccess_tg" xml:space="preserve">
+    <value>客戶關係管理。授予[$ EntityTitle]（$ {__ VirtualRootPath} / $ {EntityRelativeURL}）的存取權限</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>客戶關係管理。關於任務的提醒：$ EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder_tg" xml:space="preserve">
+    <value>客戶關係管理。關於任務的提醒：[$ EntityTitle]（$ {__ VirtualRootPath} /products/crm/tasks.aspx）</value>
+  </data>
+</root>

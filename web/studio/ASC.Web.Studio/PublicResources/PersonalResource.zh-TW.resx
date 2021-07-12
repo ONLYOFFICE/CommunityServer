@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>檢查您的電子郵件收件箱以確認該帳戶。</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>輸入你的電子郵箱地址</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>或通過您的社交網絡輸入</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>忘記密碼？</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal是一個免費的在線編輯套件，用於帶有單獨的雲端存儲的文本文檔，電子表格和演示文稿。</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>在線編輯單詞，在線單詞編輯器，在線單詞免費，在線單詞辦公室</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>或登入</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>您的激活電子郵件已發送至</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>感謝您註冊您的Personal ONLYOFFICE™。</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>您的個人在線辦公室</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>個人在線辦公室</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>了解了！</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>本網站使用cookie。繼續瀏覽網站即表示您同意我們的{0}隱私政策{1}</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>創建ONLYOFFICE帳戶</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>帳號登錄</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>立即建立</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>我想訂閱ONLYOFFICE通訊</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>我同意ONLYOFFICE {0}條款{1}和{2}隱私聲明{3}</value>
+  </data>
+</root>

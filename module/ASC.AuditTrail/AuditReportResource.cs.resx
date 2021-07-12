@@ -1,0 +1,1354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Action ID</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Typ Akce</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Přidán administrátor:{0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Vymazán administrátor:{0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Aktualizované nastavení administrátorských zpráv</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Administrátoři[{0}]. Otevřen plný přístup</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Přiložit</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>Hlášení z Audit Trail bylo staženo</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>Audit Trail hlášení({0}-{1})</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>Klíče autorizace třetí strany byly aktualizovány</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Prohlížeč</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>Případy[{0}]. Soubory připojeny: {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>Případ uzavřen:{0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>Případ byl vytvořen:{0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>Případy[{0}]. Vytvořena historie událostí: {1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>Případy[{0}]. Tag vytvořen: {1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>Případ byl smazán:{0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>Případy[{0}]. Byla smazána historie událostí: {1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>Případy[{0}]. Tag byl vymazán: {1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>Případy[{0}]. Soubor byl oddělen: {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>Případy[{0}]. Společnost spojena: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>Případy[{0}]. Osoba propojena: {1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>Případ byl otevřen:{0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>Případy[{0}]. Přístup otevřen</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>Případy[{0}]. Přístup omezem: {1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>Případy. Tag vytvořen: {0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>Případy smazány: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>Případy. Tag vymazán: {0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>Případy exportovány do souboru CSV: {0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>Případy importovány ze souboru CSV</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Případy</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>Případy[{0}]. Společnost odpojena: {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>Případy[{0}]. Osoba odpojena: {1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>Případ byl aktualizován:{0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>Bylo vytvořeno pole uživatele:{0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>Bylo odstraněno pole uživatele:{0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Bylo aktualizováno pořadí polí uživatele:{0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>Bylo aktualizováno pole uživatele:{0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>Bylo změněno barevné schéma</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>Společnosti byly sloučeny: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>Společnosti</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>Společnost[{0}].Soubory připojeny: {1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>Společnost vytvořena: {0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>Společnosti [{0}]. Vytvořena historie událostí: {1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>Společnosti[{0}]. Tag pro osoby byl vytvořen: {1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>Společnosti[{0}]. Tag byl vytvořen: {1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>Společnost vytvořena pomocí webového formuláře: {0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>Společnost odstraněna: {0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>Společnosti [{0}]. Historie událostí byla smazána: {1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>Společnosti[{0}]. Tag byl vymazán: {1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>Společnosti[{0}]. Soubor odpojen: {1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>Společnosti [{0}]. Osoba propojena: {1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>Společnosti[{0}]. Projekt propojen: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>Společnosti[{0}]. Osoba odpojena: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>Společnosti[{0}]. Projekt odpojen: {1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>Společnost byla aktualizována: {0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>Spolčenosti [{0}]. Byla aktualizována úroveň důležitosti osoby</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>Společnosti[{0}]. Foto aktualizováno</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Společnosti[{0}]. Byly aktualizované hlavní informace</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Společnosti[{0}]. Byla aktualizována úroveň důležitosti</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>Společnosti [{0}]. Soubory nahrány: {1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>Uživatelské pole pro společnost bylo vytvořeno: {0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>Pole uživatele společnosti bylo smazáno: {0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Pořadí uživatelských polí pro firmy aktualizováno: {0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>Pole uživatele společnosti bylo aktualizováno: {0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>Zpráva byla odeslána na správce</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>Kontakty [{0}]. Projekt propojen: {1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>Kontakty [{0}]. Případ vytvořen: {1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>Kontakty. Tag byl vytvořen: {0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>Kontakty smazány: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>Kontakty. Tag byl odstraněn: {0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>Kontakty exportovány do CSV souboru: {0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>Kontakty importovány z CSV souboru</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>Tag nastavení pro Kontakty bylo aktualizováno</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>Úroveň důležitosti kontaktu byla vytvořena: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>Úroveň důležitosti kontaktu byla odstraněna: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>Nastavení teplotní úrovně kontaktu bylo aktualizováno</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>Úroveň důležitosti kontaktu objednávek byla aktualizována: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>Úroveň důležitosti kontaktu byla aktualizována: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>Úroveň důležitosti kontaktu [{0}]. Barva byla aktualizována</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>Byl vytvořen typ kontaktu: {0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>Byl odstraněn typ kontaktu: {0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Typy kontaktů</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>Typy kontaktu objednávek byly aktualizovány: {0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>Byl aktualizován typ kontaktu: {0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>Kontakty [{0}]. Projekt odpojen: {1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>Bylo vytvořeno uživatelské pole kontaktu: {0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>Bylo smazáno uživatelské pole kontaktu: {0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Pořadí uživatelských polí pro kontakty bylo aktualizováno: {0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>Bylo aktualizováno uživatelské pole kontaktu: {0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Nastavení Cookie bylo aktualizováno</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>Všechna data byla exportována</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>Výchozí měna byla aktualizována</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM-Entita. Samostatný soubor: {0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM Soubory</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>SMTP Mail byl zaslán do Kontaktů: {0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>SMTP Nastavení aktualizováno</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>CRM kategorie úloh aktualizována: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>CRM kategorie úloh vytvořena: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRM kategorie úkolu smazána: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRM kategorie úkolu aktualizována: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>CRM Ikona kategorie úkolu aktualizována: {0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRM úkol uzavřen: {0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>CRM úkol vytvořen: {0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRM úkol smazán: {0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>CRM úkol otevřen: {0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CRM Úkoly exportovány do CSV souboru: {0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>CRM Úkoly importovány z CSV souboru</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRM Úkoly</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>CRM Úkoly aktualizovány: {0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>Testovací email odeslán</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>Aktualizován kurz měny: {0} - {1}</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>Výchozí nastavení počáteční stránky bylo aktualizováno</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Odpojit</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Soubory odebrány: {2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Vytvořen komentář</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Komentář odstraněn</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Komentář aktualizován</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze vytvořena: {1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze odstraněna: {1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Soubor odebrán: {2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskuze</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze aktualizována: {1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze byla aktualizována: {1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>Aktualizováno DNS nastavení</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>Aktualizováno umístění služby dokumentů</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Přepisování aktualizovaného nastavení</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>Nastavení Třetí Strana aktualizováno</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>Nahrávání aktualizovaného nastavení formátů</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Exportovat</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>Nastavit vlastníka [{0}] na [{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Soubor byl konvertován do interního formátu: {0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Soubory[{0}]. Zkopírováno ze složky "{1}" do složky: "{2}"</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>Soubory[{0}]. Zkopírováno a přepsáno ze složky "{1}" do složky: "{2}"</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Soubor byl vytvořen: {0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>Soubory[{0}]. Revision{1}. Verze vytvořena</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>Soubor byl vymazán: {0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>Soubory[{0}]. Revision {1}. Verze smazána</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>Soubor byl stažen: {0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>Soubory[{0}]. Staženo jako: {1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>Složky [{0}]. Soubor importován: {1}. Poskytovatel: {2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>Soubor uzamčen: {0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>Soubory[{0}]. Přesunuto ze složky "{1}" do složky: "{2}"</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>Soubory[{0}]. Přesunuto do složky Koš</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>Soubory[{0}]. Přesunuto a přepsáno ze složky "{1}" do složky: "{2}"</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>Soubor přejmenován: {0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>Soubory[{0}]. Revision: {1}. Verze obnovena</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>Dokument {1} byl podepsán prostřednictvím {0}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>Odeslán sdílený odkaz do [{0}] souboru. Příjemci: [{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Soubory</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>Dokument {1} odeslán k podpisu prostřednictvím {0}</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>Soubor odemčen: {0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>Soubor aktualizován: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>Soubory[{0}]. Přístup aktualizován</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>Soubory[{0}]. Revision{1}. Komentář aktualizován</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Soubor nahrán: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>Složky [{0}]. Zkopírováno do složky: {1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>Složky [{0}]. Zkopírováno a přepsáno do složky: {1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>Složka vytvořena: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>Složka vymazána: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>Složky [{0}]. Přesunuto do Složky: {1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>Složky [{0}]. Přesunuto do složky Koš</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>Složky [{0}]. Přesunuto a přepsáno do Složky: {1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>Složka přejmenována: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Složky</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>Složky[{0}]. Přístup aktualizován</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Sledovat</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Nastavení Sphinx bylo aktualizováno</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Obecný</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Nastavení uvítací stránky aktualizováno</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Skupina vytvořena: {0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>Skupina vymazána: {0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Skupiny</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>Skupina aktualizována: {0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>Účet návštěvníka</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>Návštěvník aktivován: {0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>Návštěvník vytvořen: {0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>Návštěvník vytvořen pomocí Pozvánky: {0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>Návštěvník importován: {0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Kategorie z historie událostí. Pořadí aktualizováno: {0} </value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>Kategorie událostí historie byla vytvořena[{0}]. </value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>Kategorie událostí historie byla smazána[{0}]. </value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>Kategorie událostí historie aktualizována[{0}]. </value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>Kategorie událostí historie[{0}]. Ikona aktualizována</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>Importovat</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>Faktury vytvořeny: {0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>Výchozí podmínky faktury aktualizovány</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>Faktura odstraněna: {0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>Faktura stažena: {0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>Vytvořena položka faktury: {0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>Odstraněna položka faktury: {0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>Položky faktury odstraněny: {0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>Aktualizována položka faktury: {0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>Aktualizován číselný formát faktury</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>Faktury odstraněny: {0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>Nastavení fakturace</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>Faktury</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>Faktury[{0}]. Stav byl aktualizován: {1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>Byla vytvořena fakturační daň: {0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>Byla smazána fakturační daň: {0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>Fakturační daň byla aktualizována: {0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>Faktura byla aktualizována: {0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>Nastavení jazyka bylo aktualizováno</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>Klíč licence byl nahrán</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>Odkaz</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>Přihlášení se nezdařilo</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>Přihlášení se nezdařilo. Profil byl deaktivován</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>Přihlášení se nezdařilo. Neplatná kombinace uživatelského jména a heslo</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>Zabezpečení protokolu TCP/IP: Přihlášení se nezdařilo.</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>Přihlášení se nezdařilo. Přiřazený účet sociální sítě nebyl nalezen.</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>Nepodařilo se přihlásit pomocí API</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>Nepodařilo se přihlásit pomocí API &amp; SMS kódu</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>Přihlášení pomocí API &amp; sociálních médií se nezdažilo</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>Přihlášení pomocí SMS se nezdařilo</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>Přihlášení pomocí SSO se nezdařilo</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>Zpráva o historii přihlášení byla stažena</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>Zpráva o historii přihlášení ({0}-{1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Přihlášení úspěšné</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>Přihlášení přes účet sociální sítě bylo úspěšné</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>Úspěšné přihlášení skrz API</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>Úspěšné přihlášení skrz API a SMS Kód</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>Přihlášení pomocí SMS bylo úspěšné</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>Přihlášení pomocí API &amp; sociálních médií bylo úspěšné</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>Úspěšné přihlášení pomocí SSO</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Odhlášení</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Nastavení Mailových služeb bylo aktualizováno</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>Projekty [{0}]. Milník vytvořen: {1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>Projekty [{0}]. Milník odstraněn: {1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milníky</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Projekty [{0}]. Milník aktualizován: {1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>Projekty [{0}]. Milníky [{1}]. Stav aktualizován: {2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>Přesun</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>Možnosti. Tag vytvořen: {0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>Možnosti vymazány: {0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>Možnosti. Tag odstraněn: {0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>Možnosti exportovány do CSV souboru: {0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>Možnosti importovány z CSV souboru</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Příležitosti</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>Možnosti[{0}]. Soubory byly přiloženy: {1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>Příležitost vytvořena: {0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>Možnosti[{0}]. Vytvořena historie údálosti</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>Možnosti[{0}]. Tag vytvořen: {1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>Příležitost odstraněna: {0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>Možnosti[{0}]. Smazána historie události: {1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>Možnosti[{0}]. Tag odstraněn: {1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>Možnosti[{0}]. Soubor byl odebrán: {1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>Možnosti[{0}]. Společnost propojena: {1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>Možnosti[{0}]. Osoba propojena: {1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>Možnosti[{0}]. Přístup otevřen</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>Možnosti[{0}]. Přístup omezen: {1}.</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>Fáze příležitosti vytvořena: {0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>Fáze příležitosti odstraněna: {0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>Pořadí fází Příležitosti aktualizováno: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>Fáze příležitosti aktualizována: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>Barva fáze příležitosti aktualizována: {0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>Možnosti[{0}]. Společnost odpojena: {1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>Možnosti[{0}]. Osobo odpojena: {1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>Příležitost aktualizována: {0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>Fáze příležitosti aktualizována: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>Vytvořeno uživatelské pole pro příležitosti: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>Bylo smazáno uživatelské pole pro příležitosti: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Pořadí uživatelských polí pro příležitosti bylo aktualizováno: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>Bylo aktualizováno uživatelské pole pro příležitosti: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>Profil Organizace. Adresa aktualizována</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>Profil Organizace. Název společnosti aktualizován: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>Profil Organizace. Fakturační logo aktualizováno</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>Další nastavení</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>Ostatní</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>Vlastník změněn: {0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>Majitel [{0}]. Odeslané pokyny ke změně vlastníka</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>Majitel [{0}]. Odeslané pokyny k deaktivaci portálu</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>Majitel [{0}]. Odeslané pokyny k odstranění portálu</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>Stránka</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>Nastavení síly hesla bylo aktualizováno</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>Lidé</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>Osoby [{0}]. Přidělené soubory: {1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>Osoba vytvořena: {0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>Osoby [{0}]. Vytvořen tag společnosti: {1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>Osoby [{0}]. Byla vytvořena historie události: {1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>Osoby [{0}]. Tag byl vytvořen: {1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>Osoba vytvořená pomocí webového formuláře: {0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>Osoba odstraněna: {0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>Osoby [{0}]. Byla odstraněna historie události: {1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>Osoby [{0}]. Tag byl odstraněn: {1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>Osoby [{0}]. Samostatný soubor: {1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>Osoby [{0}]. Projekt spojen: {1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>Osoby vytvořeny: {0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>Osoby spojeny: {0} - {1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>Lidé</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>Osoby [{0}]. Projekt odpojen: {1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>Osoba aktualizována: {0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>Osoby [{0}]. Byla aktualizována úroveň důležitosti společnosti</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>Lidé [{0}]. Fotografie aktualizována</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Osoby [{0}]. Základní informace aktualizovány</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Osoby [{0}]. Aktualizována úroveň důležitosti</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>Osoby [{0}]. Soubory nahrány: {1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>Vytvořeno osobní uživatelské pole: {0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>Bylo odstraněno osobní uživatelské pole: {0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Pořadí osobních uživatelských polí bylo aktualizováno: {0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>Bylo aktualizováno osobní uživatelské pole: {0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>Nastavení přístupu k portálu bylo aktualizováno</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>Portál byl deaktivován</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>Portál odstraněn</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>Produkty [{0}]. Přístup otevřen</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>Produkty [{0}]. Skupiny [{1}]. Přístup otevřen</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>Produkty [{0}]. Uživatelé [{1}]. Přístup otevřen</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>Products [{0}]. Přístup omezen</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>Products [{0}]. Přidán administrátor: {1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>Products [{0}]. Odstraněn administrátor: {1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>Seznam produktů aktualizován</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>Produkty</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>Projekt vytvořen: {0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>Šablony [{0}]. Projekt vytvořen: {1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Projekt odstraněn: {0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>Projekty [{0}]. Člen byl odstraněn: {1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>Následující projekt: {0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>Projekty [{0}]. Společnost připojena: {1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>Projekty[{0}]. Kontakty propojeny: {1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>Projekty [{0}]. Osoba propojena: {1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>Projekty importovány ze Základny: {0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>Byla vytvořena šablona projektu: {0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>Byla odstraněna šablona projektu: {0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>Byla aktualizována šablona projektu: {0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>Projekt již není sledován: {0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>Projekty[{0}]. Společnost odpojena: {1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>Projekty [{0}]. Osoba odpojena: {1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>Projekt aktualizován: {0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>Projekty [{0}]. Členové [{1}]. Přístupová práva aktualizována</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>Projekty [{0}]. Stav aktualizován: {1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>Projekty [{0}]. Tým aktualizován: {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Změna přiřazení</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>Reporty</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>Byla vytvořena šablona pro záznamy projektu: {0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>Byla odstraněna šablona pro záznamy projektu: {0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>Byla aktualizována šablona pro záznamy projektu: {0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>Odeslat</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>Instrukce k pozvánce byly odeslány: {0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>Relace dokončena</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>Relace začala</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO deaktivováno</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO povoleno</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>Spustit zálohu</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>Začít migraci portálu do jiného regionu</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Podúkol vytvořen: {2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Podúkol odstraněn: {2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Podúkol aktualizován: {2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Podúkoly [{2}]. Stav aktualizován: {3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>Systémový účet</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>Target ID</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Soubory připojeny: {2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>Projekty [{0}]. Úkoly [{1}]. Vytvořen komentář</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Komentář odstraněn</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Komentář aktualizován</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>Projekty [{0}]. Úkol vytvořen: {1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>Projekty [{0}]. Diskuze [{1}]. Vytvořen úkol: {2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>Projekty [{0}]. Úkol odstraněn: {1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>Projekty [{0}]. Úkol: {1}. Soubor odebrán: {2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekty [{0}]. Milníky [{1}]. Úkol přesunut: {2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>Projekty [{0}]. Úkoly připojeny: {1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Úkoly</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>Projekty [{0}]. Úkoly odpojeny: {1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Vytvořen čas práce na úkolu: {2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>Pracovní čas na Úkolu byl odstraněn: {0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>Pracovní čas na Úkolu [{0}]. Stav aktualizován: {1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Úkoly [{1}]. Aktualizován čas práce na úkolu: {2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>Projekty[{0}]. Úkoly [{1}]. Nejsou propojeny s Milníky.</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Projekty [{0}]. Úkol aktualizován: {1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>Projekty [{0}]. Následující úkol aktualizován: {1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>Projekty[{0}].Úkoly[{1}]. Aktualizován stav: {2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>Byla změněna Týmová Šablona</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>Třetí strana vytvořena: {0}. Poskytovatel: {1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>Třetí Strana otevřena: {0}. Poskytovatel: {1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>Třetí Strana Aktualizována: {0}. Poskytovatel: {1}.</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Sledování času</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>Nastevení Časové zóny bylo aktualizováno</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>Aktualizováno nastavení důvěryhodných Mailových domén</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>Dvoufaktorová autentizace byla aktualizována</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>Nesledovat</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>Neznámý účet</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>Rozpojit</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>Aktualizovaný Přístup</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>Aktualizace</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>Nahrát</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>Uživatel aktivován: {0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>Uživatelé [{0}]. Přidán Avatar</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>Uživatel vytvořený: {0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>Uživatel vytvořen prostřednictvím pozvánky: {0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Data byla znovu přidělena: od uživatele {0} uživatelovi {1}</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>Uživatel odstraněn: {0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>Uživatelé [{0}]. Avatar odstraněn</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>Uživatelé [{0}]. Soubor byl aktualizován: {1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>Uživatel importován: {0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>Připojen sociální účet. Poskytovatel: {0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>Uživatelé odstraněni: {0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>Uživatelé [{0}]. Aktivační pokyny byly odeslány</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>Byly odeslány instrukce k odstranění profilu</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>Uživatelé [{0}]. Pokyny ke změně emailové adresy byly odeslány</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>Uživatelé [{0}]. Pokyny ke změně hesla byly odeslány</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>Uživatelé</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>User [{0}]. Aktivační pokyny byly odeslány</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>Uživatelé [{0}]. Stav byl aktualizován</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>Uživatelé [{0}]. Typ byl aktualizován </value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>Sociální účet odpojen. Poskytovatel: {0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Uživatel aktualizován: {0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>Uživatelé [{0}]. Náhled miniatury Avatara byl aktualizován</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>Jazyk aktualizován</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>Uživatelé [{0}]. Mobilní číslo aktualizováno: {1}</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>Heslo aktualizováno</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>Aktualizace klíče kontaktního formuláře webových stránek</value>
+  </data>
+</root>

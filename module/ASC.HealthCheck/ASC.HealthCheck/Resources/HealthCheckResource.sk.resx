@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoreplyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Automatická odpoveď</value>
+  </data>
+  <data name="BackupServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Záloha</value>
+  </data>
+  <data name="BackupServiceWorksIncorrectMsg" xml:space="preserve">
+    <value>Záloha služby nepracuje správne</value>
+  </data>
+  <data name="CoAuthoringServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Editori Spoluatorstva</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Váš tarifný systém nepodporuje túto možnosť</value>
+  </data>
+  <data name="FeedServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Prísun/napájanie/zásobovať</value>
+  </data>
+  <data name="FileConverterServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Konvertor súborov editorov</value>
+  </data>
+  <data name="GigaByte" xml:space="preserve">
+    <value>{0} GB</value>
+  </data>
+  <data name="HostWorks" xml:space="preserve">
+    <value>Pracuje</value>
+  </data>
+  <data name="IndexServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Index</value>
+  </data>
+  <data name="JabberServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Jabber</value>
+  </data>
+  <data name="MailAggregatorServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Agregátor/súhrn mailov</value>
+  </data>
+  <data name="MailWatchdogServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Strážca mailov</value>
+  </data>
+  <data name="MegaByte" xml:space="preserve">
+    <value>{0} MB</value>
+  </data>
+  <data name="MiniChatServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Minichat</value>
+  </data>
+  <data name="MonoServeRestartError" xml:space="preserve">
+    <value>Chyba pri opätovnom spustení služby monoserve: {0}</value>
+  </data>
+  <data name="NotifyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Oznámiť</value>
+  </data>
+  <data name="RemoveEmailError" xml:space="preserve">
+    <value>Došlo k chybe pri odstraňovaní adresy</value>
+  </data>
+  <data name="RemovePhoneError" xml:space="preserve">
+    <value>Došlo k chybe pri odstraňovaní telefónneho čísla</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Chyba servera</value>
+  </data>
+  <data name="ServiceError" xml:space="preserve">
+    <value>Chyba služby</value>
+  </data>
+  <data name="ServiceStillNotStoped" xml:space="preserve">
+    <value>Servis sa nezastavil</value>
+  </data>
+  <data name="SignalRServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE SignálR</value>
+  </data>
+  <data name="SpellCheckerServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Editori programu na kontrolu pravopisu</value>
+  </data>
+</root>

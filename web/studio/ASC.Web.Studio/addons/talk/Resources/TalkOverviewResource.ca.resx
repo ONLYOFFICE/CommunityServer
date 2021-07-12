@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>La llista de contactes s'actualitza automaticament quan les persones s'afegeixes o s'esborren de la llista de treballadors, amb el que no heu de revisar-la manualment.</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Pestanyes de xat</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk és un sistema corporatiu de missatgeria instantània dissenyat per a intercanviar missatges de text entre treballadors en temps real.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk us ofereix totes les característiques tradicionals d'un programa de missatgeria instantània - selecció d'estat, arxiu d'historial, transferència de fitxers, suport per a converses multiusuar i encara més.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Descripció de Talk</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Inicieu el client web per a començar a fer servir Talk ara mateix sense cap canvi a la configuració prèvia dels paràmetres.</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Inicia el client web</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>No es necessari cap configuració prèvia! Feu clic a iniciar el client web i començar a xatejar ara mateix</value>
+  </data>
+</root>

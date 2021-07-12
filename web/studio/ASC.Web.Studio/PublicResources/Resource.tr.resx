@@ -1,0 +1,2989 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>adres</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Telif Hakkı</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Versiyon</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Erişim Hakları</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>{0} modülüne erişim şuna verildi:</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>{!Group} ekle</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>{!user}Ekle </value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Tüm {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Portal Sahibini Değiştir</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Değişiklikler konfirmasyon epostasından sonra uygulanacak.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Portal sahibini değiştirmek için aşağıdan yeni Portal sahibinin ismini seçin.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} modülü devre dışıdır ve portalda gösterilmez. Etkinleştirmek için Portal Ayarlarında Modüller  &amp; Araçlar bölümüne gidiniz</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>{!user} listesi boş</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Tam Erişim</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Portal sahibi olarak şunlar hariç aynı erişim haklarına sahip olun|Portal sahibini değiştirme|Portalı silme yada deaktive etme</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Portal sahibi şunları yapabilir:</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Modül yöneticileri olarak aynısını yap|Modül yöneticisi ata|Modül erişim haklarını düzenle|Portal ayarlarını yönet|Kullanıcı hesaplrını yönet|Portal sahibini değiştir|Portal verisini yedekle|Portal deaktive et yada sil</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} yöneticiler için</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users}</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>Farklı erişim hakkına sahip {0} {!users} </value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Listeden {!Users}</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Hesabınız neredeyse aktif</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Onay</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Portal Deaktivasyonu</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Portalı silmeden önce otomatik ödeme talimatının kapalı olduğundan emin olun. Otomatik ödeme talimatlarını kontrol etmek için {0}Avangate hesabı{1} bölümüne gidebilirsiniz.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>İşlemi onaylamak için bir bağlantı :email adresine gönderildi. (portal sahibinin e-posta adresi)</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Portal Silme</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>İşlemi onaylamak için bir bağlantı :email adresine gönderildi. (portal sahibinin e-posta adresi)</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Kodu bir daha gönder</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Kod giriniz</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Epostayı bir kez daha aktive edin</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Doğrulama alanı boş olamaz</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Cep telefonu numarası giriniz</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Devam et</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Yeni {!group} oluştur</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Grup Ekle</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>İzin verilen IP adresi ekle</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Yorum Ekle</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Güvenilen alan adı ekle</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>{!Users} ekle</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Kullanıcı Ekle</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Yönetici</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Yönetici Bildirimleri</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Mesaj gönder</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Portala erişemiyor musunuz?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Sizinle iletişime geçilebilecek eposta adresi</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Portal yönetimiyle iletişime geç</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Mesajınız başarıyla gönderildi. Portal yöneticisi sizinle iletişime geçecek.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Yönetici Mesajı Ayarları</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Lütfen sorununuzu belirtin</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Mevcut bir {!user} iseniz ve portala girişte sorun yaşıyorsanız ya da yeni bir {!user} olarak portala kaydolmak istiyorsanız lütfen aşağıdaki formu kullanarak portal yöneticisi ile irtibata geçin.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Yöneticiler</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Ortaklık Durumu</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Herhangi bir alan adı</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Tüm hakları saklıdır</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Tüm hakları saklıdır.
+</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Yanıtla</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Yanıt</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Uygulamalar</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Web ofis fonksiyonelliğinizi üçüncü parti uygulamalar ile artırın. Portal yöneticiniz ile görüşerek ihtiyacınız olan uygulamaları iletin.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>{0}Destek Merkezinden{1} detaylı bilgi alabilirsiniz</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Bağlı</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Bağlantıyı Kes</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Bağlı değil</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Doğrulama</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Yetkilendirme</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Yetkilendirme Anahtarları</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Yetkilendirme anahtarları ONLYOFFICE™ portalınızı Twitter, Facebook, Dropbox, vs. gibi üçüncü kişi hizmetlerine bağlamanıza izin veren bir seçenektir. Portal ehliyetinizi her defasında tanıtmak istemiyorsanız portalınızı Facebook,Twitter yada Linkedin'le bağlayın. Dropbox,OneDrive,Zoho,vs. gibi servislere bağlayarak, tüm bu depolardan ONLYOFFICE™ Döküman modülüne transfer yapabilirsiniz.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Hizmet Şartları</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Devre Dışı Bırak</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Portal verisinin otomatik yedeklenmesi için bu seçeneği kullanın.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Otomatik yedekleme</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>{0}Otomatik yedekleme{1} seçeneği yerel bir sunucudan geri yükleme yapılmak istediğinde kullanılabilmesi için portal veri yedekleme sürecinin otomasyonu için kullanılır. Veri depolama, otomatik yedekleme periyodu ve en yüksek kaydedilen kopya sayısını seçebilirsiniz.{2}{0}Not:{1} yedekleme verilerini üçüncü bir hesaba (DropBox, Box.com, OneDrive veya Google Drive) kaydetmeden önce bu hesabı ONLYOFFICE Ortak Belgeler klasörüne bağlamanız gerekir.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Başlık sayfasına git</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Yedekleme</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Maksimum depolanacak yedekleme kopya sayısı</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE dökümanları</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Yedeklemeyi indir</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Kopya yap</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Yedeklemeye E-posta Dahil Et</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Bağlanan üçüncü kişi servisleri yok. {0}Bağlamak için "Belgelerim" modülüne gidiniz.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Yukarıdaki bağlantıyı kullanarak yedeklemeyi bilgisayarınıza indirebilirsiniz. Link
+                                        talep edildikten sonraki 24 saat boyunca geçerli olacaktır.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Saklama</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Geçici</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Portaldaki tüm veriyi dosya olarak almak isterseniz bu seçeneği kullanın.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>ONLYOFFICE Ortak Belgeleri klasörü için yedeklemenizi kaydetmeden önce üçüncü şahıs hesabınıza (DropBox, Box.com, OneDrive veya Google Drive) bağlanmanız gerekiyor.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>{!Group} ekle</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Tarayıcı</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Yeni kişi ekle</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Arama sonlandı</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Bağlanılıyor</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Aranıyor</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Gelen</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Girdiğiniz tüm veriler kaybolacak. Devam etmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>E-posta başarıyla değiştirildi</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Logo Değiştir</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>İşlemi onaylamak için bir bağlantı :email adresine gönderildi. (portal sahibinin e-posta adresi)</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Oca, Şub, Mar, Nis, May, Haz, Tem, Ağu, Eyl, Ekm, Kas, Ara</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Sahip seçiniz</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>{!user} seç</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Filtreyi Temizle</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Parlak mavi</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Koyu yeşil</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Masmavi</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Mellow yeşili</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Saf turuncu</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Renk Temaları</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Yabani pembe</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>yorum silindi</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Bağlantıyı Kes</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Konfirmasyon</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Konfirmasyon</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Lütfen portalınızı devre dışı bırakmak istediğinizi onaylayın</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Lütfen portalınızı silmek istediğinizi onaylayın</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Portal adresini {0} olarak değiştirmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Portal sahibi başarıyla değiştirildi. {0}10 saniye içinde {1}buraya{2} yönlendirileceksiniz.</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Portal sahibini {0} olarak değiştirmek istediğinizi lütfen teyit edin</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Katıl</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Kaydınızı başarıyla onayladınız. Şifre oluşturun ve çalışmaya başlayın!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Lütfen portalınızı yeniden etkinleştirmek istediğinizi teyit edin</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Yorumunuzu silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Yorumu Kaldır</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Tebrik</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>giriş</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Bitly hizmetine bağlanarak portal davet linklerini ve Belgeler modülünde paylaşılmış linkleri kısalt.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Bitly hizmetini eklerseniz, ONLYOFFICE™ portalına yeni kullanıcılar davet ederken kısaltılmış linkler kullanabilecek ve Belgeler modülünde dış kullanıcılar ile paylaşılan kısaltılmış linklere sahip olabileceksiniz.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>giriş</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Kutu ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Kutu Anahtarı</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Box belgelerini ve klasörlerini yönetmek için uygulamaya bağlan.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Box servisinden bir uygulama eklerseniz Belgeler modülündeki Box hesabınızı bağlayabileceksiniz. Böylelikle Box'da yeni dosyalar oluşturabilecek ve yükleyebilecek, mevcut olanları düzenleyebilecek, kopyalayıp silebilecek, ONLYOFFICE™ portal kullanıcıları ile belge ve klasörleri paylaşabileceksiniz.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Kutu ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Kutu Anahtarı</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Clickatell ile iki aşamalı yetkilendirme uygulamasını etkinleştir.</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Clickatell hizmet uygulamasını ekleyerek iki aşamalı yetkilendirmeyi kullanabilecek ve ONLYOFFICE portalına giriş için gerekli SMS kodunu alabileceksiniz.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign Anahtar</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Belgelerinize DocuSign elektronik imza eklemek için uygulamaya bağlanın.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>DocuSign yetkilendirme</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>DocuSign servisinden bir uygulama eklerseniz Belgeler modülündeki Box hesabınızı bağlayabileceksiniz. Böylelikle ONLYOFFICE™ portalı çalışanlarına DocuSign hizmeti aracılığıyla elektronik imza gönderebileceksiniz. İmzalanmış dosya ONLYOFFICE™ Belgeler modülüne kaydedilecektir.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign Anahtar</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>DocuSign yetkilendirme</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>Dropbox Anahtar</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Dropbox belge ve klasörlerini yönetmek için uygulamaya bağlan.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Dropbox servisinden bir uygulama eklerseniz Belgeler modülündeki Dropbox hesabınızı bağlayabileceksiniz. Böylelikle Dropbox'a dosya yükleyebilecek, yeni dosyalar oluşturabilecek, mevcut dosyaları düzenleyebilecek, kopyalayıp silebilecek, ONLYOFFICE™ portal kullanıcıları ile dosyaları ve klasörleri paylaşabileceksiniz.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>Dropbox Anahtar</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook Anahtar</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>CRM Anahatarında Facebook</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>Uygulama Dizgeciği</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Facebook hesabı kullanarak uygulamaya bağlan ve kişileri ara.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Facebook servisinden bir uygulama eklerseniz Facebook hesabınızdaki profil sayfanızı bağlayabilecek ve ONLYOFFICE™ portalına bu hesabı kullanarak bağlanabileceksiniz. Böylelikle CRM modülündeki bir kişinin Facebook hesabını da bulabilecek ve 'Kişi/şirket düzenle' sayfasında link verebileceksiniz.</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook Anahtar</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>Uygulama Dizgeciği</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>Web API anahtarı</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Sunucu anahtarı</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>Gönderen ID</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>Proje ID</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Firebase Bulut Mesajlaşma servisine bağlanarak size gönderilen mesajlar için bildirim alabilirsiniz.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Firebase Bulut Mesajlaşma kullanırsanız offline olduğunuzda dahi size gönderilen mesajlarla ilgili bildirim alabileceksiniz.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Web API anahtarı</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>Gönderen ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>Proje ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Sunucu anahtarı</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google Anahtar</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Google hesabı kullanarak portala bağlan ve Google Drive belge ve klasörlerini yönet.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Şayet Google hizmetine bir proje eklerseniz profil sayfanızdan Google hesabınızı bağlayabilecek ve ONLYOFFICE™ portalına Belgeler modülündeki Gooogle Drive hesabını kullanarak da erişebileceksiniz. Böylelikle Google Drive'da yeni dosyalar oluşturabilecek ve yükleyebilecek, mevcut olanları düzenleyebilecek, kopyalayıp silebilecek, dosyaları ve klasörleri ONLYOFFICE™ portal kullanıcıları ile paylaşabileceksiniz.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Anahtar</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>LinkedIn hesabı kullanarak uygulamaya bağlan.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>LinkedIn hizmeti uygulamasını yüklerseniz, LinkedIn hesabınızdaki profil sayfanızı bağlayabilecek ve ONLYOFFICE™ portalına bu profiliniz ile giriş yapabileceksiniz.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin Anahtar</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive Anahtar</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>OneDrive belge ve klasörlerini yönetmek için uygulamaya bağlan.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>OneDrive hizmeti uygulamasını eklerseniz, Belgeler modülündeki OneDrive hesabınızı bağlayabileceksiniz. Böylelikle OneDrive'da yeni dosyalar yükleyebilecek ve oluşturabilecek, mevcut olanları düzenleyebilecek, kopyalayıp silebilecek, ONLYOFFICE™ portal kullanıcıları ile dosya ve klasörleri paylaşabileceksiniz.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive Anahtar</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS Merkezi</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>SMS Center ile iki aşamalı yetkilendirme uygulamasını etkinleştir.</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>SMS Merkezi hizmeti uygulamasını ekleyerek iki aşamalı yetkilendirmeyi kullanabilecek ve ONLYOFFICE portalına giriş için SMS kodu alabileceksiniz. SMS Merkezi uygulaması CIS ülkeleri sağlayıcısı olarak kullanışlı bir seçimdir.</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Şifre veya şifre MD5 hash, küçük harflerle</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Şifre veya şifre MD5 hash, küçük harflerle</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Hesap Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Yetki Dizgeciği</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>CRM kişilerini tarayıcıdan arayabilmek için Twilio ekle</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Twilio ekledikten sonra tarayıcınızı kullanarak tüm CRM kişilerini arayabileceksiniz.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Hesap Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Twilio telefon numarası (SMS yetkilendirme için gereklidir)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Yetki Dizgeciği</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Twilio telefon numarası (SMS yetkilendirme için gereklidir)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Erişim Dizgeciği</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Erişim Dizgeciği Gizle</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>CRM Anahtarında Twitter</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter Anahtarı</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Twitter hesabı kullanarak uygulamaya bağlan ve kişileri ara.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Twitter hizmeti uygulamasını eklerseniz, ONLYOFFICE™ portalına Twitter hesabınızı kullanarak giriş yapabileceksiniz. Böylelikle CRM modülündeki bir kişinin Twitter hesabını bulabilecek ve 'Kişi/şirket düzenle' sayfasına link vererek Twitter haberler beslemesini görüntüleyebileceksiniz.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Erişim Dizgeciği</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter Anahtar</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Erişim Dizgeciği Gizle</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>Müşteri ID</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Müşteri Gizliliği</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Yahoo kişi aktarımı uygulamasını etkinleştir.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Yahoo hizmet uygulamasını ekleyerek ONLYOFFICE portalına kişi listesinden yeni kullanıcılarak ekleyebileceksiniz.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Müşteri ID</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Müşteri Gizliliği</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>İletişim Bilgisi</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Devam et</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Kontrol Paneli</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Kontrol Paneli</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Çerez Ayarları{1} çerez süresini dakika olarak ayarlamanızı sağlar.{2}Kayıt sonrası tüm kullanıcılar portaldan çıkış yaptırılacaktır.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Ömürboyu</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Çerez Ayarları</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Bağlantıyı kopyala</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Kurumsal Kullanım</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Şifre kurtarma işlemi LDAP kullanıcıları için kullanılamaz</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Şifre kurtarma işlemi SSO kullanıcıları için kullanılamaz</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Yeni profil oluştur</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>yedek oluşturuluyor</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Özel alan adı</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Özelleştirme</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Veri Yedeği</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Veri Yedekleme{1} seçeneği daha sonra geri yüklemek için portal verilerinin yedeklenmesini sağlar. Böylece sonradan yerel sunucunuza yada SaaS portalınıza geri yükleyebilirsiniz. Veri için depo seçin (erişebilmek için Amazon bilgilerinizi girmeyi unutmayın). {2} {0}Not:{1} Yedeklemenizi buraya kaydedebilmek için önceden üçüncü kişi hesabınızı (Dropbox, Box.com, OneDrive or Google Drive) ONLYOFFICE dökümanlarınıza bağlamanız gerekmektedir.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Veri Yönetimi</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deaktive et</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deaktive et</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Hesabınız başarıyla devre dışı bırakıldı. {0} 10 saniye içinde {1}buraya{2} yönlendirileceksiniz</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Portal Deaktivasyonu/Silme</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Geçici olarak portalınızı deaktive etmek için bu seçeneği kullanın.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Modül seçimi</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Varsayılan Başlangıç Sayfası</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Varsayılan Ayarlar</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Bu eylem geri alınamaz.  {0} {!group}'u silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Portalınız başarıyla silindi. {0} 10 saniye içinde {1}buraya{2} yönlendirileceksiniz.</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Profilimi sil</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Profil silme kılavunuzu eposta adresine gönder</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Profil diyalogunu sil</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Profili sil</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} silinecektir.</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>Diğer kişilere açık olan kullanıcı kişisel belgeleri silinecektir. Bu önlemek için veri yeniden atama sürecini silme işleminden önce başlatmalısınız.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Bu seçeneği portalınızı kalıcı olarak silmek için kullanın.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>{!group}Düzenle</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Devre Dışı</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Devre Dışı Bırak</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!User} kullanıcısı aktif {!users} listesinde görüntülenmeyecek</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>İşlemi onaylamak için bir bağlantı {0} adresine gönderildi. (portal sahibinin e-posta adresi)</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS Ayarları</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Belge Servisi</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Belge servis konumu belge servislerinin yüklü olduğu sunucunun adresini belirler. Lütfen sunucu adresi için '&amp;lt;editors-dns-name&amp;gt;' bölümünü aşağıdan değiştirin ve geri kalan kısmı olduğu gibi bırakın.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Belge Servis Konumu</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Belge Düzenleme Servisi Adresi</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Örnek: {0}</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Yükle</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} önce</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>sadece</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} dakika</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} dakika</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} dakika</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} yıl</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} yıl</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} yıl</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Dünden önceki gün</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Yarın</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Dün</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Profili Düzenle</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Aktivasyon kılavuzu girilen eposta adresine yollanacaktır</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Aktivasyon epostasındaki bağlantıyı kullanın. Aktivasyon bağlantılı epostayı henüz almadınız mı?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Tüm portal özelliklerine erişim almak için üye olurken girdiğiniz eposta adresini aktive ediniz</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Bir kez daha aktivasyon talep et</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Aktivasyon epostası, eposta adresinize gönderildi. Hesabınızı aktive etmek için lütfen mesajdaki bağlantıya tıklayın.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Eposta aktivasyonu</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Şifre Tekrarı</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Portalınız şu alandan kaydedildi:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Yanlış şifre</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Yanlış eposta adresi</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Yanlış promosyon kodu</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>TAMAM</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Promosyon Kodunuz mu var? Buraya koyun</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Portalınız şu epostayla kaydedildi:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Bu ayarlar başarıyla kaydedildi</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Şifre girin</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Şifre ve tekrarı eşleşmiyor</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Epostayı değiştir</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Aktivasyon kılavuzu girilen eposta adresine yollanacaktır</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Eposta değişimi</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Eposta aktive edilmemiş</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Tüm {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Personel Arama</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Saklama alanını alan veri yok</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>LDAP Doğrulamayı Etkinleştir</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL'yi etkinleştir</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!User} tekrar aktif olarak görüntülenecek</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Yeni eposta adresi giriniz</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Bu sayfayı görüntüleme yetkiniz yok</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Hata 403 - Yasak</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Bu eylemi gerçekleştirmek için izin yok</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Portala erişim sınırlandı</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Hatalı anahtarlar</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Hatalı talep</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Geçersiz e-posta ya da süresi dolmuş bağlantı</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Profiliniz donduruldu</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} bu e-posta adresi ile zaten kayıtlı</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Bu alandan gelen e-postalar kaydedilemez</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Eposta alanı boş</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Mevcut eposta ve yeni eposta aynı</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Lütfen tüm alanları doldurun</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Yüklenen dosya bulunamadı</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Eposta adresinizi giriniz</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Adınızı girin</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Soyadınızı girin</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Bağlantı sona erdi</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Resim boyutu çok büyük</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Resim dosyası boyutu çok büyük</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Geçersiz aktivasyon bağlantısı</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Portala erişim sınırlandı</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Kayıt tarihi doğum tarihinden geç olmalıdır</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Bu alana 255'e karaktere kadar giriş yapabilirsiniz.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Bu alana 64 karaktere kadar giriş yapabilirsiniz.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Tarayıcınız JavaScript desteklemiyor!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Fiyat planınız bu seçeneği desteklemiyor</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Geçersiz tarih formatı</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Geçersiz e-posta</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Geçersiz alan adı</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Şifre boş.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>{0} ile {1} karakter arası</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Şifre şunları içermek zorundadır</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>İçermelidir</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>basamak</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>özel karakterler</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>büyük harfler</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Bilinmeyen resim dosyası tipi</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>"{0}" e-postalı kullanıcı bulunamadı</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>AB (İrlanda) Bölgesi</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Her gün</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Her ay</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Her hafta</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Geri Bildirim &amp;amp; Destek</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Maksimum dosya boyutu aşıldı</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Not: Dosya boyutu {1}{0}{2}'ı geçemez</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>b,KB,MB,GB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>bir süre için</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>başlangıç</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>bitiş</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>son 3 ay</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>son ay</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>geçen hafta</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Hesabınızı onaylamak için bağlantı belirtilen e-posta adresine gönderildi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Şifrenizi mi unuttunuz?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Giriş yapmak için lütfen bu {0}bağlantıyı{1} takip edin</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>başlangıç</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Tam metin arama hizmeti çalışmıyor</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Tam metin arama hizmeti çalışıyor</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx Ayarları</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Tam metin aramayı kullanabilmek için sunucunuzda sphinx.2.2.10 yüklü olması gerekir.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>sphinx, indexer ve search daemon launch için çalışma ayarları. Searchd search daemon tarafından kullanılacak sunucu ve port numaralarını belirlemeniz gerekmektedir. Bu ayarlar sphinx.conf.in dosyasındaki searchd bölümünde yer alan sphinx yapılandırması ile örtüşmek durumundadır.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Kısa link edinin</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Hoş Geldiniz Sayfası Ayarları</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Grup Lideri</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Gruplar</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Misafir</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Misafirler</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Portalı {1}deaktive{2}etmek isterseniz, portalınız ve portalınızla ilgili tüm bilgiler bloke olacaktır. Böylece belirli bir süre kimse erişemeyecektir. Bunu yapmak için {1}deaktive et{2} tuşuna basınız. Portal sahibine operasyonu doğrulaması için eposta gönderilecektir.{0} ONLYOFFICE™ portalına geri dönmek ve kullanmaya yeniden başlamayı istemeniz halinde konfirmasyon epostasındaki ikinci bağlantıyı kullanmanız gerekecektir. Bu yüzden bu epostayı silmeyiniz.{0}ONLYOFFICE™ portalını bir daha kullanmayı düşünmüyorsanız ve hesabınızı kalıcı olarak {1}silmek{2} istiyorsanız {1}Sil{2} tuşunu kullanarak talebinizi gönderin. Lütfen portalınızı tekrar aktive edemeyeceğinizi ve ilgili bilgileri tekrar alamayacağınızı unutmayın.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Yönetici Mesaj Ayarları{2} portal yöneticisiyle iletişime geçmenin bir yoludur.{0}Bu opsiyonu etkinleştirerek {1}Giriş{2} sayfasında iletişim formunu görüntüleyebilirsiniz, böylece insanlar portala erişimde sorun yaşadıklarında portal yöneticisine mesaj atabilirler.{0}Değiştirdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayınız.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Renk Temaları{2}portal arayüzünüzü şirket markanıza göre özelleştirmenizi sağlar. {0}Soldaki listeden renk temalarından birini seçin. {0}Seçilen renk temasını uygulamak için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Olağan Başlangıç Sayfası{1} portala hemen giriş yaptıktan sonra modülü seçmenize yardım eder yada giriş yaptıktan sonra ONLYOFFICE™ logosuna tıklayın. Ayarladığınız parametrelerin kullanılmaya başlaması için bölümün sonundaki {0}Kaydet{1} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS Ayarları{2}ONLYOFFICE™ portalınız için alternatif URL ayarlamaya yarar. {0}{1}Özel alan adı{2}kutusunu kontrol edin ve aşağıdaki alana ONLYOFFICE™ portalınız için alan adınızı girin.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün altındaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Hoş Geldiniz Sayfası Ayarları{2} portalınızın {1}Hoş Geldiniz Sayfasındaki{2} varsayılan portal başlığını değiştirmeniz için kullanılabilir. Aynı ad portal e-posta bildirimlerinizdeki {1}Gönderen{2} bölümünde de kullanılmaktadır.{0}Dilediğiniz adı {1}Başlık{2} alanına giriniz.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Davetiye Bağlantısı portalınıza insanları davet etmeye yarar.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Dil ve Saat Kuşağı Ayarları{2} tüm kullanıcılar için tüm portalın dilini değiştirmeye ve saat kuşağının ayarlanarak ONLYOFFICE™ portalının etkinliklerinin doğru tarih ve zamanda gösterilmesini sağlar.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Logo Ayarları{2} portalınızın {1}Ana Sayfasında{2} gösterilen varsayılan logoyu değiştirmenizi sağlar.{0} Portal logosunu değiştirmek için sağ taraftaki {1}Logo Değiştir{2} linkine tıklayın ve portala yüklemek istediğiniz resmi bilgisayarınızdan seçin.{0}Lütfen dikkat, en fazla {1}250x100 piksellik{2} bir resim yükleyebilirsiniz. Aksi takdirde resminiz yeniden boyutlandırılacaktır. Maksimum resim boyutu  {1}1 MB{2} olarak belirlenmiştir.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Güvenli Posta Alanı Ayarları{2} kullanıcı kaydı için kullanılan posta sunucularını belirlemek için kullanılır. {0}{1}Özel alanlar{2}seçeneğini kontrol edebilir ve aşağıdaki alana güvenli posta sunucusunu girebilirsiniz. Böylece hesabı olan kişi {1}Giriş Yap{2} sayfasındaki Katıl bağlantısına tıklayarak kendini kaydettirebilir yada bu seçeneği devre dışı bırakabilir.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Şifre Gücü Ayarları{2}brute force ataklarına ve tahmin etmeye karşı şifrenizin güçlülüğünü belirlemeye yarar.{0}{1}Minimum Şifre Uzunluğu{2} göstergesini kullanarak şifrenizin ne kadar uzun olması gerektiğine karar verin. İlgili kutuları işaretleyerek hangi karakterlerin şifrede kullanılması gerektiğine karar verin.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Açık Portal{2} herkese açık içeriklerinizin kayıt olunmadan görüntülenmesini sağlayan ücretsiz bir seçenektir. Özel projelerden hiçbiri burada gösterilemez ve CRM modülü bu portallar için devre dışıdır.{0}Açık portallara kayıt için kullanıcı sayısı limiti yoktur, yeni kullanıcılar portal yöneticisine yapılan taleplerle eklenir. {1}Hemen Yeni Kullanıcı Ekle{2} seçeneğini kullanarak dilediğiniz kayıt onay gereksinimini kaldırabilirsiniz.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Buradan portal adresinizi değiştirebilirsiniz. onlyoffice.com/onlyoffice.eu portal adresinin yanında beliren bölümü giriniz. {0}
+{1}Lütfen dikkat{2}: {1}Kaydet{2} tuşuna tıkladığınız takdirde eski portal adresiniz yeni ONLYOFFICE kullanıcılarına erişilebilir olacaktır.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Portal Versiyonu{2} mevcut ONLYOFFICE™ portal versiyonları arasında değişim yapmanıza yarar.{0} İster yeni versiyonu kullanabilir ister portalın önceki versiyonunu kullanabilirsiniz.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Ekip Şablonu{2} organizasyonu (yada grubu), üyelerini ve aktivitelerini isimlendirmek için özelleştirilebilir bir yoldur.{0}{1}Şablonlar{2} listesini açarak mevcut önceden belirlenmiş isimlerden birini seçebilir yada {1}Özel{2} seçeneğiyle kendiniz isimlendirebilirsiniz.{0}Girdiğiniz parametrelerin çalışmaya başlaması için bölümün sonundaki {1}Kaydet{2} tuşuna tıklayın.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Portalı coğrafi lokasyonunuza en yakın sunucuların olduğu bölgeye taşımak portalın cevap süresini hızlandıracaktır. Kullanıcılarınız ve müşterileriniz sunucu bölgesine ne kadar yakın olursa portal hızı da o kadar facla olacaktır.{0} Taşıma sürecini başlatmak için bölümün altında bulunana {1}Sunucu Bölgesini Değiştir{2}tuşuna tıklayınız. {0}{1}Not:{2}Süreç başlatıldıktan sonra iptal edilemez. Teknik sınırlamalara göre sadece son 30 gün içindeki postaların transfer edilebileceğini de unutmayınız.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Yardım Merkezi</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Programın amacı ONLYOFFICE™'in yasal olarak reklamını yaparak üye olan bireylerin satın aldıkları üyeliklerden komisyon almaktır.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Gizle</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>AIM hesabınızı girin</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Blogger profilinizi girin</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>E-postanızı girin</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Facebook profilinizi girin</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Hesap giriş isminizi yada ID'nizi giriniz</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>GoogleTalk hesabınızı girin</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz profilinizi girin</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Google hesabınızı girin</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>ICQ hesabınızı girin</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Jabber hesabınızı girin</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>LiveJournal profilinizi girin</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Cep telefonu numaranızı girin</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>MSN hesabınızı girin</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>MySpace profilinizi girin</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Telefon numaranızı girin</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Skype hesabınızı girin</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Twitter profilinizi girin</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Yahoo hesabınızı girin</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Sunucu girişi</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Sunucu</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Sunucu Şifresi</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>Kullanıcı zaten mevcut</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Kişiler alınmadı. {0} Diğer profillerden de kişi aktarabilirsiniz.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Kullanıcı ismini gir</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Kullanıcı soyadını gir</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>E-postanızı girin</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>İsminizi giriniz</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Aktarım hatası</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Soyadınızı giriniz</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Lütfen portala eklenecek olan {!user} adını, soyadını ve e-posta adresini yukarıdaki alanlara girin. 'Ekle' tuşuna tıklayarak {!user} listeye ekleme işlemini tamamlayın.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Dosyadan</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Aktarım için seçilen dosyanın formatı yanlış. {0}Lütfen başka bir dosya seçin ve aktarım sürecini tekrarlayın.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Portala {!users} ekle</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>İsim,soyad ve epostası dahil tüm kullanıcı alanlarının doğru girildiğinden emin olun</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>TAMAM</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google'dan İçe Aktar</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo'dan İçe Aktar</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Mevcut fiyat planınız {0} kullanıcı eklemenize izin veriyor.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Fiyat planınızı yükseltin yada misafir olarak sadece izleme izniyle daha fazla kullanıcı ekleyin. Rollerini daha sonra 'Kişiler' modülünden değiştirebilirsiniz.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Kullanıcılar ekleniyor</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Planınızı yükseltin veya yalnızca görüntüleme izniyle daha fazla ziyaretçi kullanıcı ekleyin. Daha sonra 'Kişiler' modülünden rollerini değiştirebilir veya {0}Kar amacı gütmeyen kullanım hakkında okuyabilirsiniz{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Fiyat planınız daha fazla kullanıcı eklemenize izin vermiyor</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>içinde</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Geçersiz kullanıcı adı veya şifre.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Portalınızda çalışmaya başlamak için, {0}isminizin{1} ve {0}soyadınızın{1} sağdaki formda doğru olduğunu kontrol etmeli ve giriş yapabilmek için {0}kişisel şifre{1} belirlemelisiniz.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Davetiye Bağlantısı</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Bu portala bağlantıyı arkadaş, tanıdık yada meslektaşınızdan aldınız</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Bu portala arkadaşınız, yakınınız yada meslektaşınız tarafından eklendiniz</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Bu portala katılmaya davet edildiniz!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>{!guests} olarak kullanıcı ekle</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Portala kullanıcı davet et</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Devre Dışı Bırak</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Güvenliği{1} belli adresler dışında IP adreslerinden portala girişi engellemek için kullanılır. İzin verilen IP adreslerini IPv4 formatında yazarak girebilirsiniz (#.#.#.#.#, 0'dan 255'e sayısal değerin girileceği yerdir) ya da IP aralığı verebilirsiniz(#.#.#.#-#.#.#.# formatında). IP güvenliği portal sahipleri için geçerli değildir, onlar portala tüm IP adreslerinden giriş yapabilirler.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP Güvenliği</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>İlk olarak mevcut IP veya IP'nizin ait olduğu IP aralığı belirlemelisiniz, aksi takdirde ayarları kaydettikten sonra portal erişiminiz bloke edilecektir. Portal sahibi herhangi bir IP adresinden portala erişebilir.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>ONLYOFFICE™ Posta'yı da Taşı (tavsiye edilmez)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Ortağımız olun</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Kullanıcıları {!guests} olarak eklemeye devam edebilir ya da fiyat planını daha fazla kullanıcıya izin veren bir planla değiştirebilirsiniz.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP Ayarları</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Kullanıcı Doğrulama</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Güncel Windows kullanıcısının LDAP sunucusu/Aktif Dizinden okuma hakkı yoksa bu seçeneği etkinleştir ve okuma haklarıyla başka bir kullanıcının ehliyetini gir.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Bağlantı hatası</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Boş alan</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>LDAP sunucusu/Aktif Dizinden ONLYOFFICE™'e otomatik olarak kullanıcı eklemek istiyorsanız bu seçeneği etkinleştirin. Eklenen kullanıcılar LDAP sunucusu/Aktif Dizin bilgilerini kullanarak doğrulama yapabilecekler. ONLYOFFICE™ yerel olarak kullanıcı şifrelerini kaydetmez ve kullanıcıları giriş bilgilerini ve şifrelerini LDAP sunucusuna/Aktif Dizine göndererek doğrular.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Kullanıcılar oluşturulamadı, alınan veri yanlış olabilir.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Sunucu ayarları alamadı.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Sunucu ayarları kaydedemedi.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Hatalı giriş bilgisi ya da şifre.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>LDAP alanı bulunamadı.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Grup bulunamadı</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Geçersiz Kullanıcı Filtre değeri.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Bilinmeyen hata.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Grup Özelliği bir veya birçok grup için alınamadı.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Hatalı Grup Filtresi.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Grup Adı Özelliği bir veya daha fazla grup için getirilemedi.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Giriş Özelliği bir veya birçok kullanıcı için alınamadı.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>LDAP sunucusuna bağlanılamadı. Sunucu adresinin ve port numarasının doğru olup olmadığını kontrol ediniz.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Kullanıcı Özelliği bir veya birçok kullanıcı için alınamadı.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Grup Sembolü</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Bu grubun hangi kullanıcıları kapsadığını belirten bir grup objesi sembolü giriniz</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Grup DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Eklemek istediğiniz grupları içeren bir belirleyici ismi dizine giriniz.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Grup Filtresi</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Arama LDAP filtresini kullanarak içe aktarılacak grupları seçebilirsiniz. Lütfen dikkat, yalnızca gruplardaki kullanıcılar eklenecektir.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Grup Üyeliği</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>LDAP sunucusu/Aktif Dizinden ONLYOFFICE™'e grup eklemek istiyorsanız bu seçeneği etkinleştirin. Lütfen sadece bu gruplarda olan kullanıcıların ekleneceğini unutmayın.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Grup Adı Özelliği</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Lütfen grup adına tekabül eden özelliği belirtiniz.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Sunucu dahili hatası.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Giriş Sembolü</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Kullanıcı girişiyle eşleşen obje sembolü girin.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>Sıradan portal kullanıcıları üzerine LDAP kullanıcıları modifiye ediliyor</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Giriş DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>LDAP sunucusu/ Aktif Dizin'den veri okumak için erişim haklarıyla birlikte kullanıcı için şifre giriniz.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Port numarası</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>LDAP sunucusu/Aktif Dizin için port numarası giriniz.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Varsayılan Ayarlar</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Varsayılan ayarları geri yükle</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Ayarları kaydet</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Sunucu</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>port numarası olmadan LDAP sunucu URL'si giriniz, ör:LDAP://mycompany.com. </value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>kullanıcı ekleniyor</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Sertifika doğrulaması</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>LDAP destek ayarları kontrol ediliyor</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP bağlantısı kesiliyor</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>LDAP sunucusundan grup listesi alınıyor</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>LDAP sunucusundan kullanıcı listesi alınıyor</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>LDAP temel bilgisi yükleniyor</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>kullanıcı kaldırılıyor</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Daha önce LDAP ile yüklenen süresi geçmiş gruplar kaldırılıyor</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Daha önce LDAP ile yüklenen süresi geçmiş kullanıcı profilleri kaldırılıyor</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Gruplar kaydediliyor</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Ayarlar kaydediliyor</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Kullanıcılar kaydediliyor</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Kullanıcılar senkronize ediliyor</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Daha güvenli bir yetkilendirme tipi gereklidir. Lütfen şifreli bağlantı kullanın veya sunucudaki yetkilendirmeyi aktifleştirin.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Kaydetme başarıyla tamamlandı</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Kullanıcıları senkronize et</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Mevcut fiyat planı kullanıcı limiti doldu</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>StartTLS mevcut LADP sunucusu için desteklenmiyor.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Çok fazla LDAP işlemi.</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Kullanıcı Sembolü</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Kullanıcının grup üyesi olup olmadığını belirlemek için kullanılan kullanıcı obje sembolü gir.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>Kullanıcı DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Eklemek istediğiniz kullanıcıları içeren dizine belirleyici bir isim giriniz.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Kullanıcı Filtresi</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Arama LDAP filtresini kullanarak içe aktarılacak kullanıcıları seçebilirsiniz.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Lütfen LDAP sunucusu/Aktif Dizin okuma erişim hakkına sahip {0} kullanıcı belirtiniz.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Kullanıcı/grup öğeleri için tekil ID alınamadı. Varsayılan olarak sistem belirtilen tanımlayıcılardan biriyle eşleştirme yapacaktır: entryUUID, nsuniqueid, GUID, objectSid. Hiçbir özellik LDAP sunucunuz ile eşleşmiyorsa lütfen gerekli özelliği web.appsettings.config dosyasının ldap.unique.id ayarlarında belirtiniz.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Kullanıcı LDAP'den içe aktarılmıştır.
+Kilitli profil alanlarını değiştirmek için
+LDAP yöneticiniz ile irtibata geçin.
+</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Kullanıcı LDAP'den içe aktarılmıştır</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Daha fazla bilgi edinin...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Lisans hatalı</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Lisans süresi dolmuş</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Portal sayısı bu lisans için geçerli maksimum sayıyı aşmaktadır</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Kullanıcı sayısı bu lisans için izin verilen sayıyı aşmaktadır</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Yükleme başarılı</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Yükleniyor, lütfen bekleyin</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Yükleniyor...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Konum</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Portal erişimi yasaklandı. Portal yöneticisiyle iletişime geçin.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Katıl</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Sosyal Ağlarla Giriş</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>veya giriş için:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>İlişkili üçüncü parti hesap bulunamıyor. Sosyal ağ hesabınızı profil düzenleme sayfasında bağlamanız gerekiyor.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Logo Ayarları</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Bu e-posta otomatik olarak gönderilmiştir ve bu adrese yanıtlarınız okunamayacaktır.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>harita</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Konum yok</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizatör</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Tekrarlanma</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Ne zaman</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Nerede</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Kim</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Okunmamış e-posta bulunmamaktadır. Lütfen E-posta bölümüne giderek tüm mesajlarınızı okuyunuz.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>E-posta Sunucusu</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Başarılı bağlantı</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Örnek: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>E-posta Sunucusu Yapılandırma</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Bu seçenek sayesinde {2}Docker kurulum{3} kullanarak uzaktaki bir bilgisayarda kurulu olan {0}E-posta Sunucusuna{1} portalınızı bağlayabilirsiniz.{4}{0}Not:{1} {0}3306{1} ve {0}8081{1} portlarının {0}E-posta Sunucusunun{1} kurulu olduğu bilgisayarda açık olduğundan emin olun. Ayrıca {0}E-posta Sunucusu{1} veritabanı erişim şifrenizi değiştirmenizi şiddetle tavsiye ederiz.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Gelişmiş Ayarları Gizle</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>E-posta Sunucusu veritabanı şifresi</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Hizmet başarıyla bağlandı</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>E-posta Sunucusu IP</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Gelişmiş Ayarları Göster</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Bağlantı kurulduğunda {0}E-posta Sunucusu{1} {0}E-posta{1} modülünde {2}belirecektir{3} ve sizin e-posta alan adınızı kullanan portal kullanıcıları için posta kutuları oluşturabileceksiniz.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>E-posta Sunucusu Bağlantı Ayarları</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>E-posta Sunucusu veritabanı kullanıcı adı</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Uyarı: {0}E-posta{1} modülünüzdeki kullanıcılar için zaten E-posta Alanı ayarlarınız ve posta kutularınız mevcut. Ayarları değiştirmek onların işini etkileyebilir ve e-posta sunucusunun çökmesine neden olabilir. {0}E-posta Sunucusunu{1} başka bir bilgisayara tamamen taşıdıysanız ve/veya veritabanı erişim yetkilerini değiştirdiyseniz, sadece {0}E-posta Sunucusu IPsini{1} ve/veya buradaki bilgileri güncelleyin. Yeni bir {0}E-posta Sunucusu{1} oluşturduysanız ve bunu bağlamak istiyorsanız, önce {2}E-posta Sunucu sayfasındaki{3} eski verileri silmeniz gerekmektedir.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Erkek</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Ortak</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Entegrasyon</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Güvenlik</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>İstatistik</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>CRM veritabanınızı oluşturun</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Müşterileri yönetin, satışları takip edin ve faturalar kesin</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>.docx, .xlsx ve .pptx formatlarıyla online çalışın</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Portaldan belgeleri görüntüleyin ve düzenleyin</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Takım arkadaşlarınızı görüntüleyin</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Portal {!users} görüntüleyin, ekleyin veya içe aktarın</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Projelerde yer alın</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Gantt çizelgesi ile görevleri kontrol edin ve performansı izleyin</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Başlangıç için bazı bilgiler:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>ONLYOFFICE'e Hoş Geldiniz, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Okundu olarak işaretle</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Lütfen kendinizi yetkilendirin.</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Eposta aktivasyon kılavuzu {0} eposta adresine gönderilmiştir.</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Eposta değiştirme kılavuzu başarıyla gönderildi</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Epostanız başarıyla aktive edildi</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Davetiye kılavunuzu {0} eposta adresine gönder</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Eposta aktivasyon kilavuzunu {0} eposta adresine gönder</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Eposta değişim kılavuzunu {0} eposta adresine gönder</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Şifre değiştirme kılavunuzu {0} eposta adresine gönder</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Lütfen portala kaydolurken kullandığınız eposta adresini girin. Şifre kurtarma kılavuzu eposta adresinize gönderilecektir.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ belgelerinizi, projelerinizi, ekiplerinizi ve müşteri ilişkilerinizi tek bir yerden yönetmenizi sağlayan bulut ofistir.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>online belge editörü, proje yönetim aracı, iş araçları, crm sistemi, gantt çizelgesi, online işbirliği, bulut ofisi, online kelime, belge yönetimi, online iş tabloları, online ofis, işbirlikçi düzenleme, online ofis uygulaması, online belgeler</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Göç</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>{0}Portal Bölgesi Taşıma{1} özelliği sadece paralı portalların sahipleri için mevcuttur.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>{0}Portal Bölge Göç{1} özelliği yalnızca portal sahipleri tarafından kullanılabilir.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Yeni cep telefonu</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Öncelikli Mobil Telefon</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Telefon numarası değiştir</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Sayılı sayfaya git telefon numarasını değiştir.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Telefon numarasını değiştirmek için yeni telefonunuza gönderilen kodlu metin mesajını kullanın.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Gönderildi</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Cep telefonunu değiştir</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Kullanıcı cep telefonunu nasıl değiştireceğinize ilişkin kılavuz kullanıcı eposta adresine yollanacaktır</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Numarayı değiştirmek için mevcut telefon numaranızı silmelisiniz</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Görüntüleme</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Daha Fazla Eylem</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Profilim</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Şablon</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Ekip Şablonu</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Hiç Gösterme</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Yeni portal adı</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Hiçbir alan eklemediniz. {0}Linki{1} takip ederek ilk alanınızı ekleyin. </value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Cevapsız arama yok</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Diğer operatörler mevcut değil, lütfen yanıtlayın.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>{!guests} olarak eklenen kullanıcılar için roller daha sonra {0}Kişiler{1} modülünden değiştirilebilir.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Bu kişiler portal fiyatlandırmasındaki toplam kullanıcı sayısına dahil edilmeyecektir.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Mevcut dillerden kendi dilinizi bulamamanız halinde tercümede yer almak için {0}documentation@onlyoffice.com{1} yazmaktan çekinmeyin ve 1 yıla kadar ücretsiz faydalanma şansı elde edin.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Bildir:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>E-posta &amp; Sohbet</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Sohbet</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>{!users} portal taşımasından haberdar et</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Devre Dışı</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>TAMAM</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>yada</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORD Bölgesi</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Sahip</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Şifre Değiştir</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Şifre değişimi</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Minimum şifre uzunluğu</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Şifre isteme</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>karakterler</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Sayıları kullan</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Özel karakterleri kullan</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Büyük harfleri kullan</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Artık yeni şifre oluşturabilirsiniz.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Ödeme gerekli</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Ödeme Geçmişi</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Bekliyor</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>İnsanlar</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Lütfen bekleyin...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Bağlantı noktası</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Açık portal</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Kişisel portal</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limit aşıldı ({0} MB disk alanı)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Bu özellik yalnızca vergisiz tarifede geçerlidir</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Portal Erişim Ayarları</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Limit aşıldı ({0} aktif kullanıcı)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portal ismi</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portal Sahibi</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Portal Yeniden Adlandırma</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Portal Erişimi</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Tarafından</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Fiyatlandırma sayfasına yalnızca yöneticiler erişebilir</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Ödeme Sayfası Ayarları{1} portal yöneticisine ödeme sayfasının görünürlüğünü tüm kullanıcılara açma ve kapatma yetkisi verir.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Fiyatlandırma Sayfası Ayarları</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Modüller &amp; Araçlar</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>İhtiyacınız olan ONLYOFFICE™ modüllerini ve araçlarını seçin. Devre dışı bırakılan modüller ve araçlar hiçbir portal {!users} tarafından görüntülenemeyecektir. Modülleri ve araçları tekrar etkinleştirdiğinizde bunların tüm portal {!users} bunları görebilecektir. Erişimi sınırlamak için Portal Ayarlarındaki Erişim Hakları bölümüne gidin.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Araçlar</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Modüller</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profil kaldırıldı</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Yayınla</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Yeniden etkinleştir</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Hesabınız başarıyla yeniden etkinleştirildi. {0}10 saniye içinde {1}buraya{2} yönlendirileceksiniz</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Veriyi yeniden ata</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>{0} için veri yeniden atama süreci tamamlanmadı.</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Yeniden yönlendir</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Kayıt Tarihi</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Yeni {!users} kullanıcı kaydı</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Kayıt epostanız</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Reddet</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Hatırla</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Girilen epostaya davetiye yollanacaktır</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Tekrar gönder</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Davetiyeleri bir daha göndermek istiyor musunuz?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Davetiyeyi tekrar gönder</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Geri Yükle</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Yedekleme listesi</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Listeden herhangi bir öğe silerseniz bu öğelere tekabül dosyalar da
+silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki kullanın: {0}
+{1} listesini temizle.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Geri Yükle</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Bilgisayar dosyası</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Varsayılana geri döndür</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Portalınızı önceden kaydedilmiş yedekleme dosyasından geri yüklemek için bu seçeneği kullanın.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Henüz hiçbir yedekleme yapılmadı. Listede yer alması için bir veya daha fazla yedekleme yapın.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Data Yenileme{1} seçeneği önceden kaydettiğiniz portal verilerinizi yenilemek için kullanılır( yerel sunucudan yada SaaS portalından). Verinin kaydedildiği depoyu seçin, gerekli bilgileri girin ve {0}'ı işaretleyin. Portal kullanıcılarınızı{1} yedekleme/yenileme operasyonlarından haberdar etmek için bildirim gönderin.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Geri yükleme süreci tamamlandığında, otomatik olarak portalınıza yönlendirileceksiniz.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Portal geri yükleme yapılıyor.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Kullanıcılara portal geri yüklemesi hakkında bildirim gönder</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Yedekleme listesini göster</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Veri Geri Yükleme</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Geri yükleme esnasında portal erişilemez olacaktır. Geri yükleme tamamlandıktan sonra geri yükleme tarihinden sonra yapılan tüm değişiklikler kaybedilecektir.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Tüm sözcüklerin doğru yazıldığından emin olun. Farklı anahtar kelimeler kullanmayı deneyin.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Hiç bir şey bulunamadı.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Arama Sonuçları</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Hepsini gör</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Tüm videoları izle</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Gönderici Eposta Adresi</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Gönderici Ekran İsmi</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Davetiyeyi tekrar gönder</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Davet gönder</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Katılmak için buraya tıklayınız</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Portal {!user} mı olmak istiyorsunuz?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Lütfen davetiyenizin gönderileceği eposta adresini girin:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Test Postası Gönder</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Sunucu yazılımı talebinizi işlerken hatayla karşılaştır. Bir süre bekleyip tekrar deneyiniz. Eğer hata devam ederse, site yöneticisiyle iletişime geçmeniz gerekebilir.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Sunucu Hatası</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Sunucu Bölgesi</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Bu zaten güncel versiyon</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Geçersiz portal versiyonu</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Cinsiyet</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Asya Psifik(Singapur)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Göster</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Tümünü Göster</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Tüm sonuçları göster</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>İpuçlarını etkilenştir/devre dışı bırak</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Sonrakini göster</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Kayıt işlemi herhangi bir alan adında herhangi bir e-posta hesabı olan kullanıcılar için kullanılabilir. Kayıt yaptırmak için, e-posta girin ve Davetiye Göndere tıklayın. Belirtilen e-posta hesabına ONLYOFFICE™ hesabını etkinleştirmek için gerekli bağlantıyı içeren bir e-posta mesajı gönderilecektir.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Tek Giriş</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Sürpriz</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Çılgın</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Ağlama</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Dans</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>İç</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Kızgın</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Göz Kırpma</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Yeşil</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywood gülümsemesi</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Üzgün</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Müzik</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Gülücük</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Sırıtış</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Üzgünüm</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Süper</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hurra</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}İki aşamalı doğrulama{1} kullanıcıların portala girmesi için daha güvenli bir yoldur. Kimlik bilgileri girildikten sonra, kullanıcı SMS'le cep telefonuna gelen mesajdan kodu girecektir. Bu ilk portal girişinde iki aşamalı doğrulamada belirtilmiştir.Tüm portal kullanıcıları tarafından portala erişimin daha güvenli hale gelmesi için bu seçeneği etkinleştiriniz.{2}Yaptığınız değişiklerin uygulanması için bölümün altındaki {0}Kaydet{1}tuşuna basın.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Yanlış kod</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Kod: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Kodu kullanma süresi geçti. Lütfen yeni metin mesajı talep ediniz.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Not{1}: SMSleriniz bittiğinde iki aşamalı yetkilendirme portal erişimi seçeneği otomatik olarak devre dışı kalacaktır. Önceden SMS paketi almanızı tavsiye ederiz.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Not{1}: iki aşamalı yetkilendirmeyi kullanmadan önce en az bir SMS sağlayıcı seçmeniz ve bu sağlayıcıyı {3}{0}Üçüncü Şahıs Yetkilendirme{1}{4} sayfasında yapılandırmanız gerekir.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Not{1}: iki aşamalı yetkilendirme yalnızca ödemeli portallar için geçerlidir</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>İki aşamalı doğrulama</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} bakiye</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>{0} hesabınızda görün</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS ayarları mevcut değil</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Çok fazla metin mesajı gönderdiniz. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Özel ayarlar</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>E-posta Sunucusu Ayarları</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Ayarları</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>SMTP sunucusu için Gmail hesabı kullanıyorsanız, şunları yapana kadar posta gönderemezsiniz: standard internet arayüzüyle kullandığınız Gmail hesabınıza giriş yapın ve olması halinde ONLYOFFICE™'in hesabınıza erişim denemesi hakkında doğrulama sorularını onaylayın.{0}Eposta mesajlarının yollanması için 587 yada 25. portu kullanmanızı tavsiye ediyoruz. Diğer değerl SMTP'nin doğru çalışmasını engelleyebilir.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>SMTP ayarları ONLYOFFICE™'in kullandığının yerine kendi SMTP sunucunuzu kullanarak portalınızdan bildirim göndermek için eposta hesabınızı ayarlarken gerekli olacaktır. Lütfen tüm alanları doldurun ve 'Kaydet' tuşuna başın. 'Test Postası Gönder' tuşunu kullanarak girdğiniz tüm ayarların doğru olduğunu ve çalıştığını deneyebilirsiniz.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Sosyal Profiller</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Kaynak</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Bu akıllı anahtarla kullanıcı oluşturulamadı</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Ayarlar kaydedilemedi</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Ayarlar boş bırakılamaz</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Tek giriş devre dışı bırakıldı</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Şifre üretici bulunamadı</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Geçersiz ilişki: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Geçersiz entityID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Geçersiz alan haritalama</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Geçersiz şifre üreteci</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Bu kullanıcı etkisiz kılınmış</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Kullanıcı SSO'dan içe aktarılmıştır. Kilitli profil alanlarını değiştirmek için SSO yöneticiniz ile irtibata geçin.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Kullanıcı SSO'dan içe aktarılmıştır</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>İstatistikler</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Güvenilir E-Posta Alan Adı Ayarları</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Şifre Gücü Ayaları</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Dil ve Zaman Dilimi Ayarları</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Portal Versiyonu</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Abone ol</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Portal sahibi yada yöneticisi için etkinlikler ve bildirimler</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Portal günlük haber ve etkinlik özümlemeleri</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Proje İsmi</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>hepsinden</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Şununla bildir:</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Abonelikler</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portal adı başarıyla değiştirildi</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Hoş Geldiniz Sayfası ayarları başarıyla kaydedildi</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Ayarlar başarıyla güncellendi</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Profilinizi silmek için kılavuz {0} eposta adresine gönderildi</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Davetiyeler başarıyla tekrar gönderildi</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>E-posta Gönder</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Özel teklifler hakkında bizimle iletişime geçin</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Gerekli parametreyi düşürün yada başka fiyat planı seçin</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Şimdi satın al</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Uzatma</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Mevcut planı uzatabilir yada aşağıdaki tabloyu kullanarak değiştirebilirsiniz.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>İhtiyaçlarınıza en uygun planı seçin. Tavsiye edilen plan aşağıda belirtilmiştir.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Bu plan seçilemiyor</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>İzin verilen saklama alanı: {0}. Mevcut saklama alanı: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>İzin verilen portal kullanıcı sayısı: {0}. Mevcut kullanıcı sayısı: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Saklama alanı yada kullanıcı sayısı seçilen fiyat planının sınırlarını geçtiğinden bu planı seçemezsiniz:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Tekrar eden ödemeler açık</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Saklama alanı sınırı aşılacak{0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Gerekli olmayan dosyaları kaldırabilir yada {0}buraya tıklayarak{1} portalınız için daha iyi bir fiyat planı bulabilirsiniz.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>{0}'de sona erecek</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Ücretsiz plan kullanıyorsunuz.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>Portalınıza lisans dosyası yüklemek için {0}buraya tıklayın{1}.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Aboneliğiniz sona erdi.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>ONLYOFFICE™ portalınız bloke edilecektir {2}. Lütfen {0}buraya tıklayarak{1} mevcut planınızı uzatın veya uygun bir plan seçin.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Oluşturduğunuz portal sayısı: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Fiyat planı ödenen yılın sonuna kadar mevcut değil.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Fiyatlandırma planı 3 yıllık fiyatlandırma planının sonuna kadar mevcut değildir.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Süreyi otomatik olarak uzatmak için,Lütfen Avangate hesabınızdaki tekrarlanan ödemeler kutusunun işaretli olduğundan emin olunuz.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Tekrarlanan Ödemeleri iptal etmek için Avangate hesabınıza gidiniz.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Yalnızca {0} kadar.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Fiyat planları</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Bilginiz olsun ki, Rus rublesi {0} Russian rublesi 1 US dolarına karşılık gelecek şekilde sabit döviz kuru ile fiyatlandırılmıştır.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Ödemeler</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Eklediğiniz aktif kullanıcı sayısı: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Kullanılan saklama alanı:{0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>ÜcretsizDeneme Planı kullanıyorsunuz.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>ONLYOFFICE™ kullandığınız için teşekkür ederiz! {2}{0}Ücretsiz deneme süresi sona erdi.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Oluşturan</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Kullanılan depolama alanı</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Toplam {!users} sayısı</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Üçüncü Kişi Yetkilendirmesi</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zaman Dilimi</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Cep telefonu numarası</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefon numarası</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>İlk 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Toplam bulunan</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>kadar</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Sunucu Bölgesini Değiştir</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Başka bir bölgeye portal göçüne başlamak üzeresiniz. Göç sırasında portal erişilebilir olmayacaktır. Tamamlandıktan sonra e-posta adresinize bildirim gönderilecektir.{1}{0}E-posta alanları, posta kutuları (üçüncü partiler için olanlar hariç) ve buralardaki e-postalar göç sürecinde transfer edilmeyecektir.{1}{0}Devam etmek istediğinizden emin misiniz?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Taşıma süreci tamamlandığında portalınızın yeni URL'sine yönlendirileceksiniz.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Başka bir bölgeye {0} Porta taşıma gerçekleşiyor.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Portal Bölgesi</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Sunucu bölgesi değiştiriliyor</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Portal taşıma sürecinde mevcut olmayacak. Taşıma tamamlandıktan sonra portal URL'si değiştirilecek ve tüm paylaşılan dökümanların bağlantıları erişilemez olacaktır.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Deneme süresi: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Ücretsiz deneme süresi sona erdi</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>Portalınız için en uygun fiyat planını seçmek için {0}buraya tıklayınız{1}</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Deneme sürümü kullanıyorsunuz</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Özel alan adları</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Kayıt {0}'da espota hesabı olanlar için mümkündür.
+Kaydolmak için epostanızı girin ve Davetiye Gönder'e tıklayın. Belirtilen eposta adresinize ONLYOFFICE™ hesabınızı aktive etmek için bağlantı bulunan bir eposta gönderilecektir. </value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Bilinmeyen bir hata oluştu</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Abonelikten Çık</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Fiyat planını yükselt</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Yükle</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Kullanıcı</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Kullanıcı Forumu</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>İş/Unvanı</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>ABD Batı (Oregon) Bölgesi</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Video Kılavuzları</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>İzlenmeyen videoyu göster</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Fiyat planlarını gör</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>isabet</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>hosts</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Kullanım Grafiği</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Ziyaretler</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Bağlantı zaten başka bir pencerede mevcut</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Maalesef bu hizmet geçici olarak kullanılamaz. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Uyarı!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>ONLYOFFICE™'i seçtiğiniz için teşekkür ederiz! Güvenlik sebepleriyle şifre kurulum prosedürü gerçekleştirilmelidir.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>ONLYOFFICE™ Portalınıza Hoşgeldiniz</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Neler Yeni</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Beyaz Etiket</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Dil ve Zaman Dilimi Ayarları</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Portal Kurulumu - İnternet ofisinizi kolay başlatmak için bu basit aşamaları izleyin</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Kayıt Seçenekleri</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Bu portala katılmaya karar verdiniz.</value>
+  </data>
+</root>

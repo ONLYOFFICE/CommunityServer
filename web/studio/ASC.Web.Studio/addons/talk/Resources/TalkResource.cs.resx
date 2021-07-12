@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Přijmout</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Přidat do hromadné korespondence</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Zavřít historii</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Odmítnout</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Odstranit korespondenci</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Odstranit člena</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Poslat pozvánku</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Konverzace</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Chatové místnosti</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Vítejte v {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonymní</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Smazat odeslané soubory</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Všechny soubory</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>Soubory, které jste odeslali prostřednictvím chatu, zaujímají &lt;b&gt;&lt;/b&gt; portálové místo na disku. Pokud se rozhodnete tyto soubory smazat, uvolní se místo, ale soubory již  nebudou přístupné přes odkazy v historii pro všechny účastníky konverzace. Vyberte, co chcete smazat:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Soubory odeslané před více než měsícem</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Soubory odeslané před více než rokem</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Spojování...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Připojit mě</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Vytvořit chatovací místnost</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Odeslat více</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Vytvořte zkratky a spusťte aplikaci Talk jako webovou aplikaci.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Použijte klávesy Ctrl + Enter k odeslání zprávy, Enter k zahájení nového odstavce</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Emotikony</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Zapnout/Vypnout filtr</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Verze aplikace Adobe Flash Player není správná</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Zobrazit/Skrýt skupiny</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Historie zpráv</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player není nainstalovaný</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Hledat</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Následující</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Předchozí</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Chcete-li zahájit hovor, vyberte osobu ze seznamu kontaktů</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Poslat soubor</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Přidejte příjemce tak, že sem přetáhnete kontakt.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Zobrazit kartu vlevo</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Zobrazit kartu vpravo</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>číst</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Přetáhněte kontakt a přidejte příjemce</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Aktuální stav</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Příště se neptat</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>Nejprve zvolte uživatele{0}ze seznamu a začněte chat</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Opravdu chcete odebrat tohoto uživatele z chatu?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Jméno</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Nová zpráva</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>Vás pozval</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Opravdu chcete odstranit tuto místnost</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Odeslat</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Dočasná místnost (když ji všichni uživatelé opustí, bude vymazána)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Platné symboly</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Korespondence</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Konverzace</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Najít kontakt</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Hledat v historii zpráv</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Soubor: {0}Velikost: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>z</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Zobrazit seznam</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Pryč</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Není dostupný</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Dostupný</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Komunikujte s kolegy v reálném čase. Využijte automaticky aktualizovaný seznam kontaktů. Buďte informování o Nejnovějších událostech.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Oznámení prohlížeče</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Vytvořit hromadnou korespondenci</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Vytvořit chatovací místnost</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Odstranit uživatele z chatu</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Pozvat do chatu</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Odstranit chat</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Celkem</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>Písmena, čísla a tečky (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Napsat zprávu...</value>
+  </data>
+</root>

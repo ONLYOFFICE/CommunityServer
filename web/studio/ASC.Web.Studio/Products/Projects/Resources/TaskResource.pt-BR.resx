@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Aceitar tarefa</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Aceitar</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Adicionar a primeira tarefa</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Adicionar nova subtarefa</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Adicionar nova tarefa</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Adicionar subtarefa</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Adicionar nova tarefa</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Todas as tarefas</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Atribuído a</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>A melhor maneira é voltar e encerrar as subtarefas manualmente, em seguida, tente encerrar a tarefa</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>A melhor forma é voltar e fechar as subtarefas manualmente e, a seguir, tentar novamente fechar as tarefas</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Responsável</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Alterar status</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Escolher tipo de vínculo</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Escolher o projeto</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Escolher tarefa</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Encerrado</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Encerrado por</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Data de encerramento</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Fechando tarefas</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Encerrando a tarefa</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Nenhum comentário encontrado para esta tarefa.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Nenhum comentário encontrado</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Copiar tarefa</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Criado por</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Criar novo link</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Data de criação</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Data de conclusão</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Nenhuma tarefa correspondente ao seu filtro pode ser apresentada nesta seção.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Todas as tarefas devem ter um titulo</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Editar tarefa</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Encerre todas as subtarefas, depois encerre a tarefa</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Fechar todas as subtarefas e, a seguir, fechar as tarefas</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data de conclusão</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Erro ao criar um novo link</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Seguir a tarefa</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Ir para a tarefa</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Notificar responsável</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>A mensagem foi enviada com sucesso</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Etapa</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Mover tarefas para outro Marco</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Mover para etapa</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Mover a tarefa para outra Etapa</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Mover para etapa</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>nenhum</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ninguém</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Não existem tarefas correspondentes a este filtro</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Nenhuma tarefa foi criada ainda</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridade</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projeto</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Vínculo inválido. Certifique-se de que as datas de início e de conclusão estão corretas.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Tarefas relacionadas</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Intervalo entre a data de início e a data de conclusão de duas tarefas</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Não há nenhuma outra tarefa vinculada a esta tarefa.</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Nao foi encontrada nenhuma tarefa vinculada</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Excluir tarefa</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Você tem certeza de que deseja excluir esta tarefa?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Excluir tarefas</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Você tem certeza de que deseja excluir estas tarefas?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Usuários responsáveis</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Exibir tarefas sem responsáveis</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Subtarefa</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Subtarefas</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Nenhuma subtarefa foi criada para esta tarefa.</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Não foi encontrada nenhuma subtarefa</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tarefa</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Criado por</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Atribuído a</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tarefas</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Número de tarefas</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>As tarefas auxiliam o gestor a distribuir todo o trabalho igualmente entre os participantes do projeto, definir os responsáveis pelas várias partes do projeto. Inicie adicionando tarefas, concluá-as, defina quem é o responsável e gerencie a equipe de trabalho</value>
+  </data>
+  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
+    <value>As tarefas ajudam o gestor a distribuir todo o trabalho uniformemente entre os participantes do projeto, estabelecendo os responsáveis por várias partes do projeto.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Data de início</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Titulo</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Monitorar tempo</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>Você está tentando fechar as tarefas com as subtarefas abertas</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Você está tentando encerrar uma tarefa com subtarefas abertas</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Deixar de seguir a tarefa</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Tarefas não classificadas</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Será movido para etapa</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Ninguém</value>
+  </data>
+</root>

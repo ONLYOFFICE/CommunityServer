@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Koneksi akun error.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Jika error tetap muncul, silakan baca {0}bagian FAQ{1} untuk penjelasan lebih rinci atas masalah ini.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Koneksi akun error</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Pengaturan akun</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Akun ini terhubung menggunakan OAuth, sehingga fungsi editing dibatasi.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Akun</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Apakah Anda ingin mengaktifkan %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Tambahkan Akun</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Apakah Anda ingin menambahkan akun email pertama Anda sekarang?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Anda belum memiliki akun email yang terhubung dengan ONLYOFFICE™ Mail. Silakan tambahkan akun email Anda untuk mulai menerima dan mengirim email.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Tambahkan akun baru untuk mulai menggunakan ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Mail Server</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Beberapa parameter input salah.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Akses ke dokumen ditolak.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Dokumen tidak ditemukan atau tidak berada di lokasi penyimpanan yang dipilih.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tidak mendukung file kosong.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>file executable tidak diijinkan oleh layanan tertentu (mis. Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Catatan: ukuran file tidak boleh melebihi %1 MB. Ukuran total semua file tidak boleh melebihi %2 MB.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Pesan tidak ditemukan.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Total ukuran semua lampiran telah melebihi batas.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Muncul error yang tak terduga. Silakan coba beberapa saat lagi.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>Akun email {0} tidak dapat terhubung untuk waktu yang lama dan harus dinonaktifkan.{1} Periksa semua pengaturan akun yang Anda buat atau sign in ke layanan email yang Anda gunakan dan periksalah pengaturan keamanannya. Jika Anda yakin semua masalah koneksi akun telah diatasi, Aktifkan kembali akun tersebut pada daftar akun yang terhubung.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Akun email telah dinonkatifkan karena koneksi error.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Akun email dinonaktifkan</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Terdapat masalah pengiriman dan penerimaan pada {0} akun email.{1} Penyebabnya mungkin adalah karena Anda mengganti kata sandi akun tersebut. Silakan periksan semua pengaturan akun yang Anda buat atau sing in ke layanan email yang Anda gunakan dan periksa pengaturan keamanannya.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Muncul error saat menghubungkan dengan akun,</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Ubah pengaturan akun</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Pilih tag</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Tutup semua</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Buat perusahaan CRM baru</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Daftarkan orang CRM baru</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>Kontak CRM</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Apakah Anda ingin menonaktifkan %1?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Apakah Anda ingin menghapus %1? </value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Anda yakin ingin menghapus tag %1?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Menghapus pesan</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Periksa alamat penerima pesan dan format pesan. Jika Anda yakin pesan sudah benar, periksa semua pengaturan akun {account_name}, dan, jika pengaturan sudah benar, sign in ke layanan email yang Anda gunakan dan konfirmasikan pertanyaan verifikasi, jika ada. Kemudian, cobalah kembali.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Jika error tetap muncul, silakan baca {faq_link_open_tag}bagian FAQ{faq_link_close_tag} untuk penjelasan lebih rinci atas masalah ini.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Pengiriman pesan "{subject}" gagal.</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Pengiriman pesan gagal.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Akun email telah dinonaktifkan.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Akun email telah dinonaktifkan</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Portal Anda tidak digunakan untuk waktu yang lama, sehingga akun email yang terhubung dengan ONLYOFFICE™ Mail telah dinonaktifkan. Jika Anda masih ingin menggunakannya, silakan buka halaman akun Anda dan aktifkan kembali.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Selesai</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Gagal mengunggah lampiran ke folder yang dipilih.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Lampiran Error</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Folder Lampiran yang dipilih tidak dapat diakses dan tautan dari akun email {account} Anda telah dihapus. Silakan periksa apakah Anda memiliki hak akses yang cukup untuk folder yang dipilh dan untuk menautkannya kembali.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Folder Lampiran yang dipilih tidak ditemukan dan tautan dari akun email {account} Anda telah dihapus. Silakan periksa apakah folder tersebut masih ada dan tautkan kembali.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Buat draft awal</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Di bagian Draf, Anda dapat membuat dan mengurutkan pesan yang Anda kirimkan ke orang-orang. Di sini, Anda dapat memilih pesan yang paling penting atau menghapus pesan yang tidak diperlukan.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Tidak ada pesan di folder ini</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Tulis pesan baru</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Di bagian Kotak Masuk, Anda dapat menelola pesan yang diterima. Di sini, Anda dapat melihat riwayat korespondensi, memilih pesan yang paling penting, mengelompokkan email berdasar kategori menggunakan tag atau menghapus email yang tidak diperlukan.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Tidak ada pesan diterima</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Buat akun pertama</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Buat sebuah akun untuk mengirim, menerima dan menyimpan pesan Anda langsung di portal. Dapatkan akses ke riwayat pesan, kontak dan file melalui browser apapun, kapanpun, dan di manapun. Urutkan pesan menggunakan tag buatan Anda sendiri.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Belum ada akun yang dibuat</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Buka CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Daftar kontak ini berisi semua klien Anda dari CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Daftar kontak kosong</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Buat Tag Email Baru</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Anda harus membuat tag dan menggunakannya terlebih dahulu</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Tidak ada tag yang dibuat</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Tulis pesan baru</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Di bagian Pesan Terkirim, Anda dapat mengelola pesan yang Anda kirim. Di sini, Anda dapat memilih pesan yang penting, mengelompokkan email berdasarkan kategori menggunakan tag atau menghapus email yang tidak diperlukan.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Belum ada pesan terkirim</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Bagian Spam berisi pesan yang Anda anggap sebagai pesan sampah. Di sini, Anda dapat menghapus email, mengklasifikasikannya sebagai 'bukan spam' atau menghapus semua isinya.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Tidak ada pesan di folder ini</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Bagian Trash berisi pesan yang telah dihapus. Di sini, Anda dapat mengembalikan pesan-pesan tersebut atau menghapusnya secara permanen.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Tidak ada pesan di folder ini</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Akun ini sudah ada</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>kolom kosong</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Kolom 'Kepada' kosong</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Alamat salah</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Alamat salah</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>tidak adap kotak pesan yang dipilih</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Muncul kesalahan tidak dikenal</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>tidak ada pengguna yang dipilih</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Terjadi masalah saat membuka pesan ini.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Silakan muat ulang halaman dan coba buka kembali pesan ini. Jika masalah tetap muncul, silakan {0}hubungi tim dukungan kami.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Mohon maaf atas ketidaknyamanan ini karena email gagal diunggah ke ONLYOFFICE™ Mail. Gunakan salinan pesan asli yang ditambahkan sebagai lampiran untuk membukanya kembali menggunakan perangkat lunak kliem email atau {0}hubungi tim dukungan kami.{1}</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Sudah ada tag %1 </value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Jika Anda ingin menghubungkan kembali akun ini, silakan hapus terlebih dahulu dari daftar akun Anda yang terhubung, pada halaman 'Pengaturan&gt; Manajemen Akun'.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Akun yang ada</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Buka semua</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Ekspor pesan ke CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Ekspor Email Error</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Muncul error saat mengekspor pesan.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Pesan yang ingin Anda ekspor telah ditautkan dengan item CRM yang dipilih.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Ekspor pesan ke riwayat kontak CRM telah selesai</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Periode khusus</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Dari pengirim</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Penting</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Periode khusus</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Berdasarkan periode</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Minggu lalu</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Kemarin</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Baca</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Tampilkan</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Kepada alamat email</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Belum dibaca</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Dengan lampiran</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Dengan kesempatan</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Dengan tag</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Trs</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Pesan yang diteruskan</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Bantuan</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Selalu sembunyikan gambar dari</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Sembunyikan</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Akun berhasil dihubungkan.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Semua email dalam jangka waktu 30 hari akan diimpor.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Sedang mengimpor pesan. Proses ini membutuhkan waktu beberapa saat. Anda dapat menutup halaman ini dan melanjutkan menggunakan Email atau menutup browser. Proses impor akan tetap berjalan.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Penting</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Beberapa pesan yang sebelumnya telah diterima melalui layanan lain mungkin tidak dapat diimpor. Silakan baca {0}bagian FAQ{1} untuk penjesalan lebih rinci.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Jika muncul error saat mengimpor email, silakan baca {0}bagian FAQ{1} untuk penjelasan lebih rinci.</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Tautkan percakapan dengan CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Selesai menautkan percakapan dengan riwayat kontak CRM </value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Error Menautkan Percakapan</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Muncul error saat menautkan percakapan ke CRM.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Item CRM yang dipilih tidak ada lagi, atau koneksi terputus. Silakan verifikasikan lokasi item CRM yang dipilih dan periksa koneksi jaringan Anda. Jika error tetap muncul, silakan hubungi administrator portal Anda.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>memuat lampiran...</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Membuat kotak surat...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Memperbarui Kotak Surat...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Kelola akun</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Kelola tanda tangan</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Tandai semua penerima email</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Tandai semua pengirim email</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Pesan belum dikirim. Apakah Anda yakin ingin menghapusnya?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 lainnya</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Memindahkan pesan</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Tambahkan akun email</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Pesan Baru</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Tidak diperlukan tindakan selanjutnya.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Tidak ada pesan yang sesuai dengan filter Anda. Silakan pilih filter lain atau hapus filter untuk melihat semua pesan di folder ini.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Tidak ada pesan dengan filter ini</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>tidak ada judul</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Tidak penting</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Bukan Spam</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Menerapkan pengaturan domain standar ...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Draf</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Teruskan</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Balas</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Telah melebihi kapasitas penyimpanan yang tersedia di portal Anda. Tidak semua pesan dapat dimuat dan pesan baru tidak dapat dikirim. Silakan hapus beberapa pesan dari Kotak Masuk atau hapus beberapa file dari modul Dokumen. Anda juga dapat mengganti paket harga agar mendapatkan kapasitas penyimpanan yang lebih besar.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Telah melebihi kapasitas penyimpanan yang tersedia</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Apakah Anda ingin menghapus semua pesan Spam?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Apakah Anda ingin menghapus semua pesan dari Trash?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Tidak berhasil mengatur ulang folder EMail-Masuk.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Berhasil mengatur ulang folder EMail-Masuk.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Tidak ada kontak CRM yang sesuai dengan filter Anda di halaman ini. Silakan pilih filter lain atau hapus filter untuk melihat semua kontak CRM.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Tidak ada kontak CRM dengan filter ini</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Atur ulang filter</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Tidak ada kontak portal dengan filter Anda. Silakan pilih filter lain atau hapus filter untuk melihat semua kontak portal.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Tidak ada kontak portal dengan filter ini</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Pemulihan</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Mengembalikan pesan</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>Berhasil disimpan %real_count% dari %count% di Dokumen Saya.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Tidak berhasil menyimpan.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Menyimpan pesan</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Akun ini telah dinonaktifkan. Silakan aktifkan akun ini atau pilih akun yang lain.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Mengirim pesan</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Kotak pesan server, hanya dapat diedit melalui panel administrasi</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Tidak berhasil membuat folder EMail-Masuk.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Berhasil membuat folder EMail-Masuk.</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Tampilkan</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Tanda tangan akan dibubuhkan pada bagian akhir semua pesan dari akun ini. Anda dapat menuliskan nama, kontak atau slogan Anda di situ.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Menyimpan tag...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Diimpor dari CRM. Anda tidak dapat mengedit atau menghapus tag ini.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Kontak Portal</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Kepada</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Total kontak:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Coba kembali</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Hapus tautan dengan CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Tandai belum dibaca</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Gunakan tanda tangan</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Dengan lampiran</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Tanpa tag</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Dengan tag</value>
+  </data>
+</root>

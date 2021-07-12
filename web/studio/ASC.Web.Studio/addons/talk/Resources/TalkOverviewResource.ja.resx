@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>連絡先リストは、人々が追加/従業員のリストから削除されるので、それを手動でチェックアウトする必要はありません、自動的に更新されます。</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>ブラウザでの通知</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>チャットルーム</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>タブのチャット</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>連絡先リストと設定</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>既定に通知はメールとチャットで送信されるものです。通知型を変更するのはこちらです：</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>送信されたファイルを削除する</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>カテゴリで連絡先リストを表示する</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>こちらへ</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>オフラインユーザーを非表示する</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>メイリング</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>通知に関する詳細情報が利用可能です{0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>通知設定</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>トークは、リアルタイムで社員インスタントテキストメッセージを交換するための企業のIMシステムです。</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>ステータスの選択、履歴、アーカイブ、ファイル転送、マルチユーザチャットサポートなど - 話はすべてあなたがメッセンジャーに期待従来の機能を提供しています。</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>チャットの概要</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>何ら事前の設定で今トークを使用して起動するには、弊社のウェブクライアントを起動します。</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>プロフィールページ</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Ctrl+Enterで送信する</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>入力フィールド設定</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Webクライアントを起動します</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>余分な設定！ Webクライアントを起動して、今すぐに会話を始めるためにクリック</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>{0}の「サブスクリプション」セクション</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>タイプ：</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>サウンドのイベント通知</value>
+  </data>
+</root>

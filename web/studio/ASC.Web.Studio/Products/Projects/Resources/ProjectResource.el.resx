@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Προσθήκη ορόσημου</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Προσθήκη υπεύθυνου έργου</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Προσθήκη εργασίας</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Ο Διαχειριστής έργου μπορεί να</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>προσθέσετε ή να διαγράψετε τους χρήστες προς / από την ομάδα του έργου</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>ορίσατε δικαιώματα πρόσβασης για τα μέλη του έργου (μόνο για {0}ιδιωτικό έργο{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>διαχειριστείτε (δημιουργία, επεξεργασία, διαγραφή) τα ορόσημα, τις εργασίες, τις συνομιλίες, τα έγγραφα και {2}{0}περιορίσατε την πρόσβαση σε αυτές{1}</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Επικοινωνία μέσω τηλεφώνου</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Αποστολή ηλεκτρονικού ταχυδρομείου</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Κλείσιμο έργου</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Δημιουργήστε νέο έργο</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Διαγραφή έργου</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Διαγραφή έργων</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Επεξεργασία έργου</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Ακολουθήστε αυτό το έργο</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Δημιουργία συνδέσμου</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Δημιουργείται σύνδεσμος</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Επεξεργασία τίτλου</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Διάγραμμα Gantt</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Υψηλή προτεραιότητα</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Θρύλος</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Κλειστό</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Εκπρόθεσμο</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Μη έγκυρος σύνδεσμος</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Τύπος συνδέσμου</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Σύνδεση με</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Εκτύπωση</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Άνοιγμα ξανά</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Δημιουργία νέας εργασίας</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Μάθετε περισσότερα</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Ημέρες</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Μήνας</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Εβδομάδα</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Αναίρεση</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Μετακίνηση αριστερά</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Μετακίνηση δεξιά</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Ιδιωτικό έργο</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Αποθηκεύσατε το έργο ως ιδιωτικό</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Διαχειριστείτε την ομάδα</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Έργο</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Διαγραφή έργου</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Διαχειριστής Έργου</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Κατάσταση έργου</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Ομάδα</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Πρότυπο έργου</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Πρότυπα Έργου</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Αποθηκεύσατε το Έργο</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Επιλέξτε το πρότυπο έργου</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Επιλογή</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Ετικέτες</value>
+  </data>
+</root>

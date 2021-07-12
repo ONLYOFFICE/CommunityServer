@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EntityType_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="EntityType_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="EntityType_Message" xml:space="preserve">
+    <value>Diskusi</value>
+  </data>
+  <data name="EntityType_Milestone" xml:space="preserve">
+    <value>Tahap Pekerjaan</value>
+  </data>
+  <data name="EntityType_Project" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="EntityType_SubTask" xml:space="preserve">
+    <value>Bagian tugas</value>
+  </data>
+  <data name="EntityType_Task" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="EntityType_Team" xml:space="preserve">
+    <value>Tim</value>
+  </data>
+  <data name="EntityType_TimeSpend" xml:space="preserve">
+    <value>Waktu</value>
+  </data>
+  <data name="MilestoneStatus_Closed" xml:space="preserve">
+    <value>Ditutup</value>
+  </data>
+  <data name="MilestoneStatus_Open" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="PaymentStatus_Billed" xml:space="preserve">
+    <value>Sudah Ditagih</value>
+  </data>
+  <data name="PaymentStatus_NotBilled" xml:space="preserve">
+    <value>Belum Ditagih</value>
+  </data>
+  <data name="PaymentStatus_NotChargeable" xml:space="preserve">
+    <value>Tidak Dikenakan Biaya</value>
+  </data>
+  <data name="ProjectStatus_Closed" xml:space="preserve">
+    <value>Ditutup</value>
+  </data>
+  <data name="ProjectStatus_Open" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="ProjectStatus_Paused" xml:space="preserve">
+    <value>Berhenti</value>
+  </data>
+  <data name="TaskPriority_High" xml:space="preserve">
+    <value>Tinggi</value>
+  </data>
+  <data name="TaskPriority_Low" xml:space="preserve">
+    <value>Rendah</value>
+  </data>
+  <data name="TaskPriority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Ditutup</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Terbuka</value>
+  </data>
+</root>

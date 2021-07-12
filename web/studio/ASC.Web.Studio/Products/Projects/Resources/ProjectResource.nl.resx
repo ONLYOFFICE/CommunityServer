@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Toegangsrechten portal</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Mijlpaal toevoegen</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Projectmanager toevoegen</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Taak toevoegen</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Projectmanager kan</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>gebruikers toevoegen aan of verwijderen uit het projectteam</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>toegangsrechten instellen voor leden van het project (alleen voor {0}privéproject{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Mijlpalen, taken, discussies, documenten beheren (maken, bewerken, verwijderen) en {2}{0}de toegang beperken{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>mijlpalen, taken, discussies, documenten beheren (maken, bewerken, verwijderen)</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Contact opnemen via Talk</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>E-mail verzenden</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Project sluiten</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Eerste project maken</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Nieuw project maken</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Project verwijderen</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Weet je zeker dat je dit project wilt verwijderen?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Verwijder projecten.</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Ben je zeker dat je deze projecten wil verwijderen?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>In deze sectie kunnen geen projecten worden weergegeven die voldoen aan je filter.</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Project bewerken</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Projecten maken en effectief werken</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Gebruik projecten om efficiënt te werken.</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>De lijst met projecten is leeg</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Dit project volgen</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Taak toevoegen aan mijlpaal</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Alle verantwoordelijke gebruikers</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Verantwoordelijke gebruikers toewijzen</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Modus Volledig scherm</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Modus Linkervenster</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Koppeling maken</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Koppeling wordt gemaakt</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Dubbelklik op de titel in het linkervenster</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Klik met de rechtermuisknop op de verantwoordelijke gebruiker in het linkervenster.</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Titel bewerken</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Als je een Gantt-diagram wilt weergeven, moet je ten minste één project selecteren waarvoor je het diagram wilt weergeven. </value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Er is geen project geselecteerd.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantt-diagram</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Hoge prioriteit</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Gesloten</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>De diagramobjecten kunnen er verschillend uitzien afhankelijk van de situatie:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Te laat</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Je kunt het venster openen met de hoofdlijst van acties met behulp van de H-toets</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Ongeldige koppeling</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>De onderstaande symbolen worden weergegeven als je met de muiscursor de diagramobjecten aanwijst.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Taken koppelen</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Wijs een taak aan, klik op de witte cirkel, sleep de cursor naar een andere taak en zet de taak dan neer op de verschenen witte cirkel. </value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Type koppeling</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Koppelen aan</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Alleen taken en mijlpalen openen</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Afdrukken</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Opnieuw</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Heropenen</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Klik met de rechtermuisknop op de taak (mijlpaal)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Vervolgmenu openen</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Klik met de rechtermuisknop in de lege ruimte</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Nieuwe taak maken</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Klik met de rechtermuisknop in de lege ruimte en sleep naar rechts</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Nieuwe taak met vervaldatum maken</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Meer informatie</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Aan schermgrootte aanpassen</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Taak zonder vervaldatum</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Dagen</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Schaal tijdlijn</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Gebruik het muiswiel om de schaal van de tijdslijn te wijzigen.</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Snel teruggaan naar de activiteiten van vandaag vanaf elke plek</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Ongedaan maken</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>De lijst met bewerkingen die ongedaan kunnen worden gemaakt, wordt ook gewist en je kunt eerdere acties niet meer ongedaan maken.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Naar links verplaatsen</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Naar rechts verplaatsen</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Privéproject</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Dit project opslaan als privé</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Team beheren</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Handmatige tijdsinvoer</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Je kunt een project met actieve mijlpalen niet sluiten.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Je kunt een project met open taken niet sluiten.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Aan projectmanager melden via e-mail</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Project verwijderen</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Projectmanager</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projecten</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Projectstatus</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Projectsjabloon</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Projectsjablonen</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Diagram vernieuwen</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Project opslaan</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Projectsjabloon selecteren</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Kies</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Gesloten taken. Klik om de volledige lijst voor de huidige mijlpaal te openen.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Open taken. Klik om de volledige lijst voor de huidige mijlpaal te openen.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Verantwoordelijke gebruiker voor deze mijlpaal. Klik om alle mijlpalen te zien die door de huidige gebruiker beheerd worden.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Projectmanager. Klik om alle projecten weer te geven die door de huidige gebruiker beheerd worden.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Open taken. Klik om de volledige lijst voor het huidige project te openen.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Team. Klik om de lijst te openen met alle leden van het projectteam.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Open subtaken. Klik om de volledige lijst voor de huidige taak te openen.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Voor taak verantwoordelijke gebruiker. Klik om alle taken te zien die aan de huidige gebruiker toegewezen zijn.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Voor taak verantwoordelijke gebruikers. Klik om alle gebruikers te zien die voor deze taak verantwoordelijk zijn.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Actieve mijlpalen bekijken</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Open taken bekijken</value>
+  </data>
+</root>

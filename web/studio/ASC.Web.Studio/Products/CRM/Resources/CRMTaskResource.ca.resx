@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Crea una nova tasca</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Data límit</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Tasca tancada</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Vincular missatge amb el contacte</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Crear la primera tarea</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Crea una tasca</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Període personalitzat</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Altres usuaris</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Esborra la tasca</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripció</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Data límit</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Edita la tasca</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Les tasques són una manera fàcil de crear recordatoris del que s'ha de fer. Per exemple, una tasca pot utilitzar-se per a recordar una cita o una trucada telefònica. Podeu crear tasques de {0}categories diferents{1}, vinculeu-les amb un contacte, una oportunitat o un cas, o crear un recordatori simple per a vós mateix.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>No s'han trobat tasques que coincideixin amb el vostre filtre en aquesta secció. Si us plau, seleccioneu un altre filtre o netegeu el filtre per a veure totes les tasques d'aquesta secció. També podeu cercar-les a les pestanyes de contactes, oportunitats o casos.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>No hi ha tasques que coincideixin amb el filtre</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>La llista de tasques és buida</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Heu de seleccionar un fitxer CSV ben formatat del disc dur del vostre ordenador. Ha de contenir camps i columnes separades per coma que s'utilitzaran per a importar les tasques. Els fitxers que continguin més de {0} files s'hauran de dividir en parts més petites per a una importació correcta.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Seleccioneu un fitxer CSV</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Adapteu les columnes del vostre fitxer amb els corresponents camps de ONLYOFFICE™ CRM. Si us plau, estigueu atents al fet que per a importar les tasques correctament, necessiteu que al menys les columnes del seu fitxer coincideixin amb els camps de ONLYOFFICE™ següents: "Títol de la tasca", "Responsable", "Data límit". Els camps que contenen dates han de tenir el següent format: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Si us plau, reviseu els camps</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Anar a la llista de tasques</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>La importació de tasques pot tardar diversos minuts en funció de la quantitat de dades.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>La importació ha començat</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Importa dades</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Les meves tasques</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Tancat</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Obert</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Caducat</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Desant la tasca</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Comença la importació</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tasca</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Categories de les tasques</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Categoria de la tasca</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Trucada telefónica</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Oportunitat</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Correu electrònic</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Control d'execució</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Dinar</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Cita</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Nota</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Enviament</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Xarxes socials</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Agraïment </value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Descripció de la tasca</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Assigna a</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasques</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Estat</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Estat de la tasca</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Tancat</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Obert</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Títol de la tasca</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Properes</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 dies</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Temps</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Avui</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Avui</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Les categories us permeteu dividir les tasques en grups en funció dels objectius que es vulguin aconseguir. Les categories predeterminades són trucada de telèfon, oportunitat, demostració, correu electrònic, fax, control d'execució, dinar, cita, nota, entrega, xarxes socials, agraïment. Per a poder-les editar, es necessiten drets d'administrador.</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Setmana</value>
+  </data>
+</root>

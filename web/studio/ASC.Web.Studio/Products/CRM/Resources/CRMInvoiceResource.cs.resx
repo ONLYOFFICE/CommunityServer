@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Přidat a vytvořit novou fakturu</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Přidat fakturační adresu</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Přidat doručovací adresu</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Přidat řádek</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adresa byla úspěšně aktualizována</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Vytvořit nový poplatek</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Vytvořit poplatek</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Uložit a vytvořit novou položku</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Přidat tuto fakturu</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Všechny faktury</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Množství</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Připojte dokument</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>Automaticky generováno</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Účet na</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Datum splatnosti</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Změnit formát</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Všechny budoucí faktury budou mít předvolbu/počet formátů nastavení pomocí níže uvedených polí. Zaškrtněte příslušné políčko pro automatické generování čísel.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Změnit stav</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Poznámky klienta</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Zobrazí se na faktuře a v těle dopisu, pokud zasíláte fakturu na adresu ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>Shoduje se s klientem</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Vytvořit první fakturu</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Vytvořit první položku</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Vytvořit první poplatek</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Vytvořit položku</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Vytváření položky faktura</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Vytvořit poplatek</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Vytvořit novou fakturu</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Vytvořit novou položku</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Vytvořit nový poplatek</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí mít měnu</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dní</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Tyto výchozí podmínky budou použity na budoucích fakturách.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Jste si jistí, že chcete smazat fakturu '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Odstraňování faktury...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Odstraňování položky...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Jste si jistí, že chcete smazat položku «{0}»?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Jste si jistí, že chcete smazat daň «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Odstraňování poplatku</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Vymazat tuto fakturu</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Odstraňování faktur</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Sleva</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Datum splatnosti</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Prosím, nastavte vlastní datum splatnosti nebo zvolte jednu z předvoleb vpravo pro propojení tohoto data s datem vydání.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Datum vydání je delší než datum splatnosti</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Splatnost po obdržení</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí mít datum splatnosti</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Duplikovat a vytvořit novou fakturu</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Duplikovat fakturu</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Duplikovat fakturu</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Duplikovat fakturu «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Upravit fakturační adresu</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Upravit adresu doručení</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Upravit fakturu</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Upravit fakturu «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Upravit poplatek</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Tato sekce vám umožňuje nastavit seznam položek, které mohou být zahrnuty do faktur. Po vytvoření seznamu můžete vybrat požadovanou položku, kterou chcete přidat do platebního dokladu. Můžete také přidat nové položky, kdykoli je to potřeba.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>V této sekci nelze zobrazit položky fakturace odpovídající vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr a zobrazte všechny položky faktur v této části. Nebo můžete vytvořit položku faktury, pokud v seznamu chybí.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Žádné faktury se zde pro tento filtr nezobrazují</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Seznam produktů a služeb je prázdný</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Sekce Faktury umožňuje vytvářet platební dokumenty, které můžete svým klientům poskytnout. Po přidání faktur se zde zobrazí seznam dostupných faktur.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>V této sekci nelze zobrazit žádné faktury odpovídající vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr, abyste zobrazili všechny faktury v této části. Nebo můžete fakturu vytvořit, pokud v seznamu chybí.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Žádné faktury se zde pro tento filtr nezobrazují</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Seznam faktur je prázdný</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Fakturované daně vám umožňují vytvářet další daně specifické pro země nebo oblasti, ve kterých žijete vy nebo vaši klienti. Můžete přidat daňové jméno, úrokovou sazbu a popis. Nové daně můžete také kdykoli přidat.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Seznam daní na faktury je prázdný</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Nebyly nalezeny žádné příležitosti</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Vybrat položku</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Pole s názvem daně nesmí být prázdné</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Pole rychlosti nemůže být prázdné</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Žádný</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Cena je prázdná</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Cena není správná</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Množství není správné</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>Hodnota sazby je nesprávná</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Směnný kurz</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Toto pole musíte vyplnit</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Název poplatku již existuje</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Inventář zásob</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Název položky</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Množství zásob</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Daně</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Vyhledat podle názvu, SKU nebo popisu</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí mít klienta</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Příjemce</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Vaše výchozí měna CRM se používá k nastavení cen v katalogu produktů a služeb.&lt;br/&gt;Chcete-li jej změnit, přejděte na stránku&lt;a href="nastavení.aspx?type=common" target="_blank"&gt;Obecná nastavení&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktivní</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Archivované</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Jedna nebo více fakturačních položek má záporné množství zásob</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>S inventářem</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Bez zásob</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Jazyk faktury</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Každá faktura musí mít jazyk</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Číslo faktury</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Číslo faktury již bylo odebráno
+</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Název daně 1</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Daňová sazba 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Název daně 2</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Daňová sazba 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Daň s takovým jménem již byla zaregistrována</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Daňové kategorie vám umožňují vytvořit další daně specifické pro země nebo oblasti, ve kterých žijete vy nebo vaši klienti. Můžete přidat daňové jméno, úrokovou sazbu a popis.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Kategorii daní můžete smazat pouze v případě, že není použita v sekci produkty a služby.
+</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Název daně</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Hodnotit</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Datum faktury</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí mít datum</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Položka</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Vaše výchozí měna CRM. &lt;br/&gt; Chcete-li jej změnit, přejděte na stránku &lt;a href="?type=common"target="_blank"&gt; Obecná nastavení &lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Přidejte množství položek, které máte v současné době na skladě. Toto číslo se sníží při každém přidání položky do faktury. Když obdržíte více inventáře, jednoduše je přidejte do svého aktuálního inventáře.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Spojit s příležitostí</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Vyhotovit fakturu</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Označte jako koncept</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Označit jako zaplaceno</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Označit jako zamítnuto</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Označte jako fakturu</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Číslo</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Formát je nesprávný nebo faktury se stejným číslem již existuje</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Počáteční číslo je prázdné</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí mít číslo</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Po termínu</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Číslo objednávky
+</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Předpona</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Tisk</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkty a služby</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Vybrat produkt nebo službu ze seznamu nebo přidat nový</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí obsahovat položky</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Množství</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Množství</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Ukládání nastavení čísel ...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Uložení nastavení podmínek ...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Při ukládání faktury došlo k chybě "{0}". Prosím zkuste to znovu později.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Prodávající</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Poslat emailem</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Základní nastavení
+</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Nastavit výchozí podmínky</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Nastavit prázdné</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Dopravit do
+</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Zobrazit fakturační profil</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Otevřít v nové kartě</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Počáteční číslo</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Jednotka skladování (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Mezisoučet</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Daň</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Podmínky
+</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Každá faktura musí obsahovat pojmy</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celková faktura</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Celkové faktury</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Sledovat inventář</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Aktualizovat položku «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Aktualizovat «{0}» daň</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Ukládají se změny ...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varování</value>
+  </data>
+</root>

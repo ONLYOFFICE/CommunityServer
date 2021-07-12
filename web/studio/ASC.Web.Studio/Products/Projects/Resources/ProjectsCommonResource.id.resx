@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Kelola pelanggan</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Semua {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Pindahkan dengan tugas terkait</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Semua {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Mulai/Hentikan Pencatat Waktu</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Tambahkan waktu</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Berhenti</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Atur ulang</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Mulai</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Proyek Teamlab</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Coba aplikasi mobile</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Mengubah Warna</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Status hanya tersedia untuk pengguna yang membuat tugas</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Mengubah Ikon</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Sembunyikan</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Pengaturan Umum</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Membuat</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Mulai Proyek Baru</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Tetapkan urutan yang diperlukan untuk status tugas. Setiap kategori harus memiliki setidaknya satu status.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Status Baru</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Tautkan atau tambahkan kontak</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Pilihlah kontak CRM yang tersedia dari daftar untuk mengaitkannya pada proyek yang Anda kelola, atau tambahkan kontak baru. Ubah informasi pribadi milik kontak tersebut. Integrasi yang lebih mendalam dengan CRM akan membantu Anda mengelola pekerjaan dengan lebih efisien.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Daftar kontak kosong</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Setiap status harus mempunyai judul</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Tidak ada proyek yang sesuai dengan filter ini</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Ikuti</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Centang kotak ini jika Anda bukan manajer proyek yang Anda buat, namun Anda tetap ingin memantau segala perubahan yang dilakukan. Informasi mengenai seluruh tahap pekerjaan, tugas dan diskusi baru akan disertakan dalam pemberitahuan terbaru.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Proyek Privat{2} adalah sebuah cara untuk membatasi akses ke proyek Anda, sehingga hanya anggota tim Anda yang dapat mengaksesnya.{0} Dengan menyimpan proyek Anda sebagai proyek privat, Anda dapat mengatur hak akses masing-masing rekan tim di dalam proyek tersebut.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Proyek Privat{2} adalah sebuah cara untuk membatasi akses ke proyek Anda, sehingga hanya anggota tim Anda yang dapat mengaksesnya.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Tahap pekerjaan utama digunakan untuk membuat sebuah tahap pekerjaan yang Anda anggap lebih penting daripada yang lain.{0} Semua tahap pekerjaan utama ditandai dengan ikon kunci merah yang berada di dekat judul.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Anda dapat mengubah status proyek dengan:{0}{1}Aktif.{2} Seluruh proyek yang sedang Anda kerjakan akana ditandai sebagai proyek aktif jika Anda tidak menghentikan atau menyelesaikannya.{0}{1}Berhenti.{2} Jika Anda ingin menangguhkan pengerjaan proyek, ubahlah statusnya menjadi Berhenti. Untuk melanjutkan proyek tersebut, ubahlah statusnya menjadi Aktif.{0}{1}Ditutup.{2}Saat pengerjaan proyek telah selesai dan seluruh tugas telah ditutup, selesaikanlah proyek tersebut dengan mengubah statusnya menjadi Ditutup. Untuk pengerjaan selanjutnya, Anda harus mengaktifkan kembali statusnya.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Untuk menambah anggota tim Anda, klik kanan pada tautan {1}Kelola Tim{2} dan pilih pengguna yang ingin ditambahkan dari daftar.{0} Anda juga dapat memasukkan/mengeluarkan rekan tim dengan membuka tab {1}Tim{2} pada halaman {1}Ikhtisar{2} proyek dan klik tombol {1}Kelola Tim{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Dengan pengaturan awal, masing-masing anggota tim proyek dapat melihat seluruh konten pada proyek yang dipilih, yaitu: tahap pekerjaan, tugas, dokumen dan diskusi. Untuk membatasi akses, silakan pilih rekan tim yang ingin Anda ubah pengaturan hak aksesnya dan klik pada salah satu tautan di sebelah kanan.Lakukan cara yang sama untuk mengubah hak akses masing-masing anggota tim proyek Anda, kecuali jika mereka tidak memiliki hak administrator portal. Administrator ONLYOFFICE™ memiliki akses penuh ke seluruh konten pada semua proyek.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Apa maksudnya Ikuti proyek ini?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Apa itu proyek privat?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Apa itu tahap pekerjaan utama?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Status proyek apa saja yang ada?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Bagaimana mengelola tim Anda?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Sembunyikan</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Sembunyikan isi dari proyek yang ditunda</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Pengguna ini tidak menerima pemberitahuan untuk diskusi ini, karena proyek tersebut berstatus privat dan pengguna tersebut bukan anggota tim proyek.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Proyek yang Saya Ikuti</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Terbaru</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Diskusi Saya</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Proyek Saya</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontak</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Pindahkan tugas</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Komentar baru pada diskusi</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Komentar baru pada tugas</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Tidak ada kontak untuk tautan</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Tidak ada data</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Tugas ini terhubung dengan tugas lain, jika Anda menghapusnya, seluruh tautan akan ikut terhapus.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Hapus tautan dan pindah</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Pengaturan Pribadi</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Catatan: tindakan ini tidak dapat dibatalkan</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Lakukan hal yang sama dengan manajer proyek|Tunjuk manajer proyek|Buat, ubah, dan hapus proyek|Buat/ubah template</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Buat tim dan berikan tugas. Jadwalkan tahap pekerjaan proyek, melacak aktivitas proyek dan susun laporan.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Buat tim dan berikan tugas. Jadwalkan tahap pekerjaan proyek, lacak aktivitas proyek dan susun laporan.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Bangun tim dan membuat tugas. Mengatur jadwal proyek tahap pekerjaan, melacak aktivitas proyek dan membuat laporan</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Lihat proyek dan ikut berdiskusi|Buat dan ubah tahap pekerjaan, tugas, diskusi, dokumen|Pantau waktu pelaksanaan tugas, susun laporan|Buat tim proyek dan atur hak akses</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontak yang akan ditautkan pada proyek</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Nama Proyek</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Baca selengkapnya</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Keluarkan pengguna dari tim</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Ganti</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Folder Laporan</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Laporan</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Simpan &amp; Buat Tugas Baru</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Simpan Perubahan</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Pilih dari kontak yang tersedia atau masukkan kontak baru</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Semua pengguna bisa membuat project</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tampilkan</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tampilkan pada halaman</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Tagihan Waktu yang Digunakan</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Waktu yang Digunakan</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Halaman Awal</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Berlangganan komentar</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Tugas telah ditambahkan</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Tanggal mulai harus sebelum tanggal jatuh tempo</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Tugas yang akan Anda pindahkan ini terhubung dengan tugas lain. {0} Silakan pilih salah satu tindakan berikut ini:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Status Tugas</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Hapus tautan dan perbarui</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Pilih teks yang ingin Anda sembunyikan dari halaman umpan dan halaman daftar diskusi, lalu klik "Potong Teks".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Potong Teks</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Waktu</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Pantauan Waktu</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Tinggalkan</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Hapus tautan proyek dari kontak</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Berhenti berlangganan komentar</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Perbarui Tenggat Waktu</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Tugas yang akan Anda perbarui ini terhubung dengan tugas lain. {0} Silakan pilih salah satu tindakan ini:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>bln</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Tambahkan komentar</value>
+  </data>
+</root>

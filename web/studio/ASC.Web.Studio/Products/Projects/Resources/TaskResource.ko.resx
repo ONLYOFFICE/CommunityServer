@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>작업 수락</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>수락</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>첫 작업 추가</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>새 하위작업 추가</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>신규 작업 추가</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>하위작업 추가</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>작업 추가</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>모든 작업들</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>에 할당된</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>가장 좋은 방법은 돌아가서 수동으로 하위작업을 닫은후, 다음 작업 종료 에 시도 하세주세요.</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>책임자</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>현재상태 변경</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>프로젝트 선택</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>선택업무</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>완료자</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>완료일</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>완료업무들</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>작업을 종료 하는중입니다</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>복사업무</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>새 링크를 만들다</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>생성일</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>필터와 일치하는 작업이 섹션에 표시 할 수 없습니다.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>각 작업은 제목이 있어야합니다</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>작업 수정</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>작업을 닫은 후, 모든 하위작업들 닫기</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>이 작업을 구독하기</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>작업으로 이동</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>높음</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>책임자에게 알림</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>메시지가 전송되었습니다</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>이정표</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>다른 이정표로 작업을 이동</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>이정표로 이동</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>아무도 없음</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>이 필터와 일치하는 작업이 없습니다</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>작업이 아직 만들어지지 않았습니다</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>우선순위</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>프로젝트</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>관련업무</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>작업 삭제</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>이 작업을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>업무들을 삭제하다</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>책임자들</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>담당자 없는 작업 보기</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>하위업무</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>하위작업들</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>업무</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>업무 설명</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>에 할당된</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>업무들</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>작업 관리자가 프로젝트 참가자들, 프로젝트의 다양한 부분에 대한 책임 사항을 설정 균등하게 모든 일을 배포 할 수 있습니다.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>시작일</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>업무 제목</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>시간을 추적하기</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>당신은 열려있는 하위작업을 종료하려고있습니다.</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>작업에서 탈퇴</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>정렬되지 않은 업무</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>이정표로 이동됩니다</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>아무도 없음</value>
+  </data>
+</root>

@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>{!User} əlavə et</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Mesaj əlavə et</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Faylları yapışdırın</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Sənəddən faylı yapışdırın</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Layihənin sənədindən faylı yapışdırın</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Təqdimat yarat</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Cədvəl yarat</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Sənəd yarat</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Daha çox öyrənin...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Həmçinin sənədləri original formatda endir</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Tez redaktə olunmaq üçün yüklədiyiniz bütün sənədlər {0}Office Open XML daxili formata{1} çevriləcəklər.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Faylı sil</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Faylı endir</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Fayl redaktə et</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>Faylları öz portalınızda {0}yaradın{1} və ya onları buraya {2}yükləyin{3} ki, Siz onları ONLYOFFICE™ redaktorunun köməyi ilə {4}aça{5} və {6}redaktə edə{7} biləsiniz.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Sənədlərin siyahısı boşdur</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Başlıq aşağıdakı xarakterlərdən heç birini içərə bilməz:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Hər kəs</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Lent</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Filtrə uyğun xəbər yoxdur</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Bu bölmədəki filtrə uyğun olan heç bir xəbər yoxdur.</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filtr:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>sorğunuzu daxil edin</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Başlayaraq</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Bu qayda ilə sırala</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>Qədər</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Çıx</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Daha çox</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Yeni sənəd</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Yeni fayl</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Burada göstərmək üçün heç nə yoxdur</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Bu bölmədə portalın bütün fəaliyyəti əka olunub. İndiki zamana görə əka olunmağa heç bir hadisə yoxdur. Portalı istifadə etməyə başlayın, onu kontent ilə doldurun və bütün xəbərlər bu səhifədə göstəriləcək.</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Qeyd: Bu əyləm ediləndən sonra geri qaytarıla bilməz.</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Bu faylı silmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Bu siyahıdan sil</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Mesajı sil</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Filtri sıfırla</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Bildiriş göndər</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Paylaşma ayarları</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Növbəti xəbərləri göstər</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Siz sənədlər ({0}), cədvəllər ({1}), təqdimatlar ({2}) yarada və onları ən geniş yayılmış formatlarda endirə bilərsiniz.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Bu faylları redaktə edə bilərsiniz: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Bu genişlikdə faylları aça bilərsiniz: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Siz istənilən faylları Sənədlərə yükləyə bilərsiniz.</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Fayl yüklə</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Yeniliklər</value>
+  </data>
+</root>

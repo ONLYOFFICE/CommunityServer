@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Odaberite projekt</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Odaberi odgovornog</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Zatvori prekretnicu</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Mjesec</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Dva mjeseca</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Sedmica</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Obriši prekretnicu</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati prekretnicu?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Obriši prekretnicu</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Da li ste sigurni da želite</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Ni jedna prekretnica ne odgovara rezultatima pretrage za ovu sekciju.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Nema prekretnica koje odgovaraju pretrazi</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Prekretnica</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Rok</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Ni jedna prekretnica nije projektovana do sada</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Prekretnice</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Prekretnice označavaju glavne tačke u planiranju projekta u odnosu na vreme. Kada se jednom napravi prekretina, možete dodavati zadatke za sve učesnike projekta. Projketujte prekretnicu i postavite datum isteka da biste osigurali da će svi zadaci biti završeni na vreme.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Glavni koraci su glavne vremenske oznake u procesu planiranja projekata. Jednom kada se stvori prekretnica, ona može biti ispunjena zadacima za sve učesnike projekta.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nadolazeći</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Ne možete zatvoriti "prektretnicu" sa otvorenim zadacima</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Obavijesti</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Svaka prekretnica mora imati naslov</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Prekoračen rok</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Projektujte prvu prekretnicu</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Podsjeti me 48 sati prije krajnjeg roka</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Odgovoran</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Ključna prekretnica</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+</root>

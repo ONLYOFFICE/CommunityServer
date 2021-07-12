@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsAlready" xml:space="preserve">
+    <value>Уже есть аккаунт?</value>
+  </data>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Проверьте электронную почту для подтверждения учетной записи.</value>
+  </data>
+  <data name="AuthDocsConnect" xml:space="preserve">
+    <value>Подключайте любое облако</value>
+  </data>
+  <data name="AuthDocsDontHave" xml:space="preserve">
+    <value>Еще нет аккаунта?</value>
+  </data>
+  <data name="AuthDocsDownload" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Введите свой email-адрес</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Или войдите через социальные сети</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal - это бесплатный пакет для редактирования текстовых документов, таблиц и презентаций онлайн в персональном облачном хранилище. </value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>word онлайн, ворд онлайн бесплатно, редактировать word онлайн, бесплатно word офис</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>или войти</value>
+  </data>
+  <data name="AuthDocsPowerful" xml:space="preserve">
+    <value>Мощные</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaboration" xml:space="preserve">
+    <value>совместная работа</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaborationSub" xml:space="preserve">
+    <value>Приглашайте любых людей по ссылке, чтобы редактировать документы совместно или попросить отрецензировать вашу работу. Выбирайте из множества прав доступа, комментируйте, отслеживайте изменения, общайтесь в чате и просматривайте историю версий.</value>
+  </data>
+  <data name="AuthDocsPowerfulSheets" xml:space="preserve">
+    <value>Электронные таблицы</value>
+  </data>
+  <data name="AuthDocsPowerfulSheetsSub" xml:space="preserve">
+    <value>Организуйте, анализируйте и вычисляйте любые сложные данные. Применяйте более 430 формул. Создавайте и редактируйте сводные таблицы. Добавляйте шаблоны стилей таблиц, меняйте представления листа, настраивайте макеты и готовьте таблицы к печати.</value>
+  </data>
+  <data name="AuthDocsPowerfulSlides" xml:space="preserve">
+    <value>Презентации</value>
+  </data>
+  <data name="AuthDocsPowerfulSlidesSub" xml:space="preserve">
+    <value>Выберите любой из множества макетов слайдов и параметров стиля, создавайте схемы и инфографику для любых целей, используйте режим докладчика, чтобы свободно донести свою идею.</value>
+  </data>
+  <data name="AuthDocsPowerfulTexts" xml:space="preserve">
+    <value>Текстовые документы</value>
+  </data>
+  <data name="AuthDocsPowerfulTextSub" xml:space="preserve">
+    <value>Создавайте и редактируйте документы профессионально с помощью всех необходимых функций форматирования. Добавляйте фигуры, диаграммы, таблицы и другие объекты. Применяйте элементы макета страницы, добавляйте сноски и концевые сноски, перекрестные ссылки, номера страниц и многое другое. Рецензируйте и сравнивайте тексты.</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Сообщение для активации отправлено на адрес</value>
+  </data>
+  <data name="AuthDocsSignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="AuthDocsSoftpedia" xml:space="preserve">
+    <value>Softpedia</value>
+  </data>
+  <data name="AuthDocsSoftpediaQuote" xml:space="preserve">
+    <value>OnlyOffice Personal - онлайн-редактор, включающий все необходимые инструменты для создания документов, электронных таблиц и презентаций,  совместимых с Microsoft, и для совместной работы с участниками команды.</value>
+  </data>
+  <data name="AuthDocsSubtitle" xml:space="preserve">
+    <value>Бесплатные онлайн-редакторы и система управления документами, 100% совместимые с форматами Office</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Благодарим Вас за регистрацию в ONLYOFFICE™ Personal.</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Ваш персональный онлайн-офис</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Персональный онлайн-офис</value>
+  </data>
+  <data name="AuthDocsToLogin" xml:space="preserve">
+    <value>Вернуться к входу</value>
+  </data>
+  <data name="AuthDocsToMainPage" xml:space="preserve">
+    <value>На главную страницу</value>
+  </data>
+  <data name="AuthDocsUsingChrome" xml:space="preserve">
+    <value>Используете Google Chrome? Добавьте наше удобное расширение для Chrome.</value>
+  </data>
+  <data name="AuthDocsYourEmail" xml:space="preserve">
+    <value>Ваш e-mail*</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>Понятно</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>На этом сайте используются файлы cookie. Продолжая просмотр этого сайта, вы принимаете условия нашей {0}политики конфиденциальности{1}</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>Создать аккаунт ONLYOFFICE</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>Вход в аккаунт</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>Создать сейчас</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>Я хочу подписаться на рассылку новостей ONLYOFFICE</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>Я принимаю {0}Условия использования{1} и {2}Положение о конфиденциальности{3} ONLYOFFICE</value>
+  </data>
+</root>

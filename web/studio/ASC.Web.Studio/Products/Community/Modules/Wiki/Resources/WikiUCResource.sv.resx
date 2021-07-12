@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Redigera sektion:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Filnamn</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Sidotitel</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Förhandsgranska</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Ladda upp fil</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Uppladdat filnamn</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Zooma in</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Att skapa wiki sidor är väldigt enkelt även om du har aldrin använt någon markup språk förut. Allt du behöver veta är några enkla regler listade nedan. Vi hoppas att de kommer hjälpa dig.
+
+@@TOC@@
+
+==Sektioner, Paragrafer, Listor, Linjer==
+
+För att böja en ny sektion, använd = symbolen vid början av paragrafen:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Sektion=&lt;br&gt;
+==Undersection==&lt;br&gt;
+===Underundersection===&lt;br&gt;
+
+&lt;p&gt;
+Att skriva in @@TOC@@ på en sida kommer ena alla sektioner och undersektion i en innehållsförteckning.
+&lt;/p&gt;
+
+Wiki markup ignorerar brytlinjer. Du kan använda dem för att separera meningar i en paragraf. 
+
+&lt;p&gt;
+Använd «br» taggen för att bryta linjer utan att starta en ny paragraf.  
+&lt;/p&gt;
+
+För att starta en ny paragraf, tryck två gånger precis som du skulle göra i vilken textreditor som helst. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Att skapa en punktlista är enkelt:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* börja varje punktlista med en asterisk;&lt;br&gt;
+** desto mer asterisker;&lt;br&gt;
+** desto djupare listnivån är.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Numrerade lister är inte svara heller:&lt;br&gt;
+## de ser välstrukturerade ut;&lt;br&gt;
+## och är lätta att läsa.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ OM det finns ett mellanslag vid början av en linje,
+ DÅ kommer linjen vara foRmaTTerad på samma sätt som den vAR skriven; 
+ i samma typsnitt; med inga brytlinjer;[[inga länkar]].
+
+Du kommer behöva använda mellanslaget vid början av en linje om du behöver: 
+
+*klistra in tidigare formatterad text;
+*visa källkod; 
+*skappa/klistra in ascii konst (skapa bilder med textsymboler).
+
+En horisontell linje visas av fyra strejkar: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Infoga Länkar==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+För att infoga länkar till en annan wiki sida, skriv sidans titel i dubbla hakparenteser: &lt;br&gt; [[Hjälp]]&lt;/p&gt;
+
+&lt;p&gt;
+I fall länken och titeln du vill visa är annorlunda, skriv in titelns länk efter | symbolen: &lt;br&gt; [[Wiki Markup Hjälpsida|Hjälpsida]] &lt;/p&gt; 
+
+&lt;p&gt;
+Externa länkar infogas direkt i texten, som här: &lt;br&gt; http://exampel.com&lt;/p&gt; 
+
+&lt;p&gt;
+I fall du behöver ändra den externa länkens titel, skriv den i singla hakparenteser, och skriv in din titel efter ett mellanslag: &lt;br&gt; [http://exampel.com DinTitel]&lt;/p&gt; 
+
+&lt;p&gt;
+För att infoga en mejladress, använd singla hakparenteser: &lt;br&gt; [mailto:mejl@exampel.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+För att lägga in en kategori, lägg till länken till den önskade kategorin [[Kategori: Önskad kategori]] vid botten av sidan.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Att Formattera Texten==
+
+Använd det följande tipset för att formattera din text:
+
+''kursivskrift''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''din text i kursivskrift ska vara här''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Fetstil'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''din text i fetstil ska vara här'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Fetstil kursivskrift'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''din text i fetstil kursivskrift ska vara här'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Understryka__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__din understryckad text ska vara här__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Överstryka--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--text du behöver överstryka ska vara här--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Index: &lt;sup&gt;upphöjd&lt;/sup&gt; and &lt;sub&gt;nedsänkt text&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&amp;lt;sub&amp;gt;din nedsänkt index&amp;lt;/sub&amp;gt&lt;br&gt;
+&amp;lt;sup&amp;gt;din upphöjd index&amp;lt;/sup&amp;gt
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Du kan även använda &amp;lt;small&amp;gt small text &amp;lt;/small&amp;gt till kommentarer, special formattering för att visa &amp;lt;kod lang="language"&amp;gt;program code&amp;lt;/code&amp;gt; fragment och text med fast ton för &amp;lt;tt&amp;gt;tekniska termer&amp;lt;/tt&amp;gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Infoga Bilder==
+
+För att kunna infoga bilder på en wiki sida kommer du behöva ladda upp dem till wiki:n först. 
+
+Använd de följande länkar för att infoga olika typer av bilder:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Bild = [[Bild:Bildens Titel]]&lt;/p&gt;
+&lt;p&gt;
+Bild med fast bredd = [[Bild: Bildens Titel | Bredd_px]]&lt;/p&gt;
+&lt;p&gt;
+Bild med beskrivning = [[Bild:Bildens Titel  | Beskrivning]]&lt;/p&gt;
+&lt;p&gt;
+Miniatyrbild =  [[Bild:Bildens Titeln | thumb]] – bilden kommer komprimeras och  justeras åt höger.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML till Wiki Överföring==
+
+Om du har en html-formatterad text som du skulle vilja överföra här så kan du enkelt och snabbt göra det. Klicka på ‘’’Skapa ny sida''' på '''Aktioner’’’ panelen. Sedan klistra in texten i editoren och byt till wiki markup display genom att klicka påWiki ikonen i formatteringspanelen ovan. Html-taggarna kommer ändras till wiki markup. Kontrollera resultaten, rätta mindre fel och tryck på '''Publicera’’’. Din sida är redo.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Hjälp</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Välkommen till Wiki!''' 
+
+Här kan du skapa webbsidor, länka dem till varandra och samla dem i kategorier i din webbläsare. Wiki är ett behändigt verktyg för att hantera projekt-relaterade dokument med följande egenskaper:
+
+*flera författare. Alla portalmedlemmar kan redigera innehållet på alla sidor.
+*snabb redigering. Klicka på ‘’’Redigera’’’ länken tillgänglig på varje sida och börja redigera direkt i din webbläsare.
+*Enkel överföring från HTML till WIKI. Lär dig mer [[Internal:Help#HTML till Wiki Överföring|hur]] 
+*Stöd för versionkontroll för sidorna. Se vad som har redigerats genom att sidan återgås till dess tidigare versionen.
+
+@@TOC@@
+
+==Wiki Navigering och Strukturer==
+
+Du kan navigera wikin genom '''Navigeringspanelen’’’ som alltid finns tillgänglig på wikin. 
+
+===Sidor===
+
+Alla wiki sidor som du skapar sorteras alfabetiskt på [[Internal:Index|Index]] sidan.&lt;br&gt; 
+Alla nyligen skapade sidor visas i kronologisk på [[Internal:NewPages|Nya Sidor]] sidan.&lt;br&gt;
+En lista på de mest nyligen redigerade sidorna finns på [[Internal:Recently|Recently Edited]] sidan.
+
+===Kategorier===
+
+Du kan samla olika relaterade sidor i en kategori. Alla kategorier med sina motsvarande sidor visas på [[Internal:Categories|Kategorier]] sidan. Du kan lägga till en sida i en befintlig kategori, elle skapa din egen. Klicka [[Internal:Help|här]] för mer information om hur du tilldelar en kategori till en sida. 
+
+===Filer===
+
+Du kan ladda upp filer av olika storlekar och format till wiki, samt ge länkar till uppladdade bilder när du skapar wikisidor.  Läs mer om detta [[Internal:Help#Inserting Images|här]].
+
+===Hjälp===
+
+Att skapa sidor för din wiki är enkelt. Allt du behöver veta är några enkla regler. Besök [[Internal:Help|wiki markup tips]] för att läsa igenom wiki markup reglerna.  
+
+
+==Att Skapa Din Wiki==
+
+För att skapa din egen wikim börja med att skapa en ny sida genom att klicka på ‘’’Skapa ny sida''' länken på '''Aktioner’’’ panelen. Sedan skriv in din text i texteditorn. Använd [[Internal:Help|wiki markup tips]] för att texten ska visas på rätt sätt på en sida.
+
+Kom ihåg att detta är ditt personliga utrymme där du kan organisera allting efter dina specifiska behov. Även innehållen på sidan kan redigeras. Du kan, till exempel, radera det som står här och klistra in länkar till ditt projekt för din bekvämlighet. &lt;br&gt;Lycka till!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Sidan existerar inte. Klicka {här} för att skapa och redigera den.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Länk</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Fet</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Att visuellt markera tredje parts kod</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML kod exempel</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Utgående länk</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Lokal fil länk</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (använd med måtta)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horisontell linje</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kursiv</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Ny linje</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Kan inte tolkas av Wikispråket</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Sidolänk</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Speciella etiketter</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Streck</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Nedsänkt</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Upphöjd</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Specialsymboler</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Understruket</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Maximal storlek för uppladdad fil är överskriden</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Ladda ner fil</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategorier</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maximala uppladdade filstorlek är {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Sektion: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Sidan har blivit flyttad=
+Sidonamnet flyttat till [[{0}|{0}]].
+Du kan se senaste versionen [[{0}|här]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Innehållsförteckning</value>
+  </data>
+</root>

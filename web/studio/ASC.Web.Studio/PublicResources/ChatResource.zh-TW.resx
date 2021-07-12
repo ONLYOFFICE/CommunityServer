@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>邀請到聊天室</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>關閉所有迷你聊天窗口</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>關閉項目</value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>關閉視窗</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>延展迷你聊天室</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>請切換至Talk。</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>使用Ctrl + Enter發送消息</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>啟用聲音</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>輸入您的訊息..</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>最小化所有迷你聊天窗口</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>焦點不清晰時將所有窗口最小化</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>最小化窗口</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>新訊息</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>展開所有迷你聊天窗口</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>展開視窗</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>伺服器內部錯誤</value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>顯示/隱藏迷你聊天</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>顯示不可見的對話框窗口</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>選件</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>笑臉</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>離開</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>無法使用</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>離線</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>上線</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>鍵入消息...</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>在列表中找不到符合您搜索條件的聯繫人</value>
+  </data>
+</root>

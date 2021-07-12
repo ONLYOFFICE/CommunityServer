@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Prenumeratorių valdymas</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Visi {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Perkelti su susietomis užduotimis</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Visi {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Paleisti/sustabdyti taimerį</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Pridėti laiką</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauzė</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Nustatyti iš naujo</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Pradėti</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>ONLYOFFICE™ Projektai</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Išbandykite mobilią aplikaciją</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Paslėpti</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopijuoti</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Sukurti</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Pradėti naują projektą</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Trinti</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Susieti arba pridėti kontaktą</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Pasirinkite iš sąrašo esamus CRM kontaktus, kad susietumėte juos su valdomu projektu, arba pridėkite naujų kontaktų. Keiskite kontakto asmeninę informaciją. Gilesnė integracija su CRM padės efektyviau valdyti Jūsų darbus.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kontaktų sąrašas tuščias</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Nėra projektų, atitinkančių nurodytą filtrą</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Sekti</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Pažymėkite šį lankelį, jei nesate projekto vadovas, tačiau norite sekti visus su projektu susijusius pakeitimus. Informacija apie visus naujai sukurtus etapus, užduotis, diskusijas bus įtraukiama į kasdieninį "Kas naujo" pranešimą.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Privatus projektas{2} - tai būdas apriboti prieigą prie projekto, kad jis būtų prieinamas tik komandos dalyviams.{0}Jei išsaugosite projektą kaip privatų, taip pat galėsite prieigos teises suteikti atskirai kiekvienam projekto nariui.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Privatus projektas{2} - tai būdas apriboti prieigą prie projekto, kad jis būtų prieinamas tik komandos dalyviams.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Kertinis etapas yra toks etapas, kurį Jūs laikote svarbesniu už kitus.{0} Visi kertiniai etapai yra pažymimi raudono rakto piktograma šalia pavadinimo.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Galite nustatyti vieną iš trijų projektų būsenų:{0}{1}Aktyvus.{2} Visi sukurti projektai, su kuriais šiuo metu dirbate, yra pažymimi kaip aktyvūs tol, kol nuspręsite juos pristabdyti arba baigti.{0}{1}Pristabdytas.{2} jeigu nuspręsite laikinai atidėti projekto darbus, pakeiskite jo būseną į "Pristabdytą". Norėdami pratęsti darbą su projektu, pakeiskite jo būseną į aktyvų. {0}{1}Baigtas.{2} Kai projekto darbai yra baigti ir visos užduotys įvykdytos, užbaikite projektą pakeisdami jo būseną į baigtą. Norint tęsti darbą su projektu, jį reikės iš naujo aktyvuoti.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Norėdami pridėti komandos narių, spauskite nuorodą {1}Komandos valdymas{2} ir iš sąrašo pasirinkite vartotojus, kuriuos norite pridėti.{0} Vėliau galėsite pridėti ir pašalinti komandos narius perėję į {1}Komandos{2} kortelę projekto {1}Peržiūros{2} puslapyje ir paspaudę mygtuką {1}Komandos valdymas{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Pagal nutylėjimą bet kuris projekto komandos narys gali pasiekti peržiūrėti visą projekto turinį: etapus, užduotis, dokumentus ir diskusijas. Jei norite apriboti prieigą, pasirinkite komandos narį, kuriam tai norite padaryti, ir paspauskite vieną iš nuorodų dešinėje. Tokiu pat būdu galite keisti prieigos teises kiekvienam projekto komandos nariui, jei jis/ji neturi administratoriaus privilegijų. ONLYOFFICE™ administratorius turi pilną prieigą prie visų projektų turinio.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Ką reiškia "Sekti šį projektą"?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Kas yra privatus projektas?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Kas yra kertinis etapas?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Kokie yra projektų statusai?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Kaip valdyti komandą?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Paslėpti</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Šis vartotojas negauna perspėjimų apie diskusiją, nes projektas yra privatus, o vartotojas nėra projekto komandos narys.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Sužinoti daugiau...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktyvus</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Sekami projektai</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Paskutiniai</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Mano diskusijos</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Mano projektai</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontaktai</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projektai</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Perkelti užduotį</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Nauji komentarai diskusijose</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Nauji komentarai užduotyse</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Nėra kontaktų, kurie galėtų būti susieti su projektu</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nėra duomenų</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Ši užduotis yra susieta su kitomis užduotimis. Jei užduotį pašalinsite, sąsajos bus panaikintos.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Panaikinti sąsajas ir perkelti</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Dėmesio: Šis veiksmas negalės būti atšauktas.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Daryti tą patį, ką projekto vadovas|Paskirti projekto vadovą|Kurti ir redaguoti, šalinti bet kurį projektą|Kurti ir redaguoti šabloną </value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Formuokite komandas ir skirkite užduotis. Planuokite projektų etapus, sekite aktyvumą ir generuokite raportus.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Formuokite komandas ir skirkite užduotis. Planuokite projektų etapus, sekite aktyvumą ir generuokite ataskaitas.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projektai</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Peržiūrėti projektus ir dalyvauti diskusijose|Kurti ir keisti etapus, užduotis, diskusijas, dokumentus|Sekti užduočių laiką, generuoti ataskaitas|Formuoti projekto komandą ir nustatyti prieigos teises</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontaktai, kurie bus susieti su projektu</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Projekto pavadinimas</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Skaityti toliau</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Pašalinti vartotoją iš komandos</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Pakeisti</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Ataskaitos</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Išsaugoti ir sukurti naują užduotį</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Išsaugoti pakeitimus</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Paieška</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Pasirinkti</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Pasirinkite iš esamų kontaktų arba pridėkite naują</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nustatymai</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Rodyti</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Rodyti puslapyje</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Apmokėta laiko</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Sugaišta laiko</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Užsiprenumeruoti komentarus</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Užduotis pridėta</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Pradžios data turi būti ankstesnė nei pabaigos.</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Užduotis, kurią ketinate perkelti, yra susieta su kitomis užduotimis. {0} Prašome pasirinkti vieną iš veiksmų:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Panaikinti sąsajas ir atnaujinti</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Pasirinkite tekstą, kurį norėtumėte paslėpti naujienų srauto ir diskusijų sąrašo puslapiuose, ir paspauskite "Teksto žirklių" mygtuką.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Teksto žirklės</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Laikas</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Laiko apskaita</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Pavadinimas</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šiandien</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Iš viso</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Nebesekti</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Atsieti projektą nuo kontakto</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Atsisakyti komentarų prenumeratos</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Galutinio termino keitimas</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Užduotis, kurią ketinate atnaujinti, yra susieta su kitomis užduotimis. {0} Prašome pasirinkti vieną iš veiksmų:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Pridėti komentarą</value>
+  </data>
+</root>

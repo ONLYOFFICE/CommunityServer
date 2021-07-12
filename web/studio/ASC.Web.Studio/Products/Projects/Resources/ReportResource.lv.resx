@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Aktīvi Uzdevumi</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Ģenerēt tādu atskaiti automātiski</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Laika periods</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Izveidošanas datums</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Laika Periods</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Uzklikšķiniet, lai sašķirotu pēc šī stabiņa</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Izveidot Veidni</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Lietotāja Vārds</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Galaterminš</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Veidnei jābūt nosaukums</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Katru dienu</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Katru mēnesi</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Katru nedēļu</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Ģenerēt Atskaiti</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Nepareizs datumu diapazons</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Iepriekšējais mēnesis</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Iepriekšēja nedēļa</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Iepriekšējais gads</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Projektam nav neviena uzdevuma vai posma</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Citi</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Locekļi</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Maksājuma statusi</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Aizvērtu Uzdevumu Atskaite</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Darbinieki bez aktīviem uzdevumiem atskaite attēlos lietotājus, kuriem šobrīd nav neviena aktīva uzdevuma.{3}{2}Lai apskatītu visus lietotājus bez aktīviem uzdevumiem, nospiediet uz Ģenerēt Atskaiti uzreiz.{3}{2}Lai izvēlēties grupu vai pārbaudīt kādu lietotāju, izmainiet iestatījumus Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} bez atvērtiem uzdevumiem</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Darbinieku Darba Slodze atskaite attēlos uzdevumu skaitu, kas tika piešķirts katram lietotājam, sagrupēts pēc statusa.{3}{2}Lai apskatīt datus par visiem kompanijas lietotājiem, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai izvēlētos noteiktu grupu vai lietotāju, izmainiet atskaites parametrus Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Lietotāju Darba Slodze</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Nokāvēti Posmi atskaite attēlos nokāvētu posmu sarakstu.{3}{2}Lai apskatīt nokāvētus posmus visos projektus, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai apskatītu nokāvētus posmus tikai par noteiktu projektu, jums jāizvēlās to no saraksta Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Nokāvēti Posmi</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Nokāvētu Uzdevumu atskaite attēlo nokāvētu uzdevumu sarakstu.{3}{2}Lai apskatītu nokāvētus uzdevumus visos projektos, uzklikšķiniet uz Ģenerēt Atskaiti uzreiz.{3}{2}Lai apskatītu nokāvētus uzdevumus noteiktā projektā, jums jāizvēlās to projektu no nolaižamā saraksta Filtrs sadaļā, un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Nokāvēti Uzdevumi</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Atvērtu Uzdevumu Atskaite</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Atskaite «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Projektu Saraksts atskaite attēlos projektu sarakstu.{3}{2}Lai apskatīt visus aktīvus projektus ar to vādītājiem, uzdevumu, posmu, darbību skaitu un komandu, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai apskatīt projektus noteiktā grupā vai/un apskatīt gan aktīvus, gan pabeigtus projektus, izmainiet atskaišu parametrus Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Projektu Saraksts</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Projekti bez atvērtiem posmiem atskaite attēlos projektus, kuriem nav atvērtu posmu.{3}{2}Lai apskatīt visus projektus bez atvērtiem posmiem, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai apskatītu šādus projektus noteiktā grupā vai pārbaudīt noteiktu  lietotāju, jums jāizvēlās noteiktu grupu vai lietotāju Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projekti bez atvērtiem posmiem</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Projekti bez aktīviem uzdevumiem atskaite attēlos tādu projektu sarakstus, kuriem nav aktīvu uzdevumu. {3}{2}Lai apskatīt visus projektus bez aktīviem uzdevumiem, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai pārbaudītu tādus projektus noteiktā grupā vai pārbaudīt noteiktu lietotāju, jums jāizvēlās grupu un/vai lietotāju Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projekti bez atvērtiem uzdevumiem</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Atskaites</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Projekta uzdevumu ziņojums uzrādīs uzdevumu sarakstu, kas ir grupēts saskaņā ar projektu un tiem piesaistājiem posmiem. {3}{2}Lai aplūkotu visu uzdevumu sarakstu visos projektos ar norādītu atbildīgo personu un statusu, nospiediet taustiņu "Izveidot atskaiti".{3}{2}Lai aplūkotu vienīgi noteikta projekta vai noteikta statusa uzdevumus vai uzdevumus, kas ir radīti pirms noteikta nedēļu skaita, vispirms konfigurējiet zemāk esošos atskaites parametrus,
+ tad spiediet "Izveidot atskaiti."{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Projekta Uzdevumi</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}Laika Izsekošanas Atskaite attēlo lietotāju sarakstu kopā ar viņu darba laiku, kas tiek aprēķināts laika pārskatā.{3}{2}Šī atskaite palīdz sekot līdz kopējo laiku iztērētu uz uzdevumu pildīšanu.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Laika Sekošana</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Nākošo Posmu atskaite attēlos nakošo posmu sarakstu.{3}{2}Lai apskatīt nākošus posmus visos projektos nedēļas laikā, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai apskatītu nākošos projekta posmus par citu noteiktu laika periodu, jums jāizvēlās projektu no saraksta un izvēlēties citus datumus Līdz datumam laukā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Nākošie Posmi</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Lietotāju Aktivitātes atskaite attēlos lietotāja darbības Projects noteiktā laika periodā.{3}{2}Lai apskatīt jūsu aktivitāte par iepriekšējo nedēļu, uzklikšķiniet uz Ģenerēt Atskaiti.{3}{2}Lai izvēlēties citu laika periodu vai citu lietotāju, izmainiet atskaites iestatījumus Filtrs sadaļā un tad uzklikšķiniet uz Ģenerēt Atskaiti.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Lietotāju Aktivitāte</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Lietotāja uzdevumu atskaite attēlos uzdevumus, kas ir sagrupēti saskaņā ar lietotāju, kuram tie ir uzdoti.{3}{2}Lai aplūkotu visus lietotāju uzdevumus ar to statusiem, spiediet "Izveidot atskaiti".{3}{2}Lai aplūkotu vienīgi noteikta lietotāja/grupas vai noteikta statusa uzdevumus vai uzdevumus, kas ir izveidoti pirms noteikta nedēļu skaita,
+konfigurējiet zemāk esošos atskaites parametrus, tad spiediet "Izveidot atskaiti".{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Lietotāju Uzdevumi</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Rādīt uzdevumus</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Veidnes</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Veidnes Nosaukums</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tekošs mēnesis</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Tekoša nedēļa</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Šogad</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Kārtot pēc lietotāja</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Kārtot pēc projekta</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Kārtot pēc lietotāja</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Sašķirot pēc lietotāju uzdevumiem</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Rādīt pabeigtus projektus</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Nedēļa</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Nedēļas</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Nedēļas</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Vakar</value>
+  </data>
+</root>

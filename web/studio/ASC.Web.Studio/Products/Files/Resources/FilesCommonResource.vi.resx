@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Truy cập</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Cổng ngoài</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Chỉ đọc</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Truy cập đầy đủ</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Từ chối truy cập</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Xem lại</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Quản trị viên</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Trao quyền truy cập để làm việc với file này</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>TIẾP TỤC</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Khi mở file này trong ONLYOFFICE™ một bản sao mới của file này có định dạng Office Open XML sẽ được tạo trong Google Drive của bạn. Với cách này file gốc sẽ không bị chỉnh sửa. Để tiếp tục chỉnh sửa file này trong ONLYOFFICE™ bạn cần mở một bản sao mới.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Không hiển thị lại</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Nhập tên file</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Chọn loại file</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Tôi</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Chuyển đổi &amp; Mở</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Sửa</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Đã đổi người sở hữu</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Đã chuyển đổi từ {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Đã sao chép</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Được tạo bởi DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Đã sửa</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Ghi đè</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Được khôi phục từ bản sửa lại của {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Được khôi phục từ thay đổi tài liệu {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Đã tải lên</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Url kết nối</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Chuyển sang</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Tên tài liệu</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Đã từ chối</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Xảy ra lỗi trong lúc thực hiện gửi</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Đã hủy gửi tài liệu qua DocuSign</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Tài liệu đã được gửi đi để ký bằng DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Vô hiệu</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Nhập bình luận</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Bad request.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Bạn không thể chọn người dùng này</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Mất quá nhiều thời gian chuyển đổi.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Xảy ra lỗi trong Dịch Vụ Tài Liệu</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>File được mở cho chỉnh sửa bởi {0}. Hiện tại, định dạng file này không được hỗ trợ tính năng đồng chỉnh sửa.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>File được mở cho chỉnh sửa trong ứng dụng di động bởi {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>File rỗng</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Không tìm thấy file yêu cầu</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Không thể chuyển đổi file lớn hơn {0}</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Không thể sao chép file lớn hơn {0}</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Không thể sửa file lớn hơn {0}</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Không thể di chuyển file lớn hơn {0}</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Bạn không thể sao chép thư mục vào thư mục con của nó</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Không tìm thấy thư mục yêu cầu</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Tiêu đề không hợp lệ</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>File bị khóa bởi người dùng khác</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Không có tài khoản để gửi tin nhắn. Vào Thư và kết nối với một hộp thư.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Ít nhất {0} tin nhắn thư không thể gửi được. Vui lòng truy cập mô-đun Thư để xem lý do không gửi được.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Quá nhiều tập tin đang tải về</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Rất tiếc, định dạng file này không được hỗ trợ</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Không rõ tác giả bản lưu này</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>File đã hỏng khi lưu</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Không thể lưu file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để thực hiện thao tác</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Không thể ủy quyền cho nhà cung cấp {0} với thông tin xác thực đã cấp.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để tạo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Không thể xóa file này vì nó được mở cho chỉnh sửa</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Không thể xóa thư mục này vì một trong các file được mở cho chỉnh sửa</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để xóa file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Bạn không đủ thẩm quyền để xóa thư mục</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền chỉnh sửa file này</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Bạn đang sửa tài liệu này trên thẻ khác</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để xem file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để xem nội dung thư mục</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để đổi tên file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để đổi tên thư mục</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Không thể cập nhật file này vì nó được mở cho chỉnh sửa</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Bạn không có đủ thẩm quyền để xem nội dung thư mục</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Không có nội dung thư mục của bên thứ ba. Thử kết nối lại tài khoản.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Lỗi khi bắt đầu sửa file</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Bạn không thể cập nhật file được mở cho chỉnh sửa</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Không tìm thấy người dùng</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Bạn không thể xem trước chi tiết trong Thùng Rác</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Mọi người</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Thư mục</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Tên thư mục</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Nặc danh</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>mới</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Khôi phục</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>File đã được tạo trong thư mục "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Làm như một người dùng|Liên kết Dropbox, Box và các tài khoản khác trong mục 'Tài liệu Cộng tác'|Thiết lập quyền truy cập tài liệu và thư mục trong mục 'Tài liệu Cộng tác'</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Tạo, chỉnh sửa và chia sẻ tài liệu. Cộng tác làm việc trên chúng theo thời gian thực. Đảm bảo tương thích 100% với các định dạng MS Office.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Tạo, chỉnh sửa và chia sẻ tài liệu. Cộng tác làm việc trên chúng theo thời gian thực. Đảm bảo tương thích 100% với các định dạng MS Office.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Tạo và chỉnh sửa tài liệu riêng cũng như tài liệu được chia sẻ với quyền truy cập thích hợp|Trao cho người dùng khác quyền đọc/chỉnh sửa tài liệu và thư mục|Liên kết Dropbox, Box và tài khoản tài khác trong mục 'Tài liệu của tôi'
+</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} đã bị xóa</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Đánh dấu đã đọc</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Chia sẻ</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Thông báo khi có thư mục được chia sẻ</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Hiển thị các phiên bản</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Kích thước</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Thông báo khi tài liệu được ký bằng DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Thông báo khi tài liệu trong DocuSign thay đổi trạng thái</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Thông báo khi có tài liệu được chia sẻ</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Thông báo khi gửi thư thành công</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Điền vào để thay đổi</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Tiêu đề thư mục</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Kết nối lại</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Tài khoản</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Chia sẻ và chuyển vào thư mục "Tài liệu Cộng tác"</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Tài liệu của {!user} {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Đã cập nhật</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Đã xóa</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Cài Đặt Cho Phép</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Hiển thị Hoạt động của File</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Hiển thị Hoạt động Thư mục</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Thư mục con</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Đã tải lên</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Đánh dấu là bản chính thức</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Đánh dấu là bản sửa lại</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Lịch sử phiên bản:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>File được mở khóa</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Phiên bản</value>
+  </data>
+</root>

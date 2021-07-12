@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Aboneleri yönet</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tüm</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Tüm {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Bağlantılı görevlerle taşı</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Tüm {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Kronometre Başlat/Durdur</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Saat Ekle</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Duraklat</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Sıfırla</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Başlat</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Projeleri</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Mobil uygulamayı dene</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Renk Değiştir</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Durumlar, yalnızca görevi oluşturan kullanıcı tarafından kullanılabilir</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Simge Değiştir</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Gizle</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Ortak Ayarlar</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Yeni bir proje başlat</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Görev durumları için gerekli düzelemeleri ayarlayın. Her kategori en az bir duruma sahip olmalıdır.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Yeni Durum</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Erişim haklarını yönet</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Daha fazla araç kullanın</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Belgeler</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Kişi ekle yada bağlantıla</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Önceki CRM kişilerini seçerek yönettiğiniz proje ile bağlantılandırın yada yeni kişiler ekleyin. Kişilerin kişisel bilgilerini düzenleyin. CRM ile daha derin entegrasyon işinizi daha efektif düzenlemenize yardım edecektir.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kişi listeniz boş</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Her durumun bir başlığı olmalı</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Proje bulunamadı</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Takip Et</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Eğer proje yöneticisi değil ama yapılan tüm değişiklikleri izlemek istiyorsanız bu kutuyu işaretleyin. Tüm yeni yaratılan kilometre taşları, görevler ve tartışmalar hakkında günlük bilgi alacaksınız. Yeni bildirim nedir.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Özel Proje{2}projenizi erişime kısıtlamanın bir yoludur. Böylece sadece ekip üyeleriniz ulaşabilir.{0}Projenizi özel olarak kaydetmek aynı zamanda proje içindeki her takım arkadaşınızın erişim haklarını düzenlemenize de izin verir.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Özel Proje{2}projenizi erişime kısıtlamanın bir yoludur. Böylece sadece ekip üyeleriniz ulaşabilir.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Anahtar kilometre taşı diğerlerinden daha önemli gördüğünüz bir kilometre taşı yaratmak için kullanılır.{0}Tüm anahtar kilometre taşlarında başlığının yanında bulunan kırmızı anahtar ikonu vardır.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Üç proje durumu seçebilirsiniz: {0}{1}Aktif.{2}Çalıştığınız tüm projeler durdurmadığınız yada tamamlamadığınız sürece aktif gözükür.{0}{1}Durdurulmuş.{2}Projenizi geçici olarak durdurmak isterseniz durumunu durdurulmuşa alın. Projeyi yeniden başlatmak için sadece durumu aktife alın.{0}{1}Kapalı.{2} Proje üstündeki tüm işler bittiğinde proje tamamlanır ve tüm görevler kapatılır ve durum Kapalıya alınır. Tekrar çalışmak için tekrar aktive etmeniz gerekir.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Hemen ekibinize üye ekleme için {1}Ekibi Yönet{2} bağlantısına tıklayın ve listeden eklemek istediğiniz kullanıcıları seçin.{0} Daha sonra projenizdeki {1}Ekip{2}sekmesini {1}Genel Bakış{2}sayfasına çevirerek ve {1}Ekibi Yönet{2}tuşuna tıklayarak ekip arkadaşlarınızı ekleyebilir/çıkarabilirsiniz. </value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Varsayılan, her proje ekip üyesi seçili projede bulunan tüm içeriği görebilir: kilometre taşları, görevler, dökümanlar ve tartışmalar, Erişimi engellemek için erişim haklarını düzenlemek istediğiniz ekip üyesini seçin ve sağdaki bağlantılardan birine tıklayın. Aynı şekilde proje ekibinizin her üyesinin erişim haklarını da düzenleyebilirsiniz. Bunun tek istisnası yönetici ayrıcılıklarına sahip olmasıdır. ONLYOFFICE™ yöneticisi tüm projelerde tam erişim haklarına sahiptir.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Bu projeyi takip et ne demek?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Özel proje nedir?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Anahtar kilometre taşı ne demek?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Ne tür proje durumları var?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Ekibinizi nasıl yöneteceksiniz?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Gizle</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Durdurulan Projelerdeki Unsurları Gizle</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Bu kullanıcı bu tartışma hakkında bildirim almıyor, çünkü projenin durumu özel ve kullanıcı proje ekibinin üyesi değil.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Daha fazla bilgi edinin...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Takip Ettiğim Projeler</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>En son</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Tartışmalarım</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Projelerim</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kişiler</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projeler</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Görevi taşı</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Tartışmalarda yeni yorumlar</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Görevlerde yeni yorumlar</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Bağlantı için kişi yok</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Veri yok</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Görev başka görevlerle bağlantılı, silmeniz halinde tüm bağlantılar kaldırılacaktır.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Bağlantıları kaldır ve taşı</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Kişisel Ayarlar</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Not: Bu eylem geri alınamaz.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Önizle</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Делать все то же, что и менеджер проекта|Назначать менеджера проекта|Создавать и редактировать, удалять любой проект|Создавать/редактировать шаблоны</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Ekipler oluşturun ve görevler atayın. Aşamaları belirleyin, proje faaliyetleri izleyin ve raporlar oluşturun.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Ekip oluştur ve ata</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projeler</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Просматривать проекты и участвовать в дискуссиях|Создавать и редактирвать вехи, задачи, дискуссии, документы|Учитывать время выполнения задач, генерировать отчеты|Формировать команду и устанавливать права доступа</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Projeyle bağlantılandırılacak kişiler</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Proje Başlığı</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Daha fazlası</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Kullanıcıyı ekipten kaldır</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Yer Degistir</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Klasör Raporla</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Raporlar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Kaydet &amp; Yeni Görev Oluştur</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Değişiklikleri Kaydet</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Önceki kişilerden seç yada yeni ekle</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Herhangi bir kullanıcı proje oluşturabilir</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Göster</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Sayfada göster</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Faturalanmış Harcanan Zaman</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Harcanan Zaman</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Başlangıç Sayfası</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Yorumlara abone ol</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Görev eklendi</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Başlangıç tarihi bitiş tarihinden daha önce olmalıdır</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Taşıyacağınız görev diğer görevlerle bağlantılıdır. {0} Lütfen aşağıdaki eylemlerden birini seçiniz:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Görev Durumları</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Bağlantıları taşı ve güncelle</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Sayfalardan gizlemek istediğiniz metni ve tartışma sayfasını seçin ve tıklayın "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zaman</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Süre Takibi</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Takip etmeyi bırak</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Kişiyle proje bağlantısını sonlandır</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Yorumlardan aboneliği kaldır</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Bitiş Tarihini Güncelle</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Güncelleyeceğiniz görev diğer görevlerle bağlantılıdır. {0} Lütfen aşağıdaki eylemlerden birini seçiniz:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Yorum Ekle</value>
+  </data>
+</root>

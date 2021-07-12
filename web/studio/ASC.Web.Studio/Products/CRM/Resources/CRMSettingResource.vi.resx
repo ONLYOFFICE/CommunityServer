@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Quyền truy cập &amp; Tag</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Thiết lập quyền truy cập cho người dùng được thêm thông qua "Mẫu liên hệ từ trang web", nếu không tất cả người dùng CRM sẽ thấy liên hệ mới. Tạo tag để đánh dấu khách hàng mới trong danh sách.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Quyền truy cập Cổng thông tin</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Thêm tỷ giá</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Thêm template nhiệm vụ mới</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Thêm vùng chứa template nhiệm vụ mới</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Thêm Tùy chọn</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Đang thêm thẻ</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Không hiển thị lại hộp thoại Liên kết Liên hệ</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Thêm vùng chứa template nhiệm vụ</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Đang thêm vùng chứa template nhiệm vụ</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Đang thêm template nhiệm vụ</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Thêm template nhiệm vụ này</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Thêm vùng chứa template nhiệm vụ này</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Xác thực</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Thông tin cơ bản</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Cả Cá nhân &amp; Công ty</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Thay đổi màu</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Không hiển thị lại hộp thoại Liên kết Liên hệ</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Đổi biểu tượng</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Đổi Logo</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Hộp tùy chọn</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Cột</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Cài đặt chung</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Hình thức Liên hệ</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Tạo danh mục</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Đang tạo mức nhiệt độ</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Đang tạo hình thức liên hệ</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Tạo trường người dùng</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Đang tạo giai đoạn</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Đang tạo trường</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Tạo danh mục mới</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Danh mục mới</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Tạo hình thức liên hệ mới</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Hình thức liên hệ mới</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Tạo giai đoạn mới</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Giai đoạn mới</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Tạo trường mới</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Trường mới</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Tạo mức nhiệt độ mới</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Mức nhiệt độ mới</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Tạo tag mới</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Tag mới</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Tỷ giá tiền tệ</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Thiết lập đồng tiền</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Thiết lập đồng tiền mặc định sẽ được sử dụng để tính 'Tổng cộng' cho tất cả các cơ hội có trong mô-đun CRM của cổng thông tin. Chỉ có sẵn tỷ giá hối đoái cho các đồng tiền có trong danh sách này và được lấy từ trang web 'Money Converter.com'.{0} Đồng tiền này sẽ là đơn vị tiền tệ cho danh mục Sản phẩm và Dịch vụ của bạn sử dụng để lập hoá đơn.</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Trường người dùng</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Đóng cơ hội không thành công.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Đóng cơ hội thành công.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Đồng tiền mặc định</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Xoá danh mục</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Xóa mức nhiệt độ</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Xóa hình thức liên hệ</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Xóa trường</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Trường đã chọn cùng với toàn bộ dữ liệu sẽ được xóa khỏi tất cả địa chỉ liên hệ có nó. Bạn có chắc là muốn tiếp tục?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Xóa giai đoạn</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Xóa tag</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Xác nhận xóa danh mục</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Xóa template nhiệm vụ</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Xóa vùng chứa template nhiệm vụ</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Xoá tag không sử dụng</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Mức nhiệt độ liên hệ cho phép bạn mô tả đặc điểm người mua tiềm năng. Ví dụ: các mức nhiệt độ có thể là "Lạnh", "Nóng", "Ấm", tương đương với mức độ người mua sẵn lòng mua sản phẩm của bạn.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể sửa hoặc xóa mức nhiệt độ liên hệ trong trường hợp không có liên hệ nào thuộc mức nhiệt này nữa.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Các hình thức liên hệ cho phép bạn mô tả đặc điểm liên hệ. Các hình thức liên hệ mặc định là "Khách hàng", "Đối thủ cạnh tranh", "Đối tác", "Nhà cung cấp" có liên hệ được phân loại dựa trên vai trò của họ với tổ chức.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể chỉnh sửa hoặc xóa hình thức liên hệ này trong trường hợp không có địa chỉ liên hệ thuộc hình thức này nữa.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Giai đoạn cơ hội cho phép bạn xác định các bước cần thiết để hoàn tất thương vụ. Ví dụ, bạn có thể thêm các giai đoạn  "Chào hàng quảng cáo", "Thanh toán trước", "Thực hiện". Kéo thả để thiết lập thứ tự cần thiết cho giai đoạn cơ hội.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể chỉnh sửa hoặc xóa giai đoạn cơ hội trong trường hợp không có cơ hội nào thuộc giai đoạn này nữa.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Danh mục lịch sử sự kiện cho phép bạn tách các lịch sử sự kiện thành các nhóm. Danh mục lịch sử sự kiện tiêu chuẩn là mail, ghi chú, cuộc gọi điện thoại, cuộc họp. Bạn cần có quyền quản trị để có thể chỉnh sửa chúng.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể chỉnh sửa hoặc xoá danh mục lịch sử sự kiện trong trường hợp không có lịch sử sự kiện trong danh mục này nữa.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Danh mục nhiệm vụ cho phép bạn chia công việc của mình thành các nhóm tùy thuộc vào mục tiêu bạn muốn đạt được. Ví dụ, một danh mục nhiệm vụ có thể là "Hẹn gặp", "Gọi điện thoại" hoặc "Bày tỏ lòng biết ơn".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể chỉnh sửa hoặc xóa tầng danh mục nhiệm vụ trong trường hợp không có nhiệm vụ thuộc danh mục này nữa.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Thay thế các ngày</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Tải về tất cả các dữ liệu bằng file nén ZIP</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Đã bắt đầu tạo file nén ZIP</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Liên kết để tải về file nén ZIP</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Chỉnh sửa danh mục</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Chỉnh sửa mức nhiệt độ</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Chỉnh sửa hình thức liên hệ</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Chỉnh sửa trường</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Chỉnh sửa giai đoạn</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Chỉnh sửa danh mục nhiệm vụ «{0}»</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Chỉnh sửa mức nhiệt độ «{0}»</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Chỉnh sửa hình thức liên hệ "{0}"</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Chỉnh sửa giai đoạn cơ hội «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Chỉnh sửa template nhiệm vụ «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Chỉnh sửa vùng chứa template nhiệm vụ «{0}»</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Chỉnh sửa template nhiệm vụ</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Chỉnh sửa vùng chứa template nhiệm vụ</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Danh sách trường người dùng rỗng</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Trường người dùng cho phép bạn xác định thông tin bổ sung về khách hàng, cơ hội, trường hợp. Ví dụ bạn có thể thêm trường dữ liệu "Nguồn" để ghi rõ nguồn khách hàng như: quảng cáo, bán hàng trực tiếp, v.v. Bạn chỉ có thể chỉnh sửa hoặc xóa trường người dùng trong trường hợp không có liên hệ hoặc cơ hội thuộc giá trị trường này nữa.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Danh sách tag rỗng</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Tag có thể sử dụng để mô tả và tạo nhóm liên hệ (cả công ty và cá nhân), cơ hội và trường hợp có điểm tương đồng. Ví dụ bạn có thể tag tất cả các cá nhân từ các công ty khác nhau nhưng cùng một lĩnh vực kinh doanh vào cùng một tag để phân loại tốt hơn. Bạn chỉ có thể chỉnh sửa hoặc xóa tag trong trường hợp không có liên hệ, cơ hội hoặc trường hợp thuộc tag này nữa.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Danh sách template nhiệm vụ trống</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Template nhiệm vụ cho phép bạn tạo các nhiệm vụ giống nhau trong mô-đun CRM. Bạn có thể thêm các nhiệm vụ này vào liên hệ, cơ hội hoặc trường hợp với một cú nhấp chuột duy nhất. Chọn vùng chứa để tạo một nhiệm vụ cho mỗi template nhiệm vụ của vùng chứa.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Trường này phải được điền chính xác</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Mọi trường phải có tiêu đề</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Tiêu đề trường không được để trống</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Bật SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Xuất tất cả dữ liệu</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Chức năng xuất dữ liệu tạo file nén ZIP chứa các file CSV với tất cả dữ liệu CRM của bạn (liên hệ, cơ hội, trường hợp, lịch sử, v.v) Email chứa liên kết đến file nén này sẽ được gửi đến địa chỉ email của bạn.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Tạo danh sách chương trình bên ngoài</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Danh sách trường</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Lựa chọn trường</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Chọn các trường sẽ được hiển thị trên biểu mẫu</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Mã nguồn biểu mẫu</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Sử dụng mẫu này trên trang web của bạn</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Đây là biểu mẫu sẽ hiển thị trên trang web của bạn</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Thuộc tính Biểu mẫu</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Cài đặt Mẫu liên hệ Website chính</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Tạo Biểu mẫu</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Nhận cài đặt mặc định</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Danh mục Lịch sử Sự kiện</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Đăng nhập Host</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Mật khẩu Host</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>SMTP nội bộ (tối đa {0} người nhận email)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Chỉ cho công ty</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Chỉ cho cá nhân</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Xác suất thành công</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Thông báo cho {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Chọn {!users} sẽ nhận được thông báo khi có liên hệ mới được thêm qua "Mẫu liên hệ từ trang web"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Đếm từ nhiệm vụ trước</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Đếm vùng chứa từ đầu</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Logo hóa đơn</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Trường khác</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Cổng</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Xóa tùy chọn</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Khôi phục về mặc định</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Chuyển hướng URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Địa chỉ trang web của bạn mà người dùng sẽ được chuyển hướng tới sau khi điền biểu mẫu này.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Dòng</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Đã lưu</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Chọn hộp</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Lựa chọn</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Vui lòng chọn giai đoạn đề mục sẽ được thay thế bằng danh mục hiện tại trong nhiệm vụ</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Tên hiển thị của người gửi</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Địa chỉ email của người gửi</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Tùy chỉnh trường người dùng</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Thiết lập địa chỉ thanh toán của tổ chức sẽ được đặt vào tất cả hóa đơn của bạn. Chọn {0}Quốc gia{1} từ danh sách và điền vào các trường {0}Địa chỉ{1}, {0}Thành phố{1}, {0}Bang{1} và {0}Zip Code{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>{0}Logo{1} mặc định của tổ chức của bạn sẽ được hiển thị trên {0}Hóa đơn{1} của bạn.{3} Để thay logo, ​​nhấp vào liên kết 'Thay đổi logo' và chọn hình ảnh được lưu trữ trên máy tính để tải nó vào cổng thông tin. Lưu ý rằng bạn có thể tải lên hình ảnh không lớn hơn {0}{4}x{5} pixel{1}, nếu không ảnh sẽ được điều chỉnh kích thước. Kích thước tối đa của hình ảnh không được vượt quá {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Kích thước</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Gửi dữ liệu</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Tag có tiêu đề này đã tồn tại</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Template nhiệm vụ</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Vùng văn bản</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Văn bản</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Key biểu mẫu Web</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Một key biểu mẫu web duy nhất phục vụ cho việc xác thực biểu mẫu được sử dụng để gửi dữ liệu và cần thiết cho công việc sửa biểu mẫu. Việc này được thực hiện vì lý do bảo mật để ngăn chặn spam, gian lận và bảo vệ biểu mẫu web của bạn khỏi bị sử dụng trái phép. Khi bạn tạo một key mới, các mẫu hiện có với key cũ sẽ ngừng hoạt động.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Mẫu liên hệ Website</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Key biểu mẫu không hợp lệ</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Sử dụng chức năng Mẫu liên hệ Website để tạo biểu mẫu xuất lên trang web của bạn. Nó sẽ cho phép bạn tự động lưu trữ liên hệ mới. Định nghĩa thuộc tính của biểu mẫu, chọn các trường cần thiết và tạo mã code .</value>
+  </data>
+</root>

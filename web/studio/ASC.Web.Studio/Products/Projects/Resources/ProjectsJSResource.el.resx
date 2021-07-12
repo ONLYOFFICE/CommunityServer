@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Δημιουργία νέου ορόσημου</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Επαφές</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Δημιουργία νέας εργασίας</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Όνομα εταιρίας</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Επώνυμο</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>ημέρα</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>ημέρες</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Συνομιλίες</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Έγγραφα</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Επεξεργασία ορόσημου</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Επεξεργασία εργασίας</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Κάθε μήνυμα πρέπει να έχει έναν τίτλο</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Κάθε έργο πρέπει να έχει έναν υπεύθυνο</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Κάθε έργο πρέπει να έχει έναν τίτλο</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>προσθήκη</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Ημερομηνία έναρξης</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>άνοιγμα</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Προτεραιότητα</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Υπεύθυνος</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>ορόσημα</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Νέο ορόσημο</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Νέα εργασία</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>υποέργα</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>υποέργο</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Λεπτομέρειες</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>εργασίες</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>εβδομάδα</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>έτος</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Η μορφή της ημερομηνίας δεν είναι έγκυρη</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Μη έγκυρη μορφή ώρας</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Ορόσημα</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Μετακίνηση</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Κανένα ορόσημο</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Κλειστό</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Κλειστό</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Σε παύση</value>
+  </data>
+  <data name="TagsSelectorAddText" xml:space="preserve">
+    <value>Δημιουργία νέας ετικέτας</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Εργασίες</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Ομάδα</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Δεν υπάρχουν δεδομένα</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Παρακολούθηση χρόνου</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Προβολή όλων των ανοικτών εργασιών</value>
+  </data>
+</root>

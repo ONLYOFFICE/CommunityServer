@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Створити нову закладку</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Додати закладку в обране</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Додати в обране</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Створення закладки ...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Детальний опис закладки</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Додано</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Пошук по закладках</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Кількість людей, що додали закладку в обране</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Введіть необхідні теги в поле через кому</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Перевірити адресу</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Перевірка адреси...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Коментарі</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Коментарів</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Коментаря</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Перейти на коментарі до закладки</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Коментар</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Створити нову закладку</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Редагувати закладку</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Редагувати закладку</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>Адреса закладки не може бути порожньою</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>Закладок поки немає</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>Створити першу закладку</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Закладки не знайдені</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Створіть закладки, зберігайте та діліться корисною інформацією з колегами, зберігаючи посилання на  веб-ресурси, що дозволить легко повернутись до улюбленого місця.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Обране</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Останні</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Найпопулярніші</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Видалити закладку з обраного</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Ви дійсно хочете видалити закладку?</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Ви дійсно хочете видалити закладку {0} з обраного?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Видалення з обраного</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Видалення з обраного...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Показати:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показати на сторінці</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Підписатися на коментарі</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Тег</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Найбільш популярні за день</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Всього</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Відписатися від коментарів</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>За рік</value>
+  </data>
+</root>

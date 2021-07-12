@@ -106,11 +106,6 @@ window.ASC.Desktop = (function () {
                             setEncryptionKeys(params);
                             break;
                         }
-                    case "updateEncryptionKeys":
-                        {
-                            setEncryptionKeys(params, true);
-                            break;
-                        }
                     case "relogin":
                         {
                             var message = "Encryption keys must be re-entered";
@@ -200,7 +195,7 @@ window.ASC.Desktop = (function () {
 
     //request
 
-    var setEncryptionKeys = function (encryptionKeys, update) {
+    var setEncryptionKeys = function (encryptionKeys) {
         if (!encryptionKeys.publicKey || !encryptionKeys.privateKeyEnc) {
             ASC.Files.UI.displayInfoPanel("Empty encryption keys", true);
             return;
@@ -209,7 +204,6 @@ window.ASC.Desktop = (function () {
         if (typeof Teamlab !== "undefined") {
             Teamlab.setEncryptionKeys({},
                 {
-                    update: !!update,
                     publicKey: encryptionKeys.publicKey,
                     privateKeyEnc: encryptionKeys.privateKeyEnc
                 },

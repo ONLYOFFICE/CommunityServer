@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Onderdeel bewerken:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Bestandsnaam</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Paginatitel</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Bestand Uploaden</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Naam Geüpload Bestand</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Inzoomen</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Aanmaken van wiki-pagina's is erg makkelijk zelfs als u nog nooit een markeringstaal heeft gebruikt. Alles wat u moet weten bestaat uit een paar simpele regels die hieronder worden opgesomd. We hopen dat u ze bruikbaar vindt.
+
+@@TOC@@
+
+==Onderdelen, Paragrafen, Lijsten, Regels==
+
+Om een nieuw onderdeel te beginnen, gebruik het = symbool aan het begin van een paragraaf:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Onderdeel=&lt;br&gt;
+==Subonderdeel==&lt;br&gt;
+===Sub-subonderdeel===&lt;br&gt;
+
+&lt;p&gt;
+Invoegen van @@TOC@@ op een pagina zal alle paginaonderdelen en -subonderdelen verenigen en in een inhoudsopgave.
+&lt;/p&gt;
+
+Wiki markeringen negeert regeleinden. U kunt ze gebruiken om zinnen te scheiden binnen een paragraaf.
+
+&lt;p&gt;
+Gebruik de «br» tag om regels te beëindigen zonder een nieuwe paragraaf te starten. 
+&lt;/p&gt;
+
+Om een nieuwe paragraaf te beginnen drukt u tweemaal op Enter net zoals u in een tekstverwerker zou doen.  
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Lijsten met bullits maken is simpel: 
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* begin elk lijstpunt met een asterisk;&lt;br&gt;
+** hoe meer asterisken;&lt;br&gt;
+** hoe dieper het lijstniveau is.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Genummerde lijsten zijn ook niet slecht:&lt;br&gt;
+## ze zien er goed gestructureerd uit;&lt;br&gt;
+## en zijn makkelijk te lezen.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ ALS er een spatie aan het begin van een regel staat,
+ DAN wordt de regel op dezelfde manier geForMaTTeerD als hij is getypt; 
+ in hetzelfde font; zonder regeleinden;[[no links]].
+
+U kunt een spatie aan het begin van een zin gebruiken als u: 
+
+*eerder geformatteerde tekst wilt plakken;
+*broncode wilt weergeven; 
+*ascii art wilt maken/plakken (afbeeldingen maken met het gebruik van tekstsymbolen).
+
+Een horizontale lijn wordt aangemaakt met vier streepjes: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Invoegen Links==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Om de link naar een andere wiki-pagina in te voegen, zet u de paginatitel tussen dubbele vierkanten haakjes: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+Als de link en titel die u wilt weergeven op een pagina van elkaar verschillen, typ dan de linktitel na het | symbool: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+Externe links worden rechtstreeks in de tekst ingevoerd, op deze manier: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Als u de externe linktitel moet wijzigen, zet u deze in enkele vierkante haakjes en typt u de titel na een spatie: &lt;br&gt; [http://example.com YourTitle]&lt;/p&gt; 
+
+&lt;p&gt;
+Om een e-mailadres in te voegen, gebruik enkele vierkante haakjes: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Om een pagina aan een categorie toe te voegen, voeg de link naar de gewenste categorie toe [[Category: Desired category]] onderaan de pagina.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Formatteren Tekst==
+
+Gebruik de volgende tips om uw tekst te formatteren:
+
+''Cursief''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''uw cursieve tekst komt hier''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Dikgedrukt'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''uw dikgedrukte tekst komt hier'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Dikgedrukt Cursief'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''uw dikgedrukte cursieve tekst komt hier'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Onderstreept__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__uw onderstreepte tekst komt hier__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Doorhalen--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--doorgehaalde tekst komt hier--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indexen: &lt;sup&gt;superscript&lt;/sup&gt; en &lt;sub&gt;subscript&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&amp;lt;sub&amp;gt;uw subscript index&amp;lt;/sub&amp;gt&lt;br&gt;
+&amp;lt;sup&amp;gt;uw superscript index&amp;lt;/sup&amp;gt
+&lt;/p&gt;
+
+
+&lt;p&gt;
+U kunt ook &amp;lt;small&amp;gt kleine letters &amp;lt;/small&amp;gt gebruiken voor voetnoten, speciale formattering voor weergeven van &amp;lt;code lang="taal"&amp;gt;programmeringscode&amp;lt;/code&amp;gt; fragmenten en vaste toonhoogte tekst voor &amp;lt;tt&amp;gt;technische termen&amp;lt;/tt&amp;gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Afbeeldingen Invoegen==
+
+Om afbeeldingen te kunnen invoegen op een wiki-pagina moet u ze eerst uploaden naar wiki.
+
+Gebruik de volgende links om verschillende soorten afbeelding in te voegen:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Afbeelding = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Afbeelding met vaste grootte = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Afbeelding met beschrijving = [[Image:Image Title  | Description]]&lt;/p&gt;
+&lt;p&gt;
+Thumbnail afbeelding =  [[Image:Image Title | thumb]] – de afbeelding wordt verkleind en rechts uitgelijnd.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML naar Wiki Overzetten==
+
+Als u een html-geformatteerde tekst heeft die u hier naar wilt overzetten, kunt u dat snel en gemakkelijk doen. Klik op "'Nieuwe pagina maken'" in het "'Actiepaneel'". Vervolgens plakt u uw tekst in het bewerkingsvenster en schakelt u over naar het wiki markeringenscherm door op het Wiki-icoon op het formatteringspaneel erboven te klikken. De html-tags worden veranderd in wiki-markeringen. Controleer de resultaten, corrigeer kleine fouten en druk op '''Publiceren'''. Uw pagina is klaar.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>"'Welkom bij Wiki!'"
+
+Hier kunt u pagina's maken, en ze doorverwijzen en verenigen in categorieën via uw webbrowser. Wiki is een handig hulpmiddel voor het bewaren van project-gerelateerde documentatie, gekenmerkt door de volgende eigenschappen:
+
+* meerdere auteurs. Elk portaallid kan de inhoud van elke pagina bewerken.
+* snelle bewerking. Klik op de link "'Bewerken'" op elke pagina en begin met bewerken rechtstreeks in uw browser.
+* eenvoudige overdracht van HTML naar WIKI. Leer [[Internal:Help#HTML to Wiki Transfer|how]]
+* paginaversie ondersteuning. Controleer wat er is bewerkt door de pagina terug te zetten naar de vorige versie.
+
+@@TOC@@
+
+==Wiki Navigatie en Structuur==
+
+U kunt door de wiki navigeren via het "'Navigatiepaneel'" dat altijd beschikbaar is terwijl u in de wiki bet.
+
+===Pagina's===
+
+Alle wiki-pagina's die u maakt, worden alfabetisch gesorteerd op de [[Internal:Index|Index]] pagina.&lt;br&gt;
+Alle nieuw gemaakte pagina's worden in chronologische volgorde weergegeven op de [[Internal:NewPages|New Pages]] pagina.&lt;br&gt;
+Een lijst van de meest recent bewerkte pagina's staat op de [[Internal:Recently|Recently Edited]] pagina.
+
+===Categorieën===
+
+U kunt meerdere gerelateerde pagina's in één categorie verenigen. Alle categorieën met hun overeenkomstige pagina's worden weergegeven op de [[Internal:Categories|Categories]] pagina. U kunt een pagina toevoegen aan een reeds bestaande categorie, of u kunt er zelf een maken. Klik op [[Internal:Help|here]] voor meer informatie over het toewijzen van een pagina aan een categorie.
+
+===Bestanden===
+
+U kunt bestanden van elke grootte en formaat naar wiki uploaden, evenals koppelingen geven aan geüploade foto's bij het maken van wiki-pagina's. Lees hier meer over [[Internal:Help#Inserting Images|here]].
+
+===Help===
+
+Het maken van pagina's voor uw wiki is makkelijk. Alles wat u moet weten bestaat uit een paar eenvoudige regels. Bezoek de [[Internal:Help|wiki markup tips]] om de wiki markeringsregels te lezen.
+
+
+==Uw Wiki aanmaken==
+
+Om uw eigen wiki aan te maken, begint u met het maken van een nieuwe pagina door op de link "'Nieuwe pagina'" in het "'Acties'" paneel te klikken. Vervolgens typt u tekst in de tekstbewerkingsruimte. Gebruik de [[Internal:Help|wiki markup tips]] om de tekst correct op een pagina weer te geven.
+
+Onthoud dat dit uw persoonlijke ruimte is waar u alles kunt organiseren op basis van uw specifieke behoeften. Zelfs de inhoud van deze pagina is bewerkbaar. U kunt bijvoorbeeld verwijderen wat hier is geschreven en koppelingen naar uw projecten plakken, als dit handig is voor u. &lt;br&gt;Veel succes!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Deze pagina bestaat niet. Klik {hier} om hem aan te maken en te bewerken.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Anker</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Vet</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblokkeren</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Om de code van derden visueel te markeren</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Opmerking</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML code voorbeeld</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Externe koppeling</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Lokale bestandslink</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (gebruik beperkt)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horizontale lijn</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Afbeelding</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Cursief</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Nieuwe regel</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Kan niet worden geïnterpreteerd door de Wiki-taal</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Paginalink</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Speciale tags</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Doorstrepen</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Subscript</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Superscript</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Speciale symbolen</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Onderstrepen</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blokkeren</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>De maximale grootte van het geüploade bestand is overschreden</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Bestand downloaden</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Categorieën</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maximale bestandsgrootte geüpload is {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Onderdeel: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=De pagina is verplaatst=
+Paginanaam veranderd naar [[{0}|{0}]].
+U kunt de laatste versie [[{0}|hier]] vinden</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Inhoudsopgave</value>
+  </data>
+</root>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Válassza ki a projektet</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Válassza ki a felelőst</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Mérföldkő lezárása</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>n</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Hónap</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Két hónap</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Hét</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Mérföldkő törlése</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Biztosan törölni akarja a mérföldkövet?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Mérföldkövek törlése</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Biztosan törölni akarja a mérföldköveket?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>A megadott feltételnek megfelelő mérföldkő nem jeleníthető meg ebben a szekcióban</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Nincs a megadott feltételnek megfelelő mérföldkő</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Mérföldkő</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Határidő</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Nincs még tervezett mérföldkő</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Mérföldkövek</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>A mérföldkövek a projekt tervezésének főbb állomásai. Ha létrejött egy mérföldkő, azt a projekt bármelyik résztvevője feltöltheti feladatokkal. Tervezzen mérföldkövet, tűzzön ki hozzá határidőt, hogy a feladatok biztosan időre elkészüljenek.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>A mérföldkövek a projekt tervezésének főbb állomásai. Ha létrejött egy mérföldkő, azt a projekt bármelyik résztvevője feltöltheti feladatokkal.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Közelgő</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>A nyitott feladatokat tartalmazó mérföldkő nem zárható be</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Értesítés</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Minden mérföldkőnek címet kell adni</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Lejárt</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Tervezze meg az első mérföldkövet</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Figyelmeztessen 48 órával a határidő előtt</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Felelős</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Kiemelt mérföldkő</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+</root>

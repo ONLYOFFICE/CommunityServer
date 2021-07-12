@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Kaydet ve Yeni Fırsat Oluştur</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Tüm fırsatlar</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Destek</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>düzelt</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>gün başına</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>saat başına</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>ay başına</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>hafta başına</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>yıl başına</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Ödeme tekrarı</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Aşama</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Aşama tipi</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Fırsat kişisi</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>İlk fırsatı Ekle</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Yeni fırsat oluştur</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Aşamada fırsat</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Özel süre</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Diğer kullanıcılar</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Fırsat</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Yayıncı olduğunuz fırsatlarda izinler düzenlenecek</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Fırsat Aşamaları</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Satıcı beklentileri karşılamak için soru ve cevap seansı yapar</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Tartışma</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Gelecek satış prospektifini anlamak için potensiyel alıcıyla iletişim gerekiyor</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>İlk iletişim</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Başarısız. Perspektif eksikliği nedeniyle fırsat kapandı</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Kayıp olarak kapandı</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potansiyel alıcı satıcının ürünleri yada hizmetleri üzerindeki ilgisini belirtti</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Değerlendirme</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Satıcı müşterinin potansiyel alıcı olup olmadığını belirlemeye çalışır</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>İlk Öncelik Kriterinin Uygulanması</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potansiyel alıcı satıcıdan yazılı teklif aldı</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Pazarlık</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potansiyel alıcı ürün yada hizmeti almak için ilgisi ve otoritesi olan kişi yada kurumdur </value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Yaklaşım</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potansiyel alıcı teklifinizi detaylı olarak önceden görüştü</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Taahhüt</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Anlaşmaya varıldı. Fırsat başarıyla kapatıldı</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Kapanış / Satış İşlemleri</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Aşama tipi</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Fırsat Katılımcısı</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Fırsat Katılımcıları</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Fırsatlar</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Fırsat Etiketi</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Fırsat Etiket Listesi</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Fırsat Etiketleri</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Fırsatı sil</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Fırsatlar siliniyor</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>«{0}» fırsat düzenle</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Fırsat düzenle</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Fırsatlar; müşterilerinize yaptığınız potansiyel satışları görüntülemenize izin verir. Her müşteriniz için iş süreciniz, geçmiş saklamanız, görev atamanız, döküman yüklemeniz,kar hesaplamanız ile uyumlu şekilde {0}fırsat aşamalarını{1} belirleyin.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen fırsat yok. Lütfen başka filtre seçeneği seçin yada bölümdeki tüm fırsatları görmek için filtreyi sıfırlayın. Yada listede eksik olması halinde yeni fırsat oluşturabilirsiniz.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen fırsat yok</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Fırsat listesi boş</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Fırsat başlığı girin</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Her fırsatın bir sorumlusu olmalıdır</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Katılımcı listesi boş</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Şirketler, kişiler listesinden fırsatınıza katılımcılar ekleyin. Bu yapıldıktan sonra bu fırsatla hangi kişilerin ilgili olduğunu ve kimlerle iletişime geçmeniz gerektiğini görebileceksiniz.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Tahmini/Gerçek bitiş tarihi</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Bütçe</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kişi</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Katılımcı</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Aşama/aşama tipi</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Fırsatları aktar</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Bilgisayar HDD'nizde düzgün oluşturulmuş bir CSV dosyası seçilmelidir. Fırsatları aktarmak için kullanılacak olan seçili sınırlayıcıyla ayrılmış alan yada sütunları içermelidir. {0}'dan fazla satır içeren dosyalar doğru aktarım için küçük parçalara bölünmelidir. Aktarılan bilgiye erişimi olan portal kullanıcılarını seçtiğinizden emin olunuz, aksi halde CSV dosyasındaki veri tüm portal kullanıcılarına açık olacaktır.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSV dosyası seçin ve fırsatları aktarmadan önce erişim haklarını düzenleyin</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Dosya sütunlarınızı ilgili ONLYOFFICE™ CRM alanlarıyla eşleştiriniz. Fırsatları doğru olarak aktarmanız için aşağıdaki sütunların ONLYOFFICE™ CRM alanlarıyla eşleştirildiğinden emin olunuz: 'Fırsat Başlığı','Fırsat Sorumlusu'. Tarih içeren alanlar şu formatta olmalıdır: {0}. Kur alanı uluslarası üç harfli kod şeklinde olmalıdır (ör. USD, JPY,AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lütfen alanları doğrulayın</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Fırsat listesine git</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Veri miktarınıza göre fırsat aktarımı bir kaç dakika sürebilir.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Aktarma başladı</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Fırsat oluştur yada bağlantıla</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Fırsatlarım</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Fırsat başlığı</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Bütçe belirlenmedi</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Diğer fırsat katılımcıları</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Katılımcılar</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Fırsata erişimi sınırla</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Başarı ihtimali</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Fırsat sorumlusu</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Profile git</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Yeni bir sekme aç</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Toplam miktarı göster</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Aktarıma Başla</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Fırsat aşamaları , anlaşmayı tamamlamak için gereken aşamaları belirlemenize izin verir. Varsayılan fırsat aşamaları yaklaşım, tartışma, değerlendirme,pazarlık, taahhüt,başarı, sıfır-noktası. Bunları düzenlemek için portal yöneticisi hakları gereklidir.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Toplam miktar</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Tüm fırsatlar</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Toplam sayfa</value>
+  </data>
+</root>

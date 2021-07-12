@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>전체 액세스</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>액세스 거부</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>계정 추가</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box 계정을 추가</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox 계정을 추가</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google 계정을 추가</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive 계정을 추가</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>다른 계정</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>모두 취소</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>타사 정보 변경</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>필터 지우기</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>복사본 만들기</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>소개</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>스프레드 시트</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>타사 삭제</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>빈 휴지통</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>모든 파일</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>이미지</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>미디어</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>프리젠 테이션</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>스프레드 시트</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>내 문서로 이동</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>자세히...</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>이동합니다</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>이름 바꾸기</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>복원</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>공유 설정</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>버전 표시</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>건너뛰기</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>상위 폴더로 돌아 가기</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>최대</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>업로드</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>버전 기록</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>페이스북</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>변환 열고</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>다운로드 할 각 파일에 대한 형식을 선택합니다</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>일반 설정</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>확인을 덮어 쓰기</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>참고: 이 작업은 실행 취소 할 수 없습니다.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>참고 : 계정에서 제거 작업은 실행 취소 할 수 없습니다.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>원래 형식으로뿐만 아니라 파일 사본을 저장</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>당신이 열 문서 파일을 빠르게 확인하고 수정할 Office Open XML 형식 로 변환됩니다.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>파일 복사가 {0} 내 문서 {1} 폴더에 생성됩니다</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>뿐만 아니라 원본 형식으로 문서를 업로드</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>당신이 목록에서 이러한 요소를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>같은 이름의 기존 파일의 파일 버전을 업데이트합니다. {0} 그렇지 않으면, 파일의 복사본이 생성됩니다. {1}</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>변환</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>로 다운로드</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>변환이 성공적으로 완료되었습니다</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>변환 오류</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>변환중...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>일반 문서</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>브라우저로 열기</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>메시지</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>메세지 추가</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>문서명</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>{!user} 추가</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>로 다운로드</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>자동</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>높이</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>넓이</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>'일반 문서'섹션은 일반적인 액세스를위한 포탈 관리자에 의해 공유하는 모든 문서를 보여줍니다. 포털 관리자만 이섹션에서 폴더를 생성하지만, 접근 포털 사용자도 여기서 파일을 업로드 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>더 쉽게 포털에 업로드하려면 여기를 귀하의 컴퓨터에서 파일을 드래그 앤 드롭.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>'나와 공유'섹션은 친구 나 동료에 대한 액세스를 준 파일을 표시하는 데 사용됩니다. 이 문서의 최신 변경 사항을 보지 못했을 경우 그들은 '새'로 표시됩니다. 해당 버튼을 클릭하시면 목록에서 파일을 제거 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>문서 및 이미지 파일은 {0} 만들기 {1} 또는 {2} 포털에 업로드 {3}이 '내 문서'안에 보관 절을 참조하십시오. 넌 할 수 {4} 개방 {5} 및 {6} ONLYOFFICE™ 포털 편집기를 사용하여 편집 {7} 그들에게, 폴더에 정리, 친구 나 동료와 공유 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>만들거나 프로젝트에 업로드 된 문서 및 이미지 파일은이 섹션에 보관됩니다. 당신은 ONLYOFFICE™ 포털 편집기를 사용하여을 열고 편집 할 수 있습니다, ​​폴더로 구성 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>모든 삭제 된 파일이 이동되는 위치는 '휴지통'섹션입니다. 실수로 삭제된 경우, 복원하거나 완전삭제를 할수있습니다. 참고하시기 바랍니다, '휴지통'에서 파일을 삭제하변 더 이상 복원 할수없습니다 .</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>여기에서이 필터에 표시 할 파일 없음</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>필터와 일치하는 파일이나 폴더는이 섹션에 표시 할 수 없습니다. 이 섹션에있는 모든 파일을 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오. 당신은 또한 당신이 다른 섹션에서 필요한 파일을 찾을 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>이 섹션에 표시 할 파일 없음</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>연결된 계정 없음</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>단축</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>이메일을 통해</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>내 문서</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>프로젝트 문서</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>읽은 상태로 표시</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>파일 이름</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>폴더를 선택</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>업로드를 제출</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>공유</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>내게 공유된 문서</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>오른쪽 링크에 대한 액세스 설정</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>컴팩트보기로 전환</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>일반보기로 전환</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>타사 계정</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>계정을 연결</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>계정을 연결</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>당신은 ONLYOFFICE™ 문서에 다음 계정을 연결할 수 있습니다. 그들은 '내 문서'폴더에 표시됩니다 그리고 당신은 한 곳에서 모두 수정하고 포털에서 마우스 오른쪽을 저장 할 수 있습니다.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>계정을 연결</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>타사 삭제</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>사용자에 대한 타사 설정을 사용</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>폴더명</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>넥스트클라우드</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>계정</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>공유 및 일반 문서에 넣어 확인</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>얀덱스</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>검색 위치</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>당신은 문서 ({0})을 만들 스프레드 시트 ({1}), 프리젠 테이션 ({2})와 가장 인기있는 형식으로 다운로드 할 수 있습니다.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>다음 파일을 편집 할 수 있습니다 : {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>다음 extentions으로 파일을 열 수 있습니다 : {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>당신이 원하는 모든 파일 문서를 업로드 할 수 있습니다.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>휴지통</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>목록에서 제거</value>
+  </data>
+</root>

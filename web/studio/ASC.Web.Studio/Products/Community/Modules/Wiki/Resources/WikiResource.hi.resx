@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>फ़ाइल हटाएँ ?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>पृष्ठ हटाएं?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>चयनित संस्करणों की तुलना करें</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>प्रकाशित करना</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>लौट आना</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>अपलोड</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>संस्करण {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>अभी तक कोई श्रेणिया नहीं बनायी   गयी  है</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>सभी विकि लेख श्रेणियों यहाँ सूचीबद्ध हैं। एक वर्ग एक पेज पर बनाया जाता है एक बार, यह यहाँ वर्ग की सूची में जोड़ा जाता है।</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>कोई फ़ाइल नहीं इस खंड में प्रदर्शित करने के लिए</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>सभी लेखकों द्वारा विकि  पृष्ठों के लिए अपलोड की गई फ़ाइलों इस खंड में रखा जाता है। इन फ़ाइलों को HTML या विकि मार्कअप का उपयोग कर पृष्ठों के साथ संलग्न किया जा सकता है।</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>पन्नों में इस खंड में प्रदर्शित करने नहीं हे</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>सूचकांक पृष्ठ वर्णमाला के क्रम में लेखकों द्वारा बनाई गई सभी विकि पृष्ठों की सूची। पेज बनाया है एक बार, यह स्वतः सूचकांक से जोड़ा जाता है।</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>पन्नों में इस खंड में प्रदर्शित करने नहीं हे</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>उनके लेखकों के साथ या सभी नव निर्मित हाल ही में संपादित पृष्ठों यहाँ सूचीबद्ध हैं। वे स्वतः ही उनकी रचना या संपादन के समय के अनुसार क्रमबद्ध इस सूची में जुड़ जाते हैं</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>पन्नों में इस खंड में प्रदर्शित करने नहीं हे</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>उनके लेखकों के साथ सभी हाल ही में संपादित पृष्ठों यहाँ सूचीबद्ध हैं। वे स्वतः ही उनके संपादन समय के अनुसार क्रमबद्ध इस सूची में जुड़ जाता है।</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>नई फ़ाइल</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>नया पृष्ठ</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>मुख</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>फाइल को संपादित</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>संपादित करें पेज</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>फ़ाइल को मौजूद नहीं है।  में {0Create} यह फ़ाइल नाम के साथ [[या में खोज {1परिणाम  खोज}]]?</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>फ़ाइल अपलोड करें</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>नया पृष्ठ बनाएँ</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>पृष्ठ हटाएं</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>संपादित करें पेज</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>श्रेणी: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>प्रिंट पृष्ठ</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>इतिहास देखें</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>कॉर्पोरेट विकि।</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>फ़ाइल को अपलोड करने के लिए चयनित नहीं है</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>एक आंतरिक त्रुटि हुई। व्यवस्थापक से संपर्क करें।</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>पेज मार्कअप में त्रुटि</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>कोई परिवर्तन नहीं किया गया है</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>यह पृष्ठ किसी अन्य उपयोगकर्ता द्वारा संपादित किया गया है। नवीनतम संस्करण देखने के लिए पेज को ताज़ा करें</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>पृष्ठ शीर्षक फ़ील्ड रिक्त है।</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>पेज का नाम गलत है। एक विकल्प के नाम दर्ज करने का प्रयास करें।</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>इस शीर्षक के साथ एक पृष्ठ पहले से ही मौजूद है।</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>परिवर्तन सहेजा गया है।
+</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>श्रेणी के लिए पृष्ठ जोड़ें</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>पृष्ठ अपडेट / टिप्पणियाँ</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>नए पृष्ठों</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>पेज के लिए सदस्यता लें</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>विकी खोजें</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>पेज से सदस्यता रद्द करें</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>टिप्पणी को जोड़ा</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>हटाए टिप्पणी</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>संपादित टिप्पणी</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>फ़ाइल  जोड़ा</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>फ़ाइल नष्ट</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>पृष्ठ जोड़ा</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>पेज संपादित किया</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>पेज संस्करण वापस सौंप</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Ver की तुलना। {0} साथ देखें। {1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>फ़ाइल अपलोड करें</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>इतिहास</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value> द्वारा नवीनतम बदलाव {0} में {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>आप  संस्करण वापस लौटने के लिए करना चाहते हैं?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

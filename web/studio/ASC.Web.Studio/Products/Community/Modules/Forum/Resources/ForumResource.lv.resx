@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Korporatīva foruma apspriešanas</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Forumi</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Izveidot Jaunu Forumu</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Izveidot Jaunu Forumu</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Vai  jūs tiešām gribat to izdarīt?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Vēl nav forumu</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Izveidot pirmo forumu</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Izveidojiet savu forumu, piedalīties diskusijās, dalīties ar interesantu informāciju, organizējiet aptaujas, padariet jūsu forumu vairāk interaktīvo.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Tēmas nav atrasti</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Izveidojiet savu forumu, piedalīties diskusijās, dalīties ar interesantu informāciju, organizējiet aptaujas, padariet jūsu forumu vairāk interaktīvo.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Vēl nav izveidotas tēmas</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Izveidot pirmo tēmu</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Izveidojiet savas tēmas, piedalīties diskusijās, dalīties ar interesantu informāciju, organizējiet aptaujas, padariet jūsu forumu vairāk interaktīvo.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Nav atļaujas šajai darbībai</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Ievadiet kategorijas nosaukumu</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Nepazīstama kļūda izveidojot kategoriju</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>Kļūda kategorijas rediģēšanas laikā</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Ievadiet nosaukumu</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Kļūda atrakstīšanas/pierakstīšanas laikā</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Ievadiet foruma nosaukumu</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Tēma "{0}" forumā</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Visi Forumi</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Izmainīt</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderatori</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Ievadiet vārdu</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Izveidot jaunu aptauju</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Pievienot jaunu ierakstu</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Izveidot jaunu tēmu</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Jauna tēma forumā</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Ieraksti</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Pēdējas Izmaiņas</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Meklēt Forumos</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Ieraksti.</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Parakstīties uz jaunām tēmām</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Parakstīties uz šo forumu</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Parakstīties uz šo tēmu</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Forums bija veiksmīgi izveidots</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Kategorijas Rediģētājs</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Foruma apraksts</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Foruma Rediģētājs</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Foruma Nosaukums</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Forumi</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tēma</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Tēmas</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Jauns posts tēmā</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Izveidot jaunu kategoriju</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Atrakstīties no jaunām tēmām</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Atrakstīties no ši foruma</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Atrakstīties no šis tēmas</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Apskatu skaits</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Redzamo lietotāju skaits</value>
+  </data>
+</root>

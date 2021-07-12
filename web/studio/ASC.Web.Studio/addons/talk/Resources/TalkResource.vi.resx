@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Chấp nhận</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Thêm vào gửi mail hàng loạt</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Đóng lịch sử</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Xóa thư</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Xóa thành viên</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Gửi lời mời</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Phòng chat</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Chào mừng đến {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Nặc danh</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Xóa các file đã gửi</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Tất cả file</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>Các file bạn đã gửi qua chat chiếm &lt;b&gt;&lt;/b&gt; dung lượng cổng thông tin. Nếu bạn chọn xóa các file này, nó sẽ giải phóng dung lượng, nhưng những người tham gia trò chuyện sẽ không còn có thể truy cập các file qua các liên kết trong lịch sử. Chọn file bạn muốn xóa:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Các file đã gửi cách đây hơn một tháng</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Các file đã gửi cách đây hơn một năm</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Đang kết nối...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>kết nối với tôi</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Tạo phòng chat</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Gửi nhiều</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Tạo phím tắt và khởi động Talk như một ứng dụng web.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Dùng Ctrl + Enter để gửi tin nhắn, Enter để xuống dòng</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Biểu tượng</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Bật/tắt lọc</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Phiên bản Adobe Flash Player này không đúng</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Ẩn/Hiện nhóm</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Lịch sử tin nhắn</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player không được cài đặt</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Trước đó</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Chọn một người trong danh sách liên lạc để bắt đầu trò chuyện</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Gửi file</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Kéo một liên hệ dưới đây để thêm một người nhận.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Hiển thị tab bên trái</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Hiển thị tab bên phải</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>đọc</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Kéo một liên hệ dưới đây để thêm một người nhận</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Trạng thái hiện tại</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Không hỏi lại</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>trước tiên chọn người dùng{0} từ danh sách để bắt đầu trò chuyện</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Bạn thực sự muốn loại bỏ người dùng này khỏi cuộc trò chuyện?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Tin nhắn mới</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>đã mời bạn</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Bạn thực sự muốn xoá phòng chat này?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Phòng tạm (sẽ bị xóa khi tất cả người dùng rời phòng)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Biểu tượng hợp lệ</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Thư tín</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm liên hệ</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Tìm kiếm trong lịch sử tin nhắn</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>File: {0} Kích thước: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>của</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Hiện danh sách</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Vắng mặt</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Bận</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Có mặt</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Trò chuyện với đồng nghiệp theo thời gian thực. Có danh sách liên lạc được cập nhật tự động. Nhận thông báo khi có tin mới.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Thông báo từ Trình duyệt</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Tạo gửi mail hàng loạt</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Tạo phòng chat</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Loại người dùng khỏi trò chuyện</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Mời trò chuyện</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Xóa trò chuyện</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>ký tự, số và dấu chấm (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Viết tin nhắn...</value>
+  </data>
+</root>

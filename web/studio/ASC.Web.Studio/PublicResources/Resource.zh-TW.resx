@@ -1,0 +1,3193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>版權</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>關於這個程序</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>版權© {0} {1}. All rights reserved.</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>存取權限</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>存取權限交給{0}模塊</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>增加{!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>增加{!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>全部{!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>更改門戶網站所有者</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>確認後將通過電子郵件進行更改。</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>要更改門戶網站所有者，請在下面選擇新門戶網站所有者的名稱。</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0}模塊已禁用，並且未在門戶網站上顯示。要啟用它，請參考門戶網站設置的“模塊和工具”部分。</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>{！user}列表為空</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>完整權限</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>具有與門戶網站所有者相同的存取權，但有權|更改門戶網站所有者|停用或刪除門戶網站</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>門戶網站所有者可以</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>與模塊管理員相同|任命模塊管理員|設置模塊存取權限|管理門戶網站配置|管理用戶帳戶|更改門戶網站所有者|備份門戶網站數據|停用或刪除門戶網站</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0}管理員可以</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {！users}可以</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>具有不同存取權限的{0} {！users}個用戶可以</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>
+列表中的{！Users}</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>您的帳戶現在快要上線了</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>門戶停用</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>刪除門戶之前，請確保已關閉自動計費。您可以在{0} Avangate帳戶{1}中檢查自動計費狀態。</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>確認操作的連結已發送至：email（門戶網站所有者的電子郵件地址）。</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>門戶刪除</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>確認操作的連結已發送至：email（門戶網站所有者的電子郵件地址）。</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>再次發送代碼</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>輸入驗證碼</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>再次啟用電子郵件</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>驗證碼字段不能為空</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>輸入手機號碼</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>驗證碼字段不能為空</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>創建新的{！group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>增加群組
+</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>添加允許的IP地址</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>增加留言</value>
+  </data>
+  <data name="AddToPortalBtn" xml:space="preserve">
+    <value>添加到門戶</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>增加到信任的網域</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>增加{!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>增加使用者</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>管理員</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>管理員通知</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>發送訊息</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>無法存取門戶？</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>可用於與您聯繫的電子郵件地址</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>聯繫門戶網站管理</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>您的消息已成功發送。門戶網站管理員將與您聯繫。</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>管理員消息設置</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>請描述您的問題</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>如果您是現有{！user}用戶，並且在存取此門戶網站時遇到問題，或者您想註冊為新的{！user}用戶作為門戶網站，請使用以下表格與門戶網站管理員聯繫。</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>系統管理者</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>會員狀態</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>任何域</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>版權所有</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}.版權所有。</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>回覆</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>回答</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>服務</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>通過與第三方服務的集成來擴展您的Web辦公室功能。請與門戶網站管理員聯繫以啟用所需的服務。</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>在我們的{0}幫助中心{1}中查找更多信息</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>連接</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>已連接</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>斷開</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>未連接</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>驗證</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>認證</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>第三方服務整合</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="AuthorizationKeysHelpTextV11" xml:space="preserve">
+    <value>{0}幫助中心{1}中的詳細說明。</value>
+  </data>
+  <data name="AuthorizationKeysSupportTextV11" xml:space="preserve">
+    <value>有什麼問題嗎？與我們的{0}支持團隊{1}聯繫。</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>
+授權密鑰是一個選項，允許您將ONLYOFFICE™門戶與Twitter，Facebook，DropBox等第三方服務連接。如果不想每次都引入門戶憑據，則將門戶與Facebook，Twitter或Linkedin連接您輸入它。將其與諸如DropBox，OneDrive等之類的服務連接起來，以將文檔從所有這些存儲區傳輸到ONLYOFFICE™文檔模塊。</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>服務條款</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>使用此選項可自動備份門戶網站數據。</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>自動備份</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>{0}自動備份{1}選項用於使門戶網站數據備份過程自動化，以便以後可以將其還原到本地服務器。選擇數據存儲，自動備份週期和已保存副本的最大數量。{2} {0}注意：{1}之前，您可以將備份數據保存到第三方帳戶（DropBox，Box.com，OneDrive或Google Drive） ），則需要將此帳戶連接到ONLYOFFICE公共文件夾。</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>轉到標題頁</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>備份</value>
+  </data>
+  <data name="BackupConsumerStorage" xml:space="preserve">
+    <value>第三方存儲</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>要存儲的最大備份副本數</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE 文件</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>下載備份</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>在備份中包括郵件</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>未連接任何第三方服務。{0}轉到“文檔”模塊進行連接。</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>您可以使用下面的連結將備份下載到本地驅動器。該連結將在請求後的24小時內處於活動狀態。</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>存儲</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>臨時</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>如果要獲取門戶網站上包含的所有數據作為文件，請使用此選項。</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>您需要將第三方帳戶（DropBox，Box.com，OneDrive或Google Drive）連接到ONLYOFFICE Common文件夾，然後才能在其中保存備份。</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>增加{!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>瀏覽器</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>加入新聯絡人</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>通過ＳＭＳ</value>
+  </data>
+  <data name="ButtonTfaAppEnable" xml:space="preserve">
+    <value>通過身份驗證器應用</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>呼叫</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>通話結束</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>連接中</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>通話進行中</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>傳入</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>您輸入的所有數據都將丟失。你確定你要繼續嗎？</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>郵件已成功更改</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>變更標誌</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>密碼已成功更改</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>確認操作的連結已發送至：email（門戶網站所有者的電子郵件地址）。</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>一月，二月，三月，四月，五月，六月，七月，八月，九月，十月，十一月，十二月</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>選擇所有者</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>選擇{！user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>清空篩選條件</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>亮藍色</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>深綠色</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>深藍色</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>柔和綠色</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>純橙色</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>顏色主題</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>野粉色</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>評論已被刪除</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>斷開</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>請確認您要停用門戶</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>請確認您要刪除門戶</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>您確定要將門戶地址更改為{0}嗎？</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>門戶網站所有者已成功更改。 {0}在10秒內，您將被重定向到{1}此處{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>請確認您要將門戶網站所有者更改為{0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>加入</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>您已成功確認註冊。創建密碼並開始工作！</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>請確認您要重新激活門戶</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>您確定要刪除您的評論嗎？</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>刪除評論</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>祝賀</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>連接</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>聯繫資訊</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>控制面板</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>控制面板</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>
+{0}會話生存期{1}允許設置時間（以分鐘為單位），然後門戶網站用戶將需要再次輸入門戶網站憑據才能存取門戶網站。{2}保存後，所有用戶將從門戶網站註銷。</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>壽命（分鐘）</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>會話壽命</value>
+  </data>
+  <data name="CopyEmailAndPassword" xml:space="preserve">
+    <value>複製電子郵件和密碼</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>複製連結</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>企業用途</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>禁止LDAP用戶進行密碼恢復操作</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>SSO用戶禁止密碼恢復操作</value>
+  </data>
+  <data name="CreateEmailOnDomain" xml:space="preserve">
+    <value>在網域名稱上創建電子郵件</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>建立新的個人資料</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>創建備份中</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>自定網域名稱</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>客制化</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>添加項目</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>添加項目</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>大圖標100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>變更圖片</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>項目設定</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}自定義導航{1}-是更改導航選單的設置。{2}添加您自己的項目以提高門戶的可用性。請注意，如果您的站點使用HTTPS，則所有連結也必須使用HTTPS，否則警告將顯示在瀏覽器中。</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="CustomNavigationLabelPlaceholder" xml:space="preserve">
+    <value>例</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>除去項目</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>在選單中顯示</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>在首頁上顯示</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>小圖標，16x16</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>自定導航</value>
+  </data>
+  <data name="CustomNavigationURLHeader" xml:space="preserve">
+    <value>網址</value>
+  </data>
+  <data name="CustomNavigationURLPlaceholder" xml:space="preserve">
+    <value>http://example.com</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>數據備份</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value> {0}數據備份{1}”選項用於備份門戶網站數據，以便以後將其還原到本地服務器。選擇數據的存儲（不要忘記輸入第三方存儲詳細信息以便能夠存取它）。{2}
+如果您選擇包括郵件，則僅備份最近30天的郵件。{2}
+{0}注意：{1}您需要將第三方帳戶（DropBox，Box.com，OneDrive或Google Drive）連接到ONLYOFFICE Common文件夾，然後才能在其中保存備份。</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>數據管理</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>您的帳戶已成功停用。{0}在10秒鐘內，您將被重定向到{1}此處{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>門戶網站停用/刪除</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>使用此選項可暫時停用門戶。</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>模組選項</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>預設起始頁</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>預設設置</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>此操作無法撤消。
+您確定要刪除{0} {！group}嗎？</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>您的門戶已成功刪除。 {0}在10秒內，您將被重定向到{1}此處{2}</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>刪除我的帳號</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>刪除我的個人資料</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>注意！您將要刪除您的帳戶。</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>點擊“刪除我的帳戶”按鈕，即表示您同意我們的{0}隱私權政策{1}。</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>將個人資料刪除說明發送至電子郵件地址</value>
+  </data>
+  <data name="DeleteProfileSuccessMessage" xml:space="preserve">
+    <value>您的帳戶已成功刪除。</value>
+  </data>
+  <data name="DeleteProfileSuccessMessageInfo" xml:space="preserve">
+    <value>請參閱我們的{0}隱私權政策{1}，以了解有關刪除帳戶和與其相關聯的數據的更多信息。</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>刪除個人資料對話框</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>刪除個人資料</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>
+{！User} {0}將被刪除。</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>可供他人使用的用戶個人文件將被刪除。為避免這種情況，必須在刪除之前開始數據重新分配過程。</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>使用此選項永久刪除您的門戶。</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>修改{！group}</value>
+  </data>
+  <data name="DesktopEditorsFor" xml:space="preserve">
+    <value>{0}的ONLYOFFICE桌面編輯器</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user}將不會出現在啟用{!users} 清單中</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>確認操作的鏈接已發送至{0}（門戶網站所有者的電子郵件地址）。</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS設置</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>文件服務</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>文檔服務位置指定安裝了文檔服務的服務器的地址。請更改“＆lt; editors-dns-名稱＆gt;”下面幾行中的服務器地址，其餘行保持原樣。</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>文件服務地點</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>文件編輯服務地址</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>例: {0}</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>
+{1}文檔服務{2}是一種服務器服務，它可以執行文檔編輯，並可以將文檔文件轉換為適當的OfficeOpen XML格式。</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>來自社區服務器的請求的文檔服務地址</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>來自文檔服務的請求的社區服務器地址</value>
+  </data>
+  <data name="DocumentsForDevices" xml:space="preserve">
+    <value>{0}個設備的ONLYOFFICE文檔</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0}前</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0}天</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0}天</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0}天</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>只是</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0}小時</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0}小時</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0}小時</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0}分鐘</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0}分鐘</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0}分鐘</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0}個月</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0}個月</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0}個月</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>前天</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>明天</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>編輯照片</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>編輯個人資料</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>激活說明將發送到輸入的電子郵件</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>使用激活電子郵件中提供的連結。還沒有收到帶有激活連結的電子郵件嗎？</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>請激活您的電子郵件以存取所有門戶功能。</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>再次請求激活</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>激活電子郵件已發送到您的電子郵件地址。請點擊消息中的鏈接以激活您的帳戶。</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>電子郵件激活</value>
+  </data>
+  <data name="EmailAndPasswordAmiId" xml:space="preserve">
+    <value>輸入您的Instance　ID</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="EmailAndPasswordCopiedToClipboard" xml:space="preserve">
+    <value>電子郵件和密碼已復製到剪貼板</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>您的門戶網站已註冊到以下域：</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>密碼錯誤</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectAmiId" xml:space="preserve">
+    <value>Instance ID不正確。</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>不正確的電子郵箱地址</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>促銷代碼不正確</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>有促銷碼嗎？在這裡輸入</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>您的門戶是通過以下電子郵件註冊的：</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>這些設置已成功保存</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>輸入密碼</value>
+  </data>
+  <data name="EmailAndPasswordTypePasswordRecommendation" xml:space="preserve">
+    <value>（最少{0}個字符）</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>密碼及其確認碼不符</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>變更電子郵件</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>激活說明將發送到輸入的電子郵件</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>電郵變更</value>
+  </data>
+  <data name="EmailIsAvailable" xml:space="preserve">
+    <value>電子郵件可用</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>電子郵件未激活</value>
+  </data>
+  <data name="EmailOnDomainIsNotCreated" xml:space="preserve">
+    <value>網域名稱上的電子郵件未創建</value>
+  </data>
+  <data name="EmailPopupHelper" xml:space="preserve">
+    <value>{0}在丟失密碼的情況下，需要主要電子郵件來恢復對門戶的存取權限並發送通知。{1}您可以在門戶域上將新電子郵件作為主要郵件。在這種情況下，您必須設置一次性密碼，以便用戶可以首次登錄到門戶網站。{2}登錄到門戶網站時，主電子郵件可用作登錄名。{3}</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>全部{!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!使用者}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>員工搜尋</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>沒有數據佔用存儲空間</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>啟用LDAP認證</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>啟用SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user}將會被再次顯示為啟用</value>
+  </data>
+  <data name="Encryption" xml:space="preserve">
+    <value>隱私室</value>
+  </data>
+  <data name="EncryptionOff" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="EncryptionOn" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>輸入新的電子郵件地址</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>您無權查看此頁面</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>錯誤403-禁止</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>沒有權限執行此動作</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>門戶的存取受到限制。</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>壞鍵</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>錯誤的請求</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>無效的電子郵件或過期的連結</value>
+  </data>
+  <data name="ErrorDefaultStorageMethod" xml:space="preserve">
+    <value>僅用於默認磁碟存儲的方法。請先關閉所有第三方存儲，然後再繼續。</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>您的個人資料已被暫停</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>
+擁有此電子郵件的{！User}已被註冊</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>來自該域的電子郵件不允許註冊</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>電子郵件字段為空</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>當前電子郵件和新電子郵件相同</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>請填寫所有字段</value>
+  </data>
+  <data name="ErrorEmptyMessage" xml:space="preserve">
+    <value>訊息文字為空</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>找不到上傳的文件</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>輸入你的電子郵箱地址</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>輸入您的名字</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>輸入您的姓氏</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>鏈接已失效</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>圖像尺寸太大</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>圖像文件太大</value>
+  </data>
+  <data name="ErrorIncorrectUserName" xml:space="preserve">
+    <value>名字或姓氏不正確</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>無效的激活連結</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>門戶的存取受到限制</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>您只能在此字段中輸入255個字符。</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>您最多只能為此字段輸入64個字符。</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>你的瀏覽器不支持Javascript！</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>您的定價方案不支持此選項</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>日期格式無效</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>不正確的電子郵件</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>無效的域名</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>密碼為空。</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>從{0}到{1}個字符</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>密碼必須包含</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>密碼必須包含</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>數字</value>
+  </data>
+  <data name="ErrorPasswordNoSpaces" xml:space="preserve">
+    <value>沒有空間</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>特殊字符</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>大寫字母</value>
+  </data>
+  <data name="ErrorPasswordOnlyLatinLetters" xml:space="preserve">
+    <value>只有拉丁字母</value>
+  </data>
+  <data name="ErrorPasswordRechange" xml:space="preserve">
+    <value>必須使用新密碼</value>
+  </data>
+  <data name="ErrorRequestLimitExceeded" xml:space="preserve">
+    <value>超出了請求限制</value>
+  </data>
+  <data name="ErrorServerEditionMethod" xml:space="preserve">
+    <value>僅用於服務器版本的方法。</value>
+  </data>
+  <data name="ErrorTenantTooShort" xml:space="preserve">
+    <value>租戶域不能為空。</value>
+  </data>
+  <data name="ErrorTenantTooShortFormat" xml:space="preserve">
+    <value>域名長度必須介於{0}和{1}個字符之間。</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>未知的圖檔類型</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>找不到用戶</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>找不到使用“ {0}”電子郵件的用戶</value>
+  </data>
+  <data name="ErrorWaitForBackupProcessComplete" xml:space="preserve">
+    <value>備份過程已在其中一個門戶網站上開始。請等待完成，然後再繼續。</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>歐盟（愛爾蘭）地區</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>每週</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>意見反饋支持</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>超出最大文件大小</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>注意：文件大小不能超過{1} {0} {2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>一段時間</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>自</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>最近3個月</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>上個月</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>上個星期</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>確認您的帳戶的連結已發送到指定的電子郵件</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>忘記密碼？</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>對於手機</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>要登錄，請點擊此{0}連結{1}</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>對於您的電腦</value>
+  </data>
+  <data name="FreeOfficeDesktopDndMobileApps" xml:space="preserve">
+    <value>免費的ONLYOFFICE桌面和移動ＡＰＰ</value>
+  </data>
+  <data name="FreeSms" xml:space="preserve">
+    <value>免費ＳＭＳ</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>自</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>全文搜索服務未運行</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>全文搜索服務正在運行</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx 設定</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>要使用全文搜索，您需要在服務器上安裝sphinx.2.2.10。</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>用於sphinx，indexer 和搜search daemon的設置。您需要指定被searchd搜索守護程序監聽的主機和端口號。這些設置必須與sphinx.conf.in文件的searchd部分中的sphinx配置一致。</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>立即獲取</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>取得縮短連結</value>
+  </data>
+  <data name="GoToContactListBtn" xml:space="preserve">
+    <value>移至聯絡人清單</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>商標</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>歡迎頁面設置</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>群組</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>組長</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>群組</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>來賓</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>來賓</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>如果您希望{1}停用{2}該門戶，則您的門戶及其所有相關信息將被阻止，以便在特定時期內無人可以存取它。為此，請點{1}停用{2}按鈕。確認操作的連結將發送到門戶網站所有者的電子郵件地址。{0}如果您想返回ONLYOFFICE™門戶網站並繼續使用它，則需要使用確認電子郵件中提供的第二個連結。 。因此，請將此電子郵件保存在安全的地方。{0}如果您不打算使用ONLYOFFICE™門戶，並希望{1}刪除{2}，則門戶網站會使用{1}刪除來永久提交您的請求{2}按鈕。請記住，您將無法重新激活門戶或恢復與其關聯的任何信息。</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>
+{1}管理員消息設置{2}是聯繫門戶網站管理員的一種方式。{0}啟用此選項可以在{1}登錄{2}頁面上顯示聯繫表單，以便人們可以將消息發送到門戶網站管理員，以防他們無法存取門戶。{0}要使設置的參數生效，請單擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>
+{1}顏色主題{2}使您可以根據公司品牌自定義門戶界面。{0}從左側列表中選擇一種顏色主題。{0}要應用選定的顏色主題，請點選{1 }本節底部的保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>
+{0}“默認起始頁” {1}是一種選擇登錄門戶或在登錄後點選ONLYOFFICE™徽標後立即進入的模塊的方法。要使設置的參數生效，請單擊該部分底部的{0}保存{1}按鈕。</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>
+{1} DNS設置{2}是為ONLYOFFICE™門戶設置備用URL的一種方法。{0}選中“ {1}自定義域名{2}”框，然後在以下位置為ONLYOFFICE™門戶指定您自己的域名： {0}要使您設置的參數生效，請單擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}“歡迎頁面設置” {2}是一種更改默認門戶標題的方法，該默認門戶標題將顯示在門戶的“ {1}歡迎頁面{2}”上。門戶電子郵件通知的{1}發件人{2}字段也使用相同的名稱。{0}在{1}標題{2}字段中輸入您喜歡的名稱。</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>共享連結以邀請用戶存取您的門戶。</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>
+{1}語言和時區設置{2}是一種為所有門戶網站用戶更改整個門戶網站的語言並配置時區的方法，以便以正確的日期和日期顯示ONLYOFFICE™門戶網站的所有事件。時間。{0}要使您設置的參數生效，請點擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>
+{1}徽標設置{2}是一種更改默認徽標的方法，該默認徽標將顯示在門戶網站的{1}歡迎頁面{2}上。{0}要替換門戶網站徽標，請單擊{1}更改徽標{2 }鏈接到右側，然後選擇存儲在計算機上的圖像以將其加載到門戶。{0}請注意，您可以上傳不大於{1} 250x100像素{2}的圖像，否則將需要重新調整大小地點。最大圖像大小不能超過{1} 1 MB {2}。</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}受信任的郵件域設置{2}是一種用於指定用於用戶自註冊的郵件服務器的方法。{0}您可以選中“ {1}自定義域{2}”選項，然後在下方的字段，以便擁有該帳戶的人可以通過單擊{1}登錄{2}頁面上的“加入”鏈接或禁用此選項來自行註冊。{0}進行參數設置您設置為生效，請點擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>
+{1}密碼強度設置{2}是確定密碼在抵抗猜測和蠻力攻擊中的有效性的一種方法。{0}使用{1}最小密碼長度{2}欄來確定密碼應保留多長時間是。選中下面相應的框，確定密碼中必須使用的字符集。{0}要使設置的參數生效，請單擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>
+{1}公共門戶網站{2}是一個免費選項，允許任何人無需註冊即可查看您的公共內容。沒有可用的私有項目，並且此類門戶網站已禁用CRM模塊。{0}註冊到公共門戶網站的用戶數量不受限制，根據請求向門戶網站管理員添加新用戶。使用{1}立即註冊新用戶{2}選項可以刪除所有註冊確認信息。</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>您可以在此處更改您的門戶地址。輸入將顯示在onlyoffice.com/onlyoffice.eu門戶地址旁邊的部分。{0}
+{1}請注意{2}：點選{1}保存{2}按鈕後，您的舊門戶地址將對新的ONLYOFFICE用戶可用。</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>
+{1}門戶版本{2}是在可用的ONLYOFFICE™門戶版本之間進行切換的一種方法。{0}您可以使用新版本或切換回門戶的先前版本。{0}要進行參數設置設置生效，請點擊該部分底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>
+{1}團隊模板{2}是一種可自定義的方式來命名組織（或組），其成員及其活動。{0}下拉{1}模板{2}列表以選擇可用的預設之一或輸入從列表中選擇{1}自定義{2}選項的名稱。{0}要應用所選模板，請使用本節底部的{1}保存{2}按鈕。</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>將門戶遷移到最接近您地理位置的區域的服務器，將使門戶響應更快。您的用戶和客戶端離服務器區域越近，門戶網站的速度就越快。{0}要開始遷移過程，請點底部的{1}更改服務器區域{2}按鈕。{0} { 1}注意：{2}一旦開始處理，就無法取消。另請注意，由於技術限制，僅過去30天的郵件將被轉移。</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>輔助說明中心</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>該計劃的目的是合法地宣傳ONLYOFFICE™，以收取推薦人購買的訂閱的佣金。</value>
+  </data>
+  <data name="HelpPrivacyRoomSettings" xml:space="preserve">
+    <value>啟用此選項可創建用於文檔編輯和共同創作的安全環境。使用AES-256加密算法將加密存儲在Private Room中的所有文檔以及進行共同編輯時的數據傳輸，以防止存取您的數據。{0} Private Room可通過{3} ONLYOFFICE Desktop Editors {4}訪問。 。首先，用戶必須在其“連接到雲端”部分中登錄ONLYOFFICE雲。連接後，他們會自動獲得一對加密密鑰。在{5}此處{6}了解其工作原理。</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隱藏</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>輸入您的AIM帳戶</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>輸入您的Blogger個人資料</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>輸入你的電子郵箱</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>輸入您的Facebook個人資料</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>輸入您的帳戶登錄名或ID</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>輸入您的GoogleTalk帳戶</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>輸入您的GoogleBuzz個人資料</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>輸入您的Google帳戶</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>輸入您的ICQ帳戶</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>輸入您的Jabber帳戶</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>輸入您的LiveJournal個人資料</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>輸入您的手機號碼</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>輸入您的MSN帳戶</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>輸入您的MySpace個人資料</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>輸入你的電話號碼</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>輸入您的Skype帳戶</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>輸入您的Twitter帳戶</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>輸入您的Yahoo 帳戶</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>主辦登錄</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>主辦</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>主辦密碼</value>
+  </data>
+  <data name="ImportButtonManually" xml:space="preserve">
+    <value>手動</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User}用戶已存在</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>尚未收到任何联係人。{0}您還可以從其他個人資料導入聯繫人。</value>
+  </data>
+  <data name="ImportContactsEmptyEmail" xml:space="preserve">
+    <value>輸入用戶電子郵件</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>輸入用戶名</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>輸入用戶的姓氏</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>輸入你的電子郵箱</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>輸入您的名字</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>導入錯誤</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>輸入您的姓氏</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>請輸入{！user}的名字，姓氏和電子郵件，以在上面的字段中添加到門戶中。單擊“添加”按鈕，將{！user}添加到列表中。</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>自檔案</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>所選用於導入的文件格式錯誤。{0}，請選擇另一個文件，然後再次重複導入過程。</value>
+  </data>
+  <data name="ImportContactsFromFileErrorTooLarge" xml:space="preserve">
+    <value>所選文件太大。上傳的文件大小不得超過：{0} kB。</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>將{！users}添加到門戶</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>確保正確填寫所有用戶字段，包括名字，姓氏和電子郵件地址</value>
+  </data>
+  <data name="ImportContactsInvalidEmail" xml:space="preserve">
+    <value>無效的用戶電子郵件</value>
+  </data>
+  <data name="ImportContactsInvalidFirstName" xml:space="preserve">
+    <value>無效的用戶名</value>
+  </data>
+  <data name="ImportContactsInvalidLastName" xml:space="preserve">
+    <value>無效的用戶姓氏</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>分隔符號</value>
+  </data>
+  <data name="ImportEncoding" xml:space="preserve">
+    <value>編碼</value>
+  </data>
+  <data name="ImportFileCSV" xml:space="preserve">
+    <value>選擇從Outlook，Gmail，Thunderbird或某些其他應用程序導出或手動生成的CSV文件。</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>自Google匯入</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>自Yahoo匯入</value>
+  </data>
+  <data name="ImportSelectAnotherSource" xml:space="preserve">
+    <value>選擇其他來源</value>
+  </data>
+  <data name="ImportTextDelimiter" xml:space="preserve">
+    <value>文字定界符</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>您當前的定價計劃允許您添加{0}個用戶。</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>升級您的定價計劃或將更多用戶添加為具有隻讀權限的訪客。您稍後將可以在“人員”模塊中更改其角色。</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>添加用戶</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>升級您的計劃或將更多用戶添加為具有隻讀權限的訪客。您稍後可以在“人員”模塊中更改他們的角色，或者{0}了解非營利性使用情況{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>您的定價方案不允許您添加更多用戶</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>設置合規性</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>用戶名或密碼無效。</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>為了開始在門戶網站上工作，您應該以右側形式查看您的{0}名{1}和{0}姓氏{1}是否正確，並設置一個{0}個人密碼{1 }才能登錄。</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>邀請連結</value>
+  </data>
+  <data name="InviteLinkValidInterval" xml:space="preserve">
+    <value>該連結僅在{0}天內有效。</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>您從您的朋友，熟人或同事那裡收到此門戶的連結</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>您的朋友，熟人或同事將您添加到此門戶</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>邀請您加入此門戶！</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>將用戶添加為{！guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>邀請用戶進入門戶</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>
+{0} IP安全性{1}用於限制從除某些地址之外的所有IP地址登錄到門戶。您可以使用IPv4格式的精確IP地址（＃。＃。＃。＃，其中＃是從0到255的數字值）或IP範圍（在＃。＃。＃。＃-中）設置允許的IP地址。 ＃。＃。＃。＃格式）。 IP安全性不適用於門戶網站所有者，他們可以從任何IP地址存取門戶網站。</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP保全</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>首先，您需要指定您的當前IP或您當前IP地址所屬的IP範圍，否則在保存設置後，您的門戶網站存取將被阻止。門戶網站所有者可以從任何IP地址存取門戶網站。</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>也遷移ONLYOFFICE™郵件（不推薦）</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>成為我們的會員</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>您可以繼續將用戶添加為{！guests}或更改具有更大用戶數量的用戶的定價計劃。</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP設定</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>用戶認證</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>如果當前Windows用戶沒有從LDAP服務器/ Active Directory讀取的權限，請啟用此選項，然後輸入具有讀取權限的其他用戶的憑據。</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>連接錯誤</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>空字段</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>如果要自動將用戶從LDAP服務器/ Active Directory添加到ONLYOFFICE™，請啟用此選項。添加的用戶將能夠使用其LDAP服務器/ Active Directory憑據進行授權。 ONLYOFFICE™不會在本地保存用戶密碼，而是對將其登錄名和密碼發送到LDAP服務器/ Active Directory的用戶進行身份驗證。</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>無法創建用戶，收到的數據不正確。</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>服務器無法獲取設置。</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>服務器無法保存設置。</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>登入名或密碼錯誤。</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>找不到LDAP網域。</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>找不到任何群組。</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>無效的用戶過濾器值。</value>
+  </data>
+  <data name="LdapSettingsErrorLostRights" xml:space="preserve">
+    <value>您試圖剝奪自己的管理員權限。您的管理員權限不受影響。</value>
+  </data>
+  <data name="LdapSettingsErrorRemovedYourself" xml:space="preserve">
+    <value>您的帳戶未連結到LDAP目錄，並且LDAP密碼不再有效。請在個人資料設置頁面上更改密碼或將密碼設置為您的帳戶。</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>未知錯誤。</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>找不到用戶。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>無法獲得一個或幾個組的“組屬性”。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>群組過濾器不正確。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>無法獲得一個或幾個組的“組名”屬性。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>
+無法獲得一個或多個用戶的登錄屬性。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>無法連接到LDAP服務器。請檢查服務器地址和端口號是否正確。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>無法獲取一個或多個用戶的用戶屬性。</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>組屬性</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>輸入組對象屬性，該屬性指定該組包括哪些用戶。</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>群組DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>在包含要添加組的目錄中輸入專有名稱。</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>群組過濾器</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>使用搜索LDAP過濾器選擇要導入的組。請注意，只會添加這些組中的用戶。</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>群組會員</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>如果要將組從LDAP服務器/ Active Directory添加到ONLYOFFICE™，請啟用此選項。請注意，只會添加屬於這些組的用戶。</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>組名屬性</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>請指定與組名稱相對應的對象屬性。</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>伺服器內部錯誤</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>登入屬性</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>輸入與用戶登錄名對應的對象屬性。</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>在普通門戶網站用戶上修改LDAP用戶</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>登入 DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>輸入具有存取權限的用戶密碼，以從LDAP服務器/ Active Directory中讀取數據。</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>端口號</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>輸入您的LDAP服務器/ Active Directory的端口號。</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>預設設置</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>恢復為預設設置</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>儲存設定</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>伺服器</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>輸入不帶端口號的LDAP服務器URL，例如LDAP：//mycompany.com。</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>添加用戶</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>證書驗證</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>檢查LDAP支持設置</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP斷開連接</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>從LDAP服務器檢索組群列表</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>從LDAP服務器檢索用戶列表</value>
+  </data>
+  <data name="LdapSettingsStatusGivingRights" xml:space="preserve">
+    <value>將用戶{0}設置為{1}管理員</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>加載LDAP基本信息</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>刪除用戶中</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>刪除先前通過LDAP加載的過時組</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldRights" xml:space="preserve">
+    <value>刪除先前已通過LDAP加載的過時存取權限</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>禁用以前通過LDAP加載的過時用戶配置文件</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>儲存群組中</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>保存設置中</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUserPhoto" xml:space="preserve">
+    <value>正在儲存相片</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>保存用戶中</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>同步用戶</value>
+  </data>
+  <data name="LdapSettingsStatusUpdatingAccessRights" xml:space="preserve">
+    <value>更新用戶存取權限</value>
+  </data>
+  <data name="LdapSettingsStatusUpdatingUserPhotos" xml:space="preserve">
+    <value>更新用戶照片</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>需要更安全的身份驗證類型。請使用加密連接或在服務器上啟用普通身份驗證。</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>保存已成功完成</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>同步用戶</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>已達到當前的定價計劃用戶限制</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>當前LDAP服務器不支持StartTLS。</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>LDAP操作過多。</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>用戶屬性</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>輸入用於確定此用戶是否為組成員的用戶對象屬性。</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>用戶DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>在包含要添加用戶的目錄中輸入專有名稱。</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>用戶過濾器</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>使用搜索LDAP過濾器選擇必須導入的用戶。</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>請指定具有LDAP服務器/ Active Directory讀取存取權限的{0}用戶。</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>無法獲得用戶/組對象的唯一ID。默認情況下，系統將嘗試匹配以下標識符之一：entryUUID，nsuniqueid，GUID，objectSid。如果沒有一個屬性與您的LDAP服務器相對應，請在web.appsettings.config文件的ldap.unique.id設置中指定必要的屬性。</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>用戶已從LDAP導入。
+與您的LDAP管理員聯繫
+如果要更改鎖定的配置文件字段。</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>用戶已從LDAP導入</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>瞭解更多...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>執照不正確</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>該許可證對該門戶網站版本無效。</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>門戶的數量超過了許可證允許的數量</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>用戶數量超過了許可證允許的數量</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>上傳成功</value>
+  </data>
+  <data name="LicenseUploadedOverdue" xml:space="preserve">
+    <value>上傳成功。 {0}自{2}起不支持此許可證的使用和更新。{1}</value>
+  </data>
+  <data name="LicenseUploadedOverdueSupport" xml:space="preserve">
+    <value>上傳成功。 {0}自{2}起不支持此許可證。{1}</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>加載中請稍候</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>載入中...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>門戶存取受到限制。請與門戶網站管理員聯繫。</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>加入</value>
+  </data>
+  <data name="LoginSettings" xml:space="preserve">
+    <value>登入設置</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>雲服務管理員為所有用戶啟用了通過代碼生成應用程序進行的{0}兩步身份驗證{1}。</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>通過社交網絡登入</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>或登錄：</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>找不到關聯的第三方帳戶。您需要首先在個人資料編輯頁面上連接您的社交網絡帳戶。</value>
+  </data>
+  <data name="LoginWithBruteForce" xml:space="preserve">
+    <value>授權暫時被阻止。</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>徽標設置</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>該電子郵件是自動生成的，您無需回答。</value>
+  </data>
+  <data name="MailIcsCalendarDescriptionLabel" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>地圖</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>沒有位置</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>組織者</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>再發</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>什麼時候</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>哪裡</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>誰</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>沒有未讀郵件。請轉到郵件以閱讀所有郵件。</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>郵件服務器</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>連接成功</value>
+  </data>
+  <data name="MailServiceCouldNotGetHostnameErrorMsg" xml:space="preserve">
+    <value>錯誤：無法獲取主機名</value>
+  </data>
+  <data name="MailServiceCouldNotGetTokenErrorMsg" xml:space="preserve">
+    <value>錯誤：無法獲得身份驗證令牌</value>
+  </data>
+  <data name="MailServiceDatabase" xml:space="preserve">
+    <value>郵件服務器數據庫</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>例: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>配置郵件服務器</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>該選項允許使用{2} Docker安裝{3}將門戶網站連接到安裝在遠程計算機上的{0} Mail Server {1}。{4} {0}注意：{1}確保端口{0在安裝了{0}郵件服務器{1}的計算機上打開了} 3306 {1}和{0} 8081 {1}。我們也強烈建議您更改{0}郵件服務器{1}數據庫存取密碼。</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>隱藏進階設置</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>郵件服務器數據庫主機</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>郵件服務器數據庫密碼</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>ping主機時出錯{0}：{1}</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>服務已成功連接</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>郵件服務器IP</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>顯示進階設定</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>建立連接後，{0}郵件服務器{1}將在{0}郵件{1}模塊內{2}可用{3}，並且您將能夠使用自己的域名為門戶網站用戶創建郵箱。</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>郵件服務器連接設置</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>郵件服務器數據庫用戶名</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>警告：{0}郵件{1}模塊中已有用戶的郵件域設置和郵箱。在此處更改設置，您會意識到這些更改會影響其工作並導致郵件服務器故障。如果您將{0} Mail Server {1}完全移動到另一台計算機和/或更改了數據庫存取憑據，只需在此處更新{0} Mail Server IP {1}和/或憑據。如果您創建了新的{0}郵件服務器{1}並希望連接它，則需要首先在{2}郵件服務器頁面{3}上刪除舊數據。</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>整合</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>保全</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>建立您的CRM數據庫</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>管理客戶，跟蹤銷售並開具發票</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>在線使用.docx，.xlsx和.pptx</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>直接在門戶上查看和編輯文檔</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>查看您的團隊成員</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>查看門戶{！users}，添加或導入</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>參與專案</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>使用甘特圖控制任務並跟蹤性能</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>以下是一些入門步驟：</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>歡迎來到ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>標示為已讀</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>請授權自己。</value>
+  </data>
+  <data name="MessageAuthorizeLdap" xml:space="preserve">
+    <value>請登錄到：</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>電子郵件激活說明已發送到{0}電子郵件地址</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>電子郵件更改說明已成功發送</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>您的電子郵件已成功激活。</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>將邀請說明發送至{0}電子郵件地址</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>將電子郵件激活說明發送到{0}電子郵件地址</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>將電子郵件更改說明發送到{0}電子郵件地址</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>將密碼更改說明發送到{0}電子郵件地址</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>請輸入您在門戶網站上註冊時使用的電子郵件。密碼恢復說明將發送到該電子郵件地址。</value>
+  </data>
+  <data name="MessageYourPasswordSendedToEmail" xml:space="preserve">
+    <value>如果存在使用{0}電子郵件的用戶，則密碼更改說明已發送到該電子郵件地址。</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™是一個雲端辦公室，使您可以在一個地方管理文檔，項目，團隊和客戶關係。</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>在線文檔編輯器，項目管理工具，業務工具，crm系統，甘特圖，在線協作，雲辦公室，在線word，文檔管理，在線電子表格，在線辦公室，協作編輯，在線辦公室應用程序，在線文檔</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>遷移</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>{0}門戶區域遷移{1}功能僅適用於付費門戶的所有者。</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>{0}門戶區域遷移{1}功能僅適用於門戶網站所有者。</value>
+  </data>
+  <data name="MigrationPortalProcessTitle" xml:space="preserve">
+    <value>{0}門戶的遷移正在進行中。</value>
+  </data>
+  <data name="MigrationPortalText" xml:space="preserve">
+    <value>遷移到新存儲過程結束後，門戶將再次準備工作。</value>
+  </data>
+  <data name="MigrationPortalTitle" xml:space="preserve">
+    <value>遷移</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>新手機</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>主要行動電話</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>更改電話號碼</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>轉到頁碼更改電話號碼。</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>要更改電話號碼，請使用帶有已發送到新電話的代碼的短信。</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>已發送</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>更換手機</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>有關如何更改用戶手機號碼的說明將發送到用戶電子郵件地址</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>要更改號碼，您需要刪除當前的電話號碼</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>
+監控</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>更多操作</value>
+  </data>
+  <data name="MoreLanguages" xml:space="preserve">
+    <value>更多語言</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>我的個人檔案</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="NameInFirstLine" xml:space="preserve">
+    <value>顯示字段名稱</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>樣板</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>團隊樣板</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>永遠不顯示</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>新門戶名稱</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>您尚未添加任何域。按照{0}連結{1}添加第一個域。</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>沒有未接來電</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>沒有其他可用的運算符，請回答。</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>以後可以在{0} People {1}模塊中更改添加為{！guests}的用戶的角色。</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>它們將不包含在門戶網站定價的用戶總數中。</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>如果您在可用語言列表中找不到自己的語言，請隨時通過{0}documentation@onlyoffice.com{1}給我們寫信，以參與翻譯。</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>通知{！users}有關門戶遷移的信息</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>應用程式</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG 區域</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>擁有者</value>
+  </data>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>您對支援和更新的訂閱已過期</value>
+  </data>
+  <data name="PaidPeriodStandaloneLife" xml:space="preserve">
+    <value>您對支援和更新的訂閱將在{0} {1}中到期</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>變更密碼</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>密碼變更</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>最小密碼長度</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>找回密碼</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>字符</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>使用數字</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>使用特殊字符</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>使用大寫字母</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>現在，您可以創建一個新密碼。</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>需要付款</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>付款</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>支付歷史</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>待處理</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>超出磁蝶空間配額</value>
+  </data>
+  <data name="PersonalTariffExceedLimit" xml:space="preserve">
+    <value>即將超過存儲空間量：{0}</value>
+  </data>
+  <data name="PersonalTariffExceedLimitInfoText" xml:space="preserve">
+    <value>您的可用存儲空間已用完。超出存儲配額後，您將無法創建或上傳新文件，並且所有現有文件更改都將被丟棄。{2}您可以刪除不需要的文件或{0}聯繫我們的支持團隊{1}以查找了解如何獲得更多的可用空間。</value>
+  </data>
+  <data name="PhotoMaxSize" xml:space="preserve">
+    <value>JPG或PNG，最大{0}</value>
+  </data>
+  <data name="PhotoNotSelected" xml:space="preserve">
+    <value>未選擇照片</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>請稍候...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>公共門戶</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>私人門戶</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>超出限制（{0} Mb磁碟空間）</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>此功能僅在免費資費上啟用</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>門戶存取設置</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>超出限制（{0}個活躍用戶）</value>
+  </data>
+  <data name="PortalEncryptionProcessTitle" xml:space="preserve">
+    <value>正在進行加密過程</value>
+  </data>
+  <data name="PortalEncryptionText" xml:space="preserve">
+    <value>該過程結束後，門戶網站數據將立即可用。</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>門戶名稱</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>門戶網站所有者</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>門戶重命名</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>門戶存取</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>於支援</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>現在</value>
+  </data>
+  <data name="PresentAdminHdr" xml:space="preserve">
+    <value>在控制面板中啟用對企業功能的免費存取：</value>
+  </data>
+  <data name="PresentAdminHideBtn" xml:space="preserve">
+    <value>現在不要</value>
+  </data>
+  <data name="PresentAdminOkBtn" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="PresentItemMobile" xml:space="preserve">
+    <value>在移動瀏覽器中編輯文檔，表格和幻燈片</value>
+  </data>
+  <data name="PresentItemPrivate" xml:space="preserve">
+    <value>Office文檔上的加密協作</value>
+  </data>
+  <data name="PresentItemPro" xml:space="preserve">
+    <value>文檔比較，內容控件，數據透視表</value>
+  </data>
+  <data name="PresentUserHdr" xml:space="preserve">
+    <value>要求您的門戶網站管理員啟用30天的免費專業功能：</value>
+  </data>
+  <data name="PresentUserHideBtn" xml:space="preserve">
+    <value>隱藏此優惠</value>
+  </data>
+  <data name="PresentUserOkBtn" xml:space="preserve">
+    <value>好，謝謝</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>定價頁面僅適用於管理員</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>
+{0}定價頁面設置{1}允許門戶網站管理員對所有用戶啟用或禁用定價頁面可見性，使其僅對門戶網站管理員可見。</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>定價頁面設置</value>
+  </data>
+  <data name="PrintButton" xml:space="preserve">
+    <value>列印</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>模組和工具</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>選擇所需的ONLYOFFICE模塊和工具。禁用的模塊和工具將從所有門戶網站{！users}中隱藏。請記住，再次啟用模塊和工具後，它們也將對所有門戶網站{！users}可用。要限制存取，請參閱“門戶設置”的“存取權限”部分。</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>工具類</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>模組</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>個人資料</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>個人資料已被刪除</value>
+  </data>
+  <data name="ProfileTypePopupHelper" xml:space="preserve">
+    <value>來賓對某些門戶功能和模塊的存取受限</value>
+  </data>
+  <data name="ProjectsForDevices" xml:space="preserve">
+    <value>{0}個設備的ONLYOFFICE項目</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>發表</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>重新啟動</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>您的帳戶已成功重新激活。 {0}在10秒內，您將被重定向到{1}此處{2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>重新分配數據</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>{0}的數據重新分配過程尚未完成。</value>
+  </data>
+  <data name="RecaptchaInvalid" xml:space="preserve">
+    <value>無效的驗證碼</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>重新導向</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>註冊日期</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>立即註冊新的{！users}</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>您的註冊電子郵件</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>拒絕</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>記得</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>預設會話生存期為20分鐘。選中此選項將其設置為1年。要設置自己的值，請轉到設置。</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>刪除個人資料</value>
+  </data>
+  <data name="RequestNewButton" xml:space="preserve">
+    <value>請求新的</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>邀請將發送到輸入的電子郵件</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>重送</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>是否要再次發送邀請？</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>重新發送邀請</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>重設</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>回復</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>備份清單</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>
+如果您從列表中刪除任何項目，則它們對應的文件也將刪除。此操作無法撤消。要刪除所有文件，請使用連結：{0}
+清除列表{1}。</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>回復</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>電腦文件</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>恢復為預設值</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>使用此選項可以從先前保存的備份文件中恢復門戶。</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>尚未創建備份。創建一個或多個備份，使其顯示在此列表中。</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>
+{0}數據還原{1}選項用於還原以前保存的門戶數據（從本地服務器或SaaS門戶）。選擇保存數據的存儲，輸入必要的詳細信息，然後檢查{0}向門戶網站用戶發送通知{1}，以向門戶網站用戶發出有關備份/恢復操作的警報。</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>還原過程結束後，您將自動重定向到門戶。</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>門戶網站的恢復正在進行中。</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>向用戶發送有關門戶網站還原的通知</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>顯示備份清單</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>資料還原</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>在還原過程中，門戶將不可用。還原完成後，所選還原點日期之後所做的所有更改都將丟失。</value>
+  </data>
+  <data name="ReturnToImportSettingsBtn" xml:space="preserve">
+    <value>返回導入設置</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>確認所有拼字都正確無誤。嘗試使用不同關鍵字。</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>未找到符合項目</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>搜索結果</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>查看全部</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>觀看所有影片</value>
+  </data>
+  <data name="SelectDataSource" xml:space="preserve">
+    <value>選擇資料來源</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>傳送</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>發件人電子郵件地址</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>發件人顯示名稱</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>再次發送邀請</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>發送邀請</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>點選這裡加入</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>想要成為門戶網站{！user}？</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>請輸入發送邀請的電子郵件地址：</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>發送測試郵件</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>服務器軟件在處理您的請求時發現錯誤。請等待一段時間，然後重試。如果錯誤仍然存在，則可能需要與站點管理員聯繫。</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>伺服器錯誤</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>伺服器區域</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>設置密碼</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>這是當前版本</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>無效的門戶網站版本</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>亞太地區（新加坡）</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>顯示</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>顯示所有</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>顯示所有結果</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>啟用/禁用工具提示</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>顯示下一則</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>使用任何域中的電子郵件帳戶的用戶都可以註冊。
+要註冊，請輸入您的電子郵件，然後單擊發送邀請。包含激活您的ONLYOFFICE™帳戶鏈接的電子郵件將被發送到指定的電子郵件。</value>
+  </data>
+  <data name="SignInLDAP" xml:space="preserve">
+    <value>登入到：{0}</value>
+  </data>
+  <data name="SignInLDAPHelper" xml:space="preserve">
+    <value>使用公司域的憑據</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>單次登錄</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>驚喜</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>炸彈</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>瘋狂</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>哭</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>跳舞</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>喝</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>生氣</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>眨眼</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>綠色</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>好萊塢微笑</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>傷心</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>音樂</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>微笑</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>微笑</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>抱歉</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>風鏡</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>超</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>舌</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>歡呼</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>
+{0}雙重身份驗證{1}是用戶進入門戶的一種更安全的方式。輸入憑據後，用戶將必須使用從第一次進入門戶網站時指定的號碼輸入從接收到的SMS到移動電話的代碼，或者從身份驗證應用程序輸入的代碼。{2}啟用此選項後，所有門戶用戶的安全門戶存取。 {2}要應用所做的更改，請點擊本部分下方的{0}保存{1}按鈕。{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>不正確的代碼</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>代碼：{0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>該代碼的使用時間已到期。請請求新的短信。</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}注意{1}：只有餘額為正時才能發送SMS消息。您始終可以在SMS提供商帳戶中查看當前餘額。不要忘記及時補充您的平衡。</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>
+{0}注意{1}：在使用兩因素SMS身份驗證之前，您需要至少選擇一個SMS提供程序並在{3} {0}第三方服務{1} {4}頁上對其進行配置。</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>
+{0}注意{1}：通過SMS進行的雙重身份驗證僅適用於付費門戶。</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>雙重身份認證</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0}餘額</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>在您的{0}帳戶上查看</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>短信ｓｍｓ設置不可用</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>您發送了太多短信。請稍後再試。</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>自定設置</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>郵件服務器設置</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP設置</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>如果您將Gmail帳戶用於SMTP服務器，則必須執行以下操作才能發送郵件：通過其標準Web界面登錄所用的Gmail帳戶，並確認有關對ONLYOFFICE™存取嘗試的任何驗證問題。帳戶，以防萬一。{0}我們建議使用端口587或25發送電子郵件，因為其他值可能會阻止SMTP正常工作。</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>需要SMTP設置來設置一個電子郵件帳戶，該帳戶將使用您自己的SMTP服務器（而不是ONLYOFFICE™使用的）從門戶發送通知。請填寫所有字段，然後單擊“保存”按鈕。您可以使用“發送測試郵件”按鈕來檢查您輸入的所有設置是否正確並按預期工作。</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>社會概況</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>來源</value>
+  </data>
+  <data name="SpamSubscriptionDescription" xml:space="preserve">
+    <value>帶有產品更新，公告和特別優惠的電子郵件通知</value>
+  </data>
+  <data name="SpecifyAnExistingEmail" xml:space="preserve">
+    <value>指定現有的電子郵件</value>
+  </data>
+  <data name="SsoAttributesNotFound" xml:space="preserve">
+    <value>驗證失敗（未找到斷言屬性）</value>
+  </data>
+  <data name="SsoAuthFailed" xml:space="preserve">
+    <value>驗證失敗</value>
+  </data>
+  <data name="SsoError" xml:space="preserve">
+    <value>內部服務器錯誤</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>無法使用此身份驗證令牌創建用戶</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>無法保存設置</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>設置不能為空</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>單一登錄已禁用</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>
+找不到驗證代幣</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>無效的綁定：{0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>無效的entityID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>無效的字段映射</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>無效的身份驗證令牌</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>該用戶已被禁用</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>用戶已從SSO導入。如果要更改鎖定的配置文件字段，請與SSO管理員聯繫。</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>用戶已從SSO導入</value>
+  </data>
+  <data name="StatisticsDescription" xml:space="preserve">
+    <value>要增加存儲空間，請選擇升級的價格計劃。{0}要釋放存儲空間，您可以刪除殘疾用戶的個人數據。為此，請轉到用戶個人資料，然後從名稱右側的下拉選單中選擇“刪除個人數據”操作。</value>
+  </data>
+  <data name="StatisticsDescriptionStandalone" xml:space="preserve">
+    <value>要釋放存儲空間，您可以刪除禁用用戶的個人數據。為此，請轉到用戶個人資料，然後從名稱右側的下拉選單中選擇“刪除個人數據”操作。</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>存儲</value>
+  </data>
+  <data name="StorageText" xml:space="preserve">
+    <value>在此頁面上，您可以連接第三方存儲並開始遷移到所選存儲。遷移過程開始後，門戶將不可用。</value>
+  </data>
+  <data name="StorageTitle" xml:space="preserve">
+    <value>儲存設定</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>受信任的郵件域設置</value>
+  </data>
+  <data name="StudioEncryptionSettings" xml:space="preserve">
+    <value>隱私室</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>密碼強度設置</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>語言和時區設置</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>門戶版本</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>訂閱</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>門戶網站所有者或管理員的事件和通知</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>門戶網站每日新聞和事件摘要</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>專案名稱</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>來自所有</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>通知通過</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>訂閱</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>門戶已成功重命名</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>歡迎頁面設置已成功保存</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>設置已成功更新</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>刪除個人資料的說明已發送至{0}電子郵件地址</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>邀請已成功發送</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>發送電子郵件</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>聯繫我們以查找特別優惠</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>減少所需的參數或選擇其他定價計劃。</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>
+立即購買</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>延長</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>您可以延長當前計劃或使用下表進行更改。</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>選擇最適合您需求的計劃。建議的計劃在下面突出顯示。</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>無法選擇該計劃</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>允許的存儲空間大小：{0}。當前存儲空間：{1}。</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>允許的門戶網站用戶數：{0}。當前用戶數：{1}。</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>您無法選擇此計劃，因為存儲空間或用戶數超出了所選定價計劃的限制：</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>定期付款已開始</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>即將超過存儲空間量：{0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>您可以刪除不必要的文件，或{0}單擊此處{1}，以找到門戶的更好定價方案。</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>它將在{0}到期。</value>
+  </data>
+  <data name="TariffExpiredDateStandaloneV11" xml:space="preserve">
+    <value>您的支持和更新訂閱將於{0}到期。</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>您正在使用免費計劃。</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}點擊此處{1}為您的門戶網站上傳許可證文件。</value>
+  </data>
+  <data name="TariffLinkStandaloneLife" xml:space="preserve">
+    <value>要續訂，請{0}單擊此處{1}。</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>您的訂閱已過期。</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>您的ONLYOFFICE™門戶將被禁止{2}。請{0}單擊此處{1}以延長現有計劃或將其更改為適當的計劃。</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>您創建的門戶數量：{0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>定價計劃要到支付年度結束後才能使用。</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>該定價計劃要到3年定價計劃結束後才能使用。</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>要自動延長期限，請確保Avangate帳戶中的“定期付款”複選框處於啟用狀態。</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>要取消定期付款，請轉到您的Avangate帳戶。</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>最多只能為{0}。</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>定價方案</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>為方便起見，使用固定匯率{0}俄羅斯盧布對1美元的匯率計算俄羅斯盧布的匯率。</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>付款</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>您已添加的活動用戶數：{0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>使用的存儲空間：{0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>您正在使用FreeTrial Plan。</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>
+感謝您檢查了ONLYOFFICE™！{2} {0}免費試用期已到期。{1}</value>
+  </data>
+  <data name="TelegramConnected" xml:space="preserve">
+    <value>Telegram 帳戶已連接</value>
+  </data>
+  <data name="TelegramHowToConnect" xml:space="preserve">
+    <value>要將TelegramBot連接到您的帳戶，請使用秘密連結：</value>
+  </data>
+  <data name="TemporaryPasswordToAccess" xml:space="preserve">
+    <value>進入門戶的臨時密碼</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>門戶已創建</value>
+  </data>
+  <data name="TenantStorageSpace" xml:space="preserve">
+    <value>可用於門戶的存儲空間</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>使用的存儲空間</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>有效的{！users}個數量</value>
+  </data>
+  <data name="TermsOfUsePopupHelperLink" xml:space="preserve">
+    <value>閱讀有關使用條款的更多信息</value>
+  </data>
+  <data name="TfaAppAuthMessageError" xml:space="preserve">
+    <value>不正確的代碼</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>（剩餘：{0}）</value>
+  </data>
+  <data name="TfaAppNotAvailable" xml:space="preserve">
+    <value>TFA應用程序設置不可用</value>
+  </data>
+  <data name="TfaAppResetApp" xml:space="preserve">
+    <value>重置申請</value>
+  </data>
+  <data name="TfaAppResetAppDescription" xml:space="preserve">
+    <value>
+Authenticator應用程序配置將被重置。</value>
+  </data>
+  <data name="TfaAppResetAppHeader" xml:space="preserve">
+    <value>重置應用程序配置</value>
+  </data>
+  <data name="TfaAppShowBackupCodes" xml:space="preserve">
+    <value>顯示備用驗證碼</value>
+  </data>
+  <data name="TfaAppShowBackupCodesDescription" xml:space="preserve">
+    <value>備用密碼可讓您在無法存取手機時確認登錄。{0}現在只有{1}個密碼，只能使用一次。打印它們並在需要時使用。</value>
+  </data>
+  <data name="TfaAppShowBackupCodesNote" xml:space="preserve">
+    <value>您可以隨時獲取新代碼。僅最後生成的代碼有效。</value>
+  </data>
+  <data name="TfaAppShowBackupCodesTitle" xml:space="preserve">
+    <value>備用碼</value>
+  </data>
+  <data name="TfaTooMuchError" xml:space="preserve">
+    <value>您發送了太多短信。請稍後再試。</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>第三方服務</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>時區</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>帶有提示和技巧的電子郵件通知</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>部落客</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>臉書</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>行動電話</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>電話號碼</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>前10名</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>總計已找到</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>直到</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>更改服務器區域</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>
+{0}您將開始將門戶遷移到另一個區域。在遷移過程中，門戶將不可用。結束後，通知將發送到您的電子郵件地址。{1} {0}郵件域，郵箱（第三方服務除外）和其中包含的電子郵件在遷移過程中將不會轉移。{1} {0}確定要繼續嗎？{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>遷移過程結束後，您將自動重定向到門戶的新URL。</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>門戶網站向其他區域遷移{0}。</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>門戶區域</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>更改服務器區域</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>在遷移過程中，門戶將不可用。遷移完成後，門戶URL將被更改，並且所有共享文檔連結將不可存取。</value>
+  </data>
+  <data name="Trial" xml:space="preserve">
+    <value>試用版</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>試用期：{0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>免費試用期已過</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}點擊此處{1}為您的門戶選擇最合適的價格計劃。</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>您正在使用試用版</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>自定網域名稱</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>
+具有電子郵件帳戶{0}的用戶可以註冊。
+要註冊，請輸入您的電子郵件，然後單擊“發送邀請”。包含激活您的ONLYOFFICE™帳戶鏈接的電子郵件將被發送到指定的電子郵件。</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>出現未知錯誤</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>解除訂閱
+</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>升級價格計劃</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>上傳</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>用戶論壇</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>職稱</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>美國西部(Oregon) 地區</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>影片指南</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>顯示未觀看的視頻</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>查看價格計劃</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>點擊率</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>主辦</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>使用率圖</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>來訪</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>連接已在另一個窗口中建立</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>不幸的是，該服務當前不可用。請稍後再試。</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告！</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>感謝您選擇ONLYOFFICE™！出於安全原因，必須執行密碼設置過程。</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>歡迎來到您的ONLYOFFICE™頁面</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>新消息</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>白色標籤</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>語言和時區設置</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>門戶設置-完成這些簡單的步驟即可輕鬆啟動您的網絡辦公室</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>註冊設置</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>您決定加入此門戶。</value>
+  </data>
+</root>

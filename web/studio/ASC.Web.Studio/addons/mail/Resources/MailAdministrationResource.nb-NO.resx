@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Legg til</value>
+  </data>
+  <data name="AddMailboxLabel" xml:space="preserve">
+    <value>Legg til e-postkonto</value>
+  </data>
+  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
+    <value>Legg til en e-postkonto med det nye domenet.</value>
+  </data>
+  <data name="AddMailgroupLabel" xml:space="preserve">
+    <value>Legg til ny e-postgruppe</value>
+  </data>
+  <data name="AddNewDomainButton" xml:space="preserve">
+    <value>Legg til ditt eget domene</value>
+  </data>
+  <data name="AliasesLabel" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
+    <value>Opprett en ny e-post</value>
+  </data>
+  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
+    <value>Opprett en ny e-postgruppe</value>
+  </data>
+  <data name="DeleteDomain" xml:space="preserve">
+    <value>Slett domene</value>
+  </data>
+  <data name="DeleteGroupLabel" xml:space="preserve">
+    <value>Slett e-postgruppe</value>
+  </data>
+  <data name="DeleteMailboxLabel" xml:space="preserve">
+    <value>Slett e-postkonto</value>
+  </data>
+  <data name="DNSSettingsLabel" xml:space="preserve">
+    <value>DNS-innstillinger</value>
+  </data>
+  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
+    <value>%1 domeneinnstillinger</value>
+  </data>
+  <data name="DomainWizardCompleteBtn" xml:space="preserve">
+    <value>Fullfør</value>
+  </data>
+  <data name="DomainWizardName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="DomainWizardNextBtn" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="DomainWizardPopupHeader" xml:space="preserve">
+    <value>Legg til domene</value>
+  </data>
+  <data name="DomainWizardPrevBtn" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="DomainWizardPriority" xml:space="preserve">
+    <value>Prioritet:</value>
+  </data>
+  <data name="DomainWizardStep" xml:space="preserve">
+    <value>steg %1 av %2</value>
+  </data>
+  <data name="DomainWizardType" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="EditGroupAddressesLabel" xml:space="preserve">
+    <value>Rediger e-postgruppeadresser</value>
+  </data>
+  <data name="EditMailboxLabel" xml:space="preserve">
+    <value>Rediger e-postkonto</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>Gruppe</value>
+  </data>
+  <data name="NoDomainSetUpButton" xml:space="preserve">
+    <value>Sett opp det første domenet</value>
+  </data>
+  <data name="NotInGroupLabel" xml:space="preserve">
+    <value>ikke i gruppen</value>
+  </data>
+  <data name="SenderNameLabel" xml:space="preserve">
+    <value>Avsendernavn</value>
+  </data>
+  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
+    <value>Vennligst kontroller</value>
+  </data>
+  <data name="UserLabel" xml:space="preserve">
+    <value>Bruker</value>
+  </data>
+  <data name="VerifyButton" xml:space="preserve">
+    <value>Verifiser</value>
+  </data>
+  <data name="WebDomainLabel" xml:space="preserve">
+    <value>Domene</value>
+  </data>
+</root>

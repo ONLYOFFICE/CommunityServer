@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_new_comment" xml:space="preserve">
+    <value>h1.Nov komentar k objavi na Blogu: "$PostSubject":"$URL"
+
+ $Date "$UserName":"$UserURL" je dodal nov komentar k "$PostSubject":"$URL" blog objavi:
+
+$CommentBody
+
+"Preberi več":"$CommentURL"
+
+ ^To e-pošto prejemate, ker ste registriran uporabnik"${__VirtualRootPath}":"${__VirtualRootPath}" portala. Če ne želite prejemati obvestil o novo dodanih komentarjih k blog objavi, prosim uredite svoje "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_new_post" xml:space="preserve">
+    <value>h1.Nova objava v blogih: "$PostSubject":"$URL"
+
+$Date "$UserName":"$UserURL" je ustvaril novo objavo v blogih: "$PostSubject":"$URL"
+
+$PostPreview 
+
+"Preberi več":"$URL"
+
+^To e-pošto prejemate, ker ste registriran uporabnik"${__VirtualRootPath}":"${__VirtualRootPath}" portala. Če ne želite prejemati obvestil o novih objavah v blogih, prosim uredite svoje "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_new_comment" xml:space="preserve">
+    <value>Skupnost. Nov komentar k blog objavi: $PostSubject</value>
+  </data>
+  <data name="subject_new_post" xml:space="preserve">
+    <value>Skupnost. Nova objava v blogu: $PostSubject</value>
+  </data>
+</root>

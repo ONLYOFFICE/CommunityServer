@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Pole s validačním kódem nemůže být prázdné</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Zadejte telefonní číslo mobilního telefonu</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Použijte {0}?{1}a{0}*{1} symboly pro vyhledávání jednoho nebo více znaků. Například pro vyhledání všech slov začínající na {0}O{1} použijte možnost {0}O*{1}. Pro hledání konkrétní fráze použijte uvozovky. {2}Zjistěte více...{3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Kopie zálohy byla úspěšně vytvořena.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Zaneprázdněný</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Úspěšný nákup čísla</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Příchozí hovor</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Zmeškaný hovor</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Změny jsou aplikovány</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Změny jsou úspěšně aplikovány</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Došlo k chybě. Prosím kontaktujte Vašeho Administrátora.</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Přejete si pokračovat?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Vytvořit nový kontakt</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Žádné kontakty v seznamu</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Zadejte název společnosti</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Zde nejsou žádné kontakty</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Žádný takový kontakt</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Neexistuje žádná taková společnost</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Pokračovat</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Chyba během generování hlášení</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Komentáře nemůže být prázdný.</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Zadejte e-mailovou adresu</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Prosím vyplňte toto pole</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Zadejte název skupiny</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Zadejte křestní jméno</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Zadejte příjmení</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Neexistuje žádná taková skupina</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Neexistuje taková osoba</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>Maximálně 64 znaků</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Datum registrace musí být pozdější než datum narození</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Nelze přidat stejný účet a kontakt dvakrát</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Pro toto pole můžete zadat až 64 znaků.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nesprávný e-mail</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Tento název portálu je již používán</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Nepovolený znak v názvu portálu</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Název portálu je příliš krátký</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Název portálu nebyl změněn.</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Uživatelé byli úspěšně přidáni.</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Skupina {0} byl úspěšně vytvořena.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Vytvořit novou skupinu</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>V tomto seznamu nejsou žádné skupiny</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Žádná taková skupina</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Nesprávný formát IP adresy</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Pozvat</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Nastavení bylo úspěšně aktualizováno</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Prázdné pole</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Špatné číslo portu</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>Potřebujete přečíst a souhlasit s licenční smlouvou</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Licence není v pořádku</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Odkaz byl zkopírován do schránky</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Čekejte prosím ...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Načítání, prosím počkejte.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nahrávám ...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>celý den</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Událost byla zrušena.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Zrušeno:{0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Událost skončila.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} předběžně přijmout pozvánku na</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} odmítl pozvánku na</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Odpověď: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} přijal pozvánku na</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} Vás zve na</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Pozvánka: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>přibližný</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>den</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>dny</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>každý</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>pro</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>hodina</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>hodiny</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>v</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>Poslední</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>měsíc</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>měsíce</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>Neznámý formát</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>Čas</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>časy</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>všední den</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>všední dny</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>týden</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>týdny</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>roky</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Událost byla změněna.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Aktualizace: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>Předběžně jste pozvání přijali</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>Odmítli jste pozvání k</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>Přijali jste pozvánku na</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Odeslali jste pozvánku</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Vyskytl se problém během odesílání zprávy.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Oznámení o zrušení události bylo odesláno účastníkům.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Vaše žádost byla zaslána účastníkům.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Vaše odpověď byla odeslána organizátorovi.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Zpráva byla poslána.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Já</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Žádný milník v tomto projektu</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Žádný takový milník</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nikdy nezobrazovat</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Chyba během provádění operace.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Operace byla úspěšně dokončena.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Chystáte se přejmenovat Váš portál.{1}{0}Jste si jistý, že chcete pokračovat?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Potvrzení přejmenování portálu</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Vytvořit nový projekt</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Žádné projekty v tomto seznamu</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Každý projekt musí mít manažera</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Každý projekt musí mít název</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Žádné projekty v této skupině</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Žádný takový projekt</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Žádná taková osoba</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Stejná omezení</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Nastavení byla úspěšně uložena</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Vybrat soubor</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Vybrat složku</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Společnost</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Název společnosti</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Typ kontaktu</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Křestní jméno</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Vedoucí</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Manažer</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Osoba</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>vybrané</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Titulek</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Návštěvník</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Vytvořil jsem vlastní web-office. Přidej si mě zde: {0}#ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Ukaž další</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} uživatel/é byl/i úspěšně přidáni na portál</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Nastavení bylo úspěšně aktualizováno</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Chystáte se odebrat všechna oznámení z modulu "{0}". Jste si jistý, že chcete pokračovat?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Prázdný soubor</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Chyba během nahrávání souboru</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Podporovaný formát: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Velikost souboru nemůže překročit 5MB</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Profil pro {0} byl úspěšně vytvořen</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Vytvořit nový profil</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Žádní uživatelé v seznamu</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Překročeno maximum aktivních uživatelů</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Zatím nebyly vytvořeny žádné skupiny na portálu. Jděte do modulu Lidé, abyste seskupili uživatele.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Žádní uživatelé v této skupině</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Žádný takový uživatel</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Pokud odejdete teď, všechna vložená a neuložená data budou ztracena.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}To znamená, že můžeme: {1} zobrazit obsah portálu otevřený pro všechny jeho uživatele,{2}zanechat komentář,{3}připojit nebo stáhnout soubory.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>V případě, že potřebujete další práva, prosím kontaktujte administrátora</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Vítejte v ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>Administrátor portálu Vás pozval jako hosta.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Začít práci</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Vítejte v ONLYOFFICE!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Nezadali jste žádné heslo. Budete to moci provést později pomocí funkce "Zapomněli jste heslo?" odkaz na přihlašovací stránce portálu. Jste si jistý, že chcete pokračovat?</value>
+  </data>
+</root>

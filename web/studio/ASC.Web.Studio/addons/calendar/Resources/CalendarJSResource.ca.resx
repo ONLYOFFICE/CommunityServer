@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Calendari</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Esdeveniment</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Crea un nou esdeveniment</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>tot el dia</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Dia</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Període</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Avui</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Setmana</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Crea un nou calendari</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Edita el calendari</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Color del text:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Zona horària</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Afegir</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Els meus calendaris</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Altres calendaris</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Gestiona</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Crea un nou esdeveniment</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minuts</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 hores</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>mitja hora</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minuts</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>un dia</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>per defecte</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>una hora</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Alerta:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Aquest esdeveniment dura tot el dia.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Esdeveniment de tot el dia</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Calendari:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Tanca</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Descripció:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Edita</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Des de:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Aquest esdeveniment no dura tot el dia.</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Propietari:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>personalitzat</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>cada dia</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Repetir:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>cada mes</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>cada setmana</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>cada any</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Aquest esdeveniment no està compartit.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>A:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Anul·la la subscripció</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>No hi ha esdeveniments per a mostrar.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Amaga el mini-calendari</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Mostra el mini-calendari</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d esdeveniments</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Afegiu usuaris per a compartir</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Mostra %d usuaris més</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Compartit amb:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Edita el calendari</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Propietari:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Amaga de la llista</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Cerca ràpida</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Gestiona els altres calendaris</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Avui</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Vista del calendari</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Veure com una llista</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Tots els esdeveniments de la sèrie</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Aplica</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Aquest esdeveniment i tots els que segueixen</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Esborra l'esdeveniment recurrent</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Només aquest esdeveniment</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Seleccioneu un fitxer</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Tanca</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Exporta esdeveniments del calendari de ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>no heu seleccionat cap fitxer</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>el fitxer seleccionat</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Importació / Exportació</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importa els esdeveniments al calendari ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>El fitxer no té un format compatible amb iCal</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Introduïu l'adreça del feed d'iCal</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Calendari de un feed iCal</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>enllaç al feed d'iCal:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>començant per</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>després</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>cada</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>cada</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>primer</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Paràmetres de repetició</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>dia</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>mes</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>setmana</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>any</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>últim</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dies</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>mesos</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>setmanes</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>anys</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>número de vegades</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>data</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>penúltim</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>segon</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>tercer</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>vegades</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>final</value>
+  </data>
+</root>

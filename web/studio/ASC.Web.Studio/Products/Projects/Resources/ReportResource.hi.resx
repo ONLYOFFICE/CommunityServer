@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>सक्रिय कार्य</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>स्वचालित रूप से इस तरह की रिपोर्ट उत्पन्न</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>समय सीमा</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>निर्माण तिथि</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>समय सीमा</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>इस स्तंभ से सुलझाने के लिए क्लिक करें</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>टेम्पलेट बनाएं</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>उपयोक्ता का नाम</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>समय सीमा</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>आप टेम्पलेट के लिए एक नाम असाइन करने की आवश्यकता</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>हर दिन</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>प्रत्येक माह</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>प्रति सप्ताह</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>रिपोर्ट तैयार करना</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>गलत तिथि सीमा</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>पिछला महीना</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>पिछला सप्ताह</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>पिछला साल</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>स परियोजना के कोई नहीं मील के पत्थर को और कार्यों में शामिल</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>अन्य</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>सदस्यों</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>भुगतान स्थितियां</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>बंद कार्य रिपोर्ट</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0} {2} नहीं खुले कार्य रिपोर्ट के साथ उपयोगकर्ता पल में कोई खुला कार्यों में है जो उपयोगकर्ताओं की एक सूची प्रदर्शित करेगा। {3} {2} सभी परियोजनाओं के लिए कोई खुला कार्यों के साथ सभी उपयोगकर्ताओं को देखने के लिए, फिर, {3} {2} एक विशेष समूह या एक विशेष परियोजना का चयन करने के लिए। सही दूर रिपोर्ट उत्पन्न बटन क्लिक कर नीचे की रिपोर्ट पैरामीटर विन्यस्त, और रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}
+</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>नहीं खुले कार्य के साथ {!users}</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0} {2} काम का बोझ रिपोर्ट, {3} {2} सभी उपयोगकर्ताओं के लिए डेटा को देखने के लिए। उनकी स्थिति के अनुसार वर्गीकृत एक यूजर को सौंपा कार्यों की संख्या प्रदर्शित सही दूर उत्पन्न रिपोर्ट बटन पर क्लिक करेंगे। {3} {2} नीचे की रिपोर्ट पैरामीटर विन्यस्त, एक विशेष समूह या उपयोगकर्ता का चयन करें, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}
+</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>काम का बोझ</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0} {2} अतिदेय मील के पत्थर अतिदेय मील के पत्थर की एक सूची प्रदर्शित करेगा रिपोर्ट। {3} {2} सही दूर रिपोर्ट उत्पन्न पर क्लिक करें, सभी परियोजनाओं के लिए अतिदेय मील के पत्थर को देखने के लिए। {3} {2} अतिदेय को देखने के लिए एक भी परियोजना के लिए मील के पत्थर ही, ड्रॉप-डाउन सूची से इच्छित प्रोजेक्ट का चयन करें, और उसके बाद रिपोर्ट उत्पन्न पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>अतिदेय मील के पत्थर</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{{0} {2} अतिदेय कार्य रिपोर्ट अतिदेय कार्यों की एक सूची प्रदर्शित करेगा। {3} {2} सभी परियोजनाओं के लिए अतिदेय कार्यों में को देखने के लिए रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {2} अतिदेय को देखने के लिए एक भी परियोजना के लिए कार्य केवल, नीचे दी गई सूची में से वांछित परियोजना का चयन करें, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>अतिदेय कार्यों</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>ओपन कार्य रिपोर्ट</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>रिपोर्ट «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0} {2} परियोजना सूची रिपोर्ट परियोजनाओं की एक सूची प्रदर्शित करेगा। {3} {2} उनके संबंधित प्रबंधक, कार्य, मील के पत्थर, कार्यों, और टीम के सदस्यों की संख्या के साथ सभी सक्रिय परियोजनाओं को देखने के लिए, रिपोर्ट उत्पन्न बटन को क्लिक करें सही दूर। {3} {2} नीचे की रिपोर्ट पैरामीटर विन्यस्त, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें, एक विशेष समूह की परियोजनाओं को देखने और / या दोनों सक्रिय और बंद परियोजनाओं को देखने के लिए। {3} {1}
+</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>परियोजना की सूची</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0} {2} परियोजनाओं नहीं खुले मील के पत्थर जुड़ी कोई खुला मील के पत्थर के साथ परियोजनाओं की एक सूची प्रदर्शित करेगा रिपोर्ट के साथ। {3} {2} कोई खुला मील के पत्थर के साथ सभी परियोजनाओं को देखने के लिए, अभी रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3 } {2} एक विशेष समूह के भीतर इस तरह की परियोजनाओं की जाँच करें या एक विशेष उपयोगकर्ता की जांच, वांछित समूह और उपयोगकर्ता का चयन करें, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>नहीं खुले मील के पत्थर के साथ परियोजनाएं</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0} {2} नहीं खुले कार्य रिपोर्ट के साथ परियोजनाओं सौंपा कोई खुला कार्यों के साथ परियोजनाओं की एक सूची प्रदर्शित करेगा। {3} {2} कोई खुला कार्यों के साथ सभी परियोजनाओं को देखने के लिए, क्लिक करें सही दूर रिपोर्ट बटन उत्पन्न करता है। {3 } {2} एक विशेष समूह के भीतर इस तरह की परियोजनाओं की जाँच करें या एक विशेष उपयोगकर्ता की जांच, वांछित समूह और / या नीचे उपयोगकर्ता का चयन करें, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}
+</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>नहीं खुले कार्य के साथ परियोजनाएं</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>रिपोर्ट</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0} {2} प्रोजेक्ट कार्य रिपोर्ट है कि वे से जुड़े होते हैं परियोजना और मील का पत्थर के अनुसार वर्गीकृत कार्यों की एक सूची प्रदर्शित करेगा। {3} {2} सही दूर रिपोर्ट उत्पन्न बटन क्लिक करें, संकेत दिया जिम्मेदार व्यक्ति और स्थिति के साथ सभी परियोजनाओं भर में सभी कार्यों की सूची देखने के लिए। {3} {2} एक विशेष परियोजना के लिए या एक का केवल कार्यों में को देखने के लिए दी स्थिति, या पिछले सप्ताह की निर्धारित संख्या में निर्मित कार्यों, नीचे की रिपोर्ट पैरामीटर विन्यस्त, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>प्रोजेक्ट कार्य</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0} {2} रिपोर्ट ट्रैकिंग समय एक समय रजिस्टर पर उनके कुल काम के समय की गणना आधारित साथ उपयोगकर्ताओं की सूची प्रदर्शित करता है। {3} {2} इस रिपोर्ट में उनके कार्य प्रदर्शन पर एक उपयोगकर्ता द्वारा बिताए समय की कुल राशि पर नज़र रखने में मदद करता है । {3} {1}
+</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>समय ट्रैकिंग</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0} {2} आगामी मील के पत्थर आगामी मील के पत्थर की एक सूची प्रदर्शित करेगा रिपोर्ट। {3} {2} पर सही दूर रिपोर्ट उत्पन्न क्लिक करें, एक सप्ताह की अवधि के लिए सभी परियोजनाओं के लिए आगामी मील के पत्थर को देखने के लिए। {3} {2} एक भी परियोजना और / या किसी अन्य समय अवधि के लिए आगामी मील के पत्थर को देखने के लिए, ड्रॉप-डाउन सूची और / या पहली बार अवधि सूची में से एक और मार्जिन तारीख से वांछित परियोजना का चयन करें, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>आगामी मील के पत्थर</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0} {2} उपयोगकर्ता गतिविधि रिपोर्ट एक निश्चित समय अवधि के लिए परियोजनाओं के भीतर एक विशेष उपयोगकर्ता के सभी कार्यों को प्रदर्शित करेगा। {3} {2} पिछले सप्ताह के लिए अपने स्वयं के गतिविधि को प्रदर्शित करने के लिए सही दूर उत्पन्न रिपोर्ट बटन को क्लिक करें । {3} {2} रिपोर्ट उत्पन्न बटन क्लिक करें फिर एक और समय अवधि निर्धारित या किसी अन्य उपयोगकर्ता का चयन करें, नीचे की रिपोर्ट पैरामीटर विन्यस्त, और करने के लिए। {3} {1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>उपयोगकर्ता गतिविधि</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0} {2} उपयोक्ता कार्य रिपोर्ट है कि वे करने के लिए आवंटित कर रहे हैं उपयोगकर्ता के अनुसार वर्गीकृत कार्यों की सूची प्रदर्शित करेगा। संकेत दिया {3} {2} उनकी स्थिति के साथ उपयोगकर्ताओं के सभी कार्यों को देखने के लिए, सही दूर उत्पन्न रिपोर्ट बटन को क्लिक करें । {3} {2}, केवल एक विशेष उपयोगकर्ता / समूह के लिए या किसी दिए स्थिति के कार्यों, या पिछले सप्ताह की निर्धारित संख्या में निर्मित कार्यों को देखने के लिए नीचे दिए गए रिपोर्ट पैरामीटर विन्यस्त, और उसके बाद रिपोर्ट उत्पन्न बटन पर क्लिक करें। {3} {1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>उपयोक्ता कार्य</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>दिखाएँ कार्यों को</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>टेम्पलेट्स</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>टेम्पलेट शीर्षक</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>अभी चल रहा माह</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>यह सप्ताह</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>चालू वर्ष</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>आज</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>उपयोगकर्ता द्वारा देखें</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>द्वारा देखें {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>परियोजना द्वारा देखें</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>उपयोगकर्ता द्वारा देखें</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>उपयोगकर्ता कार्यों से देखें</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>बंद परियोजनाओं को दिखाये </value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>कल</value>
+  </data>
+</root>

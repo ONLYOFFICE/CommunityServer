@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Tyhjennä välimuisti</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Kaikki palvelun käyttämät skriptit on tallennettu välimuistiin suorituskyvyn maksimoimiseksi. Välimuistin tyhjentäminen saattaa olla tarpeen, jos sivusto ei toimi luotettavasti tai palvelun päivitys on sekoittanut välimuistin. Klikkaa siinä tapauksessa &lt;b&gt;Tyhjennä välimuisti&lt;/b&gt; painikketta.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Käytä tätä vaihtoehtoa, jos huomaat epätäsmällisyyttä sivuston käytöksessä</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Välimuisti</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Tutustu {0}Usein kysyttyihin kysymyksiin{1} tai ota meihn yhteyttä englanniksi osoitteessa {2}support.onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Jos sinulla on kysymyksiä, ole hyvä ja ota yhteyttä {0}support.onlyoffice.com{1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Ota yhteyttä</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Ajanjakso</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>&lt;b&gt;Lokitusten&lt;/b&gt; osio antaa sinulle mahdollisuuden ladata kaikki portaalin lokitukset halutulle aikajaksolle, arkistoituna .zip tyyppiseen tiedostoon. Ole hyvä ja valitse jakson alun ja lopun ajankohta ja klikkaa &lt;b&gt;Lataa&lt;/b&gt; painiketta.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Lataa kaikki lokitiedot</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Lokitus</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Kaikki seuraavat portit on oltava avattuina</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Portit</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>&lt;b&gt;Palvelut&lt;/b&gt; osio näyttää luettelon saatavilla olevista  ONLYOFFICE™ palveluista, ja niiden tiloista (käynnissä tai keskeytetty). Voit aloittaa käynnissä olevan palvelun uudelleen tai käynnistää keskeytetyn plavelun käyttämällä vastaavaa toimintopainiketta palvelun tilan oikealla puolella.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™ palvelut ja niiden nykyinen tila</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Palvelut</value>
+  </data>
+</root>

@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCommentedText" xml:space="preserve">
+    <value>発表にコメントは追加されました</value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>コミュニティで作成された新しい発表</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="BlogCommentedText" xml:space="preserve">
+    <value>コメントが追加された</value>
+  </data>
+  <data name="BlogCreatedText" xml:space="preserve">
+    <value>ポストが追加された</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
+  <data name="BookmarkCommentedText" xml:space="preserve">
+    <value>ブックマークにコメントが追加されました</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>コミュニティで作成された新しいブックマーク</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>ブックマーク</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>CRMで作成された新しいイベント</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>コメントを追加中にアクセスエラーが発生してしまいました</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>コミュニティ</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>追加された企業</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>連絡</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>顧客</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>タスクは追加された</value>
+  </data>
+  <data name="CrmTaskModule" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>今月</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>今週</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>期限切れ</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>CRMで新しい機会を作成</value>
+  </data>
+  <data name="DiscussionCommentedText" xml:space="preserve">
+    <value>ディスカッションにコメントは追加されました</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>プロジェクトで作成された新しい議論</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>議論</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="EventsModule" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="FeedsReadedMsg" xml:space="preserve">
+    <value>これまでのところニュースはありません。最新のニュース履歴をフィードで表示できます。　</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>ファイルが追加されています。</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>ファイルを更新</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>フォルダが追加されています。</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>新しい世論調査</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>コミュニティで作成された新しいフォーラムのポスト</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>トピックは追加された</value>
+  </data>
+  <data name="HideAdditionalCommentsBtn" xml:space="preserve">
+    <value>追加のコメントを隠す</value>
+  </data>
+  <data name="HideGroupedFeedsBtn" xml:space="preserve">
+    <value>追加のイベントを隠す</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>データをロードしています。お待ちください...</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>メンバー</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>マイルストーンが追加された</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>マイルストーン</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>新しい</value>
+  </data>
+  <data name="NewsCommentedText" xml:space="preserve">
+    <value>ニュースにコメントは追加されました</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>ニュースが追加された</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="OrderCommentedText" xml:space="preserve">
+    <value>命令にコメントは追加されました</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>コミュニティで作成された新しい秩序</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+{0}も</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>他のユーザー</value>
+  </data>
+  <data name="ParticipantCreatedText" xml:space="preserve">
+    <value>参加者が追加された</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>CRMで作成された新しい人</value>
+  </data>
+  <data name="PollCommentedText" xml:space="preserve">
+    <value>コメントが世論調査に追加された</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>新しい世論調査</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>モジュール</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>プロジェクトが追加された</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>マネージャー</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="PublishCommentBtn" xml:space="preserve">
+    <value>発行する</value>
+  </data>
+  <data name="ReplyCommentBtn" xml:space="preserve">
+    <value>返事する</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>責任を持つユーザー</value>
+  </data>
+  <data name="SeeAllFeedsBtn" xml:space="preserve">
+    <value>すべて表示する</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>ドキュメント内のあなたのための共有ファイル</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>フォルダへのアクセスが許可されました</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>すべてを表示</value>
+  </data>
+  <data name="ShowGroupedFeedsBtn" xml:space="preserve">
+    <value>別のイベントを表示する</value>
+  </data>
+  <data name="ShowOthersCommentsBtn" xml:space="preserve">
+    <value>他のコメントを表示する</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="TaskCommentedText" xml:space="preserve">
+    <value>タスクにコメントは追加されました。</value>
+  </data>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>タスクは追加された</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="TodayAt" xml:space="preserve">
+    <value>今日で</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>コメントを追加</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>昨日で</value>
+  </data>
+</root>

@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blog oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Yer imi oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM vaka oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Yorum eklenme tarihi</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM iletişim oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>CRM fırsat oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Tartışma oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Etkinlik oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Belge oluşturulma/yüklenme tarihi</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Klasör oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Forum oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Anket oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Gönderi oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Aşama oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Proje oluşturulma tarihi</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Görev oluşturulma tarihi</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Kontrol Paneline Erişin</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Portalınıza Erişin</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Web-Ofisinize Erişin</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Şimdi Yapılandırılıyor</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Hemen Davet Edin</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Arama Talep Edin</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Fiyatlandırma Planlarını Şimdi Seçin</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Daha Fazla Bilgi &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"$InviteLink" portalındaki e-posta adresinizi aktifleştirin.
+
+Merhaba!
+
+"${__VirtualRootPath}":"$InviteLink" portalına katılmak için e-posta adresinizi aktifleştirmeniz gerekmektedir. Bu işlem güvenlik için yapılmaktadır.
+
+$GreenButton
+
+Bu link 7 gün boyunca geçerli olacaktır. Lütfen bu dönem içerisinde e-posta aktivasyonunuzu tamamlayın.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portal yedeklemesi tamamlandı
+
+Değerli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalınızın verilerini içeren bir yedekleme tamamlandı.
+
+Daha fazla bilgi edinmek için lütfen "Veri yedekleme" bölümümüze göz atın:"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" kullanıcı kılavuzu.
+
+Herhangi bir sorunuz olursa veya yardıma ihtiyaç duyarsanız lütfen bizimle irtibata geçin "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı için şifre değişikliği talebi
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalı için kullandığınız şifreyi değiştirme talebiniz ulaştı.
+
+Lütfen aşağıdaki linki takip ederek şifrenizi değiştirin:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerlidir. Lütfen bu süre zarfında şifre değiştirme işlemini tamamlayın.
+
+Şifrenizi değiştirmek istemiyorsanız ya da bu e-postanın hatalı olduğunu düşünüyorsanız "${__VirtualRootPath}":"${__VirtualRootPath}" portalı yöneticisi ile görüşün.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Cep telefonu numarası değişikliği
+
+${LetterLogoText} portalındaki cep telefonu numaranızı değiştirme talebinde bulundunuz.
+
+Lütfen aşağıdaki linke tıklayarak cep telefonu numaranızı değiştirin:
+
+$GreenButton
+
+Cep telefonu numaranızı değiştirmek istemiyorsanız veya bu e-postanın hatalı olduğunu düşünüyorsanız lütfen dikkate almayın veya portal yöneticiniz ile görüşün.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portal sahibi değişikliği
+
+Değerli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal sahibini $UserName olarak değiştirme talebi ulaşmıştır.
+
+Lütfen aşağıdaki linki onaylayarak işlemi tamamlayın:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerli olacaktır. Lütfen portal sahibi değişikliğini bu sürede tamamlayın.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Portal adresi değişikliği
+
+Değerli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal adresini "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end olarak değiştirme talebi ulaşmıştır.
+
+Lütfen aşağıdaki linki onaylayarak işlemi tamamlayın:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerli olacaktır. Lütfen portal adresi değişikliğini bu sürede tamamlayın.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı mesajları
+
+E-posta adresi: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"$InviteLink" portalına davet
+
+Merhaba,
+
+${LetterLogoText} bünyesindeki "${__VirtualRootPath}":"$InviteLink" portalına katılma talebinde bulundunuz - belge ve proje yönetim platformu. Portala katılın ve iş arkadaşlarınızla veya sadece dostlarınızla iş birliği yapmaya hemen başlayın.
+
+Daveti kabul etmek için adınızı ve şifrenizi aşağıdaki linke tıklayarak girin:
+
+$GreenButton
+
+*Not*: bu link 48 saat boyunca geçerli olacaktır. Lütfen işlemi bu sürede tamamlayın.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Portal başka bölgeye taşıma hatası
+
+Portal başka bir bölgeye taşınırken hata oluştur. Lütfen daha sonra tekrar deneyin.
+Portalınız eski adresinde kullanılabilir "$PortalUrl":"$PortalUrl"
+
+Herhangi bir sorunuz veya yardıma ihtiyacınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı bir üyesi olmanızdır. Bu bildirimleri almak istemiyorsanız lütfen "abonelik ayarlarınızı" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Portal başka bölgeye taşıma hatası
+
+Portal başka bir bölgeye taşınırken hata oluştur. Lütfen daha sonra tekrar deneyin.
+Portalınız eski adresinde kullanılabilir "$PortalUrl":"$PortalUrl"
+
+Herhangi bir sorunuz veya yardıma ihtiyacınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı bir üyesi olmanızdır. Bu bildirimleri almak istemiyorsanız lütfen "abonelik ayarlarınızı" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Portal başka bölgeye taşıma başlatıldı
+
+$RegionName bölgesine mortal taşıma işlemi başladı. Veri miktarınıza bağlı olarak taşıma işlemi biraz sürecektir.
+
+*Not*: portal taşıma sürecinde kullanılamayacaktır. Taşıma tamamlandıktan sonra portal URL'si değişecek olup paylaşılan tüm belge linkleri erişilemez olacaktır.
+
+Herhangi bir sorunuz veya yardıma ihtiyacınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı bir üyesi olmanızdır.^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı devre dışı bırakma
+
+Değerli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalını geçici olarak deaktive etme talebinde bulundunuz. Lütfen aşağıdaki linki onaylayarak işlemi tamamlayın:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerli olacaktır. Lütfen portal sahibi değişikliğini bu sürede tamamlayın.
+
+Portalınızı dilediğiniz zaman aşağıdaki linke tıklayarak aktifleştirebilirsiniz:
+p=. "Portal Aktivasyonu":"$ActivateUrl" (bu link sınırsız süre geçerlidir)
+
+Herhangi bir sorunuz veya yardıma ihtiyacınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı silinmesi
+
+Değerli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalını kalıcı olarak silme talebinde bulundunuz.
+
+*Önemli! Portalınızdaki tüm veriler, kayıt bilgileri kaybolacak ve kurtarılamayacaktır.*
+
+#if($AutoRenew == "True")
+Portalınızı silmeden önce otomatik faturalandırmanın kapalı olduğundan emin olun. Otomatik faturalandırma statüsünü kontrol etmek için "Avangate hesabı" bölümüne gidebilirsiniz:"https://secure.avangate.com/myaccount/".
+#end
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalınızı kesinlikle silmek istiyorsanız lütfen aşağıdaki linke tıklayın:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerli olacaktır. Lütfen portal silinmesi işlemini bu sürede tamamlayın.
+
+Herhangi bir sorunuz veya yardıma ihtiyacınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Portal adresi değişikliği
+
+Değerli $UserDisplayName,
+
+$PortalUrl portal adresiniz "${__VirtualRootPath}":"${__VirtualRootPath}" olarak değiştirilmiştir.
+
+*Not*: Paylaşılan tüm belgeler artık erişilemezdir, ayrıca DNS ayarları ve tek giriş seçenekleri değiştirilene kadar durdurulmuştur. Üçüncü parti iCal linkleri siz yeniden yükleyene dek takviminize eklenmiş olup güncellenmeyecektir.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Profilin "${__VirtualRootPath}":"${__VirtualRootPath}" portalından kaldırılması 
+
+Profilinizi kalıcı olarak "${__VirtualRootPath}":"${__VirtualRootPath}" portalından silme talebinde bulundunuz.
+
+Profilinizi silmek istiyorsanız aşağıdaki linki takip edin:
+
+$GreenButton
+
+*Not*: bu link 7 gün boyunca geçerli olacaktır. Lütfen bu süre zarfında profil silme işlemini tamamlayın.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1."$__VirtualRootPath":"$__VirtualRootPath" portalındaki profiliniz değiştirildi
+
+Değerli $UserName,
+
+"$__VirtualRootPath":"$__VirtualRootPath" portalındaki kullanıcı profiliniz "$__AuthorName":"$__AuthorUrl" tarafından değiştirildi.
+
+Profilinizi görüntülemek için tıklayın:
+"$UserName":"$MyStaffLink"
+
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalında kayıtlı bir kullanıcı olmanızdır.^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Değerli $UserName,
+
+Verilerin "$FromUserName":"$FromUserLink" kullanıcısından "$ToUserName":"$ToUserLink" kullanıcısına aktarılma işlemi başarıyla tamamlanmıştır.
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalına kayıtlı bir kullanıcı olmanızdır.^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.İşletme lisansı talebi
+
+h3.Adı
+$UserName
+
+h3.Soyadı
+$UserLastName
+
+h3.Pozisyon
+$Position
+
+h3.E-posta adresi
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefon
+$Phone
+
+h3.Şirket Websitesi
+$Website
+
+h3.Şirket adı
+$CompanyTitle
+
+h3.Şirket büyüklüğü
+$CompanySize
+
+h3.İçerik talep et
+$Body
+
+h3.Portal adresi
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Portal geri yükleme başladı
+
+Portal geri yükleme başladı. Veri miktarına bağlı olarak biraz zaman alabilir.
+
+*Not*: geri yükleme sürecinde portal devre dışı olacaktır.
+
+Yardıma ihtiyacınız varsa ya da sorularınız varsa "support@onlyoffice.com":"mailto:support@onlyoffice.com" adresinden bizimle irtibata geçebilirsiniz.
+
+Saygılarımızla,
+ONLYOFFICE™ Destek Ekibi
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portal profil değişikliği bildirimi
+
+"$__AuthorName":"$__AuthorUrl" kullanıcısı "${__VirtualRootPath}":"${__VirtualRootPath}" portalında yer alan profilindeki bilgileri değiştirdi.
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalında yönetici olmanızdır. Profil güncellemeleri hakkında bildirim almak istemiyorsanız, lütfen "abonelik ayarlarınızı" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalında $Date için neler yeni?
+
+#foreach($Activities içerisinde $activity)
+
+h2.$activity.Key
+
+#foreach($activity.Value içerisinde $whatsNewActivity)
+#foreach($whatsNewActivity.BreadCrumbs içerisinde $b) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalında kayıtlı bir kullanıcı olmanızdır. "${__VirtualRootPath}":"${__VirtualRootPath}" portalı hakkındaki haberler için bildirim almak istemiyorsanız lütfen "abonelik ayarları" bölümüne gidin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP test mesajı
+
+Bu mesaj otomatik olarak SMTP ayarlarınızı test etmek için oluşturulmuştur. Bu mesajı aldıysanız ayarlarınız doğru demektir ve portalda kullanılabilirdir.
+
+
+Saygılarımızla,
+ONLYOFFICE Ekibi</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalına yeni kişi eklendi
+
+"$__AuthorName":"$__AuthorUrl" "${__VirtualRootPath}":"${__VirtualRootPath}" adresindeki portalınıza katıldı.
+
+^Bu e-postayı almanızın sebebi "${__VirtualRootPath}":"${__VirtualRootPath}" portalının yöneticisi olmanızdır. Yeni kullanıcılar ile ilgili bildirimler almak istemiyorsanız lütfen "abonelik ayarları" bölümüne gidin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Lütfen e-posta adresinizi etkinleştirin</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}.${__VirtualRootPath} portal yedeklemesi oluşturuldu</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} şifre yardımı</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Mobil telefon numarası değişikliği talebi</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portal sahibi değişikliği</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portal adres değişikliği</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Yöneticilere kullanıcı mesajı</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>${__VirtualRootPath} portalına davet edildiniz</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Başka bir bölgeye portal taşıma hatası</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Başka bir bölgeye portal taşıma başladı</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Başka bir bölgeye portal taşıma başarıyla tamamlandı</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>${__VirtualRootPath} portal deaktivasyonu</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portalı silinmesi</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Portal adres değişikliği</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portalından profilinizin silinmesi</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} profiliniz değiştirildi</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Kullanıcı verisi yeniden atama tamamlandı</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>İşletme lisansı talebi</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>SaaS fiyatlandırma planı talebi</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Geri yükleme tamamlandı</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Geri yükleme başlatıldı</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} portal profili değişiklik bildirimi</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>$Date gününde portalda neler var?</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP test mesajı</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>${LetterLogoText} portalına yeni kullanıcı eklendi</value>
+  </data>
+</root>

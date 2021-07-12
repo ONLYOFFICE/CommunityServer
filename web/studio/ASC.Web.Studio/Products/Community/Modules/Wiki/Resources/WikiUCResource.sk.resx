@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Úprava sekcie: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Súbor</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Názov súboru</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Názov stránky</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Nahrať súbor</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Názov nahraného súboru</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Priblížiť</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Vytváranie wiki stránok je veľmi jednoduché, aj keď ste predtým nikdy nepoužili žiaden značkovací jazyk. Všetko, čo potrebujete vedieť, je niekoľko jednoduchých pravidiel uvedených nižšie. Dúfame, že budú užitočné. 
+
+@@TOC@@
+
+==Sekcie, Odseky, Zoznamy, Linky==
+
+Ak chcete spustiť novú sekciu, použite symbol = na začiatku odseku:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Sekcia=&lt;br&gt;
+==Podsekcia==&lt;br&gt;
+===Pod-podsekcia===&lt;br&gt;
+
+&lt;p&gt;
+Vloženie @@TOC@@ do stránky zjednotí všetky časti a podsekcie stránok.
+&lt;/p&gt;
+
+Značkovanie Wiki ignoruje prerušenia riadku. Môžete ich použiť na oddelenie viet v odseku. 
+
+&lt;p&gt;
+Použite značku «br» na prerušenie riadkov bez spustenia nového odseku. 
+&lt;/p&gt;
+
+Ak chcete spustiť nový odsek, dvakrát stlačte kláves Enter tak, ako by ste robili v akomkoľvek textovom editore.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Vytváranie zoznamov s odrážkami je jednoduché:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+*Začnite každý zoznam s hviezdičkou; &lt;br&gt;
+** čím viac hviezdičiek;&lt;br&gt;
+*** tým hlbšia je úroveň zoznamu.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Ani číslované zoznamy nie sú zlé;&lt;br&gt;
+## vyzerajú dobre štruktúrované;&lt;br&gt;
+## a sú ľahko čitateľné.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ AK je na začiatku riadku medzera,
+ POTOM bude riadok foRmáTOvaný rovnakým spôsobom ako bOLo napísané; 
+ v rovnakom písme; bez prerušenia;[[žiadne odkazy]].
+
+Na začiatku riadku môžete použiť medzeru, ak potrebujete: 
+
+*vložiť nejaký text, ktorý bol predtým naformátovaný;
+*zobraziť zdrojový kód; 
+*Vytvoriť/vložiť ascii výtvor (vytváranie obrázkov pomocou textových symbolov).
+
+Horizontálna čiara je označená štyrmi pomlčkami: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Vloženie odkazov==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Ak chcete vložiť odkaz na inú Wiki stránku, vložte názov stránky do dvojitých hranatých zátvoriek: &lt;br&gt; [[Pomoc]]&lt;/p&gt;
+
+&lt;p&gt;
+Ak sa odkaz a názov, ktorý chcete zobraziť na stránke, líšia, zadajte názov odkazu za znakom | : &lt;br&gt; [[Wiki Markup Help Page|Nápoveda]] &lt;/p&gt; 
+
+&lt;p&gt;
+Externé odkazy sa vkladajú priamo do textu, napríklad: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+V prípade, že potrebujete zmeniť vonkajší názov odkazu, vložte ho do hranatých zátvoriek a zadajte jeho názov za medzeru: &lt;br&gt; [http://priklad.com Názov]&lt;/p&gt; 
+
+&lt;p&gt;
+Ak chcete vložiť e-mailovú adresu, použite hranaté zátvorky: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Ak chcete pridať stránku do kategórie, pridajte odkaz do požadovanej kategórie [[KAtegória: Požadovaná kategória]] v spodnej časti stránky.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Formátovanie textu==
+
+Na formátovanie textu použite nasledujúce tipy:
+
+''Kurzíva''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''Váš text kurzívou je tu''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Tučne'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''váš tučný text je tu'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Tučná kurzíva'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''Váš text tučnou kurzívou je tu'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Podčiarknutie__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__Váš podčiarknutý text je tu__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Prečiarknutie--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--Váš prečiarknutý text je tu--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indexy: &lt;sup&gt;horný&lt;/sup&gt; a &lt;sub&gt;dolný&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&amp;lt;sub&amp;gt;Váš dolný index&amp;lt;/sub&amp;gt&lt;br&gt;
+&amp;lt;sup&amp;gt;Váš horný index&amp;lt;/sup&amp;gt
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Môžete tiež použiť &amp;lt;small&amp;gt malý text &amp;lt;/small&amp;gt pre komentáre, špeciálne formátovanie pre zobrazenie &amp;lt;code lang="language"&amp;gt;programových kódov&amp;lt;/code&amp;gt; a text s pevným rozstupom pre technické výrazy &amp;lt;tt&amp;gt;technické výrazy&amp;lt;/tt&amp;gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Vloženie obrázkov==
+
+Ak chcete vložiť obrázky na stránku Wiki, musíte ich predtým nahrať na Wiki. 
+
+Pomocou nasledujúcich odkazov môžete vkladať rôzne typy obrázkov:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Obrázok = [[Obrázok:Názov obrázku]]&lt;/p&gt;
+&lt;p&gt;
+Obrázok s pevnou šírkou = [[Obrázok: Názov obrázku | Šírka_px]]&lt;/p&gt;
+&lt;p&gt;
+Obrázok s popisom = [[Obrázok:Názov obrázku | Popis]]&lt;/p&gt;
+&lt;p&gt;
+Obrázok miniatúry =  [[Obrázok:Názov obrázku | thumb]] –  obrázok bude komprimovaný a zarovnaný doprava.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Prenos HTML do Wiki==
+
+Ak máte text vo formáte HTML, ktorý by ste tu chceli preniesť, môžete to urobiť rýchlo a ľahko. Kliknite na '''Vytvoriť novú stránku''' na paneli '''akcie'''. Potom vložte text do okna editora a prepnite na zobrazenie značiek Wiki kliknutím na ikonu Wiki na hornom paneli formátovania. Html tagy sa zmenia na značkovanie wiki. Skontrolujte výsledky, opravte menšie chyby, ak existujú, a stlačte '''Publikovať'''. Vaša stránka je pripravená.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Vitajte na Wiki!''' 
+
+Tu môžete vytvoriť stránky, prepojiť ich a zjednotiť do kategórií prostredníctvom Vášho webového prehliadača. Wiki je vhodný nástroj na uchovávanie dokumentácie súvisiacej s projektmi, ktorá je charakterizovaná nasledujúcimi funkciami:
+
+*Viacerí autori. Každý člen portálu môže upravovať obsah akejkoľvek stránky.
+*Rýchla editácia. Kliknite na '''Upraviť''' dostupné na každej stránke a spustite úpravy priamo vo Vašom prehliadači.
+*Jednoduchý prenos z HTML do WIKI. Naučte sa [[Internal:Help#HTML to Wiki Transfer|ako]] 
+*Podpora verzie stránky. Skontrolujte, čo bolo upravené vrátením stránky na predchádzajúcu verziu.
+
+@@TOC@@
+
+==Wiki Navigácia a štruktúra==
+
+Môžete prechádzať Wiki pomocou '''navigačného panelu''' ktorý je k dispozícii vždy, kým ste vo Wiki. 
+
+===Stránky===
+
+Všetky Wiki stránky ktoré vytvoríte, sú zoradené abecedne na [[Internal:Index|Index]] stránke.&lt;br&gt; 
+Všetky novo vytvorené stránky sa zobrazia v chronologickom poradí na [[Internal:NewPages|Nové stránky]].&lt;br&gt;
+Zoznam naposledy upravených stránok sa nachádza na stránke [[Internal:Recently|Nedávno upravené]].
+
+===Kategórie===
+
+Môžete zjednotiť niekoľko súvisiacich stránok do kategórie. Všetky kategórie so zodpovedajúcimi stránkami sú zobrazené na stránke [[Internal:Categories|Kategórie]]. Môžete pridať stránku do už existujúcej kategórie alebo vytvoriť svoju vlastnú. Kliknutím [[Internal:Help|tu]] získate ďalšie informácie o priradení stránky do kategórie. 
+
+===Súbory===
+
+Môžete nahrať súbory ľubovoľnej veľkosti a formátu do wiki, rovnako ako dať odkazy na nahrané obrázky pri vytváraní wiki stránok. Prečítajte si o tom viac [[Internal:Help#Inserting Images|tu]].
+
+===Pomoc===
+
+Vytváranie stránok pre Vašu Wiki je jednoduché. Všetko, čo potrebujete vedieť, je niekoľko jednoduchých pravidiel. Navštívte [[Internal:Help|Tipy na značkovanie wiki]] a prečítajte si pravidlá o značkovaní vo Wiki.  
+
+
+==Vytvorenie Wiki==
+
+Ak chcete vytvoriť vlastnú Wiki, začnite vytvárať novú stránku kliknutím na odkaz '''Vytvoriť novú stránku''' na paneli '''funkcií'''.  Ďalej zadajte text do textového editora. Aby sa text na stránke zobrazoval správne použite [[Internal:Help|Tipy na značkovanie Wiki]].
+
+Nezabudnite, že toto je Váš osobný priestor, kde môžete usporiadať všetko podľa Vašich špecifických potrieb. Dokonca aj obsah tejto stránky je možné upravovať. Môžete napríklad odstrániť, čo tu je napísané a pre Vaše pohodlie sem vložiť odkazy na Vaše projekty. &lt;br&gt; Veľa šťastia!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Stránka neexistuje. Kliknutím {here} ju vytvoríte a upravíte.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Ukotviť</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Tučné</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Vizuálne zvýrazniť kód tretej strany</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Komentár</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>Príklad kódu HTML</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Externý odkaz</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Odkaz na lokálny súbor</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (používajte s mierou)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horizontálna čiara</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Obrázok</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kurzíva</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Nová čiara</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>Značka NoBR</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Jazyk Wiki nemožno interpretovať</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Odkaz na stránku</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Špeciálne značky</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Prečiarknuť</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Dolný index</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Horný index</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Špeciálne symboly</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Podčiarknuť</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blokovať</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Maximálna veľkosť nahraného súboru je prekročená</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Stiahnuť súbor</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategórie</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maximálna veľkosť odovzdaného súboru je {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Sekcia: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Stránka bola presunutá=
+Názov stránky sa zmenil na [[{0}|{0}]].
+Najnovšiu verziu nájdete [[{0}|tu]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Obsah</value>
+  </data>
+</root>

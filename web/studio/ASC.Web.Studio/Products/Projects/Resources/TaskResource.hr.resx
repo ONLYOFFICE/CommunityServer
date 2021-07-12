@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Prihvati zadatak</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Prihvati</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Dodaj prvi zadatak</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Dodaj novi podzadatak</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Dodaj novi zadatak</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Dodaj podzadatak</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Dodaj novi zadatak</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Svi zadaci</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Dodijeljeno</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Najbolji način je da se vratite i ručno zatvorite podzadatak te nakon toga ponovno probate zatvoriti zadatak.</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Odgovoran</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Promijeni status</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Odaberi projekt</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Zatvoren</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Zatvorio je</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Datum zatvaranja</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Zatvaranje zadatka</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Kreiran od</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Datum stvaranja</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Datum krajnjeg roka</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Shodno Vašem odabranom filteru niti jedan zadatak ne može biti prikazan u ovom dijelu.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Svaki zadatak mora imati naslov</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Uredi zadatak</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Zatvorite sve podzadatke te nakon toga zatvorite zadatak</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Krajnji rok</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Prati zadatak</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Visok</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Obavijesti odgovorne</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Poruka je uspješno poslana.</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Prekretnica</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Prebaci zadatak na drugu prekretnicu</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Premjesti u prekretnicu</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>nijedan</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Nitko</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Nema zadataka koji odgovaraju ovom filteru pretrage</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Nema kreiranih zadataka</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Obriši zadatak</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Sigurno želite pobrisati ovaj zadatak?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Odgovorni</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Prikaži zadatke bez odgovorne osobe</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Podzadatak</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Podzadaci</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Zadatak</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Napravljen od</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Dodijeljeno</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Zadaci</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Zadaci pomažu upravitelju u ravnopravnoj raspodjeli posla između suradnika, odabiru odgovornih za razne dijelove projekta. Započnite s dodavanjem zadataka, podijelite ih drugima, odaberite odgovorne, upravljajte timskim radom.</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Prati vrijeme</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Pokušavate zatvoriti zadatak s otvorenim podzadacima</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Prestani pratiti zadatak</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Nesortirani zadaci</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Biti će prebačen u prekretnicu</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Nitko</value>
+  </data>
+</root>

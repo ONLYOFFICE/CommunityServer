@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Nome de conta</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Configurações de conta</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Depois de activar sua conta você continuará recebendo o email da mesma</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Activar conta</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Adicionar cópia</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Adicionar endereço de e-mail</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Endereço de e-mail</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Adicionar Tag</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Avançado</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Anexar ficheiros dos Documentos</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Anexos</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Anexar ao contacto do CRM</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Criar nova conta</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Parte do conteúdo está inacessível por razões de segurança</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Pasta vazia</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Criar nova conta</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Criar nova etiqueta/Tag</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Depois de desactivar a conta você não receberá mais mensagens </value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Desativar</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Se eliminar a sua conta, todas as mensagens serão excluídas da caixa de correio.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Eliminar etiqueta/tag</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Se eliminar a tag da lista, ela também será removida dos contactos e mensagens associadas.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Transferir</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Este endereço já existe</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Rascunhos</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Caixa de entrada</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Lixo</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Para a frente</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Tamanho original</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Obter configurações padrão</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Correio</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Marcar como lido</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Marcar todas as mensagens de</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Esta conta foi desactivada.</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Mais</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Criar nova etiqueta/tag</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>no address</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>sem assunto</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>todos</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>importante</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>ler</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>ler</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>não lidas</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>não lidas</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>com anexos</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>com anexos</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Desmarcar todos</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>Seleccionado</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>Servidor POP</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Porta</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Correio</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Receber email</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Obter novas mensagens</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Salvar para os Meus Documentos</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Salvar para Documentos do Projeto</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Guardado em </value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecionar</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selecionar tudo</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Enviar e-mail</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Mostrar mais tags</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Mostrar na página</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>Servidor SMTP</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Editar Tag</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Nome da tag</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Gestão de tags</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Ver perfil de contato</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Compor um e-mail</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Criar novo E-mail</value>
+  </data>
+</root>

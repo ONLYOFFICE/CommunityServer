@@ -1,0 +1,22 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir Condition="$(RootDir)==''">..\..\..\</RootDir>
+    <MsbuildDir>$(RootDir)build\msbuild\</MsbuildDir>
+    <CopyrightDir>$(MsbuildDir)Copyright\</CopyrightDir>
+    <ChangeCopyright Condition="'$(ChangeCopyright)' == ''">0</ChangeCopyright>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(MsbuildDir)ASC.Web.Core.BuildTask.dll" TaskName="ASC.Web.Core.BuildTask.WriteCopyrightText" />
+
+  <Target Name="Build">
+    <CallTarget Targets="WriteCopyrightText" Condition=" '$(ChangeCopyright)' == '1' "/>
+  </Target>
+
+  <Target Name="WriteCopyrightText">
+
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" Ignore="file:$(CopyrightDir)Ignore.txt"/>
+
+  </Target>
+
+</Project>

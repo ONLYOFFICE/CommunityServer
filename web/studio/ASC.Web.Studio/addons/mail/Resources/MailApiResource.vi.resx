@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Một số thông số đầu vào không hợp lệ.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Truy cập đến tài liệu bị từ chối.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Tài liệu không thể được tìm thấy hoặc không tồn tại trên kho lưu trữ đã chọn.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Các file rỗng không được hỗ trợ.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Không tìm thấy tin nhắn.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Tổng kích thước của tất cả file đính kèm đã vượt quá giới hạn.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Xảy ra lỗi ngoài ý muốn. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>Tin nhắn này đã được tạo tự động bởi phần mềm gửi thư.</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>Đổi tin nhắn của bạn</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>Trong trường hợp lỗi vẫn còn, vui lòng đọc {url_begin}phần FAQ{url_end} để tìm hiểu thêm về sự cố.</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>Không thể gửi tin nhắn có chủ đề "{subject}" từ {date}.</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Nguyên nhân</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>Không thể gửi tin nhắn tới (những) người nhận</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>Vui lòng kiểm tra địa chỉ người nhận và định dạng tin nhắn của bạn. Nếu bạn chắc chắn tin nhắn của bạn là chính xác, hãy kiểm tra tất cả cài đặt của tài khoản {account_name}, và nếu mọi thứ đúng, đăng nhập vào dịch vụ mail mà bạn sử dụng và xác nhận câu hỏi xác minh, nếu có. Sau đó thử lại.</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>Không thể gửi tin nhắn</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Trường này không được để trống</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>Địa chỉ email không chính xác trong trường %1</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Tag %1 đã tồn tại</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>Tên tag không được để trống</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>Bcc</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>Thời gian chờ kết nối IMAP server đã quá hạn.</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>Phản hồi IMAP:</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>Thời gian chờ kết nối POP3 server đã quá hạn.</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>Phản hồi POP3:</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>Thời gian chờ kết nối SMTP server đã quá hạn.</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>Phản hồi SMTP:</value>
+  </data>
+</root>

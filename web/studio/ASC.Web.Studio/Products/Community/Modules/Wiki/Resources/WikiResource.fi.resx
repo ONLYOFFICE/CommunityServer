@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Poista tiedosto?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Poista sivu?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Valittujen versioiden vertaileminen</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Versio {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Ei yhtään luokkaa</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Kaikki wiki-sivujen luokat on lueteltu täällä. Kun uusi luokka lisätään sivulle, se ilmestyy myös tähän luetteloon.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>Ei näytettäviä tiedostoja</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Kaikki wiki-sivujen käyttämät tiedostot tallennetaan tähän osioon. Tiedostoja voidaan liittää wiki-sivuihin wiki- tai html-koodin avulla.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Ei näytettäviä sivuja</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Hakemistosivu näyttää aakkosellisen luettelon kaikista wiki-sivuista. Uudet sivut lisätään tähän luetteloon automaattisesti.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Ei näytettäviä sivuja</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Kaikki viime aikoina luodut tai muokatut sivut ja niiden omistajat luetteloidaan automaattisesti tänne, lajiteltuna päivämäärän mukaan.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Ei näytettäviä sivuja</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Kaikki viime aikoina muokatut sivut ja niiden omistajat luetteloidaan automaattisesti tänne, lajiteltuna päivämäärän mukaan.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Uusi tiedosto</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Uusi sivu</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Etusivu</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Muokkaa tiedostoa</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Muokkaa sivua</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Tiedostoa ei ole olemassa. {0Create} tiedosto tällä nimellä [[tai etsi kohteesta {1search}-tulos]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Sivua ei ole olemassa.&lt;/div&gt;Haluatko {0create} sen[[ tai etsiä kohteesta {1search}-tulos]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Lisää tiedosto</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Luo uusi sivu</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Poista sivu</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Muokkaa sivua</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Luokka: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Tulosta sivu</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Näytä historia</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Yrityksen Wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Lisättävää tiedostoa ei ole valittu.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Sisäinen virhe. Ota yhteys järjestelmänvalvojaan.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Virhe sivun wiki-koodissa</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Muutoksia ei ole tehty.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Toinen käyttäjä on muokannut tätä sivua. Päivitä sivu tarkastellaksesi uusinta versiota.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Sivun otsikkokenttä on tyhjä.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Sivun nimi on virheellinen. Kirjoita vaihtoehtoinen nimi.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Sivu samalla otsikolla on jo olemassa.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Muutokset on tallennettu.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Lisää sivu luokkaan</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Sivun päivitykset/kommentit</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Uudet sivut</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Tilaa tämä sivu</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wiki-haku</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Lopeta tämän sivun tilaus</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>kommentti lisätty</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>kommentti poistettu</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>kommenttia muokattu</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>tiedosto lisätty</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>tiedosto poistettu</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>sivu lisätty</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>sivua muokattu</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>sivun versio palautettu</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Å,Ä,Ö</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Verrataan versiota {0} version {1} kanssa</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Lisää tiedosto</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Käyttäjä {0} on muokannut tätä sivua {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Haluatko palauttaa tämän version?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+</root>

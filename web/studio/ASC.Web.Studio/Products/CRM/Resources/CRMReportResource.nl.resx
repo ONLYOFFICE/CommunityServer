@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Het gemiddelde budget van kansen</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>De gemiddelde duur van een succesvolle kans, dagen</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Gefactureerd</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Verstuurde facturen</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Leeg sjabloon Documentbouwer</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Per het budget</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Per aantal</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Afgesloten</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Afgesloten taken</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Contacten per temperatuurniveau</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Contacten per type</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Met kansen</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Zonder kansen</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Conversie</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Aangemaakt</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Om het rapport te genereren, moet het kansbudget naar de basisvaluta worden omgerekend. Stel de gebruikte wisselkoersen in om dit te doen.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Valutainstellingen</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Huidige maand</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Huidige kwartaal</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Huidige week</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Huidig jaar</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Budget voor kansen</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Kansen per budget</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Kansen per aantal</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Kansen per fase</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Kansen per status</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Aantal kansen</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Gedurende de hele tijd</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Gegenereerde rapporten</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Al uw gegenereerde rapporten worden hier weergegeven. U kunt de rapportbestanden bewerken, verwijderen of downloaden. Als u een rapport wilt aanmaken, selecteert u een sjabloon uit de lijst aan de linkerkant, stelt u de filters in en klikt u op de knop 'Genereren'.</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Rapport genereren</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Facturen per status</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Facturen voor de periode</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Verloren</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Managers</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Zal sluiten in de komende 30 dagen</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Nieuw</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Nieuwe contacten</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Nieuwe contacten met en zonder kansen</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Nieuwe taken</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Volgende maand</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Volgend kwartaal</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Volgende week</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Volgend jaar</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Geen data voor het rapport. Kies een andere filter.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Geopend</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Te laat</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Te late taken</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Betaald</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Vorige maand</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Vorig kwartaal</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Vorige week</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Vorig jaar</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Afgewezen</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Het rapport opbouwen</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>U kunt alle gegenereerde rapporten zien, downloaden, bewerken of verwijderen in {0}CRM/Rapporten/Gegenereerde rapporten{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Het rapport opbouwen({0}% compleet)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapporten</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Sales per dag, per de managers</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Sales per uur, per de managers</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Verkoop Per Managers</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om het totale aantal succesvol gesloten kansen te laten zien voor de geselecteerde {1}Tijdsperiode{2} voor alle managers of alleen de geselecteerde. Als de week of maand is geselecteerd, laat het rapport de resultaten zien gegroepeerd in dagen. Kwartaal en jaarperioden groeperen de data per maand.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Sales per maand, per de managers</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Verkoopvoorspelling</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om de verkoopvoorspelling voor een bepaalde periode weer te geven, rekening houdend met de kanswaarschijnlijkheid. Het geeft het aantal kansen voor de geselecteerde {1}Tijdsperiode {2} weer voor alle managers of alleen de geselecteerde. {0} De data bevatten het totale budget voor de kansen, waarvan de geschatte sluitdatum in de geselecteerde periode valt.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Sales funnel per budget van kansen</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Sales funnel per aantal kansen</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Sales Funnel</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld voor het bouwen van een sales funnel voor een bepaalde periode. Het toont het aantal kansen voor de geselecteerde {1}Tijdsperiode{2} voor alle managers of alleen de geselecteerde.
+{0} De belangrijkste data bevatten het aantal kansen in de funnel, het gemiddelde kansbudget, de gemiddelde duur van succesvol afgesloten kansen, de verhouding van open tot gesloten kansen.
+{0} De data wordt gesorteerd op het kansaantal en het budget.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Fase</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Som</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om een samenvatting van de data te tonen van de kansen, contacten, taken en facturen van de geselecteerde {1}Tijdsperiode {2} voor alle managers of alleen de geselecteerde. In het rapport worden de kansen getoond gespecificeerd per status en hun fase, contacten per type en fase, taken en facturen per hun status.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Samenvatting voor het moment</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Samenvatting voor de periode</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om een samenvatting van de data te tonen voor de kansen, contacten, taken en facturen voor de geselecteerde {1}Tijdsperiode {2} voor alle managers of alleen de geselecteerde. In het rapport worden de kansen getoond gespecificeerd per het budget en hun aantal, contacten per type, taken en facturen per periode.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Taken per status</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Taken voor de periode</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Tijdsperiode</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Het totale budget van kansen</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Het totale aantal kansen</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Totale verkoop voor de periode per managers</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Gewonnen</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om het totale aantal contacten te laten zien voor de geselecteerde {1}Tijdsperiode{2} voor alle managers of alleen de geselecteerde. Het rapport laat de nieuwe contacten zien gespecificeerd op type en op de aan- of afwezigheid van kansen. De data wordt alleen door managers gegroepeerd.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Contacten per managers</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om de totale werklast te tonen van gewonnen en verloren kansen voor de geselecteerde {1}Tijdsperiode {2} voor alle managers of alleen de geselecteerde. De data wordt alleen door managers gegroepeerd. </value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Kansen per managers</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om het totale aantal taken te laten zien voor de geselecteerde {1}Tijdsperiode{2} voor alle managers of alleen de geselecteerde. Het rapport laat het totale aantal verzonden facturen zien en de betaalde, afgewezen en achterstallige facturen. De data wordt alleen door managers gegroepeerd.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Facturen per managers</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Dit rapport is bedoeld om het totale aantal taken te laten zien voor de geselecteerde {1}Tijdsperiode{2} voor alle managers of alleen de geselecteerde. Het rapport laat de gesloten, nieuwe en achterstallige taken zien die per type zijn gespecificeerd. De data wordt alleen door managers gegroepeerd.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Taken per managers</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Gisteren</value>
+  </data>
+</root>

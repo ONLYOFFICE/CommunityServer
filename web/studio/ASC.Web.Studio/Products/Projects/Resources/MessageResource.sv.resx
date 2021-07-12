@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arkiv</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arkiv</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Upphovsman</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Skapa en ny diskussion!</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Starta diskussion</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Skapa uppgift kring diskussion</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>är du säker på att du vill radera denna diskussion?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Ta bort diskussion</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Inga diskussioner hittades</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Diskussioner används för att hitta rätt lösning inom projektteamet för alla problem som kan dyka upp så länge det pågår. Diskutera alla frågeställningar med dina kollegor, bjud in användare från andra projekt att deltaga i er diskussion.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Diskussioner används för att hitta rätt lösning inom projektteamet för alla problem som kan dyka upp så länge projektet pågår. Diskutera alla frågeställningar med dina kollegor.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Inga diskussioner har inletts ännu</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Deltagare</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Redigera diskussion</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Varje meddelande måste innehålla text</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Inga diskussion hittades</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Diskussion</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Diskussioner</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Läs mer</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Välj projekt</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Starta den första diskussionen</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>De personer som du väljer ut kommer att informeras om meddelandet samt kommentarer förknippade med meddelandet.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Underrätta</value>
+  </data>
+</root>

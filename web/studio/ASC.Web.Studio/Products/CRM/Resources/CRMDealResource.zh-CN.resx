@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>添加新的机会</value>
+  </data>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>保存，并再新建一个商机</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>创建商机</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>商机</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>风险</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>固定预算</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>每小时</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>每周</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>每年</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>周期性交易</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>阶段</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>阶段类型</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>商机联系人</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>添加第一个商机</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>新建商机</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>商机阶段</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>自定义时间段</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>其他用户</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>商机</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>权限将设置到您是作者的机会</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>合计</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>商机阶段</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>销售人员通过一系列的问答形式去了解客户的潜在需求</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>需要验证</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>与潜在买家接触以了解其期望是一项必要的步骤</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>初步接触</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>商机未启动；或已失利。</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>订单流失</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>客户已口头上（非正式地）承诺会购买您的产品/服务。</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>评估阶段</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>销售人员尝试识别该客户是否潜在买家</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>初步拟合标准的应用</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>销售人员已向潜在买家提交建议书或书面报价</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>提案阶段</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>潜在买家是指有兴趣和有能力购买您产品/服务的个人或组织</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>销售机会</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>客户已开始与您商讨产品/服务的细节</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>协商/谈判阶段</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>商机已成交！</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>收尾阶段</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>阶段类型</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>商机参与者</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>商机参与者</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>商机</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>商机标签</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>商机标签列表</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>商机标签</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>删除商机</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>正在删除机会</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>商机说明</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>修改商机"{0}"信息</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>修改此商机</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>“商机”方便您跟进潜在客户的销售情况。通过“商机”功能，您可以为每一个客户的商机进行{0}分级{1}、记录跟进情况、分配任务、上传相关文件、计算收益，等等。</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>暂无符合此筛选条件的商机。您可以：① 尝试新的筛选条件；② 点击“清除筛选”以查看全部商机；③ 新建一个商机</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>暂无符合此筛选条件的商机</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>暂无商机</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>请填写商机标题</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>每个商机都必须有一个负责人</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>本商机暂无其他参与者</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>添加本商机参与者：您可从企业/联系人列表中进行选择。进行此“商机-联系人”互链的操作，可帮助您更好地跟进各项销售状况。</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>估计/实际截止日期</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>预算</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>阶段/类型</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>按标题查找机会</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>导入商机</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>应在计算机硬盘上选择正确格式的CSV文件。它必须包含用于导入机会所选d 分隔符分隔的字段或列。包含超过{0}行的文件应分为较小的部分，以正确导入。请确保您选择了需要授予访问将导入信息的门户用户，否则CSV文件中的数据将可供所有门户的用户使用。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>请选择要导入的CSV文件，并设置相应的访问权限</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>将您的文件列与相应的ONLYOFFICE™CRM字节相匹配。请注意，若想正确导入机会，您需要至少包含与您的文件匹配的以下列：ONLYOFFICE™CRM：“机会标题”，“机会责任”。包含日期的字段必须具有以下格式：{0}。 货币字段须根据国际三字母代码设置（例如SD, JPY, AUD）。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>请验证字段</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>回到商机列表</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>导入过程可能需要几分钟的时间，具体耗时取决于您要导入的数据量。导入进度完成后，系统会通知您。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>从现有机会中选择或添加新机会</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>关联或创建机会</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>我的商机</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>商机标题</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>未设定预算</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>其他参与者</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>限制此商机的访问权限</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>预计成功率</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>商机负责人</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>前往档案</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>在新标签中打开</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>显示总金额</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>您可以通过“商机阶段”来设定完成一项交易的必要步骤。系统预设有以下几个的商机阶段：接触、商讨、评估、谈判、承诺、成交、未开始。工作站管理员可以随时修改这些阶段名称和描述。</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>总金额</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>商机总数</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>本页小计</value>
+  </data>
+</root>

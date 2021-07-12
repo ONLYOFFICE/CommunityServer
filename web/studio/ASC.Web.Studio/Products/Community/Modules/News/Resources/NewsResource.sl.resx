@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Dodaj novice</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Komentar novic</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Uredi novice</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Zadnje poslovne novice, objave in ankete</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Dogodki</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati ta dogodek?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>Ustvari prvo napoved</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>Objave še niso bile dodane</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>Ustvari prvi dogodek</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>Dogodki še niso bili dodani</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>Novice še niso bile dodane</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>Ustvari prve novice</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>Ustvari prvo naročilo</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>Naročila še niso bila dodana</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>Ustvari prvo anketo</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>Nobena anketa še ni bila dodana</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Ustvari lastne dogodke, objavi pomembne objave, deli zadnje novice in dodajaj ankete za zbiranje mnenj svojih kolegov neposredno na svojem portalu.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Dostop zavrnjen</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Vnesi svoje anketno vprašanje</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Vnesi vsaj dve izbiri ankete</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Dogodek je bil izbrisan</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Novice</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Ankete</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Ustvari nov dogodek</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Ustvari novo anketo</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Napovedi</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Vsi dogodki</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Uredi dogodek</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Uredi anketo</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Naročila</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>vrsta dogodka</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>komentarji dogodka</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Novi dogodki</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Avtor</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Naslovno polje je obvezno</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Iskanje dogodkov</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaži na strani</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Naroči se na komentarje</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Skupno</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Odjavi se od komentarjev</value>
+  </data>
+</root>

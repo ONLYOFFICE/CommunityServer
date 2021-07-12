@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Ajouter et créer une nouvelle facture</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Ajouter adresse de facturation</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Ajouter adresse de livraison</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Ajouter ligne</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>L'adresse a été modifiée avec succès</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Créer nouvelle taxe</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Création d'une taxe</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Enregistrer et créer un nouvel article</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Ajouter cette facture</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Toutes les factures</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Joindre un document</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>automatiquement généré</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Facturer à</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Monnaie</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Date limite</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Changer format</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Toutes les factures auront le préfixe / format de nombre définis en utilisant les champs ci-après. Cochez la case appropriée pour générer les numéros automatiquement.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Changer statut</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Remarques</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Elles seront affichées sur la facture et dans le corps du message si vous envoyez la facture par Mail de ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>coïncide avec le client </value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Créer la première facture</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Créer le premier article</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Créer la première taxe</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Créer article</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Création d'un article de la facture</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Créer taxe</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Créer nouvelle facture</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Créer nouvel article</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Créer nouvelle taxe</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Monnaie</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir une monnaie</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} jours</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Les conditions par défauts seront utilisées pour des factures futures.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer la facture '{0}' ? </value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Suppression de la facture...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Suppression de l'article...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer l'article «{0}» ? </value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer la taxe «{0}» ? </value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Suppression de la taxe...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Supprimer cette facture</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Suppression des factures</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Remise</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Date limite</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Définissez la Date limite personnalisée ou sélectionnez une des valeurs prédéfinies à droite pour associer cette date à la date d'émission.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>La date d'émission dépasse la date limite </value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>A la réception</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir une date limite</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Dupliquer et créer une nouvelle facture</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Dupliquer facture</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Dupliquer facture</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Dupliquer facture «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Modifier adresse de facturation</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Modifier adresse de livraison</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Modifier facture</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Modifier facture «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Modifier taxe</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Cette section vous permet de définir la liste des articles qui peuvent être inclus dans les factures. Après avoir créé la liste vous pouvez sélectionner l'article nécessaire pour ajouter au document de paiement. Vous pouvez également ajouter de nouveaux articles à tout moment.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Aucun article correspondant à votre filtre ne peut être affiché dans cette section. Veuillez sélectionner d'autres options de filtrage ou désactiver le filtre pour afficher tous les articles dans cette section. Vous pouvez également créer un article s'il est absent.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Aucun article de la facture à afficher pour ce filtre ici</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>La liste Produits et services est vide</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>La section 'Factures' vous permet de créer les documents de paiement fournis à vos clients. Après avoir ajouté la facture la liste des factures disponibles sera affichée ici.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Aucune facture correspondant à votre filtre ne peut être affichée dans cette section. Veuillez sélectionner d'autres options de filtrage ou désactiver le filtre pour afficher tous les articles dans cette section. Vous pouvez également créer une facture si elle est absente.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Aucune facture à afficher pour ce filtre ici</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>La liste des factures est vide</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Les taxes vous permettent de créer des taxes supplémentaires spécifiques pour un certain pays ou zone. Vous pouvez ajouter le nom, le taux et la description de la taxe. Vous pouvez également ajouter de nouvelles taxes à tout moment.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>La liste des taxes est vide</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Pas d'opportunités trouvées </value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Sélectionner article</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Le champ Nom de la taxe ne peut pas être vide</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Le champ Taux ne peut pas être vide</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Rien</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Le champ Prix est vide</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Le prix n'est pas correct</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>La quantité n'est pas correcte</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>valeur de tarif incorrecte</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Taux de change</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Ce champ est obligatoire</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Ce nom de la taxe existe déjà</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Articles en stock</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Nom de l'article</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Quantité de stock</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Trouver par titre, UGS ou description</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Facture</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir un client</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Destinataire</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Votre devise CRM par défaut est utilisée pour définir les prix dans le catalogue Produits et services.&lt;br/&gt;Pour la changer, passez à la page &lt;a href="settings.aspx?type=common" target="_blank"&gt;Paramètres communs&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Actif</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Archivé</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Un ou plusieurs articles ont des quantités en stock négatives</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Avec articles en stock</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Sans articles en stock</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Langue de la facture</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Chaque facture doit avoir une langue</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Numéro de la facture</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Le numéro de la facture est déjà pris</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Facture</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Nom de la taxe 1</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Taux de la taxe 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Nom de la taxe 2</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Taux de la taxe 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>La taxe avec ce nom est déjà enregistrée </value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Les catégories de taxes vous permettent de créer des taxes supplémentaires spécifiques pour un certain pays ou zone. Vous pouvez indiquer le nom, le taux et la description de cette taxe.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Vous ne pouvez supprimer la catégorie de taxes qu'au cas où elle n'est pas utilisée dans la section Produits et services.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Nom de la taxe</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Taux</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Date de la facture</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir une date</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Votre devise par défaut dans le système CRM.&lt;br/&gt;Pour la changer, passez à la page &lt;a href="?type=common" target="_blank"&gt;Paramètres communs&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Ajoutez la quantité des articles au présent en stock. Ce nombre sera diminué chaque fois que vous ajoutez un article à votre facture. Quand vous recevez plus d'articles il vous suffit de les ajouter à l'inventaire actuel.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Associer à l'opportunité</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Établir une facture</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Marquer comme brouillon</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Marquer comme payée</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Marquer comme rejetée</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Marquer comme envoyée</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Numéro</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Format incorrect ou facture avec ce numéro déjà existe</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Le numéro de début n'est pas spécifié</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir un numéro</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>En retard</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Numéro de commande</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Préfixe</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Prix</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimer</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produits et services</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Sélectionner un produit ou un service de la liste ou ajoutez un nouvel objet</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir des articles</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Quantité</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Enregistrement des paramètres de numéro ...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Enregistrement des paramètres de conditions... </value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Une erreur "{0}" s'est produite lors de l'enregistrement de la facture. Réessayez plus tard.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Vendeur</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Envoyer par émail</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Définir par défaut</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Définir les conditions par défaut</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Vider</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Livrer à</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Afficher le profil de la facture</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Ouvrir dans un nouvel onglet</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Numéro de début</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Unité de gestion de stock (UGS)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Sous-total</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Taxe</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Chaque facture doit avoir des conditions</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total de la facture</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Total des factures</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Suivre les articles en stock</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Modifier l'article «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Modifier la taxe «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Enregistrement des changements...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+</root>

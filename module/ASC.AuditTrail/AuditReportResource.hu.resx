@@ -1,0 +1,646 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Művelet</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Művelet azonosító</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Művelet típusa</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Hozzáadott Adminisztrátorok: {0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Törölt Adminisztrátorok: {0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Adminisztrátor Üzeneteinek Beállításai Frissítve</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Adminisztrátorok [{0}]. Teljes Hozzáférés Megnyitva</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Csatolás</value>
+  </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>Vizsgálati Élettartam Beállítások Frissültek</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>Audit Trail Jelentés letöltve</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>Audit Trail Jelentés ({0}-{1})</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Böngésző</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>[{0}] ügyek. Fájl csatolva: {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>Ügy lezárva: {0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>Ügy létrehozva: {0</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>[{0}] ügyek. Történeti esemény létrehozva: {1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>[{0}] ügyek. Címke hozzáadva: {1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>Ügy törölve: {0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>[{0}] ügyek. Történeti esemény törölve: {1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>[{0}] ügyek. Címke törölve: {1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>[{0}] ügyek. Fájl leválasztva: {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>[{0}] ügyek. Tárasaság csatolva: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>[{0}] ügyek. Személy linkelve: {1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>Ügy megnyitva: {0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>[{0}] ügyek. Hozzáférés megnyitva</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>[{0}] ügyek. Hozzáférés korlátozva: {1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>Ügyek. Címke létrhozva: {0} </value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>Ügyek törölve: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>Ügyek. Címke törölve: {0} </value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>Ügyek CSV-fájlba exportálva: {0} </value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>Ügyek CSV-fájlból importálva</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Ügyek</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>[{0}] ügyek. Társaság leválasztva: {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>[{0}] ügyek. Személy leválasztva: {1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>Ügy frissítve: {0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>Az ügyben felhasználói mező létrehozva: {0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>Az ügyben felhasználói mező törölve: {0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Az ügyben a felhasználói mezők frissítve: {0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>Az ügyben a felhasználói mező frissítve: {0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>Színtéma megváltozott</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>Általános beállítások</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>Cégek Összevonva: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>Cégek</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>[{0}] Cégek. Fájlok csatolva: {1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>Cég Létrehozva: {0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>[{0}] Cégek. Történeti esemény létrehozva: {1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>[{0}] Cégek. Személyek Címke létrehozva: {1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>[{0}] Cégek. Címke Létrehozva: {1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>Cég Létrehozva Webűrlappal: {0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>Cég Törölve: {0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>[{0}] Cégek. Történeti esemény törölve: {1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>[{0}] Cégek. Címke Törölve: {1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>[{0}] Cégek. Fájl leválasztva: {1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>[{0}] Cégek. Személy Csatolva: {1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>[{0}] Cégek. Projekt Linkelve: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>[{0}] Cégek. Személy leválasztva: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>[{0}] Cégek. Projekt Leválasztva: {1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>Cég Frissítve: {0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>[{0}] Cégek. Személyhőmérsékleti szint frissítve.</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>[{0}] Cégek. Fénykép frissítve</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>[{0}] Cégek. Cégvezető Infó Frissítve</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>[{0}] Cégek. Hőmérsékleti Szint Frissítve</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>[{0}] Cégek. Fájlok feltöltve: {1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>Cég Felhasználói Mező Létrehozva</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>Cég Felhasználói Mező Törölve: {0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Cég Felhasználói Mezők Rendezése Frissítve: {0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>Cég Felhasználói Mező Frissítve: {0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>Levél az Adminisztrátornak ELküldve</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>Kapcsolatok [{0}]. Projekt Linkelve: {1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>Kapcsolatok [{0}]. Feladat létrehozva: {1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>Kapcsolatok. Címke Létrehozva: {0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>Kapcsolatok Törölve: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>Kapcsolatok. Címke Törölve: {0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>Kapcsolatok CSV-fájlba exportálva: {0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>CSV-fájlból importált kapcsolatok</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kapcsolatok</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>Kapcsolatok Címkebeállításai Frissítve</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>Kapcsolat-hőmérsékleti Szint Létrehozva: [{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>Kapcsolat-hőmérsékleti Szint Törölve: [{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>Kapcsolat-hőmérsékleti Szint Beállítások Frissítve</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>Kapcsolat-hőmérsékleti Szintek Rendezése Frissítve: [{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>Kapcsolat-hőmérsékleti Szint Frissítve: [{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>Kapcsolat-hőmérséklet Szint [{0}]. Szín Frissítve</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>Kapcsolattípus Létrehozva: [{0}]</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>Kapcsolattípus Törölve: [{0}]</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Kapcsolattípusok</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>Kapcsolattípusok Rendezése Frissítve: [{0}]</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>Kapcsolattípus Frissítve: [{0}]</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>Kapcsolatok [{0}]. Projektlinkelés Megszüntetve: {1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>Kapcsolat Felhasználói Mező Létrehozva: {0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>Kapcsolat Felhasználói Mező Törölve{0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Kapcsolatok Felhasználói Mezők Rendezése Frissítve: {0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>Kapcsolat Felhasználói Mező Frissítve: {0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Sütibeállítások Frissítve</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>Minden Adat Exportálva</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>Alapértelmezett Deviza Frissítve</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM Entitás. Leválasztott Fájl: {0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM Fájlok</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>CRM Feladatkategóriák: Rendelés Frissítve {0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>CRM Feladatkategória Létrehozva: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRM Feladatkategória Törölve: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRM Feladatkategória Frissítve: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>CRM Feladatkategória-ikon Frissítve {0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRM Feladat Lezárva: {0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>CRM Feladat Létrhozva: {0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRM Feladat Törölve: {0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>CRM Feladat Megnyitva: {0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CRM Feladatok CSV Fájlba Exportálva: {0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>CRM Feladatok CSV Fájlból Importálva: {0}</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRM Feladatok</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>CRM Feladatok Frissítve: {0}</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>Devizaárfolyamok Frissítve: {0} - {1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Egyéni Navigáció Beállításai Frissítve</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>Alapértelmezett Kezdőoldal Beállításai Frissítve</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Töröl</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Lecsatol</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Megbeszélések</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>DNS Beállítások Frissítve</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>Dokumentumszolgáltatás helye frissítve</value>
+  </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>A kényszermentési beállítások frissítve</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Felülírási beállítások aktulizálva</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>A(z) {0} fájl külső formátumba alakítva</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Fájlok [{0}]. "{1}" mappából a(z) "{2}" mappába másolva</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>Fájlok [{0}]. "{1}" mappából a(z) "{2}" mappába felülírással másolva</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Fájl létrehozva: {0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>Fájlok [{0}]. {1}. revízió. Verzió létrehozva</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>Fájl törölve: {0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>Fájlok [{0}]. {1}. revízió. Verzió törölve</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>Fájl letöltve: {0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>Fájlok [{0}]. {1}-ként letöltve</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>[{0}] mappák. Importált fájl: {1}. Szolgáltató: {2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>Fájl zárolva: {0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>Fájlok [{0}]. "{1}" mappából a(z) "{2}" áthelyezve</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>Fájlok [{0}]. A Szemetes mappába áthelyezve</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>Fájlok [{0}]. "{1}" mappából a(z) "{2}" mappába felülírással áthelyezve</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>Fájl átnevezve: {0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>Fájlok [{0}]. {1}. revízió. Verzió visszaállítva</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>A(z) {1} dokumentumot aláírták ezen keresztül: {0}</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Fájlok</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>{1} dokumentum aláírásra elküldve a következőn keresztül: {0}</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>Feloldott fájl: {0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>Fájl frissítve {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>Fájlok [{0}]. Hozzáférés frissítve</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>Fájlok [{0}]. {1}. revízió. Hozzászólás frissítve</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Fájl feltöltve: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>[{0}] mappák. Másolva a(z) {1} mappába</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>[{0}] mappák. Másolva felülírással a(z) {1} mappába</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>Mappa létrehozva: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>Mappa törölve: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>[{0}] mappák. Áthelyezve a(z) {1} mappába</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>[{0}] mappák. áthelyezve a Szemetes mappába</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>[{0}] mappák. Áthelyezve felülírással a(z) {1} mappába</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>Mappa átnevezve: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Mappák</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>[{0}] mappák. Hozzáférés frissítve</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Követ</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Általános</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Üdvözlőoldal beállításai frissítve</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Csoport létrehozva: {0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>Csoport törölve: {0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Csoportok</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>Csoport frissítve: {0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>Vendéghozzáférés</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>Vendég aktiválva: {0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>Vendég létrehozva: {0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>Vendég meghívás által létrehozva</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>Vendég importálva: {0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Előzmény-eseménykategóriák. Rendezés frissítve: [{0}]</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>Előzmény-eseménykategória létrehozva: [{0}]</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>Előzmény-eseménykategória törölve: [{0}]</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>Előzmény-eseménykategóra létrehozva: [{0}]</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>Előzmény-eseménykategóriák  [{0}]. Ikon frissítve</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>Sikertelen bejelentkezés API-n keresztül</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>Sikertelen bejelentkezés API-n keresztül és SMS kóddal </value>
+  </data>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>Sikertelen bejelentkezés API-n és azonosító alkalmazáson keresztül</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Feladatok</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>Feltöltés</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>Aktivékt felhasználó: {0}</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Felhasználó</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Adat újrakiosztás: {0} felhasználótól {1} felhasználónak</value>
+  </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>Azonosító alkalmazás leválasztva: {0}</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>Email frissítve</value>
+  </data>
+</root>

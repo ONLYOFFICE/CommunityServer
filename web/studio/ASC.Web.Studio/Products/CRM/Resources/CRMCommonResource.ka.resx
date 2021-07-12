@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>მოქმედება</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>დამატება</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>ტეგის დამატება</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>ამ მოვლენის დამატება</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>შენიშვნის დამატება...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>მომხმარებლის დამატება</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>შესაბამისი ველი ONLYOFFICE™ CRM ში</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>კონტაქტებთან დაკავშირება</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>ავტორი</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>ღონისძიება</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>კატეგორია</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>არჩევა</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>ფილტრის განულება</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>ამ ფანჯრის დაკეტვა</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>ფანჯრის დაკეტვა</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>ფაილის სვეტი</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>თარიღი</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>ტარიფი</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>ვალუტის კონვერტაცია</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>შექმნის თარიღი</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>ახალი ტეგის დამატება</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>ვალუტა</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>მიმდინარე {!user}</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>თარიღი</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>გარიგებები</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>ამ მოვლენის წაშლა</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>ტაგის წაშლა</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>მომხმარებლის წაშლა</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>აღწერა</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>შეიყვანეთ თანხა</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>კომპანიის ან პერსონის ძებნა სახელის მიხედვით...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>დან</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>დამალე ფაილის მიმაგრების პანელი</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>ისტორია</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>ტელეფონის ზარი</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>ფოსტა</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>შეხვედრა</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>შენიშვნა</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>ფაილის დასკანირება ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>საკონტაქტო სიის მიღება</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>ინფორმაცია წარმოდგენილია</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>დაკავშირება</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>კალკულატორი</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>შემდეგი ჩანაწერი</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>ჩანაწერები არ არის</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>დამთხვევები არ არის</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>მითითებული არ არის</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>შეატყობინე</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>წინა ჩანაწერი</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>ჭინა ნაბიჯი</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>ხელმისაწვდომია მომხმარებლებისათვის</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>დაშვების შეზღუდვა</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>თავიდან წვდომა აქ პორტალის ყველა {!users}. წვდომის შესაზღუდად მონიშნეთ ქვევით.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>დაშვების უფლება</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>კლიენტებთან დაკავშირების მართვა, განსაზღვრეთ კონტაქტის პრიორიტეტები, თვალი ადევნეთ კომუნიკაციის ისტორიას და გაყიდვების ეფექტურობას.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>დაკავშირებულია</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>პასუხისმგებელი</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>დანიშნულება</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>შენახვა</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>ცვლილებების შენახვა</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>ცვლილებების შენახვა</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>მონიშნე ყველა</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>შეატყობინე მომხმარებლებს</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>გააგზავნე e-mail</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>პარამეტრები</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>აჩვენე</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>აჩვენე პანელი ფაილის მისამაგრებლად</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>თავისუფალი ცხრილი</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>ტაგები</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>დავალებები</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>სახელწოდება</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>ში</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>სხვა კონტაქტთან მიბმა</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>ფაილის მიმაგრება</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>აჩვენე ფაილები</value>
+  </data>
+</root>

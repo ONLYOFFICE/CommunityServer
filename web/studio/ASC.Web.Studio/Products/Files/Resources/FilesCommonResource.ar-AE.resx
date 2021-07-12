@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>صلاحيات</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>كامل الصلاحيات</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>المشرف</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>الكاتب</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>خاص بي</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>تحويل الى</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>خطاء</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>الجميع</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>مجلد</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>اسم المجلد</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>ضيف</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>استعادة</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>انشئ حرر احفظ وشارك جميع ملفاتك.اربط مع حسابك في قوقل درايف او دروبوكس او حساب بوكس اجمع كل مستنداتك في مكان واحد</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>انشئ حرر احفظ وشارك جميع ملفاتك.اربط مع حسابك في قوقل درايف او دروبوكس او حساب بوكس اجمع كل مستنداتك في مكان واحد</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>مشاركة</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>حجم</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>عنوان المجلد</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>تم إنشاءه</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>تم حذفه</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+</root>

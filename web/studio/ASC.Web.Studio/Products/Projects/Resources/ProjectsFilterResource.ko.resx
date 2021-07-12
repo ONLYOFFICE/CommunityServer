@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>작성</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>생성일</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>이정표</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>참여자</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>우선순위</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>프로젝트</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>책임자</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>꼬리표있는</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>필터 다시 설정</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>사용자 정의 기간</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>기한</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>가입한 토론들</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>구독했습니다</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>그룹</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>그룹</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>나</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>참여한 토론들</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>내 작업과연결된 이정표</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>나의 프로젝트</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>내 작업</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>책임자 없음</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>다른 이정표</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>기타 프로젝트</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>다른 사용자</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>기한이 지난</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>지난 달</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>지난주</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>프로젝트 관리자</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>지난 7 일</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>완료되었습니다</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>진행중</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>진행중</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>중지</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>꼬리표</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>작업들</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>멤버</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>기간</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>다가오는</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>다가오는</value>
+  </data>
+</root>

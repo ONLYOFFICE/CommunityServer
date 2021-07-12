@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Napaka povezovanja računa.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Če napake ne morete odpraviti, prosim preberite {0}FAQ oddelek{1} in izvedite več o tej težavi.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Napaka povezovanja računa</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Nastavitve računa</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Račun je povezan z uporabo OAuth, urejanje je omejeno.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Računi</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>dejanja</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Želite aktivirati %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Dodaj račun</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Želite prav zdaj dodati svoj prvi mail račun?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Nimate mail računov povezanih z ONLYOFFICE™ Mailom. Prosim dodajte svoj mail račun za začetek prejemanja in pošiljanja e-poštnih sporočil.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Dodajte nov račun za uporabo ONLYOFFICE™ Maila.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Mail Server</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Vzdevek)</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Vse</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Nekateri parametri vnosa so nepravilni.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Dostop do dokumenta je zavrnjen.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Dokumenta ni bilo mogoče najti, ali ne obstaja v izbrani shrambi.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Prazne datoteke niso podprte.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>izvedljive datoteke morda niso dovoljene pri nekaterih storitvah (npr. Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Opozorilo: velikost datoteke ne sme preseči %1MB. Skupna velikost vseh datotek ne sme biti več kot %2MB.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Sporočila ni bilo mogoče najti.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Skupna velikost vseh priponk presega limit</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Prišlo je do nekaj nepričakovanih napak. Prosim ponovno poskusite kasneje.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0} mail računa dolgo ni bilo mogoče povezati, zato je bil onemogočen.{1} Prosim preverite vse vnešene nastavitve računa ali se vpišite v mail storitev, ki jo uporabljate in preverite varnostne nastavitve. Ko ste prepričani, da so napake s povezavo računa odpravljene ga lahko ponovno omogočite in povežete s seznami računa.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Račun maila je bil onemogočen zaradi napake povezave</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Mail račun onemogočen</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Obstajajo težave pri pošiljanju in prejemanju operacij za {0} poštni račun.{1} Razlog je lahko, da ste spremenili svoje geslo računa. Prosim preverite vse nastavitve računa, ki ste jih vnesli, ali se vpišite v mail strežnik, ki ga uporabljate, ali preverite varnostne nastavitve.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Prišlo je do napake pri povezovanju z računom.</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Spremeni nastavitve računa</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Izberi oznako</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Zruši vse</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Ustvari novo CRM podjetje</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Ustvari novo CRM osebo</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM Kontakti</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Želite deaktivirati %1?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Želite izbrisati %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati %1 oznako?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Brisanje sporočil</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Prosim preverite svoje naslove prejemnikov sporočil in format sporočila. Če ste prepričani, da je vaše sporočilo pravilno, preverite vse {account_name} nastavitve računa in se, če je vse pravilno, vpišite v mail storitev, ki jo uporabljate in potrdite kakršna koli potrditvena vprašanja, če ta obstajajo. Nato se ponovno poskusite vpisati.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>V primeru, da napake ne uspete odstaniti, prosim preberite {faq_link_open_tag}Oddelek FAQ{faq_link_close_tag}, če želite izvedeti več o napaki.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Dostava neuspešna za sporočilo "{tema}".</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Dostava sporočila ni uspela.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Mail računi so bili onemogočeni</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Mail račun je bil onemogočen</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Vaš portal že nekaj časa ni bil uporabljen, zato so bili poštni računi povezani ONLYOFFICE™ Mailom deaktivirani. Če jih še vedno želite uporabljati, pojdite na svojo stran računa, kjer jih spet lahko omogočite.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Končano</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Nalaganje priponk v izbrano mapo je bilo neuspešno.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Napaka priponk</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Izbrane mape priponk ni bilo mogoče doseči, povezava pa je bila prekinjena z vašim {account} poštnim računom. Prosim preverite, če imate dovolj pravic dostopa za izbrano mapo in jo povežite nazaj.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Izbrane mape priponk ni bilo mogoče najti in je bila izbrisana z vašega {account} poštnega računa. Prosim preverite, če izbrana mapa obstaja in jo ponovno povežite.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Sestavi prvi osnutek</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Oddelek osnutkov dovoljuje, da ustvarite in razvrščate sporočila, katere lahko kasneje pošljete drugim ljudem. Tu lahko obkljukate najpomembnejša sporočila, ali izbrišete nepotrebna.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Ni sporočil za prikaz v tej mapi</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Sestavi novo sporočilo</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Mapa prejeto dovoljuje, da urejate sporočila, ki jih prejemate. Tu lahko vidite zgodovino dopisovanja, obkljukate najpomembnejša sporočila, združite e-sporočila v kategorije z uporabo oznak, ali izbrišete nepotrebna sporočila.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Ni prejetih sporočil</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Ustvari prvi račun</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Dodaj račun za pošiljanje, prejemanje in ohranjanje sporočil pravilno razporejenih na portalu. Prejmi dostop do zgodovine sporočil, kontaktov in datotek preko katerega koli brskalnika kadar koli in kjer koli. Razporedi sporočila z uporabo lastnih oznak.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Noben račun še ni vzpostavljen</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Pojdi do CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Ta seznam kontaktov bo vseboval vse vaše stranke iz CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Seznam stikov je prazen</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Ustvari novo oznako maila</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Najprej morate ustvariti oznako, ki jo nato lahko uporabljate</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Ni ustvarjenih oznak</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Sestavi novo sporočilo</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Oddelek poslano dovoljuje, da urejate svoja poslana sporočila. Tu lahko obklukate najpomembnejša sporočila, združite e-sporočila v kategorije z uporabo oznak, ali izbrišete nepotrebna.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Nobeno sporočilo še ni bilo poslano</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Oddelek Spam vsebuje sporočila, ki ste jih označili kot smeti. Tu lahko sporočila izbrišete, jih označite kot 'ne-spam' ali počistite celoten oddelek.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Ni sporočil za prikaz v tej mapi</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Oddelek koš vsebuje sporočila, ki so bila izbrisana. E-sporočila lahko obnovite ali dokončno izbrišete.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Ni sporočil za prikaz v tej mapi</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Račun že obstaja</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Prazno polje</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Prazno 'Do' polje</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Nepravilen naslov</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Nepravilen naslov</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>noben poštni predal ni izbran</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Prišlo je do neznane napake</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>ni izbranega uporabnika</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Prišlo je do napake pri odpiranju tega sporočila.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Prosim osvežite stran in sporočilo poskusite ponovno odpreti. V primeru, da vam napake ne uspe odpraviti, prosim {0}kontaktirajte našo ekipo za pomoč.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Opravičujemo se za nevšečnosti, a sporočila ni bilo mogoče naložiti na ONLYOFFICE™ Mail. Uporabite kopijo prvotnega sporočila dodanega kot priponko, za njegovo odpiranje pa uporabite katero koli mail odjemalsko programsko opremo ali  {0}Kontaktirajte našo ekipo za pomoč.{1}</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>%1 oznaka že obstaja</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Če želite ta račun ponovno povezati, ga prosim odstranite s seznama svojih povezanih računov na strani 'Nastavitve &gt; nastavitve računa </value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Obstujoč račun</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Razširi vse</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Izvozi sporočilo v CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Napaka izvoza mailov</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Prišlo je do napake pri izvažanju sporočila.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Sporočilo, ki ga želite izvoziti, je že povezano z izbranim CRM predmetom.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Izvoz sporočila v CRM zgodovino kontaktov je bil uspešno končan</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Drug</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Čas po meri</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Podjetja</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Od pošiljatelja</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Pomembno</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Čas po meri</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Z obdobjem</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>prejšnji teden</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Osebe</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>preberi</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Pokaži</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Na poštni naslov</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>neprebrano</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>s priponkami</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>S priložnostmi</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Z oznako</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Posredovano sporočilo</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Pomoč</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Vedno skrij slike od</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Skrij</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Račun je uspešno povezan.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Vsa sporočila zadnjih 30 dni so bila uvožena.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Uvoz sporočil je v teku. Lahko traja nekaj časa. Okno lahko zaprete in nadaljujete z uporabo Maila ali celo zaprete brskalnik. Uvoz se bo nadaljeval v ozadju.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Pomembno</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Nekatera sporočila, ki so bila prejeta z uporabo drugih storitev mogoče ne bodo uvožena. Prosim preberite  {0}FAQ oddelek{1} za več podrobnosti.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Če pri uvozu maila pride do napake, prosim preberite {0}FAQ oddelek{1} za več podrobnosti.</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Poveži pogovor z CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Povezovanje pogovora v CRM zgodovino kontaktov uspešno končano</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Napaka povezovanja pogovora</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Prišlo je do napake pri povezovanju pogovora z CRM.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Izbran CRM predmet ni več na voljo, ali pa je bila povezava izgubljena. Prosim potrdite lokacijo izbranega CRM predmeta in preverite svojo omrežno povezavo. Če napaka ostaja prosim kontaktirajte svojega administratorja portala.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>nalaganje priponk...</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Ustvarjanje poštnega predala...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Posodobitev poštnega predala...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Upravljaj račune</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Upravljaj podpis</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Označi vse maile prejemnika(ov)</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Označi vse maile pošiljatelja(ov)</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Sporočilo ni bilo poslano. Ali ste prepričani, da ga želite izbrisati?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 več</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Premikanje sporočil</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Dodaj mail račun</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Novo sporočilo</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Nobeno nadaljnje dejanje ni potrebno.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>V tej mapi ni mogoče prikazati sporočil, ki se ujemajo z vašim filtrom. Prosim izberite druge možnosti filtra, ali ga počistite za ogled vseh sporočil v tej mapi.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Tukaj ni sporočil za prikaz za ta filter</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>nič</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>ni teme</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Ni pomembno</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Ni Spam</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Pridobivanje privzetih nastavitev domene...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Osnutek</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Posreduj</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Odgovori</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Natisni</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Prostor za shranjevanje, ki je na voljo je na vašem portalu presežen. Vsa sporočila ne morejo biti naložene, novih sporočil pa ni mogoče pošiljati. S svoje mape prosim izbrišite nekaj sporočil, ali pa izbrišite nekaj datotek modula Dokumenti. Prav tako lahko spremenite svoj cenovni načrt, da prejmete več prostora na disku.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Shramba diska, ki je na voljo je presežena</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Označi kot prebrano</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Želite izbrisati vsa sporočila iz Spama?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Želite izbrisati vsa sporočila iz Koša?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Ponastavitev EMail-In mape ni bila uspešna.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Ponastavitev EMail-In mape je bila uspešna.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Noben CRM kontakt, ki se ujema z vašim filtrom, ne more biti prikazan na tej strani. Prosim izberite drugo možnost filtra, ali ga počistite za ogled vseh CRM stikov.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Tukaj ni CRM stikov za prikaz za ta filter</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Ponastavi filter</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Na tej strani ni mogoče prikazati kontaktov portala, ki se ujemajo z vašim filtrom. Prosim izberite druge možnosti filtra, ali jih počistite za ogled vseh kontaktov portala.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Tukaj ni kontaktov portala za prikaz za ta filter</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Obnovi</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Obnavljanje sporočil</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>Uspešno shranjeno %real_count% iz %count% v Mojih Dokumentih.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Shranjevanje je bilo neuspešno.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Shranjevanje sporočila</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Račun je bil deaktiviran. Prosim, aktivirajte ta račun ali izberite drugega.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Pošiljanje sporočila</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Strežnik</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Poštni predal strežnika, urejena le v administratorski plošči</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Ustvarjanje EMail-In mape ni bilo uspešno.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Ustvarjanje EMail-In mape je bilo uspešno.</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Pokaži</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Ta podpis bo dodan na konec vseh sporočil poslanih s tega računa. Tja lahko napišete svoje ime, kontakte ali slogan.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Shranjevanje oznake...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Uvoženo iz CRM. Te oznake tu ne morete urejati ali izbrisati.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Kontakti portala</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Skupno kontaktov:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Poskusi ponovno</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Razdruži z CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Označi kot neprebrano</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Uporabi podpis</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Opozorilo</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>s priponkami</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Brez oznak</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Z oznakami</value>
+  </data>
+</root>

@@ -1,0 +1,11 @@
+<samlp:LogoutResponse xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                      Destination="{Destination}"
+                      ID="{ID}"
+                      InResponseTo="{InResponseTo}"
+                      IssueInstant="{IssueInstant}"
+                      Version="2.0">
+  <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">{Issuer}</saml:Issuer>
+  <samlp:Status>
+    <samlp:StatusCode Value="{StatusCode}" />
+  </samlp:Status>
+</samlp:LogoutResponse>

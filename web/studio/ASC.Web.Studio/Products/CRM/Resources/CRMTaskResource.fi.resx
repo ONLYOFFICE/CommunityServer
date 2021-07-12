@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Luo uusi tehtävä</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Lisää tehtävä</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Määräpäivä</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Suljettu tehtävä</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Linkitä kontaktiin</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Lisää ensimmäinen tehtävä</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Lisää tehtävä</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Mukautettu kausi</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Muut käyttäjät</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Poista tehtävä</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Määräpäivä</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Muokkaa tehtävää</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Tehtävät ovat helppo tapa muistuttaa hoidettavista asioista. Tehtävä voi esimerkiksi muistuttaa tapaamisesta tai soitettavasta puhelusta. Voit myös jakaa tehtävät {0}tehtäväluokkiin{1} ja halutessasi linkittää ne kontakteihin, mahdollisuuksiin tai tapauksiin, tai yksinkertaisesti sinua muistuttamaan.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Yhtään suodattimiasi vastaavaa tehtävää ei löytynyt tässä osiossa. Muokkaa suodattimia tai tyhjennä ne saadaksesi enemmän tehtävien hakutuloksia. Voit myös etsiä haluamiasi tehtäviä kontaktien, mahdollisuuksien tai tapauksien välilehdistä.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Yhtään suodattimiasi vastaavaa tehtävää ei löytynyt.</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Tehtäväluettelo on tyhjä</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Valitse oikein muotoiltu CSV-tiedosto tietokoneeltasi. Tiedoston kentät tai sarakkeet on erotettava toisistaan valitsemallasi erotinmerkillä. Tiedostot, joissa on enemmän kuin {0} riviä, on hyvä jakaa pienempiin osiin tietojen tuomisen onnistumiseksi.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Valitse CSV-tiedosto</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Sovita tiedostosi sarakkeet vastaamaan ONLYOFFICE™ Asiakkuudenhallinnan kenttiä. Ole hyvä ja kiinnitä huomiota seuraavaan: jotta voit tuoda tehtäviä oikein, niin sinulla tulee olla vähintään seuraavat sarakkeet tiedostossasi, jotka vastaavat ONLYOFFICE™ Asiakkuudenhallinnan moduulia: 'Tehtävän otsikko', 'Vastuuhenkilö', 'Määräpäivä'. Kenttäarvot, joissa on päivämääriä, tulee olla seuraavassa muodossa: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Tarkista kentät</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Siirry tehtäväluetteloon</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Tehtävien tuominen voi kestää useita minuutteja riippuen tietojen määrästä.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Tuonti aloitettu</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Tuo tehtäviä</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Omat tehtävät</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>ei koskaan</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Myöhässä</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 minuuttia</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 minuuttia</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>puoli tuntia</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>tunti</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 tuntia</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Vastuuhenkilö</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Tallennetaan tehtävää</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Aloita tuonti</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tehtävä</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Tehtäväluokat</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Tehtäväluokka</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Puhelu</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Mahdollisuus</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Faksi</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Suorituksen valvonta</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Lounas</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Tapaaminen</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Muistiinpano</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Toimitus</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Sosiaaliset verkostot</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Kiitoksen ilmaisu</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Tehtävän kuvaus</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Luovuta tehtävä:</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tehtävät</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Tehtävän tila</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Tehtävän otsikko</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Tulevat</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 päivää</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Aika</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Tehtäväluokkien avulla voit jakaa tehtävät helposti ryhmiin. Tehtävien oletusluokat ovat puhelu, mahdollisuus, esittely, sähköposti, faksi, seuranta, lounas, tapaaminen, muistiinpano, toimitus, sosiaaliset verkostot ja kiitokset. Näiden luokkien muokkaamiseksi tarvitaan pääkäyttäjän oikeudet.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Kaikki tehtävät</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Viikko</value>
+  </data>
+</root>

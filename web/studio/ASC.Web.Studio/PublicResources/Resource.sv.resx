@@ -1,0 +1,1152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>adress</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>e-post</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Om detta program</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Behörighet</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Tillgång till {0} modulen beviljats till</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Lägg till {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Lägg till {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Alla {!Users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Ändra Portalägare</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Ändringarna kommer appliceras efter mejlbekräftelse.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} modulen är inaktiverad och visas inte på portalen. För att aktivera den, gå till Moduler &amp; Verktyg sektionen i portalens inställningar. </value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Full tillgång</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Portalägaren kan</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administratörerna kan</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users} kan</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} med olika åtkomsträttigheter kan</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} från listan</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Ditt konto är nästan aktivt nu</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Bekräftelse</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Portaldeaktivering</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Innan du raderar portalen, se till att automatisk fakturering har avavktiverats. Du kan kontrollera statusen för automatisk fakturering i ditt {0}Avangate konto{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>En länk för att bekräfta operationen har skickats till:email (portalägarens mejl adress)</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Portalradering</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>En länk för att bekräfta operationen har skickats till:email (portalägarens mejl adress)</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Skicka kod igen</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktivera mejladressen en gång till</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Skapa ny {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Lägg till Grupper</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Lägg till tillåtna IP-adresser</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Lägg till Kommentar</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Lägg till säker domän</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Lägg till {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Lägg till användare</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administratör</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Administratörsaviseringar</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Skicka meddelande</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Ditt meddelande har skickats. Du kommer kontaktas av portaladministrarören.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Administratörsmeddelande Inställningar</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administratörer</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Alla domäner</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Alla rättigheter förbehållna</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>© Ascensio System SIA {0}. Alla rättigheter förbehållna.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Svara</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Svar</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Appar</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Koppla ifrån</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Ej ansluten</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>på</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentisering</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automatisk säkerhetskopiering</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Skapa kopia</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Du måste ansluta ditt tredjeparts-konto (DropBox, Box.com, OneDrive eller GoogleDrive) till ONLYOFFICE Gemensamma Dokument mappen innan du kan spara din säkerhetskopia där.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Lägg till {!Group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Födelsedatum</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Webbläsare</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Lägg till ny kontakt</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Samtalet pågår</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>All data du angett kommer att gå förlorad. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Ändra Logotypen</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Lösenordet har ändrats</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>En länk för att bekräfta operationen har skickats till:email (portalägarens mejl adress)</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Maj, Jun, Jul, Aug, Sep, Okt, Nov, Dec</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Välj Ägare</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Välj {!user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Rensa Filter</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Ljusblå</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Mörkgrön</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Djupblå</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Koppla ifrån</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bekräftelse</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Bekräftelse</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Är du säker på att du vill ändra portalens adress till {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Portalägaren har ändrats. {0}Om 10 sekunder dirigeras du om {1}hit{2}</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Din registrering har bekräftats. Skapa ett lösenord och börja jobba!</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera din kommentar?</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Gratulerar</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Fortsätta</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Kontrollpanel</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Kontrollpanel</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Session Lifetime{1} gör det möjligt att ange en tid (i minuter) innan portalens användare kommer behöva ange deras inloggninsuppgifter på nytt för att få tillgång till portalen.{2}Efter att detta har sparats kommer alla användare loggas ut från portalen.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopiera länk</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Skapa ny profiler</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Anpassning</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Skräddarsydd</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Lägg till Element</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Lägg till Element</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>Stor ikon, 100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Ändra bild</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Skräddarsydd Navigering{1} - är inställningen för att modifiera navigeringsmenyn.{2}Lägg till dina egna element för en bättre användbarhet. Vänligen notera att om din webbsida använder HTTPS måste alla länkar också vara i HTTPS, annars kommer varningar komma upp i webbläsarna.</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Datasäkerhetskopiering{1} optionen används för att göra en säkerhetskopia av portalens data för att kunna återskapa den senare på din lokala server. Välj din datalagring (glöm inte att ange dina Amazon uppgifter för att kunna få tillgång till det).{2}
+Om du väljer att inkludera mejl kommer bara meddelanden från de 30 sista dagarna kopieras.{2}
+{0}Not:{1} du behöver ansluta din tredje parts konto (DropBox, Box.com, OneDrive eller Google Drive) till ONLYOFFICE Allmänna Dokument mappen innan du kommer kunna spara dina säkerhetkopior där.</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>dagar</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>dagar</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Avaktivera</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Avaktivera</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Ditt konto har avaktiverats.{0}Om 10 sekunder kommer du omdirigeras {1}här{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Portaldeaktivering/radering</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Modulurval</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Standard startsida</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Standardinställningar</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Din portal har raderats. {0}Om 10 sekunder kommer du omdirigeras {1}här{2}</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>Radera mitt konto</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Radera min profil</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Radera profil, dialog</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Radera profil</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} kommer raderas.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Redigera {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>En länk för att bekräfta operationen har skickats till:email (portalägarens mejl adress)</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS-inställningar</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Dokumenttjänst</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} sedan</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} dag</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} dagar</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} dagar</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} timme</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} timmar</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} timmar</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minut</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minuter</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minuter</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} månad</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} månader</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} månader</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} år</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} år</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} år</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Dagar innan igår</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>Redigera foto</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Redigera profil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Begär aktivering igen</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Ett aktiveringsmejl har skickats till din mejladress. Vänligen följ länken i meddelandet för att aktivera ditt konto.</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Bekräfta lösenrd</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Din portal har registrerats till följande domänen:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Felaktigt lösenord</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Din portal har registrerats från den följande e-postadressen:</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Lösenord och bekräftat överensstämmer inte</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Ändra e-post</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Alla {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Aktivera LDAP-autentisering</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Aktivera SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} med denna e-posten är redan registrerad</value>
+  </data>
+  <data name="ErrorEmptyMessage" xml:space="preserve">
+    <value>Ingen meddelandetext</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Din webbläsare stödjer inte JavaScript!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Din prisplan stödjer inte detta alternativ</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>från {0} till {1} tecken</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Lösenordet måste innehålla</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>siffror</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>Versaler</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Varje dag</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Varje månad</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Varje vecka</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Kvinna</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>för en tid</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>från</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>senaste 3 månaderna</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>förra månaden</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>förra veckan</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>För mobil</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>För din PC</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>från</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>Generell</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Välkomstsida Inställningar</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Grupp</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Grupper</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Gäst</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Gäster</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Standard Startsida{1} är ett sätt att välja modulen du går direkt till när du har loggat in till portalen eller klickat ONLYOFFICE™ logotypen när du redan är inloggad. För att spara dina inställningar, klicka på {0}Spara{1} knappen vid botten av sektionen.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Hjälpcenter</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Göm</value>
+  </data>
+  <data name="ImportButtonManually" xml:space="preserve">
+    <value>Manuellt</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} Finns redan</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>e-post</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Från fil</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Lägg till {!users} till portalen</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>Avgränsare</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>Filnamn</value>
+  </data>
+  <data name="ImportSelectAnotherSource" xml:space="preserve">
+    <value>Välj annan källa</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Tillägger användare</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Din prisplan tillåter dig inte att lägga till mer användare</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Du har fått länken till denna portal från en vän, en bekant eller en kollega till dig</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Lägg till användare som {!guests}</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Säkerhet{1} används för att begränsa inloggning till portalen från alla IP adresser förutom vissa adresser. Du kan ange de adresserna som ska tillåtas med exakta IP adresser i IPv4 formatet (#.#.#.#, där # är ett numeriskt värde från 0 till 255) eller med ett intervall med IP adresser (i #.#.#.#-#.#.#.# formatet). IP säkerheten fungerar inte för portalägarna, de kan få tillgång till portalen från vilken IP adress som helst.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Migrera ONLYOFFICE™ Mail också (rekommenderas inte)</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Tomt fält</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Server internt fel.</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Portnummer</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>Tillägger användare</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>En säkrare autentiseringsmetod krävs. Vänligen använd en krypterad anslutning eller aktivera enkel autentisering på servern.</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lär dig mer...</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>{0}Tvåfaktorsautentisering{1} via kodgenererande applikation aktiverades för alla användare av molntjänstadministratören.</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Inloggning via sociala nätverk</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Logo-inställningar</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>karta</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organisatör</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>När</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Var</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Vem</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Mejlserver</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>Mejlserver IP</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Man</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Bygg din CRM-databas</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Arbeta med .docx, .xlsx and .pptx online</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Välkommen till ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Markera som läst</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Ditt mejl har aktiverats.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Ny mobiltelefon</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Redigera mobiltelefonnummer</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Övervakning</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Fler åtgärder</value>
+  </data>
+  <data name="MoreLanguages" xml:space="preserve">
+    <value>Fler språk</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Visa aldrig</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Nytt portalnamn</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Ägare</value>
+  </data>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>Din abonnemang till support och uppdateringar har gått ut</value>
+  </data>
+  <data name="PaidPeriodStandaloneLife" xml:space="preserve">
+    <value>Din abonenmang till support och uppdateringar kommer gå ut om {0} {1}</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Ändra lösenord</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Nu kan du skapa ett nytt lösenord.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Betalning krävs</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Betalningar</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Betalningshistorik</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Väntande</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Personer</value>
+  </data>
+  <data name="PhotoMaxSize" xml:space="preserve">
+    <value>JPG eller PNG, max {0}</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Vänligen vänta...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portalnamn</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portalägare</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Portal, namnbyte</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Portalaccess</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Prissida Inställningar{1} gör det möjligt för portalens administratör att aktivera eller avaktivera prissidans synlighet till alla användare genom att göra den synlig för endast portalens administratörer.</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Moduler &amp; Verktyg</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Moduler</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profilen har raderats</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publicera</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Ditt konto har återaktiverats. {0}Om 10 sekudner kommer du omdirigeras {1}här{2}</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Ditt registreringsmejl</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Avvisa</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Komihåg</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Radera personlig data</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Återsänd</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Lista av säkerhetskopior</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Datarestaurering{1} används för att återskapa din tidigare sparade portaldata (från en lokal server eller SaaS portal). Välj lagringstället där datan har sparats, ange de nödvändiga detaljerna och kryssa för{0}Skicka avisering till portalens användare{1} för att varna dina portalanvändare om säkerhetskopior-/återskapningsoperationer</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Kontrollera att alla ord är rättstavade. Prova att använda olika nyckelord.</value>
+  </data>
+  <data name="SelectDataSource" xml:space="preserve">
+    <value>Välj datakälla</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Skicka inbjudan igen</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Skicka inbjudan</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Skicka test-mejl</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Serverfel</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Serverregion</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>Ange lösenord</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Asien-Stillahavsregionen (Singapore)</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomb</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Galen</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Dans</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Drick</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Arg</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Musik</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Glasögon</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Tvåfaktorsautentisering{1} är ett säkrare sätt för användarna att gå in i portalen. När inloggningsuppgifterna har angetts måste användaren ange koden från SMS:et till mobiltelefonen. Den med det nummer som angavs vid den första portalinloggningen eller koden från en autentiseringsapplikation. {2}Aktivera det här alternativet för mer säker portalåtkomst för alla portalanvändare. {2}För att tillämpa de ändringar du gjort klickar du på {0}Spara{1}-knappen nedanför detta avsnitt. {2}</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Not{1}: SMS-meddelanden kan endast skickas om du har ett positivt saldo. Du kan alltid kontrollera ditt nuvarande saldo på ditt SMS-leverantörs konto. Glöm inte att fylla på ditt konto i tid.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Not{1}: innan du kan använda tvåfaktorsautentisering behöver du välja minst en SMS-leverantör och kongigurera den på {3}{0}Tredje Parts Tjänster{1}{4} sidan.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Not{1}: tvåfaktorsautentisering är endast tillgänglig för portaler med betalning.</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>Saldo {0}</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Mejlserverinställningar</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Kunde ej spara inställningarna</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Inställning måste anges</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Autentiseringstoken hittades ej</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Lösenordsinställningar, styrka</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Språk och tidzon</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Portalversion</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>från alla</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Notifiera via</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portalen har döpts om</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Välkomstsida inställningarna har sparats</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Skicka mejl</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Köp nu</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Du kan ta bort de onödvändiga filerna eller {0}klicka här{1} för att hitta en bättre anpassade prisplan för din portal.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Du använder Gratis Planen.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Klicka här{1} för att ladda upp en licensfil för din portal.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Din abonnemang har gått ut.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Din ONLYOFFICE™ portal kommer blockeras {2}.Vänligen {0}klicka här{1} för att förlänga din befinannde plan eller ändra den för en som passar dig.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Betalningar</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Portal skapad</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Antal aktiva {!users}</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(Återstår: {0})</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Bloggare</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Mobiltelefon</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefonnummer</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Portalmigrering{0} till annan region pågår.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Portalregion</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Klicka här{1} för att välja den lämpligaste prisplan för din portal.</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Du använder demoversionen</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Ett okänt fel inträffades</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Jobb/Titel</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varning!</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Välkommen till din ONLYOFFICE™ Portal</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Vit Etikett</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Språk och tidzonsinställningar</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

@@ -1,0 +1,989 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Die aktive Benutzer sind die Portalmitglieder mit Ausnahme der Gäste und Benutzer mit dem Zustand "gesperrt"</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Antwortoption hinzufügen</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>{!Users} hinzufügen</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Neues soziales Profil hinzufügen</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Nachricht hinzufügen</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Gesamtanzahl der Stimmen</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Antwortoptionen</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Dateien anhängen</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Aus Dokumenten Datei anhängen</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Datei aus den projektbezogenen Dokumenten anhängen</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Verkürzen Sie den Einladungslink zu dem Portal und Link für geteilte Dokumente mit Hilfe von Bitly</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Loggen Sie sich im Portal via soziale Netzwerke ein und suchen Sie Kontakte</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Verbinden Sie Ihre Lieblings - Cloud Speicher-Dienste und speichern Sie alle Ihre Dateien an einem Ort</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>Rufen Sie Ihre Kunden dank {0}ONLYOFFICE Twilio{1}-Integration direkt aus dem CRM an.</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Präsentation erstellen</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Tabelle erstellen</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokument erstellen</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Mehr erfahren...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Sie können die Domain später unter dem Menüpunkt „Portal-Einstellungen" ändern. 
+</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Unternehmensgröße</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Unternehmen</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Speichern Sie die Dateikopie im Originalformat</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Alle Dokumente, die Sie hochladen, werden ins Office-Open-XML-Format für eine schnellere Bearbeitung umgewandelt.</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>Support kontaktieren</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Datei löschen</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Datei herunterladen</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Datei bearbeiten</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Erstellen{1} Sie Dateien direkt auf Ihrem Portal oder {2}laden{3} Sie diese hierher hoch, um sie mit dem ONLYOFFICE™-Editor zu {4}öffnen{5} und zu {6}bearbeiten{7}.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Laden Sie{3}Dateien direkt auf Ihrem Portal hoch.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Die Dateiliste ist leer</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Geben Sie eine Frage zur Abstimmung ein</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Wählen Sie eine Antwortoption</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Der Titel darf keine der folgenden Zeichen enthalten:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Jeder</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Beitrag hinzufügen</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Lesezeichen hinzufügen</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>zu Dokumenten übergehen</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokumente</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>eine neue Firma erstellen</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>eine neue Person erstellen</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>ein neues Projekt erstellen</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Neu hinzugefügten Angaben zum Modul Community werden hier angezeigt. Die Benutzer können interessante Informationen, Gedanken und Erfahrungen mit den anderen teilen, ihre Meinungen ausdrücken und Feedback von anderen Kommentaren bekommen.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Es werden noch keine Ereignisse hinzugefügt</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Hier werden die verfügbare für Sie Veränderungen im Modul CRM angezeigt. Neue hinzugefügte Organisationen und Personnen oder  durchbearbeiete existierte,  neu erstellte Maßnahmen, Gelegenheiten, Aufgaben - alles rund um CRM findet man unter dieser Registerkarte          </value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Es werden noch keine CRM-Ereignisse hinzugefügt</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Hier werden die verfügbare für Sie Veränderungen im Modul "Projekte" angezeigt. Projekte, an dennen Sie teilnehmen oder die Sie überwachen, neue Aufgaben oder Veränderungen an den bestehenden Dokumenten, das alles hilft Ihnen nichts zu verpassen.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Es werden noch keine Projekte hinzugefügt</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Hier werden die verfügbare für Sie Veränderungen in den Dokumenten des Portals angezeigt. Hier erscheinen neue Dokumente, zu denen Sie vorgelassen sind, Veränderungen an den bestehenden Dokumenten, zu denen Sie den Zugand haben, und gemeinsame Dokumente für alle Portalbenutzer.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Ereignis hinzufügen</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Die Frage lässt mehrere Antwortoptionen zu</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Es gibt keine Neuigkeiten nach diesen Filterkriterien</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>In dieser Sektion können keine Neuigkeiten nach Ihren Filterkriterien angezeigt werden.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Es gibt keine Anrufe nach diesen Filterkriterien</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>In dieser Sektion können keine Anrufe nach Ihren Filterkriterien angezeigt werden.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Link für Portalbenutzer</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Wenn Sie Ihr ONLYOFFICE-Portal bezahlen möchten, klicken Sie auf den Button "Jetzt kaufen".</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Bitte zahlen Sie für Ihr ONLYOFFICE und erhalten Sie:  </value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>Geben Sie einen Suchbegriff ein</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Von</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Wählen</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Sortieren nach</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>Bis</value>
+  </data>
+  <data name="LicenseActivateAndGetV11" xml:space="preserve">
+    <value>Verlängern Sie Ihr Abonnement und erhalten Sie:</value>
+  </data>
+  <data name="LicenseActivateButtonV11" xml:space="preserve">
+    <value>Aktivieren</value>
+  </data>
+  <data name="LicenseActivateDescrV11" xml:space="preserve">
+    <value>Wenn Sie bereits Ihr Abonnement verlängert haben, laden Sie die Lizenz hoch und klicken Sie auf Aktivieren.</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Durch die Aktivierung dieses Feld akzeptieren Sie die Bedingungen des {0}Lizenzabkommens{1}</value>
+  </data>
+  <data name="LicensedUnderApache" xml:space="preserve">
+    <value>Die Software ist unter der {0}Apache License, Version 2.0{1} lizenziert</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Lizenz ist abgelaufen oder Benutzer-Quote zusammenfällt die Lizenz nicht.</value>
+  </data>
+  <data name="LicenseKeyBuyDescrV11" xml:space="preserve">
+    <value>Verlängern Sie jetzt das Abonnement. Sie werden zu Avangate umgeleitet.</value>
+  </data>
+  <data name="LicenseKeyBuyLabelV11" xml:space="preserve">
+    <value>Lizenz erwerben</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Aktivierungslizenzdatei</value>
+  </data>
+  <data name="LicenseKeyLabelV11" xml:space="preserve">
+    <value>Lizenz hochladen</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Lizenzschlüssel ist nicht korrekt</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Sie müssen Lizenzschlüssel einsetzen</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Module und Tools:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online Dokumenten Editoren{1}{0}Dokumenten Management{1}{0}E-Mail{1}{0}Projekte{1}{0}CRM{1}{0}Kalender{1}{0}Community{1}</value>
+  </data>
+  <data name="LicenseModulesMobileV11" xml:space="preserve">
+    <value>mobile Web-Editoren,</value>
+  </data>
+  <data name="LicenseModulesPrivateV11" xml:space="preserve">
+    <value>Privaträume für verschlüsselte Zusammenarbeit,</value>
+  </data>
+  <data name="LicenseModulesProV11" xml:space="preserve">
+    <value>ONLYOFFICE Editoren mit Profi-Funktionen,</value>
+  </data>
+  <data name="LicenseModulesSupportV11" xml:space="preserve">
+    <value>1 Jahr professioneller technischer Unterstützung</value>
+  </data>
+  <data name="LicenseModulesUpdatesV11" xml:space="preserve">
+    <value>regelmäßige Updates von Funktionalität und Sicherheit für 1 Jahr,</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1}aktive Benutzer</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktive Benutzer</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Ausloggen</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>Tatsächliche Größe</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>FullScreen</value>
+  </data>
+  <data name="MediaViewerMute" xml:space="preserve">
+    <value>Stumm</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>Wiedergeben</value>
+  </data>
+  <data name="MediaViewerPrevious" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>Nach links drehen</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>Nach rechts drehen</value>
+  </data>
+  <data name="MediaViewerZoomIn" xml:space="preserve">
+    <value>Vergrößern</value>
+  </data>
+  <data name="MediaViewerZoomOut" xml:space="preserve">
+    <value>Verkleinern</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Nummer eingeben</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Eine SMS mit dem Code für den Portalzugang wurde an Ihre Mobiltelefonnummer {0}{1}{2} versandt.{5}Bitte geben Sie den Code ein und klicken Sie auf den Button "{3}". Wenn Sie keine Nachricht im Laufe von mehr als 3 Minuten erhalten haben, klicken Sie auf den Button "{4}".</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Ihre aktuelle Mobiltelefonnummer: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Geben Sie Ihre Mobiltelefonnummer ein</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Die Zwei-Faktor-Authentifizierung ist für die zusätzliche Sicherheit des Portals bereitgestellt. Geben Sie eine neue Telefonnummer ein, um die Arbeit auf dem Portal fortzusetzen. Die Mobiltelefonnummer muss im internationalen Format mit dem Ländercode eingegeben werden.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Mehr</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Neues Dokument</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Neue Datei</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Es gibt nichts zum Anzeigen hier</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>In dieser Sektion werden alle Portalaktivitäten angezeigt. Jetzt gibt es keine Ereignisse auf dem Portal, die dargestellt werden können. Legen Sie los, füllen Sie das Portal mit dem Inhalt und alle Neuigkeiten werden auf dieser Seite angezeigt.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Keine Kommentare</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Hinweis: Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="NotSupportedBrowser" xml:space="preserve">
+    <value>Um die Medien abzuspielen, müssen Sie Ihren Browser auf die neuste Version aktualisieren.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Die Frage lässt nur eine Antwortoption zu</value>
+  </data>
+  <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
+    <value>Die Datei konnte nicht hinzugefügt werden, da Sie Ihre Speicherplatzquote überschritten haben. Bitte löschen Sie die veralteten Dateien oder nehmen Sie Kontakt zu unserem Support Team.</value>
+  </data>
+  <data name="PersonalStorageLimitExceededHeader" xml:space="preserve">
+    <value>Kontingent ist überschritten</value>
+  </data>
+  <data name="PersonalStorageLimitExceededSubHeader" xml:space="preserve">
+    <value>Speicherkapazität ist überschritten</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Frage zur Abstimmung</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Typ der Umfrage</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Möchten Sie wirklich diese Datei entfernen?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Über kostenlose Benutzung lesen</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Aus dieser Liste entfernen</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Nachricht entfernen</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Filter zurücksetzen</value>
+  </data>
+  <data name="SaasTariffBackButton" xml:space="preserve">
+    <value>Tarifpläne öffnen</value>
+  </data>
+  <data name="SaasTariffBenefits" xml:space="preserve">
+    <value>Vorteile</value>
+  </data>
+  <data name="SaasTariffBusiness" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="SaasTariffBusinessCost" xml:space="preserve">
+    <value>{0} Benutzer/innen pro Monat</value>
+  </data>
+  <data name="SaasTariffBusinessFeature1" xml:space="preserve">
+    <value>Bis 1000 Benutzer pro Portal</value>
+  </data>
+  <data name="SaasTariffBusinessFeature2" xml:space="preserve">
+    <value>100 GB pro Nutzer</value>
+  </data>
+  <data name="SaasTariffBusinessFeature3" xml:space="preserve">
+    <value>Unbegrenzte Anzahl von gleichzeitigen Verbindungen</value>
+  </data>
+  <data name="SaasTariffBusinessFeature4" xml:space="preserve">
+    <value>Branding und Anpassung</value>
+  </data>
+  <data name="SaasTariffBusinessFeature5" xml:space="preserve">
+    <value>LDAP/SSO</value>
+  </data>
+  <data name="SaasTariffBusinessFeature6" xml:space="preserve">
+    <value>Backups und Datenwiederherstellung</value>
+  </data>
+  <data name="SaasTariffBusinessFeature7" xml:space="preserve">
+    <value>Anmeldungen und sonstige Aktivitäten verfolgen</value>
+  </data>
+  <data name="SaasTariffBusinessFeature8" xml:space="preserve">
+    <value>Integrationen: Twilio, DocuSign</value>
+  </data>
+  <data name="SaasTariffBusinessFeature9" xml:space="preserve">
+    <value>Mail-Server</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderBusiness" xml:space="preserve">
+    <value>Das Business-Abo für ONLYOFFICE-Cloud verlängern</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderStartup" xml:space="preserve">
+    <value>Möchten Sie das Business-Abo erneut aktivieren?</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderTrial" xml:space="preserve">
+    <value>Erwerben Sie ONLYOFFICE-Cloud für Business</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionSubHeader" xml:space="preserve">
+    <value>Ab {0} pro User/Monat</value>
+  </data>
+  <data name="SaasTariffChangePlanBtn" xml:space="preserve">
+    <value>Tarifplan ändern</value>
+  </data>
+  <data name="SaasTariffChoosePlan" xml:space="preserve">
+    <value>Wählen Sie den besten Tarifplan für Ihr Team aus</value>
+  </data>
+  <data name="SaasTariffContactSales" xml:space="preserve">
+    <value>Verkaufsteam kontaktieren</value>
+  </data>
+  <data name="SaasTariffError" xml:space="preserve">
+    <value>Sie haben {0} aktive Benutzer/innen. Um eine wenigere Anzahl in anderen Tarifen zu erwerben, deaktivieren Sie Benutzer im Modul {1}Personen{2}</value>
+  </data>
+  <data name="SaasTariffErrorAdmins" xml:space="preserve">
+    <value>Die Anzahl der Administratoren darf nicht mehr als {0} sein.</value>
+  </data>
+  <data name="SaasTariffErrorAutoBackup" xml:space="preserve">
+    <value>Deaktivieren Sie bitte automatische Datensicherungen.</value>
+  </data>
+  <data name="SaasTariffErrorDomain" xml:space="preserve">
+    <value>Deaktivieren Sie bitte DNS in Portaleinstellungen.</value>
+  </data>
+  <data name="SaasTariffErrorExpired" xml:space="preserve">
+    <value>Sie haben {0} aktive Benutzer/innen. Für wenigere Anzahl {1}kontaktieren Sie Verkaufsteam{2}</value>
+  </data>
+  <data name="SaasTariffErrorGuests" xml:space="preserve">
+    <value>Die Anzahl der Gäste darf nicht mehr als {0} sein.</value>
+  </data>
+  <data name="SaasTariffErrorInvalidNumberOfActiveUsers" xml:space="preserve">
+    <value>Ungültige Anzahl aktiver Benutzer.</value>
+  </data>
+  <data name="SaasTariffErrorLdap" xml:space="preserve">
+    <value>Deaktivieren Sie bitte LDAP.</value>
+  </data>
+  <data name="SaasTariffErrorMinMax" xml:space="preserve">
+    <value>Wählen Sie die Anzahl aktiver Benutzer/innen von {0} bis {1} aus.</value>
+  </data>
+  <data name="SaasTariffErrorMonthTariffNotFound" xml:space="preserve">
+    <value>Monatlicher Tarifplan nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffErrorOauth" xml:space="preserve">
+    <value>Schalten Sie bitte alle sozialen Netzwerke aus.</value>
+  </data>
+  <data name="SaasTariffErrorRegionNotFound" xml:space="preserve">
+    <value>Region nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffErrorSso" xml:space="preserve">
+    <value>Deaktivieren Sie bitte SSO.</value>
+  </data>
+  <data name="SaasTariffErrorStartupTariffNotFound" xml:space="preserve">
+    <value>Der Startup-Plan nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffErrorStorage" xml:space="preserve">
+    <value>Benutzter Speicherplatz darf {0} nicht überschreiten.</value>
+  </data>
+  <data name="SaasTariffErrorTariffNotFound" xml:space="preserve">
+    <value>Tarifplan nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffErrorThirparty" xml:space="preserve">
+    <value>Deaktivieren Sie bitte alle Dienste von Drittanbietern.</value>
+  </data>
+  <data name="SaasTariffErrorThreeYearsTariffNotFound" xml:space="preserve">
+    <value>3-Jahre-Tarifplan nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffErrorTrial" xml:space="preserve">
+    <value>Zum Startup-Plan können Sie nur bei der Testversion wechseln.</value>
+  </data>
+  <data name="SaasTariffErrorUsers" xml:space="preserve">
+    <value>Die Anzahl aktiver Benutzer darf nicht mehr als {0} sein.</value>
+  </data>
+  <data name="SaasTariffErrorWhiteLabel" xml:space="preserve">
+    <value>White Label erfordert standardmäßige Einstellungen.</value>
+  </data>
+  <data name="SaasTariffErrorYearTariffNotFound" xml:space="preserve">
+    <value>Jährlicher Tarifplan nicht gefunden.</value>
+  </data>
+  <data name="SaasTariffInfoExpiresOnDate" xml:space="preserve">
+    <value>Abonnement läuft am {0} ab.</value>
+  </data>
+  <data name="SaasTariffInfoFreeDaysLeft" xml:space="preserve">
+    <value>kostenlose Tage noch geblieben</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpace" xml:space="preserve">
+    <value>Speicherplatz</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpaceTitle" xml:space="preserve">
+    <value>Benutzter Speicherplatz</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpaceValue" xml:space="preserve">
+    <value>{0} ({1}% voll)</value>
+  </data>
+  <data name="SaasTariffInfoUsersCount" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="SaasTariffInfoUsersCountTitle" xml:space="preserve">
+    <value>Anzahl aktiver Benutzer / Benutzer im Tarifplan</value>
+  </data>
+  <data name="SaasTariffMainHeaderBusiness" xml:space="preserve">
+    <value>Sie benutzen ONLYOFFICE-Cloud für Business</value>
+  </data>
+  <data name="SaasTariffMainHeaderBusinessExpired" xml:space="preserve">
+    <value>Ihr Business-Abo ist abgelaufen</value>
+  </data>
+  <data name="SaasTariffMainHeaderStartup" xml:space="preserve">
+    <value>Sie benutzen den kostenlosen Startup-Plan.</value>
+  </data>
+  <data name="SaasTariffMainHeaderTrial" xml:space="preserve">
+    <value>Sie haben 30 kostenlose Tage von ONLYOFFICE-Cloud für Business</value>
+  </data>
+  <data name="SaasTariffMainHeaderTrialExpired" xml:space="preserve">
+    <value>Ihre Testperiode für ONLYOFFICE-Cloud für Business ist abgelaufen</value>
+  </data>
+  <data name="SaasTariffOneMonth" xml:space="preserve">
+    <value>1 Monat</value>
+  </data>
+  <data name="SaasTariffOneYear" xml:space="preserve">
+    <value>1 Jahr</value>
+  </data>
+  <data name="SaasTariffReActivateBusiness" xml:space="preserve">
+    <value>Business-Abo erneut aktivieren</value>
+  </data>
+  <data name="SaasTariffSale" xml:space="preserve">
+    <value>{0}% sparen</value>
+  </data>
+  <data name="SaasTariffSelectedTariffDetails" xml:space="preserve">
+    <value>Informationen zu Ihrem Tarifplan</value>
+  </data>
+  <data name="SaasTariffSelectedTariffLength" xml:space="preserve">
+    <value>Abrechnungszeitraum</value>
+  </data>
+  <data name="SaasTariffSelectedTariffPrice" xml:space="preserve">
+    <value>Preis pro Benutzer</value>
+  </data>
+  <data name="SaasTariffSelectedTariffPriceValue" xml:space="preserve">
+    <value>{0} pro Monat</value>
+  </data>
+  <data name="SaasTariffSelectNumberOfUsers" xml:space="preserve">
+    <value>Wählen Sie die Anzahl der Benutzer aus</value>
+  </data>
+  <data name="SaasTariffStartup" xml:space="preserve">
+    <value>Startup</value>
+  </data>
+  <data name="SaasTariffStartupCost" xml:space="preserve">
+    <value>{0} Benutzer/innen pro Monat</value>
+  </data>
+  <data name="SaasTariffStartupFeature1" xml:space="preserve">
+    <value>Maximal 5 Benutzer</value>
+  </data>
+  <data name="SaasTariffStartupFeature2" xml:space="preserve">
+    <value>2 GB pro Portal</value>
+  </data>
+  <data name="SaasTariffStartupFeature3" xml:space="preserve">
+    <value>10 gleichzeitige Verbindungen</value>
+  </data>
+  <data name="SaasTariffStartupFeature4" xml:space="preserve">
+    <value>Manuelle Datensicherungen</value>
+  </data>
+  <data name="SaasTariffStartupFeature5" xml:space="preserve">
+    <value>Mail-Aggregator</value>
+  </data>
+  <data name="SaasTariffTContactSupport" xml:space="preserve">
+    <value>Alle Fragen zum Einkauf und Verlängerung von Testperiode senden Sie sich an uns unter {0}{1}{2}.</value>
+  </data>
+  <data name="SaasTariffTContactUs" xml:space="preserve">
+    <value>Haben Sie Fragen? {0}Kontaktieren Sie uns{1}</value>
+  </data>
+  <data name="SaasTariffThreeYears" xml:space="preserve">
+    <value>3 Jahre</value>
+  </data>
+  <data name="SaasTariffTotalPrice" xml:space="preserve">
+    <value>Insgesamt</value>
+  </data>
+  <data name="SalesQuestionsV11" xml:space="preserve">
+    <value>Bei allen Fragen zum Kauf wenden Sie sich an uns unter {0}</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>Suche</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Im Modul suchen</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alle wählen</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Benachrichtigung senden</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Fügen Sie Benutzer oder Gruppen hinzu und geben Sie ihnen das Recht.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Freigabeeinstellungen</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Weitere Neuigkeiten anzeigen</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Webseite</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Quellcode ist auf{0}GitHub{1}erhältlich</value>
+  </data>
+  <data name="SubscribeSite" xml:space="preserve">
+    <value>Ich möchte den ONLYOFFICE-Newsletter abonnieren</value>
+  </data>
+  <data name="SupportQuestionsV11" xml:space="preserve">
+    <value>Bei technischen Schwierigkeiten, nutzen Sie {0}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Grundpreis</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Sehen Sie Avangate für die volle Liste der Währungen</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Ihr Preismodell hat erhebliche Einschränkungen in der Dateigröße</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>große Datenmenge</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Kostenlos</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>volle Preisliste öffnen </value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Möchten Sie einen neuen Zahlungsplan wählen?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Zeit begrenztes Angebot</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Ja, meinen Zahlungsplan verbessern</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1-Monatiges-{2}{1} Abonnement</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1-Jahres-{2}{1} Abonnement</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3-Jahres-{1} Abonnement</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Sie nutzen den Plan für die gemeinnützige Organisation.</value>
+  </data>
+  <data name="TariffNotPaidStandalone2" xml:space="preserve">
+    <value>Sie benutzen ONLYOFFICE Enterprise Edition. {0}Support und Updates sind für Ihre Lizenz nicht mehr verfügbar{1}.</value>
+  </data>
+  <data name="TariffNotPaidStandaloneSupport" xml:space="preserve">
+    <value>Sie benutzen ONLYOFFICE Enterprise Edition. {0}Support ist für Ihre Lizenz nicht mehr verfügbar{1}.</value>
+  </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0}Zahlung des Portals ist überfällig.{1} {2}Um die ONLYOFFICE-Funktionen für die Zusammenarbeit weiterhin zu nutzen, {2}verlängern Sie den vorhandenen Preisplan oder wählen Sie einen anderen aus.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Ihre Portalzahlung ist abgelaufen.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Ihr aktueller Tarif ist{0}-{1}aktive Benutzer. {2}Die Zahlung ist überfällig.{3}{4} Um Verwendung von ONLYOFFICE fortzusetzen,  verlängern Sie den vorhandenen Plan oder ändern Sie ihn mithilfe der folgenden Tabelle.</value>
+  </data>
+  <data name="TariffOverdueStandalone2" xml:space="preserve">
+    <value>Sie verwenden ONLYOFFICE ™ Enterprise Edition. {0} Support und Updates sind ab{2} {1} nicht mehr für Ihre Lizenz verfügbar.</value>
+  </data>
+  <data name="TariffOverdueStandaloneSupport" xml:space="preserve">
+    <value>Sie nutzen ONLYOFFICE™ Enterprise Edition.{0}Der Support für Ihre Lizenz ist seit {2}{1} nicht mehr verfügbar.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Ihr aktueller Tarif ist{0}-{1}aktive Benutzer.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Sie verwenden ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>Monat</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>Jahr</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 Jahre</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Das Angebot ist nur für den Jahres-Abonnenten verfügbar.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Das beliebteste Abonnement</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Das Hinzufügen eines neuen Portals überschreitet die maximale Anzahl der Portale, die nach Ihrem aktuellen Preisplan zulässig sind.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Speichern {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0}pro Benutzer/mo</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Senden Sie Ihre Anfrage</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Inhalt anfragen</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Bitte beschreiben Sie Ihre Anfrageinformation hier</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Bitte geben Sie Ihre Nachricht hier </value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Der Portalspeicher ist überschritten</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Bitte entfernen Sie den veralteten Inhalt vom Portal oder ändern Sie den aktuellen Zahlungsplan auf einen anderen mit einem größeren Speicher.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Nicht genug Speicherplatz</value>
+  </data>
+  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
+    <value>Sie verwenden ONLYOFFICE ™ Enterprise Edition. {0} Die derzeitige Installation wurde ohne eine ordnungsgemäße Lizenz aktualisiert. {1} {2} Laden Sie die aktualisierte Lizenz hoch, um ONLYOFFICE Enterprise Edition weiterhin verwenden zu können.</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Wählen Sie die Anzahl Ihrer Teamkollegen</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Wie viele Benutzer benötigen Sie?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Der Plan, der Ihrem Team passt, ist {0}{2} - {3}aktive Benutzer{7} + {4}{1}Plattenspeicher</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Unmöglich neue Benutzer hinzuzufügen</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Wenn Sie weitere Benutzer hinzufügen, wird die nach Ihrem aktuellen Zahlungsplan maximal erlaubte Benutzeranzahl überschritten.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Neue Benutzer hinzufügen</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>Die Preismodelle mit mehr als {0}aktiven Benutzer sind nur auf Anfrage verfügbar.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Man kann ein Preismodell nicht herabsetzen.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>Weiter lesen</value>
+  </data>
+  <data name="TariffVisitorLimitReason" xml:space="preserve">
+    <value>Wenn Sie einen neuen Gast hinzufügen, überschreiten Sie die maximale Anzahl für Gäste in Ihrem Tarifplan.</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>Geben Sie 6-stelligen generierten Code aus Ihrer Anwendung ein. Wenn Sie keinen Zugriff auf Ihr Telefon haben, können Sie Ihre Sicherungscode verwenden.</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>Konfigurieren Sie Ihre Authentifizierungsanwendung</value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>App verbinden</value>
+  </data>
+  <data name="TfaAppDescription" xml:space="preserve">
+    <value>Die Zwei-Faktor-Authentifizierung ermöglicht zusätzliche Portalsicherheit. Konfigurieren Sie Ihre Authentifizierungsanwendung, um die Arbeit am Portal fortzusetzen. Zum Beispiel könnten Sie {0} für {1} und {2} oder {3} für {4} verwenden.</value>
+  </data>
+  <data name="TfaAppHowTo" xml:space="preserve">
+    <value>Um eine Verbindung mit Ihrer Anwendung herzustellen, scannen Sie den QR-Code oder geben Sie Ihren geheimen Schlüssel {0} manuell ein und geben Sie dann im Feld darunter den sechsstelligen Code aus Ihrer Anwendung ein.</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Sie können Dokumente ({0}), Tabellen ({1}) und Präsentationen ({2}) erstellen und in die gängigen Formate herunterladen.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Sie können die folgenden Dateien bearbeiten: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Sie können die Dateien mit den folgenden Erweiterungen öffnen: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Sie können alle gewünschten Dateien ins Modul 'Dokumente' hochladen.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Plan erhöhen</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Datei hochladen</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Variante</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Vers.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Es gibt nichts zum Anzeigen hier</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Es gibt nichts zum Anzeigen hier</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Stimmen</value>
+  </data>
+  <data name="WelcomeDashboardApps" xml:space="preserve">
+    <value>Apps für höhere Produktivität</value>
+  </data>
+  <data name="WelcomeDashboardAppsFirstLine" xml:space="preserve">
+    <value>{0}Benutzer Sie ONLYOFFICE Mail Server{1} für Erstellung geschäftlicher E-Mail-Postfächer, Hinzufügen von Spitznamen und Mail-Gruppen.</value>
+  </data>
+  <data name="WelcomeDashboardAppsSecondLine" xml:space="preserve">
+    <value>{0}Unterzeichnen Sie Dokumente mit DocuSign{1}. Senden Sie Dokumente für Unterzeichnung gerade aus dem Portal und bekommen Sie unterzeichnete PDF-Dateien.</value>
+  </data>
+  <data name="WelcomeDashboardAppsThirdLine" xml:space="preserve">
+    <value>{0}Telefonieren Sie mit Kunden über Twilio{1}. Benutzen Sie virtuelle Nummern für Anrufe gerade im Browser.</value>
+  </data>
+  <data name="WelcomeDashboardBackUp" xml:space="preserve">
+    <value>ONLYOFFICE sicherstellen</value>
+  </data>
+  <data name="WelcomeDashboardConnectNow" xml:space="preserve">
+    <value>Jetzt verbinden</value>
+  </data>
+  <data name="WelcomeDashboardCustomizeNow" xml:space="preserve">
+    <value>Jetzt anpassen</value>
+  </data>
+  <data name="WelcomeDashboardEnableNow" xml:space="preserve">
+    <value>Aktivieren</value>
+  </data>
+  <data name="WelcomeDashboardGoToDns" xml:space="preserve">
+    <value>DNS-Einstellungen öffnen</value>
+  </data>
+  <data name="WelcomeDashboardHeader" xml:space="preserve">
+    <value>Willkommen bei ONLYOFFICE-Cloud für Business</value>
+  </data>
+  <data name="WelcomeDashboardImportNow" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="WelcomeDashboardIntegration" xml:space="preserve">
+    <value>Einfache Integration mit Ihrer Infrastruktur</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationFirstLine" xml:space="preserve">
+    <value>{0}Importieren Sie Benutzer/innen und Gruppen mit LDAP{1} aus Ihrem Server (z.B. OpenLDAP Server oder Microsoft Active Directory).</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationSecondLine" xml:space="preserve">
+    <value>{0}Aktivieren Sie Authentifizierung mit SSO{1}, so dass Benutzer/innen sich mit bereits vorhandenen Daten anmelden könnten.</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationThirdLine" xml:space="preserve">
+    <value>{0}Benutzen Sie Ihren eigenen Domainnamen{1} als Portal-Adresse.</value>
+  </data>
+  <data name="WelcomeDashboardInviteUsers" xml:space="preserve">
+    <value>Benutzer einladen</value>
+  </data>
+  <data name="WelcomeDashboardSetUpNow" xml:space="preserve">
+    <value>Einstellen</value>
+  </data>
+  <data name="WelcomeDashboardStartEditing" xml:space="preserve">
+    <value>Bearbeitung starten</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloud" xml:space="preserve">
+    <value>Die für Sie geeignete Cloud</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudFirstLine" xml:space="preserve">
+    <value>{0}Wählen Sie notwendige Anzahl der Benutzer aus{1}, ernennen Sie beliebig viele Administatoren.</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudSecondLine" xml:space="preserve">
+    <value>{0}Personalisieren Sie das Interface vom Online-Office{1}, so dass es mit Ihrer Marke übereinstimmt.</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudThirdLine" xml:space="preserve">
+    <value>{0}Bearbeiten Sie beliebig viele Textdokumente{1}, Tabellenkalkulationen und Präsentationen gleichzeitig.</value>
+  </data>
+  <data name="WelcomeDashboardTrackNow" xml:space="preserve">
+    <value>Verfolgen</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurity" xml:space="preserve">
+    <value>Maximale Sicherheit</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurityFirstLine" xml:space="preserve">
+    <value>{0}Aktivieren Sie 2FA{1}, stellen Sie höhere Passwortanforderungen ein, wählen Sie vertrauenswürdige IP-Adressen und Mail-Domains aus.</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecuritySecondLine" xml:space="preserve">
+    <value>{0}Stellen Sie automatische Backups ein{1} oder machen Sie manuelle Datensicherungen.</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurityThirdLine" xml:space="preserve">
+    <value>{0}Verfolgen Sie Anmeldungen{1} und sonstige Aktivitäten.</value>
+  </data>
+  <data name="WelcomeDashboardСonfigureNow" xml:space="preserve">
+    <value>Konfigurieren</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Neues</value>
+  </data>
+</root>

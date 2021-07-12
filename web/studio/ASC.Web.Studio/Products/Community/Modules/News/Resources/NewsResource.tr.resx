@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Haber Ekle</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Haber Yorumu</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Haberleri düzenle</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>En son kurumsal haberler, duyurular ve anketler</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Etkinlikler</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Bu etkinliği silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>İlk duyuruyu oluştur</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>Henüz duyuru eklenmedi</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>İlk etkinliği oluştur</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>Henüz etkinlik eklenmedi</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>Henüz haber eklenmedi</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>İlk haberi oluştur</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>İlk siparişi oluştur</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>Henüz rapor eklenmedi</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>İlk anketi oluştur</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>Henüz anket eklenmedi</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Portalınızda kendi etkinliklerinizi oluşturun, önemli duyurular gönderin, son haberleri paylaşın ve yeni anketler ekleyerek meslektaşlarınızın düşüncelerini toplayın.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Erişim engellendi</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Anket sorusu girin</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>En az iki anket seçeneği girin</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Etkinlik silindi</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Önizle</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Haberler</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Anketler</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Yeni Etkinlik oluştur</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Yeni Anket oluştur</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Duyurular</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Metin</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Tüm Etkinlikler</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Etkinliği Düzenle</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Anketi Düzenle</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Siparişler</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>Etkinlik Türü</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>Etkinlik yorumları</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Yeni etkinlikler</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Yayınla</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Sahip</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Önizle</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Başlık alanı zorunludur.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Etkinlik Arama</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Sayfada göster</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Yorumlara abone ol</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Yorumlardan aboneliği kaldır</value>
+  </data>
+</root>

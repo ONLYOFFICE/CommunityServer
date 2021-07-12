@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Дія</value>
+  </data>
+  <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
+    <value>Під час активного використання порталу, тут відображатиметься вся активність користувача: створення та редагування документів, участь у проектах, CRM та інші модулі, а також інша інформація.</value>
+  </data>
+  <data name="AuditTrailEmptyScreenHeader" xml:space="preserve">
+    <value>Відсутні елементи для відображення
+</value>
+  </data>
+  <data name="AuditTrailNav" xml:space="preserve">
+    <value>Перевірка аудиту</value>
+  </data>
+  <data name="AuditTrailOnlineUsers" xml:space="preserve">
+    <value>Користувачі онлайн</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DownloadReportBtn" xml:space="preserve">
+    <value>Завантажити та відкрити звіт</value>
+  </data>
+  <data name="EmailNotSpecified" xml:space="preserve">
+    <value>Електронна пошта не вказана</value>
+  </data>
+  <data name="GenerateText" xml:space="preserve">
+    <value>Будь ласка, зачекайте поки згенерується звіт ...</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
+    <value>Під час активного використання порталу, тут відображатиметься всі успішні і невдалі спроби входу користувача.</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenHeader" xml:space="preserve">
+    <value>Відсутні елементи для відображення
+</value>
+  </data>
+  <data name="LoginHistoryNav" xml:space="preserve">
+    <value>Історія входу</value>
+  </data>
+  <data name="LoginHistoryTitle" xml:space="preserve">
+    <value>Історія входу</value>
+  </data>
+  <data name="TotalAuditItems" xml:space="preserve">
+    <value>Загалом</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Користувач</value>
+  </data>
+</root>

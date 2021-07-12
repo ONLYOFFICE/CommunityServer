@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Den genomsnittliga budgeten för möjligheter</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Den genomsnittliga varaktigheten för en framgångsrik möjlighet, i dagar</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Fakturerad</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Utfärdade fakturor</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Document Builder mall tom</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Per budget</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Per nummer</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Samtal</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Antal samtal</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Samtal varaktighet</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Samtal på perioden</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Stängda aktiviteter</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Kontakter per temperaturnivå</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Kontakter per typ</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Med möjligheter</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Utan möjligheter</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Konversion</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Skapad </value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>För att generera rapporten måste möjlighetensbudget konverteras till basvalutan. Sätt upp den använda växelkursen för att göra detta.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Valuta Inställningar</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Innevarande månad</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Innevarande kvartal</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Innevarande vecka</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Innevarande år</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Möjligheten per budget</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Möjligheter per nummer</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Möjligheter per skede</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Möjligheter per status</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Antal möjligheter</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Varaktighet</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Under hela utloppet</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>Kunde inte få rapportens data</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>Kunde inte få rapportens script</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Genererade rapporter</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Alla dina genererade rapporter visas här. Du kan redigera, radera eller ladda ned rapportfilerna. För att skapa en rapport, välj en mall från listan på vänster, sätt filtren och klicka på 'Generera'-knappen.</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generera rapport</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>Om alla möjligheter är vunna</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Inkomnande</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Fakturor per status</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Fakturor på perioden</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Element</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Borttappade</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Ansvariga</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>av vilka {0} har inte besvarats</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Månad</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Kommer stänga i de kommande 30 dagar</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Ny</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Nya kontakter</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Nya kontakter med och utan möjligheter</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Nya aktiviteter</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Nästa månad</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Nästa kvartal</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Nästa vecka</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Nästa år</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Ingen data till rapporten. Välj ett annat filter.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Avgående</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Försenad</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Försenade aktiviteter</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Betalda</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Föregående månad</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Föregående kvartal</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Föregående vecka</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Föregående år</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Avvisat</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Bygger rapporten</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Du kan se, ladde ned, redigere eller radera alla genererade rapporter i  {0}CRM/Rapporter/Genererade rapporter{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Bygger rapporten ({0}% klar)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Försäljning per dag, per ansvarig</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Försäljning per timme, per ansvarig</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Försäljning per ansvarig</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Försäljning per månad, per ansvarig</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Försäljningsprognos</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Skede</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Aktiviteter per status</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Aktiviteter för perioden</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Tidsperiod</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Antal budgeten för möjligheter</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Total antal möjligheter</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>Med hänsyn till probabilitet</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Vunna</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Kontakter per ansvarig</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Möjligheter per ansvarig</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Fakturor per ansvarig</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Aktiviteter per ansvarig</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Vänligen notera att denna rapport kommer endast vara tillgänglig om du ansluter Twilio. För att ansluta, följa {0}länken{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP per ansvarig</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
+</root>

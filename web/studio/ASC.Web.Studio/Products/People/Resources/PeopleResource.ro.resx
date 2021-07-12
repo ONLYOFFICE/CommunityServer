@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Drepturi de Acces ale Portalului</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acțiuni</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Adăugați</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Adăugați {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Adăugați membrii</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Schimbați statusul</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Schimbați statusul utilizatorului</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Schimbați statusul utilizatorului</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Schimbați tipul</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Schimbați tipul utilizatorului</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Resetare filtru</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmare</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Doar utilizatorii sau oaspeții cu statutul de 'Dezactivat' pot fi șterși</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Ștergeți</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Ștergeți utilizatorii din portal</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselectați tot</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Dezactivați</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Activați</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Introduceți un nume</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Mărimea imaginii este prea mare</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Dimensiunea fișierului de imaginie este prea mare</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Prenume</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Ascundeți lista de utilizatori selectați</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Coloană</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Din Fișier</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Importați Utilizatori</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>două puncte</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Virgulă</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Spațiu</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Importă contactele</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>Adaugă în portal</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Editează Contacte</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Link Invitație</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Activ</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Schimbați email-ul</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Schimbați parola</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Creați</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Ștergeți profil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Editați</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Reasignarea datelor</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Trimiteți invitațiile din nou</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Trimiteți linkul de activare încă o dată</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Trimiteți Email</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Trimiteți mesajul</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Subscripții</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Tooltips</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Membrii</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Nu există utilizatori care să poată fi afișați în această secțiune conform filtrului dumneavoastră. Vă rugăm selectați alte opțiuni de filtrare sau ștergeți filtrul pentru a putea vizualiza toți utilizatorii din această secțiune.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Nu s-a găsit nici un rezultat potrivit căutării</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Deasupra</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Adăugați utilizatori noi, trimiteți invitații sau importați-i. Administrați utilizatorii și vizualizați-le informațiile detaliate.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Adăugați utilizatori noi, invitați-i sau importați-i. Gestionați utilizatorii și vizualizați informațiile lor detaliate.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Utilizatori</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Sau {0}citiți despre utilizarea non-profit{1}.</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>Despre tranfer</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Realocă</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>În așteptare</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>Inițiat</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Va fi transferat:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Documente generale și personale disponibile altor utilizatori ai portalului;</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>Va fi șters</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>Fișiere de raport CRM;</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>Toate datele au fost șterse</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>După ce utilizatorii vor confirma invitația la portal, statusul lor se va schimba în 'Activ'</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Trimiteți invitația din nou</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selectați tot</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Setări</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Numărătoare totală</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Se așteaptă confirmarea</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Scrie scrisoare</value>
+  </data>
+</root>

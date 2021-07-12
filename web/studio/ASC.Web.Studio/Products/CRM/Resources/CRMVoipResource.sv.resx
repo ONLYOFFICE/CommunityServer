@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Lägg till operatör</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Lägg till operatörer</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Lägg till ringsignal</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Ange ett namn för numret</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Köp telefonnummer</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Antal inköp</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Ring</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Kund</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Kostnad</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Datum/Tid</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Varaktighet</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Väntetid</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Radera nummer</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Radera nummer</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Radera ringsignal</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Köp nytt IP-telefonnummer och lägg till det i  ONLYOFFICE-portalen. En gång tillagt så kan du använda detta numret med portalens CRM.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Inga IP-telefonnummer har lagts till, ännu</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Generella inställningar</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Länka köpta nummer</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Nummerlänkning</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Inga tillgängliga nummer, försök igen senare.</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Antal operatörer</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Nummer som du har</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operatör</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Operatörens paus</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Utgående samtal</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Snabbinställning</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Samtalsinspelning</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Ringsignalslista</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Ringsignalsinställningar</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Nummerinställningar</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Ospecifierat</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Ändra inställningar</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Virtuella nummer</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Virtuella nummer och operatörer</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 minuter</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 minuter</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 minuter</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Arbetstid</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Inkorrekt intervall</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Ange tiden i ##:##-formatet</value>
+  </data>
+</root>

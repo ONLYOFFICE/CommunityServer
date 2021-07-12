@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>aktivne naloge</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Tako poročilo ustvari samodejno</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Časovno obdobje</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Datum nastanka</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Časovno obdobje</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Pritisni za razvrščanje po stolpcih</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Ustvari predlogo</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Ime uporabnika</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Predlogi morate dodeliti ime</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Vsak dan</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Vsak mesec</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Vsak teden</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Ustvari poročilo</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Nepravilno območje datuma</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Prejšnji mesec</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Prejšnji teden</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Prejšnje leto</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Ta projekt ne vsebuje mejnikov in nalog</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Drug</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>člani</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Statusi plačila</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Poročila zaprtih nalog</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo o uporabnikih brez odprtih nalog bo prikazano na seznamu uporabnikov, ki v tem trenutku nimajo odprtih nalog.{3}{2} Za ogled vseh takih uporabnikov v vseh projektih pritisnite gumb Ustvari poročilo.{3}{2}Če želite izbrati določeno skupino ali določen projekt spremenite spodnje parametre in pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} brez odprtih nalog</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo delovne obremenitve bo prikazalo število nalog, ki so dodeljene uporabniku in združene glede na svoj status.{3}{2}Za ogled podatkov vseh uporabnikov pritisnite gumb Ustvari Poročilo. {3}{2}Če želite izbrati določeno skupino ali uporabnika konfigurirajte spodnje parametre in nato pritisnite gumb Ustvari Poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Obremenitev</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Zapadli mejniki bodo prikazani na seznamu zapadlih mejnikov.{3}{2}Za ogled zapadlih mejnikov vseh projektov takoj pritisnite na gumb Ustravi poročilo.{3}{2}Za ogled zapadlih mejnikov le za določen projekt izberite želen projekt iz spustnega seznama in pritisnite na Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Zapadli mejniki</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo zapadlih nalog bo prikazalo seznam zapadlih nalog.{3}{2}Za ogled zapadlih nalog vseh projektov pritisnite gumb Ustvari poročilo{3}{2}Za ogled zapadlih nalog v določenem projektu izberite želen projekt iz spustnega seznama in nato pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Zapadle naloge</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Poročilo odprtih nalog</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Poročilo «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Seznam poročil projektov bo prikazalo seznam projektov.{3}{2}Za ogled zapadlih nalog s svojim upravljalcem, številom nalog, mejnikov, akcij in članov ekipe takoj pritisnite gumb Ustvari poročilo.{3}{2}Za ogled projektov posebne skupine in/ali ogled aktivnih in zaprtih projektov konfigurirajte spodnje parametre in nato pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Seznam projekta</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Projekti brez poročil o mejnikih bodo prikazali seznam projektov brez pritrjenih mejnikov.{3}{2}Za ogled vseh projektov brez odprtih mejnikov pritisnite gumb Ustvari poročilo.{3}{2}Za preverjanje takih projektov znotraj določene skupine ali določenega uporabnika izberite želeno skupino in uporabnika ter nato pritisnite gumb Ustvari Poročilo.{3}{1} </value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projekti brez odprtih mejnikov</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Projekti brez odprtih nalog bodo prikazani na seznamu projektov, ki nimajo določenih odprtih nalog.{3}{2}Za ogled vseh projektov brez odprtih nalog pritisnite gumb ustvari poročilo{3}{2} Za pregled takih projektov znotraj določene skupine ali določenega uporabnika izberite želeno skupino in/ali spodnjega uporabnika, nato pa pritisnite gumb Ustvari Poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projekti brez odprtih nalog</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Poročila</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo nalog projekta bo prikazalo seznam nalog združenih v skladu s projektom in mejnikom, ki so mu priložene. {3}{2}Za ogled seznama nalog vseh projektov z odgovorno osebo in statusom takoj pritisnite gumb Ustvari poročilo.{3}{2}Za ogled določenih nalog posameznega projekta ali želenega statusa, ali nalog, ustvarjenih v določenem času zadnjih nekaj tednov, nastavite spodnje parametre in nato pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Naloge projekta</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo sledenja časa prikazuje seznam uporabnikov s skupnim delovnim časom, ki je izračunan glede na časovni register.{3}{2}To poročilo pomaga slediti celotni količini časa, ki jo uporabnik porabi za opravljanje svojih nalog.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Sledenje časa</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Prihajajoče poročilo mejnikov bo prikazovalo seznam prihajajočih mejnikov.{3}{2}Za ogled prihajajočih mejnikov vseh projektov v času enega tedna pritisnite na Ustvari poročilo.{3}{2}Za ogled prihajajočih mejnikov za izbran projekt ali v drugem časovnem obdobju izberite želen projekt iz spustnega seznama in/ali drugega datuma in nato pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Prihajajoči mejniki</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Poročilo dejavnosti uporabnikov bo prikazovalo vsa dejanja določenega uporabnika za določeno časovno obdobje.{3}{2}Za prikaz lastne dejavnosti v prejšnjem tednu pritisnite gumb Ustvari Poročilo.{3}{2}Za določanje drugega časovnega obdobja ali izbiro drugega uporabnika nastavite spodnje parametre in nato pritisnite Ustvari Poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Dejavnost uporabnika</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Poročilo nalog uporabnikov bo prikazalo seznam nalog združenih glede na uporabnike, ki so mu dodeljene.{3}{2}Za ogled vseh nalog uporabnikov s prikazanimi statusi pritisnite gumb Ustvari poročilo.{3}{2}Za ogled le določenih nalog uporabnika/skupine ali danega statusa konfigurirajte spodnje parametre in nato pritisnite gumb Ustvari poročilo.{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Naloge uporabnikov</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Pokaži naloge</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Predloge</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Naslov predloge</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Trenuten mesec</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Trenutni teden</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Trenutno leto</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Poglej po uporabniku</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Poglej po {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Poglej po projektu</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Poglej po uporabniku</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Poglej po nalogah uporabnika</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Pokaži zaprte projekte</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Teden</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Tedni</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Tedni</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+</root>

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>क्रियाओं</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value> जोड़ना</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>जोड़ें {!group} </value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>अतिरिक्त जानकारी</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>मेल खाता जोड़ें</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>टैग जोड़ें</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>प्रतिभागी को जोड़ें।</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>इस घटना जोड़ें</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>नोट जोड़ने</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>{!User} जोड़ें</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>चेतावनी</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>संलग्नक</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>वापस</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>श्रेणियाँ</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>मामला</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>श्रेणियाँ</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>परिवर्तन</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>चुनना</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>इस विंडो को बंद करें</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>विंडो बंद</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>आंतों</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>अल्पविराम</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>पुष्टीकरण</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>आप इन तत्वों को नष्ट करना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>नए टैग जोड़ें</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>बेसिक मुद्राओं</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} (s) अतिदेय</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>नियुक्ति</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>डुप्लिकेट के लिए जाँच ईमेल क्षेत्र के आधार पर प्रदर्शन किया जाएगा।</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>कैलक्यूलेटर</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>करने के लिए उपलब्ध है {!users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>पहुंच अधिकार</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>पहुँच दी गई</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>कंपनी / व्यक्ति</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>फ़ाइल जोड़ें</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>कॉल</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+</root>

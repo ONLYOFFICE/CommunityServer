@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>删除文件？</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>删除页面？</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>比较所选的版本</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>页面版本 {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>尚未创建任何类别</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>所有维基文章类别均列在此处。 一旦在页面上创建了某个类别，它便会被添加到此类别列表中。</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>该部分将不显示任何文件</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>所有由维基作者上传至维基页面的文件均保留在本部分。这些文件可使用维基或HTML标记附加到页面。</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>该部分将不显示任何页面</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>索引页面按字母顺序罗列了所有由维基作者创建的页面。在页面创建后，它将自动添加到索引中。</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>该部分将不显示任何页面</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>所有新建或最近编辑的页面均列在此处，且列有其作者。 它们被自动添加到此列表中，并按创建或编辑时间排序。</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>该部分将不显示任何页面</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>所有最近编辑的页面均列在此处，且列有其作者。 它们被自动添加到此列表中，并按编辑时间排序。</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>新文件</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>新页面</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>修改文件</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>修改页面</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>文件不存在。 {0创建}一个以此为名的文件[[ 或搜索{1搜索结果}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;您要查看的页面不存在。&lt;/div&gt;您希望 {0创建} 页面[[ 还是在结果中搜索 {1搜索结果}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>创建新页面</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>删除页面</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>修改页面</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>分类: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>打印此页</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>查看历史记录</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>企业维基</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>维基</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>您未选择要上传的文件。</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>发生内部错误。请联系管理员。</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>页面标记出错</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>没有任何修改。</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>页面内容已被另一位用户修改。请刷新本页以查看最新版的内容。</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>请填写页面标题</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>页面名称不正确。请尝试输入另一个名称。</value>
+  </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>文本字段为空。</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>已经存在相同的页面标题。</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>已保存更改</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>将页面添加到分类中</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>修改/评论此页</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>最新维基页</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>订阅页面</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>搜索维基</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>取消订阅页面</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>评论已发布</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>评论已删除</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>评论已修改</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>文件已添加</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>文件已删除</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>页面已创建</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>页面已修改</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>页面已恢复到旧版本</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>比较 Ver.{0} 和 Ver.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>历史纪录</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>最近由{0}于{1}更新</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>您希望恢复到此版本吗？</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

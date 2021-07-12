@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Drepturi de Acces ale Portalului</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Adăugați punct intermediar</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Adăugați un manager de proiect</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Adăugați sarcină</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Managerul de proiect poate</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>adaugati sau stergeti utilizatori in/din echipa de proiect</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>setează permisiunile pentru membrii proiectului (doar pentru {0} în proiectul privat {1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>gestionează (creează, editează, șterge) repere, sarcini, discuții, documente și {2} {0} restricționează accesul la ele {1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>gestionați (creați, editați, ștergeți) repere, sarcini, discuții, documente</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Contactati prin Talk</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Trimite Email</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Inchide proiect</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Creati primul proiect</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Creati proiect nou</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Ștergeți proiectul</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Sunteți sigur că doriți să ștergeți acest proiect?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Ștergeți proiectele</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Sunteți sigur că doriți să ștergeți aceste proiecte?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>În această secțiune nu poate fi afișat niciun proiect care să corespundă filtrului dvs.</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Editați proiectul</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Crează proiecte și lucrează eficient</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Folosiți proiectele pentru a lucra eficient</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Lista de proiecte este goală</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Urmariti acest proiect</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Adăugați o sarcină la un punct cheie</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Toți utilizatorii responsabili</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Asociați utilizatorii responsabili</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Mod ecran întreg</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Mod panou stânga</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Crează link</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Se crează legătura</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Dați dublu click pe titlul din panoul din partea stângă</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Faceți clic dreapta pe utilizatorul responsabil din panoul din partea stângă</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Editați titlul</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Pentru a vizualiza un grafic Gantt, trebuie să selectați cel puțin un proiect pe care doriți să îl vizualizați folosind graficele.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Nu a fost selectat niciun proiect.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Diagrama Gantt</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Prioritate ridicată</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Activ</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Obiectele din grafic pot avea aspect diferit în funcție de situație:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>depășit</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Puteți lansa panoul cu lista principală de acțiuni cu ajutorul tastei H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Link invalid</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Simbolurile de mai jos sunt afișate când cursorul mouse-ului este plasat peste obiectele din grafic.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Descrierea graficului</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Legați sarcinile</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Hover over a task, click the white circle, drag the cursor to another task and then release it over the appeared white circle</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Tip link</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Conectează cu</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Deschide numai sarcini și repere</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Astazi</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Imprima</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Refă</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Redeschide</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Faceți clic dreapta pe sarcină (reper)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Deschide meniul derulant</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Faceți clic dreapta în spațiul gol</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Adauga sarcina noua</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Faceți clic dreapta în spațiul gol și trageți spre dreapta</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Creați o nouă sarcină cu dată scadentă</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Aflați mai multe</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Încadrat în ecran</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Sarcină fără dată scadentă</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Zile</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>lună</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Scara cronologică</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Folosiți rotița mouse-ului pentru a modifica scala de timp</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Întoarceți-vă rapid la activitățile de astăzi de pe orice loc sarcini închise. Faceți clic pentru a deschide toată lista pentru reperul curent.</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Lista de anulare va fi, de asemenea, curățată și nu veți putea anula toate acțiunile anterioare.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Mută la stânga</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Mută la dreapta</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Proiect Privat</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Se salveaza proiectul ca privat</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Administrati Echipa</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Introducere manuală a timpului</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Nu puteți închide un proiect cu repere active.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Nu puteți închide un proiect cu sarcini deschise.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Notifică managerul de proiect prin e-mail</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Proiect</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Stergeti Proiectul</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Manager de Proiect</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Status proiect</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Echipa</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Sabloanele Proiectului</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Sabloane pentru Proiect</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Actualizează diagrama</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Salvare Proiect</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Selecteaza sablonul proiectului</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Cuvinte cheie</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Sarcini închise. Faceți clic pentru a deschide toată lista pentru reperul curent.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Sarcini deschise. Faceți clic pentru a deschide toată lista pentru reperul curent.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Utilizator responsabil de reper. Faceți clic pentru a vizualiza toate etapele gestionate de utilizatorul curent.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Manager de proiect. Faceți clic pentru a vizualiza toate proiectele gestionate de utilizatorul curent.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Sarcini deschise. Faceți clic pentru a deschide toată lista pentru proiectul curent.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Echipa. Faceți clic pentru a deschide lista tuturor membrilor echipei de proiect.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Deschide subsarcinile. Faceți clic pentru a deschide întreaga listă pentru sarcina curentă.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Utilizator responsabil cu sarcina. Faceți clic pentru a vizualiza toate sarcinile alocate utilizatorului curent.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Utilizați responsabil pentru sarcini. Faceți clic pentru a vizualiza toți utilizatorii responsabili de sarcină.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Vezi puncte interimare active</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Vezi sarcini deschise</value>
+  </data>
+</root>

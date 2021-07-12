@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Να διαγραφεί το αρχείο;</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Να διαγραφεί η σελίδα?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Σύγκριση εκδόσεων που έχουν επιλεγεί</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Κλείσε</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Ανεβάστε</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Έκδοση {0}</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Νέο αρχείο</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Νέα σελίδα</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Σπίτι</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Επεξεργασία αρχείου</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Επεξεργασία σελίδας</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Το αρχείο δεν υπάρχει. {0Δημιουργήσατε} ένα αρχείο με αυτό το όνομα [[ή αναζητήσατε στο {1 αποτέλεσμα έρευνας}]];</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt; &lt;div class="secondaryCaption"&gt; Η ζητούμενη σελίδα δεν υπάρχει. &lt;/ Strong&gt; Θα ήθελες να {0create} είναι [[o αναζήτηση στο {div }]]?&lt;/ αποτέλεσμα 1search&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Ανέβασμα αρχείου</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Δημιουργία νέας σελίδας</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Διαγραφή σελίδας</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Επεξεργασία σελίδας</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Κατηγορία: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Εκτύπωση σελίδας</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Προβολή ιστορικού</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Η εταιρική wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Το αρχείο για φόρτωση δεν είναι επιλεγμένο.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Παρουσιάστηκε ένα εσωτερικό σφάλμα. Επικοινωνήστε με τον διαχειριστή.</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Δεν έχουν υπάρξει αλλαγές.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Αυτή η σελίδα έχει υποστεί επεξεργασία από άλλον χρήστη. Ανανεώστε τη σελίδα για να δείτε την πιο πρόσφατη έκδοση.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Το πεδίο του τίτλου σελίδας είναι άδειο.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Το όνομα της σελίδας δεν είναι σωστό. Παρακαλούμε προσπαθήστε να εισάγετε άλλο όνομα.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Μια σελίδα με αυτόν τον τίτλο υπάρχει ήδη.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Οι αλλαγές έχουν αποθηκευτεί.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Προσθήκη σελίδας στην κατηγορία</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Επεξεργασία / Σχόλιο στη σελίδα</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Νέα σελίδα</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Εγγραφή σε σελίδα</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wiki Αναζήτηση</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Διαγραφή από τη σελίδα</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>σχόλιο προστέθηκε</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>σχόλιο διαγράφηκε</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>σχόλιο επεξεργάσθηκε</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>αρχείο προστέθηκε</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>διαγράφηκε το αρχείο</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>σελίδα που προστέθηκε</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>σελίδα που επεξεργάστηκε</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>επαναφορά έκδοση σελίδος</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#, Α, Β, Γ, Δ, Ε, ΣΤ, Ζ, Η, Θ, Ι, Κ, Λ, Μ, Ν, Ο, P, Q, R, S, T, U, V, W, X, Y, Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Συγκρίνοντας Εκδ. {0} με Εκδ. {1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Ανέβασμα αρχείου</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Ιστορία</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Πρόσφατες αλλαγές από {0} σε {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Θέλετε να επαναφέρετε αυτήν την έκδοση;</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Εκδ.</value>
+  </data>
+</root>

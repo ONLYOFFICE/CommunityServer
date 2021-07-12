@@ -1,0 +1,3063 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>adrese</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>e-pasts</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Autortiesības</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Par šo programmu</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Versija</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Piekļuves tiesības</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Tiek piešķirta piekļuve {0} modulim</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Pievienot {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Pievienot {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Visi {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Mainīt portāla īpašnieku</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Izmaiņas stāsies spēkā pēc apstiprinājuma pa e-pastu.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Lai mainītu portāla īpašnieku, lūdzu, izvēlieties jauna portāla īpašnieka Vārdu zemāk.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} modulis ir atspējots, un nav redzams portālā. Lai ieslēgtu moduli, pāriet uz Moduli &amp; Rīki sekciju jūsu Portāla Iestatījumos</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>{!user} saraksts ir tukšs</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Pilna piekļuve</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Ir tādas pašas piekļuves tiesības kā portāla īpašniekam, izņemot tiesības |Mainīt portāla īpašnieku|Deaktivizēt portālu</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Portāla īpašnieks var</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>rīkoties tāpat kā moduļu administrators|Iecelt moduļu administratorus|Iestatīt moduļu piekļuves tiesības|Pārvaldīt portāla konfigurāciju|Pārvaldīt lietotāju kontus|Mainīt portāla īpašnieku|Izveidot dublējumkopiju|Deaktivizēt portālu</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administratori var</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users} var</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} ar atšķirīgām piekļuves tiesībām var</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} no saraksta</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Tagad Jūsu konts ir gandrīz aktīvs</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Apstiprinājums</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Portāla deaktivizēšana</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Pirms dzēšat portālu, lūdzu, pārliecinieties, ka automātiskās rēķina izrakstīšanas iespēja ir atspējota. Jūs varat pārbaudīt automātiskās rēķina izrakstīšanas iespējas {0}Avangate kontā{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Operāciju apstiprinošs links tika nosūtīts uz :email (portāla īpašnieka e-pasta adrese).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Portāla dzēšana</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Operāciju apstiprinošs links tika nosūtīts uz :email (portāla īpašnieka e-pasta adrese).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Nosūtiet kodu vēlreiz</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Ievadiet kodu</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktivizēt e-pastu vēlreiz</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Validācijas koda lauks nedrīkst būt tukšs</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Ievadiet mobilā tālruņa numuru</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Izveidot jaunu {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Pievienot grupas</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Pievienot atļauto IP adresi</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Pievienot Komentāru</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Pievienot uzticamu domēnu</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>pievienot {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Pievienot lietotājus</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrators</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Paziņojums no administrātora</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Nosūtīt ziņu</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Nevar piekļūt portālam?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>E-pasta adresi, ko var izmantot, lai sazinātos ar jums</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Sazinieties ar portāla administrāciju</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Ziņojums ir veiksmīgi nosūtīts. Portāla administrators sazināsies ar Jums.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Ieslēgt</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Administrātora ziņu iestatījumi</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Lūdzu, aprakstiet savu problēmu</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Ja esat pastāvošs {!user} un jums radušās problēmas ar piekļuvi šim portālam vai ja vēlaties reģistrēties kā jauns {!user}, lūdzu, sazinieties ar portāla administratoru, izmantojot zemāk esošo veidlapu.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administratori</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Biedra statuss</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Jebkurš domēns</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Visas tiesības paturētas</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>© Ascensio System SIA {0}. Visas tiesības paturētas.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Atbildēt</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Atbildēt</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Lietotnes</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Paplašiniet sava tīmekļa biroja funkcijas ar trešās puses pakalpojumu integrāciju. Sazinieties ar savu portāla administratoru, lai iespējotu jums nepieciešamos pakalpojumus.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Uzziniet vairāk informācijas mūsu {0}Palīdzības centrā{1}</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Savienot</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Savienots</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Nav savienots</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikācija</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Autorizācija</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Trešās puses servisa integrācija</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Iespējot</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Autorizācijas atslēgas ir iespēja, kas ļauj jums pieslēgties ONLYOFFICE™ portālam ar trešās puses pakalpojumiem, piemēram, Twitter, Facebook, DropBox u.c. Pieslēdzieties savam portālam ar Facebook, Twitter vai LinkedIn, ja nevēlaties katrreiz vadīt sava portāla pieejas datus. Sasaistiet to ar tādiem pakalpojumiem kā DropBox, OneDrive u.c., lai pārnestu dokumentus no visām tām glabātuvēm uz ONLYOFFICE™ Dokumentu moduli.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Lietošanas nosacījumi</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Atspējot</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Iespējot</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Izmantojiet šo iespēju automātiskai portāla datu rezerves kopēšanai</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automātiskā rezerves kopēšana</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>{0}Automātiskās datu rezerves kopēšanas{1} iespēja tiek izmantota, lai automatizētu portāla datu rezerves kopēšanas procesu un varētu tos vēlāk noglabāt SaaS portāla lokālajā serverī.{2}{0}Piezīme:{1} Pirms jūs varēsit noglabāt rezerves datus trešās puses kontā (Dropbox, Box.com, OneDrive vai Google Drive), jums būs jāpieslēdzas šim kontam ONLYOFFICE Koplietošanas dokumentu mapē.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Doties uz titullapu</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Dublējums</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Maksimālais glabājamo rezerves kopiju skaits</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE dokumenti</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Lejupielādēt rezerves kopiju</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Izveidot kopiju</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Iekļaut pastu rezerves kopijā</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Nav pieslēgti trešās puses pakalpojumi.{0}Lai pieslēgtos, dodieties uz Dokumentu moduli.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Jūs varat lejupielādēt sava lokālā diska rezerves kopiju, izmantojot zemāk esošo saiti.
+                                        būs aktīva 24 stundas pēc tās pieprasījuma laika.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Glabāšana</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Pagaidu</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Izmantojiet šo iespēju, ka vēlaties visus portāla datus iegūt faila veidā.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Pirms jūs varēsit ONLYOFFICE Koplietošanas dokumentos noglabāt savu rezerves kopiju, jums ir jāpieslēdz savs trešās puses konts (Dropbox, Box.com, OneDrive или Google Drive).</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Pievienot {!Group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Dzimšanas Datums</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Pārlūks</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Pievienot jaunu kontaktu</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Zvanīt</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Zvans beidzies</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Savienojums</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Izsauc</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Ienākošie</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Visa ievadīta informācija tiks zaudēta. Vai jūs tiešām vēlaties turpināt?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Adrese veiksmīgi mainīta</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Mainīt Logo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Operāciju apstiprinošs links tika nosūtīts uz :email (portāla īpašnieka e-pasta adrese).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Mai, Jūn, Jūl, Aug, Sep, Okt, Nov, Dec</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Variants</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Izvēlēties īpašnieku</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Izvēlēties {!user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Notīrīt filtru</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Aizvert</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Gaiši zils</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Tumši zaļa</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Tumši zila</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Maigi zaļš</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Oranža</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Krāsu tēmas</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Koši rozā</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentāri</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>komentārs tika dzēsts</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Apstiprinājums</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Apstiprinājums</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Lūdzu, apstipriniet, ka vēlaties deaktivizēt savu portālu</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Lūdzu, apstipriniet, ka vēlaties dzēst savu portālu</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Vai jūs tiešām gribat nomainīt portāla adresi uz {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Portāla īpašnieks ir veiksmīgi nomainīts. {0} pēc 10 sekundēm jus tiksiet novirzīti {1} šeit {2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Lūdzu, apstipriniet, ka vēlaties mainīt portāla īpašnieku {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Pievienoties</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Jūs esat veiksmīgi apstiprinājis savu reģistrāciju. Izveidojiet paroli un uzsāciet darbu!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Lūdzu, apstipriniet, ka vēlaties no jauna aktivizēt savu portālu</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Vai jūs tiešām gribat dzēst jūsu komentāru?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Dzēst komentāru</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Apsveikt</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Savienot</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>pieteikties</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Pievienojiet Bitly pakalpojumu, lai saīsinātu portāla ielūgumu saites un Dokumentu moduļa koplietošanas saites.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Pievienojot Bitly pakalpojumu, jums tiks nodrošinātas saīsinātas saites jaunu lietotāju uzaicināšanai ONLYOFFICE™ portālā un saīsinātas saites uz Dokumentu moduļa dokumentiem, kuri ir kopīgoti ar ārējiem lietotājiem.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>pieteikties</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Box atslēga</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai pārvaldītu Box failus un mapes.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Ja jūs pievienosit Box servisa lietotni, jūs varēsit pievienot savu Box kontu Dokumentu modulim. Tas ļaus jums augšupielādēt un izveidot jaunus Box failus, rediģēt esošos, kopēt un dzēst tos, kopīgot failus un mapes ar ONLYOFFICE™ portāla lietotājiem.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Box atslēga</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Iespējot lietotni divu faktoru autentifikācijai ar Clickatell</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Clickatell servisa lietotnes pievienošana jums ļaus ieslēgt divu daktoru autentifikāciju un saņemt SMS ar kodu, kas ļaus lietotājam ieiet ONLYOFFICE portālā.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign atslēga</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign slēptā atslēga</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai dokumentiem pievienotu DocuSign digitālos parakstus.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>DocuSign autentifikācijas galapunkts</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>Ja jūs pievienojat DocuSign pakalpojuma lietotni, jūs varēsit parakstīt Dokumentu moduļa failus. Tas jums ļaus nosūtīt failu elektroniskai parakstīšanai ONLYOFFICE™ portāla darbiniekiem ar DocuSign pakalpojumu. Parakstītais fails tiks noglabāts ONLYOFFICE™ Dokumentu modulī.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign atslēga</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>DocuSign autentifikācijas galapunkts</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign slēptā atslēga</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>Dropbox atslēga</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai pārvaldītu Dropbox failus un mapes.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Ja jūs pievienojat Dropbox pakalpojuma lietotni, jūs varēsit pievienot savu Dropbox kontu Dokumentu modulī. Tas jums ļaus augšupielādēt un izveidot jaunus failus ar Dropbox, rediģēt eksistējošos, kopēt un dzēst tos, kopīgos failus un mapes ar ONLYOFFICE™ portāla lietotājiem</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>Dropbox atslēga</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook atslēga</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook CRM atslēga</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai ieietu portālā ar Facebook kontu un meklētu kontaktus.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Ja jūs pievienojoat Facebook pakalpojuma lietotni, jūs varēsit pieslēgt savu Facebook kontu savai profila lapai, un varēsi ieiet ONLYOFFICE™ portālā ar to. Jūs arī varēsit atrast Facebook kontu vai CRM moduļa kontaktu un to piesaistīt lapai "Rediģēt personu / uzņēmumu".</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook atslēga</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>API atslēga</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Servera atslēga</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>Sūtītāja ID</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>Projekta ID</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Pievienojiet Firebase Cloud Messaging pakalpojumu, lai saņemtu paziņojumus par jums atsūtītiem ziņojumiem.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Pieslēdzot Firebase Cloud Messaging pakalpojumu, jūs varēsit saņemt paziņojumus, kas jums nosūtīti, pat tad, kad būsit bezsaistē.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>API atslēga</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>Sūtītāja ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>Projekta ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Servera atslēga</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google atslēga</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Pievienojiet projektu, lai ieietu portālā ar Google kontu un pārvaldītu Google Drive failus un mapes.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Ja pievienosit projektu no Google pakalpojumiem, jūs varēsit savai profila lapai pievienot savu Google kontu, tāpēc jūs varēsit arī ar to ieiet savā ONLYOFFICE™ portālā, kā arī Dokumentu modulim pievienot savu Google Frive. Tas ļaus jums augšupielādēt un izveidot jaunus Google Drive failus, rediģēt esošos, kopēt un dzēst tos, kopīgos failus un mapes ar ONLYOFFICE™ portāla lietotājiem.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google atslēga</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai ieietu portālā ar LinkedIn kontu.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Ja jūs pievienosit LinkedIn pakalpojuma lietotni, jūs varēsit pieslēgt savu LinkedIn kontu sava profila lapai un ar to pieslēgties ONLYOFFICE™ portālam.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin atslēga</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive atslēga</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai pārvaldītu OneDrive failus un mapes.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Ja jūs pievienosit OneDrive servisa lietotni, jūs varēsit pieslēgt savu OneDrive kontu Dokumentu modulī. Jūs tādējādi varēsit augšupielādēt un izveidot jaunus OneDrive failus, rediģēt esošos, tos kopēt un dzēst, kā arī kopīgot failus un mapes ar ONLYOFFICE™ portāla lietotājiem.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive atslēga</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS centrs</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Iespējot lietotni divu faktoru autentifikācijai ar SMS centru</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>SMS centra pakalpojumu aplikācijas pievienošana jums ļaus ieslēgt divu faktoru autentifikāciju un saņemt SMS ar kodu, kas ļauj lietotājam ieiet ONLYOFFICE portālā. SMS centra lietotne ir noderīgs SMS pakalpojumu sniedzējs NVS valstīs.</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Logins</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Logins</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Parole vai paroles MD5 hešs ar mazajiem burtiem</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Parole vai paroles MD5 hešs ar mazajiem burtiem</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Konta Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Auth marķieris</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Pievienojiet Twilio, lai varētu pa tiešo no pārlūka zvanīt CMR kontaktiem.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Pēc Twilio pievienošanas jūs varēsit zvanīt jebkuram CRM kontaktam pa tiešo no pārlūka.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Konta Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Tālruņa numurs no Twilio (nepieciešams SMS autorizācijai)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Auth marķieris</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Tālruņa numurs no Twilio (nepieciešams SMS autorizācijai)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Marķiera piekļuve</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Slepenā marķiera piekļuve</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter CRM atslēga</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter atslēga</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Pievienojiet lietotni, lai ieietu portālā ar Twitter kontu un meklētu lietotājus.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Pievienojot Twitter lietotni, jūs varēsit pieslēgt savu Twitter kontu savai profila lapai un ieiet ONLYOFFICE™ portālā ar to. Jūs varēsit arī uzmeklēt personas Twitter kontu CRM modulī un to piesaistīt lapai "Rediģēt personu / uzņēmumu" un tad to aplūkot Twitter ziņu lentā.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Marķiera piekļuve</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter atslēga</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Slepenā marķiera piekļuve</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>Klienta ID</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Iespējot lietotni Yahoo kontaktu importēšanai.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Yahoo pakalpojumu lietotnes pievienošana ļaus jums pievienot ONLYOFFICE portālam jaunus lietotājus no kontaktu saraksta.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Klienta ID</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktinformācija</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Vadības panelis</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Vadības panelis</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>Sadaļa {0}Sesijas ilgums{1} ļauj uzstādīt laiku (minūtes), pēc kura portāla lietotājiem atkal būs jāievada piekļuves dati.{2}Pēc noglabāšanas visi lietotāji tiks izrakstīti no portāla.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Ilgums (minūtes)</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Sesijas ilgums</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopēt saiti</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Korporatīvā lietošana</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Paroles atjaunošanas darbība nav atļauta LDAP lietotājam</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Paroles atjaunošanas darbība nav atļauta SSO lietotājam</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Izveidot jaunu profilu</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>dublējuma veidošana</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Īpašs domēna vārds</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Personalizācija</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Pielāgotos iestatījumus</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Pievienot vienību</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Pievienot vienību</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>Liela ikona, 100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Mainīt attēlu</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>Elementa uzstādījumi</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Personalizētā navigācija{1} ir uzstādījums navigācijas izvēlnes mainīšanai. {2}Lai uzlabotu portāla lietojamību, jūs varat pievienot savus elementus. Lūdzu, ņemiet vērā, ka, ja jūsu vietne izmanto HTTPS, visām saitēm ir arī jābūt ar HTTPS protokolu, citādāk pārlūkos parādīsies brīdinājums.</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>Uzraksts</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>Noņemt elementu</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>Rādīt izvēlnē</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>Rādīt galvenajā lapā</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>Mazā ikona, 16x16</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>Personalizētā navigācija</value>
+  </data>
+  <data name="CustomNavigationURLHeader" xml:space="preserve">
+    <value>URL adrese</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Informācijas Dublējums</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Datu rezerves kopēšanas{1} iespēja tiek izmantota, lai kopētu portāla datus un tos vēlāk noglabātu jūsu vietējā serverī. Izvēlieties datu glabātuvi (neaizmirstiet ievadīt Amazon datus, lai varētu tiem piekļūt).{2}
+Ja izvēlaties iekļaut pastu, vienīgi pēdējo 30 dienu ziņām tiks veidotas rezerves kopijas.{2}
+{0}Piezīme:{1} jums ir jāpieslēdzas savu trešās puses kontu (DropBox, Box.com, OneDrive or Google Drive) ONLYOFFICE koplietošanas dokumentu mapei pirms jūs varēsit tajā noglabāt savu rezerves kopiju.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Datu pārvaldība</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>diena</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>dienas</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>dienas</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Dezaktivēt</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Dezaktivēt</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Jūsu akaunts tika veiksmīgi deaktivēts.{0}Pēc 10 sekundēm jūs tiksiet paradresēti {1}šeit{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Portāla deaktivizācija / dzēšana</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Izmantojiet šo opciju, lai uz laiku deaktivizētu jūsu portālu.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Moduļu izvēle</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Noklusējuma sākumlapa</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Noklusējuma uzstādījumi</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Šo darbību nevar atsaukt. 
+Vai esat pārliecināti, ka vēlaties dzēst {0} {!group}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Jūsu portāls tika veiksmīgi dzēsts. {0}Pēc 10 sekundēm jūs tiksiet paradresēti {1}šeit{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Dzēst manu profilu</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Nosūtīt profila dzēšanas instrukcijas uz e-pasta adresi</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Dzēst profila dialogu</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Dzēst profilu</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} tiks dzēsts.</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>Tiks dzēsti lietotāju personīgie dokumenti, kuri ir pieejami citiem. Lai to novērstu, jums pirms dzēšanas ir jāveic datu pārzīmēšanas process.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Izmantojiet šo opciju, lai neatgriezeniski dzēstu jūsu portālu.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Rediģēt {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Atslēgts</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Atslēgt</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!User} nebūs redzams aktīvu lietotāju sarakstā</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Operāciju apstiprinošs links tika nosūtīts uz {0} (portāla īpašnieka e-pasta adrese).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS iestātījumi</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Dokumentu apkalpošana</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Dokumentu servisa atrašanās vieta norāda servera adresi ar instalētiem dokumenta pakalpojumiem. Lūdzu, zemāk esošajās rindās nomainiet '&amp;lt;editors-dns-name&amp;gt;', pārējot atstājot bez izmaiņām.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Dokumentu apkalpošanas izvietojums</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Dokumentu rediģēšanas servisa adrese</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Piemērs: {0}</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>{1}Dokumentu serviss{2} - servera pakalpojums, kas ļauj rediģēt dokumentus un konvertēt dokumenta failu uz atbilstošo OfficeOpen XML formātu.</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>Dokumentu apkalpošanas adrese pieprasījumiem no Kopējā darba servera</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>Kopienas servera adrese Document Service pieprasījumiem</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Lejupielādēt</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} pirms</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} diena</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} dienas</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} dienas</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>tikai</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} stunda</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} stundas</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} stundas</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minūte</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minūtes</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minūtes</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} mēnesis</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} mēneši</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} mēneši</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} gads</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} gadi</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} gadi</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Aizvakar</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Rīt</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Vakar</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Rediģēt Profilu</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-pasts</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Aktivizēšanas instrukcijas tiks nosūtītas uz ievadīto e-pasta adresi</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Izmantojiet saiti, aktivizācijas e-pastā. Nav saņēmuši e-pastu ar aktivizācijas saiti?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Lūdzu aktivizēt jūsu e-pasta adresi, pieeju visam portāla funkcijam.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Pieprasīt aktivizēšanu vēlreiz</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Aktivācijas epasts aizsūtīts uz jūsu epasta adresi. Lūdzu, sekojiet saitei ziņojumā, lai aktivizētu jūsu kontu</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>E-pasta aktivizēšana</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Apstiprināt paroli</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Jūsu portāls ir reģistrēts ar šādu domēnu:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Nepareiza parole</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Nepareiza e-pasta adrese</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Nepareizs promo kods</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Vai jums ir promo kods? Ievietojiet to šeit.</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Jūsu portāls ir reģistrēts no e-pasta:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Šie iestatījumi ir veiksmīgi saglabāti</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Mainīt</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Ierakstiet paroli</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Nepareiza parole</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Mainīt epastu</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Aktivizēšanas instrukcijas tiks nosūtītas uz ievadīto e-pasta adresi</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>E-pasta maiņa</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>E-pasts nav aktivizēts</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Visas {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Darbinieku meklēšana</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Nav datu glabāšanas telpas</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Iespējot LDAP autentifikāciju</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Izmantot SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ieslēgt</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!User} būs atkal redzams kā aktīvs </value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Ievadiet e-pasta adresi</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Jums nav atļaujas skatīt šo lapu</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Kļūda 403 - Aizliegts</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Nav atļaujas šajai darbībai</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Piekļuve portālam ir ierobežota</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Nepareizas atslēgas</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Nepareizs pieprasījums</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Nepareizs e-pasts vai vecs links</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Jūsu profila darbība apturēta</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} ar šo e-pastu jau ir reģistrēts</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Nav atļauta šī domēna e-pastu reģistrācija</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>E-pasta lauks ir tukšs</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Pašreizējā e-pasta adrese un jauna e-pasta adrese ir vienādi</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Lūdzu aizpildiet visus laukus</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Nav iespējams atrast augšupielādētu failu</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Ievadiet savu e-pasta adresi</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Ievadiet jūsu vārdu</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Ievadiet jūsu uzvārdu</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Saites termiņš beidzies</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Attēla izmērs ir pārāk liels</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Attēla faila izmērs ir pārāk liels</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Nederīga aktivizācijas saite</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Piekļuve portālam ierobežota</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Reģistrēšanās datumam ir jābūt vēlākam par dzimšanas datumu</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Šajā laukā var ievadīt ne vairāk par 255 rakstu zīmēm</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Šajā laukā var ievadīt ne vairāk par 64 rakstu zīmēm</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Jūsu pārlūks neatbalsta JavaScript!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Jūsu maksājumu plāns neatbalsta šo iespēju</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Nederīgs datuma formāts</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nepareizs e-pasts</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Nepareizs domēna nosaukums</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Parole ir tukša.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>no {0} līdz {1} zīmēm</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Parolei ir jāsatur</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Tā jābūt</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>cipari</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>Speciālās rakstzīmes</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>Lielie burti</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Nezināms attēla faila veids</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Lietotājs nevar būt atrasts</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Nav iespējams atrast lietotāju ar "{0}" e-pastu</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>ES (Īrija)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Katru dienu</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Katru mēnesi</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Katru nedēļu</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Atsauksmes &amp;amp; atbalsts</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Sieviete</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Maksimālais faila izmērs bija pārsniegts</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Piezīme: faila izmērs nevar pārsniegt {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB, TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>uz periodu</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>līdz</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>pēdēji 3 mēneši</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>pēdējais mēnesis</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>pēdējā nedēļa</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Links jūsu akaunta apstiprinājumam tika nosūtīts uz noradītu e-pastu</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Aimirsāt paroli?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Lai pierakstītos lūdzu sekojiet šim {0}linkam{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Pilnā teksta meklēšanas pakalpojums nav palaists</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Pilnā teksta meklēšanas pakalpojums palaists</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx uzstādījumi</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Lai meklētu pilno tekstu, jums ir serverī jāuzinstalē sphinx.2.2.10.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Uzstādījumi darbam ar sphinx, indexer un search deamon. Jums ir jāprecizē hots un porta numurs, kas atrodas search deamon searchd sarakstā. Šiem iestatījumiem ir jāsakrīt ar sphinx konfigurāciju sphinx.cof.in faila searchd sadaļā.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Pārbaude</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Saņemt saīsinātu saiti</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Sākumlapas iestatījumi</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Grupa</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Grupas līderis</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Grupas</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Viesis</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Viesi</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Ja vēlaties {1}deaktivizētu{2} portālu, portāla informācija, kas saistīta ar to tiks bloķēta, lai neviens nevarētu piekļut šai informācijai konkrēta perioda. Lai to izdarītu, noklikšķiniet uz {1}Deaktivizēt{2} pogu. Saite, lai apstiprinātu darbību, tiks nosūtīts uz portāla īpašnieka e-pasta adresi. {0}Gadījumā, ja jūs vēlaties atgriezties pie ONLYOFFICE™ portāla un atsākt izmantot to jums būs nepieciešams izmantot otru saiti, apstiprinājuma e-pastā. Tātad, lūdzu, saglabājiet šo vēstuli drošā vietā. {0}Ja jūs nevēlas, izmantot ONLYOFFICE™ portālu un vēlaties {1}dzēst{2} portāla pastāvīgi iesniedziet savu pieteikumu, izmantojot {1}Dzēst{2} pogu. Lūdzu, nemiet vērā , ka jūs nevarēsiet atjaunot sava portālu vai atgūt jebkādu informāciju, kas saistīta ar to.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Administratora Ziņu uzstādījumi{2} ir veids, kā sazināties ar portāla administratoru. {0} Ieslēdziet šo opciju, lai rādītu kontaktu formu {1}Autorizācijas{2} lapā, lai cilvēki varētu nosūtīt ziņu portālu administratoram, ja tiem ir problēmas piekļūt portālam. {0} Lai aktivizētu parametrus nospiediet {1}Saglabāt{2} pogu sadaļas apakšā.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Krāsu shēmas{2} ļauj jums pielāgot portāla saskarni atbilstoši jūsu uzņēmuma zīmolam.{0} Izvēlieties vienu no krāsu shēmām no kreisajā pusē esošā saraksta.{0} Lai piemērotu izvēlēto krāsu shēmu, spiediet taustiņu {1}Saglabāt{2}, kas atrodas šīs sadaļas apakšā.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Noklusējuma sākumlapa{1} ir veids, lai izvēlētos moduli kas atvēras kad jūs ienācat portālā vai noklikšķiniet uz ONLYOFFICE™ logotipu, ja esat jau ienākuši. Lai aktivizētu parametrus noklikšķiniet {0}Saglabāt{1} pogu sadaļas apakšā.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS iestatījumi{2} ir veids, kādā iestatīt alternatīvo jūsu ONLYOFFICE™ portāla URL adresi.{0}Pārbaudiet{1}Pielāgotā domēna nosaukuma{2} lauku un precizējiet ONLYOFFICE™ portāla nosaukumu zemāk esošajā laukā.{0} Lai aktivizētu uzstādītos parametrus, nospiediet {1}Saglabāt{2}, kas atrodas sadaļas apakšā.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Sagaidīšanas iestatījumi{2} ir veids, kādā mainīt portāla noklusējuma nosaukumu, kas parādīsies jūsu portāla {1}sākumlapā{2}. Tas pats nosaukums arī tiek izmantots jūsu e-pasta ziņu laukā {1}No{2}.{0}Laukā {1}nosaukums{2} ievadiet vēlamo tekstu.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Ielūgums Saite tiek izmantota, lai uzaicināt cilvēkus pievienoties jūsu portālā.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Valodas un laika joslas iestatījumi{2} ir veids, kā mainīt portāla valodu visiem portāla lietotājiem un konfigurētu laika joslu, lai ONLYOFFICE™ portāla notikumi tiks rādīti ar pareizu datumu un laiku.{0}Atveriet atbilstošo nolaižamos sarakstu, lai iestatītu nepieciešamos parametrus.{0}Lai lietotu tos izmaiņas izmantojiet pogu {1}Saglabāt{2} sadaļas apakšējā daļā.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Logotipa uzstādījumi{2} ir veids, kādā mainīt noklusējuma logo, kas tiks attēlots jūsu portāla {1}Sākumlapā{2}. {0} Lai nomainītu portāla logo, spiediet saiti {1}Mainīt logo{2} labajā pusē un izvēlieties attēlu, kas tiks uzglabāts jūsu datorā, lai to ielādētu portālā. {0} Lūdzu, ņemiet vērā, ka jūs varat augšupielādēt attēlu, kas nepārsniedz {1}250x100 pikseļus{2}, pretējā gadījumā tiks mainīts izmērs. Maksimālais izmēra attēls nedrīkst pārsniegt {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Uzticamie pasta domēna Iestatījumi{2} ir veids, kā norādīt pasta serverus, kuri var tikt izmantoti lietotāja pašreģistrācija ONLYOFFICE™ portalā. {0}Varat pārbaudīt {1}Pielāgota domēnu{2} iespēju un ievadiet uzticamu pasta serveri laukā vai izvēlieties {1}Visi domēni{2} variantu. {0}Šādos gadījumos kāds no jūsu uzņēmuma, kuram ir konts norādītajā pasta serverī varēs reģistrēt sevi, noklikšķinot uz {1}Pievienoties{2} uz {1}Galvenā{2} lapā saiti un ievadot e-pasta adresi ar uzticamu domēna nosaukumu jūs pievienojat. {0}Lai izslēgtu šo opciju atzimējiet atbilstošo pogu. {0}Lai piemērotu veiktas izmaiņas izmantojiet {1}Saglabāt{2} pogas sadaļā apakšā.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Parole Stiprums Iestatījumi{2} ļauj noteikt paroles stiprumu (paroles efektivitāte prēt brute-force uzbrukumiem). {0}Izmantojiet {1}Minimālā Paroles{2} {1}Garumu{2} bāru, lai noteiktu, cik garai parolei jabūt. Atzimējiet atbilstošos lodziņus zem joslā, lai noteiktu rakstzīmju kopu, kas jāizmanto ar paroli.{0}
+Lai piemērotu veiktās izmaiņas izmantojiet {1}Saglabāt{2} pogu sadaļā apakšā.
+</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Publisks portāls{2} ir bezmaksas iespēja, kas ļauj ikvienam apskatīt publisko saturu bez reģistrēšanās. Privātie projekti nav pieejami, un CRM modulis šādos portālos ir atspējots.{0}Reģistrēšanās publiskos portālos nav ierobežota attiecībā uz lietotāju skaitu, bet jauni lietotāji tiek pievienoti pēc portāla administratora pieprasījuma. Izmantojiet iespēju {1}Tūlītēja jauno lietotāju reģistrācija{2}, lai noņemtu nepieciešamību pēc jebkāda reģistrācijas apstiprinājuma.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Šeit jūs varat mainīt savu portāla adresi. Ievadiet daļu, kas parādīsies blakus onlyoffice.com/onlyoffice.eu portāla adresei.{0}
+{1}Lūdzu, ņemiet vērā{2}: jūsu vecā portāla adrese kļūs pieejama jaunajiem ONLYOFFICE lietotājiem, ja nospiedīsit {1}Saglabāt{2}.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Portāla versija{2} opcija ir paredzēta, lai pārslēgtos starp pieejamajām ONLYOFFICE™ portāla versijam {0}Jūs varat vai nu izmantot jauno versiju vai pārslēgties atpakaļ uz iepriekšējo portāla versiju. {0} Lai aktivizētu parametrus nospiediet {1}Saglabāt{2} pogu sadaļas apakšā.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Komandas veidne{2} ir pielāgojamais veids, kā nosaukt organizāciju (vai grupa), tās locekļus un viņu aktivitātes. {0}Nolaižama {1}veidnes{2} sarakstā, izvēlēties vienu no pieejamiem iestatījumiem, vai ievadiet nosaukumi paši izvēloties {1}Pielāgota{2} iespēju sarakstā. {0}Piemērojiet izvēlēto veidni izmantojot {1}Saglabāt{2} pogu sadaļā apakšā.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Portāla pārnese uz jums tuvākā reģiona serveri paātrinās portāla atbildi. Jo tuvāk jūsu klienti un lietotāji atradīsies jūsu serverim, jo ātrāks būs portāla ātrums. .{0}Lai uzsāktu pārnesi, spiediet {1}Mainīt servera apgabalu{2} zemāk esošajā sadaļā. {0}{1}Piezīme:{2} kolīdz process ir uzsākts, to nevar atcelt. Lūdzu, ņemiet arī vērā, ka tehnisko ierobežojumu dēļ pārnesta tiks tikai pēdējo 30 dienu sarakste.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Palīdzības centrs</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Programmas mērķis ir legāli reklamēt ONLYOFFICE™, lai saņemtu komisiju par iegādātajiem abonementem, kurus iegādājuši piesaistītas personas.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Paslēpt</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Ievadiet jūsu AIM akauntu</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Ievadiet jūsu Blogger profilu </value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Ievadiet jūsu E-pastu</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Ievadiet jūsu Facebook profilu</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Ievadiet sava konta logina vārdu vai ID</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Ievadiet jūsu GoogleTalk akauntu</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Ievadiet jūsu GoogleBuzz profilu</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Ievadiet jūsu Google akauntu</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Ievadiet jūsu ICQ akauntu</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Ievadiet jūsu Jabber akauntu</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Ievadiet jūsu LiveJournal profilu</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Ievadiet jūsu mobila telefona numuru</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Ievadiet jūsu MSN akauntu</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Ievadiet jūsu MySpace profilu</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Ievadiet jūsu telefona numuru</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Ievadiet jūsu Skype akauntu</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Ievadiet jūsuTwitter profilu</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Ievadiet jūsu Yahoo akauntu</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Hosta logins</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Hosts</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Hosta parole</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} jau pastāv</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>E-pasts</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Nav saņēmis kontaktpersonu.{0}Kontaktpersonas var būt importēti arī no citiem profiliem.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Ievadiet lietotāja vārdu</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Ievadiet lietotāja uzvārdu</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Ievadiet jūsu E-pastu</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Ievadiet jūsu vārdu</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Importēšanas kļūda</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Ievadiet jūsu uzvārdu</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Lūdzu ievadiet vārdu, uzvārdu un e-pastu, kas pieder {!user}, kas tiks pievienots portālam, augstāk esošajos laukos. Spiediet "Pievienot", lai pievienotu {!user} sarakstam.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>No faila</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Fails izvēlēts ievešanai ir nepareizā formātā. {0} Lūdzu, izvēlieties citu failu un atkārtojiet importēšanas process vēlreiz.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Pievienot portālam {!users}</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Pārliecinieties, ka visi lietotāja lauki, iekļaujot vārdu, uzvārdu un e-pasta adrese tiek aizpildīti pareizi</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Uzvārds</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Importēšana no Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Importēšana no Yahoo</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Jūsu šībrīža cenu plāns ļauj pievienot {0} lietotājus.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Paaugstiniet savu cenu plānu vai pievienojiet vairāk viesu ar apskates atļaujām. Jūs varēsit vēlāk mainīt to lomas Personu modulī.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Pievienot lietotājus</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Atjauniniet savu plānu vai pievienojiet vēl lietotājus kā viesus ar apskates atļaujām. Jūs varēsit vēlāk mainīt to lomas Personu modulī vai {0}Lasīt par bezpeļņas lietošanu{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Jūsu cenu plāns neļauj pievienot vēl lietotājus</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>Iekšā</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Nepareizs lietotājvārds vai parole.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Lai sāktu darbu pie portāla, jums ir jāievada pareizi savu {0} Vārdu {1} un {0} Uzvārdu {1} formā labajā pusē, un noteikt {0} personīgo paroli {1}, lai varētu ielogoties.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Ielūguma saite</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Jūs saņēmāt saiti uz šo portālu no drauga vai kolēģim</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Jūsu draugs vai koļeģis pievienoja Jūs ONLYOFFICE™ portālā.</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Jūs esat aicināti pievienoties portālam!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Pievienot lietotājus kā {!guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Uzaiciniet lietotājus</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Atspējot</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Iespējot</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP drošība{1} tiek izmantota, lai ierobežotu ieiešanu portālā no visām IP adresēm, izņemot noteiktām. Jūs varat uzstādīt atļautās IP adreses, izmantojot vai nu precīzas IP adreses IPv4 formātā (#.#.#.#, kur # ir skaitliska vērtība no 0 līdz 255) vai IP diapazons ( #.#.#.#-#.#.#.# formāts). IP drošība nedarbojas portāla īpašniekiem, viņi var piekļūt portālam no jebkuras IP adreses.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP drošība</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Vispirms jums ir jāprecizē sava tekošā IP adrese vai IP adrešu diapazons, kurā tā ietilpst. Pretējā gadījumā portāla piekļuve uzreiz pēc uzstādījumu saglabāšanas tiks bloķēta. Portāla īpašniekam būs piekļuve portālam no jebkuras IP adreses.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Pārnest arī ONLYOFFICE™ pastu (nav ieteicams)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Kļūstiet par sadarbības partneri</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Jūs varat pievienot lietotājus kā viesus ar statusu {!guests} vai mainīt cenu plānu pret kādu ar lielāķu lietotāju skaitu.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Valoda</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Uzvārds</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP uzstādījumi</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Lietotāja autentifikācija</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Iespējojiet šo iespēju, ja šībrīža Windows lietotājam nav tiesību lasīt datus no LDAP servera / Active Directory, un ievadiet cita lietotāja datus, kuram ir lasīšanas tiesības.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Savienojuma kļūda</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Tukšs lauks</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Iespējojiet šo iespēju, ja vēlaties ONLYOFFICE automātiski pievienot lietotājus LDAP servera / Active Directory. Pievienotie lietotāji varēs autorizēties ar saviem LDAP servera / Active Directory piekļuves datiem. ONLYOFFICE nenoglabās lokāli lietotāju paroles un autentificēs lietotājus, nosūtot viņu lietotājvārdu un paroli uz LDAP serveri / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Lietotājus neizdevās izveidot, saņemtie dati nav pareizi.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Serverim neizdevās iegūt iestatījumus</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Serverim neizdevās noglabāt iestatījumus.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Nepareizs logins vai paroli.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>LDAP domēns nav atrasts.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Nav atrastas grupas.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Nederīga lietotāja filtra vērtība</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Nezināma kļūda</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Neizdevās atrast lietotājus</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Neizdevās iegūt grupas atribūtu vienai vai vairākām grupām.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Nepareizs grupas filtrs.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Neizdevās iegūt grupas atribūtu vienai vai vairākām grupām.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Neizdevās iegūt pieslēgšanās atribūtu vienam vai vairākiem lietotājiem.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Neizdevās pieslēgties LDAP serverim. Lūdzu, pārbaudiet, vai servera adrese un porta numurs ir pareizi.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Neizdevās iegūt lietotāja atribūtu vienam vai vairākiem lietotājiem.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Grupas atribūts</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Ievadiet grupas objekta atribūtu, kas norāda, kādi lietotāji ir šajā grupā.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Grupas kataloga DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Ievadiet unikālo kataloga vārdu, kas satur grupas, kuras vēlaties pievienot.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Grupas filtrs</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Izmantojiet LDAP filtra meklēšanu, lai izvēlētos grupas, kuras tiks importētas. Lūdzu, ņemiet vērā, ka tiks pievienoti tikai lietotāji no šīm grupām.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Piederība grupai</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Iespējojiet šo iespēju, ja vēlaties ONLYOFFICE pievienot grupas no LDAP servera / Active Directory. Lūdzu, ņemiet vērā, ka pievienoti tiks vienīgi šīm grupām piederoši lietotāji.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Grupas nosaukuma atribūts</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Lūdzu, precizējiet objekta atribūtu, kas atbilst grupas nosaukumam.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Iekšēja servera kļūda.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Logins</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Pieteikšanās atribūts</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Ievadiet objekta atribūtu, kas atbilst lietotāja loginam.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>LDAP lietotāju pārveidošana par parastiem portāla lietotājiem</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Lietotāja vārda DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Ievadiet lietotāja paroli, kuram ir piekļuve datiem no LDAP servera / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Porta numurs</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Ievadiet sava LDAP servera / Active Directory porta numuru.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Noklusējuma uzstādījumi</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Atjaunot uz noklusējuma uzstādījumiem</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Saglabāt uzstādījumus</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Serveris</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Ievadiet LDAP servera URL adresi bez porta numura, piemēram, LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>lietotāja pievienošana</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Sertifikāta pārbaude</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>LDAP atbalsta uzstādījumu pārbaude</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP atvienošana</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Atjaunot grupu sarakstu no LDAP servera</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Iegūt lietotāju sarakstu no LDAP servera</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>LDAP bāzes informācijas ielāde</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>lietotāja noņemšana</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Novecojušu grupu noņemšana, kuras ir iepriekš ielādētas ar LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Novecojušu profilu atspējošana, kuri ir ielādēti iepriekš ar LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Grupu saglabāšana</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Saglabāšanas uzstādījumi</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Lietotāju saglabāšana</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Lietotāju sinhronizācija</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Ir nepieciešams drošās autentifikācijas veids. Lūdzu, izmantojiet šifrēto savienojumu vai iespējojiet autentifikāciju serverī.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Saglabāšana veiksmīgi pabeigta</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Sinhronizēt lietotājus</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Ir sasniegts šībrīža cenu plāna lietotāju limits.</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>Šībrīža LDAP serveris neatbalsta StartTLS</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Par daudz LDAP darbību</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Lietotāja atribūts</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Ievadiet lietotāja objekta atribūtu, kas nosaka, vai šis lietotājs ir grupās.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>Lietotāju kataloga DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Ievadiet unikālo vārdu katalogā, kas satur lietotājus, kurus vēlaties pievienot.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Lietotāju filtrs</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Izmantijiet LDAP meklēšanas filtru, lai atlasītu lietotājus, kuri ir jāimportē</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Lūdzu, precizējiet {0} lietotāju, kuram ir LDAP servera / Active Directory lasīšanas piekļuves tiesības.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Neizdevās iegūt lietotāja/grupas objektu unikālo ID. Sistēma pēc noklusējuma mēģinās saskaņot vienu no šādiem identifikatoriem: entryUUID, nsuniqueid, GUID, objectSid. Ja neviens no atribūtiem neatbilst jūsu LDAP serverim, lūdzu, precizējiet nepieciešamo atribūtu ldap.unique.id iestatījumā web.appsettings.config failā.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Lietotājs ticis importēts no LDAP
+Sazinieties ar savu LDAP administratoru,
+ja vēlaties mainīt bloķētos profila laukus.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Lietotājs ticis importēts no LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Uzziņiet vairāk ...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Licence nav pareiza</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Licencei beidzies termiņš</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Portālu skaits pārsniedz licencē atļauto</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Lietotāju skaits pārsniedz licencē atļauto</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Veiksmīgi augšupielādēts</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Notiek ielāde, lūdzu uzgaidiet</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Notiek ielāde...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Atrašanās vieta</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Pieteikties</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Pierakstīties</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Portāla piekļuve ir ierobežota. Sazinieties ar portāla administratoru.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Pievienoties</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Autorizēties, izmantojot sociālo tīklu</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>vai pieteikties ar:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Nevar atrast saistīto trešo personu kontu. Vispirms Jums ir nepieciešams savienot savu sociāla tīkla kontu profila rediģēšanas lapā.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Logo uzstādījumi</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Šis ziņojums ir sastādīts automātiski, un jums uz to nav jāatbild.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>karte</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Nav atrašanās vietas</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizators</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Atkārtošanās</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Kad</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Kur</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Kurš</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Nav nelasītu ziņu. Lūdzu, dodieties uz Pastu, lai izlasītu visas ziņas.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Pasta serveris</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Veiksmīgs savienojums</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Piemērs: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Konfigurēt pasta serveri</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Šī iespēja ļauj pieslēgt jūsu portālu {0}Pasta serverim{1}, kas ir uzstādīts ar  {2}Docker instalāciju{3}.{4}{0}Piezīme:{1} pārliecinieties, ka porti {0}3306{1} un {0}8081{1} ir atvērti datorā, kurā uzstādīts {0}Pasta serveris{1}. Tāpat arī iesakām jums nomainīt {0}Pasta servera{1} datubāzes piekļuves paroli.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Slēpt papildu iestatījumus</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>Pasta servera datubāzes hosts</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Pasta servera datubāzes parole</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>Kļūda, pārbaudot savienojumu ar hostu {0}:{1}</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Serviss sekmīgi pievienots</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>Pasta servera IP</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Rādīt papildu iestatījumus</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Pēc pieslēgšanas {0}Pasta serveris{1} {2}kļūs pieejams{3} modulī {0}"Pasts"{1}, un jūs varēsit izveidot pastkastes portāla lietotājiem, izmantojot paši savu pasta domēna nosaukumu.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Pasta servera savienojuma uzstādījumi</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Pasta servera datubāzes lietotājvārds</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Brīdinājums: jūsu {0}Pasta{1} modulī jau ir pasta domēna iestatījumi un pastkastes. Iestatījumu nomaiņa npzīmē to, ka šādas izmaiņas var ietekmēt to datu un rezultēties pasta servera kļūdā. Ja jūs pilnībā pārvietojat {0}Pasta serveri{1} uz citu datoru un/vai maināt datubāzes piekļuves informāciju, vienkārši augšupielādējiet {0}Pasta servera IP{1} un/vai datus šeit. Ja esat izveidojuši jaunu {0}Pasta serveri{1} un vēlaties tam pieslēgties, jums vispirms ir no{2}Pasta servera lapas{3} jādzēš vecie dati.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Vīrietis</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Kopējs</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integrācija</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Drošība</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Izveidojiet savu CRM datubāzi</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Pārvaldiet klientus, sekojiet pārdošanas rādītājiem un izrakstiet rēķinus</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Strādājiet ar .docx, .xlsx un .pptx failiem tiešsaistē</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Aplūkojiet un rediģējiet dokumentus tieši portālā</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Apskatiet savus komandas biedrus</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Apskatiet portāla lietotājus, pievienojiet vai importējiet tos</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Piedalieties projektos</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Pārvaldiet uzdevumus un sekojiet to izpildei ar Ganta diagrammu</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Daži soļi darba uzsākšanai:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Laipni lūdzam ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Atzīmēt ka izlasītu</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Lūdzu autorizējiet sevi</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>E-pasta aktivizēšanas instrukcijas ir nosūtīti uz {0} e-pasta adresi</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>E-pasta maiņas instrukcijas veiksmīgi nosūtītas</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Jūsu e-pasts tika veiksmīgi aktivizēts</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Nosūtīt uzaicinājumu norādījumus uz {0} e-pasta adresi</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Nosūtīt e-pastu aktivizācijas norādes uz {0} e-pasta adresi</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Sūtīt e-pasta izmaiņas instrukcijas uz {0} e-pasta adresi</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Nosūtiet paroles maiņas instrukcijas uz {0} e-pasta adresi</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Lūdzu, ievadiet e-pastu, kuru izmantojāt reģistrācijas procesā. Paroles atjaunošanas instrukcijas tiks nosūtīti uz šo e-pasta adresi.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ ir mākoņu birojs, kas ļauj jums pārvaldīt dokumentus projektus, komandas un klientu komunikāciju vienuviet.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>tiešsaistes dokumenta redaktors, projekta vadības rīks, biznesa rīki, crm sistēma, ganta diagramma, tiešsaistes sadarbība, mākoņu birojs, tiešsaistes word, dokumentu pārvaldība, tiešsaistes darblapas, tiešsaistes birojs, kopējā rediģēšana, tiešsaistes biroja lietotne, tiešsaistes dokumenti</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Pārnešana</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>{0}Portāla pārneses uz citu apgabalu{1} iespēja ir pieejama tikai apmaksāto portālu īpašniekiem.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>{0}Portāla pārneses uz citu apgabalu{1} iespēja ir pieejama tikai portālu īpašniekiem.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Jauns mobilais tālrunis</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Galvenais mobilais tālruņis</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Mainīt tālruņa numuru</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Dodieties uz lapu tālruņa numura nomaiņai</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Lai mainītu tālruņa numuru, izmantojiet ziņu ar kodu, kas tika nosūtīta uz jūsu jauno tālruni</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Nosūtīts</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Mainīt mobilo tālruni</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Instrukcijas par lietotāja mobilā tālruņa maiņu tiks nosūtītas uz lietotāja e-pasta adresi</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Lai mainītu numuru, jums ir jādzēš šībrīža tālruņa numurs</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Novērošana</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Vairāk darbības</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Mans Profils</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Veidne</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Komandas veidne</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nerādīt</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Jauns portāla nosaukums</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Jūs vēl neesat pievienojuši domēnus. Sekojiet {0}Saitei{1}, lai pievienotu pirmo domēnu.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Nav neatbildētu zvanu</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Nav pieejami citi operatori. Lūdzu, atbildiet.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Lietotāju lomas ar statusu {!Guests} var mainīt modulī {0}Personas{1}.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Tie netiks iekļauti kopējā lietotāju skaitā portāla izcenojumā.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Ja nevarat atrast savu valodu starp pieejamajām, sazinieties ar mums uz {0}documentation@onlyoffice.com{1}, lai piedalītos tulkošanā un saņemtu 1 bezmaksas gadu lietošanas.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Sazināties caur:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Epasts</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Epasts &amp; Sarunāties</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Sarunāties</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Ziņot {!users} par portālu pārnesi</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Izslēgts</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Vai</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG reģions</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Īpašnieks</value>
+  </data>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>Jūsu atbalsta un atjauninājumu abonementa termiņš ir iztecējis</value>
+  </data>
+  <data name="PaidPeriodStandaloneLife" xml:space="preserve">
+    <value>Jūsu atbalsta un atjauninājumu abonementa termiņš iztecēs {0} {1}</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Mainīt Paroli</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Paroles maiņa</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Minimālais paroles garums</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Paroles atjaunošana</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>Rakstzīmes</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Izmantojiet ciparus</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Izmantojiet speciālās rakstzīmes</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Izmantojiet lielos burtus</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Tagad jūs varat izveidot jaunu paroli.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Nepieciešams maksājums</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Maksājumu vēsture</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Gaida</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Cilvēki</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Lūdzu uzgaidiet...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Publisks portāls</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Privāts portāls</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limits pārsniegts ({0} MB diska vietas)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Šī iespēja ir pieejama vienīgi bezmaksas tarifā</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Portāla piekļuves iestatījumi</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Pārsniegts limits ({0} aktīvi lietotāji)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portāla nosaukums</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portāla īpašnieks</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Portāla pārdēvēšana</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Piekļuve portālam</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Nodrošina</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Cenu lapa ir pieejama vienīgi administratoriem</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Cenu lapas uzstādījumi{1} ļauj portāla administratoram iespējot vai atspējot cenu lapas redzamību visiem lietotājiem un padarīt to redzamu tikai portāla administratoriem.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Cenu lapas iestatījumi</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Moduli &amp; Rīki</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Izvēlieties jums nepieciešamos ONLYOFFICE moduļus un rīkus. Atspējotie moduļi un rīki tiks slēpti no visiem portāla {!users}. Paturiet prātā, ka pēc moduļu un rīku atkārtotas iespējošanas, tie kļūs pieejami arī visiem portāla {!users}. Lai ierobežotu piekļuvi, dodieties uz Portāla uzstādījumu Piekļuves sadaļu.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Instrumenti</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Moduli</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profils tika dzēsts</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publicēt</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Jūsu akaunts tika veiksmīgi atjaunots.{0}Pēc 10 sekundēm jūs tiksiet paradresēts {1}šeit{2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Pārnest datus</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Datu pārneses process {0} nav pabeigts.</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Pārvirzīt</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Reģistrācijas datums</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Reģistrējiet jaunus {!users} tūlīt</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Jūsu reģistrācijas e-pasts</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Logins</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Noraidīt</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Pieminēt</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>Sesijas noklusējuma laiks ir 20 minūtes. Atzīmējiet šo iespēju, lai uzstādītu to uz 1 gadu. Lai uzstādītu paši savu lielumu, dodieties uz uzstādījumiem.</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Personīgo datu dzēšana</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Uzaicinājums tiks nosūtīts uz ievadīto e-pasta adresi</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Pārsutīt</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Vai vēlaties nosūtīt uzaicinājumu vēlreiz?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Pārsutīt uzaicinājumu</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Rezerves kopiju saraksts</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Ja jūs dzēsīsit kādus elementus no saraksta, tiks dzēsti arī tiem atbilstošie faili. Šo darbību nav iespējams atsaukt. Lai dzēstu visus failus, izmantojiet saiti:{0}
+Attīrīt sarakstu{1}</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Datora fails</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Noklusējuma iestatījumu atjaunošana</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Izmantojiet šo iespēju, lai atjaunotu portālu no iepriekš noglabāta rezerves faila.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Vēl nav izveidotas rezerves kopijas. Izveidojiet vismaz vienu rezerves kopiju, lai tā parādītos šajā sarakstā.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Datu atjaunošanas{1} iespēja tiek izmantota, lai atjaunotu iepriekš noglabātus portāla datus (no vietējā servera vai SaaS portāla). Izvēlieties glabātuvi, kurā dati tiek noglabāti, ievadiet nepieciešamo informāciju un atzīmējiet lauku {0}Nosūtīt ziņojumu portāla lietotājiem{1}, lai brīdinātu sava portāla lietotājus par rezerves kopēšanas/atjaunošanas darbībām.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Kad atjaunošanas process būs pabeigts, jūs automātiski pārsūtīs uz jūsu portālu.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Notiek portāla atjaunošana.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Nosūtīt lietotājiem paziņojumu par portāla atjaunošanu</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Parādīt rezerves kopiju sarakstu</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Datu atjaunošana</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Portāls nebūs pieejams atjaunošanas laikā. Pēc atjaunošanas tiks pazaudētas visas izmaiņas kas veiktas pēc izvēlētā atjaunošanas punkta datuma.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Meklēt</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Pārliecinieties, vai visi vārdi ir uzrakstīti pareizi. Izmēģiniet dažādus atslēgvārdus.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Nekas nav atrasts</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Meklēšanas Rezultāti</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Skatīt visu</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Skatīties visus video</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Izvēlēties</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Nosūtīt</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Sūtītāja e-pasta adrese</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Sūtītāja parādāmais vārds</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Nosūtīt uzaicinājumu vēlreiz</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Nosūtīt Uzaicinājumu</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Uzklikšķināt šeit, lai pievienoties</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Vai vēlaties kļūt par portāla {!user}?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Lūdzu, ievadiet e-pasta adresi, kur tiks nosūtīts uzaicinājums:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Sūtīt testa e-pastu</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Servera programmatūra sastapa kļūdu jūsu pieprasījumu apstrādes laikā. Lūdzu uzgaidiet kādu laiku un mēģiniet vēlreiz. Ja kļūda saglabāsies, jums droši vien vajadzēs kontaktēt sites administratoru.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Servera Kļūda</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Servera reģions</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Tas jau ir pašreizējā versija</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Nederīga portāla versija</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Dzimums</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Singapūra</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Parādīt</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Rādīt visus</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Parādīt visus rezultātus</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Iespējot / atspējot padomus</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Rādīt nākamo</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Reģistrācija ir pieejama lietotājiem ar e-pasta kontu jebkurā domenā. Lai reģistrētos, ievadiet savu e-pasta un noklikšķiniet uz Sūtīt ielūgumu. E-pasta ziņojums ar saiti, lai aktivizētu jūsu ONLYOFFICE™ konts tiks nosūtīti uz norādīto e-pastu.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Vienreizējā ieeja</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Pārsteigums</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bumba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Traks</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Raudāt</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Dejot</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Dzert</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Dusmīgs</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Mirkšķināšana</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Zaļš</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Holivudas smaids</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Skumjš</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Mūzika</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Smaids</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Ņirgšana</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Piedod</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Aizsargbrilles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Mēle</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Urā</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Divu faktoru autentifikācija{1} ir drošāks veids, kādā lietotājiem ieiet portālā. Pēc piekļuves datu ievades lietotājam būs jāievada kods no tālrunī saņemtās SMS ar numuru, kas ir norādīts pirmajā portāla ieiešanas reizē ar divu faktoru autentifikācijā.{2}Iespējojiet šo funkcju, lai nodrošinātu drošāku portāla piekļuvi visiem lietotājiem.{2}Lai piemērotu izmaiņas, spiediet {0}Saglabāt{1}, kas atrodas zem šīs sadaļas.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Nepareizs kods</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Kods: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Laiks koda izmantošanai ir iztecējis. Lūdzu, lūdziet jaunu ziņu.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Piezīme{1}: SMS ziņas var nosūtīt vienīgi tad, ja jums ir pozitīva bilance. Jūs varat vienmēr pārbaudīt tekošo bilance savā SMS provaidera kontā. Neaizmirstiet savlaicīgi papildināt bilanci.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Piezīme{1}: pirms jūs varat izmantot divu faktoru autentifikāciju, jums ir jāizvēlas vismaz viens SMS provaideris un tas jākonfigurē {3}{0}Trešās puses pakalpojumu{1}{4}lapā.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Piezīme{1}: divu faktoru autentifikācija ir pieejama vienīgi apmaksātiem portāliem.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Divu faktoru autentificēšana</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} bilance</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>apskatiet savā kontā {0}</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS uzstādījumi nav pieejami</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Jūs esat nosūtījušī pārāk daudz īsziņu. Lūdzu, mēģiniet vēlāk vēlreiz.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Personalizētie uzstādījumi</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Pasta servera iestatījumi</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Iestatījumi</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Ja jūs izmantojat Gmail kontu SMTP serverim, jums nebūs iespējams nosūtīt vēstules, kamēr jūs neizpildīsiet šādus soļus: pierakstieties Gmail kontam, izmantojot standartu WEB interfeisu un atbildiet uz jebkādiem pārbaudes jautājumiem par ONLYOFFICE™ piekļuves mēģinājumu. {0}Mēs iesakām izmantot 587 vai 25 portu, lai sūtītu ziņas, jo citas vērtības var kavēt pareizu SMTP darbību.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>SMTP iestatījumi ir nepieciešami, lai uzstādītu e-pasta kontu, kas tiks izmantots, lai nosūtītu portāla paziņojumus ar jūsu pašu SMTP serveri nevis ONLYOFFICE™ izmantoto. Lūdzu, aizpildiet visus laukus un nospiediet "Saglabāt". Jūs varat izmantot pogu "Nosūtīt testa ziņu", lai pārbaudītu, vai visi iestatījumi ir pareizi un darbojas pienācīgi.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Sociālie profili</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Avots</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Neizdevās izveidot lietotāju ar šo autentifikācijas marķieri</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Neizdevās saglabāt uzstādījumus</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Uzstādījumi nevar būt tukši</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Vienreizējā ieeja atspējota</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Neizdevās atrast autentifikācijas marķieri</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Nepieejama saite: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Nederīgs elementa ID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Nederīga lauku kartēšana</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Nederīgs autentifikācijas marķieris</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Šis lietotājs ir atspējots</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Lietotājs ticis importēts no SSO. Sazinieties ar savu SSO administratoru, ja vēlaties mainīt bloķētos profila laukus.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Lietotājs ticis importēts no SSO</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Uzticama E-pasta Domēna Iestatījumi</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Paroles stipruma iestatījumi</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Valodas un Laika Joslas Iestatījumi</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Portāla versija</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Parakstīties</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Pasākumi un paziņojumi portāla īpašniekam vai administratoram</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Ikdienas jaunumu un pasākumu pārskats portāla</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Projekta nosaukums</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>no visiem</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Paziņot caur</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Parakstīšanās</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portāls veiksmīgi pārdēvēts</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Sākumlapas iestatījumi veiksmīgi saglabāti</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Iestatījumi tika veiksmīgi  atjaunoti</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Norādījumi par to, kā dzēst savu profilu, ir nosūtīti uz {0} e-pasta adresi</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Uzaicinājumi ir veiksmīgi pārsutīti</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Sūtīt e-pastu</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Sazinieties ar mums, lai uzzinātu par īpašiem piedāvājumiem</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Samaziniet nepieciešamo parametru vai izvēlieties citu cenu plānu.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Pirkt tagad</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Pagarināt</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Jūs varat pagarināt pašreizējo plānu vai mainīt to, izmantojot tabulu.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Izvēlieties plānu, kas vislabāk atbilst jūsu vajadzībām. Ieteicams plāns ir izcelts zemāk.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Šo plānu nevar izvēlēties</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Atļauts glabāšanas telpas lielums: {0}. Pašreizējais glabāšanas telpas lielums: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Atļauts portāla lietotāju skaits: {0}. Pašreizējais lietotāju skaits: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Jūs nevarat izvēlēties šo plānu, jo diska vieta vai lietotāju skaits pārsniedz izvēlētā cenu plāna ierobežojumus:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Regulārie maksājumi ir ieslēgti</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Uzglabāšanas telpa ir aptuveni pārsniegta: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Jūs varat noņemt nevajadzīgos failus vai {0}spiest šeit{1}, lai portālam atrastu labāku cenu plānu.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Tas zaudēs spēku {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Jūs lietojat bezmaksas plānu.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Nospiediet šeit{1}, lai augšupielādētu jūsu portāla licences failu.</value>
+  </data>
+  <data name="TariffLinkStandaloneLife" xml:space="preserve">
+    <value>Lai to atjaunotu, {0}spiediet šeit{1}.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Jūsu abonementa termiņš ir iztecējis.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Jūsu ONLYOFFICE™ portāls tiks bloķēts {2}. Lūdzu, {0}spiediet šeit{1}, lai paildzinātu esošo plānu vai mainītu to pret atbilstošāku.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Jūsu izveidoto portālu skaits: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Cenu plānu nav pieejams, līdz apmaksātā gada beigām.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Cenu plāns nav pieejams līdz 3 gadu cenu plāna beigām.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Lai pagarinātu termiņu automātiski, lūdzu, pārliecinieties, ka Regulāra Maksājuma rūtiņa jūsu Avangate kontā ir ieslēgta.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Lai atceltu regulārus maksājumus, lūdzu, dodieties uz savu Avangate kontu.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Tikai līdz {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Maksājumu plāni</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Jūsu ērtības labad maksājumi Krievijas rubļos tiek aprēķināti ar fiksētu valūtas kursu {0} Krievijas rubļu pret 1 ASV dolāru.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Maksājumi</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Aktīvo pievienoto lietotāju skaits:{0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Izmantota uzglabāšanas vieta: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Jūs izmantojat Bezmaksas izmēģinājuma plānu.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Paldies, ka izmēģinājāt ONLYOFFICE™!{2}{0}Bezmaksas izmēģinājuma periods beidzies.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Izveidots portāls</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Uzglabāšanas zonā izmantots:</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Aktīvu {!users} skaits</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Trešās puses pakalpojumi</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Laika Josla</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-pasts</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Mobilais tālrunis</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefona numurs</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Kopā atrasti</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>līdz</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Mainīt servera reģionu</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Jūs grasāties pārnest portālu uz citu apgabalu. Portāls pārnešanas laikā nebūs pieejams. Pēc tam uz jūsu e-pastu tiks nosūtīts paziņojums.{1}{0}Pārneses laikā netiks pārvietoti pasta domēni, pastkastes (izņemot trešo pušu pakalpojumu) un e-pasti.{1}{0}Vai tiešām vēlaties turpināt?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Kad pārneses process būs pabeigts, jūs automātiski pārsūtīs uz jūsu portāla URL adresi.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Notiek portāla pārnešana{0} uz citu reģionu.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Portāla reģions</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Mainīt servera reģionu</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Portāls pārneses procesa laikā nebūs pieejams. Pēc pārneses pabegšanas tiks mainīta portāla URL adrese un visas kopīgoto dokumentu saites būs nepieejamas.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Izmēģinājuma periods: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Bezmaksas izmēģinājuma periods ir beidzies</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Nospiediet šeit{1}, lai izvēlētos jūsu portālam piemērotāko cenu plānu.</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Jūs izmantojat izmēģinājuma versiju</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Autļaut uzticama domēna pierakstīšanās</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Reģistrācija ir pieejama lietotājiem ar {0} e-pasta adresi. 
+Lai piereģistrētos, ievadiet jūsu e-pastu un noklikšķiniet uz Nosūtīt Uzaicinājumu. Vēstule ar linku jūsu ONLYOFFICE™ akaunta aktivēšanai būs nosūtīta uz norādītu e-pastu.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Notika nepazīstama kļūda</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Atteikt abonēšanu</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Palielināt tarifu plānu</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Augšupielādēt</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Lietotājs</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Lietotāju forums</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Lietotāji</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Darbs / nosaukums</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>ASV rietumu reģions (Oregon)</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Video gidi</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Rādīt nenoskatīto video</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Aplūkot maksājumu plānus</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>apmeklējumi</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>saimniekdators</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Lietojuma Grafs</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Apmeklējumi</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Savienojums jau ir uzstādīts citā logā</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Diemžēl šobrīd pakalpojums nav pieejams. Lūdzu, mēģiniet vēlāk vēlreiz.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Uzmanību!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Paldies, ka izvēlēties ONLYOFFICE™! Drošības apsvērumu dēļ ir jāveic paroles iestatīšanu.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Laipni lūdzam Jūsu ONLYOFFICE™ portālā</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Kas Jauns</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Rebrendings</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Valodas un Laika Joslas Iestatījumi</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Portāla Uzstādīšana - Ej cauri šos soļus, lai sāktu jūsu WEB biroju</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Reģistrācijas iestatījumi</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Esat nolēmis pievienoties portālam.</value>
+  </data>
+</root>

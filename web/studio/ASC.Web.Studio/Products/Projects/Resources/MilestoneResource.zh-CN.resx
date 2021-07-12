@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>新建里程碑</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>选择项目</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>选择负责人</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>结束里程碑</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>一个月后</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>两个月</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>删除里程碑</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>您确定要删除此里程碑吗？</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>删除里程碑</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>您确定想删除里程碑吗？</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>暂无符合条件的里程碑。</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>暂无符合此筛选条件的里程碑</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>里程碑</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>暂无里程碑</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>里程碑</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>里程碑，即项目规划过程中的重要的时间点。创建好里程碑以后，您就可以添加相关任务并指定负责人。现在就来添加第一个里程碑吧！</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>里程碑标志着项目计划过程中的主要时间戳。一旦创建了里程碑，就可以为所有项目参与者填充任务。</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>即将到期的</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>此里程碑属下还有任务未完成，无法结束。</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>发送通知</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>请填写里程碑名称</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>已逾期</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>设定第一个里程碑</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>在截止日期前48小时提醒我</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>关键里程碑</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+</root>

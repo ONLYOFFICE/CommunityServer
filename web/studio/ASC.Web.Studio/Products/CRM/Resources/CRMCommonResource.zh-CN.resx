@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>用于阅读</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>用于读/写</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>您只能为由您创建的联系方式设定访问权限。</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>添加{!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>附加信息</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>添加邮件账户</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>添加参与者</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>创建活动</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>正在添加附注……</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>添加{!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>您可以使用问号 {0}?{1} 和星号 {0}*{1} 来进行模糊搜索。例如：如果要搜索所有以字母 {0}O{1} 开头的单词，可通过 {0}O*{1} 来进行查询。</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>相应的ONLYOFFICE™联系人信息</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>活动相关联系人</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>创建者</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>了解更多…</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>商业活动</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>取消选择</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>关闭此窗口</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>关闭窗口</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>冒号</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>CSV文件列</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>逗号</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>撰写一封邮件，以发送给联系人列表中选择的所有客户。您可在“收件人”字段中查看所选客户的数量，输入常用的“主题”，并使用“个人标签”将所有必需信息包含在您的邮件中。对于想尝试ONLYOFFICE™CRM新功能的用户，这为测试版。</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>确认修改</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>您从联系人经理中删除了自己</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>若所有CRM用户不允许适当的访问权限，您将丢失对联系人的读写访问权限。</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>您确认要删除这些元素吗？</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>若想更改联系人温度水平列表，请参阅CRM{0}设置{1}部分</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>联系人设置</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>率</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>货币换算</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>创建新联系人</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>创建项目</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>添加新标签</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>CRM模块未启用</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>基本货币</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>其他货币</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>当前的{!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>自定义时间段</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>其他用户</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>{0}天到期</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>逾期{0}天</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>商机</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>删除此活动</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>删除参与者</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>删除标签</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>删除用户</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>不选</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>对未来事件执行相同的操作</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>双引号</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>复制记录</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>空文件</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>无与您的筛选条件匹配的记录可以在本节中显示。请选择其他筛选条件选项或清除筛选条件，以查看本节中的所有记录。您还可以在其他联系历史中查找所需的记录。</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>暂无符合此筛选条件的记录</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>输入金额</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>文件大小超过{1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>将当前列表导出为CSV文件</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>导出数据</value>
+  </data>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>您始终可以查看、下载、编辑或删除{0}文档/My文档{1}中的所有导出文件</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>正在导出数据（{0}%已完成）</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>文件太大</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>创建日期</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>负责</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>通过名称搜索企业或联系人</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>隐藏附件上传功能</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>活动纪录</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>您可在{0}此处{1}更改历史事件类别的列表</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>电话联系</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>正式会面</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>备忘</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>已接收</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>已发送</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value> 超出最大字符数：{0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>导入时忽略第一行</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>使用此选项可导入复制相符联系人的联系人。 例如，在ONLYOFFICE™CRM中有两个记录“A”和“B”。您想导入“B”和“C”记录。若选择“复制”选项，则在导入时将创建一个重复的记录到“B”。</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>系统将会基于联系人的Email信息来进行重复项检查</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>使用此选项，可导入覆盖现有联系人的联系人。例如，在ONLYOFFICE™CRM中有两个记录“A”和“B”。您想导入“B”和“C”记录。若选择“覆盖”选项，导入时现有的“B”将被导入的“B"覆盖。</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>使用此选项，导入保留现有联系人的联系人。 例如，在ONLYOFFICE™CRM中有两个记录 “A”和“B”。您想导入“B”和“C”记录。若选择“跳过”选项，则导入时将保留现有的“B”。</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>字段分隔符</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV文件设置</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>文本分隔符</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>正在扫描文件……</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>开始导入数据</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>信息已提交</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>发票设置</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>税务</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>了解更多…</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>邮件正文</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>添加链接</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>请稍候……</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>电邮正文</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>发送自</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™批量发送功能：“{0}”</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>无法将邮件发送到 {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>无效的电邮地址: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>发送失败。系统将在 {0} 秒后重试。</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>电邮主题</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>发送给</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>计算器</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>我的</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>我的活动</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>下一条纪录</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>暂无纪录</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>无可用邮件账户</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>找不到匹配信息</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>发送通知</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>优先</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>公司档案</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>其他设置</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>在这里，您可以看到正在撰写的邮件。若您喜欢结果，请使用“返回”按钮进行一些更改或使用“发送”按钮。</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>上一条纪录</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>私人</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>允许下列{!users}访问</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>限制访问</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>系统默认向所有{!users}开放访问权限。如果您要限制访问，请勾选下面的复选框。</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>访问权限</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>具备CRM模块普通用户的操作权限|导入、导出数据|发送电邮给CRM联系人|管理模块设置|管理所有联系人、待办事项、商机、商业活动</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>管理客户关系，识别重要联系人，建立完善沟通和销售记录。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>管理您的客户关系，识别重要客户，有效跟进销售业绩和沟通记录。{0}点击此处开始导入您的客户信息{1}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>产品与服务</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>创建联系人、待办事项、商机、商业活动，并能限制他人的访问权限|具有相应权限的用户可以编辑联系人、待办事项、商机、商业活动</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>个人资料</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>相关链接</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>报告</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>负责</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>正在保存更改……</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>通知用户</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>分号</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>发送邮件</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>权限设置</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>显示附件上传区</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>每页显示条数</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>单引号</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>空格</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>在活动记录中保存此信件</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>有新活动被创建</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>新联系人</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>导出操作已完成</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>导入已完成</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>为机会负责</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>有新待办事项委任给您</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>获得访问权限</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>汇总表</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>制表符</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>待办事项</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>电邮</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>这个月</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>公司/人员</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>取消联系人链接</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>添加附件</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>显示文件</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>查看与此参与者的邮件历史</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>呼叫</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>数字</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP设置</value>
+  </data>
+  <data name="WholeCRMModule" xml:space="preserve">
+    <value>整个CRM模块</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+</root>

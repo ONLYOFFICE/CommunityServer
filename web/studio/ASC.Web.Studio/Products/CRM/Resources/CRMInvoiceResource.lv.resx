@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Izveidot un pievienot jaunu rēķinu</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Pievienot rēķina izrakstīšanas adresi</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Pievienot piegādes adresi</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Pievienot rindu</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adrese ir veiksmīgi atjaunināta</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Izveidot jaunu nodokli</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Nodokļa izveide</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Saglabāt un izveidot jaunu pozīciju</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Pievienot šo rēķinu</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Visi rēķini</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Pievienot dokumentu</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>automātiski izveidots</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Rēķina apmaksātājs</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Valūta</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Apmaksas termiņš</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Mainīt formātu</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Visi turpmākie rēķini būs ar prefiksa un numura formātu, kas tiks uzstādīti, izmantojot zemāk esošos laukus. Atzīmējiet atbilstošo lodziņu, lai automātiski ģenerētu numurus.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Mainīt statusu</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Izveidot piezīms</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Tiks uzrādīts rēķinā un uz vēstules, ja sūtīsit rēķinu pa ONLYOFFICE™ pastu.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>sakrīt ar klientu</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Izveidot pirmo rēķinu</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Izveidot pirmo pozīciju</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Izveidot pirmo nodokli</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Izveidot pozīciju</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Rēķina pozīcijas izveide</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Izveidot nodokli</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Izveidot jaunu rēķinu</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Izveidot jaunu pozīciju</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Izveidot jaunu nodokli</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valūta</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt valūtai</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dienas</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Šie noklusējuma nosacījumi tiks izmantoti turpmākos rēķinos.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst rēķinu '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Rēķina dzešana...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Dzēš pozīciju...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst pozīciju «{0}»?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst nodokli «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Dzēš nodokli...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Dzēst šo rēķinu</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Rēķinu dzēšana</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Atlaide</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Lejupielādēt</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Termiņš</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Lūdzu, uzstādiet pielāgotu apmaksas datumu vai izvēlieties vienu no sagatavēm labajā pusē, lai saistītu šo datumu ar rēķina izrakstīšanas datumu.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Izrakstīšanas datums ir vēlāks nekā apmaksas datums</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Līdz saņemšanai</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt apmaksas termiņam</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Dublēt un izveidot jaunu rēķinu</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Dublēt rēķinu</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Dublēt rēķinu</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Dublēt rēķinu  {0}</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Rediģēt rēķina izrakstīšanas adresi</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Rediģēt piegādes adresi</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Rediģēt rēķinu</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Rediģēt rēķinu " {0}"</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Rediģēt nodokli</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Šī sadaļa ļauj jums uzstādīt rēķinos iekļaujamās pozīcijas. Pēc saraksta izveidošanas jūs varat atlasīt nepieciešamo pozīciju, kuru pievienot savam maksājuma dokumentam. Jūs varat arī pievienot jaunas pozīcijas pēc nepieciešamības.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Jūsu filtram neatbilst neviena rēķina pozīcija, kuru varētu parādīt šajā sadaļā. Lūdzu, izvēlieties citu filtra iespēju, vai attīriet filtru, lai apskatītu visas šīs sadaļas rēķina pozīcijas. Vai arī jūs varat izveidot rēķina pozīciju, ja tās nav sarakstā.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Nav rēķina pozīciju, kas atbilstu šim filtram</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Produktu un pakalpojumu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>"Rēķinu" sadaļa ļauj jums izveidot maksājuma dokumentus, kurus varat izsniegt klientiem. Pēc rēķinu pievienošanas sarakstam, pieejamie tiks rādīti šeit.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Nav ŗēķinu, kas atbilstu jūsu filtram. Lūdzu, izvēlieties citas filtra iespējas vai attīriet filtru, lai apskatītu visus šīs sadaļas rēķinus. Jūs varat arī izveidot rēķinu, ja tā nav sarakstā.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Nav rēķinu, kas atbilstu šim filtram.</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Rēķinu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Rēķina nodokļi ļauj jums izveidot papildu nodokļus, kas ir specifiski jūsu vai jūsu klientu valstīm vai reģioniem. Jūs varat pievienot nodokļa nosaukumu, likmi un aprakstu. Jaunus nodokļus varat pievienot jebkad, kad vēlaties.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Rēķina nodokļu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Nav atrasti iespējami darījumi</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Izvēlēties pozīciju</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Nodokļa nosaukuma lauks ir jāaizpilda</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Novērtējuma lauks ir jāaizpilda</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Neviens</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Nav norādīta cena</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Cena nav pareiza</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Daudzums nav pareizs</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>nepareiza vērtējuma vērtība</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Maiņas kurss</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Šis lauks ir jāaizpilda</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Nodokļa nosaukums jau pastāv</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Preču skaits noliktavā</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Pozīcijas nosaukums</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Daudzums noliktavā</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Nodokļi</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Meklēt pēc nosaukuma, SKU numura vai apraksta</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Rēķins</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Klients</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt klientam</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Saņēmējs</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Jūsu CRM noklusējuma valūta tiek izmantota, lai uzstādītu cenas Produktu un pakalpojumu katalogā.&lt;br/&gt;Lai tās mainītu, lūdzu dodieties uz &lt;a href="settings.aspx?type=currency" target="_blank"&gt;Valūtas uzstādījumiem&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktīvs</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Arhivētie</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Vienai vai vairākām pozīcijām ir negatīvs skaits noliktavā</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Ar noliktavā esošo preču skaita norādīšanu</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Bez noliktavā esošo preču skaita norādīšanas</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Rēķina valoda</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt valodai</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Rēķina numurs</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Rēķina numurs jau ir aizņemts</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Rēķins</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>1. nodokļa nosaukums</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>1. nodokļa vērtējums</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>2. nodokļa nosaukums</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>2. nodokļa vērtējums</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Jau ir reģistrēts nodoklis ar šādu nosaukumu</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Nodokļu kategorijas ļauj jums izveidot papildu nodokļus, kas attiecas uz jūsu vai jūsu klientu valstīm. Jūs varat pievienot nodokļa nosaukumu, likmi un aprakstu.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Jūs varat dzēst nodokļa kategoriju vienīgi tad, ja tā netiek izmantota sadaļā Produkti un pakalpojumi.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Nodokļa nosaukums</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Vērtēt</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Rēķina datums</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt datumam</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Pozīcija</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>CRM valūta pēc noklusējuma.&lt;br/&gt;Lai to mainītu, lūdzu, dodieties uz &lt;a href="?type=currency" target="_blank"&gt;Valūtas uzstādījumiem&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Pievienot patlaban noliktavā esošo preču skaitu. Šis skaits samazināsies katrreiz, kad kāda prece tiks pievienota rēķina. Saņemot vairāk inventāra, vienkārši pievienojiet to klāt esošajam.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Saistīt ar iespējamu darījumu</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Izrakstīt rēķinu</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Atzīmēt kā melnrakstu</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Atzīmēt kā apmaksātu</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Atzīmēt kā noraidītu</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Atzīmēt kā izrakstītu</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Numurs</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Formāts ir nepareizs vai arī jau pastāv rēķins ar šādu numuru</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Sākuma numurs nav norādīts</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt numuram</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Termiņš nokavēts</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Pasūtījuma numurs</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Prefikss</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Drukāt</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkti un pakalpojumi</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Izvēlēties produktu vai pakalpojumu no saraksta vai pievienot jaunu</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt pozīcijām</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Daudzums</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Daudzums</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Saglabā numerācijas uzstādījumus...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Saglabā nosacījumu uzstādījumus...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Saglabāšanas laikā radās kļūda "{0}". Lūdzu, mēģiniet vēlāk vēlreiz.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Pārdevējs</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Nosūtī pa e-pastu</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Uzstādīt pēc noklusējuma</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Uzstādīt nosacījumus pēc noklusējuma</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Saņēmējs</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Rādīt rēķina profilu</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Atvērt jaunā cilnē</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Sākuma numurs</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Preces pozīcijas identifikators (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Atsevišķā summa</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Nodoklis</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Nosacījumi</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Katram rēķinam ir jābūt nosacījumiem</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Rēķina kopsumma</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Rēķini kopā</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Sekot preču skaitam</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Atjaunināt pozīciju «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Atjaunināt nodokli «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Saglabā izmaiņas...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Brīdinājums</value>
+  </data>
+</root>

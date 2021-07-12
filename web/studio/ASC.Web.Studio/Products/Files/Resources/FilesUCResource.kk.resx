@@ -1,0 +1,736 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Түсініктеме</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Нысандарды толтыру</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Тек оқу</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Толық қол жетімділік</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Кіруге тыйым салу</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Сараптама</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Аккаунтты қосу</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box аккаунтын қосыңыз</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox аккаунтын қосыңыз</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google аккаунтын қосыңыз</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Nextcloud аккаунтын қосу</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive аккаунтын қосу</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Басқа аккаунт</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Болдырмау</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Барлығын болдырмау</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Иесін өзгерту</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Байланыс параметрлерін өзгертіңіз</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Сүзгіні тазалаңыз</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Жабу</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Көшірме жасаңыз</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>көшірме</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>көшірме</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Құрыңыз</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Құжатты жасау</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Презентация</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Презентацияны жасау</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Кесте</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Кестені жасау</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Құжат</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>өшіру</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Бөгде ресурсты өшіру</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Жүктеу</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Файлдың көшірмесін жасаңыз</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Өңдеу</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Құжатты кірістіру</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Кәрзеңкені тазалау</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Мұрағаттар</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>құжаттар</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Барлық файлдар</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Қалталар</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Суреттер</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Мультимедиа</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Презентациялар</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Кестелер</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>'{0}' тармағына өту</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Менің құжаттарыма өтіңіз</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Толық мәлімет...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Бұғаттау</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Жылжыту немесе көшіру</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Жылжыту</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Жақсы</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Нұсқасын жаңартумен қайта жазыңыз</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Атын өзгерту</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Қалпына келтіру</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Сақтау</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Барлығы</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>DocuSign көмегімен жіберіңіз</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Жіберу</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Пошта арқылы жіберу</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Кіру параметрі</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>Кіру параметрі</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Нұсқа тарихын көрсету</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Өткізу</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Папкаға бір деңгей жоғарырақ оралыңыз</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Құлпын ашу</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Жоғарыда</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Жүктеу</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Файлдарды жүктеу</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Қалтаны жүктеу</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Нұсқа тарихы</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Нұсқасын қалыптастыру</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Бас тартылды</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>Файл құпия сөзбен қорғалған. Файлды түрлендіру үшін құпия сөзді енгізіңіз.</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Құжатты түрлендіріп ашыңыз</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Құжатты сақтау</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Құжатты жүктеу</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Өзгерістер енгізілгеннен кейін, файл / қалтаның қазіргі иесі өзіне тиесілі топтың кіру құқығына сәйкес немесе осы қалта үшін орнатылған әдепкі қол жеткізу құқығына сәйкес қол жеткізу құқығын алады.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Иесін өзгерту</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Жүктеу қажет файлдардың әрқайсысына пішімді таңдаңыз</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Жалпы параметрлер</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Элементті себетке жылжытқанда хабарламаны көрсету</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>Бұл хабарламаны қайта көрсетпеңіз</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Қалтада екі түрлі файл болады.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Қайта жазуды растау</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Файл нұсқасы сияқты аты бар файлға қосылады.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Жоюды растау</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Ескерту: Бұл әрекетті болдырмау мүмкін емес.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Назар аударыңыз: сіздің аккаунтыңыздан жойылмайды.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Файл көшірілмейді. Бастапқы файл тағайындалған қалтада қалады.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Файл көшірмесін бастапқы пішімде сақтау</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Сіз ашқан құжат файлы жылдам қарау және өңдеу үшін Office Open XML форматына өзгертіледі.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>{0} Менің құжаттарым {1} папкасында файлдың көшірмесі жасалады.</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>Жүктелген барлық құжаттар жылдам өңдеу үшін тиісті Office Open XML форматына (docx, xlsx немесе pptx) өзгертіледі.</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Файл көшірмесін бастапқы пішімде сақтау</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Орын ауыстыруды растау</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Сіз шынымен осы элементтерді тізімнен алып тастағыңыз келе ме?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Осындай атаумен бар файл үшін файл нұсқасын жаңартыңыз. {0} Әйтпесе, файл көшірмесі жасалады. {1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Қосылымның URL мекенжайы</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Конвертациялау</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Жүктеу ретінде</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Түрлендіру сәтті өтті.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Файл '{0}' папкасында жасалды</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Айырбастау қатесі</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Түрлендіру орындалуда ...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Жалпы құжаттар</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Сіз ONLYOFFICE порталын құрдыңыз.{0} қолданбадан шықпай, олармен бірге жұмыс істеу үшін дербес файлдарды порталға жүктеп алыңыз.{0}{0} {0} {1} {2}, {1} CRM {2}, {1} {1}күнтізбе{2}, {1} {2} поштасы және т.б. қоса алғанда көбірек мүмкіндіктер алу үшін браузерде портал ашыңыз.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Браузерде ашыңыз</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Сатып алуға қатысты сұрақтар бойынша бізге {0} мекен-жайына жазыңыз.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Кез келген техникалық сұрақтар бойынша бізге {0} мекенжайы бойынша хабарласыңыз.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Порталға қош келдіңіз!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Құттықтаймыз</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Құжаттар</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Қалтаға сақтау:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Хабарлама</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Хабарламаны қосу</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Хабарды жою</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Құжаттың атауы</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Пайдаланушыны қосу</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Алушылардың тізімі</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Жүктеу ретінде</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Жүктеу</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Жүктеу</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Мөлшері</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Биіктік</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>ені</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>"Жалпы құжаттар" бөлімінде портал әкімшісі жалпы қатынауды ашқан барлық құжаттар көрсетілген. Тек портал әкімшісі ғана осы бөлімде қалталарды жасай алады, бірақ қол жеткізу құқығы берілген портал пайдаланушылары мұнда файлдарды жүктеуі мүмкін.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Файлдарды одан да оңай жолмен порталға жүктеу үшін компьютерден осында әкеліңіз.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>"Мен үшін қол жетімді" бөлімі сіздің достарыңыз немесе әріптестеріңіз қол жеткізу үшін файлдарды көрсету үшін пайдаланылады. Егер сіз әлі осы құжаттардағы соңғы өзгерістерді көрмесеңіз, олар "жаңа" белгісімен белгіленеді. Тиісті батырманы басу арқылы тізімнен файлдарды алып тастай аласыз.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>«Менің құжаттарым» бөлімінде сіз порталға {0} жасаған {1} немесе {2} жүктеген {3} құжаттар мен графикалық файлдар бар. Оларды ONLYOFFICE ™ редакторының көмегімен {4} ашып, {5} және {6} өңдеуге болады, оларға достарыңызға немесе әріптестеріңізге қатынасуға рұқсат бере аласыз, оларды қалталарға орналастыра аласыз.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Порталға {2} жүктеген құжаттар мен суреттер «Менің құжаттарым» бөлімінде сақталады. Сіз оларға достарыңыз бен әріптестеріңізге қатынасуға, файлдарды папкаларға орналастыра аласыз.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Бұл бөлімде жоба үшін жасалған немесе жүктеген құжаттар мен кескін файлдары сақталады. Сіз оларды ONLYOFFICE ™ редакторының көмегімен аша және өңдей аласыз, оларды қалтаға орналастыра аласыз.</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>Бұл бөлімде жоба үшін жүктелген құжаттар мен суреттер сақталады. Оларды ONLYOFFICE порталындағы редактордың көмегімен көруге болады.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Барлық жойылған файлдар "Себет" бөліміне жіберіледі. Егер сіз оларды қате жойған болсаңыз, қалпына келтіре аласыз немесе толығымен жоюға болады. Қоқыс себетінен файлдарды жою кезінде оларды қалпына келтіру мүмкін болмайтынына назар аударыңыз.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Бұл сүзгіге сәйкес файлдар жоқ.</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Бұл бөлімде сүзгіге сәйкес файлдар немесе қалталар жоқ. Осы бөлімдегі барлық файлдарды көрсету үшін басқа параметрлерді таңдаңыз немесе сүзгіні тазалаңыз. Қажетті файлды басқа бөлімдерден іздей аласыз.</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Бұл қалтада файлдар жоқ.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Бұл бөлімде көрсетілетін файлдар жоқ.</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Қосылған аккаунтар жоқ</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Қате</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>{0} форматындағы файлдарды таңдаңыз</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Файл түрін таңдаңыз: {0}</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Сүзгі</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Қалталар</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Қазір бастаңыз</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Қысқарту</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>пошта арқылы</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>Егер сіз файлды түпнұсқадан басқа форматқа түрлендіргіңіз келсе, кейбір деректер жоғалуы мүмкін.</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Барлығын таңдау</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Ең үлкен файл өлшемі - {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Сізде бірге жұмыс істейтін {0} команда бар ма? {0} {1} Толығырақ {2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Құжаттарды басқару</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM және шот ұсыну</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Тапсырмаларды басқару және Гант диаграммасы</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Пошта агрегаторы</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Бірлесіп жұмыс жасайтын жоба мен командаңыз бар ма? {0} Біз сізге бір нәрсе дайындадық. {1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Әріптестерді немесе қосалқы мердігерлерді шақырыңыз және қосымша мүмкіндіктерді пайдаланыңыз:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Ұжыммен жұмыс жасау үшін ONLYOFFICE ™-ге қош келдіңіз!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Менің құжаттарым</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Қарау</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Қалтаны ашу</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Құжаттар тізімін жасыру</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Құжаттар тізімін көрсету</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Жобалар құжаттары</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Оқылған деп белгілеңіз</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Барлығын оқылған деп белгілеңіз</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Оқылған деп белгілеңіз</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Файлдың аты</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Сақталған құжатты жаңа қойындыда ашыңыз</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Қалтаны таңдаңыз</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Әрекетті таңдаңыз:</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>Барлық сақталған аралық нұсқаларды сақтау</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Жалпы параметрлер</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>Файл нұсқасын сақтау</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Бөлісу</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Маған қол жетімді</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Сыртқы сілтеме арқылы кіру</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Енгізу коды мен сілтемеге қол жеткізуді қамтамасыз етеді</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Көбірек көрсету</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Бұл терезені кішірейтілген түрде көрсету</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Параметрлері</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Шағын көрінуге ауысу</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Қалыпты көрініске ауысу</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Бөгде аккаунттар</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Аккаунтты қосыңыз</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Аккаунттарды қосу</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Сіз келесі қызметтерді ONLYOFFICE ™ есептік жазбаңызға қоса аласыз. Олар 'Менің құжаттарым' папкасында көрсетіледі және сіз барлық құжаттарыңызды өңдеп, бір жұмыс кеңістігінде сақтай аласыз.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>Сәтті қосылу үшін {0} осы параққа {1} қажетті деректерді енгізіңіз.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Аккаунтты қосу</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Өзгерту үшін толтырыңыз</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Бөгде ресурсты өшіру</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Пайдаланушылар үшін үшінші тарап қызмет параметрлерін қосыңыз</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Папканың атауы</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Қайта қосу </value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Аккаунт</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Ортақ құжаттармен бөлісіңіз және салыңыз</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive бизнес үшін</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Іздеу аймағы</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>және {0} барлық ішкі қалталар {1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Іздеуден ішкі қалталарды болдырмау үшін басыңыз</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Таңдау</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Сіз құжаттарды ({0}), электрондық кестелерді ({1}), презентацияларды ({2}) жасап, оларды ең көп таралған пішімде көшіре аласыз.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Сіз келесі файлдарды өңдей аласыз: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Сіз келесі кеңейтімдермен файлдарды аша аласыз: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Құжаттарға қалайтын кез келген файлдарды жүктеуге болады.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Себет</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Тізімнен алып тастау</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Бар файлды дәл осындай атаумен қайта жазыңыз</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Тариф жоспарын арттыру</value>
+  </data>
+</root>

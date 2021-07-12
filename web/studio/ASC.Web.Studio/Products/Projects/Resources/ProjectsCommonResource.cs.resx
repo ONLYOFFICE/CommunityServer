@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Spravovat odběratele</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Všechny {!Groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Přesunout s propojenými úlohami</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Všichni {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Start/Stop časovač</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Přidat čas</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauza</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Začátek</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Projekty Teamlab</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Zkusit mobilní aplikaci</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Změnit barvu</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Se stavy může pracovat pouze uživatel, který úkol vytvořil</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Změnit ikonu</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Skrýt</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Zahájit nový projekt</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Nastavte potřebné pořadí stavů úkolů. Každá kategorie musí mít alespoň jeden stav.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Nový stav</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>Navrhněte hierarchii projektu</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>Vytvářejte projekty a milníky.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>Přiřazujte úkoly a dílčí úkoly. Označujte úkoly vlastními stavy.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>Stanovte termíny a priority.</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Spravujte přístupová práva</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>Vytvářejte soukromé projekty.</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>Nastavte omezení přístupu k milníkům, úkolům, dokumentům nebo diskuzím.</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>Vyberte, kdo může vytvářet nové projekty – pouze správci, nebo všichni uživatelé.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>Mějte přehled o čase a postupu</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>Rozplánujte si projekt pomocí Ganttova diagramu.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>Sledujte dobu strávenou na konkrétních úkolech.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>Automaticky generovat hlášení o postupu.</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Využijte další nástroje</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>Vytvářejte diskuze a šablony projektů.</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Připojte dokumenty, tabulky a prezentace.</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>Pracujte na projektech na zařízeních s operačním systémem iOS.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Přiřaď nebo přidej kontakt</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Vyberte existující CRM kontakt ze seznamu na propojení s projektem který spravujete, nebo přidejte nové kontakty. Upravit osobní údaje kontaktu. Hlubší integrace s CRM vám pomůže spravovat svou práci efektivněji.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Seznam kontaktů je prázdný</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Každý stav musí mít název</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Žádný projekt neodpovídá tomuto filtru</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Sledovat</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Zaškrtněte toto pole, pokud nejste manager projektu, který právě vytváříte, ale máte zájem sledovat jeho všechny změny. Informace o všech nově vytvořených milnících, úkolech a diskuzí mohou být zahrnuty v denním upozornění Co je nového.   </value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Soukromý projekt{2} je způsob, jak omezit přístup k vašemu projektu tak, že jen členové vašeho týmu k němu budou mít přístup. Uložení projektu jako soukromý také umožňuje nastavit přístupové práva pro každého člena týmu vevnitř tohoto projektu.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Soukromý projekt{2} je způsob, jak omezit přístup k vašemu projektu tak, že jen členové vašeho týmu k němu budou mít přístup.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Klíčový milní bývá použit pro vytvoření milníku, který považujete za důležitější než ostatní.{0} Všechny klíčové milníky jsou označeny ikonkou červeného klíče umístěného blízko jeho názvu.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Můžete přepínat mezi třemi stavy projektu:{0}{1}Aktivní.{2} Všechny vytvořené projekty, na kterých v současné době pracujete jsou označeny jako aktivní, než se rozhodnete pro jejich pozastavení nebo uzavření.{0}{1}Pozastavený.{2} Pokud se rozhodnete dočasně pozastavit práci na svém projektu, změňte jeho stav na Pozastavený. Pokud chcete obnovit projekt, jednoduše ho aktivujte nastavením odpovídajícího stavu.{0}{1}Uzavřený.{2} Když je práce na projektu ukončená a všechny úlohy jsou uzavřeny, ukončíte projekt změnou jeho ​​stavu na Uzavřený. Pro další práci ho bude zapotřebí znovu aktivovat.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Pokud chcete přidat členy do svého týmu, klikněte na odkaz {1}Správa týmu{2} a vyberte ze seznamu uživatelů, které chcete přidat.{0} Můžete také přidat/odebrat členy týmu později, přepnutím na záložku {1}Tým{2} na vašem projektovém {1}přehledu{2} a kliknutím na tlačítko {1}Správa týmu{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Ve výchozím nastavení může každý člen projektu zobrazit celý obsah vybraného projektu: milníky, úkoly, dokumenty, diskuzi. Chcete-li omezit přístup, vyberte spolupracovníka a nastavte přístupová práva kliknutím na jeden z odkazů vpravo. Stejnou cestou můžete nastavit přístupová práva pro každého člena vašeho projektu pokud on/ona již nemá administrátorská práva na portál. 
+The ONLYOFFICE™ administrator má úplný přístup k veškerému obsahů všech projektů.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Co znamená Sledovat tento projekt?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Co je to soukromý projekt?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Co znamená klíčový milník?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Jaké stavy projektů existují?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Jak řídit svůj tým?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skrýt</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Skrýt entity v pozastavených projektech</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Tento uživatel nedostane oznámení pro tuto diskusi, protože projekt má soukromý stav a uživatel není členem projektového týmu.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Více informací...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktivní</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projekty, které sleduji</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Poslední</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Moje Diskuze</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Moje Projekty</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Přesunout úkol</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Nové komentáře v diskusi</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Nové komentáře v úkolech</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Žádný kontakt k přiřazení</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Žádná data</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Úloha je propojena s jinými úlohami, v případě, že úlohu odstraníte všechny odkazy budou odstraněny.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Odstranit odkazy a přesunout</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Osobní nastavení</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Poznámka: Tato akce se nedá vrátit zpět.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Dělat to samé jako projektový manažer|Jmenovat projektového manažera|Vytvořit a upravit, vymazat jakýkoliv projekt|Vytvořit/upravit šablony</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Vytvářejte týmy a přiřazujte úkoly. Stanovujte milníky projektu, sledujte jednotlivé činnosti v rámci projektu a generujte hlášení.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Vytvářejte týmy a přiřazujte úkoly. Stanovujte milníky projektu, sledujte jednotlivé činnosti v rámci projektu a generujte hlášení.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Vytvářejte týmy a přiřazujte úkoly. Stanovujte milníky projektu, sledujte jednotlivé činnosti v rámci projektu a generujte hlášení.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Zobrazit všechny projekty a zúčastnit se jejich diskuzí|Vytvořit a upravit milníky, úkoly, diskuze, dokumenty|Sledovat čas na úkoly, vytvořit reporty|Vytvoření projektového týmu a nastavit přístupová práva</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontakty, které budou spojeny s projektem</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Název Projektu</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Číst více</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Odebrat uživatele z týmu</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Nahradit</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Složka reportu</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Zprávy</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Uložit &amp; Vytvořit Nový Úkol</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Uložit změny</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Hledání</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Vyberte si z existujících kontaktů nebo přidejte nový</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Každý uživatel může vytvořit projekt</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Zobrazit</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Ukaž na stránce</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Placená doba</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Strávený čas</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Úvodní stránka</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Přihlásit se do komentářů</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Úkol přidán</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Datum začátku musí být dřívější než datum splatnosti</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Úloha kterou chcete přesunout je propojena s jinými úlohami. {0} Vyberte jednu z následujících akcí:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Stavy úkolů</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Odstranit odkazy a aktualizovat</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Zvolte text, který chcete skrýt ze stránek feedu a ze seznamu stránek diskusí a klikněte na tlačítko "Vystřihnout text".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Zlom textu</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Čas</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Sledování času</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titulek</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celkový</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Nesledovat</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Odpojit projekt od kontaktu</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Odhlásit se z komentářů</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Upravit Deadline</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Úloha kterou chcete upravit je propojena s jinými úlohami. {0} Vyberte jednu z následujících akcí:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Přidat komentář</value>
+  </data>
+</root>

@@ -1,0 +1,66 @@
+﻿{
+  "app": {
+    "name": "Onlyoffice Single Sign-On handler",
+    "port": 9834,
+    "machinekey": "1123askdasjklasbnd",
+    "logDir": "./logs",
+    "logName": "web.sso.%DATE%.log",
+    "contact": {
+      "type": "support",
+      "givenName": "Support",
+      "emailAddress": "support@onlyoffice.com"
+    },
+    "organization": {
+      "name": "Ascensio System SIA",
+      "displayName": "Onlyoffice",
+      "url": "http://www.onlyoffice.com",
+      "lang": "en-US"
+    },
+    "logSamlData": false,
+    "portal": {
+      "baseUrl": "http://localhost",
+      "port": 80,
+      "ssoUrl": "/ssologin.ashx",
+      "authUrl": "/Auth.aspx"
+    }  
+  },
+  "routes": {
+    "login": "/login",
+    "login_callback": "/acs",
+    "logout": "/slo",
+    "logout_callback": "/slo/callback",
+    "metadata": "/metadata",
+    "generatecert": "/generatecert",
+    "validatecerts": "/validatecerts",
+    "uploadmetadata": "/uploadmetadata",
+    "loadmetadata": "/loadmetadata"
+  },
+  "logger": {
+    "file": {
+      "level": "debug",
+      "handleExceptions": true,
+      "humanReadableUnhandledException": true,
+      "json": false,
+      "datePattern": "MM-DD",
+      "zippedArchive": true,
+      "maxSize": "50m",
+      "maxFiles": "30d"
+    },
+    "console": {
+      "level": "debug",
+      "handleExceptions": true,
+      "humanReadableUnhandledException": true,
+      "json": false,
+      "colorize": true
+    }
+  },
+  "web": {
+    "portal": "",
+    "apiSystem": "",
+    "appPath": "",
+    "data": "../../Data",
+    "image-path": "images",
+    "rebranding": "rebranding",
+    "https":"certs"
+  }
+}

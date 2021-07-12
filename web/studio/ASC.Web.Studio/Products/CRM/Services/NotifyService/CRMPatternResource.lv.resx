@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. Jauns notikums pievienots - "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jaunu notikumu
+"$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".  $AdditionalData.get_item("EventContent")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall 
+
+----------------------------------------
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Ja jūs nevēlaties saņemt paziņojumus par jauniem notikumiem pievienotiem CRM modulī, lūdzam, rediģējiet Jūsu "parakstīšanās iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. Jauns kontakts izveidots, izmantojot 'Mājas lapas kontaktveidlapu':"$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+$__DateTime Jauns kontakts izveidots, izmantojot 'Mājas lapas kontaktveidlapu:"$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+#foreach($contactInfo in $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item($contactInfo)
+#end
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portāla. Lai mainītu ziņojuma uzstādījumus, mainiet savus "Abonēšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Datu eksports ir veiksmīgi pabeigts
+
+Lūdzu, sekojiet saitei, lai lejupielādētu arhīvu: "exportdata.zip":"${EntityRelativeURL}".
+
+*Piezīme*: Šī saite derīga tikai 24 stundas.
+
+Ja jums vēl ir kādi jautājumi vai ir vajadzīga palīdzība, lūdzu rakstiet mums uz
+"support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Ar cienu,
+ONLYOFFICE™ Klientu Apkalpošanas Komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portāla. Ja jūs nevēlaties saņemt paziņojumus par datu eksportu, lūdzam, rediģējiet Jūsu "parakstīšanās iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. CRM. Datu importēšana veiksmīgi pabeigta
+
+Doties uz sarakstu "Kontakti":"$__VirtualRootPath/Products/CRM/".
+
+Ja Jums ir kādi jautājumi vai nepieciešama palīdzība, lūdzu, sazinietier ar mums uz "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Ar cieņu,
+ONLYOFFICE™ atbalsta komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojumu veidu, lūdzu, labojiet savus "Abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Jūs iecēla par atbildīgo iespējai: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" iecēla jūs par atbildīgo iespējai: $EntityTitle .
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Iespējas apraksts:
+$AdditionalData.get_item("OpportunityDescription")
+#end
+
+^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "Abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Task Assigned to You: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1. Piekļuve piešķīrta -  "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" piešķīrusi jums piekļuves "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portāla. Ja jūs nevēlaties saņemt paziņojumus par piešķīrto piekļuvi CRM modulī, lūdzam, rediģējiet Jūsu "parakstīšanās iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Atgādinājums par uzdevumu: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Uzdevuma kategorija:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Saite ar kontaktu: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Saite ar gadījumu: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Saite ar iespējamo darījumu: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Uzdevuma apraksts:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Termiņa datums: $AdditionalData.get_item("DueDate")
+
+Doties uz "Uzdevumu":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" sarakstu.
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs.^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. Jauns notikums pievienots $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. Jaunas kontaktpersonas izveidotas, izmantojot "Vietnes kontaktveidlapu"</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Datu eksportēšana veiksmīgi pabeigta</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Datu importēšana veiksmīgi pabeigta</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Jūs nozīmēja par atbildīgo personu iespējamam darījumam: $EntityTitle </value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Uzdevumu piešķirts jums: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. Piekļuve piešķīrta $EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Atgādinājums par uzdevumu: $EntityTitle</value>
+  </data>
+</root>

@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>存取</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>外部門戶</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>自訂過濾條件</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>表格填寫</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>唯讀</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>完整權限</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>拒絕存取</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>評論;回顧</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>要使用該文件，您必須授予對該文件的訪問權限</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>在ONLYOFFICE™中打開此文件將在您的Google雲端硬盤中以Office Open XML格式創建此文件的新副本。這樣，原始文件將不會被修改。要在ONLYOFFICE™中進一步編輯文件，您必須打開一個新副本。</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>不再顯示</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>輸入文件名</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>選擇檔案類型</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>我</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>轉檔並開啟</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>以模板創建</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>從最愛中刪除</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>以自動保存</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>變更擁有者</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>轉換來自{0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>以複製</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>已建立</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>由DocuSign創建</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>已編輯</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>用加密編輯</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>以加密</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>以覆寫</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>從{0}的修訂版本恢復</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>
+從文檔更改{0}恢復</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>
+已上傳</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>連接網址</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>文檔已轉換為{0}以允許對其進行編輯</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>轉檔成</value>
+  </data>
+  <data name="DashboardGoToMyDocuments" xml:space="preserve">
+    <value>至我的文檔</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfy" xml:space="preserve">
+    <value>使協同編輯變得順暢</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyFirstLine" xml:space="preserve">
+    <value>在兩種協同編輯模式之間切換。</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfySecondLine" xml:space="preserve">
+    <value>選擇快速模式實時查看其他人正在輸入什麼。</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyThirdLine" xml:space="preserve">
+    <value>啟用嚴格模式可以鎖定段落並更私密的工作。</value>
+  </data>
+  <data name="DashboardShareFiles" xml:space="preserve">
+    <value>分享文件</value>
+  </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>
+與您的團隊或公開共享文件。將文檔嵌入網站。</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>授予查看，編輯，審閱，評論，填寫表格的權限。</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>發送文檔以進行電子簽名</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationTools" xml:space="preserve">
+    <value>
+使用更多協作工具</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsFirstLine" xml:space="preserve">
+    <value>查看文檔即利用Track Changes建議編輯</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>添加評論，然後將其發送給特定的人。</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsThirdLine" xml:space="preserve">
+    <value>查看版本歷史記錄並還原以前的版本。</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocs" xml:space="preserve">
+    <value>
+使用Office文檔作業</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsFirstLine" xml:space="preserve">
+    <value>
+存儲和編輯文檔，電子表格和演示文稿</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsSecondLine" xml:space="preserve">
+    <value>透過docx, xlsx, and pptx享有最高的兼容性</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsThirdLine" xml:space="preserve">
+    <value>連接第三方存儲設備，例如Google雲端硬盤，Dropbox，Box，OneDrive。</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>文件服務不可用. 請聯繫客服 </value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>文件名稱</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>拒絕</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>
+發送操作期間發生錯誤</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>通過DocuSign發送文檔已被取消</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>通過DocuSign發送了文檔以進行簽名</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>無效</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>在文件中提及時通知</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>輸入評論</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>錯誤的申請</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>
+您無法選擇此用戶</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>轉換需要太多時間。</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>文件服務發生了錯誤</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>{0}打開文件進行編輯。當前，此文件格式不支持協同編輯功能。</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0}打開該文件以在手機APP中進行編輯</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>空檔案</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>找不到需要的檔案</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>大於{0}的文件將不會被轉換</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>大於{0}的文件將不會被複製</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>大於{0}的文件將不會被編輯</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>大於{0}的文件將不會被移動</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>您無法複製資料夾至它的子資料夾</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>找不到需要的資料夾</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>標題不正確</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>該文件當前已被其他用戶鎖定</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>
+沒有可用的帳戶來發送訊息。轉到郵件並連接郵箱。</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>至少 {0}信件無法發送. 請前往郵件模塊以查看失敗的原因.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>匯入數量超過限制</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>抱歉，不支援此檔案格式</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>
+操作被取消</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>保存的作者不明</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>
+您嘗試保存文件時文件已損壞</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>無法保存文件</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>您沒有足夠權限執行此操作</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>無法在{0}提供者處使用給定的憑據進行授權</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>您沒有足夠權限建立</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>無法刪除正開啓編輯中的檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>無法刪除有開啟編輯中檔案的資料夾</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>您沒有足夠權限刪除此檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>您沒有足夠權限刪除此資料夾</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>您沒有足夠權限編輯此檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>此文件已被您在其他標籤編輯</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>您沒有足夠的權限來移動文件</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>您沒有足夠的權限來移動文件夾</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>您沒有足夠權限檢視此檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>您沒有足夠權限檢視此資料夾內容</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>您沒有足夠權限重新命名此檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>您沒有足夠權限重新命名此資料夾
+</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>無法更新正開啟編輯中的檔案</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>您沒有足夠權限檢視此資料夾內容</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>第三方文件夾的內容不可用。嘗試重新連接該帳戶。</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>文件編輯開始錯誤</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>您無法更新正開啟編輯的檔案</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>
+找不到用戶</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>您不允許在垃圾桶預覽元件</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>所有人</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>資料夾</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>資料夾名稱</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>匿名</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>搜索文件內容</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>新</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>回復</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>在文件夾"{0}"中創建了文件</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>就像一般使用者一樣|在"公用文件"連結 Dropbox、Box和其它帳號|在"公用文件"設定文件和資料夾的存取權限</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>建立、編輯、儲存和分享文件。實時協作。與docx, xlsx, pptx 100％兼容</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>建立、編輯、儲存和分享文件。連結您的Google雲端硬碟、Dropbox和Box帳號並且統一管理所有文件。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>
+查看和下載共享文檔。將文件上傳到共享文件夾。
+與docx，xl​​sx，pptx 100％兼容。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>建立和編輯自己的文件，也可以透過適當的存取權限控制來分享文件|授與其他使用者讀取/編輯的檔案和資料夾的權限|在”我的文件“連結Dropbox、Box和其它帳號。</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User}已移除</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>標示為已讀</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>當資料夾被分享時通知</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>顯示版本</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>通過DocuSign簽名文檔時通知</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>在DocuSign中的文檔更改狀態時通知</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>當分享時通知</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>郵寄完成時通知</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>填寫以進行更改</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>資料夾標題</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>重新連接</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>帳戶</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>設為分享並放到"公用文件"資料夾</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>已建立</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>{！user} {0}的文檔</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>已更新</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>已刪除</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>分享設定</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>顯示檔案操作</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>顯示資料夾動作</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>子資料夾</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>已上傳</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>標記為版本</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>標記為修訂</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>
+版本和修訂：</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>
+文件已解鎖</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+</root>

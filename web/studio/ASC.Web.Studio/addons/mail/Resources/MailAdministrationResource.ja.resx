@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>追加する</value>
+  </data>
+  <data name="AddMailboxLabel" xml:space="preserve">
+    <value>メールボックスを追加する</value>
+  </data>
+  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
+    <value>新しいドメインを使用し始めるように、メールボックスを追加してください</value>
+  </data>
+  <data name="AddMailgroupLabel" xml:space="preserve">
+    <value>メールグループを追加する</value>
+  </data>
+  <data name="AddNewDomainButton" xml:space="preserve">
+    <value>ドメインを追加する</value>
+  </data>
+  <data name="AliasesLabel" xml:space="preserve">
+    <value>別名</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>別名</value>
+  </data>
+  <data name="ChangeMailboxPasswordPopupInfo" xml:space="preserve">
+    <value>新しいパスワードを入力してください</value>
+  </data>
+  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
+    <value>新しいメールボックスを作成する</value>
+  </data>
+  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
+    <value>新規メールグループを作成する</value>
+  </data>
+  <data name="DeleteDomain" xml:space="preserve">
+    <value>ドメインを削除する</value>
+  </data>
+  <data name="DeleteGroupLabel" xml:space="preserve">
+    <value>メールグループを削除する</value>
+  </data>
+  <data name="DeleteMailboxLabel" xml:space="preserve">
+    <value>メールボックスを削除する</value>
+  </data>
+  <data name="DeleteShureText" xml:space="preserve">
+    <value>%1の削除を確認してください。</value>
+  </data>
+  <data name="DNSSettingsLabel" xml:space="preserve">
+    <value>DNS設定</value>
+  </data>
+  <data name="DomainAddedPopupHeader" xml:space="preserve">
+    <value>ドメインは追加された</value>
+  </data>
+  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
+    <value>%1ドメイン設定</value>
+  </data>
+  <data name="DomainWizardCompleteBtn" xml:space="preserve">
+    <value>完成です</value>
+  </data>
+  <data name="DomainWizardDKIMRecord" xml:space="preserve">
+    <value>DKIM （ドメインキー・アイデンティファイド・メール）記録</value>
+  </data>
+  <data name="DomainWizardDomainAlreadyExists" xml:space="preserve">
+    <value>"{0}"ドメインは使用されています</value>
+  </data>
+  <data name="DomainWizardDomainNotVerified" xml:space="preserve">
+    <value>"{0}"ドメインは検証されていません。</value>
+  </data>
+  <data name="DomainWizardName" xml:space="preserve">
+    <value>名前：</value>
+  </data>
+  <data name="DomainWizardNextBtn" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="DomainWizardPopupHeader" xml:space="preserve">
+    <value>ドメインを追加する</value>
+  </data>
+  <data name="DomainWizardPrevBtn" xml:space="preserve">
+    <value>前回の</value>
+  </data>
+  <data name="DomainWizardPriority" xml:space="preserve">
+    <value>優先：</value>
+  </data>
+  <data name="EditGroupAddressesLabel" xml:space="preserve">
+    <value>メールグループのアドレスを編集する</value>
+  </data>
+  <data name="EditMailboxLabel" xml:space="preserve">
+    <value>メイルボックスを編集する</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="MailboxAddressLabel" xml:space="preserve">
+    <value>メールボックスアドレス</value>
+  </data>
+  <data name="MailboxAliasLabel" xml:space="preserve">
+    <value>メールボックス・エイリアス</value>
+  </data>
+  <data name="MailboxUserLabel" xml:space="preserve">
+    <value>メールボックスユーザー</value>
+  </data>
+  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
+    <value>確認してください</value>
+  </data>
+  <data name="ViewMailboxConnectionSettingsPopupInfo" xml:space="preserve">
+    <value>接続設定</value>
+  </data>
+  <data name="WebDomainLabel" xml:space="preserve">
+    <value>ドメイン</value>
+  </data>
+</root>

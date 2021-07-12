@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Tilgangsrettigheter for portal</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Legg til milepæl</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Legg til prosjekleder</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Legg til oppgave</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Prosjektleder kan</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>brukeradministrasjon</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>Sett tilgangsrettigheter for prosjektmedlemmer i dette prosjektet (bare for {0}private project{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Administrere (opprett, endre, slett) milepæler, oppgaver, diskusjoner, dokumenter og {2}{0}definer tilganger{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Administrer (opprett, endre, slett) milepæler, oppgaver, diskusjoner, dokumenter</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Kontakt via Talk</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Send Epost</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Lukk prosjekt</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Opprett det første prosjektet</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Opprett nytt prosjekt</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Slett prosjekt</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Er du sikker på at du vil slette dette prosjektet?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Ingen prosjekter som samsvarer med filteret kan vises i denne delen</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Endre prosjekt</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Opprett prosjekter og jobb effektivt</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Listen over prosjekter er tom</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Følg dette prosjektet</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Legg til milepæl</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Alle ansvarlige brukere</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Tildel ansvarlige brukere</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Full-skjerm modus</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Venstre-panel modus</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Lag lenke</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Lenken blir opprettet</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Dobbelt-klikk tittelen på panelet til venstre</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Høyre-klikk den ansvarlige bruker på det venstre panelet</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Endre tittel</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>For å vise et Gantt-diagram må du velge minst ett prosjekt som du ønsker å visualisere.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Ingen prosjekt er valgt.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantt-diagram</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Høy prioritet</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Nøkkel</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Lukket</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Diagram-objektene kan ha forskjellig utseende avhengig av situasjonen.</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Forfalt</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Du kan åpne panelet med hovedlisten over handlinger ved å taste H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Ugyldig lenke</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Symbolene nedenfor vises når muspekeren holdes over diagram-objektene.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Diagramnøkkel</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Lenk oppgavene</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Pek på en oppgave, klikk på den hvite sirkelen, trekk pekeren til en annen oppgave og slipp.</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Lenketype</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Tilknytt</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Åpne kun oppgaver og milepæler</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Skriv ut</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Gjør igjen</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Åpne igjen</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Høyre-klikk på oppgaven (milepæl)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Åpne nedtrekksmeny</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Høyre-klikk på tomt område</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Lag ny oppgave</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Høyre-klikk på tomt område og dra mot høyre</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Lag ny oppgave med forfallsdato</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Lær mer</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Tilpass til skjerm</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Oppgave uten frist</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Dager</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Måned</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Tidslinje-skala</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Uke
+</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Bruk muse-hjulet for å endre tidslinje-skalaen.</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Gå raskt tilbake til dagens oppgaver fra hvor som helst</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Angre</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Angre-listen vi også slettes og du vil ikke kunne angre alle de tidligere handlinger.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Flytt til venstre</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Flytt til høyre</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Privat Prosjekt</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Lagre prosjektet som privat</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Administrer prosjektgruppe</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Sett tid manuelt</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Du kan ikke lukke et prosjekt med aktive milepæler.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Du kan ikke lukke et prosjekt med åpne oppgaver.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Varsle prosjektlederen via e-post</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Prosjekt</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Slett Prosjekt</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Prosjektleder</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Prosjekter</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Prosjektstatus</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Prosjektmal</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Prosjektmaler</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Tittel</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Oppfrisk diagram</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Lagre Prosjekt</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Velg prosjektmal</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketter (tags)</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Lukkede oppgaver. Klikk for at åpne den komplette listen for denne milepælen.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Åpne oppgaver. Klikk for å åpne hele listen for den nåværende milepæl.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Milepæl-ansvarlig. Klikk for at se alle milepæler som denne brukeren er ansvarlig for.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Prosjektleder. Klikk for å vise alle prosjekter ledet av nåværende bruker.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Åpne oppgaver. Klikk for at åpne hele listen for det nåværende prosjekt.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Gruppe. Klikk for å åpne listen over alle prosjektmedlemmer.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Åpne deloppgaver. Klikk for å åpne hele listen for denne oppgaven.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Gi ansvarlig bruker oppgaver. Klikk for å vise alle oppgaver tildelt denne bruker.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Gi ansvarlige brukere oppgaver. Klikk for å vise alle brukere ansvarlige for oppgaven.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Vis aktive milepæler</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Vis åpne oppgaver</value>
+  </data>
+</root>

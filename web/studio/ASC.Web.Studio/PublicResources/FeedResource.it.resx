@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCommentedText" xml:space="preserve">
+    <value>Commento aggiunto all'annuncio </value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>Annuncio aggiunto</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autore</value>
+  </data>
+  <data name="BlogCommentedText" xml:space="preserve">
+    <value>Commento al messaggio aggiunto</value>
+  </data>
+  <data name="BlogCreatedText" xml:space="preserve">
+    <value>Messaggio aggiunto</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="BookmarkCommentedText" xml:space="preserve">
+    <value>Commento al segnalibro aggiunto</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>Segnalibro aggiunto</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>Segnalibri</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>Utente</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>Caso aggiunto</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Casi</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>Si è verificato un errore di accesso durante l'aggiunta di un commento</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>Comunità</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>Azienda aggiunta</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contatto</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Contatti</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>Attività aggiunta</value>
+  </data>
+  <data name="CrmTaskModule" xml:space="preserve">
+    <value>Attività</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Mese attuale</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Settimana attuale</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Periodo personalizzato</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Scadenza</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>Opportunità aggiunta</value>
+  </data>
+  <data name="DiscussionCommentedText" xml:space="preserve">
+    <value>Commento alla discussione aggiunto</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>Discussione aggiunta</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Discussioni</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Documenti</value>
+  </data>
+  <data name="EventsModule" xml:space="preserve">
+    <value>Eventi</value>
+  </data>
+  <data name="FeedsReadedMsg" xml:space="preserve">
+    <value>Nessuna notizia. Passa al feed per leggere la cronologia delle ultime notizie.</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>File aggiunto</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>File caricato</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>Cartella aggiunta</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Cartelle</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>Sondaggio aggiunto</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>Messaggio aggiunto</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>Argomento aggiunto</value>
+  </data>
+  <data name="HideAdditionalCommentsBtn" xml:space="preserve">
+    <value>Nascondi commenti addizionali</value>
+  </data>
+  <data name="HideGroupedFeedsBtn" xml:space="preserve">
+    <value>Nascondi eventi addizionali</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Caricamento in corso, per favore attendi</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Membri</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>Milestone aggiunta</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>nuovo</value>
+  </data>
+  <data name="NewsCommentedText" xml:space="preserve">
+    <value>Commento aggiunto alla notizia</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>Notizia aggiunta</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Opportunità</value>
+  </data>
+  <data name="OrderCommentedText" xml:space="preserve">
+    <value>Commento aggiunto all'ordine</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>Ordine aggiunto</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+{0} di più</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Altri utenti</value>
+  </data>
+  <data name="ParticipantCreatedText" xml:space="preserve">
+    <value>Partecipante aggiunto</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>Persona aggiunta</value>
+  </data>
+  <data name="PollCommentedText" xml:space="preserve">
+    <value>Commento aggiunto al sondaggio</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>Sondaggio aggiunto</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Modulo</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Progetto</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>Progetto aggiunto</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Responsabile</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Progetti</value>
+  </data>
+  <data name="PublishCommentBtn" xml:space="preserve">
+    <value>Pubblica</value>
+  </data>
+  <data name="ReplyCommentBtn" xml:space="preserve">
+    <value>Rispondi</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsabile</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Utenti responsabili</value>
+  </data>
+  <data name="SeeAllFeedsBtn" xml:space="preserve">
+    <value>Vedi tutto</value>
+  </data>
+  <data name="SharedFileCreatedInFolderText" xml:space="preserve">
+    <value>Ti è stato consentito l'accesso ad un documento nella cartella</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>Documento condiviso</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>Cartella condivisa</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Mostra tutto</value>
+  </data>
+  <data name="ShowGroupedFeedsBtn" xml:space="preserve">
+    <value>Visualizza altri eventi</value>
+  </data>
+  <data name="ShowOthersCommentsBtn" xml:space="preserve">
+    <value>Visualizza altri commenti</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Dimensione</value>
+  </data>
+  <data name="TaskCommentedText" xml:space="preserve">
+    <value>Commento all'attività aggiunto</value>
+  </data>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>Attività aggiunta</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Attività</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Periodo</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Oggi</value>
+  </data>
+  <data name="TodayAt" xml:space="preserve">
+    <value>Oggi a</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Aggiungi commento</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Ieri a</value>
+  </data>
+</root>

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Salva e crea nuovo caso</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Tutti i casi</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Caso</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Puoi impostare i diritti solo per i casi creati da te</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Partecipante del caso</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Partecipanti del caso</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Etichetta di caso</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Elenco delle etichette di caso</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Nome caso</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Chiudi caso</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Creazione di caso in corso...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Crea il primo caso</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Crea nuovo caso</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Elimina caso</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Eliminazione di casi in corso</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Modifica caso</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Modifica caso «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Casi ti consentono di organizzare in un posto unico tutta la corrispondenza, assegnare le attività, caricare i documenti per i contatti che partecipano ad un certo evento. Per esempio, questo può essere un tirocinio o una esposizione.
+</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Nessun caso corrisponde ai criteri del filtro. Per favore, seleziona un'altra opzione del filtro o svuota il filtro per visualizzare tutti i casi in questa sezione. Oppure puoi creare il caso, se non è presente nell'elenco.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Nessun caso corrispondente a questo filtro</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>L'elenco dei casi è vuoto</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>L'elenco dei partecipanti è vuoto</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Aggiungi partecipanti al tuo caso dall'elenco delle aziende o persone. Questo permette di sapere chi parteciperà ai prossimi eventi associati a questo caso.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importa casi</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Seleziona un file CSV correttamente formattato sul disco rigido del computer. Esso deve contenere i campi o le colonne separate da un delimitatore selezionato che verranno utilizzate per importare i casi. I file che contengono più di {0} righe devono essere divisi nelle parti più piccole per un'importazione corretta. Assicurati di aver selezionato gli utenti a cui desideri concedere l'accesso alle informazioni da importare, altrimenti i dati dal file CSV vengono disponibili a tutti gli utenti del portale.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Seleziona un file CSV ed imposta i diritti di accesso prima di importare i casi</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Fa' corrispondere i dati dal file con i campi adatti di ONLYOFFICE™ CRM. Si prega di notare che per l'importazione corretta dei casi è necessario almeno che una colonna del file corrisponde al campo 'Nome caso' di ONLYOFFICE™ CRM. I campi contenenti i dati devono avere il seguente formato:{0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Verifica i campi</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Vai all'elenco dei casi</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>L'importazione dei casi può richiedere certi minuti a seconda della quantità di dati.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importazione iniziata</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Partecipanti del caso</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Apri caso</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Partecipanti</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Limita accesso al caso</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Salva modifiche</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Vai al profilo</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Apri in una nuova scheda</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Inizia importazione</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Tutti i casi</value>
+  </data>
+</root>

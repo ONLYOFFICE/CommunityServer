@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Lisää tämä ja luo uusi tapaus</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Kaikki tapaukset</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Tapaus</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Pääsyoikeudet asetetaan tapauksille, joissa olet omistaja</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Tapauksen osallistuja</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Tapauksen osallistujat</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Tapauksen tunniste</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Tapauksen tunnisteluettelo</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Tapauksen otsikko</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Sulje tapaus</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Luodaan tapausta...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Luo ensimmäinen tapaus</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Luo uusi tapaus</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Poista tapaus</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Poistetaan tapauksia</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Muokkaa tapausta</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Muokkaa tapausta «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Tapaukset auttavat tallettamaan samaan paikkaan kaikki siihen liittyvät osallistujat, tehtävät, asiakirjat ja kontaktit. Tapaus voi olla esimerkiksi koulutustilaisuus, messutapahtuma, tai vaikkapa asiakkaan tekemä valitus, vikaraportti tai toimenpidepyyntö.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Yhtään suodattimiasi vastaavaa tapausta ei löytynyt. Muuta suodatinasetuksiasi tai poista suodattimet, jotta saat enemmän hakutuloksia. Voit myös luoda uuden tapauksen, jos sitä ei löydy luettelosta.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Yhtään tapausta ei löydy tällä suodattimella</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Tapausluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Osallistujaluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Lisää osallistujia tapaukseen yritys- tai henkilölistasta. Tämän jälkeen tiedät, ketkä liittyvät tapaukseen ja siihen liittyviin merkintöihin.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Tuo tapauksia</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Valitse oikein muotoiltu CSV-tiedosto tietokoneeltasi. Sen on sisällettävä tietueet tai sarakkeet valitsemallasi erotinmerkillä eroteltuina. Tiedosto, jonka koko on suurempi kuin {0} riviä olisi hyvä jakaa pienempiin osiin tietojen tuonnin onnistumiseksi. Varmista, että olet valinnut ne käyttäjät, jotka saavat pääsyn tuotuihin tietoihin. Muussa tapauksessa kaikki sivuston käyttäjät saavat niihin pääsyoikeudet.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Valitse CSV-tiedosto ja aseta pääsyoikeudet ennen tapahtumien tuontia</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Sovita tiedostosi sarakkeet ONLYOFFICE™ Asiakkuudenhallinnan kenttiin. Kiinnitä huomiota siihen, että tuodaksesi tapausten tiedot oikein, täytyy vähintään yhden sarakkeen vastata tapauksen otsikkokenttää Asiakkuudenhallinnassa. Päivämäärien tulee olla muodossa: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Tarkista kentät</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Siirry tapausluetteloon</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Tapahtumien tuonti voi kestää useita minuutteja.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Tuonti aloitettu</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Tapauksen osallistujat</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Avaa tapaus</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Osallistujat</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Rajoita pääsyoikeuksia tapaukseen</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Siirry profiiliin</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Avaa uudessa välilehdessä</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Aloita tuonti</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Kaikki tapaukset</value>
+  </data>
+</root>

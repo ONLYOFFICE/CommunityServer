@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Скасувати
+</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Права на доступ і теги
+</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Настройте права на доступ для користувачів, доданих за допомогою "Контактної форми веб-сайту", інакше всі користувачі CRM побачать нові контакти. Створіть теги, за допомогою яких буде позначено всіх нових клієнтів у списку.
+</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Права на доступ до порталу
+</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Додати рейтинг</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Додати новий шаблон завдання
+</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Додати новий контейнер шаблона завдання
+</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Додати варіант</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Додавання тегу
+</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Більше не показувати діалогове вікно "Зв'язування контактів"
+</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Додати контейнер шаблона завдання
+</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Додавання контейнера шаблона завдання
+</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Додавання шаблона завдання
+</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Зберегти
+</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Зберегти
+</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Додати цей шаблон завдання
+</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Додати цей контейнер шаблона завдання
+</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Автентифікація
+</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Базова інформація</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Особа та компанія
+</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Змінити колір</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Більше не показувати діалогове вікно "Зв'язування контактів"
+</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Змінити іконку</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Змінити логотип</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Прапорець</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Колонки</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Загальні настройки</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Типи контактів
+</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Створення категорії
+</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Створення рівня температури
+</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Створення типу контакту
+</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Створити поле користувача
+</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Створення етапу
+</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Створення поля
+</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Створити нову категорію
+</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Нова категорія
+</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Створити новий тип контакту
+</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Новий тип контакту
+</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Створити новий етап
+</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Новий етап
+</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Створити нове поле
+</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Нове поле
+</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Створити новий рівень температури
+</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Новий рівень температури
+</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Створити новий тег
+</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Новий тег
+</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Курс валют</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Параметри грошової одиниці
+</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Налаштуйте валюту за замовчуванням, яка буде використовуватися для обчислення "Загальної суми" за всіма можливостями, наявними в модулі CRM вашого порталу. Коефіцієнти переходів доступні для валют лише зі списку та взяті з веб-сайту "The Money Converter.com". {0} Ця валюта буде валютою для вашого каталогу продуктів і послуг, що використовується для виставлення рахунку</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Настроювані поля</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Закриває потенційну угоду з помилками.
+</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Закриває потенційну угоду успішно.
+</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Валюта за замовчуванням</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Видалити категорію</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Видалити тип</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Видалити тип контакту
+</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Видалити поле</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Вибране поле з усіма даними буде видалено з усіх контактів, де воно присутнє. Ви впевнені, що хочете продовжити?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Видалити стадію</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Видалити тег
+</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Підтвердження видалення категорії</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Видалити шаблон завдання
+</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Видалити контейнер шаблона завдання
+</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Видалити невикористовувані теги
+</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Види контакту дозволяють Вам певним чином характеризувати ваших потенційних клієнтів. Наприклад, видами контакту можуть бути "Холодний", "Гарячий", "Теплий", які будуть означати готовність контакту купити ваш продукт.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Редагувати або видаляти тип контакту можна тільки в разі відсутності контактів даного типу.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Типи контактів дають можливість охарактеризувати контакти певним способом. Типи контактів за замовчуванням – це "Клієнт", "Конкурент", "Партнер", "Постачальник", вони класифікують контакти на основі їх ролі щодо організації.
+</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Редагувати або видаляти тип контакту можна лише якщо контакти такого типу відсутні.
+</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Стадії угоди дозволяють вам визначати необхідні кроки до завершення угоди. Наприклад, ви можете додати етап операції "Комерційна пропозиція", "Передоплата", "Виконання робіт". шляхом
+
+перетягування задайте потрібний порядок проходження етапів угоди.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Редагувати або видаляти етап угоди можна тільки в разі відсутності угод на даному етапі.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Категорії подій журналу дають змогу розділити події журналу на групи. Стандартні категорії подій журналу – це пошта, примітка, телефонний виклик, зустріч. Щоб редагувати ці категорії, необхідно мати права адміністратора.
+</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Редагувати або видаляти категорію подій журналу можна лише якщо подій журналу в цій категорії відсутні.
+</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Категорії завдань дають змогу розділяти завдання на групи залежно від мети, яку необхідно досягти. Наприклад, категоріями завдань можуть бути "Зустріч", "Телефон" 
+</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Редагувати або видаляти етап категорії завдання можна лише якщо завдання в цій категорії відсутні.
+</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Зміщення у днях
+</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Завантажити всі дані в одному ZIP-архіві</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Запущено створення ZIP-архіву</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Посилання для завантаження архіву .zip
+</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Відредагувати категорію</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Відредагувати тип</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Редагувати тип контакту
+</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Відредагувати поле</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Відредагувати стадію</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Відредагувати категорію «{0}»</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Відредагувати тип контакту {0}</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Редагувати тип контакту "{0}"
+</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Відредагувати стадію «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Редагувати шаблон завдання «{0}»
+</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Редагувати контейнер шаблона завдання «{0}»
+</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Редагувати шаблон завдання
+</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Редагувати контейнер шаблона завдання
+</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Список користувальницьких полів порожній</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Поля користувача дають змогу отримати додаткові відомості про клієнта, потенційну угоду або інцидент. Наприклад, можна додати поле "Джерело", щоб позначити, звідки користувач: реклама, прямі продажі, і т.д. Редагувати або видаляти поле користувача можна лише якщо контакти, потенційні угоди або інциденти з таким значення поля відсутні.
+</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Список тегів пустий
+</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Теги можна використовувати для опису та групування контактів (компанії та особистих), потенційних угод та інцидентів, які мають щось спільне. Наприклад, для кращого сортування можна додати загальний тег для всіх осіб із різних компаній, але з тієї ж сфери бізнесу. Редагувати або видаляти тег можна лише якщо контакти, потенційні угоди або інциденти з таким тегом відсутні.
+</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Список шаблонів завдань пустий
+</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Шаблони завдань дають змогу створювати подібні завдання в модулі CRM. Можна додавати завдання до контактів, потенційних угод або інцидентів за допомогою лише одного клацання миші. Виберіть контейнер для створення завдання для кожного шаблону завдання контейнера.
+</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Це поле повинно бути коректно заповненим</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Для кожного поля необхідно вказати назву
+</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Назва поля не може бути пустою
+</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Увімкнути SSL
+</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Експорт
+</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Експорт усіх даних</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Функція експорту створює ZIP-архів, що містить файли формату CSV з усіма Вашими даними (контактами, угодами, заходами, історією і т.д.)Електронний лист із посиланням на створений архів буде надіслано на вашу адресу електронної пошти.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Створити список для зовнішньої програми
+</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Cписок полів</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Вибір полів</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Виберіть поля, які будуть відображатися на формі</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Код форми</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Використовуйте цю форму на Вашому сайті</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Так буде виглядати форма на Вашому сайті</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Властивості форми</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Основні параметри формуляра веб-сайту</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Згенерувати форму</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Отримати настройки за замовчуванням
+</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Категорії подій журналу
+</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Хост
+</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Вхід хоста
+</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Пароль хоста
+</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Внутрішній SMTP (максимальна кількість одержувачів повідомлення електронної пошти {0})
+</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Лише для компанії
+</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Лише для особи
+</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Ймовірність успіху</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Повідомити {!users}
+</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Виберіть {!users}, які отримуватимуть повідомлення, коли новий контакт буде додано за допомогою "Контактної форми веб-сайту"
+</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Підрахунок із попередньої задачі
+</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Підрахунок із початку контейнера
+</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Логотип рахунку-фактури</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Інші поля
+</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Порт
+</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Видалити варіант</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Відновити за замовчуванням</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>URL переадресації</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Адреса вашого веб-сайту, на який буде перенаправлено користувача після заповнення форми.
+</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Рядків</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Збережено</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Поле вибору</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Варіанти вибору</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Будь-ласка, виберіть етап категорії, який буде замінено на поточну категорію у завданнях</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Коротке ім'я відправника
+</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Адреса електронної пошти відправника
+</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Налаштувати користувацькі поля</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Вкажіть платіжну адресу своєї організації, яка буде розміщена у всіх ваших рахунках-фактурах. Виберіть {0} Країна {1} зі списку та заповніть поля з {0} Адреса {1}, {0} Місто {1}, {0} Держава {1} та {0} Поштовий код {1 }</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>За замовчуванням {0} логотип {1} вашої організації відображатиметься на {0} рахунках {1}. {3}
+Щоб змінити логотип, натисніть посилання "Змінити логотип" та виберіть зображення, збережене на вашому комп'ютері, щоб завантажити його на свій портал. Будь ласка, майте на увазі, що ви можете завантажити зображення не більше {0} {4} x {5} пікселів {1}, в іншому випадку розмір буде змінено. Максимальний розмір зображення не може перевищувати {0} {2} {1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Передати дані
+</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Тег із такою назвою вже існує
+</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Шаблони завдань
+</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Текстове поле</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Ключ веб-форми
+</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Унікальний ключ веб-форми, призначений для автентифікації форми, що використовується для надсилання даних, необхідних для правильної роботи форми. Це робиться з міркувань безпеки для запобігання надсиланню спаму, шахрайству та для захисту веб-форми від несанкціонованого використання. Після створення нового ключа наявні форми зі старим ключем перестануть працювати.
+</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Контактна форма веб-сайту</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Неприпустимий ключ форми
+</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Функції "Можливі клієнти з сайту" - це онлайновий інструмент CRM, який дозволяє визначити поля і генерувати код для створення конкретних веб-форм. Ці форми використовуються для створення контактів на Вашому порталі з іншого веб-сайту.Визначте властивості форми, виберіть потрібні поля та створіть код для створення власної веб-форми.</value>
+  </data>
+</root>

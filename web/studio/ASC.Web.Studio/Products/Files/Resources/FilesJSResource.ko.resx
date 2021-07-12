@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>소유자</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>전체 액세스</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>액세스 거부</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>이미지</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>프리젠 테이션</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>스프레드 시트</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>더보기 {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>업로드 중...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>의 {0} 더보기 {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>타이프</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>문서 모듈에서 {0}을 (를) 삭제 하시겠습니까? 이 어떤 식 으로든 {1} 계정에 영향을 미치지 않습니다.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>휴지통을 비우시겠습니까?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>현재 페이지를 나가시겠습니까? 파일 다운로드가 중단됩니다.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>문서를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>폴더를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>이 요소를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>일반 문서</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>사용자 정의 형식</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>부서</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>보관 데이터</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>데이터를 변경</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>창조</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>로드 버전 ...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>읽금으로 표시</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>삭제하는중...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>이름 바꾸기</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>버전을 업데이트</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>다운로드 할 하나 이상의 폴더 / 문서 선택</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>빈 파일이나 폴더를 업로드 할 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>변환 오류</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>모든 필드에 기입해야합니다</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>당신은 추가 할 수 있습니다하려면 로그인해야합니다</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>을 완료하거나 취소 이전 다운로드 기다려주세요</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>작업을 수행하기에 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>이 폴더에이 작업을 수행 할 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>제목은 다음 문자 중 하나를 포함 할 수 없습니다 : {0}</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>이름 {0} 파일이있는 폴더 {1}에 이미 존재합니다.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>변환됨</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>변환중</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} 동일한 이름의 문서가 이미 폴더 {1} 에 존재합니다. 파일을 덮어 쓰시겠습니까?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>업로드 되었습니다</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>업로드중</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>박스 디렉토리</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox 디렉토리</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google 디렉토리</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive 디렉토리</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' 변경</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} 요소가 복사됨</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' 복사됨</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>새 파일  '{0}' 이 만들어집니다</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>새 폴더  '{0}' 이 만들어졌습니다</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>하위 폴더로 폴더를 복사 할 수 없습니다</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>당신은 하위 폴더로 폴더를 이동할 수 없습니다</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} 요소를 이동됨</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' 이동됨</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>문서  '{0}' 삭제</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>폴더  '{0}' 삭제</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>성공적으로 {0}부터 {1}까지 (가) 삭제되었습니다</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>타사  '{0}' 삭제</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>문서  '{0}', '{1}' 로 이름이 변경되어</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>폴더  '{0}', '{1}'로 이름이 변경되어</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' 은  '{1}' 에 추가됨</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} 문서가 성공적으로 업로드되었습니다</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>내 문서</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>원본 형식</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>프리젠 테이션</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>프로젝트 문서</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>스프레드 시트</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>보관 데이터</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>복사중</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>삭제하는중</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>읽금으로 표시</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} 작업</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>{0} 연결 설정 변경 </value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>현재 편집 중</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>현재 편집되고 있습니다 : {0}</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>새 프리젠 테이션</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>새로운 스프레드 시트</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>신규 문서</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>업로드</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>사용자</value>
+  </data>
+</root>

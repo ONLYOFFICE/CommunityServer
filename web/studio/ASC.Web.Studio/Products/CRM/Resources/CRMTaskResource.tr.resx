@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Yeni görev oluştur</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Yeni görev oluştur</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Bitiş tarihi</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Kapalı görev</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Kişiyle bağlantı kur</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>İlk görevi oluştur</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Görev oluştur</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Özel süre</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Diğer kullanıcılar</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Görevi sil</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Bitiş tarihi</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Görevi düzenle</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Görevler ne yapılacağı hakkında hatırlatıcı yaratmanın kolay yoludur. Örnek olarak, Görev randevu yada telefon araması hatırlatmak için kullanılabilir. {0}Farklı kategorilerde{1} görev oluşturabilir, kişiyle,fırsatla yada olayla bağlantılandırabilir yada kendiniz için basit hatırlatıcı oluşturabilirsiniz.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen görev yok. Lütfen diğer filtre seçeneklerini seçin yada bölümdeki tüm görevleri görmek için filtreyi sıfırlayın. Ayrıca kişiler,fırsatlar yada olaylar sekmelerinde ihtiyaç duyacağınız görevlere de bakabilirsiniz.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Bu filtre için gösterilecek görev yok</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Görev listesi boş</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Düzgün biçimlendirilmiş bir csv dosyası bilgisayarınızdaki sabit diskten seçilmelidir. Alanları veya görevleri almak için kullanılan virgülle ayrılmış sütun içermelidir. {0}'dan daha fazla  satır içeren dosyaları uygun şekilde almak için küçük parçalara bölmek gerekir.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Bir csv dosyası seçin</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Dosya sütunlarınızı denk gelen ONLYOFFICE™ CRM alanlarıyla eşleştirin. Görevleri doğru aktarmak için dosyanızdaki sütunların şu ONLYOFFICE™ CRM alanlarıyla eşleşmiş olması gerekir: 'Görev Başlığı', 'Sorumlu','Bitiş Tarihi' Tarih içeren alanlar şu formatta olmalıdır: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lütfen alanları doğrulayın</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Görev listesine git</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Görevleri alma veri miktarına bağlı olarak birkaç dakika sürebilir. Bitince size bildirilir.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>İçe alma başlatıldı</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Görevleri içe al</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Görevlerim</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>hiçbir zaman</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Gecikmiş</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 dakika</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 dakika</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>yarım saat</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>bir saat</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>bir gün</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 saat</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Sorumlu</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Görev kaydediliyor</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>İçe Aktarıma Başla</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Görev</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Görev kategorisi</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Görev kategorisi</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Telefon araması</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Fırsat</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Yürütme denetimi</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Öğle Yemeği</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Randevu</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Teslimat</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Sosyal ağlar</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Memnuniyet ifadesi</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Görev Tanımı</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Görevi ata</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Görevler</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Görev durumu</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Kapandı</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Görev başlığı</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Yaklaşan</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 gün</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zaman</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Görev kategorileri amaçlarınıza göre görevlerinizi gruplara ayırmanıza izin verir. Varsayılan göre kategorileri telefon aramaları,fırsat,demo,eposta,faks, yönetim kontrolü,öğle yemeği,randevu,not,gönderim,sosyal ağlar, şükran gösterimidir. Bunları düzenlemek için yönetici hakları gereklidir.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Tüm Görevler</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Hafta</value>
+  </data>
+</root>

@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Išsaugoti ir sukurti naują renginį</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Visi renginiai</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Renginys</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Leidimai bus suteikti renginiams, kurių autorius esate Jūs.</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Pagal būklę</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Renginio dalyvis</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Renginio dalyviai</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Renginio žymeklis</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Renginio žymeklių sąrašas</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Būklė</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Renginio pavadinimas</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Užbaigti renginį</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Sukuriamas renginys</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Sukurti pirmą renginį</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Sukurti naują renginį</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Naikinti šį renginį</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Naikinamas renginys</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Redaguoti renginį</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Redaguoti renginį "{0}"</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Renginiai vienoje vietoje leidžia Jums saugoti susirašinėjimo istoriją, nustatyti užduotis, įkelti dokumentus kontaktams, kurie dalyvaus tame renginyje. Pavyzdžiui, tai gali būti komandos mokymai ar parodos organizavimas.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Šiame skirsnyje nėra Jūsų filtrą atitinkančių atvejų. Prašome pasirinkti kitus filtro nustatymus arba išvalyti filtrą, kad matytumėte visus skirsnio atvejus. Arba galite sukurti naują renginį, jei sąraše jo visai nėra.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Šiam filtrui nėra rodytinų renginių</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Renginių sąrašas tuščias</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Dalyvių sąrašas tuščias</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Pridėkite renginio dalyvių iš bendrovių arba kontaktų sąrašo. Kai tai padarysite, žinosite, kad ketina dalyvauti būsimuose įvykiuose, susijusiuose su šiuo renginiu.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importuoti renginius</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Kompiuterio diske nurodykite tinkamai parengtą CSV failą. Failas privalo turėti stulpelius, atskirtus žemiau nurodytais stulpelių skirtukais. Teisingam duomenų importavimui, failai su daugiau nei {0} eilučių turėtų būti padalinti į mažesnes dalis. Įsitikinkite, kad nurodėte portalo vartotojus, kuriems bus suteikta prieiga prie importuotos informacijos, kitaip informacija taps prieinama visiems portalo vartotojams.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Prieš renginio importavimą pasirinkite CSV dokumentą ir nustatykite prieigos teises </value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Suderinkite savo failo stulpelius su atitinkamais ONLYOFFICE™ CRM laukeliais. Prašome atkreipti dėmesį į tai, kad teisingam renginių importavimui jums reikia turėti bent vieną failo stulpelį, suderintą su ONLYOFFICE™ CRM laukeliu: „Renginio pavadinimas“. Laukeliai, kuriuose yra datos turi būti tokiu formatu:{0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prašome patvirtinti laukelius</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Eiti į renginių sąrašą</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Renginių importavimas gali užtrukti porą minučių priklausomai nuo duomenų kiekio.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importavimas pradėtas</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Renginio dalyviai</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Pradėti renginį</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Dalyviai</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Apriboti prieigą prie renginio</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Išsaugoti pakeitimus</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Eiti į profilį</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Atverti naujoje kortelėje</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Pradėti importą</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Visi renginiai</value>
+  </data>
+</root>

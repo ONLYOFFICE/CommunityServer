@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Vidējais iespēju budžets</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Vidējais veiksmīgo iespēju ilgums, dienas</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Izrakstīts</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Izrakstītie rēķini</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Budžets</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Tukša Document Builder veidne</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Pēc budžeta</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Pēc daudzuma</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Zvani</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Zvanu skaits</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Zvana ilgums</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Zvani periodā</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Aizvērts</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Pabeigtie uzdevumi</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Kontakti pēc temperatūras līmeņa</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Kontakti pēc veida</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Ar iespējām</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Bez iespējām</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Konversija</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Skaits</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Izveidots</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Lai izveidotu atskaiti, iespējas budžetam ir jāatbilst pamatvalūtai. Lai to izdarītu, uzstādiet izmantotos valūtas maiņas kursus.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Valūtas iestatījumi</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Tekošs mēnesis</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Tekošais ceturksnis</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Tekošā nedēļa</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Tekošais gads</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Diena</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Iespēju budžets</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Iespējas pēc budžeta</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Iespējas pēc skaita</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Iespējas pēc stadijas</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Iespējas pēc statusa</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Iespēju skaits</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Ilgums</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Visā laikā</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>Neizdevās iegūt atskaites datus</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>Neizdevās iegūt atskaites skriptu</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Izveidotās atskaites</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Visas jūsu izveidotās atskaites tiek rādītas šeit. Jūs varat rediģēt, dzēst vai lejupielādēt atskaišu failus. Lai izveidotu atskaiti, izvēlieties veidni no kreisajā pusē esošā saraksta, uzstādiet filtrus un spiediet "Izveidot".</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Izveidot atskaiti</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>Ja visas iespējas ir iegūtas</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Ienākošie</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Rēķini pēc statusa</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Rēķini par periodu</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Elements</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Zaudētās</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Vadītājs</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Vadītāji</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>no kurām {0} neatbildētas</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mēnesis</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Noslēgsies nākamajās 30 dienās</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Jaunie</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Jauni kontakti</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Jauni kontakti ar un bez iespējām</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Jauni uzdevumi</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Nākamais mēnesis</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Nākamais ceturksnis</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Nākamā nedēļa</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Nākamais gads</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nav atskaitei pieejamu datu. Izvēlieties citu filtru.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Atvērts</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Izejošie</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Nokavētie</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Nokavētie uzdevumi</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Apmaksāti</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Iepriekšējais mēnesis</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Iepriekšējais ceturksnis</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Iepriekšējā nedēļa</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Iepriekšējais gads</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Noraidītie</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Atskaites veidošana</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Jūs varat apskatīt, lejupielādēt, rediģēt vai dzēst visas radītās atskaites sadaļā {0}CRM/Reports/Generated reports{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Atskaites veidošana (izpildīts {0}%)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Atskaites</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Atskaites pa dienām, pa vadītājiem</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Atskaites pa stundām, pa vadītājiem</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Atskaites pa vadītājiem</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu veiksmīgi noslēgtās iespējas izvēlētajā {1}Laika periodā{2} visiem vadītājiem vai tikai izvēlētiem.{0} Kad tiek izvēlēta nedēļa vai mēnesis, atskaite uzrāda rezultātus, tos grupējot pa dienām, gada un ceturkšņa periodi datus grupēs pa mēnešiem.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Atskaites pa mēnešiem, pa vadītājiem</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Pārdošanas prognoze</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu pārdošanas prognozi noteiktam laika periodam, ņemot vērā iespēju iespējamību. Tā uzrāda iespēju skaitu izvēlētajā {1}Laika periodā{2} visiem vadītājiem, vai tikai izvēlētiem.{0} Dati ietver iespēju kopējo budžetu, kuru aptuvenais noslēgšanās datums sakrīt ar izvēlēto laika posmu.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Pārdošanas process pēc iespēju budžeta</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Pārdošanas process pēc iespeju skaista</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Pārdošanas process</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta pārdošanas procesu izveidošanai attiecībā uz noteiktu laika periodu. Tā rāda iespēju skaitu izvēlētā {1}laika periodā{2} vai nu visiem vadītājiem, vai tikai izvēlētajiem.
+{0} Galvenie dati ietver iespēju skaitu, vidējo iespēju budžetu, vidējo sekmīgi noslēgto iespēju ilgumu, atvērto/slēgto iespēju proporciju.
+{0} Dati tiek kārtoti pēc iespēju daudzuma un budžeta.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Stadija</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu iespēju, kontaktu, uzdevumu un rēķinu kopējos datus izvēlētajā {1}Laika periodā{2} visiem vadītājiem, vai tikai izvēlētajiem. Atskaite uzrādīs iespējas ar precizētu statusu un stadiju, kontaktus pēc to veida un stadijas un uzdevumus un rēķinus pēc to stadijas.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Kopsavilkums par doto brīdi</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Kopsavilkums par periodu</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu iespēju, kontaktu, uzdevumu un rēķinu kopsavilkuma datus izvēlētajā {1}Laika periodā{2} visiem vadītājiem, vai tikai izvēlētajiem. Atskaite uzrādīs iespējas, precizētas pēc to budžeta un skaita, kontaktus pēc to veida, uzdevumus un rēķinus pēc laika perioda.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Uzdevumi pēc statusa</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Uzdevumi par periodu</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Laika periods</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Kopā</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Kopējais iespēju budžets</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Kopējais iespēju skaits</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Kopējais pārdošanas apjoms periodā pa vadītājiem</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>Ņemot vērā iespējamību</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Uzvarētas</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu kopējo kontaktu skaitu izvēlētajā {1}laika periodā{2} visiem vadītājiem vai tikai izvēlētajiem. Atskaite uzrādīs jaunus kontaktus, precizējot tos pēc veida un iespēju esamības vai trūkuma. Dati tiek grupēti vienīgi pa vadītājiem.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Kontakti pēc vadītājiem</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu kopējo uzvarēto un zaudēto iespēju apjomu izvēlētajā {1}laika periodā{2} visiem vadītājiem vai tikai izvēlētajiem. Dati tiek grupēti vienīgi pa vadītājiem.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Iespējas pēc vadītājiem</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu kopējo rēķinu skaitu izvēlētajā {1}laika periodā{2} visiem vai tikai izvēlētiem vadītājiem. Atskaite uzrādīs kopējo nosūtīto rēķinu skaitu, kā arī apmaksāto, noraidīto un nokavēto rēķinu skaitu. Dati tiek grupēti vienīgi pa vadītājiem.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Rēķini pēc vadītājiem</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu kopējo uzdevumu skaitu izvēlētajā {1}laika periodā{2} visiem, vai tikai izvēlētiem vadītājiem. Atskaite uzrādīs aizvērtos, jaunos un nokavētos uzdevumus pēc to veida. Dati tiek grupēti vienīgi pa vadītājiem.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Uzdevumi pa vadītājiem</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Šī atskaite ir paredzēta, lai uzrādītu kopējo zvanu skaitu izvēlētajā {1}laika periodā{2} visiem vadītājiem vai tikai izvēlētajiem. Atskaite uzrādīs kopējo ienākošo un izejošo zvanu skaitu un to ilgumu. Dati tiek grupēti vienīgi pa vadītājiem.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Lūdzu, ņemiet vērā, ka šī atskaite būs pieejami vienīgi tad, ja pieslēdzat Twilio. Lai pievienotos, sekojiet {0}saitei{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP pa vadītājiem</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Vakardien</value>
+  </data>
+</root>

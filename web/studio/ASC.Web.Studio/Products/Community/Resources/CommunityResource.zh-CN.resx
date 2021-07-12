@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>工作站访问权限</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>公告</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>公告</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>博客</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>书签</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>书签</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>论坛编辑器</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>索引</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>最新维基页</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>新闻</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>规章</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>规章</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>文章</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>具备普通用户的操作权限|编辑博客文章、维基页面、论坛消息等等</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>查看用户的详细资料，在博客和论坛中发布资讯；创建企业相册、分享书签，使用维基功能创建知识库。</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>查看用户的详细资料，在博客和论坛中发布资讯；创建企业相册、分享书签，使用维基功能创建知识库。{0}为您的工作站添加更多用户{1}</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>查看用户的详细资料，在博客和论坛中发布资讯；创建企业相册、分享书签，使用维基功能创建知识库。{0}为您的工作站添加更多用户{1}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>社区</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>写博客；编辑维基知识库；展开讨论话题，等等</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>最近修改</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>已订阅</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>维基</value>
+  </data>
+</root>

@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Ekintzak</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Gehitu</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>{!group} gehitu</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Informazio gehigarria</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Etiketa gehitu</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Partaidea gehitu</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Oharra gehitzen...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>{!user} Gehitu</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Oharra</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Eranskinak</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Egilea</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Atzera</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Kasuak</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Aukeratu</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Itxi</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Itxi leihoa</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Bi puntu</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Ziur zaude elementu hauek ezabatu nahi dituzula</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Etiketa berria gehitu</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Ohiko Txanponak</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} eguneko atzerapena</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Hitzordua</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Bikoiztutakoen egiaztapena e-posta eremuan oinarrituko da.</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>{!users}(e)rako eskuragarri</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Sarbide baimenak</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Enpresa/Pertsona</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Erantsi fitxategia</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Deiak</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Koma</value>
+  </data>
+</root>

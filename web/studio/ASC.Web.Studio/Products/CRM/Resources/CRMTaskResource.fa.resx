@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>ایجاد وظیفه جدید</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>وظیفه بسته شده</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>لینک با شخص یا شرکت</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>ایجاد اولین وظیفه</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>ایجاد وظیفه</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>حذف وظیفه</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>ویرایش وظیفه</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>لیست وظایف خالی است</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>وظایف من</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>وظایف بسته شده</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>وظایف باز</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>مسئول</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>وظیفه</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>دسته بندی وظیفه</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>تماس تلفنی</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>ویرایش آزمایشی</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>فاکس</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>ناهار</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>ملاقات</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>یادداشت</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>شبکه های اجتماعی</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>شرح وظیفه</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>اختصاص به</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>وظایف</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>وضعیت وظیفه</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>بسته شده</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>باز</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>عنوان وظیفه</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 روز</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>هفته</value>
+  </data>
+</root>

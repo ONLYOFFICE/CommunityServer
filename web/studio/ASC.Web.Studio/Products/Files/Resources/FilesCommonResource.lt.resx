@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Prieiga</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Portalo išorėje</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Tik skaitymui</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Laisvas priėjimas</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Uždrausti prieigą</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administratorius</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Darbui su failu privalote suteikti prieigos teises</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>TĘSTI</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Atvėrus šį failą, ONLYOFFICE™ sukurs naują failo kopiją Office Open XML formatu Jūsų Google Drive paskyroje. Todėl originalus failas nebus pakeistas. Norėdami toliau redaguoti failą ONLYOFFICE™ sistemoje, turėsite atverti naująją failo kopiją.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Daugiau nerodyti</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Įrašykite failo pavadinimą</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Pasirinkite failo tipą</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autorius</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Aš</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konvertuoti ir atverti</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Trinti</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Taisyti</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentaras</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Pakeistas savininkas</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Konvertuota iš {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Nukopijuota</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Sukurtas</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Sukurta DocuSign pagalba</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Pakeista</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Perrašyta</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Atkurta iš peržiūros nuo {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Atkurta iš pakeisto dokumento nuo</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Įkelta</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Prisijungimo URL</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konvertuoti į</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Dokumento pavadinimas</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Atmesta</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Vykdant siuntimą įvyko klaida</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Dokumento siuntimas per DocuSign atšauktas</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokumentas išsiųstas pasirašyti su DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Anuliuota</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Įrašykite komentarą</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Klaida</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Klaidinga užklausa</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Šio vartotojo pasirinkti negalima</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konvertavimas trunka per ilgai.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Įvyko dokumentų paslaugos klaida</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Failą redagavimui atsidarė {0}. Kol kas šio formato failų redaguoti bendrai negalima.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Mobiliojoje aplikacijoje failą redagavimui atsidarė {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tuščias failas</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Reikiamas failas nerastas</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Didesnis nei {0} failas nebus konvertuotas</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Failas, didesnis nei {0}, nebus nukopijuotas</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Failas, didesnis nei {0}, nebus redaguojamas</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Failas, didesnis nei {0}, nebus perkeltas</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>negalite nukopijuoti aplanko į jo poaplankį</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Reikiamas aplankas nerastas</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Nekorektiškas pavadinimas</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Failas šiuo metu užrakintas kito vartotojo</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Nėra jokių pašto paskyrų, kad galėtumėte išsiųsti žinutę. Pereikite į El. pašto modulį ir prijunkite el. pašto dėžutę.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Mažiausiai {0} laiškų nepavyko išsiųsti. Pereikite į El. pašto modulį, kad sužinotumėte klaidos priežastį.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Per daug atsisiuntimų.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Atsiprašome, šis failo formatas nepalaikomas</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Išsaugojimo autorius nežinomas</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Failas buvo sugadintas bandant jį išsaugoti</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Nepavyko gauti failo išsaugojimui</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Neturite leidimo atlikti šį veiksmą</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Su nurodytais prisijungimo duomenimis {0} autorizuotis nepavyko.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Neturite leidimo sukurti</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Negaliu panaikinti failo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Neįmanoma panaikinti aplanko nes vienas iš failų yra atvertas arba taisomas</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Neturite leidimo ištrinti failą</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Neturite leidimo ištrinti aplanką</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Neturi tinkamų prieigos teisių failui redaguoti</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Šį failą jau redaguojate kitame skirtuke</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Neturite leidimo peržiūrėti failą</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Neturite leidimo peržiūrėti aplanko turinio</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Neturite leidimo pervardinti failą</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>neturite leidimo pervardinti aplanką</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Neįmanoma atnaujinti failo, nes jis yra atvertas taisymui</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Neturite leidimo peržiūrėti aplanko turinio</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Trečiosios šalies aplanko turinys nepasiekiamas. Pabandykite iš naujo prijungti paskyrą.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Klaida paleidžiant failo redagavimą</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Negalima atnaujinti failo, kuris yra atvertas redagavimui</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Negalima peržiūrėti šiukšlinės elementų</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Kiekvienas</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Failas</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Aplankas</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Aplanko vardas</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Svečias</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>naujas</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Vartotojo vardas</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Atkurti</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Failas sukurtas aplanke "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Slaptažodis</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Daryti tą patį, kaip vartotojas|Prijungti Dropbox, Box ir kitas paskyras skyriuje „Bendri dokumentai“|Nustatyti prieigos teises dokumentams ir aplankams skyriuje „Bendri dokumentai“</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Kurkite, redaguokite ir dalinkitės dokumentais. Realiu laiku redaguokite juos keliese. Garantuotas 100 % suderinamumas su MS Office formatais.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Kurkite, redaguokite ir dalinkitės dokumentais. Realiu laiku redaguokite juos keliese. Garantuotas 100 % suderinamumas su MS Office formatais.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Kurkite ir keiskite savo dokumentus, o taip pat - su tinkamomis prieigos teisėmis - bendrus dokumentus|Suteikite dokumentų ir aplankų skaitymo/redagavimo teises kitiems vartotojams|Susiekite Dropbox, Box ir kitas paskyras „Mano dokumentų“ skyriuje</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} panaikintas</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Pažymėti kaip skaitytą</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Paieška</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dalintis</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Pranešti kai aplanku pasidalinama</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Rodyti versijas</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Dydis</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Pranešti apie dokumento pasirašymą DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Pranešti apie dokumento būsenos pasikeitimą DocuSign</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Pranešti apie publikavimą</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Pranešti apie baigtą išsiuntimą</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Užpildykite pakeitimui</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Aplanko pavadinimas</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Pakartotinai prijungti</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Paskyra</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Bendrinti ir įdėti į „Bendrų dokumentų“ aplanką</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Sukurtas</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Atnaujinta</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Ištrinta</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Pasirinkite</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Prieigos nustatymai</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Rodyti failo veiksmus</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Rodyti aplanko veiksmus</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Poaplankiai</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Įkeltas</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Pažymėti kaip versiją</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Pažymėti kaip peržiūrą</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versijų istorija</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Pavardė</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Failas atrakintas</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>vers.</value>
+  </data>
+</root>

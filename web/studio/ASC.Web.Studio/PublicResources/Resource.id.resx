@@ -1,0 +1,2947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>alamat</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Hak Cipta</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Tentang</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Versi</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Hak Akses</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Akses ke modul {0} diberikan kepada</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Tambahkan {!group} </value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Tambahkan {!Users}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Semua pengguna</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Ubah Pemilik Portal</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Perubahan akan diterapkan setelah konfirmasi via email.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Untuk mengubah pemilik Portal, silakan pilih Nama pemilik Portal yang baru di bawah ini.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>Modul {0} tidak diaktifkan dan tidak ditampilkan di portal. Untuk mengaktifkan, baca bagian Modul &amp; Alat di Pengaturan Portal</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>Daftar pengguna kosong</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Akses penuh</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Memiliki hak akses yang sama dengan pemilik portal, kecuali hak untuk|Mengubah pemilik portal|Menonaktifkan atau menghapus portal</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Pemilik portal dapat</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Lakukan seperti pada administrator modul|Tunjuk administrator modul|Atur hak akses modul|Kelola konfigurasi portal|Kelola akun pengguna|Ubah pemilik portal|Backup data portal|Deaktivasi atau hapus portal</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0}administrator dapat</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} pengguna dapat</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} pengguna dengan hak akses yang berbeda dapat</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Pengguna dari daftar</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Akun Anda sudah hampir aktif</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Deaktivasi Portal</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Sebelum Anda menghapus portal, pastikan bahwa tagihan otomatis dimatikan. Anda dapat memeriksa status penagihan otomatis di{0}akun Avangate{1}Anda.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Tautan untuk mengkonfirmasi pengoperasian telah dikirim ke :email (alamat email pemilik portal).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Penghapusan Portal</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Tautan untuk mengkonfirmasi pengoperasian telah dikirim ke :email (alamat email pemilik portal).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Kirim kode lagi</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Masukkan kode</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktifkan email sekali lagi</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Kolom kode validasi tidak boleh kosong</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Masukkan nomor telepon seluler</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Lanjutkan</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Buat {!group} baru</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Tambahkan Grup</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Tambahkan alamat IP yang diijinkan</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Tambahkan Komentar</value>
+  </data>
+  <data name="AddToPortalBtn" xml:space="preserve">
+    <value>Tambahkan ke portal</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Tambahkan trusted domain</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Tambahkan Pengguna</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Tambahkan Pengguna</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Pemberitahuan Administrator</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Kirim pesan</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Tidak bisa mengakses portal?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Alamat email yang dapat digunakan untuk menghubungi Anda</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Hubungi administrasi portal</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Pesan Anda berhasil dikirim. Anda akan dihubungi oleh administrator portal.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Pesan Administrator</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Silakan jelaskan masalah yang Anda temukan</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Jika Anda adalah pengguna yang telah terdaftar dan mengalami masalah saat mengakses portal ini atau Anda ingin mendaftar sebagai pengguna baru di portal, silakan hubungi administrator portal menggunakan formulir di bawah ini.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Status Afiliasi</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Domain manapun</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Hak cipta dilindungi</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Balas</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Jawab</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Layanan</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Perluas fungsi web office Anda menggunakan integrasi dengan layanan pihak ketiga. Hubungi portal administrator untuk mengaktifkan layanan yang Anda butuhkan.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Cari tahu informasi selengkapnya di pusat bantuan{0}kami{1}</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Hubungkan</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Terhubung</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Putuskan hubungan</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Tidak terhubung</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>pada</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Otentikasi</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Otorisasi</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Sandi Otorisasi</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Sandi otorisasi adalah pilihan untuk menghubungkan portal ONLYOFFICE™ dengan layanan pihak ketiga seperti Twitter, Facebook, Dropbox, dll. Hubungkan portal Anda dengan Facebook, Twitter atau LinkedIn jika Anda tidak ingin menuliskan kata sandi setiap kali ingin masuk ke portal. Tautkan portal dengan layanan semacam Dropbox, OneDrive, Zoho, dll. untuk mentransfer dokumen dari seluruh penyimpanan dalam modul ONLYOFFICE™ Document.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Ketentuan Layanan</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Nonaktifkan</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Backup otomatis</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>Opsi {0}backup otomatis{1} digunakan untuk mengotomatisasi proses backup data portal untuk dapat memulihkannya nanti di server lokal. Pilih penyimpanan data, periode backup otomatis dan jumlah maksimal salinan disimpan.{2}{0}Catatan:{1} sebelum Anda dapat menyimpan data backup ke akun pihak ketiga (DropBox, Box.com, OneDrive atau Google drive), Anda harus menghubungkan akun ini ke folder Dokumen Umum ONLYOFFICE.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Buka halaman judul</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="BackupConsumerStorage" xml:space="preserve">
+    <value>Penyimpanan pihak ketiga</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Jumlah maksimal salinan backup yang akan disimpan</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>Dokumen ONLYOFFICE</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Unduh backup</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Buat salinan</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Sertakan Mail di backup</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Tidak ada layanan pihak ketiga yang terhubung.{0}Buka modul "Dokumen" untuk menghubungkan.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Anda dapat mengunduh backup ke harddisk komputer melalui tautan di bawah ini. Tautan tersebut akan aktif selama 24 jam setelah diminta.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Penyimpanan</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Sementara</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Gunakan pilihan ini jika Anda ingin mengunduh semua data dalam portal sebagai sebuah file.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Anda harus menghubungkan akun pihak ketiga (Dropbox, Box.com, OneDrive atau Google Drive) dengan ONLYOFFICE Document sebelum menyimpan backup.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Tambahkan {!Group} </value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Tanggal Lahir</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Tambahkan kontak baru</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Nonaktifkan</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>Dengan SMS</value>
+  </data>
+  <data name="ButtonTfaAppEnable" xml:space="preserve">
+    <value>Dengan aplikasi authenticator</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Panggil</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Panggilan dihentikan</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Menghubungkan</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Panggilan sedang berlangsung</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Masuk</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Semua data yang Anda masukkan akan hilang. Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Mail telah berhasil diubah</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Ubah Logo</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Kata sandi telah berhasil diubah</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Tautan untuk mengkonfirmasi pengoperasian telah dikirim ke :email (alamat email pemilik portal).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Mei, Jun, Jul, Agu, Sep, Okt, Nov, Des</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Pilih Pemilik</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Pilih pengguna</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Hapus Filter</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Biru cerah</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Hijau tua</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Biru pekat</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Asli</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Oranye </value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Tema Warna</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Merah muda</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>komentar telah dihapus</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Putuskan hubungan</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Silakan konfirmasikan bahwa Anda ingin menonaktifkan portal</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Silakan konfirmasikan bahwa Anda ingin menghapus portal</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Anda yakin ingin mengubah alamat portal menjadi {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Pemilik portal telah berhasil diubah. {0}Dalam 10 detik, Anda akan diarahkan {1}ke alamat ini{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Silakan konfirmasikan bahwa Anda ingin mengubah pemilik portal menjadi {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Bergabung</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Anda telah berhasi melakukan konfirmasi pendaftaran. Buatlah kata sandi dan mulailah bekerja!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Silakan konfirmasikan bahwa Anda ingin mengaktifkan kembali portal</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus komentar Anda?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Hapus Komentar</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Ucapkan Selamat</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Hubungkan</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Informasi Kontak</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Lanjutkan</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Panel Kendali</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Panel Kendali</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Session Seumur Hidup{1} memungkinkan untuk mengatur waktu (dalam menit) sebelum pengguna portal perlu memasukkan kredensial lagi untuk mengakses portal.{2}Setelah menyimpan semua pengguna akan keluar dari portal.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Lifetime (min)</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Sesi seumur hidup</value>
+  </data>
+  <data name="CopyEmailAndPassword" xml:space="preserve">
+    <value>Salin email dan kata sandi</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Salin tautan</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Penggunaan Perusahaan</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Operasi pemulihan sandi dilarang untuk pengguna LDAP</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Operasi pemulihan sandi dilarang untuk pengguna SSO</value>
+  </data>
+  <data name="CreateEmailOnDomain" xml:space="preserve">
+    <value>Membuat email dari domain</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Buat Profil Baru</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>membuat bakcup</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Nama domain khusus</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Kustomisasi</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Khusus</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Tambahkan Item</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Tambahkan Item</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>Ukuran besar ikon, 100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Mengubah gambar</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>Pengaturan item</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Kustom Navigasi{1} - adalah pengaturan untuk mengubah menu navigasi. {2} Tambahkan item Anda sendiri untuk kegunaan portal yang lebih besar. Harap dicatat, bahwa jika situs Anda menggunakan HTTPS, semua tautan juga harus dalam HTTPS, jika tidak, peringatan akan ditampilkan di peramban.</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>Hapus Item</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>Tampilkan di menu</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>Tampilkan di halaman utama</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>Ikon kecil, 16X16</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>Kustom Navigasi</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Backup Data</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Pilihan Backup Data{1} digunakan untuk membuat cadangan data portal agar dapat dikembalikan sewaktu-waktu ke server lokal. Pilihlah lokasi penyimpanan data (jangan lupa memasukkan rincian akun Amazon Anda agar dapat mengaksesnya).{2} {0}Catatan:{1} Anda harus menghubungkan akun pihak ketiga (Dropbox, Box.com, OneDrive atau Google Drive) dengan ONLYOFFICE Dokumen untuk dapat menyimpan backup di sana.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Manajemen Data</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deaktivasi</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deaktivasi</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Akun Anda telah berhasil dinonaktifkan.{0} Dalam 10 detik, Anda akan diarahkan ke {1}alamat ini{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Deaktivasi/Penghapusan Portal</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Gunakan pilihan ini untuk menonaktifkan sementara portal Anda.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Pilihan modul</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Halaman Depan Standar</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Pengaturan Standar</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Tindakan ini tidak dapat dibatalkan.
+Anda yakin ingin menghapus {!group} {0}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Portal Anda telah berhasil dihapus.{0}Dalam 10 detik, Anda akan diarahkan ke {1}alamat ini{2}</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>Hapus akun saya</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Hapus profil saya</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>Perhatian! Anda akan menghapus akun Anda.</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>Dengan mengklik tombol "Hapus akun saya" Anda setuju dengan{0}Kebijakan privasi{1}kami.</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Kirim instruksi penghapusan profil ke alamat email</value>
+  </data>
+  <data name="DeleteProfileSuccessMessageInfo" xml:space="preserve">
+    <value>Lihat kebijakan privasi {0}kami{1} untuk mempelajari lebih lanjut tentang cara menghapus akun dan data yang terkait dengannya.</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Hapus dialog profil</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Hapus profile</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} akan dihapus.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Gunakan pilihan ini untuk menghapus portal Anda selamanya.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Edit {!group}</value>
+  </data>
+  <data name="DesktopEditorsFor" xml:space="preserve">
+    <value>ONLYOFFICE Desktop Editors untuk {0}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Dinonaktifkan</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Nonaktifkan</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user} tidak akan ditampilkan pada daftar {!user} aktif</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Tautan untuk mengkonfirmasi pengoperasian telah dikirim ke {0} (alamat email pemilik portal).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Pengaturan DNS</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Layanan Dokumen</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Lokasi layanan dokumen menentukan alamat server dengan layanan dokumen yang diinstal. Harap ubah '&amp;lt;editor-dns-name&amp;gt;' untuk alamat server di baris di bawah ini memuat sisa baris persis seperti apa adanya.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Lokasi Layanan Dokumen</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Alamat Layanan Penyuntingan Dokumen</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Contoh: {0}</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>{1}Layanan Dokumen{2}adalah layanan server yang memungkinkan untuk melakukan pengeditan dokumen dan memungkinkan untuk mengkonversi file dokumen ke dalam format OfficeOpen XML yang sesuai.</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>Alamat Layanan Dokumen dari Server Komunitas</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>Alamat Server Komunitas dari Layanan Dokumen</value>
+  </data>
+  <data name="DocumentsForDevices" xml:space="preserve">
+    <value>ONLYOFFICE Documents untuk {0} perangkat</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} yang lalu</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} hari</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} hari</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} hari</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>hanya</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} jam</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} jam</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} jam</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} menit</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} menit</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} menit</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} bulan</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} bulan</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} bulan</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} tahun</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} tahun</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} tahun</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Dua hari yang lalu</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Besok</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Kemarin</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>Sunting Foto</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Edit Profil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Instruksi aktivasi akan dikirimkan ke alamat email yang didaftarkan</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Gunakan tautan yang diberikan dalam email aktivasi. Anda belum menerima email berisi tautan aktivasi?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Silakan aktifkan email yang Anda masukkan saat mendaftar untuk mendapatkan akses ke semua fitur portal.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Ajukan aktivasi lagi</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Email aktivasi telah dikirimkan ke alamat email Anda. Silakan ikuti tautan yang disertakan di dalam pesan untuk mengaktifkan akun Anda.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Aktivasi email</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Konfirmasikan kata sandi</value>
+  </data>
+  <data name="EmailAndPasswordCopiedToClipboard" xml:space="preserve">
+    <value>Surel dan kata sandi tersalin ke clipboard</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Portal Anda terdaftar pada domain berikut ini:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Kata sandi salah</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectAmiId" xml:space="preserve">
+    <value>Kesalahan id.</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Alamat email salah</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Kode promo salah</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Anda Memiliki Kode Promo? Masukkan di sini</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Portal Anda terdaftar melalui email berikut ini:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Pengaturan ini telah berhasil disimpan</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Ubah</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Ketik kata sandi</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Kata sandi dan konfirmasi kata sandi tidak sesuai</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Ubah email</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Instruksi aktivasi akan dikirimkan ke alamat email yang didaftarkan</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Perubahan email</value>
+  </data>
+  <data name="EmailIsAvailable" xml:space="preserve">
+    <value>Surel tersedia</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Email tidak diaktifkan</value>
+  </data>
+  <data name="EmailOnDomainIsNotCreated" xml:space="preserve">
+    <value>Surel di domain belum terhubung</value>
+  </data>
+  <data name="EmailPopupHelper" xml:space="preserve">
+    <value>{0}Email utama diperlukan untuk mengembalikan akses ke portal jika kehilangan kata sandi dan mengirim pemberitahuan.{1}Anda dapat membuat email baru di domain sebagai yang utama. Dalam hal ini, Anda harus menetapkan kata sandi satu kali sehingga pengguna dapat masuk ke portal untuk pertama kalinya.{2}Email utama dapat digunakan sebagai login saat masuk ke portal.{3}</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Semua {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Pencarian Staf</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Tidak ada data yang menggunakan ruang penyimpanan</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Aktifkan Otentikasi LDAP</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Aktifkan SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} akan ditampilkan kembali dengan status aktif </value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Tuliskan alamat email yang baru</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Anda tidak diijinkan untuk melihat halaman ini</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Error 304 - Tidak Dapat Diakses</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Tidak diijinkan untuk melakukan tindakan ini</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Akses ke portal dibatasi.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Bad keys</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>tidak bisa memberikan request</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Email salah atau tautan tidak berfungsi</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Profil Anda ditangguhkan</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>Sudah ada {!User} yang terdaftar dengan email ini</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Email dari domain ini tidak diizinkan untuk pendaftaran</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Kolom email kosong</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Email saat ini dan email yang baru adalah sama</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Silakan isi semua kolom</value>
+  </data>
+  <data name="ErrorEmptyMessage" xml:space="preserve">
+    <value>Pesan teks kosong</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>File yang diunggah tidak ditemukan</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Masukkan alamat email Anda</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Tuliskan nama depan Anda</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Tuliskan nama belakang Anda</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Tautan tidak berfungsi</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Ukuran gambar terlalu besar</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Ukuran gambar terlalu besar</value>
+  </data>
+  <data name="ErrorIncorrectUserName" xml:space="preserve">
+    <value>Kesalahan nama depan atau nama belakang</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Tautan aktivasi salah</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Akses ke portal dibatasi</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Anda hanya dapat memasukkan maksimal 255 karakter pada kolom ini.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Anda hanya dapat memasukkan maksimal 64 karakter pada kolom ini.</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Paket harga yang Anda miliki tidak mendukung pilihan ini</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Format tanggal salah</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Email salah</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Nama domain salah</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Kata sandi kosong.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>dari {0} ke {1} karakter</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Kata sandi baru salah. Kata sandi harus terdiri dari</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Harus berisi</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>digit</value>
+  </data>
+  <data name="ErrorPasswordNoSpaces" xml:space="preserve">
+    <value>tidak ada jarak</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>karakter khusus</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>huruf kapital</value>
+  </data>
+  <data name="ErrorPasswordOnlyLatinLetters" xml:space="preserve">
+    <value>hanya huruf latin</value>
+  </data>
+  <data name="ErrorRequestLimitExceeded" xml:space="preserve">
+    <value>Melampaui batas permintaan</value>
+  </data>
+  <data name="ErrorTenantTooShort" xml:space="preserve">
+    <value>Tenant domain tidak boleh kosong.</value>
+  </data>
+  <data name="ErrorTenantTooShortFormat" xml:space="preserve">
+    <value>Nama domain harus antara {0} dan {1} karakter.</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Tipe file gambar tidak dikenal</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Pengguna tidak ditemukan</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Pengguna dengan email "{0}" tidak ditemukan</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>Region EU (Irlandia)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Setiap hari</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Setiap bulan</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Setiap minggu</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Umpan balik &amp;amp; Dukungan</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Wanita</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Ukuran file melebihi batas maksimal</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Catatan: ukuran file tidak boleh melebihi {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>untuk periode</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>dari</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>kepada</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>3 bulan terakhir</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>bulan lalu</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>minggu lalu</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Tautan untuk mengkonfirmasi akun Anda telah dikirim ke email tersebut</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Lupa kata sandi Anda?</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>untuk mobile</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Untuk sign in, silakan ikuti {0}tautan{1} ini</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>Untuk PC Anda</value>
+  </data>
+  <data name="FreeOfficeDesktopDndMobileApps" xml:space="preserve">
+    <value>Gratis ONLYOFFICE aplikasi desktop dan mobile</value>
+  </data>
+  <data name="FreeSms" xml:space="preserve">
+    <value>SMS Gratis</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>dari</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Layanan pencarian tidak berjalan</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Layanan pencarian tidak jalan</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Pengaturan Sphinx</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Untuk menggunakan pencarian teks lengkap Anda perlu Sphinx. 2.2.10 diinstal pada server Anda.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Pengaturan untuk bekerja dengan Sphinx, pengindeksan dan search daemon launch. Anda perlu menentukan host dan nomor port yang diterima oleh searchd search daemon. Pengaturan ini harus sesuai dengan konfigurasi Sphinx di bagian searchd dari file sphinx.conf.in.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Tes</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>Dapatkan sekarang</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Dapatkan tautan singkat</value>
+  </data>
+  <data name="GoToContactListBtn" xml:space="preserve">
+    <value>Buka Daftar Kontak</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Sambutan</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Pemimpin Grup</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Tamu</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Tamu</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Jika Anda ingin {1}melakukan deaktivasi{2} portal, portal Anda dan semua informasi yang terkait akan diblok sehingga tidak dapat diakses oleh siapapun selama periode tertentu. Untuk melakukannya, klik tombol {1}Deaktivasi{2}. Sebuah tautan untuk melakukan konfirmasi akan dikirimkan ke alamat email pemilik portal.{0}Jika Anda ingin masuk ke portal ONLYOFFICE™ dan menggunakannya kembali, Anda harus menggunakan tautan kedua yang disertakan dalam email. Jadi, mohon simpan email ini dengan baik.{0}Jika Anda yakin tidak akan menggunakan portal ONLYOFFICE™ kembali dan ingin {1}menghapus{2} portal selamanya, ajukanlah permintaan dengan menekan tombol {1}Hapus{2}. Harap diingat, Anda tidak dapat mengaktifkan kembali portal tersebut atau mengembalikan informasi apapun yang terkait.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Pengaturan Pesan Administrator{2} adalah sebuah cara untuk menghubungi administrator portal.{0}Aktifkan pilihan ini untuk menampilkan form kontak pada halaman {1}Sign In{2} sehingga orang-orang dapat mengirimkan pesan ke administrator portal jika mereka mengalami masalah saat mengakses portal.{0}Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>Dengan {1}Tema Warna{2} Anda dapat membuat antarmuka portal sesuai dengan brand perusahaan.{0} Pilihlah salah satu tema warna dari daftar di sebelah kiri.{0} Untuk menerapkan pilihan tema, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Halaman Depan Standar{1} adalah suatu cara untuk memilih modul yang ingin Anda tuju setelah login ke portal atau mengklik logo ONLYOFFICE™ setelah Anda masuk ke situs web. Untuk menerapkan parameter ini, klik tombol {0}Simpan{1} yang berada di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}Pengaturan DNS{2} adalah sebuah cara untuk menentukan URL alternatif bagi portal ONLYOFFICE™ Anda.{0}Centang kotak {1}Nama Domain Khusus{2} dan tentukan nama domain Anda sendiri untuk portal ONLYOFFICE™ pada kolom di bawah ini.{0} Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Pengaturan Salam{2} adalah sebuah cara untuk mengubah judul dan logo standar portal yang akan ditampilkan pada {1}Halaman Muka Standar{2} pada portal Anda.{0}Tuliskan nama yang Anda kehendaki pada kolom {1}Judul{2}. Untuk mengganti logo portal, klik tautan {1}Ubah Logo{2} dan pilihlah gambar yang tersimpan pada komputer Anda lalu unggahlah ke portal.{0}Ingat, Anda hanya dapat mengunggah gambar dengan ukuran tidak lebih dari {1}250x100 piksel{2}, agar tidak perlu mengatur ulang ukurannya. Ukuran maksimal gambar tidak boleh melebihi {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Tautan Undangan adalah sebuah cara untuk mengundang orang bergabung dengan portal Anda.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Pengaturan Bahasa dan Zona Waktu{2} adalah sebuah cara untuk mengubah bahasa yang digunakan pada portal ole semua pengguna portal dan untuk mengatur zona waktu, sehingga semua acara pada protal ONLYOFFICE™ akan ditampilkan dengan tanggal dan waktu yang benar.{0}Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Pengaturan Logo{2}adalah cara untuk mengubah logo default untuk ditampilkan di{1}Halaman Awal{2}portal Anda.{0}Untuk mengganti logo portal klik{1}Ubah Logo{2 }tautan ke kanan dan pilih gambar yang disimpan di komputer Anda untuk memuatnya ke portal Anda.{0}Harap diingat bahwa Anda dapat mengunggah gambar maksimal{1}250x100 piksel{2}, jika melebihi maka harus ada penyesuaian. Ukuran gambar maksimum tidak boleh melebihi{1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Pengaturan Trusted Domain Email{2} adalah sebuah cara untuk menentukan server email yang digunakan untuk pendaftaran pengguna.{0}Anda dapat mencentang pilihan {1}Domain khusus{2} maupun menuliskan server email lain pada kolom di bawah ini, sehingga orang yang memiliki akun pada server terebut dapat mendaftarkan diri dengan mengklik tautan Bergabung pada halaman {1}Sign in{2} atau menonaktifkan pilihan ini.{0}Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Pengaturan Kekuatan Kata Sandi{2} adalah sebuah cara untuk menentukan efektivitas kata sandi dalam mencegah tebakan dan serangan brutal untuk meretasnya.{0}Gunakan bilah {1}Panjang Minimal Kata Sandi{2} untuk menentukan seberapa panjang kata sandi harus dibuat. Centang kotak yang sesuai di bawah ini untuk menentukan karakter yang dapat digunakan pada kata sandi.{0} Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{0}Portal Publik{2} merupakan sebuah pilihan agar semua orang dapat melihat konten publik tanpa harus mendaftar. Tidak ada proyek privat dan modul CRM akan dinonaktifkan pada portal semacam ini.{0}Pendaftaran ke portal publik tidak dibatasi oleh jumlah pengguna, pengguna baru akan ditambahkan sesuai permintaan kepada administrator portal. Gunakan pilihan {1}Daftarkan pengguna baru Sekarang{2} untuk menghapus semua persyaratan konfirmasi pendaftaran.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Di sini Anda dapat mengubah alamat portal Anda. Masukkan bagian yang akan muncul di sebelah alamat portal onlyoffice.com/onlyoffice.eu.{0}
+{1}Harap dicatat{2}:Alamat portal lama Anda akan tersedia untuk pengguna ONLYOFFICE baru setelah Anda mengklik tombol{1}Save{2}.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Versi Portal{2} adalah sebuah cara untuk mengganti versi portal ONLYOFFICE™.{0}Anda dapat menggunakan versi baru maupun kembali menggunakan portal versi lama.{0}Agar parameter yang Anda buat dapat bekerja, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Template Tim{2} adalah pengaturan khusus untuk membuat nama organisasi (atau grup), anggotanya, dan aktivitasnya.{0}Klik daftar menu dropdown {1}Template{0} untuk memilih template yang tersedia atau tuliskan nama pilihan Anda sendiri dengan memilih opsi {1}Khusus{2} dari daftar.{0}Untuk menerapkan template yang dipilih, klik tombol {1}Simpan{2} di bawah pada bagian ini.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Dengan melakukan migrasi portal ke server di region yang terdekat dengan lokasi geografis Anda, respon portal akan semakin cepat. Semakin dekat lokasi pengguna dan klien dengan region server, kecepatan portal akan semakin tinggi.{0}Untuk mulai proses migrasi, klik tombol {1}Ubah Region Server{2} yang terletak di bawah pada bagian ini.{0}{1}Catatan:{2} setelah berjalan, proses tidak dapat dibatalkan. Harap diperhatikan, karena keterbatasan teknis, maka hanya email selama 30 hari terakhir yang akan ditransfer.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Pusat Bantuan</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Tujuan program ini adalah untuk mengiklankan ONLYOFFICE™ secara legal agar dapat menerima komisi atas pendaftaran berlangganan yang dilakukan oleh pengguna yang dirujukkan.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Sembunyikan</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Masukkan akun AIM Anda</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Masukkan profil Blogger Anda</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Masukkan Email Anda</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Masukkan profil Facebook Anda</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Masukkan nama login akun atau ID Anda</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Masukkan akun GoogleTalk Anda</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Masukkan profil GoogleBuzz Anda</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Masukkan akun Google Anda</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Masukkan akun ICQ Anda</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Masukkan akun Jabber Anda</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Masukkan profil LiveJournal Anda</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Masukkan nomor telepon seluler Anda</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Masukkan akun MSN Anda</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Masukkan profil MySpace Anda</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Masukkan nomor telepon Anda</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Masukkan akun Skype Anda</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Masukkan akun Twitter Anda</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Masukkan akun Yahoo Anda</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Login Pemilik</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Pemilik</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Kata Sandi Pemilik</value>
+  </data>
+  <data name="ImportButtonManually" xml:space="preserve">
+    <value>Secara manual</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>Pengguna sudah ada</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Tidak ada kontak yang telah diterima.{0}Anda juga dapat mengimpor kontak dari profil lain.</value>
+  </data>
+  <data name="ImportContactsEmptyEmail" xml:space="preserve">
+    <value>Masukkan email pengguna</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Tuliskan nama depan pengguna</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Tuliskan nama belakang pengguna</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Masukkan email Anda</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Tuliskan nama depan Anda</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Impor error</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Tuliskan nama belakang Anda</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Masukkan nama depan, nama belakang dan email pengguna yang akan ditambahkan ke portal pada kolom di atas. Klik tombol 'Tambahkan' untuk memasukkan pengguna ke dalam daftar.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Nama depan</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Dari File</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Email yang dipilih untuk mengimpor memiliki format yang salah.{0}Silakan pilih file lain dan ulangi lagi proses impor.</value>
+  </data>
+  <data name="ImportContactsFromFileErrorTooLarge" xml:space="preserve">
+    <value>File yang dipilih terlalu besar. Ukuran file yang diupload tidak boleh melebihi: {0} kB.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Tambahkan pengguna ke portal</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Pastikan semua kolom pengguna, termasuk nama depan, nama belakang dan alamat email telah terisi dengan benar</value>
+  </data>
+  <data name="ImportContactsInvalidEmail" xml:space="preserve">
+    <value>email pengguna tidak valid</value>
+  </data>
+  <data name="ImportContactsInvalidFirstName" xml:space="preserve">
+    <value>nama depan pengguna tidak valid</value>
+  </data>
+  <data name="ImportContactsInvalidLastName" xml:space="preserve">
+    <value>nama belakang pengguna tidak valid</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Nama belakang</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>Pembatas</value>
+  </data>
+  <data name="ImportEncoding" xml:space="preserve">
+    <value>Encoding </value>
+  </data>
+  <data name="ImportFileCSV" xml:space="preserve">
+    <value>Pilih file CSV yang diekspor dari Outlook, Gmail, Thunderbird, atau aplikasi lain, atau yang dibuat secara manual.</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>Nama file</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Impor dari Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Impor dari Yahoo</value>
+  </data>
+  <data name="ImportSelectAnotherSource" xml:space="preserve">
+    <value>Pilih sumber lain</value>
+  </data>
+  <data name="ImportTextDelimiter" xml:space="preserve">
+    <value>Batas Teks</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Dengan paket harga ini, Anda dapat menambahkan {0} pengguna.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Perbarui paket harga Anda atau tambahkan lebih banyak pengguna sebagai tamu dengan ijin hanya melihat saja. Anda dapat mengubah peran mereka dalam modul 'Orang'.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Menambahkan pengguna</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Perbarui paket harga atau tambahkan lebih banyak pengguna sebagai tamu dengan ijin melihat saja. Anda dapat mengubah peran mereka melalui modul 'Orang' atau {0}Baca tentang penggunaan non-komersil{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Anda tidak diijinkan menambah pengguna lebih banyak lagi dengan paket harga yang dimiliki</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Menyiapkan kepatuhan</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>Dalam</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Nama pengguna atau kata sandi salah.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Untuk memulai bekerja di portal, Anda harus memastikan bahwa {0}nama depan{1} dan {0}nama belakang{1} Anda tertulis dengan benar pada kolom sebelah kanan, dan membuat {0}kata sandi pribadi{1} agar dapat login.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Tautan Undangan</value>
+  </data>
+  <data name="InviteLinkValidInterval" xml:space="preserve">
+    <value>Link ini valid untuk {0} hari saja.</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Anda menerima tautan menuju portal ini dari seorang teman, kenalan atau kolega Anda</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Anda ditambahkan ke dalam portal ini oleh seorang teman, kenalan atau kolega Anda</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Anda diundang untuk bergabung ke portal ini!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Tambahkan pengguna sebagai tamu</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Undang pengguna ke portal</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Nonaktifkan</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Security{1} digunakan untuk membatasi login ke portal dari semua alamat IP kecuali beberapa alamat tertentu. Anda dapat menentukan alamat IP yang diijinkan login, baik menggunakan alamat IP dengan format IPv4 (#.#.#.#, di mana # adalah nilai numerik dari 0 sampai 255) maupun rentang IP (dalam format #.#.#.#-#.#.#.#)</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>Keamanan IP</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Pertama Anda perlu menentukan IP Anda saat ini atau rentang alamat IP saat ini, jika tidak akses ke portal Anda akan diblokir setelah Anda menyimpan pengaturan. Pemilik portal akan memiliki akses ke  portal dari alamat IP apapun.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Migrasi ke ONLYOFFICE™ juga (tidak direkomendasikan)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Menjadi Mitra Afiliasi Kami</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Anda dapat terus menambahkan pengguna sebagai tamu atau mengubah paket harga yang digunakan untuk menambahkan pengguna lebih banyak lagi.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Bahasa</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Nama Belakang</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>Pengaturan LDAP</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Otentikasi Pengguna</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Aktifkan pilihan ini jika pengguna Windows tidak memiliki hak untuk membaca data dari server LDAP/Active Directory, dan masukkan informasi pribadi pengguna lain yang memiliki hak baca.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Koneksi eror</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Kolom kosong</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Aktifkan pilihan ini jika Anda ingin menambahkan pengguna dari server LDAP/Active Directory ke ONLYOFFICE™ secara otomatis. Pengguna yang ditambahkan akan dapat melakukan otorisasi menggunakan informasi Windows miliknya. ONLYOFFICE™ tidak menyimpan kata sandi pengguna dan akan melakukan otentikasi pengguna yang mengirimkan informasi login dan kata sandinya ke server LDAP/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Tidak dapat membuat pengguna, karena data yang diterima mungkin salah</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Server gagal memulihkan pengaturan</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Server gagal menyimpan pengaturan</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Informasi login atau kata sandi salah.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>domain LDAP tidak ditemukan</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Tidak ada grup yang ditemukan.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Pengaturan Filter Pengguna Salah.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Error tidak dikenal.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Tidak ada pengguna yang ditemukan.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Pengaturan Atribut Grup Salah.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Kesalahan Filter Grup</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Tidak bisa memperoleh Atribut Nama Grup untuk satu atau beberapa grup.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Pengaturan Atribut Login Salah.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Tidak dapat terhubung dengan server LDAP. Silakan periksa apakah alamat server dan nomor port sudah benar.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Pengaturan Atribut Pengguna Salah.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Atribut Grup</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Masukkan atribut obyek grup untuk menunjukkan pengguna mana yang berada di dalam grup ini.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>ND Grup</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Tuliskan nama berbeda untuk direktori yang berisi grup yang ingin ditambahkan.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Filter Grup</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Keanggotaan Grup</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Aktifkan pilihan ini jika Anda ingin menambahkan grup dari server LDAP/Active Directory ke ONLYOFFICE™. Harap diingat bahwa hanya pengguna yang tergabung dalam grup ini yang akan ditambahkan.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Atribut nama grup</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Harap tentukan atribut objek yang sesuai dengan nama grup.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Error internal pada server.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Atribut Login</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Masukkan atribut obyek yang berhubungan dengan informasi login pengguna.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>Memodifikasi pengguna LDAP pada pengguna portal biasa</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Login DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Masukkan kata sandi untuk pengguna yang memiliki hak akses membaca data dari server LDAP/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Jumlah Port</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Masukkan nomor portal server LDAP/Active Directory Anda.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Pengaturan Standar</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Pulihkan ke pengaturan standar</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Simpan Pengaturan</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Masukkan alamat URL server LDAP tanpa nomor portal, misalnya LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>menambahkan pengguna</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Verifikasi Sertifikat</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Memeriksa pengaturan dukungan LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP tidak tersambung</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Menampilkan kembali daftar grup dari server LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Menampilkan kembali daftar pengguna dari server LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGivingRights" xml:space="preserve">
+    <value>Mengatur {0} pengguna sebagai admin {1}</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>Memuat LDAP base info</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>menghapus pengguna</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Menghapus grup kadaluarsa yang telah dimuat melalui LDAP sebelumnya</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldRights" xml:space="preserve">
+    <value>Menghapus hak akses kadaluarsa yang telah dimuat melalui LDAP sebelumnya</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Menonaktifkan profil pengguna yang sudah tidak aktif telah dimuat melalui LDAP sebelumnya</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Menyimpan grup</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Menyimpan pengaturan</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUserPhoto" xml:space="preserve">
+    <value>Menyimpan foto</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Menyimpan pengguna</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Sinkronisasi pengguna</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Diperlukan jenis otentikasi yang lebih aman. Silakan gunakan koneksi terenkripsi atau aktifkan otentikasi di server.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Selesai menyimpan</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Sinkronkan pengguna</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Batas pengguna pada paket harga ini telah tercapai</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>StartTLS tidak mendukung LDAP server sekarang.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Terlalu banyak operasi LDAP</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Atribut Pengguna</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Masukkan atribut obyek pengguna untuk menentukan apakah pengguna ini adalah anggota grup.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>ND Pengguna</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Tuliskan nama berbeda untuk direktori yang berisi pengguna yang ingin ditambahkan.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Filter Pengguna</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Jika Anda ingin menambahkan hanya sejumlah pengguna tertentu dari direktori, Anda dapat memilihnya menggunakan filter LDAP.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Masukkan informasi login untuk pengguna yang memiliki hak akses untuk membaca data dari server LDAP/Active Directory</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Pengguna telah diimpor dari LDAP.
+Hubungi administrator LDAP Anda 
+jika Anda ingin mengubah profile yang terkunci.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Pengguna telah diimpor dari LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Lisensi tidak cocok</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Lisensi ini tidak berlaku untuk versi portal ini.</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Jumlah portal melebihi yang diizinkan oleh lisensi</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Jumlah pengguna melebihi yang diizinkan oleh lisensi</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Sedang memuat, silakan tunggu</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Memuat...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokasi</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Akses portal dibatasi. Hubungi administrator portal.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Bergabung</value>
+  </data>
+  <data name="LoginSettings" xml:space="preserve">
+    <value>Pengaturan login</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>{0}Otentikasi dua faktor{1}melalui aplikasi penghasil kode diaktifkan untuk semua pengguna oleh administrator layanan cloud.</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Login via Jejaring Sosial</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>atau login dengan:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Tidak dapat menemukan akun pihak ketiga. Anda harus menghubungkan akun jejaring sosial pada halaman edit profil terlebih dahulu.</value>
+  </data>
+  <data name="LoginWithBruteForce" xml:space="preserve">
+    <value>Otorisasi diblokir sementara.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Logo</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Email ini dibuat secara otomatis dan Anda tidak perlu membalas email ini.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>peta</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Tidak ada lokasi</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Mengorganisir</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Recurrence</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Tidak ada email yang belum terbaca. Silakan buka Email untuk membaca semua pesan.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Server Mail</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Koneksi berhasil</value>
+  </data>
+  <data name="MailServiceCouldNotGetHostnameErrorMsg" xml:space="preserve">
+    <value>Eror: tidak mendapatkan hostname</value>
+  </data>
+  <data name="MailServiceCouldNotGetTokenErrorMsg" xml:space="preserve">
+    <value>Kesalahan: tidak mendapatkan token Auth</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Contoh: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Konfigurasi Mail Server</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Opsi ini memungkinkan untuk menghubungkan portal ke {0}Mail Server{1} yang diinstal pada komputer jarak jauh menggunakan {3}Docker{2}.{4}{0}Catatan:{1} pastikan bahwa port {0}3306{1} dan {0}8081{1} sudah dibuka di komputer di {0}Mail Server{1} diinstal. Kami juga sangat menyarankan Anda untuk mengubah kata sandi {1}Mail Server{0} untuk akses database Anda.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Sembunyikan pengaturan lanjutan</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>Dabatase host Server Mail</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Kata sandi database server mail</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>Error pinging host {0}:{1}</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Layanan berhasil terkoneksi</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>IP Server Mail</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Tampilkan pengaturan lanjut</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Setelah tersambung, {0}Mail Server{1} akan {2}menjadi tersedia{3} dalam {0}Mail{1} modul, dan Anda akan dapat membuat kotak surat untuk pengguna portal menggunakan nama domain email Anda sendiri.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Pengaturan Sambungan Server Mail</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Nama pengguna database server mail</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Pria</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integrasi</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Keamanan</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Statistik</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Buat basis data CRM Anda</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Kelola klien, pantau penjualan dan buat invoice</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Mengerjakan file .docx, .xlsx, dan .pptx secara online</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Co-edit dokumen Anda dengan rekan tim</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Undang anggota tim Anda</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Tambahkan pengguna via email atau impor dari layanan lain</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Mulai proyek Anda</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Kontrol tugas dan pantau performa dengan bagan Gantt</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Berikut ini adalah beberapa langkah untuk memulai:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Selamat Datang di ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Silakan lakukan otorisasi untuk Anda.</value>
+  </data>
+  <data name="MessageAuthorizeLdap" xml:space="preserve">
+    <value>Harap masuk untuk:</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Instruksi aktivasi email telah dikirim ke alamat email {0}</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Instruksi perubahan email telah berhasil dikirim</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Email Anda telah berhasil diaktifkan</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Kirim instruksi undangan ke alamat email {0}</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Kirim instruksi aktivasi email ke alamat email {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Kirim instruksi perubahan email ke alamat email {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Kirim instruksi perubahan kata sandi ke alamat email {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Silakan masukkan email yang digunakan saat mendaftar di portal. Instruksi pemulihan kata sandi akan dikirim ke alamat email tersebut.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ adalah kantor cloud di mana Anda dapat mengelola dokumen, proyek, tim dan hubungan pelanggan di satu tempat.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>editor dokumen online, perangkat manajemen proyek, perangkat bisnis, sistem crm, bagan gantt, kolaborasi online, kantor cloud, word online, manajemen dokumen, spreadsheet online, office online, editing kolaboratif, aplikasi online office, dokumen online</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Migrasi</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>Fitur {0}Migrasi Region Portal{1} hanya tersedia bagi pemilik portal berbayar.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>Fitur {1}migrasi portal Region{0} hanya tersedia bagi pemilik portal.</value>
+  </data>
+  <data name="MigrationPortalProcessTitle" xml:space="preserve">
+    <value>Migrasi portal {0} sedang berlangsung.</value>
+  </data>
+  <data name="MigrationPortalTitle" xml:space="preserve">
+    <value>Migrasi</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Nomor telepon seluler baru</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Nomor Telepon Seluler Utama</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Ubah nomor telepon</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Buka nomor halaman dan ubah nomor telepon</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Untuk menghapus nomor telepon, gunakan pesan teks berisi kode yang telah dikirim ke nomor telepon baru Anda.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Terkirim</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Ubah nomor telepon seluler</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Instruksi cara mengubah nomor telepon seluler pengguna akan dikirimkan ke alamat email pengguna</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Untuk mengubah nomor, Anda harus menghapus nomor telepon seluler Anda saat ini</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Tindakan lainnya</value>
+  </data>
+  <data name="MoreLanguages" xml:space="preserve">
+    <value>Bahasa lainnya</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Profil Saya</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="NameInFirstLine" xml:space="preserve">
+    <value>Nama field ada di baris pertama</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Template Tim</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Jangan Pernah Tampilkan</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Nama portal baru</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Tidak ada panggilan tak terjawab</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Tidak ada operator lain, silakan jawab.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Roles untuk pengguna ditambahkan sebagai{!Guests}dapat diubah nanti di modul{0}People{1}.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Tamu tidak akan dimasukkan ke dalam jumlah total pengguna di portal harga.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Jika Anda tidak menemukan bahasa pilihan dari daftar yang tersedia, silakan hubungi kami melalui {0}documentation@onlyoffice.com{1} untuk berpartisipasi dalam penerjemahannya dan dapatkan fasilitas gratis selama 1 tahun.</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Beritahu pengguna mengenai migrasi portal</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Dinonaktifkan</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>Aplikasi</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Atau</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG Region</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Pemilik</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Ubah kata sandi</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Perubahan kata sandi</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Panjang minimal kata sandi</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Pemulihan kata sandi</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>karakter</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Gunakan angka</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Gunakan karakter khusus</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Gunakan huruf kapital</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Sekarang Anda dapat membuat kata sandi baru.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Pembayaran diperlukan</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Pembayaran</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Riwayat Pembayaran</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Tunda</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>Melebihi kuota ruang disk</value>
+  </data>
+  <data name="PersonalTariffExceedLimit" xml:space="preserve">
+    <value>Hampir melebihi kapasitas penyimpanan: {0}</value>
+  </data>
+  <data name="PhotoMaxSize" xml:space="preserve">
+    <value>JPG atau PNG, max {0}</value>
+  </data>
+  <data name="PhotoNotSelected" xml:space="preserve">
+    <value>Tidak ada foto yang dipilih</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Silakan tunggu...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Portal publik</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Portal privat</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>({0} Mb) melebihi batas kapasitas</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Fitur ini hanya tersedia untuk tarif gratis</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Akses Portal</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>({0} pengguna aktif) melebihi batas</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Nama Portal</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Pemilik Portal</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Ubah Nama Portal</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Akses Portal</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Didukung oleh</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Halaman harga hanya tersedia untuk administrator</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Pengaturan Halaman Harga{1} memungkinkan administrator portal untuk mengaktifkan atau menonaktifkan visibilitas halaman harga untuk semua pengguna sehingga hanya dapat dilihat oleh administrator portal.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Halaman Harga</value>
+  </data>
+  <data name="PrintButton" xml:space="preserve">
+    <value>Cetak</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Modul &amp; Alat</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Pilih modul dan alat ONLYOFFICE™ yang Anda perlukan. Modul dan alat yang dinonaktifkan akan disembunyikan dari semua pengguna portal. Ingatlah bahwa setelah mengaktifkan kembali modul dan alat, modul dan alat tersebut juga akan tersedia bagi semua pengguna portal. Untuk membatasi aksesnya, baca bagian Hak Akses pada Pengaturan Portal.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Alat</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profil telah dihapus</value>
+  </data>
+  <data name="ProfileTypePopupHelper" xml:space="preserve">
+    <value>Anda memiliki akses terbatas ke beberapa fitur dan modul portal</value>
+  </data>
+  <data name="ProjectsForDevices" xml:space="preserve">
+    <value>Proyek ONLYOFFICE untuk {0} perangkat</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Terbitkan</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Aktifkan kembali</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Akun Anda telah berhasil diaktifkan kembali.{0}Dalam 10 detik, Anda akan diarahkan ke {1}alamat ini{2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Reassign data</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Data proses pengalihan untuk{0}belum selesai.</value>
+  </data>
+  <data name="RecaptchaInvalid" xml:space="preserve">
+    <value>Recaptcha tidak valid</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Mengarahkan</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Tanggal Pendaftaran</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Daftarkan segera pengguna baru </value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Email pendaftaran Anda</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Tolak</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Ingat</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>Sesi lifetime bawaan adalah 20 menit. Check opsi ini untuk setel ke 1 tahun. Untuk opsi kustom, silahkan ke pengaturan.</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Hapus data pribadi</value>
+  </data>
+  <data name="RequestNewButton" xml:space="preserve">
+    <value>Permintaan baru</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Undangan akan dikirim ke alamat email tersebut</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Kirim ulang</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Apakah Anda ingin mengirim undangan sekali lagi?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Kirim ulang undangan</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Atur ulang</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Pemulihan</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Daftar backup</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Jika Anda menghapus item dari daftar, file yang sesuai juga akan
+Dihapus. Tindakan ini tidak dapat dibatalkan. Untuk menghapus semua file menggunakan link:{0}
+Kosongkan daftar{1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Pemulihan</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>File komputer</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Pulihkan ke Standar</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Gunakan pilihan ini untuk memulihkan portal Anda dari file backup yang telah tersimpan.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Belum ada backup dibuat. Buat sebuah backup atau lebih agar muncul pada daftar ini.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Pilihan Pemulihan Data{1} digunakan untuk mengembalikan data portal yang telah disimpan sebelumnya (dari server lokal atau portal SaaA). Pilih lokasi penyimpanan data, masukkan rincian yang diperlukan dan centang {0}Kirim pemberitahuan ke pengguna portal{1} untuk memberitahu pengguna portal mengenai pengoperasian backup/pemulihan tersebut.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Jika proses pemulihan telah selesai, Anda akan diarahkan secara otomatis ke portal.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Pemulihan portal sedang dilakukan.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Kirim pemberitahuan kepada pengguna mengenai pemulihan portal</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Tampilkan daftar backup</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Pemulihan Data</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Portal tidak dapat digunakan selama proses pemulihan berlangsung. Setelah pemulihan selesai, semua perubahan yang dilakukan setelah tanggal pemulihan akan hilang.</value>
+  </data>
+  <data name="ReturnToImportSettingsBtn" xml:space="preserve">
+    <value>Kembali ke pengaturan import</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Pastikan semua kata ditulis dengan benar. Coba gunakan kata kunci yang lain.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Tidak ditemukan.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Hasil Pencarian</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Lihat semua
+</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Lihat semua video</value>
+  </data>
+  <data name="SelectDataSource" xml:space="preserve">
+    <value>Pilih sumber data</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Kirim</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Alamat Email Pengirim</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Tampilan Nama Pengirim</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Kirim undangan sekali lagi</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Kirim undangan</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Klik di sini untuk bergabung</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Ingin menjadi pengguna portal?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Silakan masukkan alamat email yang akan diundang:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Kirim Email Uji Coba</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Perangkat lunak server mengalami error saat melakukan perintah Anda. Silakan tunggu beberapa saat dan coba kembali. Jika error tetap terjadi, Anda mungkin perlu menghubungi administrator situs.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Server Error</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Region Server</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>Setel kata sandi</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Versi ini adalah versi terbaru</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Versi portal salah</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Jenis kelamin</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Asia Pasifik (Singapore)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tampilkan</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Tampilkan Semua</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Tampilkan semua hasil</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Aktifkan/nonaktifkan tooltips</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Tampilkan Selanjutnya</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Pendaftaran dapat dilakukan oleh pengguna dengan alamat email di domain manapun.
+Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email berisi tautan untuk mengaktifkan akun ONLYOFFICE™ Anda akan dikirimkan ke alamat email tersebut.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Sign on Tunggal</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Kejutan</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bom</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Gila</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Menangis</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Menari </value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Minum</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Marah</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Berkedip mata</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Hijau</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Senyum Hollywood</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Sedih</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Musik</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Senyum</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Seringai</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Maaf</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Kacamata</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Lidah</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hore</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Otentikasi dua faktor{1} adalah cara yang lebih aman bagi pengguna untuk masuk ke portal. Setelah data-data rahasian dimasukkan, pengguna harus memasukkan kode dari SMS yang diterima di nomor telepon seluler yang telah ditentukan, saat login pertama kali ke portal menggunakan otentikasi dua faktor.{2}Aktifkan pilihan ini untuk memberikan akses portal yang aman bagi semua pengguna portal.{2}Untuk menerapkan perubahan yang dibuat, klik tombol {0}Simpan{1} di bawah bagian ini.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Kode salah</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Kode: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Waktu untuk menggunakan kode telah berakhir. Silakan minta sebuah pesan teks baru.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Catatan{1}: Pesan SMS dapat dikirim jika Anda hanya memiliki saldo yang mencukupi. Anda selalu dapat memeriksa saldo Anda saat ini di akun penyedia SMS Anda. Jangan lupa mengisi saldo Anda secara rutin.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Catatan{1}: sebelum Anda dapat menggunakan otentikasi dua faktor SMS, Anda harus memilih setidaknya satu penyedia SMS dan mengkonfigurasinya di halaman {3}{0}Layanan Pihak Ketiga{1}{4}.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Catatan{1}: otentikasi dua faktor melalui SMS hanya tersedia untuk portal berbayar.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Otentikasi dua faktor</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} seimbang</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>Lihat di akun {0} Anda</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>Pengaturan SMS tidak tersedia</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Anda telah mengirimkan banyak pesan teks. Silakan coba beberapa saat lagi.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Kustom pengaturan</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Pengaturan Server Mail</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>Pengaturan SMTP</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Jika Anda menggunakan akun Gmail untuk server SMTP, Anda tidak akan dapat mengirim email sampai Anda melakukan hal berikut: masuk ke akun Gmail Anda melalui antarmuka web standar dan mengkonfirmasi pertanyaan verifikasi untuk mengakses akun ONLYOFFICE™, jika ada.{0}Sebaiknya gunakan port 587 atau 25 untuk pesan email yang akan dikirim, karena pengaturan lain yang mungkin mengakibatkan SMTP tidak dapat berfungsi dengan benar.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>Pengaturan SMTP diperlukan untuk membuat akun email yang akan digunakan untuk mengirim pemberitahuan dari portal menggunakan server SMTP Anda sendiri, bukan server yang digunakan oleh ONLYOFFICE™. Silakan isi semua kolom dan klik tombol 'Simpan'. Anda dapat menggunakan tombol 'Kirim Email Uji Coba' untuk memeriksa apakah pengaturan yang Anda buat sudah benar dan dapat bekerja dengan baik.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Profil Akun Jejaring Sosial</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Sumber</value>
+  </data>
+  <data name="SpamSubscriptionDescription" xml:space="preserve">
+    <value>Notifikasi surel dengan pembaruan produk, pengumuman dan penawaran khusus</value>
+  </data>
+  <data name="SpecifyAnExistingEmail" xml:space="preserve">
+    <value>Tentukan email yang sudah ada</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Tidak dapat membuat pengguna dengan token otentikasi ini</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Tidak dapat menyimpan pengaturan</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Pengaturan tidak boleh kosong</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Sign on tunggal dinonaktifkan</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Token otentikasi tidak ditemukan</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Invalid binding: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Invalid entityID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Invalid fields mapping</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Token otentikasi salah</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Pengguna ini tidak diaktifkan</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Pengguna telah diimpor dari SSO. Hubungi administrator SSO Anda jika Anda ingin ubah profile yang terkunci.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Pengguna telah diimpor dari SSO</value>
+  </data>
+  <data name="StatisticsDescription" xml:space="preserve">
+    <value>Untuk meningkatkan ruang penyimpanan harap pilih paket yang sesuai.{0}Untuk mendapatkan penyimpanan tambahan, Anda bisa menghapus data pribadi dari pengguna yang sudah tidak aktif. Untuk melakukan itu, ke profil pengguna dan pilih "Hapus data pribadi" dari menu drop down di sebelah kanan nama pengguna.</value>
+  </data>
+  <data name="StatisticsDescriptionStandalone" xml:space="preserve">
+    <value>Untuk mendapatkan penyimpanan tamabahan, Anda perlu menghapus data pribadi dari pengguna yang sudah tidak aktif, kemudian ke profile pengguna dan pilih "Hapus data pribadi" dari menu drop down di sebelah kanan nama pengguna.</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Penyimpanan</value>
+  </data>
+  <data name="StorageText" xml:space="preserve">
+    <value>Di halaman ini Anda dapat menghubungkan penyimpanan pihak ketiga dan memulai migrasi ke penyimpanan yang dipilih. Setelah proses migrasi dimulai, portal akan menjadi tidak tersedia.</value>
+  </data>
+  <data name="StorageTitle" xml:space="preserve">
+    <value>Pengaturan penyimpanan</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Pengaturan Domain Email Aman</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Pengaturan Kekuatan Kata Sandi</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Sprach- und Zeitzoneneinstellungen</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Versi Portal</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Berlangganan</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Acara dan pemberitahuan untuk pemilik atau administrator portal</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Berita harian dan rangkuman acara portal </value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Nama Proyek</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>dari semua</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Beritahukan via</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Status berlangganan</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Nama Portal berhasil diubah</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Pengaturan sambutan berhasil disimpan</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Pengaturan telah berhasil diperbarui</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Perintah untuk menghapus profil Anda telah dikirimkan ke alamat email {0}</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Undangan telah berhasil dikirim kembali</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Kirim email</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Hubungi kami untuk mendapatkan penawaran khusus</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Kurangi parameter yang diperlukan atau pilih paket harga lain.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Beli sekarang</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Perpanjang</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Anda dapat memperpanjang langganan paket harga yang dimiliki atau mengubahnya menggunakan tabel di bawah ini.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Pilih paket harga yang paling sesuai untuk Anda. Paket harga yang bertanda sorotan adalah paket yang kami rekomendasikan.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Anda tidak dapat memilih paket ini</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Kapasitas penyimpanan yang tersedia: {0}. Kapasitas penyimpanan saat ini: {1}</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Jumlah pengguna portal yang diijinkan: {0}. Jumlah pengguna saat ini: {1}</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Anda tidak dapat memilih paket harga ini karena kapasitas penyimpanan atau jumlah pengguna telah melebihi batas untuk paket harga yang dimiliki:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Pembayaran otomatis diaktifkan</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Hampir melebihi kapasitas penyimpanan: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Anda dapat menghapus file yang tidak diperlukan atau {0}klik di sini{1} untuk memilih paket harga yang lebih tepat bagi portal Anda.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Akan berakhir pada {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Anda sedang menggunakan Paket Gratis.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Klik disini{1} untuk unggah file lisensi ke portal Anda</value>
+  </data>
+  <data name="TariffLinkStandaloneLife" xml:space="preserve">
+    <value>Untuk memperbarui,{0}klik disini{1}.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Jumlah portal yang Anda buat: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Paket harga tersebut tidak tersedia hingga akhir tahun yang telah dibayar.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Harga tidak akan tersedia sampai akhir dari 3 tahun sesuai rencana.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Untuk memperpanjang persetujuan secara otomatis, pastikan Anda telah mencentang kotak Pembayaran Otomatis di akun Avangate.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Untuk membatalkan Pembayaran Otomatis, silakan buka akun Avangate Anda.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Penawaran berlaku hingga {0}</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Paket harga</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Untuk kenyamanan Anda pembayaran dalam mata uang Rusia dihitung menggunakan nilai tukar tetap{0}Ruble Rusia untuk 1 dolar Amerika Serikat.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Pembayaran</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Jumlah pengguna aktif yang telah ditambahkan: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Kapasitas penyimpanan yang digunakan: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Anda sedang menggunakan Paket Uji Coba Gratis.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Terima kasih telah mencoba ONLYOFFICE™!{2}{0}Periode uji coba gratis telah berakhir.{1}</value>
+  </data>
+  <data name="TemporaryPasswordToAccess" xml:space="preserve">
+    <value>Kata sandi sementara untuk akses portal</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Dibuat</value>
+  </data>
+  <data name="TenantStorageSpace" xml:space="preserve">
+    <value>Ruang penyimpanan masih tersedia untuk portal</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Kapasitas penyimpanan yang digunakan</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Jumlah total pengguna</value>
+  </data>
+  <data name="TermsOfUsePopupHelperLink" xml:space="preserve">
+    <value>Baca selengkapnya tentang persyaratan penggunaan</value>
+  </data>
+  <data name="TfaAppAuthMessageError" xml:space="preserve">
+    <value>Kode salah</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(remaining: {0})</value>
+  </data>
+  <data name="TfaAppNotAvailable" xml:space="preserve">
+    <value>Pengaturan aplikasi TFA tidak tersedia</value>
+  </data>
+  <data name="TfaAppResetApp" xml:space="preserve">
+    <value>Atur ulang aplikasi</value>
+  </data>
+  <data name="TfaAppResetAppDescription" xml:space="preserve">
+    <value>Konfigurasi aplikasi Authenticator akan diatur ulang.</value>
+  </data>
+  <data name="TfaAppResetAppHeader" xml:space="preserve">
+    <value>Konfigurasi atur ulang aplikasi</value>
+  </data>
+  <data name="TfaAppShowBackupCodes" xml:space="preserve">
+    <value>Tampilkan kode backup</value>
+  </data>
+  <data name="TfaAppShowBackupCodesDescription" xml:space="preserve">
+    <value>Kode backup memungkinkan Anda mengonfirmasi login ketika Anda tidak memiliki akses ke telepon Anda.{0}Sekarang Anda hanya memiliki{1}kode yang masing-masing hanya dapat digunakan satu kali. Cetak dan gunakan saat dibutuhkan.</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Otorisasi Pihak Ketiga</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zona Waktu</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>Surel notifikasi dengan tips dan trik</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>Google Talk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Telepon Seluler</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Nomor telepon</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>10 Teratas</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Total yang ditemukan</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>hingga</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Ubah Region Server</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Anda akan memulai migrasi portal ke region lain. Portal tersebut tidak akan dapat digunakan selamat proses migrasi. Setelah migrasi selesai, pemberitahuan akan dikirimkan ke alamat email Anda.{1}{0}Apakah Anda yakin ingin melanjutkan?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Jika proses migrasi telah selesai, Anda akan diarahkan secara otomatis ke URL portal yang baru.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Migrasi portal{0} ke region lain sedang berlangsung.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Region Portal</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Mengubah region server</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Portal tidak dapat digunakan selama proses migrasi. Setelah migrasi selesai, URL portal akan berubah dan semua tautan dokumen yang dibagikan tidak dapat dibuka lagi.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Masa percobaan: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Masa percobaan gratis telah berakhir</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Klik di sini{1} untuk memilih paket harga yang paling sesuai untuk portal Anda.</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Domain khusus</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Pendaftaran dapat dilakukan oleh pengguna dengan akun email di {0}.
+Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email berisi tautan untuk mengaktikan akun ONLYOFFICE™ akan dikirimkan ke alamat email tersebut.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Terjadi error yang tak dikenal</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Berhenti berlangganan</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Perbarui paket harga</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Unggah</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Forum Pengguna</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Pekerjaan/Jabatan</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Ketik</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>Region US West (Oregon)</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Panduan Video</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Tampilkan video yang belum dilihat</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Lihat paket harga</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>Klik</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>pemilik</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Grafik Penggunaan</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Kunjungi</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Koneksi sudah terhubung di tab lain</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Untuk saat ini, layanan tidak tersedia. Silakan coba kembali beberapa saat lagi.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Peringatan!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Terima kasih telah memilih ONLYOFFICE™! Untuk alasan keamanan, Anda harus melakukan prosedur pengaturan kata sandi.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Selamat Datang di Portal ONLYOFFICE™ Anda</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Berita Terbaru</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Sprach- und Zeitzoneneinstellungen</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Pengaturan Portal - Lakukan langkah-langkah mudah berikut ini untuk memulai kantor web Anda</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Pengaturan Pendaftaran</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Anda memilih untuk bergabung ke portal ini.</value>
+  </data>
+</root>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Müəllif</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Şərhlər</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Yeni müzakirə yarat</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Müzakirəyə başla</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Siz gerçəkdən bu müzakirəni silmək istəyirsiniz mi?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Müzakirəni sil</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Bu bölmədə filtrə uyğun heç bir müzakirə tapılmadı.</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>İş ərzində yarana biləcək bütün problemlərin düzgün həllinin tapılması üçün bütün layihə komandası ilə birlikdə müzakirələrdən istifadə olunur.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Hələ heç bir müzakirə başlanmayıb</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Abunələr</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Müzakirəni redaktə et</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Bu filtrə uyğun heç bir müzakirə yoxdur</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Müzakirə</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Mətn</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Müzakirələr</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Ardını oxu</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Layihəni seç</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>İlk müzakirəni başla</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Seçdiyiniz adamlara mesaj və ona olan şərhlər haqqında xəbər veriləcək.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Bildir</value>
+  </data>
+</root>

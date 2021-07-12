@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddingCompany" xml:space="preserve">
+    <value>Γίνεται προσθήκη εταιρίας...</value>
+  </data>
+  <data name="AddingPersonProgress" xml:space="preserve">
+    <value>Γίνεται προσθήκη επαφής...</value>
+  </data>
+  <data name="AddNewAddress" xml:space="preserve">
+    <value>Προσθήκη νέας διεύθυνσης</value>
+  </data>
+  <data name="AddNewCompany" xml:space="preserve">
+    <value>Προσθήκη νέας εταιρίας</value>
+  </data>
+  <data name="AddNewContact" xml:space="preserve">
+    <value>Προσθήκη νέου ατόμου</value>
+  </data>
+  <data name="AddThisCompanyButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisPersonButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AllContacts" xml:space="preserve">
+    <value>Όλες οι επαφές</value>
+  </data>
+  <data name="AllPersons" xml:space="preserve">
+    <value>Όλα τα άτομα</value>
+  </data>
+  <data name="BreadCrumbsAddCompany" xml:space="preserve">
+    <value>Δημιουργία νέας εταιρίας</value>
+  </data>
+  <data name="BreadCrumbsAddPerson" xml:space="preserve">
+    <value>Δημιουργία νέου ατόμου</value>
+  </data>
+  <data name="ByContactManager" xml:space="preserve">
+    <value>Διευθυντής</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Εταιρίες</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Εταιρία</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Όνομα εταιρίας</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Επαφή</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Επαφές</value>
+  </data>
+  <data name="ContactStatus_Cold" xml:space="preserve">
+    <value>Κρύο</value>
+  </data>
+  <data name="ContactStatus_Hot" xml:space="preserve">
+    <value>Ζεστό</value>
+  </data>
+  <data name="ContactType_Client" xml:space="preserve">
+    <value>Πελάτης</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Περιεχόμενο</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="CreateFirstCompany" xml:space="preserve">
+    <value>Δημιουργία της πρώτης εταιρίας</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Δημιουργία έργου</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Πελάτης</value>
+  </data>
+  <data name="DeleteContact" xml:space="preserve">
+    <value>Διαγραφή επαφής</value>
+  </data>
+  <data name="DeleteThisCompany" xml:space="preserve">
+    <value>Διαγραφή εταιρίας</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Επεξεργασία επαφής</value>
+  </data>
+  <data name="EditProfileCompany" xml:space="preserve">
+    <value>Επεξεργασία εταιρίας</value>
+  </data>
+  <data name="EditProfilePerson" xml:space="preserve">
+    <value>Επεξεργασία ατόμου</value>
+  </data>
+  <data name="ErrorEmptyCompanyName" xml:space="preserve">
+    <value>Εισάγετε το όνομα της εταιρίας</value>
+  </data>
+  <data name="FilterByContactManager" xml:space="preserve">
+    <value>Διευθυντής</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="ImportContacts" xml:space="preserve">
+    <value>Εισαγωγή επαφών</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Θέση</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Επώνυμο</value>
+  </data>
+  <data name="LoadPhotoFromPC" xml:space="preserve">
+    <value>Μεταφόρτωση εικόνας από τον υπολογιστή</value>
+  </data>
+  <data name="MassSendAlreadySent" xml:space="preserve">
+    <value>Εστάλη ήδη</value>
+  </data>
+  <data name="MassSendErrors" xml:space="preserve">
+    <value>Σφάλματα</value>
+  </data>
+  <data name="MergePanelHeaderText" xml:space="preserve">
+    <value>Συγχώνευση επαφών</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Άτομο</value>
+  </data>
+  <data name="PersonPosition" xml:space="preserve">
+    <value>Θέση</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>Άτομα</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="SavingChangesProgress" xml:space="preserve">
+    <value>Γίνεται αποθήκευση αλλαγών...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="ShowContactProfile" xml:space="preserve">
+    <value>Μετάβαση στο προφίλ</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Όλες οι επαφές</value>
+  </data>
+</root>

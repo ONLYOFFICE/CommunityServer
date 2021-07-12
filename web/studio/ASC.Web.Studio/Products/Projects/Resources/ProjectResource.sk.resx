@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Prístupové práva portálu</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Pridať míľnik</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Pridať manažéra projektu</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Pridať úlohu</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Projektový manažér môže</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>pridať alebo odstrániť užívateľa do / z projektového týmu</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>nastaviť prístupové práva pre účastníkov projektu (len ​​pre {0}súkromný projekt{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>spravovať (vytvárať, upravovať, mazať) míľniky, úlohy, diskusie, dokumenty a {2}{0}obmedziť prístup k nim{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Spravovať (vytvárať, upravovať, odstraňovať) míľniky, úlohy, diskusie, dokumenty</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Kontaktovať cez Rozhovor</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Poslať e-mail</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Zatvoriť projekt</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Vytvoriť prvý projekt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Vytvoriť nový projekt</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Odstrániť projekt</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Ste si istý, že chcete vymazať tento projekt?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Žiadne projekty v tejto sekcii, nevyhovujú Vášmu filtru</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Upraviť projekt</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Vytvorte projekty a pracujte efektívne</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Zoznam projektov je prázdny</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Sledujte tento projekt</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Pridaj úlohu k míľniku</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Všetci zodpovední používatelia</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Priradiť zodpovedných používateľov</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Režim celej obrazovky</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Režim ľavého panela</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Vytvoriť odkaz</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Prepojenie je vytvorené</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Dvakrát kliknite na názov na ľavom bočnom paneli</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Kliknite pravým tlačidlom na zodpovedného používateľa na ľavom bočnom paneli</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Upraviť názov</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Ak chcete zobraziť graf Ganttov, musíte vybrať aspoň jeden projekt, ktorý chcete vizualizovať pomocou grafov.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Nebol vybraný žiadny projekt</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Ganttov diagram</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Vysoká priorita</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Aktívny</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Objekty grafu môžu mať odlišný vzhľad v závislosti od situácie:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Po termíne</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Panel s hlavným zoznamom akcií môžete spustiť pomocou tlačidla H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Neplatný odkaz</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Nasledujúce symboly sa zobrazia, keď sa kurzor myši pohybuje nad objektmi grafu.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Legenda grafu</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Prepojiť úlohy</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Umiestnite kurzor myši na úlohu, kliknite na bielu kružnicu, presuňte kurzor na inú úlohu a potom ju uvoľnite nad zobrazeným bielym kruhom</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Typ odkazu</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Spojiť s</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Iba otvorené úlohy a míľniky</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Tlačiť</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Opakovať</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Znovu otvoriť</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Kliknite pravým tlačidlom myši na úlohu (míľnik)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Otvoriť rozbaľovaciu ponuku</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Kliknite pravým tlačidlom myši na prázdne miesto</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Pridať novú úlohu</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Kliknite pravým tlačidlom myši na prázdne miesto a presuňte ho doprava</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Vytvoriť novú úlohu s konečným termínom</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Viac informácií</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Prispôsobiť obrazovke</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Úloha bez termínu</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Dni</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Mesiac</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Časová os</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Týždeň</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Použite koliesko myši na zmenu stupnice časovej osi</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Rýchlo sa vráťte k dnešným aktivitám z akéhokoľvek miesta</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Vrátiť späť</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Zoznam späť sa zruší a nebudete môcť vrátiť späť všetky predchádzajúce akcie.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Prejdite doľava</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Prejdite doprava</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Súkromný projekt</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Uložiť projekt ako súkromný</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Správa tímu</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Manuálne zadanie času</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Nemôžete zatvoriť projekt, ktorý má aktívne míľniky</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Nemôžete zatvoriť projekt, ktorý má otvorené úlohy.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Informovať projektového manažéra e-mailom</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Odstrániť projekt</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Projektový manažér</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Stav projektu</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Tím</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Šablóna projektu</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Šablóny projektov</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Obnoviť graf</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Uložiť projekt</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Vyberte šablónu projektu</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagy</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Uzatvorené úlohy. Kliknutím otvoríte celý zoznam pre aktuálny míľnik.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Otvoriť úlohy. Kliknutím otvoríte celý zoznam pre aktuálny míľnik.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Zodpovedný používateľ pre míľnik. Kliknite pre zobrazenie všetkých míľnikov spravovaných týmto užívateľom.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Projektový manažér. Kliknite pre zobrazenie všetkých projektov riadených aktuálnym užívateľa.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Otvoriť úlohy. Kliknutím otvoríte celý zoznam pre aktuálny projekt.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Tím. Kliknutím otvoríte zoznam všetkých členov projektového tímu.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Otvoriť podriadené úlohy. Kliknutím otvoríte celý zoznam pre aktuálnu úlohu.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Zodpovedný užívateľ pre úlohu. Kliknite pre zobrazenie všetkých úloh pre aktuálneho používateľa.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Zodpovedný užívatelia pre úlohu. Kliknite pre zobrazenie všetkých užívateľov zodpovedných za úlohu.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Zobraziť aktívne míľniky</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Zobraziť otvorené úlohy</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Lista kontakata se automatski ažurira jer se ljudi dodaju / uklanjaju sa liste zaposlenih, tako da ne morate ručno da ih provjeravate.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Obavijest u pretraživaču</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Soba za čavrljanje</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Kartice za chat</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Lista kontakata sa podešavanjima</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Po defaultu će se sve notifikacije poslati i na vašu adresu e-pošte i u Talk. Možete ih konfigurirati na</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Izbrišite poslane datoteke</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Lista kontakata koji se spajaju u grupe</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>ovdje</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Sakrij izvanmrežne kontakte</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Pošta</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Više informacija o obavijestima je dostupno {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Podešavanje obavijesti</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk je korporativni IM sistem za razmjenu trenutnih tekstualnih poruka među zaposlenima u stvarnom vremenu.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk nudi sve tradicionalne funkcije koje očekujete od glasnika - izbor statusa, arhiviranje povijesti, prijenos datoteka, podrška za višekorisnički chat i još mnogo toga.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Pregled razgovora</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Pokrenite naš web klijent da počnemo koristiti Talk odmah bez prethodnih postavki.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Stranica profila</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Slanje poruka Ctrl + Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Podešavanja polja za unos</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Pokrenite web klijent</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Nema dodatnih postavki! Kliknite za pokretanje web klijenta i započnite razgovor odmah</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Odjeljak pretplate na {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Glasovi događaja</value>
+  </data>
+</root>

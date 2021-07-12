@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portaali juurdepääsu õigused</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Tegevused</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Deaktiveeritud</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Puhasta</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Kinnita</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Deaktiveerima</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Aktiveerima</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Muuda e-posti aadressi</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Muuda parooli</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Loo</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Kustuta profiil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Redigeeri</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Saada kutsed uuesti</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Saada aktiveerimise link uuesti</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Saada e-post</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Saada sõnum</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Tellimused</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Deaktiveeritud</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Antud lõigus ei leitud ühtegi inimest vastavalt teie otsingukriteeriumitele. Palun vali mõni muu otsingu kriteerium või eemalda filter, et näha kõiki kasutajaid antud lõigus</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Tulemusi vastavalt teie otsingukriteeriumitele ei leitud</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Lisa uued kasutajad, kutsu või impordi nad. Halda kasutajaid ja vaadata nende üksikasjalikku teavet.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Inimesed</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Seaded</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Kasutaja on edukalt kustutatud</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Ootab kinnitust</value>
+  </data>
+</root>

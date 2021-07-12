@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>अनुमति दें</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>संलग्न फाइल</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>अलग करना</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>यदि आप यह क्रिया करने करने के लिए चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>खाली फ़ाइल</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>कोई अनुमतियां  नहीं  इस क्रिया करने के लिए</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>एक त्रुटि पद को हटाने के समय हुई </value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>कम से कम दो विकल्प पोल दर्ज करें</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>विषय नाम दर्ज करें</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>एक संदेश दर्ज करें</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>इस एक को जोड़ने के अन्य पदों के रूप में वहाँ पद हटाया नहीं जा सकता</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>अधिकतम फ़ाइल आकार से अधिक हो गई है</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>फ़ाइल जोड़ें</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>जरूरत टैग का दर्ज कीजिये और उन्हें  अल्पविराम के साथ उन्हें अलग कीजिये </value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>संलग्न फाइल का अधिकतम आकार {0} एमबी अधिक नहीं हो सकता</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>संदेश</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>संचालक कार्यों</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>एक नाम दर्ज करें</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>नई पोस्ट जोड़ें</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>समग्र प्रगति</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>पोस्ट</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>प्रकाशित करना</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>अपने प्रश्न दर्ज करें</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>उद्धरण</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>लिखा</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value> नवीनतम पोस्ट के विषय </value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>नवीनतम अद्यतन</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>उत्तर</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>पृष्ठ पर दिखाए </value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>छड़ी</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>विषय नाम दर्ज करें</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>इस विषय के लिए सदस्यता लें</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>विषय सफलतापूर्वक unsticked कर दिया गया है</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>विषय सफलतापूर्वक बंद कर दिया गया है</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>संलग्न फाइल को सफलतापूर्वक हटा दिया गया है</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>पोस्ट सफलतापूर्वक हटा दिया गया है</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>विषय को सफलतापूर्वक हटा दिया गया है</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>विषय सफलतापूर्वक संपादित किया गया है</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>विषय सफलतापूर्वक बनाया गया है</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>विषय सफलतापूर्वक लगना किया गया है</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>टैग</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>एक संदेश दर्ज करें</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>फ़ोरम</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>आज</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>विषय</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>संपूर्ण</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>विचार</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>कल</value>
+  </data>
+</root>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_new_comment" xml:space="preserve">
+    <value>h1.Novo Comentário ao Post do Blog: "$PostSubject":"$URL"
+
+$Date "$UserName":"$UserURL" adicionou um novo comentário ao post do blog "$PostSubject":"$URL":
+
+$CommentBody
+
+"Leia mais":"$CommentURL"
+
+^Você recebeu este e-mail por que você é um usuário registrado do portal "${__VirtualRootPath}":"${__VirtualRootPath}". Se você não quiser receber notificações sobre novos comentários adicionados a esse post de blog, por favor, gerencie suas "configurações de subscrições":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_new_post" xml:space="preserve">
+    <value>h1.Novo Post no Blog: "$PostSubject":"$URL"
+
+$Date "$UserName":"$UserURL" criou um novo post no blog "$PostSubject":"$URL":
+
+$PostPreview
+
+"Leia mais":"$URL"
+
+^Você recebeu este e-mail por que você é um usuário registrado do portal "${__VirtualRootPath}":"${__VirtualRootPath}". Se você não quiser receber notificações sobre novos posts no blog, por favor, gerencie suas "configurações de inscrições":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_new_comment" xml:space="preserve">
+    <value>Comunidade. Novo comentário para Post de Blog: $PostSubject</value>
+  </data>
+  <data name="subject_new_comment_tg" xml:space="preserve">
+    <value>Comunidade. Novo comentário ao post do blog: [$PostSubject]($CommentURL)</value>
+  </data>
+  <data name="subject_new_post" xml:space="preserve">
+    <value>Comunidade. Novo Post em Blogs: $PostSubject</value>
+  </data>
+  <data name="subject_new_post_tg" xml:space="preserve">
+    <value>Comunidade. Novo post em blogs: [$PostSubject]($URL)</value>
+  </data>
+</root>

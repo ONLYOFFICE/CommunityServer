@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Позволява</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Прикачени файлове</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Отвързвам</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да извършите това действие?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Редактиран</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Празен файл</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Няма разрешения за извършване на това действие</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>При изтриването на публикацията възникна грешка</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Въведете поне два избора на анкета</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Въведете името на темата</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Въведете съобщение</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>Публикацията не може да бъде изтрита, тъй като има други публикации, които свързват с нея</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Максималният размер на файла е надвишен</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Прикачите файла</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Въведете желаните етикети, разделени със запета</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>Максималният размер на прикачения файл не може да надвишава {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Съобщение</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Функции на модератор</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Въведете име</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Добавяне на нова публикация</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Отворено</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Цялостен прогрес</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Публикации</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Публикувам</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Въведете въпроса си</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Цитат</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>написах</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Последни публикации в темата</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Последна актуализация</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Отговор</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показване на страницата</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Пръчка</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Въведете името на темата</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Абонирайте се за тази тема</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>Темата бе успешно премахната</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>Темата бе успешно затворена</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>Прикаченият файл бе премахнат успешно</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>Публикацията бе успешно изтрита</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>Темата е изтрита успешно</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>Темата е редактирана успешно</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>Темата е създадена успешно</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>Темата бе успешно залепена</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Етикети</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Въведете съобщение</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Форум</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Прегледи</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+</root>

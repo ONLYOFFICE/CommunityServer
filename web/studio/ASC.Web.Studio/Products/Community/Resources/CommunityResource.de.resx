@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Zugriffsrechte auf dem Portal</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Mitteilung</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>Mitteilungen</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Geburtstage</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>Lesezeichen</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Lesezeichen</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorien</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="DashboardCreateWelcomePost" xml:space="preserve">
+    <value>Erstellen Sie einen Begrüßungsbeitrag</value>
+  </data>
+  <data name="DashboardDiscussWithTeam" xml:space="preserve">
+    <value>Besprechen Sie verschiedene Fragen mit Team</value>
+  </data>
+  <data name="DashboardDiscussWithTeamFirstLine" xml:space="preserve">
+    <value>Erstellen Sie geschäftliche Blogs und Foren.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamSecondLine" xml:space="preserve">
+    <value>Erstellen Sie Umfragen.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamThirdLine" xml:space="preserve">
+    <value>Senden Sie Nachrichten schneller mit Chat.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPosted" xml:space="preserve">
+    <value>Halten Sie Ihr Team auf dem Laufenden</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
+    <value>Erstellen Sie einen Gruppenchat oder Massenmail im Chat.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
+    <value>Konfigurieren Sie Benachrichtigungen über freigegebene Dokumente, Friste und Geburtstage Ihrer Kollegen.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
+    <value>Nutzen Sie Firebase, um nie mehr Nachrichten zu verpassen.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledge" xml:space="preserve">
+    <value>Teilen Sie Nachrichten und Kenntnisse mit</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeFirstLine" xml:space="preserve">
+    <value>Erstellen Sie Ihre geschäftliche Anzeigentafel.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
+    <value>Fügen Sie Lesezeichen zu nützlichen Webressourcen hinzu und geben Sie diese frei.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeThirdLine" xml:space="preserve">
+    <value>Führen Sie geschäftliches Wiki.</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Ereignisse</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favoriten</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Dateien</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>Forenbearbeitung</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>Forum-Beitrag</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Foren</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Hilfe</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>Neue Seiten</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Neuigkeiten</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Anordnung</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Anordnungen</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Seite</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>Umfrage</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>Umfragen</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Blogbeitrag</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>dieselben Operationen wie ein Benutzer durchführen|jeden Beitrag in Blogs, Wiki, Foren usw. bearbeiten</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Erstellen Sie die Ereignisse und verfassen Sie die Beiträge in Blogs. Führen Sie die Umfragen durch. Veröffentlichen Sie die Lesezeichen für andere Benutzer.</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>Erstellen Sie die Ereignisse und verfassen Sie die Beiträge in Blogs. Führen Sie die Umfragen durch. Veröffentlichen Sie die Lesezeichen für andere Benutzer.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Erstellen Sie Ereignisse und Blogbeiträge. Führen Sie Umfragen durch. Teilen Sie Lesezeichen mit anderen Benutzern.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Eigene Beiträge in Blogs erstellen und bearbeiten, Neuigkeiten mitteilen usw.</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>Zuletzt bearbeitet</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>angemeldet</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+</root>

@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>在讨论编辑评论</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>编辑注释任务</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.讨论内容有更新: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 编辑了讨论:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"了解更多":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.已成功从Basecamp导入项目数据！
+
+恭喜！原Basecamp的项目数据已成功导入到您的ONLYOFFICE™工作站中！
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.您加入了新的项目团队
+
+"$__AuthorName":"$__AuthorUrl" 将您加入了项目 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 的工作团队。
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.里程碑逾期通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+项目«["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]»的里程碑 "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 已逾期。
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>讨论已删除</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.里程碑已关闭："$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 已关闭：在项目： "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project."$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 的里程碑。
+
+ ^您收到这封邮件是因为你是"${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。 如想更改这类通知, 请设置您的 "subscription settings":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>设立的里程碑</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.里程碑到期通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+距离项目里程碑 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 的截止日期只剩下不到48小时。
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>删除的里程碑</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>编辑的里程碑</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>恢复的里程碑</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.讨论有新的评论: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 在讨论区发表了一条新的评论:
+
+$AdditionalData
+
+"了解更多":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.任务有新评论: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 对该任务发表了一条新评论:
+
+$AdditionalData
+
+"了解更多":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>新的文件的讨论</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>新文件的工作</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.新讨论: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 创建了一个新讨论:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"了解更多":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>删除项目</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>你被添加到 [$ProjectTitle]的团队。</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的讨论已删除: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value> 项目[$ProjectTitle]。里程碑已关闭：$EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value> 项目[$ProjectTitle]。里程碑已创建：$EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value> 项目[$ProjectTitle]。里程碑已删除：$EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的里程碑已恢复: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>[$ProjectTitle]项目有新的讨论: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>项目：删除项目 $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>项目[$ProjectTitle]。里程碑已指定给你：$EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>您被任命为项目 [$ProjectTitle] 的项目经理</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已分配给你: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已分配给你: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已关闭: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>[$ProjectTitle]项目新建了子任务: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已删除: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已恢复: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已关闭: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>[$ProjectTitle]项目的新任务已创建: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已删除: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已恢复: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.任务提醒: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" 提醒您关注该任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+
+
+#end
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.任务到期提醒: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+ONLYOFFICE™温馨提示：今天是任务 "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 的最后限期哦！
+
+$AdditionalData.get_item("TaskDescription")
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.您退出了项目团队
+
+您已退出项目 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 的工作团队。
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>你不再负责的工作</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>您被指派了一个时程表</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.您被任命为项目经理: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+"$__AuthorName":"$__AuthorUrl" 委任您为项目 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 的项目经理。
+
+$AdditionalData
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.您有新的子任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" 向您委任了一个子任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.您有新的任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" 委任您一个新任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.子任务已结束: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 结束了任务 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID"] 属下的子任务.
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.有新的子任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" 创建了一个子任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+所属项目: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>除小组的任务</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>编辑子任务</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>恢复子任务</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.完成任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 完成了项目 ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 下的任务.
+
+$AdditionalData
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.新任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" 创建了一个新任务: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$AdditionalData.get_item("TaskDescription")
+
+所属项目: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+您的工作站地址: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"修改订阅设置":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>删除任务</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>编辑任务</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>转任务</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>搬到了工作</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value> 	
+续会的工作</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>[$ProjectTitle]项目：讨论中的评论已编辑: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>项目[$ProjectTitle]的任务评论已编辑: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：讨论话题 $EntityTitle 有修改</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>项目：从Basecamp导入数据</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：你被添加到项目团队</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：里程碑 $EntityTitle 逾期通知</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的讨论已删除: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>[$ProjectTitle] 项目的里程碑已关闭：$EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value> [$ProjectTitle]项目的里程碑已创建：$EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：里程碑 $EntityTitle 到期通知</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value> [$ProjectTitle]项目的里程碑已删除：$EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value> 项目[$ProjectTitle]。里程碑被编辑：$EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的里程碑已恢复: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：讨论话题 $EntityTitle 有新评论</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：任务 $EntityTitle 有新评论</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>[$ProjectTitle]项目的讨论添加了新文件: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务添加了新文件: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：有新讨论话题 $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>项目：删除项目 $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>你加入到项目组</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>讨论已删除</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>里程碑关闭</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>一个新的里程碑已创建</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>里程碑删除</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>里程碑恢复</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>新讨论已被创建</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>项目：删除项目</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value> 	
+你命你的里程碑</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>你被任命为专案经理</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>你把负责一个子任务</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>你把掌管任务</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>子任务已关闭</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>一个新的子任务已创建</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>子任务删除</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>子任务恢复</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>该任务被关闭</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>一个新的子任务已创建</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>任务中删除</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>恢复任务</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：任务提醒 $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：任务提醒 $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：你被移出项目团队</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务取消对你的分配: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>[$ProjectTitle]项目的里程碑已指定给你：$EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>您被任命为项目 [$ProjectTitle] 的项目经理</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：您有新的子任务 $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：您的新任务 $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：已结束的子任务 $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：新增子任务 $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已删除: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务被编辑: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的子任务已恢复: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：任务 $EntityTitle 已结束</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>项目 [$ProjectTitle] ：有新任务 $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已删除: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务被编辑: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已撤销: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务被移动: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>[$ProjectTitle]项目的任务已恢复: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>没有人</value>
+  </data>
+</root>

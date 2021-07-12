@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>創建新任務</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>創建新任務</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>任務已關閉</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>與聯絡人連結</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>創建第一個任務</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>創建任務</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>自定區間</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>其他使用者</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>刪除任務</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>編輯任務</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>任務是創建要做什麼提醒的簡單方法。例如，任務可用於提醒約會或電話。您可以創建{0}不同類別{1}的任務，將其與聯繫人，機會或案例鏈接，或者為自己創建簡單的提醒。</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>此部分中不會顯示與過濾器匹配的任務。請選擇其他過濾器選項或清除過濾器以查看本節中的所有任務。您也可以在聯繫人，機會或案例選項卡中查找所需的任務。</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>此過濾器沒有要顯示的任務</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>任務列表為空</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>應在計算機硬碟上選擇格式正確的CSV文件。它必須包含由選定定界符分隔的字段或列，這些定界符或列將用於導入任務。包含多於{0}行的文件應分成較小的部分以便正確導入。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>選擇一個CSV文件</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>將文件列與相應的ONLYOFFICE™CRM字段匹配。請注意以下事實：要正確導入任務，您至少需要使文件中的以下列與ONLYOFFICE™CRM的字段匹配：“任務標題”，“負責任”，“到期日”。包含日期的字段必須具有以下格式：{0}。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>請驗證字段</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>轉到任務列表</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>導入任務可能需要幾分鐘，具體取決於您的數據量。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>導入已開始</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>導入任務</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>我的任務</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>永不</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>已關閉</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>逾期</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15分鐘</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5分鐘</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>半小時</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>1小時</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>1天</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2小時</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>負責人</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>保存任務</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>開始匯入</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>任務</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>任務類別</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>任務類別</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>商機</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>演示版</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>傳真</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>執行控制</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>午餐</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>約會</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>備註</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>送貨</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>社交網絡</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>表達感激之情</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>任務描述</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>分配給</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>任務</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>任務狀態</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>已關閉</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>任務標題</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>即將到期</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3天</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>任務類別使您可以根據要實現的目標將任務分為幾組。預設任務類別是電話，機會，演示，電子郵件，傳真，執行控制，午餐，約會，便箋，傳遞，社交網絡，表達謝意。為了能夠編輯它們，需要管理員權限。</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>全部任務</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+</root>

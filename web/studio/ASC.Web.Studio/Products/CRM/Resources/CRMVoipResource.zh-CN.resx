@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>添加操作员</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>添加操作员</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>添加彩铃</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>别名</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0}别名{1}帮助通过一些单词或短语识别号码（例如客服，销售等）。它将在虚拟号码列表中显示。</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>输入号码的姓名</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>购买电话号码</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>号码购买</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>呼叫</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>代理人</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>成本</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>日期/成本</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>持续时间</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>等候时间</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>该号码将保存到Twilio，但不可用于当前门户</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>删除号码</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>删除号码</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>删除彩铃</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>购买新的IP电话号码，将其添加到ONLYOFFICE门户 一旦添加，您可以使用此电话号码与门户CRM。</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>注意：您在Twilio网站上已拥有的电话号码无法转移到门户网站。</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>未添加IP电话号码</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>一般设置</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>问候铃声</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0}来电呼叫队列{1}显示分配给当前可用运营商的来电号码。若来电次数超过队列，则将其重定向到语音邮件服务。</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>来电队列长度</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>一旦关联，所有呼叫将由当前门户处理。</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>关联购买的号码</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>号码关联</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>号码已成功关联</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>上传正在进行中，请稍候</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>很抱歉，无可用的号码，请稍后再试。</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>您目前没有任何号码。</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>您没有任何号码。可在{0}此处{1}购买。</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>未找到该种号码</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>号码操作员</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>您可以在{0}此处{1}设置。</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>您目前拥有的号码</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>操作员</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>操作员暂停</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0}操作员暂停{1}允许操作员在接受电话之前拥有一段时间。这可以让操作员做一些关于之前呼叫的笔记。</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>外呼电话</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>队列铃声</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>快速设置</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0}快速设置{1}用于快速启用或禁用拨出电话，呼叫记录号码以及在号码对客户可用时设置工作时间。</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>呼叫录音</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>对话录音以WAV格式保存。您的浏览器不支持使用此格式的音频文件播放，所以您将无法收听这些录音。</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>支持此功能的浏览器列表可在{0}此处{1}查找</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>铃声列表</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>铃声设置</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0}铃声设置{1}用于查看和编辑当前分配给各种电话操作的铃声。</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}已上传铃声推荐{1}：文件大小不得超过5MB。支持格式：MP3。</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>号码设置</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>更新设置</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>虚拟号码</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>虚拟号码与操作员</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0}虚拟号码{1}用于通过Twilio提供的VoIP电话与您的CRM客户端进行通信。</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>语音邮件</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>语音彩铃</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>等待彩铃</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>等候超时</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10分钟</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15分钟</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5分钟</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0}等待超时{1}显示客户等待操作员回复的时间。当超过这个时间时，呼叫将被重定向到语音邮件服务。</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>工作时间</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>间隔有误</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>##：##格式输入时间</value>
+  </data>
+</root>

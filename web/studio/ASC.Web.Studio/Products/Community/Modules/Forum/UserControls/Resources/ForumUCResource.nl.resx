@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Toestaan</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Bijlagen</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Losmaken</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u deze actie wilt uitvoeren?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Bewerkt</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Leeg bestand</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Geen toestemming om deze actie uit te voeren</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>Er is een fout ontstaan bij het verwijderen van de post</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Voer ten minste twee keuzes in voor de poll</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Voer de topicnaam in</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Voer een bericht in</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>De post kan niet worden verwijderd omdat er andere posts naar toe linken</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>De maximale bestandsgrootte is overschreden</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Bestand bijvoegen</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Voer de benodigde tags in, gescheiden door komma's</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>De maximale grootte van het bijgevoegde bestand mag niet groter zijn dan {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Bericht</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Moderatorfuncties</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Vul een naam in</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Nieuwe post toevoegen</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Algehele voortgang</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Voer uw vraag in</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Citaat</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>schreef</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Laatste Posts in Topic</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Laatste Update</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Beantwoorden</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Plakken</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Voer de topicnaam in</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Abonneren op dit topic</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol losgemaakt</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol gesloten</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>Het bijgevoegde bestand is succesvol verwijderd</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>Deze post is succesvol verwijderd</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol verwijderd</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol bewerkt</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol aangemaakt</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>Dit topic is succesvol geplakt</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Voer een bericht in</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Bekeken</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Gisteren</value>
+  </data>
+</root>

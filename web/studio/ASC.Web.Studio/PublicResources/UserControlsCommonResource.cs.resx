@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Aktivní uživatelé jsou členy portálu s výjimkou hostů a uživatelů, kteří mají deaktivovaný stav.</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Přidat volbu ankety</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Přidat uživatele</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Přidat nový sociální profil</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Přidat zprávu</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrátor</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Celkový počet hlasů</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Volby ankety</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Přiložit Soubory</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Přiložit soubor z Dokumentů</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Přiložit soubor z projektových dokumentů</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Zkraťte odkazy s pozvánkou a sdílené dokumenty pomocí služby Bitly</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Přihlásit se do portálu použitím svých účtů ze sociálních sítí a vyhledat kontakty</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Připojte Vaše oblíbené cloudové služby a uložte všechny své soubory na jednom místě.</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Vytvořit prezentaci</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Vytvořit tabulku</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Vytvořit dokument</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Více informací...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Název domény můžete později změnit pomocí portálu "Nastavení".</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Velikost společnosti</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Společnost</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Nahrát dokumenty také v původním formátu</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Všechny dokumenty, které nahrajete, budou konvertovány do Office Open XML formát pro rychlejší editaci.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Smazat soubor</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Stáhnout soubor</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Upravit soubor</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Vytvořte{1}soubory přímo na Vašem portálu nebo {2}je nahrát{3}aby je bylo možné {4}otevřít{5}a{6}upravit{7}pomocí ONLYOFFICE™ portál editorem.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Nahrát{3}soubory přímo na Váš portál.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Seznam dokumentů je prázdný</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Zadejte Vaši otázku v anketě</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Vyberte volbu ankety</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Titulek nemůže obsahovat následující znaky:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Každý</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Přidat příspěvek</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Přidat záložku</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Jděte do Dokumenty</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Vytvořit novou společnost</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Vytvořit novou osobu</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Vytvořit nový projekt</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Zde se zobrazí všechno, co bylo přidáno do modulu Komunita. Uživatelé zde mohou sdílet zajímavé informace, myšlenky a zkušenosti s ostatními, vyjadřovat své názoru, získat zpětnou vazbu z komentářů ostatních.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Zatím nebyly přidány žádné údálosti</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Události z CRM modulu jsou pro Vás dostupné a budou zde zobrazené. Přidané nové společnosti a osoby nebo upraveny stávající, nové případy, možnosti a úkoly - toto všechno, co se týká CRM bude zde.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Zatím nebyla přidána žádná CRM událost</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Změny v modulu Projekty, které jsou pro Vás dostupné, budou zobrazeny zde. Projekty, ve kterých jste členy nebo je sledujete, Vaše nové úkoly nebo změny v již existujících Vám pomohou, aby jste nic nepřehlédli.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Nebyly přidány zatím žádné projekty</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Dostupné změny v Dokumentech portálů budou zobrazeny zde. Zde jsou zobrazeny všechny nové dokumenty, které sdílíte, změny v existujících dokumentech, ke kterým máte přístup, běžné dokumenty pro všechny uživatele portálu.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Přidat událost</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Povolit více odpovědí pro tuto otázku ankety</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Žádné novinky, které odpovídají tomuto filtru</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Žádné zprávy v této sekci nesplňují pravidla vašeho filtru.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Není žádné volání, které odpovídá tomuto filtru</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>V této sekci nelze zobrazit žádná volání, která odpovídají Vašemu filtru.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Odkaz na uživatele portálu</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Pokud chcete zaplatit za Váš ONLYOFFICE™ portál, klikněte na tlačítko "Koupit nyní"</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Prosím zaplaťte za Váš ONLYOFFICE a získejte:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filtr:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>Zadejte svůj dotaz</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Seřadit podle</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Zaškrtnutím tohoto políčka souhlasíte s podmínkami {0}Licenčních smluv{1}</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Licence vypršela nebo uživatelská kvóta neodpovídá licenci</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Aktivační soubor k licenci</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Klíč licence není správný</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Musíte zadat licenční klíč</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Moduly a Nástroje:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online editory dokumentů{1}{0}Správa dokumentů{1}{0}Mail{1}{0}Projekty{1}{0}CRM{1}{0}Kalendář{1}{0}Komunita{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktivních uživatelů</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktivních uživatelů</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Odhlásit se</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Zadejte číslo</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>SMS s přístupovým kódem na portál byla zaslána na Vaše {0}{1}{2}telefonní číslo.{5}Prosím zadejte kód a klikněte na tlačítko "{3}". Pokud jste neobdrželi žádnou zprávu déle než 3 minuty, klikněte na tlačítko "{4}".</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Vaše současné mobilní telefonní číslo: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Zadejte telefonní číslo mobilního telefonu</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Dvoufázová autentizace je povolena, aby poskytla ještě větší bezpečnost. Zadejte Vaše telefonní číslo, abyste mohli pokračovat v práci na portálu. Číslo mobilního telefonu musí být zadáno v mezinárodním formátu včetně kódu země.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Více</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Nový dokument</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Nový soubor</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Není nic, co by zde bylo zobrazeno</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Všechny portálové aktivity jsou zobrazeny v této sekci. Právě teď nejsou na portálu k zobrazení žádné události. Začněte používat Váš portál, vyplňte jej obsahem a všechny novinky budou zobrazeny na této stránce</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Následující</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Žádné komentáře</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Poznámka: tato akce se nedá vrátit zpět.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Povolit pouze jednu odpověď pro tuto otázku ankety</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Otázka ankety</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Typ ankety</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Předchozí</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Jste si jistý, že chcete vymazat tento soubor?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Přečtěte si o neziskovém použití</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Odstranit ze seznamu</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Odstranit zprávu</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Reset filtru</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>Hledat</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Hledání v modulu</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Vybrat vše</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Odeslat upozornění</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Přidat uživatele a skupiny a nastavit jim práva.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Sdílet nastavení</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Ukažte další novinky</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Webová stránka</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Zdrojový kód je dostupný na {0}GitHub{1}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Základní cena</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Podívejte se do Avangate pro úplný seznam měn</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Váš cenový plán má velké omezení pro velikost souboru.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Velká velikost souboru</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Volno</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Otevřený celý ceník</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Chcete si vybrat nový cenový plán?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Časově limitovaná nabídka</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Ano, aktualizovat plán</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Měsíc{2}{1}Předplatné</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 Rok {2}{1} Předplatné</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 Roky{1} Předplatné</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Používáte plán pro neziskové organizace.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Platnost vašeho portálu vypršela.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Používáte {0} - {1} aktivní plán uživatelů. {2} Platba je zpožděna. {3} {4} Chcete-li pokračovat v používání služby ONLYOFFICE, prodloužit stávající plán nebo jeho změnu, použijte níže uvedenou tabulku</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Používáte {0} - {1} aktivní plán uživatelů.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Používáte službu ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>měsíc</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 roky</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Nabídka je dostupná pouze pro roční zákazníky.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Nejoblíbenější předplatné</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Přidání nového portálu překročí maximální počet portálu, který máte povolen Vaším současným cenovým plánem.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Uložit {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} na uživatele/měsíc</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Odeslat požadavek</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Požádat o obsah</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Prosím popište detaily požadavku zde</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Napište Vaší zprávu sem</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Je překročen limit úložiště</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Prosím odstraňte všechen zastaralý obsah z portálu nebo si změňte Váš stávající cenový tarif na tarif s větším úložným prostorem.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Není dostatek volného místa v uložišti</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Vyberte počet Vašich týmových kolegů</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Kolik uživatelů potřebujete?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Plán, který vyhovuje Vašemu týmu je pro {0}{2} - {3}aktivních uživatelů{7} + {4}{1}Místa na Disku</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Nelze přidat nové uživatele</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Přidáním nových uživatelů překročíte maximální počet uživatelů portálu, který Vám umožňuje současný cenový plán.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Přidání nových uživatelů</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>Cenové plány s více než {0} aktivních uživatelů {1} jsou dostupné pouze na požádání.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Nelze změnit cenový plán.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>Čtěte více</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Můžete vytvářet dokumenty ({0}), tabulky ({1}), prezentace ({2}) a stahovat je do nejoblíbenějších formátů.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Můžete upravit následující soubory: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Soubory můžete otevřít s následujícími rozšířeními: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Do dokumentů můžete nahrát libovolné soubory, které chcete.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Křestní jméno</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Vylepšit cenový plán</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Nahrát soubor</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Výběr</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Není nic, co by zde bylo zobrazeno</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Není nic, co by zde bylo zobrazeno</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Volba</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Co je nového</value>
+  </data>
+</root>

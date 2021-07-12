@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Toegangsrechten &amp; Tags</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Stel de toegangsrechten in voor de gebruikers die via het 'Website Contactformulier' zijn toegevoegd, anders zullen alle CRM-gebruikers nieuwe contacten zien. Maak tags aan waar de nieuwe klanten in de lijst mee zullen worden gemarkeerd.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Toegangsrechten portaal</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Koers toevoegen</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Nieuw taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Nieuw container voor taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Een Optie Toevoegen</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Tag toevoegen</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Het dialoogvenster Contacten Linken niet meer laten zien</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Container voor taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Container taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Dit taaksjabloon toevoegen</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Deze container voor taaksjabloon toevoegen</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Authenticatie</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Basisinformatie</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Zowel Persoon &amp; Bedrijf</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Kleur veranderen</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Het dialoogvenster Contacten Linken niet meer laten zien</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Icoon veranderen</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Logo Veranderen</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Checkbox</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Kolommen</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Algemene Instellingen</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Contacttypes</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Categorie aanmaken</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Temperatuurniveau aanmaken</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Contacttype aanmaken</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Gebruikersveld aanmaken</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Fase aanmaken</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Veld aanmaken</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Nieuwe categorie aanmaken</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Nieuwe Categorie</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Nieuw contacttype aanmaken</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Nieuw Contacttype</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Nieuwe fase aanmaken</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Nieuwe Fase</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Nieuw veld aanmaken</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Nieuw Veld</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Nieuw temperatuurniveau aanmaken</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Nieuw Temperatuurniveau</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Nieuwe tag aanmaken</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Nieuwe Tag</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Wisselkoers</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valutainstellingen</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Stel de standaardvaluta in die zal worden gebruikt om de 'Totaalsom' te berekenen voor alle kansen die aanwezig zijn in de CRM-module van uw portaal. De wisselkoersen zijn alleen beschikbaar voor valuta uit de lijst en zijn afkomstig van de website 'The Money Converter.com'.{0}Deze valuta zal de valuta zijn voor uw catalogus met Producten &amp; Diensten die wordt gebruikt om te factureren.</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Gebruikersvelden</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Kans niet succesvol afgesloten.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Kans succesvol afgesloten.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Standaardvaluta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Categorie verwijderen</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Temperatuurniveau verwijderen</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Contacttype verwijderen</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Veld verwijderen</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Het geselecteerde veld met alle data zal worden verwijderd uit alle contacten waar het aanwezig is. Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Fase verwijderen</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Tag verwijderen</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Bevestiging categorieverwijdering</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Taaksjabloon verwijderen</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Container taaksjabloon verwijderen</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Ongebruikte tags verwijderen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Met temperatuurniveaus voor contacten kunt u uw potentiële klanten op een bepaalde manier karakteriseren. De temperatuurniveaus kunnen bijvoorbeeld zijn: "Koud", "Warm" en "Heet", wat staat voor de bereidheid van de contactpersoon om uw product te kopen.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>U kunt de temperatuurniveau's voor contacten alleen bewerken of verwijderen als er op dit niveau geen contacten zijn.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Met contacttypes kunt u uw contacten op een bepaalde manier karakteriseren. De standaard contacttypes zijn "Cliënt", "Concurrent", "Partner" en "Leverancier", die de contacten classificeren op basis van hun rol in relatie tot de organisatie.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>U kunt de contacttypen alleen bewerken of verwijderen als er van dit type geen contacten zijn.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Kansfasen laat u de stappen vaststellen die nodig zijn om de deal te voltooien. U kunt bijvoorbeeld kansfasen toevoegen zoals "Commercieel aanbod", "Vooruitbetaling", "Uitvoering". Stel de juiste volgorde in voor de kansfasen door ze te slepen.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>U kunt een kansfase alleen bewerken of verwijderen als er geen kansen in deze fase zitten.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Voorbije gebeurtenis categorieën zorgt ervoor dat u gebeurtenissen in de geschiedenis kunt uitsplitsen in groepen. Standaard categorieën zijn mail, notitie, telefoongesprek, vergadering. U moet beheerdersrechten hebben om ze te mogen bewerken.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>U kunt de categorie voorbije gebeurtenis alleen bewerken of verwijderen als er geen voorbije gebeurtenissen in deze categorie zitten.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Met taakcategorieën kunt u uw taken verdelen in groepen, afhankelijk van de doelen die u wilt bereiken. Een taakcategorie kan bijvoorbeeld zijn "Afspraak", "Telefoongesprek" of "Bedankje".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>U kunt een taakcategorie alleen bewerken of verwijderen als er geen taken in deze categorie zitten.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Verplaatsing in dagen</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Alle data in een ZIP-archief downloaden</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP-archief genereren gestart</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Link om het ZIP archief te downloaden</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Categorie bewerken</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Temperatuurniveau bewerken</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Contacttype bewerken</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Veld bewerken</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Fase bewerken</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Bewerken «{0}» taakcategorie</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Bewerken van het "{0}" temperatuurniveau</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Bewerken van het "{0}" contacttype</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Bewerken «{0}» kansfase</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Bewerken van het "{0}" taaksjabloon</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Bewerken van het "{0}" container taaksjabloon</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Taaksjabloon bewerken</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Container taaksjabloon bewerken</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>De lijst met gebruikersvelden is leeg</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Gebruikersvelden laten u extra informatie over de klant, kans of casus bepalen. U kunt bijvoorbeeld het veld 'Bron' toevoegen om te specificeren waar de gebruiker vandaan komt: een advertentie, directe verkoop, enz. U kunt het gebruikersveld alleen bewerken of verwijderen als er geen contacten of kansen zijn met deze veldwaarde.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>De taglijst is leeg</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>De tags kunnen worden gebruikt om contacten (zowel bedrijven als personen) te beschrijven en te groeperen, kansen en casussen die iets gemeen hebben. U kunt voor een betere sortering bijvoorbeeld alle personen van verschillende bedrijven maar uit dezelfde bedrijfssector taggen met een gemeenschappelijke tag. U kunt de tag alleen bewerken of verwijderen als er geen contacten, kansen of casussen deze tag hebben.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>De lijst van taaksjablonen is leeg</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Met taakjablonen kunt u soortgelijke taken in de CRM-module aanmaken. U kunt de taken toevoegen aan contacten, kansen of casussen, met een enkele muisklik. Selecteer de container om een taak voor elke container taaksjabloon te maken.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Dit veld moet correct worden ingevoerd</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Elk veld moet een titel hebben</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Het titelveld mag niet leeg zijn</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Activeer SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exporteren</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Export van Alle Data </value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>De export-functie genereert een ZIP-archief met CSV-bestanden met al uw gegevens (contacten, kansen, casussen, geschiedenis, etc.) De e-mail met de link naar het aangemaakte archief zal worden verzonden naar uw e-mailadres.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Lijst voor extern programma genereren</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Veldenlijst</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Veldenselectie</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Selecteer de velden die worden weergegeven op het formulier</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Formulier broncode</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Gebruik dit formulier op uw site</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Dit is hoe het formulier er op uw site uit zal zien</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Eigenschappen van het formulier</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Website Contactformulier hoofdinstellingen</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Formulier Genereren</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Ontvang standaardinstellingen</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Voorbije Gebeurtenis Categorieën </value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host Wachtwoord</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Interne SMTP {0} maximaal aantal ontvangers e-mail</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Alleen voor bedrijf</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Alleen voor persoon</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Succeskans</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Melden aan {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Selecteer de {!users} die notificaties ontvangen als er een nieuw contact wordt toegevoegd via het "Contactformulier op de Website"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Telling vanaf de vorige taak</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Telling vanaf de start van de container</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Factuurlogo</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Andere velden</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Poort</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Optie verwijderen</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Terugzetten naar Standaard</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Omleiding URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Het adres van uw website waar uw gebruiker naar toe wordt geleid nadat het formulier is ingevuld.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Regels</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Opgeslagen</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Box selecteren</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Keuzes</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Selecteer alstublieft een categoriefase die wordt vervangen door de huidige categorie in taken</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Zender Weergave Naam</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>E-mailadres Zender</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Gebruikersvelden aanpassen</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Stel het factuuradres van uw organisatie in, dat zal worden geplaatst op al uw facturen. Selecteer het {0}Land{1} uit de lijst en vul de velden in met {0}Adres{1}, {0}Stad{1}, {0}Staat{1} en {0}Postcode{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Het standaard {0}logo{1} van uw organisatie wordt weergegeven op uw {0}Facturen{1}.{3}
+Om het logo te vervangen, klik op de link 'Logo Wijzigen' en selecteer de afbeelding die op uw computer is opgeslagen, om het op uw portaal te laden. Houd er alstublieft rekening mee dat uw afbeelding niet groter mag zijn dan {0}{4}x{5} pixels{1}, anders zal de grootte gewijzigd worden. Het maximale afbeeldingsformaat mag niet groter zijn dan {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Data verzenden</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Tag met deze titel bestaat al</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Taaksjablonen</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Tekstgebied</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Webformulier Sleutel</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Een unieke webformulier-sleutel die dient voor de authenticatie van het formulier dat gebruikt wordt om de data te verzenden en noodzakelijk is voor het formulier om correct te werken. Dit wordt gedaan om veiligheidsredenen, om spam en fraude te voorkomen en uw webformulier tegen ongeoorloofd gebruik te beschermen. Wanneer u een nieuwe sleutel genereert, zullen de bestaande formulieren met de oude sleutel niet meer werken.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Website Contactformulier</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Ongeldige formuliersleutel</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Gebruik de functionaliteit Website Contactformulier om een formulier te bouwen dat u op uw site kunt publiceren. Hiermee kunt u automatisch nieuwe contacten opslaan. Definieer de eigenschappen van het formulier, selecteer de benodigde velden en genereer de code om uw eigen webformulier te maken.</value>
+  </data>
+</root>

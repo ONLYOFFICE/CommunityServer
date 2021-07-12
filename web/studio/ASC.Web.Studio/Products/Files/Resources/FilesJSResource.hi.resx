@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>मालिक</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>केवल पढ़ने के लिए</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>पूर्ण पहुँच</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>पहुँच को अस्वीकार</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>भिन्न</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>पुरालेख</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>फ़ोल्डर</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>छवियाँ</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>प्रस्तुतियाँ</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>स्प्रेडशीट्स</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>अधिक दिखाएँ {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>अपलोड कर रहा है ...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>अधिक दिखाएँ {0} {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>लेखक</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>आकार</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>प्रकार</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>आप हटाना चाहते हैं 'दस्तावेज़' मॉड्यूल से {0}? यह किसी भी तरह से अपने {1} खाता प्रभावित नहीं होगा।</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>आप रीसायकल बिन खाली करना चाहते तुम्हें यकीन है?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>आप वर्तमान पृष्ठ छोड़ना चाहते हैं आप सुनिश्चित हैं? फ़ाइलों को डाउनलोड करने बाधित हो जाएगा।</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>आप दस्तावेज़ को हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>आप फ़ोल्डर हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>आप इन तत्वों को नष्ट करना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>आम दस्तावेज</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>कस्टम स्वरूप</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>विभागों</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>डेटा संग्रह</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>बदलें डेटा</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>अंतिम रूप देने संस्करण</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>प्रतिलिपि</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>निर्माण</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>लोड हो रहा है संस्करणों ...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>पढ़ें के रूप में मार्किंग</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>ले जाएँ</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>हटाया जा रहा है</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>नाम बदलें</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>अद्यतन कर संस्करण का</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>कम से कम एक फोल्डर का चयन / दस्तावेज़ को डाउनलोड करने के लिए</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>खाली फ़ाइल</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>आप किसी फ़ोल्डर या एक खाली फ़ाइल अपलोड नहीं कर सकते</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>रूपांतरण त्रुटि</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>सभी क्षेत्रों में भरा जाना आवश्यक हैं</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>अधिकतम फ़ाइल आकार से अधिक हो गई है</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>आप जोड़ने के लिए सक्षम होने के लिए लॉग इन करने की जरूरत है</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>क्षमा करें, यह फ़ाइल स्वरूप समर्थित नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>इसे रद्द करने के लिए पिछले डाउनलोड के लिए कृपया प्रतीक्षा करें</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>आप कार्रवाई करने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>आप इस फोल्डर में इस कार्रवाई प्रदर्शन नहीं कर सकते</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>शीर्षक निम्नलिखित पात्रों में से किसी को शामिल नहीं कर सकते हैं: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>पोर्टल भंडारण मुक्त अंतरिक्ष के बाहर चला गया है। आप {0} से फ़ाइलों को बड़ा अपलोड नहीं कर सकते।</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>नाम {0} के साथ फ़ाइल पहले से फोल्डर {1} में मौजूद है।</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>परिवर्तित</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>के लिए परिवर्तित</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} में एक ही नाम के साथ दस्तावेजों को पहले से ही फ़ोल्डर में मौजूद '{1}'। अधिलेखित</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>अपलोड की गई</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>अपलोड कर रहा है</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>बॉक्स निर्देशिका</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>ड्रॉपबॉक्स निर्देशिका</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>गूगल निर्देशिका</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint के निर्देशिका</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>एक ड्राइव निर्देशिका</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV निर्देशिका</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex निर्देशिका</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' बदल</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} तत्वों की नकल की</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' की नकल की</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>नई फ़ाइल '{0}' बनाई गई है</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>नई '{0}' फ़ाइल में बनाया जाता है '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>नया फ़ोल्डर '{0}' बनाई गई है</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>आप अपने सबफ़ोल्डर के लिए फ़ोल्डर की नकल नहीं कर सकते</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>आप अपने सबफ़ोल्डर के लिए फ़ोल्डर कदम नहीं कर सकते</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>आप कुछ फ़ाइल स्थानांतरित करने के लिए पहुँच अधिकार नहीं है (एस)</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} तत्वों ले जाया गया</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' ले जाया गया</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>दस्तावेज़ '{0}' हटा दिया गया है</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>फ़ोल्डर '{0}' हटा दिया गया है</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>यह सफलतापूर्वक नष्ट कर दिया गया {0} से {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>थर्ड पार्टी '{0}' हटा दिया गया है</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>दस्तावेज़ '{0}' को नाम दिया गया है '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>फ़ोल्डर '{0}' को नाम दिया गया है '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' के लिए जोड़ा '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} दस्तावेजों सफलतापूर्वक अपलोड कर रहे हैं</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>मेरे दस्तावेज</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>मूल प्रारूप</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>अन्य</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>प्रस्तुतियाँ</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>फाइल अपलोड करने में विफल {0} प्रदर्शित करने के लिए</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>परियोजना दस्तावेजों</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>संशोधन: {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>स्प्रेडशीट्स</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>डेटा संग्रह</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>प्रतिलिपि बनाना</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>हटाया जा रहा है</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>पढ़ें के रूप में मार्किंग</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} आपरेशनों</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>ले जाएँ</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>बदलें {0} कनेक्शन सेटिंग्स</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>यह वर्तमान में संपादित किया जा रहा है</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>यह वर्तमान द्वारा संपादित किया जा रहा है: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>बंद कर दिया</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>द्वारा बंद कर दिया: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>अधिक सुविधाएं</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>नई प्रस्तुति</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>नए स्प्रेडशीट</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>नया दस्तावेज़</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>नया फ़ोल्डर</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>सामान्य सेटिंग्स</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>मदद</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>खातों से कनेक्ट</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>डिब्बा</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>ड्रॉपबॉक्स</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>अज्ञात त्रुटि...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>अपलोड पूरा हुआ</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>अपलोड कर रहा है</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>पलोड कर रहा है {0} फ़ाइलें ({1}% किया)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} {1} इस्तेमाल किया</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>उपयोगकर्ता</value>
+  </data>
+</root>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="All" xml:space="preserve">
+    <value>ყველა</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>ყველა {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>ყველა {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>გაუშვი/გააჩერე ტაიმერი</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>დაამატე დრო</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>პაუზა</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>განულება</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>სტარტი</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>დამალვა</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>თარიღი</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>რედაქტირება</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>პროექტები არ არის</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>პროექტები</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>ახალი კომენტარები განხილვებში</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>ახალი კომენტარები დავალებებში</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>მონაცემები არ არსებობს</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>გადათვალიერება</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>პროექტები</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>შენახვა</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>ცვლილებების შენახვა</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>ძებნა</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>აჩვენე</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>დახარჯული დრო</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>სტატუსი</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>დრო</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>სახელწოდება</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>დღეს</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>სულ</value>
+  </data>
+</root>

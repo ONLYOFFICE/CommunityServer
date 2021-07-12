@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>Kilometre Taşı Başlığı</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Görev Ekle</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>Görev Başlığı Ekle</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>Tüm Proje Şablonları</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Sorumlu Seç</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Proje Oluştur</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>Yeni proje şablonu oluştur</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Şablonlardan Seç - {0}</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>Proje Yapısını Düzenle</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>Proje Şablonunu Düzenle</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>İlk Şablonu Oluştur</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Proje şablonları ilgili araçlarla benzer projeler yaratmanızı sağlar. Örnek olarak, proje takımı kurmak, kilometre taşlarını planlamak, görevler ve tartışmaları şablon olarak kaydetmek her seferinde aynı verileri tekrar tekrar girmenizi önler.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>Proje şablonu yok</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>Her kilometre taşının bir başlığı olmalıdır</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>kilometre taşları</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Kimse</value>
+  </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Sorumluları Bilgilendirin</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Bu şablonu silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Şablonu Kaldır</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Kaydet &amp; Şablondan proje oluştur</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Değişiklikleri Kaydet</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Görev</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Her görevin bir başlığı olmalıdır</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>görevler</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>Kilometre taşsız görevler</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>Her şablonun bir başlığı olmalıdır</value>
+  </data>
+</root>

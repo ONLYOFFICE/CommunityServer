@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Əgər xəta təkrarlanırsa, bu problem haqqında əlavə məlumat almaq üçün {0}FAQ bölməsini{1} oxuyun.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Hesaba bağlanma zamanı xəta baş verdi</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Hesab ayarlanamalı</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Hesablar</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>əyləmlər</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>%1-i aktiv etmək istəyirsiniz mi?</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Bütün</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Daxil edilmiş bəzi parametrlər etibarsızdır.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Sənədə giriş rədd edildi.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Sənəd tapılmadı və ya o, seçilmiş qovluqda yoxdur.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Boş fayllar dəstəklənmirlər.</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Qeyd: faylın ölçüsü %1 meqabaytdan çox ola bilməz. Bütün faylların ümumi ölçüsü %2 -dən çox ola bilməz.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Mesaj tapıla bilmədi.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Əkləmələrin toplam sayı limiti keçir.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Gözlənilməyən xəta baş verdi. Lütfən, az sonra təkrar sınayın.</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>Bayt</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Etiket seç</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Yeni CRM şirkət yarat</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Yeni CRM şəxs yarat</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM kontaktlar</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>%1-i deaktiv etmək istəyirsiniz mi?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>%1-i silmək istəyirsiniz mi?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Mesajların silinməsi</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Edildi</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>İlk qaralamanı yaz</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Qaralama bölməsi Sizə müxtəlif şəxslərə göndərməyə hazırlaşdığınız mesajları yaratmaq və sıralamaq imkanı verir. Siz ən önəmli mesajları işarələyə və gərəksiz mesajları silə bilərsiniz.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Bu qovluqda göstərilmək üçün heç bir mesaj yoxdur</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Yeni mesaj yaz</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Gələn mesajlar qutusu alınmış mesajları idarə etməyə imkan verir. Burada siz yazışma tarixinə baxa, ən önəmli mesajları işarələyə, məktubları kateqoriyalarına görə qruplaşdıra bilərsiniz. Etiketlərdən istifadə edərək, gərəksiz mesajları silə bilərsiniz.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Heç bir mesaj gəlməyib</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>İlk hesabı quraşdırın.</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Hesabınızı birbaşa portalda məktub göndərmək, qəbul etmək və saxlamaq üçün quradşırın. Məktubların, kontaktların və faylların tarixinə istənilən yerdə, istənilən brauzerdən giriş əldə edin. Poçtu sıralayın və öz etiketlərinizdən istifadə edin.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Heç bir hesab hələ quraşdırılmayıb</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>CRM'ə keçmək</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Bu kontakt siyahısı Sizin CRM'dən olan bütün klientlərinizi içərəcək</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Kontakt siyahısı boşdur</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Yeni məktub etiketi yaradın</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>İlk öncə Siz etiket yaratmalısınız və yalnız bundan sonra Siz onu istifadə edə bilərsiniz.</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Heç bir etiket yaradılmayıb</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Yeni mesaj yaz</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Göndərilmiş mesajlar qovluğu Sizə göndərilmiş mesajları idarə etməyə imkan verir. Burada siz yazışma tarixinə baxa, ən önəmli mesajları işarələyə, məktubları kateqoriyalarına görə qruplaşdıra bilərsiniz. Etiketlərdən istifadə edərək, gərəksiz mesajları silə bilərsiniz.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Hələ heç bir göndərilmiş mesaj yoxdur</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Spam bölməsi zir-zibil kimi işarələdiyiniz mesajları içərir. Burada siz elektron məktubları silə, onları "qeyri-spam" olaraq sinifləyə və bütün bölməni təmizləyə bilərsiniz.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Bu qovluqda göstərilmək üçün heç bir mesaj yoxdur</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Zibil bölməsi silinmiş mesajları içərir. Burada Siz bəzi elektron poçtları bərpa edə və ya onları ömürlük silə bilərsiniz.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Bu qovluqda göstərilmək üçün heç bir mesaj yoxdur</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Bu hesab artıq mövcuddur</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Bu sahə boş ola bilməz</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>'Kimə' sahəsi boşdur</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Yalnış ünvan</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Yalnış ünvan</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Naməlum xəta baş verdi</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Digər</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>İStifadəçi periodu</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Şirkətlər</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Göndərəndən</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Önəmli</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Şəxslər</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>oxunmuş</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Göstər</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Poçt ünvanına</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>oxunmamış</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>əkləmələr ilə</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Mümkün sazişlərlə</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Etiket ilə</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Başqasına göndərilmiş mesaj</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Kimdən</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Hesab uğurla qoşuldu</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Mesaj importu həyata keçirilir. Bu, bir qədər vaxt ala bilər. Bu pəncərəni bağlaya və poçtu istifadə etməyə davam edə və hətta brauzeri bağlaya bilərsiniz. İmport fon rejimində davam edəcək.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Önəmli</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Əvvəllər digər servislərin köməyi ilə alınmış bəzi mesajlar import edilməyə bilərlər.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Sizin import ilə probleminiz varsa, %1 ilə əlaqə saxlayın.</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>Kilobayt</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>əkləmələrin yüklənməsi...</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Yeni poçt qutusu yaradılır...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Poçt qutusu güncəlləşir...</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>Meqabayt</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Mesaj göndərilmədi.\r\nOnu silmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>daha %1</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Mesajların yerləşdirilməsi</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Yeni hesab yarat</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Yeni mesaj</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Bu qovluqda filtrə uyğun olan mesaj yoxdur. Lütfən, digər paramterləri seçin və ya filtri təmizləyin ki, bu qovluqda bütün kontaktlardan olan mesajları görə biləsiniz.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Bu filtrə uyğun heç bir mesaj yoxdur</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Heç biri</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Spam deyil</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Domenin ilkin ayarlarının alınması...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Qaralama</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Başqasına göndərmək</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Cavab ver</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Portalınızın disk saxlama yeri dolub. Bütün mesajlar yüklənə bilməyəcəklər və yeni mesajlar qəbul olunmayacaqlar. Lütfən, gələn poçt qutusundan bəzi mesajları silin və ya Sənədlər modulundan bəzi faylları silin. Siz həmçinin tarif planını dəyişdirə bilərsiniz ki, daha geniş disk yeri əldə edə biləsiniz.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Diskdə saxlama yeri dolub</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Oxunmuş</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Bütün mesajlarınızı Spamdan silmək istəyirsiniz mi?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Bütün mesajları Səbətdən silmək istəyirsiniz mi?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Yenidən</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Bu səhifədə filtrə uyğun olan CRM kontakt yoxdur. Lütfən, digər parametrləri seçin və ya filtri təmizləyin ki, bütün CRM kontaktları görə biləsiniz.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Bu filtrə uyğun heç bir CRM kontakt yoxdur</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Filtri sıfırla</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Bu səhifədə filtrə uyğun olan ONLYOFFICE™ kontaktı yoxdur. Lütfən, digər parametrləri seçin və ya bütün ONLYOFFICE™ kontaktlarını görmək üçün filtri təmizləyin.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Bu filtrə uyğun ONLYOFFICE™ kontaktı yoxdur</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Bərpa et</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Mesajların bərpası</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Mesajın qeyd edilməsi</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Bu hesab deaktiv edilib. Lütfən, bu hesabı aktivləşdirin və ya başqa hesab seçin.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Mesaj göndərişi</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Mövzu</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketlər</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>ONLYOFFICE™ kontaktları</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Kimə</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Toplam kontaktlar:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Yenidən sına</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>oxunmamış</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>əkləmələr ilə</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Etiketsiz</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Etiketlərlə</value>
+  </data>
+</root>

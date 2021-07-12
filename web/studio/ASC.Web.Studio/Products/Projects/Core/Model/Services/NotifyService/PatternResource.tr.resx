@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Tartışmada yorum düzenlendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" tartışmaya yorum düzenledi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $AdditionalData "Daha fazlası":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı kullanıcısınız. Uyarı tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Görev için yorum düzenlendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şuna yorum düzenledi;"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görev: $AdditionalData "Daha fazlası":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Eğer bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Tartışma Düzenlendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" tartışmayı düzenledi:
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Devamını oku":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projeler. Basecamp'den Veri Aktarma
+
+Yeni veri başarıyla içe aktarıldı
+
+^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için "abonelik seçeneklerini" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Proje Ekibine Eklendiniz
+
+"$__AuthorName":"$__AuthorUrl" sizi ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Projesinin proje ekibine ekledi.
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Gecikmiş Aşama Bildirimi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Projesinin kilometre taşı gecikti: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Tartışma silindi: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" şurada tartışma sildi "$EntityTitle" - "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Aşama kapandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" , "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" aşamasını kapattı. Proje: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+ ^Bu maili aşağıdaki portala kayıtlı olduğunuz için aldınız : "${__VirtualRootPath}":"${__VirtualRootPath}". Bilgilendirme türünüzü değiştirmek için lütfen "Üyelik Ayarlarını" 'zı düzenleyin.:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Kilometre taşı yaratıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" yeni aşama ekledi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" -----&gt; "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi. 
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için, lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Aşama Bitiş Tarihi Bildirimi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Projesinin kilometre taşının bitiş tarihine 48 saatten az bir süre kaldı.
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Kilometre taşı silindi: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" şu kilometre taşını sildi "$EntityTitle" - "$ProjectTitle"'da:"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" proje: $AdditionalData ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Kilometre taşı düzenlendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" $__DateTime "$__AuthorName":"$__AuthorUrl" şunu düzenledi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" şuradaki kilometre taşı "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" proje. ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için "abonelik seçeneklerini" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Kilometre taşı yeniden başlatıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" şu kilometre taşını yeniden başlattı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" şurada "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" proje: $AdditionalData ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için "abonelik seçeneklerini" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Tartışmaya Yeni Yorum: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" tartışmaya yeni bir yorum yazdı: $AdditionalData
+
+"Devamını oku":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Göreve Yeni Yorum: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" şu göreve yeni bir yorum yazdı:
+
+$AdditionalData
+
+"Devamını oku":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Tartışmaya yeni dosya eklendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şuraya yeni dosya ekledi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" discussion: $AdditionalData ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu tartışma hakkında bildirim almak istemiyorsanız, lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Göreve yeni dosya eklendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şuraya yeni dosya "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevi. ^Bu espostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu görev hakkında bildirim almak istemiyorsanız, lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Yeni Tartışma: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" yeni bir tartışma başlattı: 
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+#beforeall
+----------------------------------------
+#each
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+#end
+
+"Devamını oku":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Proje Silindi: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" şu projeyi sildi "$EntityTitle" ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştirin":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Proje Ekibine Eklendiniz</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Silinen tartışma: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı kapatıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı yaratıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı yeniden başlatıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Yeni tartışma: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projeler. Proje Silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Size atanan kilometre taşı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Proje Yöneticisi olarak atandınız</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Size atanan altgörev: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Size atanan görev: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev kapatıldı: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev yaratıldı: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev silindi: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev yeniden başlatıldı: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev kapatıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Yaratıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Yeniden Başlatıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Görev Hatırlatması: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" size "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevini hatırlatıyor.
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Görev Hatırlatıcı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Bugün "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevinin son günü.
+
+$AdditionalData.get_item("TaskDescription")
+
+^Bu epostayı alıyorsunuz, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Proje Ekibinden Kaldırıldınız
+
+["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projesinin ekibinden kaldırıldınız
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Görev Artık Size Verilmemiş: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime artık şu görevden sorumlu değilsiniz: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" şuradaki "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi: $AdditionalData.get_item("TaskDescription") ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Aşama size atandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" sizi şu aşama için sorumlu kıldı: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi içindeki "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" aşaması. 
+
+^Bu maili "${__VirtualRootPath}":"${__VirtualRootPath}" portalına kayıtlı bir kullanıcı olduğunuz için aldınız. Hatırlatma şeklinizi değiştirmek için lütfen "Üyelik Ayarlar" ınızı düzenleyin.:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1."$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" Projesine Proje Yöneticisi olarak atandınız
+
+"$__AuthorName":"$__AuthorUrl" sizi ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projesi için proje yöneticisi olarak atadı.
+
+$AdditionalData 
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Alt görev size atandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" aşağıdaki alt görev için seni sorumlu kıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" olarak şu göreve eklendi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Bu epostayı alıyorsunuz, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın": "${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Size Bir Görev Atandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" sizi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevi için sorumlu olarak gösterdi.
+
+^Bu epostayı aldınız, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştirin:"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Alt görev kapatıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" aşağıdaki göreve eklenen alt görevi kapattı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+^Bu epostayı alıyorsunuz, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Alt görev yaratıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" yeni bir alt görev ekledi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  aşağıdaki "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" göreve. 
+
+Alt görev sorumlusu olarak: "$Responsible" atandı. 
+
+^Bu epostayı alıyorsunuz, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Alt görev silindi: "$EntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" şu alt görevi sildi: "$EntityTitle" 'ne ait "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevinden. 
+
+^Bu epostayı alıyorsunuz, çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Altgörev düzenlendi: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şunu düzenledi "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" şunun altgörevi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevi. Altgörev şuna verildi "$Responsible". ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalına kayıtlısınız. Eğer bu görev hakkında bildirim almak istemiyorsanız, lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Altgörev yeniden başlatıldı: "$SubEntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" şu altgörevi yeniden başlattı:"$SubEntityTitle" şunun "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevi. ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Eğer bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Görev Kapandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl", ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Projesinin görevini kapattı.
+
+$AdditionalData
+
+^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu görev hakkında bildirim almak istemiyorsanız lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Görev Oluşturuldu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" şu görevi oluşturdu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+Proje: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Portal adresiniz: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Abonelik ayarlarını değiştir":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Görev silindi: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" görevi sildi "$EntityTitle" şu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesinin içinden:
+
+$AdditionalData 
+
+^Bu maili aldın çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalına kayıtlısın. Ayarları değiştirmek için "üyelik ayarları":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Görev düzenlendi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şunu düzenledi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" şuradaki görev"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi. ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarını" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Görev taşındı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şunu kaldırdı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevini şuradan"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" şuradaki kilometre taşını "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi. "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" görevi şu anda herhangi bir kilometre taşının parçası değil.^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik ayarlarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Görev taşındı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şunu taşıdı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" şuraya "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" şuradaki kilometre taşını "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi. ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bildirim tipini değiştirmek için lütfen "abonelik seçeneklerini" düzenleyiniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Görev Yeniden Başlatıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" şu görevi yeniden başlattı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" şuradaki "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projesi: $AdditionalData ^Bu epostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu görev hakkında bildirim almak istemiyorsanız, lütfen "abonelikten çıkın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Tartışmada düzenlenmiş yorum: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Göreve eklenen düzenlenmiş yorum: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Tartışma Düzenlendi: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projeler. Basecamp'den İçe Veri Aktarımı</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Proje Ekibi Değişikliği</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Gecikmiş Aşama Bildirimi: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Silinen Tartışma: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Aşama kapalı: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Aşama oluşturuldu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Aşama Bitiş Tarihi Bildirimi: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı düzenlendi: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kilometre taşı yeniden başlatıldı: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Tartışmaya Yeni Yorum: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Göreve Yeni Yorum: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Tartışmaya yeni dosya: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Göreve Yeni Dosya: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Yeni Tartışma: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projeler. Proje Silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Proje Ekibine Eklendiniz</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Tartışma silindi</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Kilometre taşı kapatıldı</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Yeni bir kilometre taşı yaratıldı</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Kilometre taşı silindi</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Kilometre taşı yeniden başlatıldı</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Yeni bir tartışma yaratıldı</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projeler. Proje Silindi</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Bu kilometre taşı size verildi</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Proje Yöneticisi olarak atandınız</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Altgörev size atandı</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Görev size verildi</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Altgörev kapatıldı</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Yeni altgörev yaratıldı</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Altgörev silindi</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Altgörev yeniden başlatıldı</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Görev kapatıldı</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Yeni bir görev oluşturuldu</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Görev Silindi</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Görev yeniden başlatıldı</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Görev Hatırlatması: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Görev Hatırlatması: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Proje Ekibinden çıkarıldın</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Artık Size Atanmamış: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Size atanan aşama: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Proje Yöneticisi Olarak Atandınız.</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Size atanmış alt görev: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Size Atanan Görev: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Kapanan alt görev: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Alt görev oluşturuldu: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Alt görev silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev Düzenlendi: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Altgörev yeniden başlatıldı: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Görev Kapandı: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>[$ProjectTitle] Projesi. Görev Oluşturuldu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev düzenlendi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Kaldırıldı: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Taşındı: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projeler [$ProjectTitle]. Görev Yeniden Başlatıldı: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Kimse</value>
+  </data>
+</root>

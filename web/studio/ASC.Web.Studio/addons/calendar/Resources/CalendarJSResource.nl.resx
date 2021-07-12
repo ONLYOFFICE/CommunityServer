@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Geaccepteerd:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Verbind mailaccounts</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>om uitnodigingen te sturen</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Gebeurtenis</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Nieuwe gebeurtenis aanmaken</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Aanmaken </value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>gehele dag</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Nieuwe kalender aanmaken</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Kleur:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Kalender bewerken</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Tekstkleur:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Tijdzone:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Mijn Kalenders</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Andere Kalenders</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Beheren</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Nieuwe gebeurtenis aanmaken</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minuten</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 uur</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>een half uur</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minuten</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>een dag</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>standaard</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>een uur</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Alert:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>nooit</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Deze gebeurtenis duurt de hele dag.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Gebeurtenis die de hele dag duurt</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Genodigden:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Begin met het typen van e-mailadressen of contactnamen van uw persoonlijke, CRM contacten of portaalgebruikers of gebruik een andere e-mail om personen uit te nodigen voor uw gebeurtenis.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalender:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Beschrijving:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Van:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Nieuwe gebeurtenis aanmaken</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Gebeurtenis bewerken</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Bekijk gebeurtenis</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Locatie:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Meer informatie</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Deze gebeurtenis duurt niet de hele dag.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Optioneel</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizer:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Eigenaar:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>aangepast</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>elke dag</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Herhalen:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>elke maand</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>nooit</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>elke week</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>elk jaar</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Nodig</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Gebruikers om te delen</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Gebruikers toevoegen</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Deze gebeurtenis is niet gedeeld.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>GEANNULEERD</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>BEVESTIGD</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>VOORLOPIG BEZET</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Naam gebeurtenis:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Aan:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Afmelden</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Er zijn geen gebeurtenissen om te tonen.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Minikalender verbergen</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Toon minikalender</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d gebeurtenissen</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Gebruikers toevoegen om te delen</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Toon %d meer gebruikers</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Gedeeld met:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Kalender bewerken</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Eigenaar:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Verbergen van de lijst</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Snel zoeken</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Andere kalenders beheren</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalenderoverzicht</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Lijstoverzicht</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Gebeurtenis geannuleerd</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Wilt u uitnodigingen versturen naar genodigden?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Uitnodigingen versturen</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Niet Versturen</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Verzenden</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Nieuwe &amp; Verwijderde Genodigden</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Iedereen</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Wilt u deze annuleringen verzenden naar huidige genodigden?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Annuleringen versturen</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het versturen van notificaties</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Notificaties succesvol verzonden</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Wilt u updates versturen naar huidige genodigden?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Updates versturen</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Selecteer alstublieft wie u wilt informeren over de updates: nieuwe en verwijderde genodigden alleen of iedereen. Als u de 'Niet Versturen' optie selecteert, worden er geen notificaties verzonden.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Afgewezen:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Alle gebeurtenissen in de reeks</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Deze gebeurtenis en alle die daarop volgen</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Terugkerende gebeurtenis verwijderen</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>De verwijderde gebeurtenis kan niet worden hersteld. Wilt u zeker dat u door wilt gaan?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Gebeurtenis verwijderen</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Alleen deze gebeurtenis</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Alle volgende veranderingen worden alleen op uw kalender toegepast.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Genodigden voor de gebeurtenis worden niet geïnformeerd. Gebruik uw eigen kalenders om notificaties te versturen.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Genodigden:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Bestand selecteren</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Exporteer gebeurtenissen uit ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>geen bestand geselecteerd</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>bestand is geselecteerd</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Importeren/Exporteren</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importeer gebeurtenissen naar ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Verkeerd format van het iCal bestand</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Voer de iCal feed link in</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalender van iCal feed</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal feed link:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>beginnend met</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>elke</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>elke</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>eerste</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Instellen terugkeerpatroon</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>maand</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>jaar</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>laatste</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>door</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>maanden</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>weken</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>jaren</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>aantal keren</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>datum</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>nooit</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>laatste op een na</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>tweede</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>derde</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>tijden</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>beëindigen </value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Misschien</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Bijwonen</value>
+  </data>
+</root>

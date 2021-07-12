@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Quyền truy cập Cổng thông tin</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Hoạt động</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Thêm {!Group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Thêm thành viên</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Vô hiệu hóa</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Thay đổi trạng thái</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Thay đổi trạng thái người dùng</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Nếu số này vượt quá gói dịch vụ hiện tại, bạn sẽ cần nâng cấp gói dịch vụ và lặp lại thao tác này hoặc trạng thái những người dùng khác sẽ không được thay đổi.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Thay đổi trạng thái người dùng</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Bạn không thể thay đổi trạng thái của người sở hữu hệ thống và của bạn</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Người dùng có trạng thái 'Không hoạt động' sẽ được kích hoạt.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Những người dùng có trạng thái 'Hoạt động' sẽ bị vô hiệu hoá.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Thay đổi loại</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Nâng cấp gói dịch vụ và lặp lại thao tác này hoặc loại người dùng khác sẽ không được thay đổi.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Thay đổi loại người dùng</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Bạn không thể thay đổi loại của quản trị viên cổng thông tin và của bạn</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Người dùng thuộc loại'{!User}' sẽ được chuyển thành loại '{!Guest}'</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Người dùng thuộc loại '{!Guest}' sẽ được chuyển sang loại '{!User}'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Đặt lại bộ lọc</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Chỉ có thể xoá những người dùng hoặc khách có trạng thái 'Không hoạt động' </value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Xóa người dùng khỏi công thông tin</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Tài liệu cá nhân của những người dùng này có sẵn cho người khác sẽ bị xóa. Để tránh điều này, bạn phải bắt đầu quá trình chuyển giao dữ liệu trước khi xóa.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>Người dùng không hoạt động đã chọn sẽ bị xóa khỏi cổng thông tin này.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Bỏ chọn tất cả</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Vô hiệu hoá</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Kích hoạt</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Nhập tên</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Không tìm thấy file được tải lên</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Kích thước hình ảnh quá lớn</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Kích thước file hình ảnh quá lớn</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Loại file ảnh không xác định</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Ẩn danh sách người dùng đã chọn</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Nhập nhân sự</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Liên kết Lời mời</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Hoạt động</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Thay đổi email</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Thay đổi mật khẩu</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Xóa hồ sơ</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Phân bổ lại dữ liệu</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Gửi lại lời mời</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Gửi lại liên kết kích hoạt</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Gửi email</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Gửi tin nhắn</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Thuê bao</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Vô hiệu hóa</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Gợi ý</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Thành viên</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Không thể hiển thị người dùng phù hợp với tiêu chí lọc của bạn trong phần này. Vui lòng chọn tùy chọn lọc khác hoặc xoá bộ lọc để xem tất cả người dùng trong phần này.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Không tìm thấy kết quả phù hợp với tìm kiếm của bạn</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Lên đầu</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Làm như một người dùng|Tạo =hồ sơ và nhóm|Nhập hồ sơ|Mời người dùng</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Thêm người dùng mới, mời hoặc nhập họ vào. Quản lý người dùng và xem thông tin chi tiết về họ.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Nhân sự</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Xem hồ sơ và nhóm</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Hoặc {0}đọc về cách sử dụng phi lợi nhuận{1}</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Phân bổ lại</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Phân bổ lại dữ liệu</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Thêm thông tin về chuyển giao dữ liệu</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Nhân viên mà dữ liệu sẽ được chuyển giao -</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Sẽ được chuyển giao:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Tài liệu chung và cá nhân có sẵn cho người dùng khác của cổng thông tin;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Mở dự án, mốc sự kiện và nhiệm vụ;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Liên hệ, nhiệm vụ mở, cơ hội chưa chốt và các trường hợp CRM;</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Sau khi người dùng xác nhận lời mời tới cổng thông tin, trạng thái của họ sẽ đổi thành 'Hoạt động'</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Gửi lại lời mời</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Lời mời tới cổng sẽ được gửi lại tới những người dùng đã chọn với trạng thái 'Đang chờ giải quyết' với những người không hoạt động.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Xem danh sách người dùng đã chọn</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Người dùng đã được xóa thành công</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Chức vụ</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Tổng số</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Đang chờ xác nhận</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Viết thư</value>
+  </data>
+</root>

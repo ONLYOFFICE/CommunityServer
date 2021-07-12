@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>समाचार जोड़ें</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>समाचार टिप्पणी</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>संपादित समाचार</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>नवीनतम कॉर्पोरेट समाचार, घोषणाओं और चुनाव</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>घटनाक्रम</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>आप इस घटना को हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>पहली घोषणा बनाएं</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>कोई घोषणाओं अभी तक जोड़ा नहीं  गया है</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>पहली घटना बनाएं</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>अभी तक कोई घटना  जोड़ी नहीं गयी हे </value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>कोई खबर अभी तक जोड़ा नहीं  गया है</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>पहले खबर बनाएं</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>पहला आदेश बनाएं</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>आदेश अभी तक जोड़ा नहीं  गया है</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>पहले जनमत बनाएं</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>कोई चुनाव अभी तक जोड़ा नहीं  गया है</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>, अपनी खुद की घटनाओं, पोस्ट महत्वपूर्ण घोषणाओं Сreate ताजा खबर का हिस्सा है और अपनी वेबसाइट पर सीधे अपने सहयोगियों की राय इकट्ठा करने के लिए चुनाव में जोड़ें।</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>प्रवेश निषेध</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>अपने चुनाव सवाल दर्ज करें</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>कम से कम दो विकल्प पोल दर्ज करें</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>घटना हटा दिया गया है</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>समाचार</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>चुनाव</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>नई घटना बनाएं</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>नए चुनाव बनाएं</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>घोषणाएँ</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>पाठ</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>सभी घटनाएँ</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>ईवेंट संपादित करें</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>संपादित पोल</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>आदेश</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>इवेंट प्रकार</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>घटना टिप्पणियां</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>नई घटनाओं</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>प्रकाशित करना</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>लेखक</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>शीर्षक फ़ील्ड अनिवार्य है</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>घटनाक्रम खोजें</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>पृष्ठ पर दिखाए </value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>टिप्पणी करने के लिए सदस्यता लें</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>संपूर्ण</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>टिप्पणी से सदस्यता रद्द</value>
+  </data>
+</root>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>автор</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>Кімнен</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Пікірлер</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Құрылған күні</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>жасаушы</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Күні</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>төлеу мерзімі</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>Уақыт</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>кезең</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="ByOrder" xml:space="preserve">
+    <value>тәртібі</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>қатысушы</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>басымдық</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>Жоба</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>жауапкершілік</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>Басталу күні</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Мәртебе</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Тегпен</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>атау</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Сүзгіні қалпына келтіру</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Пайдалану мерзімі</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>төлеу мерзімі</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>Қол қойылған талқылаулар</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>Шеңберлер</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>тобы</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>топтар</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>маған</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>Менің талқылауым</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>Менің міндеттерім бар кезеңдер</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>Менің жобаларым</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>Менің міндеттерім</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Жауапкершілік жоқ</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Басқа</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>Басқа кезеңдер</value>
+  </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>Басқа қатысушы</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>Басқа жобалар</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Басқа пайдаланушылар</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>кешіктірілген</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Жарияланған</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Шот қойылмаған</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Төленген жоқ</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Өткен ай</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Алдыңғы апта</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>Жобалар менеджері</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Соңғы 7 күн</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Таңдау</value>
+  </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>Барлығы жабық</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>Барлығы ашық</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Мұрағатталған</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Жабық</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Жабық</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>Жабық</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>белсендi</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>Тоқтатылған</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Тег</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Міндеттер</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Құрама мүшесі</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Уақыт кезеңі</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Бүгін</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>алдағы</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>алдағы</value>
+  </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>Тегсіз</value>
+  </data>
+</root>

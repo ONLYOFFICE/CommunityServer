@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>pro čtení</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>Pro čtení/psaní</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Přístupová práva budou nastavena pouze pro kontakty, které jste vytvořili.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Přidat skupinu</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Dodatečné informace</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Přidejte e-mailový účet</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Přidat značku</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Přidat účastníka</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Přidat tuto událost</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Přidání poznámky ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Přidat uživatele</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Použijte symboly {0}?{1} a {0}*{1} pro vyhledávání jednoho nebo více znaků. Chcete-li například vyhledat všechna slova začínající {0}O{1}, použijte dotaz {0}O*{1}. Nedoporučujeme používat tyto symboly na začátku dotazu. Chcete-li vyhledat přesnou frázi, použijte uvozovky. {2} Další informace ... {3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Odpovídající pole v ONLYOFFICE™ CRM</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Přílohy</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Propojit s kontaktem</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Více informací...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Obchodní případy</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Změnit</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Vyberte</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Smazání filtru</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Zavřít okno</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Zavřít okno</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Dvojtečka</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Sloupec Soubor</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Čárka</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Napsání dopisu k odeslání všem klientům vybraným v seznamu kontaktů. Můžete zkontrolovat počet vybraných klientů v poli 'Do', zadat "předmět" a používat osobní značky, které automaticky vloží všechny potřebné informace do vašeho dopisu. Toto je verze beta pro ty, kteří si chtějí vyzkoušet nové funkce ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potvrzení</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Potvrzení změn</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Odstranili jste se z kontaktů manažerů.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Ke kontaktu ztratíte přístup ke čtení a psaní, pokud příslušná přístupová práva nejsou povolena pro všechny uživatele CRM.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Jste si jistý, že chcete odstranit tyto prvky?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Chcete-li změnit seznam úrovní kontaktů, přečtěte si část CRM {0} Nastavení {1}</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Nastavení kontaktu</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Obsah</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Hodnotit</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Převodník měn</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Vytvořte</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Vytvořte nový kontakt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Vytvořte projekt</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Přidat novou značku</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Modul CRM není povolen.</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Měna</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Základní měny</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Ostatní měny</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Aktuální {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Vlastní</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Vlastní období</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Další uživatelé</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Splatnost ve {0} dnech</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dnů po splatnosti</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Příležitosti</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Odstranit tuto událost</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Odstranit účastníka</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Odstranit značku</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Smazat uživatele</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Odznačit vše</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Dělejte totéž u všech budoucích událostí</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dvojitá citace</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplicitní záznamy</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Prázdný soubor</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>V této sekci nelze zobrazit záznamy odpovídající vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr pro zobrazení všech záznamů v této části. Můžete také hledat záznamy, které potřebujete v jiné historii kontaktů.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Žádný záznam o tomto filtru zde není k dispozici</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Zadejte částku</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Velikost souboru překračuje {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Exportovat aktuální seznam do souboru CSV</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Byla překročena maximální velikost souboru</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Datum vytvoření</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Datum splatnosti</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Odpovědný</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Se značkou</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Najít společnost nebo kontakt</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skrýt</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Skryj panel příloh</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Seznam kategorií historických událostí {0} můžete změnit zde {1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Telefonní hovor</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Schůzka</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Poznámka</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>bylo přijato</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>bylo odesláno</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Max. počet překročených znaků: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Při importu ignorujte první řádek</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplikát</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Tuto volbu použijte pro import kontaktů, které kopírují shodné kontakty. Např. Existují dva záznamy - 'A' a 'B' - ve vašem ONLYOFFICE™ CRM. Chcete importovat záznamy typu "B" a "C". V případě, že vyberete možnost "Duplikovat", při importu bude vytvořen duplicitní záznam na "B".</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Zkontrolujte, zda se duplikáty budou provádět na základě e-mailového pole.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Přepsat</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Tuto volbu použijte k importování kontaktů, které přepisují existující kontakty. Např. Existují dva záznamy - 'A' a 'B' - ve vašem ONLYOFFICE™ CRM. Chcete importovat záznamy typu "B" a "C". V případě, že vyberete volbu "Přepsat", stávající "B" bude při importu přepsáno importovanou.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Přeskočit</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Tuto volbu použijte k importování kontaktů udržujících stávající kontakty. Např. Existují dva záznamy - 'A' a 'B' - ve vašem ONLYOFFICE™ CRM. Chcete importovat záznamy typu "B" a "C". V případě, že zvolíte možnost Přeskočit, stávající 'B' bude při importu zachován.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Oddělovač</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kódování</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Nastavení souboru CSV</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Textový oddělovač</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Prohlížení souboru ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Načítání seznamu kontaktů</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informace byla odeslána</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Faktury</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Nastavení fakturace</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Daně</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>poslední měsíc</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Více informací...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Tělo dopisu</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Propojit s</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Prosím čekejte...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Tělo e-mailu</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopie</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ funkce hromadného odesílání: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Nepodařilo se odeslat zprávu na adresu {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Neplatná e-mailová adresa: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Doručení selhalo - bude opakováno během {0} sekund.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Předmět e-mailu</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulačka</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Mé</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Mé události</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Další záznam</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Žádné záznamy</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Žádné poštovní účty nejsou k dispozici</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Shoda nebyla nalezena</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Oznámit</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Na vrchu</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Profil organizace</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ostatní</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Další nastavení</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Zde vidíte dopis, který tvoříte. Pomocí tlačítka "Zpět" proveďte nějaké změny nebo použijte tlačítko Odeslat, pokud se vám  výsledek líbí.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Předchozí záznam</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Předchozí krok</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>soukromé</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>K dispozici pro {users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Omezit přístupu</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Ve výchozím nastavení je přístup k portálu umožněn pro všechny {!users}. Chcete-li přístup omezit, zaškrtněte políčko níže.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Přístupová práva</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Dělejte to stejné jako uživatel CRM | Import, export dat | Odesílání e-mailů do kontaktů CRM | Správa nastavení | Správa jakéhokoli kontaktu, úkolu, případu, příležitosti</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Spravujte své vztahy se zákazníky, identifikujte prioritní kontakty, sledujte historii komunikace a prodejní výkony.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Správa vztahů se zákazníky, identifikace prioritních kontaktů, sledování historie komunikace a výkonnosti prodeje.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkty a služby</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Vytvořte kontakt, úkol, případ, příležitost s možností omezit k nim přístup | Upravte kontakt, úkol, případ, příležitost s nastavenými přístupovými právy</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Propojené s</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Reporty</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Odpovědný</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Uložit změny</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Ukládají se změny ...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Vybrat vše</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Upozornit uživatele</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Středník</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Odeslat e-mail</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Nastavte oprávnění</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Zobrazit</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Zobrazit panel příloh</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Zobrazit informace</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Ukaž na stránce</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Jednoduchá nabídka</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Prostor</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Uložte tuto zprávu do historie</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Předmět</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Nové události</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Nové kontakty</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Export dokončen</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Import byl dokončen</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Zodpovědný za příležitost</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Vaše zadané úkoly</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Přístup povolen</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Souhrnná tabulka</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabulka</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Značky</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Úkoly</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tento měsíc</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titulek</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celkem</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Společnost/Osoba</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Odpojit kontakt</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Nahoru</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Přiložit soubor</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Zobrazit soubory</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Zobrazit historii pošty s tímto účastníkem</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Hovory</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Obecné</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Čísla</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP Nastavení</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+</root>

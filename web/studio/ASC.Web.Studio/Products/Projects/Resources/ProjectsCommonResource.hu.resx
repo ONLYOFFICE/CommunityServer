@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Előfizetők kezelése</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Összes</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Összes {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Áthelyezés a kapcsolódó feladatokkal együtt</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Összes {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Időzítő indítása/leállítása</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Idő hozzáadása</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Szünet</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Visszaállítás</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Kezdés</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Projektek</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Próbálja ki a mobilalkalmazást</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Szín Megváltoztatása</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Az állapotok csak a feladat létrehozójának elérhetők </value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Ikon Megváltoztatása</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Elrejt</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Általános beállítások</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Új projekt kezdete</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategória</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Állítsa be a feladat-állapotok szükséges sorrendjét. Minden kategóriának kell legyen legalább egy állapota.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Új Állapot</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>kapcsolat hozzáadása vagy linkelése</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Válassza ki a meglévő CRM-partnereket a listából, hogy összekapcsolhassa őket az ön által kezelt projekttel, vagy vegyen fel új kapcsolatokat. Szerkessze a kapcsolatok személyes adatait. A CRM-vel való mélyebb integráció segíti a munkája hatékonyabb elvégzésében.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kapcsolatok lista üres</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Minden állapotnak kell legyen címe</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Nincsenek a szűrésnek megfelelő projektek </value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Követés</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Jelölje be ezt a jelölőnégyzetet, ha olyan projektet hoz létre, amelynek nem menedzsere, de szeretné nyomon követni az eseményeit. Az újonnan létrehozott mérföldkövekről, feladatokról és megbeszélésekről szóló információk részei lesznek a napi értesítőnek.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>A {1}Private Project{2} egy módja annak, hogy korlátozza a projekthez való hozzáférést, hogy csak a csapat tagjai férhessenek hozzá. Privátként mentve a projektet arra is lehetősége nyílik, hogy minden csapattagnak meghatározza a jogosultságait a projekten belül.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>A {1}Privát Projekt{2} lehetőség arra hogy a projekthez csak a projekt tagjai férjenek hozzá.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>A kulcsmérföldkő arra szolgál hogy egy mérföldkövet fontosabbnak jelöljünk másoknál.{0} Az összes kulcsmérföldkő piros kulccsal van a neve mellett megjelölve.  </value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Választhat három projektállapot között: {0}{1}Aktív.{2} Minden létrehozott projekt amin éppen dolgozik aktív állapotban van, amíg úgy nem dönt, hogy szünetelteti vagy befejezi őket. {0}{1}Szünetelve.{2} Ha úgy dönt, hogy ideiglenesen felfüggeszti a munkáját a projektjén, változtassa meg annak állapotát Szüneteltetettre. A projekt folytatásához csak tegye azt aktívvá a megfelelő állapot beállításával. {0}{1}Lezárt.{2} Amikor a projekten végzett munka befejeződött, és az összes feladat lezárult, tegye teljessé projektjét Zártra változtatva állapotát. Ha további munkavégzés válik szükségessé, a projektet újra aktiválni kell.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Csapatának bővítéséhez kattintson a {1}Csapat kezelése{2} hivatkozásra és válassza ki a hozzáadni kívánt felhasználókat a listából.{0} Szintén hozzáadhat/eltávolíthat csapattagokat később a {1}Csapat{2}fülre váltva az {1}Áttekintés{2} lapon. Ezt követően a {1}Csapat kezelése{2} gombra kell kattintani.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Alapértelmezés szerint a projektcsapat minden tagja megtekintheti az összes tartalmat a kijelölt projektben: mérföldköveket, feladatokat, dokumentumokat és megbeszéléseket. A jogosultság módosításához válassza ki a hozzáférésében korlátozni kívánt csapattagot és kattintson a jogosultságokra mutató linkek egyikére. Ugyanígy beállíthatja a hozzáférési jogokat a projektcsapat minden tagja számára, feltéve, hogy az érintett személy nem rendelkezik rendszergazdai jogosultsággal. A ONLYOFFICE™ rendszergazda az összes projektben teljes hozzáféréssel rendelkezik.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Mit jelent az Ennek a projektnek a követése? </value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Mit a magánprojekt? </value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Mi a kulcsmérföldkő?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Milyen projektstátuszok léteznek?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Hogyan kezelje a csapatát?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Elrejt</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Elemek elrejtése a megállított projektekben</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Ez a felhasználó nem kap értesítést ezekről a megbeszélésről, mert a projekt magán státuszban van, és a felhasználó nem tagja a projektcsapatnak.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Tudjon meg többet...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktív</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Általam Követett Projektek</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Legutolsó</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Saját megbeszélések</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Saját projektek</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kapcsolatok</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projektek</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Feladat áthelyezése</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Új megjegyzés a megbeszélésekben</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Új megjegyzés a feladatokban</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Nincs kapcsolat a linkhez</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nincs adat</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>A feladat további feladathoz van kapcsolva, amennyiben törli, az összes kapcsolat megszűnik.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Linkek eltávolítása és áthelyezés</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Személyes Beállítások</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Megjegyzés: ez a művelet nem vonható vissza.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Tegye azt amint a projektmenedzser|Nevezzen ki projektmenedzsert|Hozzon létre, szerkesszen vagy töröljön projekteket|Hozzon létre/szerkesszen sablonokat</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Csapat összeállítása és a feladatok kiosztása. A projekt mérföldkövek ütemezése, a projekt tevékenység nyomon követése és jelentések készítése.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Csapat összeállítása és a feladatok kiosztása. A projekt mérföldkövek ütemezése, a projekt tevékenység nyomon követése és jelentések készítése.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Csapat összeállítása és a feladatok kiosztása. A projekt mérföldkövek ütemezése, a projekt tevékenység nyomon követése és jelentések készítése.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projektek</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Tekintse meg projektjeit, és vegyen részt a megbeszélésekben|Hozzon létre és szerkesszen mérföldköveket, feladatokat, megbeszéléseket, dokumentumokat|Kövesse időben a feladatokat, készítsen jelentéseket|Képezzen projektcsapatokat és állítsa a hozzáférési jogosultságokat</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>A projektekhez köthető Kapcsolatok </value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Projektcím</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Bővebben</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Felhasználó eltávolítása a csapatból</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Csere</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Jelentés mappa</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Jelentések</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Mentés és Új Feladat Létrehozása</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Változások mentése</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Válassza ki</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Válasszon a jelenlegi kapcsolatok közül, vagy adjon hozzá újat</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Bármely felhasználó hozhat létre projektet</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Mutat</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Mutatás oldalon</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Időráfordítás kiszámlázva</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Eltöltött idő</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Kezdőlap</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Státusz</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Feliratkozás a megjegyzésekre</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Feladat hozzáadva</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>A kezdés időpontjának a határidőnél korábbinak kell lennie</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Az áthelyezni kívánt feladat más feladatokhoz van kötve.{0} Válasszon a következők közül:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Feladatok állapota</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Linkek eltávolítása és aktulizálás</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Jelölje ki a betöltendő oldalakról és a megbeszélések listaoldaláról elrejtendő szöveget, majd kattintson a "Szöveg kivágása" gombra.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Szöveg kivágása</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Idő</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Időkövetés</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Teljes</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Követés kikapcsolása</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Projekt leválasztása a Kapcsolatról</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Leiratkozás a megjegyzésekről</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Határidő aktualizálása</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>A frissítendő feladat más feladatokhoz van kötve.{0} Válasszon a következők közül:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>pp</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Megjegyzés hozzáadása</value>
+  </data>
+</root>

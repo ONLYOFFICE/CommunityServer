@@ -1,0 +1,793 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Prístupové práva portálu</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Prosím, skontrolujte všetky nastavenia účtu ktoré ste zadali. Ak ste si istí, že Vaše nastavenia sú správne, prihláste sa do poštovej služby ktorú používate a v prípade, že sú nejaké otázky týkajúce sa overovania potvrďte ich. Potom to skúste znova.</value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>Tento účet neprijíma poštu.
+
+</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>Tento účet neposiela poštu.
+
+</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Názov účtu</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Vytvorte poštovú schránku pre predvolenú doménu a spravujte účty a upravte ich nastavenia pomocou tohto zoznamu.
+
+</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Nastavenia účtov pripojených pomocou funkcie OAuth nie je možné upraviť. Môžete zmeniť len názov účtu.
+
+</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Správa účtov</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Po aktivácii Vášho účtu budete pokračovať v prijímaní pošty z neho
+
+</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktivovať účet</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktivovať</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Pridať kópiu</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Pridať e-mailovú adresu</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>E-mailová adresa</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Pridať značku</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Pokročilé</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Vždy zobrazovať obrázky od všetkých</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Vždy zobrazovať obrázky od</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Vymazať všetko</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Stiahnuť všetko</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Pripojte odkazy na súbory</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Pripojte súbory z aplikácie Dokumenty</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Prílohy</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Pripojiť ku CRM kontaktu</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Typ overenia</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Odpovedá automaticky na všetky prichádzajúce správy, napr. keď ste neprítomní. Ak niektorý kontakt odošle niekoľko správ, automatické odosielanie bude odoslané nanajvýš len raz {0}.
+
+</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>Skrytá kópia</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Pridať nový účet</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Vytvorte schránku</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Nastavenie domény</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Obrázky sú zablokované.
+
+</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Telo</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>Vložte neprečítané správy z priečinka Schránky do miesta cache, aby ich používateľ mohol rýchlejšie otvoriť.
+</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Ukryť neprečítané správy Doručenej pošty
+
+</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>Aktuálny čas sa zobrazuje podľa nastavení kalendára.
+
+</value>
+  </data>
+  <data name="ChangeAccountPasswordLabel" xml:space="preserve">
+    <value>Zmeniť heslo</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Prázdny priečinok</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Všeobecné nastavenia</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Zostavovať/spájať</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Kopírovať do Moje dokumenty</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopírovať</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Chcete vytvoriť CRM kontakt a pripojiť s týmto rozhovorom?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Vytvoriť a prepojiť</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Stačí vytvoriť kontakt</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Vytvoriť e-mail odosielateľovi
+
+</value>
+  </data>
+  <data name="CreateFilterBtn" xml:space="preserve">
+    <value>Vytvoriť filter</value>
+  </data>
+  <data name="CreateFilterBtnLabel" xml:space="preserve">
+    <value>Vytvoriť filter</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Vytvorte schránku</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Pridať nový účet</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Vytvoriť novú značku</value>
+  </data>
+  <data name="CreateUserFolderBtn" xml:space="preserve">
+    <value>Vytvoriť</value>
+  </data>
+  <data name="CreateUserFolderLabel" xml:space="preserve">
+    <value>Vytvoriť priečinok</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Po deaktivácii účtu už z neho nebudete dostávať poštu.
+
+</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deaktivovať</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deaktivovať</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Ak odstránite svoj účet, všetky správy budú z poštovej schránky odstránené.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeleteFilterBtn" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Vymazať značku</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Ak vymažete značku zo zoznamu, bude odstránená aj z kontaktov a správ označených touto značkou.</value>
+  </data>
+  <data name="DeleteUserFolderBtn" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DisableBtnLabel" xml:space="preserve">
+    <value>Zakázať</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Zobraziť obrázky</value>
+  </data>
+  <data name="DomainHelperExportFromMSExchange" xml:space="preserve">
+    <value>Je možné {0}exportovať údaje z MS Exchange.{1}</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Pripravená a bezplatná predvolená doména je určená na okamžité vytvorenie schránky.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Táto doména je bežná pre všetky portály, preto odporúčame, aby sa vaša firemná doména používala pre firemnú e-mailovú korešpondenciu.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Stiahnuť</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Otvoriť v editore dokumentov
+
+</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Upraviť kontakt</value>
+  </data>
+  <data name="EditFilterBtn" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditUserFolderBtn" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditUserFolderLabel" xml:space="preserve">
+    <value>Upraviť priečinok</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnableBtnLabel" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Povoliť konverzácie</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Automatická odpoveď pre tento účet je povolená.</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Šifrované heslo</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Táto adresa už existuje
+
+</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Telo nemôže byť prázdne</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Uložiť všetko v časti Moje dokumenty</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Prosím, vyberte položky CRM ak chcete pripojiť túto správu do:
+</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Exportovať</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Exportovať do:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>História odosielania bude prístupná používateľom CRM podľa prístupových práv.
+
+</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Exportovať do CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>Máte prístupové práva "Iba prezrieť" pre niektoré priložené súbory, preto ich nebudete môcť zdieľať s ostatnými. {0} {0} Tieto súbory je možné skopírovať do priečinka "Moje dokumenty" a následne ich pripojiť ako odkazy. {0}{0} Prípadne môžete požiadať vlastníkov dokumentov, aby vám poskytli "Úplné prístupové práva" k súborom, ktoré chcete priložiť ako odkazy a operáciu znova zopakujte.
+
+</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Niektoré súbory nemožno pripojiť ako odkazy.
+
+</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Odpojený priečinok</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Návrhy</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Schránka</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Odoslané</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Nevyžiadaná pošta</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Kôš</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Preposlať</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Úplný prístup</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Plná veľkosť</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Získať predvolené nastavenia</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>Inak sa vrátiť do priečinka Doručená pošta.
+
+</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Prejdite na nasledujúcu správu po presunutí/odstránení aktuálne zobrazených
+
+</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Nasledujúci</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Predchádzajúce</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>E-mailové skupiny je možné meniť len v administračnom paneli</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Dôležité</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Prepojiť s CRM
+
+</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Vybrať položku:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Prípad</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Príležitosť</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Prosím, vyberte položky CRM ak chcete pripojiť túto konverzáciu do:
+
+</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Všetky správy z tejto konverzácie (vrátane budúcich správ) sa zobrazia v CRM. História správ bude k dispozícii CRM používateľom podľa prístupových práv.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Pripojiť ku/odkaz na:
+
+
+</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Nájsť podľa mena</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Rozpojiť všetko</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Načítava.....</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Prihlasovacie meno</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Importovať iba správy za posledných 30 dní</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Pošta</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Označiť ako dôležité</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Označiť ako nedôležité</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Označiť ako prečítané</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Označiť ako neprečítané</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Označiť všetky správy od</value>
+  </data>
+  <data name="MessageFilterSettingsLabel" xml:space="preserve">
+    <value>Správa filtrov</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Tento účet bol deaktivovaný.
+
+</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>viac</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Viac</value>
+  </data>
+  <data name="MoveTo" xml:space="preserve">
+    <value>Presunúť do</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Meno</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Vytvoriť novú značku</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>bez adresy</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>žiadne</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Žiadny</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>bez predmetu</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>alebo spojiť s:
+
+</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Odoslať automatickú odpoveď iba ľuďom v kontaktoch
+
+</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Na vrchu</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Otvoriť</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Otvoriť na novej karte</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>alebo</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>všetko</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>dôležité</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>dôležité</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>čítať</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>čítať</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>neprečítaný</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>neprečítaný</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>s prílohami</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>s prílohami</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Odznačiť všetko</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>Vybrané</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Telefón</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Pošta</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Len na čítanie</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Prijímanie e-mailov</value>
+  </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Znovu pripojiť</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Získať nové správy</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Odpovedať všetkým</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Odpoveď</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Posúdiť</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Uložiť a odoslať správu</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Uložiť do kalendára</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Uložiť do dokumentov</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Uložiť do priečinka Moje dokumenty</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Uložiť do dokumentov projektov
+
+</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Uložené na
+
+</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Vybrať všetko</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Priečinok pre prílohy</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Priečinok pre prílohy</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Poslať</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Odosielanie e-mailov</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Automatická odpoveď</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>Súbor(y), ktoré ste pripojili ako odkaz(y), budú zdieľané pre príjemcov e-mailu prostredníctvom odkazu pre ľudí mimo portálu. Prístupové práva k súborom v module Dokumenty môžete neskôr zmeniť.
+
+</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Nastaviť prístupové práva pre súbor(y) pripojené ako odkazy pre e-mailových príjemcov:
+
+</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Zobraziť viac</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Zobraziť ďalšie účty</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Zobraziť ďalšie značky</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Zobraziť na stránke</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Jednoduché heslo</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Otvoriť na novej karte</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="SSLorTLSLabel" xml:space="preserve">
+    <value>SSL/TLS</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Upraviť značku</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Názov značky</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Správy a kontakty môžete označiť pomocou značiek/menoviek. V budúcnosti to uľahčí ich hľadanie pomocou možnosti filtrovania značiek.
+
+</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Môžete upravovať a odstraňovať značky/menovky vytvorené iba v službe Pošta. Značky importované z modulu CRM nemožno upravovať ani odstraňovať. Môžu byť zmenené správcom priamo v module CRM.
+
+</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Správa značiek/menoviek</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Zapnúť automatickú odpoveď</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Môžete to vypnúť.
+
+</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Naozaj chcete odpojiť túto konverzáciu z CRM?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Odpojením tejto konverzácie od služby CRM ju zrušíte zo všetkých kontaktov, príležitostí a prípadov, ktoré ste si skôr vybrali.
+Všetky správy, ktoré boli prijaté predtým, budú ponechané v histórii odosielania správ CRM, no budúce správy z konverzácie sa v CRM nezobrazia.
+
+
+</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Rozpojiť</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Nahrať súbor</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Šifrovanie pre IMAP server</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Šifrovanie pre POP server</value>
+  </data>
+  <data name="UserFolderCreateFolderLink" xml:space="preserve">
+    <value>Vytvoriť priečinok</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Šifrovanie pre SMTP server</value>
+  </data>
+  <data name="ViewAccountConnectionSettingsLabel" xml:space="preserve">
+    <value>Nastavenia pripojenia</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Pozrieť</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Zobraziť profil kontaktu</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Vytvoriť e-mail</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Vytvoriť nový e-mail</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+</root>

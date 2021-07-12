@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Xóa file?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Xóa trang?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>So sánh các phiên bản đã chọn</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Xuất bản</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Trở lại</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Tải lên</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Phiên bản {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Chưa có đề mục được tạo</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Tất cả đề mục bài viết wiki được liệt kê ở đây. Khi một đề mục được tạo trên một trang, nó sẽ được thêm vào danh sách đề mục ở đây.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>Không có file nào được hiển thị trong phần này</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Các file được tải lên cho các trang wiki của tất cả các tác giả wiki được giữ trong phần này. Các file này có thể được gắn vào các trang sử dụng wiki hoặc html markup.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Không có trang nào được hiển thị trong mục này</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Trang mục lục liệt kê tất cả các trang được tạo bởi các tác giả wiki theo thứ tự bảng chữ cái. Khi một trang được tạo, nó tự động thêm vào mục lục.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Không có trang nào được hiển thị trong mục này</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Tất cả các trang mới được tạo hoặc chỉnh sửa gần đây kèm tên tác giả được liệt kê ở đây. Chúng được thêm vào danh sách này, tự động sắp xếp theo thời gian chúng được tạo hoặc chỉnh sửa.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Không có trang nào được hiển thị trong mục này</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Tất cả các trang mới được chỉnh sửa gần đây kèm tên tác giả được liệt kê ở đây. Chúng được thêm vào danh sách này, tự động sắp xếp theo thời gian chúng được chỉnh sửa.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>File mới</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Trang mới</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Chỉnh sửa file</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Chỉnh sửa trang</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>File không tồn tại.  {0Create} file này với tên[[ or search in the {1search result}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Trang được yêu cầu không tồn tại. &lt;/div&gt;Bạn có muốn {0create} it[[ o search in the {1search result}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Tải file lên</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Tạo trang mới</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Xóa trang</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Chỉnh sửa trang</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Đề mục: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>In trang</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Xem lịch sử</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>wiki doanh nghiệp</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Chưa chọn file để tải lên.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Xảy ra lỗi nội bộ. Vui lòng liên hệ với quản trị viên.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Lỗi markup trang</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Không có thay đổi.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Trang này đã được chỉnh sửa bởi người dùng khác. Vui lòng refresh trang để xem phiên bản mới nhất.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Tên tiêu để trang không được để trống.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Tên trang không chính xác. Hãy thử nhập một tên khác.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Trang với tiêu đề này đã tồn tại</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Thay đổi đã được lưu.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Thêm trang vào danh mục</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Cập nhật/bình luận Trang</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Trang mới</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Đăng ký trang</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Tìm kiếm Wiki</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Bỏ đăng ký trang</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>Đã thêm bình luận</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>Đã xóa bình luận</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>Đã chỉnh sửa bình luận</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>file được thêm</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>file đã xóa</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>Trang được thêm</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>Trang được chỉnh sửa</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>phiên bản trang được trở lại</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>So sánh Ver. {0} với Ver. {1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Tải file lên</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Lịch sử</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Thay đổi mới nhất bởi {0} lúc {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Bạn có muốn trở lại phiên bản này?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Ver.</value>
+  </data>
+</root>

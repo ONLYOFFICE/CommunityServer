@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>عملیات</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>اضافه کردن</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>افزودن برچسب</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>افزودن شرکت کننده</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>اضافه کردن این رویداد</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>افزودن {!user}</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>پیوست ها</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>نویسنده</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>بازگشت</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>توسط دسته بندی</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>موارد</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>دسته بندی</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>تنظیم مجدد فیلتر</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>بستن این پنجره</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>بستن پنجره</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>تاییدیه</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>آیا مطمئنید که می خواهید این عناصر را حذف کنید؟</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>نرخ</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>مبدل ارز</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>تاریخ ایجاد</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>افزودن برچسب جدید</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>واحد پول</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>{!user} فعلی</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>موقعیت های کاری</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>حذف این رویداد</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>حذف شرکت کننده</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>حذف برچسب</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>حذف کاربر</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>اسناد</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>مقدار را وارد کنید</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>توسط تاریخ</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>با برچسب</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>از</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>تاریخچه</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>تماس تلفنی</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>ملاقات</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>بازیابی لیست مخاطبان...</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>ماه گذشته</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>متن نامه</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>لطفاً منتظر بمانید...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>متن ایمیل</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>موضوع ایمیل</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>ماشین حساب</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>رویدادهای من</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>رکورد بعدی</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>رکورد قبلی</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>مرحله قبلی</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>در دسترس برای {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>محدود کردن دسترسی</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>حقوق دسترسی</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>مدیریت ارتباط با مشتریان</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>مسئول</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>ذخیره تغییرات</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>در حال ذخیره تغییرات...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>انتخاب همه</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>ارسال ایمیل</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>نمایش</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>نمایش پنل الحاق فایل</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>رویدادهای جدید</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>مخاطبان جدید</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>برچسب ها</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>وظایف</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>ماه جاری</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>الحاق فایل</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>نمایش فایلها</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+</root>

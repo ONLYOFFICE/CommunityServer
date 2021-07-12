@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Meetmed</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Lisateave</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Lisa silt</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Lisa osaleja</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Lisa see üritus</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Märkme lisamine ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Lisa {!user}</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Manused</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Seo kontaktiga</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tagasi</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lisateave...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategooria</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Juhtumid</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategooria</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Muuda</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Valige</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Sulge see aken</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Sulge aken</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Koolon</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Faili veerg</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Koma</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Kinnitus</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Kas oled kindel, et soovid need elemendid kustutada?</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Sisu</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Kuupäev</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Valuuta konverter </value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Loomise kuupäev</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Loo</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Lisa uus silt</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuuta</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Praegune {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Kohandatud</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Kohandatud periood</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Kuupäev</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Kustuta see sündmus</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Kustuta osavõtja</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Kustuta silt</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Kustuta kasutaja</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kirjeldus</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Tühista kõik valikud</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Jutumärk</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplikaat kirje</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Filtri jaoks pole siin kirjeid</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Sisesta summa</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Ekspordi praegune loend CSV faili</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Tähtaeg</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Otsi ettevõttet või isikut nime järgi...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Alates</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Peida manuste paneel</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Ajalugu</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Kohtumine</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignoreeri esimest rida importimisel</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplikaat</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Dublikaadi kontrolli aluseks on e-posti aadressi väli.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Eraldaja</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kodeering</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV faili sätted</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informatsioon esitatud</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Viimane kuu</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Kirja sisu</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Seos</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>E-posti sisu</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Alates</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Ei õnnestunud edastada sõnumit{0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Lubamatu e-posti aadress: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Kohaletoimetamine nurjus - proovin uuesti {0} sekundi pärast.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>E-posti teema</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulaator</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Minu</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Minu sündmused</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Järgmine kirje</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Kirjeid pole</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>vastet ei leitud</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Siin saad vaadata koostatavat kirja. Kasutada "Tagasi" nuppu et teha mõned muudatused või kasuta nuppu "Saada", kui oled tulemusega rahul.</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Kättesaadavaks {!users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Kasutusõigused</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Kliendihaldus</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Seotud</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Uued sündmused</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Uued kontaktid</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Eksport lõpetatud</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Antud juurdepääs</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Lisa fail</value>
+  </data>
+</root>

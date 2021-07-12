@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Sprejmi</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Dodaj k množičnem pošiljanju</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Zapri zgodovino</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Zavrni</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Brcni</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Odstrani pošiljanje</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Odstrani člana</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Pošlji povabilo</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Pogovor</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Klepetalnice</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Dobrodošli na {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonimno</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Povezovanje...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Poveži me</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Ustvari klepetalnico</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Pošlji nekaj</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Ustvari bližnjice in zaženi Talk kot spletno aplikacijo.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Uporabi Ctrl+Enter za pošiljanje sporočil, Enter za začetek novega odstavka</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Smeškoti</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Omogoči/Onemogoči filter</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Različica Adobe Flash Player ni pravilna</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Pokaži/Skrij skupine</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Zgodovina sporočil</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player ni naložen</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Iskanje</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Naslednji</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Prejšnji</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>S seznama izberi osebo in začni pogovor</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Pošlji datoteko</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Kontakt povleci sem za dodajanje prejemnika.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Pokaži zavihek na levi</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Pokaži zavihek na desni</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>prebrano</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Kontakt povleci sem za dodajanje prejemnika</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Trenuten Status</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Naslednjič me ne vprašaj</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>najprej izberi uporabnika{0}s seznama za začetek pogovora</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Ali želite tega uporabnika odstraniti s pogovora?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Novo sporočilo</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>vas je povabil</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Ali želite izbrisati to sobo?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Pošlji</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Začasna soba (izbrisana bo, ko jo bodo vsi uporabniki zapustili)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Veljavni simboli</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Prejemanja obvestil</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Pogovor</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Datoteka: {0}Velikost: {1}</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Odsoten</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Ni na voljo</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Nedejaven</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Na voljo</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>V resničnem času klepetaj s kolegi. Naj je vaš kontaktni seznam avtomatično posodobljen. Prejmite "kaj je novega" obvestila.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Obvestila brskalnika</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Ustvari množično pošiljanje</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Ustvari klepetalnico</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Brcni uporabnika s pogovora</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Povabi v pogovor</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Izbriši pogovor</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>črke,številke in pike (.)</value>
+  </data>
+</root>

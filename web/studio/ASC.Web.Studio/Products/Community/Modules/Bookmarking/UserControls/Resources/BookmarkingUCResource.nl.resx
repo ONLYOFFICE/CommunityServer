@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Nieuwe bladwijzer aanmaken</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Bladwijzer toevoegen aan favorieten</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Toevoegen aan Favorieten</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Bladwijzer Aanmaken...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Bladwijzer uitgebreide beschrijving</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Bladwijzer door</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Zoeken in bladwijzers</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Aantal mensen die deze bladwijzer aan hun favorieten hebben toegevoegd</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Bladwijzers</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Voer de benodigde tags in, gescheiden door komma's</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Controleer URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Controleer URL...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Ga naar de opmerkingen bij de bladwijzer</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Opmerking</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Nieuwe bladwijzer aanmaken</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Bladwijzer bewerken</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Bladwijzer bewerken</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>Het URL-veld van de bladwijzer mag niet leeg zijn</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>Er zijn nog geen bladwijzers toegevoegd</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>De eerste bladwijzer aanmaken</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Geen bladwijzers gevonden</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Maak uw bladwijzers aan, bewaar en deel nuttige informatie met uw collega's direct op uw portaal, sla links op naar webbronnen waarmee u gemakkelijk terug kunt gaan naar uw favoriete plek.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Favorieten</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Meest Recent</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Meest Populair</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Bladwijzer verwijderen uit favorieten</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u de bladwijzer wilt verwijderen?</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u de {0} bladwijzer wilt verwijderen uit favorieten?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Bladwijzer Verwijderen</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Bladwijzer Verwijderen...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Toon:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Abonneren op opmerkingen</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Top van de Dag</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Afmelden voor opmerkingen </value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Jaar</value>
+  </data>
+</root>

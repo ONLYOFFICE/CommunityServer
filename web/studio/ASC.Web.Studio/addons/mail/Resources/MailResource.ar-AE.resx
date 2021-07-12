@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>صلاحيات الدخول للبوابة</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>اضف علامة</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>متقدم</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>مرفقات</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>نسخة مخفية</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>انشاء حساب جديد</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>نسخ</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>انشاء حساب جديد</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>اضافه علامة جديدة</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>عطل</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>عطل</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>حذف علامه</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>مسودات</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>الوارد</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>مرسل</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>بريد مزعج</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>محذوفات</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>اعادة توجية</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>البريد</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>اضافه علامة جديدة</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>لا يوجد عنوان</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>اجعله مقروء</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>اجعله مقروء</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>اجعلة غير مقروء</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>اجعلة غير مقروء</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>عدم اختيار الكل</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>البريد</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>اختر الكل</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>اكتب رساله</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>كتابه رساله جديدة</value>
+  </data>
+</root>

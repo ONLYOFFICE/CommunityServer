@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Kontaktpersonu saraksts tiek atjaunots automātiski kāmer darbinieki tiek pievienoti/izdzēsti no darbinieku saraksta, tādā veidā jums nevajag to paņemt manuāli.  </value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Ziņojums pārlūkā</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Čata istaba</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Čata Cilnes</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Kontaktu saraksts ar uzstādījumiem</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Pēc noklusējuma visi paziņojumi tiks sūtīti gan uz jūsu e-pastu, gan čatu. Jūs varat tos uzstādīt</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Dzēst nosūtītos failus</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Kontakti pa grupām</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>šeit</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Slēpt bezsaistes kontaktus</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Sūtīšana</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Vairāk informācijas par ziņojumiem ir pieejams {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Paziņojuma uzstādīšana</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk ir korporatīva tūlītēju ziņojumapmaiņas sistēma tūlītēju ziņojumu apmaiņai starp darbiniekiem reālā laikā.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk piedāvā visus tradicionālus līdzekļus kurus jūs gaidat no tūlītējas ziņojumapmaiņas programmas - statusa izvēle,  vēstures athivēšana, failu pārsūtīšana, čats vairākiem lietotājiem, un vairāk.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Talk Pārskats</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Palaidiet mūsu web klientu lai sāktu lietot Talk tūlīt bez jebkādu iepriekšēju iestatījumu.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profila lapa</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Nosūtīt ziņas ar Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Ievades lauka uzstādījumi</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Palaist Web Klientu</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Nekādu papildu iestatījumu! Noklikšķiniet lai palaistu web klientu un sāktu sarunu tūlīt</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Abonementu sadaļa {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Veids:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Skaņu paziņojumi</value>
+  </data>
+</root>

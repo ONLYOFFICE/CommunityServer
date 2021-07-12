@@ -1,0 +1,2985 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>địa chỉ</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Bản quyền</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>ĐT</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Giới thiệu chương trình</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Phiên bản</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Quyền truy cập</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Quyền truy cập mô-đun {0} được trao cho</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Thêm {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Thêm {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Tất cả {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Đổi người sở hữu hệ thống</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Thay đổi sẽ được áp dụng sau khi xác nhận qua email.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Để thay đổi người sở hữu Cổng thông tin hãy chọn Tên người sở hữu mới dưới đây.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>Mô-đun {0} tắt và không được hiển thị trên cổng thông tin. Để bật nó, vào phần Mô-đun &amp; Công cụ trong Thiết lập Hệ thống</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>Danh sách {!user} trống</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Truy cập đầy đủ</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Có cùng quyền truy cập như người sở hữu cổng thông tin, ngoại trừ quyền|Thay đổi người sở hữu cổng thông tin|Dừng hoạt động hoặc xóa cổng thông tin</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Người sở hữu cổng có thể</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Làm tương tự như quản trị viên mô-đun|Chỉ định quản trị viên mô-đun|Thiết lập quyền truy cập mô-đun|Quản lý cấu hình cổng thông tin|Quản lý tài khoản người dùng|Thay đổi người sở hữu cổng thông tin|Sao lưu dữ liệu cổng thông tin|Dừng hoạt động hoặc xóa cổng thông tin</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} quản trị viên có thể</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users} có thể</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} với quyền truy cập khác có thể</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} từ danh sách</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Tài khoản của bạn bây giờ đã hoạt động</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Dừng hoạt động cổng</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Trước khi xóa cổng thông tin này, hãy đảm bảo rằng thanh toán tự động đã được tắt. Bạn có thể kiểm tra trạng thái thanh toán tự động trong {0}tài khoản Avangate{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Một liên kết xác nhận hoạt động này đã được gửi đến: email (địa chỉ email của người sở hữu cổng).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Xóa cổng</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Một liên kết xác nhận hoạt động này đã được gửi đến: email (địa chỉ email của người sở hữu cổng).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Gửi lại code</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Nhập code</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Kích hoạt email một lần nữa</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Trường mã xác nhận không được để trống</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Nhập số điện thoại di động</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Tiếp tục</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Tạo {!group} mới</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Thêm nhóm</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Thêm địa chỉ IP được phép</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Thêm bình luận</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Thêm tên miền được tin cậy</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Thêm {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Thêm người dùng</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Quản trị viên</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Thông báo từ Quản trị viên</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Gửi tin nhắn</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Không có quyền truy cập vào cổng thông tin?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Địa chỉ Email mà Quản trị viên có thể liên lạc với bạn </value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Liên hệ với Quản trị viên</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Tin nhắn của bạn đã được gửi thành công. Quản trị viên sẽ sớm liên lạc với bạn.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Thiết lập Tin nhắn Quản trị</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Vui lòng mô tả vấn đề của bạn </value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Nếu bạn là một người dùng và gặp vấn đề khi truy cập vào Cổng thông tin hoặc bạn muốn đăng ký như một {!user} mới của cổng thông tin, vui lòng liên hệ với Quản trị viên theo mẫu dưới đây.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Quản trị viên</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Trạng thái Affiliate</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Tên miền bất kỳ</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Bảo lưu mọi quyền</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;sao chép; Ascensio System SIA {0}. Bảo lưu mọi quyền.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Trả lời</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Trả lời</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Ứng dụng</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Mở rộng chức năng web office bằng cách sử dụng ứng dụng của bên thứ ba. Liên hệ với quản trị viên cổng thông tin của bạn để kích hoạt các ứng dụng bạn cần.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Tìm hiểu thêm thông tin trong {0}Trung tâm Hỗ trợ{1}</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Kết nối</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Đã kết nối</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Ngắt kết nối</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Không được kết nối</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>tại</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Xác thực</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Xác thực</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Tích hợp dịch vụ bên thứ ba</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Key ủy quyền là tùy chọn cho phép bạn kết nối hệ thống ONLYOFFICE™ với các dịch vụ của bên thứ ba như Twitter, Facebook, DropBox, v.v. Kết nối cổng thông tin của bạn với Facebook, Twitter hoặc Linkedin nếu bạn không muốn khai các thông tin xác thực hệ thống cho mỗi lần đăng nhập. Liên kết nó với các dịch vụ như DropBox, OneDrive, v.v để chuyển các tài liệu từ tất cả các bộ nhớ lưu trữ đó tới mô-đun Tài liệu của ONLYOFFICE.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Điều khoản dịch vụ</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để tự động sao lưu dữ liệu cổng thông tin.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Tự động sao lưu</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>Tùy chọn {0}Tự động sao lưu{1} được sử dụng để tự động hóa quá trình sao lưu dữ liệu cổng thông tin và cho phép khôi phục lại sau trên một server. Chọn dung lượng dữ liệu, thời gian sao lưu tự động và số lượng tối đa bản sao sẽ được lưu.{2}{0}Lưu ý:{1} trước khi bạn có thể lưu dữ liệu sao lưu vào tài khoản bên thứ ba (DropBox, Box.com, OneDrive hoặc Google Drive), bạn sẽ phải kết nối tài khoản này với thư mục Tài liệu Cộng tác của ONLYOFFICE.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Tới trang tiêu đề</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Sao lưu</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Số lượng tối đa các bản sao lưu được lưu trữ</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>Tài liệu ONLYOFFICE</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Tải sao lưu</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Tạo bản sao</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Bao gồm Mail vào bản sao lưu</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Không có dịch vụ của bên thứ ba nào được kết nối.{0}Tới mô-đun "Tài liệu" để kết nối.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Bạn có thể tải về bản sao lưu vào ổ đĩa cục bộ bằng cách sử dụng liên kết dưới đây. Liên kết này sẽ hoạt động trong 24 giờ kể từ thời điểm yêu cầu.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Lưu trữ</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Tạm thời</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Sử dụng tùy chọn này nếu bạn muốn lấy tất cả dữ liệu chứa trên cổng thông tin này bằng một file.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Bạn cần kết nối tài khoản bên thứ ba (DropBox, Box.com, OneDrive hoặc Google Drive) vào thư mục Tài liệu Cộng tác của ONLYOFFICE trước thì mới có thể lưu bản sao lưu ở đó.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Thêm {!Group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Ngày sinh</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Trình duyệt</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Thêm liên hệ mới</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Gọi</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Kết thúc cuộc gọi</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Đang kết nối</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Đang gọi</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Gọi đến</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Tất cả dữ liệu bạn đã nhập sẽ bị mất. Bạn có chắc là muốn tiếp tục?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Đã thay đổi Mail thành công</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Đổi Logo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Một liên kết xác nhận hoạt động này đã được gửi đến: email (địa chỉ email của người sở hữu cổng).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Thg1, Thg2, Thg3, Thg4, Thg5, Thg6, Thg7, Thg8, Thg9, Thg10, Thg11, Thg12</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Chọn người sở hữu</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Chọn {!user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Bỏ bộ lọc</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Xanh nhạt</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Xanh lá đậm</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Xanh dương đậm</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Xanh cốm</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Da cam</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Màu theme</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Hồng</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>bình luận đã được xóa</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Ngắt kết nối</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Vui lòng xác nhận rằng bạn muốn dừng hoạt động cổng thông tin của bạn</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Vui lòng xác nhận rằng bạn muốn xóa cổng thông tin của bạn</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Bạn có chắc là muốn thay đổi địa chỉ cổng cho {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Người sở hữu cổng đã được thay đổi thành công. {0}Trong 10 giây, bạn sẽ được chuyển hướng {1}tại đây{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Vui lòng xác nhận rằng bạn muốn thay đổi người sở hữu cổng thông tin cho {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Tham gia</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Bạn đã xác nhận đăng ký thành công. Tạo mật khẩu và bắt đầu công việc của bạn!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Vui lòng xác nhận rằng bạn muốn kích hoạt lại cổng thông tin của bạn</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xoá bình luận của bạn?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Xóa bình luận</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Chúc mừng</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Kết nối</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>đăng nhập</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Kết nối dịch vụ Bitly để rút gọn các liên kết lời mời của cổng thông tin và các liên kết được chia sẻ trong mô-đun Tài liệu.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm dịch vụ Bitly, bạn sẽ nhận được các liên kết rút gọn để mời người dùng mới vào cổng thông tin ONLYOFFICE™ và rút gọn các liên kết tới tài liệu trong mô-đun Tài liệu được chia sẻ với người dùng bên ngoài.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>đăng nhập</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để quản lý các file và thư mục Box.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ Box, bạn sẽ có thể kết nối tài khoản Box của bạn trong mô-đun Tài liệu. Điều này sẽ cho phép tải lên và tạo file mới trong Box, chỉnh sửa các file hiện có, sao chép và xóa chúng, chia sẻ file và thư mục với người dùng cổng thông tin ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Bật ứng dụng cho phép xác thực hai yếu tố thông qua Clickatell.</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Thêm ứng dụng dịch vụ Clickatell để có thể kích hoạt xác thực hai yếu tố và nhận được một SMS có chứa mã code cho phép người dùng vào hệ thống ONLYOFFICE.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign Key</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để thêm chữ ký điện tử DocuSign vào tài liệu.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>Điểm cuối xác thực DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ DocuSign, bạn sẽ có thể ký các file từ mô-đun Tài liệu. Điều này sẽ cho phép gửi một file có chữ ký điện tử tới nhân viên cổng thông tin ONLYOFFICE™ thông qua dịch vụ DocuSugn. File đã ký sẽ được lưu trong mô-đun Tài liệu ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign Key</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>Điểm cuối xác thực DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>DropBox Key</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để quản lý các file và thư mục Dropbox.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ Dropbox, bạn sẽ có thể kết nối tài khoản Dropbox trong mô-đun Tài liệu. Điều này sẽ cho phép tải lên và tạo các file mới trong Dropbox, chỉnh sửa các file hiện có, sao chép và xóa chúng, chia sẻ file và thư mục với người dùng cổng thông tin ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>DropBox Key</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook Key</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook trong CRM Key</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để đăng nhập vào hệ thống bằng tài khoản Facebook và tìm kiếm địa chỉ liên hệ.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ Facebook bạn sẽ có thể kết nối tài khoản Facebook của bạn trên trang hồ sơ của bạn để bạn có thể dùng nó để đăng nhập vào cổng thông tin ONLYOFFICE™. Bạn cũng có thể tìm thấy tài khoản Facebook của một liên hệ trong mô-đun CRM và liên kết nó lên trang 'Chỉnh sửa người/công ty'.</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook Key</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>Web API key</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Server key</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>ID người gửi</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>ID dự án</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Kết nối Dịch vụ Tin nhắn đám mây Firebase để nhận thông báo về tin nhắn được gửi cho bạn.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Nếu bạn kết nối Firebase Cloud Messaging, bạn sẽ có thể nhận thông báo về những tin nhắn được gửi cho bạn ngay cả khi bạn đang ngoại tuyến.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Web API key</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>ID người gửi</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>ID dự án</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Server key</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Kết nối dự án để đăng nhập vào cổng thông tin bằng tài khoản Google và quản lý file và thư mục Google Drive.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một dự án của dịch vụ Google, bạn sẽ có thể kết nối tài khoản Google trên trang hồ sơ của bạn và dùng nó để đăng nhập vào cổng thông tin ONLYOFFICE™ cũng như kết nối với tài khoản Google Drive của bạn trong mô-đun Tài liệu. Điều này sẽ cho phép tải lên và tạo file mới trong Google Drive, chỉnh sửa các file hiện có, sao chép và xóa chúng, chia sẻ file và thư mục với người dùng cổng thông tin ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để đăng nhập vào hệ thống bằng tài khoản LinkedIn.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ LinkedIn bạn sẽ có thể kết nối tài khoản LinkedIn trên trang hồ sơ của bạn và dùng nó để đăng nhập vào cổng thông tin ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin Key</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive Key</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để quản lý file và thư mục OneDrive.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ OneDrive, bạn sẽ có thể kết nối tài khoản OneDrive trong mô-đun Tài liệu. Điều này sẽ cho phép tải lên và tạo các file mới trong OneDrive, chỉnh sửa các file hiện có, sao chép và xóa chúng, chia sẻ file và thư mục với người dùng cổng ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive Key</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>Trung tâm SMS</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Kích hoạt ứng dụng cho phép xác thực hai yếu tố thông qua Trung tâm SMS.</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>Thêm ứng dụng dịch vụ Trung tâm SMS để có thể xác thực hai yếu tố và nhận được một SMS có chứa mã code cho phép người dùng vào cổng ONLYOFFICE. Ứng dụng Trung tâm SMS hữu ích trong vai trò là đơn vị cung cấp cho các nước thuộc Cộng đồng các Quốc gia Độc lập (SIS).</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Mật khẩu hoặc mật khẩu MD5 hash bằng chữ thường</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Mật khẩu hoặc mật khẩu MD5 hash bằng chữ thường</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Tài khoản Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Token xác thực</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Thêm Twilio để có thể gọi cho các liên hệ CRM ngay từ trình duyệt.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Sau khi bạn thêm Twilio, bạn sẽ có thể gọi cho mọi liên hệ CRM ngay từ trình duyệt.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Tài khoản Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Số điện thoại từ Twilio (được yêu cầu để cho phép gửi SMS)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Token xác thực</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Số điện thoại từ Twilio (được yêu cầu để cho phép gửi SMS)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Token truy cập</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Bí mật Token truy cập</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter trong CRM Key</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter Key</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Kết nối ứng dụng để đăng nhập vào hệ thống bằng tài khoản Twitter và tìm kiếm địa chỉ liên hệ.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Nếu bạn thêm một ứng dụng của dịch vụ Twitter, bạn sẽ có thể kết nối tài khoản Twitter trên trang hồ sơ của bạn và dùng nó để đăng nhập vào cổng thông tin ONLYOFFICE™. Bạn cũng sẽ có thể tìm thấy tài khoản Twitter của một người trong mô-đun CRM và liên kết nó lên trang 'Chỉnh sửa cá nhân/công ty' và sau đó xem news feed trên Twitter.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Token truy cập</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter Key</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Bí mật Token truy cập</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Bật ứng dụng cho phép nhập liên hệ từ Yahoo.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Thêm ứng dụng dịch vụ Yahoo để có thể thêm người dùng ONLYOFFICE mới từ danh sách liên hệ.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Thông Tin Liên Hệ</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Tiếp tục</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Cài đặt Cookie{1} cho phép cài đặt thời gian tồn tại của cookie tính theo phút.{2}Sau khi lưu, tất cả người dùng sẽ bị đăng xuất khỏi cổng thông tin.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Dòng đời</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Cài đặt Cookie</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Sao chép liên kết</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Sử dụng cho Doanh nghiệp</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Thao tác khôi phục mật khẩu bị cấm đối với người dùng LDAP</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Thao tác khôi phục mật khẩu bị cấm đối với người dùng SSO</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Tạo hồ sơ mới</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>đang tạo sao lưu</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Tùy chỉnh tên miền</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Tùy chỉnh</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Tuỳ chỉnh</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Sao lưu dữ liệu</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>Tùy chọn {0}Sao lưu dữ liệu{1} được sử dụng để sao lưu dữ liệu hệ thống để sau đó khôi phục tới máy chủ cục bộ của bạn. Chọn bộ nhớ lưu trữ dữ liệu (đừng quên nhập chi tiết Amazon để có thể truy cập vào nó).{2}
+Nếu bạn chọn bao gồm mail, chỉ tin nhắn trong 30 ngày qua mới được sao lưu.{2}{0}Lưu ý:{1} bạn cần kết nối tài khoản bên thứ ba (DropBox, Box.com, OneDrive hoặc Google Drive) với thư mục Tài liệu Cộng tác của ONLYOFFICE thì mới có thể lưu bản sao lưu ở đó.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Quản lý dữ liệu</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Dừng hoạt động</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Dừng hoạt động</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Tài khoản của bạn đã được dừng hoạt động thành công.{0}Trong 10 giây, bạn sẽ là chuyển hướng {1}tại đây{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Dừng hoạt động/Xóa Cổng</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để tạm thời ngưng hoạt động cổng của bạn.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Lựa chọn mô đun</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Trang Bắt đầu Mặc định</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Cài đặt mặc định</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Hành động này không thể hoàn tác.
+Bạn có chắc chắn muốn xoá {0} {!group}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Cổng của bạn đã được xóa thành công. {0}Trong 10 giây, bạn sẽ được chuyển hướng {1}tại đây{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Xóa hồ sơ của tôi</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Gửi hướng dẫn xóa hồ sơ đến địa chỉ email</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Xóa hộp thoại hồ sơ</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Xóa Hồ sơ</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>Sẽ xóa {!User} {0}.</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>Các tài liệu cá nhân của người dùng khả dụng cho người khác sẽ bị xóa. Để tránh điều này, bạn phải bắt đầu quá trình phân bổ lại dữ liệu trước khi xóa.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để xóa vĩnh viễn cổng của bạn.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Sửa {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Không hoạt động</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user} sẽ không được hiển thị trong danh sách {!users} hoạt động </value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Một liên kết xác nhận hoạt động này đã được gửi đến {0} (địa chỉ email của người sở hữu cổng).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Cài đặt DNS</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Dịch vụ Tài liệu</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Địa điểm dịch vụ tài liệu chỉ rõ địa chỉ server của dịch vụ tài liệu được cài đặt. Vui lòng đổi '&amp;lt;editors-dns-name&amp;gt;' thành địa chỉ server tại các dòng dưới đây trong khi giữ nguyên phần còn lại.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Địa điểm Dịch vụ Tài liệu</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Địa chỉ Dịch vụ Chỉnh sửa Tài liệu</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Ví dụ: {0}</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} trước</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} ngày</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} ngày</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} ngày</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>chỉ</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} giờ</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} giờ</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} giờ</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} phút</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} phút</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} phút</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} tháng</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} tháng</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} tháng</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} năm</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} năm</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} năm</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Hôm kia</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Ngày mai</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Sửa</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Chỉnh sửa hồ sơ</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Hướng dẫn kích hoạt sẽ được gửi tới email đã nhập</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Sử dụng liên kết được cung cấp trong email kích hoạt. Chưa nhận được email có liên kết kích hoạt?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Vui lòng kích hoạt email đã nhập đồng thời đăng ký để có thể truy cập vào tất cả các tính năng của cổng thông tin.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Yêu cầu kích hoạt lại một lần nữa</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Một email kích hoạt đã được gửi đến địa chỉ email của bạn. Vui lòng bấm vào liên kết trong thư để kích hoạt tài khoản của bạn.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Kích hoạt Email</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Xác nhận mật khẩu</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Trang thông tin của bạn được đăng ký với tên miền sau:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Mật khẩu sai</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Địa chỉ email không chính xác</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Mã khuyến mại không chính xác</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Bạn có mã khuyến mại? Nhập nó ở đây</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Trang thông tin của bạn được đăng ký từ các email sau:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Các thiết lập này đã được lưu thành công</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Loại mật khẩu</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Mật khẩu và mật khẩu xác nhận không trùng khớp</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Đổi email</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Hướng dẫn kích hoạt sẽ được gửi tới email đã nhập</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Thay đổi email</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Email chưa được kích hoạt</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Tất cả {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Tìm kiếm nhân viên</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Không có dữ liệu chiếm dung lượng lưu trữ</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Bật xác thực LDAP</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Bật SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} sẽ được hiển thị lại là hoạt động </value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Nhập địa chỉ email mới</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Bạn không có quyền xem trang này</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Error 403 - Forbidden</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Không có quyền để thực hiện hành động này</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Truy cập vào cổng này bị giới hạn.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Bad keys</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Bad request</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Email không hợp lệ hoặc liên kết hết hạn</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Hồ sơ của bạn bị treo</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} với email này đã được đăng ký</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Email từ miền này không được phép đăng ký</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Trường email không được để trống</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Email hiện tại và email mới trùng nhau</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Vui lòng điền vào tất cả các trường</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Không tìm thấy file được tải lên</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Nhập địa chỉ email của bạn</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Nhập tên của bạn</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Nhập họ của bạn</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Liên kết hết hạn</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Kích thước hình ảnh quá lớn</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Kích thước file hình ảnh quá lớn</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Liên kết kích hoạt không hợp lệ</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Truy cập vào cổng này bị giới hạn</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Ngày đăng ký phải sau ngày sinh</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Bạn chỉ có thể nhập tối đa 255 ký tự cho trường này.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Bạn chỉ có thể nhập tối đa 64 ký tự cho trường này.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Trình duyệt của bạn không hỗ trợ Javascript!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Gói của bạn không hỗ trợ tùy chọn này</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>định dạng ngày tháng không hợp lệ</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Email không chính xác</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Tên miền không hợp lệ</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Chưa có mật khẩu</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>từ {0} đến {1} ký tự</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Mật khẩu phải chứa</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Phải chứa</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>chữ số</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>Ký tự đặc biệt</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>chữ viết hoa</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Loại file ảnh không xác định</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Không tìm thấy người dùng này</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Không tìm thấy người dùng với thư điện tử "{0}" </value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>Vùng châu Âu (Ireland)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Hàng ngày</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Hàng tháng</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Hàng tuần</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Phản hồi &amp;amp; Hỗ trợ</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Nữ</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Vượt quá kích thước tối đa của file</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Lưu ý: kích thước file không được vượt quá {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB,TB
+</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>trong thời gian</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>từ</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>đến</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>3 tháng qua</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>tháng trước</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>Tuần trước</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Liên kết để xác nhận tài khoản của bạn đã được gửi tới email chỉ định</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Quên Mật khẩu?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Để đăng nhập vui lòng làm theo liên kết này {0}link{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>từ</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Dịch vụ tìm kiếm toàn bộ văn bản không hoạt động</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Dịch vụ tìm kiếm toàn bộ văn bản đang hoạt động</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Cài đặt Sphinx</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Để sử dụng chức năng tìm kiếm toàn bộ văn bản bạn cần cài đặt sphinx.2.2.10 trên server của bạn.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Cài đặt cho công việc với việc khởi chạy sphinx, indexer và search daemon. Bạn cần chỉ rõ host và số cổng được nghe theo bởi search daemon (searchd). Các cài đặt này phải trùng khớp với cấu hình sphinx trong phần searchd của file sphinx.conf.in.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Thử</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Lấy liên kết rút gọn</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Thiết Lập Trang Chào Mừng</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Trưởng Nhóm</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Khách</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Khách</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Nếu bạn muốn {1}dừng hoạt động{2} cổng thông tin này, cổng thông tin của bạn và tất cả các thông tin liên quan đến nó sẽ bị chặn để không ai có quyền truy cập vào nó trong một khoảng thời gian nhất định. Để thực hiện điều đó, bấm vào nút {1}Dừng hoạt động{2}. Một liên kết xác nhận hoạt động này sẽ được gửi đến địa chỉ email của người sở hữu cổng thông tin.{0}Trong trường hợp bạn muốn trở lại cổng thông tin ONLYOFFICE™ này và tiếp tục sử dụng nó, bạn sẽ cần sử dụng liên kết thứ hai được cung cấp trong email xác nhận này.Vì vậy, hãy giữ gìn email này cẩn thận.{0}Nếu bạn không nghĩ rằng bạn sẽ sử dụng cổng ONLYOFFICE™ này và muốn {1}xóa{2} cổng thông tin của bạn vĩnh viễn,hãy gửi yêu cầu của bạn bằng cách sử dụng nút {1}Xóa{2}. Lưu ý rằng bạn sẽ không thể kích hoạt lại cổng thông tin của bạn hay khôi phục bất kỳ thông tin nào liên quan đến nó.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Thiết lập Tin nhắn Quản trị{2} là hình thức liên lạc với quản trị viên cổng thông tin.{0}Bật tùy chọn này để hiển thị mẫu liên hệ trên trang {1}Đăng nhập{2} để mọi người có thể gửi tin nhắn tới quản trị viên cổng thông tin trong trường hợp không thể truy cập cổng thông tin.{0}Để các thông số bạn thiết lập có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Màu theme{2} cho phép bạn tùy chỉnh giao diện cổng thông tin phù hợp với nhãn hiệu công ty bạn.{0} Chọn một màu theme từ danh sách bên trái.{0} Để áp dụng màu theme đã chọn, bấm vào nút {1}Lưu{2} ở dưới cuối.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Trang Bắt đầu Mặc định{1} là hình thức chọn mô-đun sẽ di chuyển tới ngay sau khi bạn đăng nhập vào cổng thông tin hoặc bấm vào logo ONLYOFFICE™ khi bạn đã đăng nhập. Để các thông số bạn đặt có hiệu lực, bấm vào nút {0}Lưu{1} ở dưới cuối.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}Cài đặt DNS {2} là một cách để thiết lập một URL thay thế cổng thông tin của bạn.{0}Bạn có thể hoặc nhập đường dẫn bạn muốn trong {1}trường địa chỉ của trang thông tin {2} hoặc kiểm tra phần {1}Chỉnh sửa tên miền{2} và chỉ định tên miền riêng của bạn cho trang thông tin ở mục dưới đây.{0} Để áp dụng những thay đổi bạn đã sử dụng nút {1}Lưu {2} ở dưới cùng.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Thiết lập Trang Chào mừng{2} cho phép thay đổi tiêu đề mặc định của cổng thông tin được hiển thị trên {1}Trang Chào mừng{2} của cổng thông tin của bạn. Tên này cũng được sử dụng cho trường {1}Từ{2} trong thông báo email của cổng thông tin. {0}Nhập tên mà bạn thích trong trường {1}Tiêu đề{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Chia sẻ liên kết này để mời đồng nghiệp vào cổng thông tin của bạn.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Cài đặt Ngôn ngữ và Múi giờ{2} cho phép thay đổi ngôn ngữ của toàn bộ cổng thông tin cho tất cả người dùng cổng và cấu hình múi giờ để tất cả các sự kiện trong cổng thông tin sẽ được hiển thị dưới dạng ngày và giờ chính xác.{0}Để các thông số bạn thiết lập có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối phần này.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Cài đặt Logo{2} cho phép thay đổi logo mặc định được hiển thị trên {1}Trang chào mừng{2} của cổng thông tin.{0}Để thay thế logo của cổng thông tin, bấm vào liên kết {1}Thay đổi Logo{2} ở bên phải và chọn hình ảnh từ máy tính của bạn để tải nó lên.{0}Lưu ý rằng hình ảnh tải lên không được lớn hơn {1}250x100 pixel{2}, nếu không kích thước sẽ bị thay đổi. Kích thước tối đa của hình ảnh không được vượt quá {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Thiết lập Tên miền Mail được tin cậy{2} là một cách để xác định các mail server được sử dụng để tự đăng ký người dùng.{0}Bạn có thể kiểm tra tùy chọn {1}Tên miền Tùy chỉnh{2} và nhập vào mail server được tin cậy trong trường bên dưới để người có tài khoản tại đó có thể tự mình đăng ký bằng cách bấm vào liên kết Tham gia trên trang {1}Đăng nhập{2} hoặc vô hiệu hóa tùy chọn này.{0}Để các thông số bạn đặt có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối phần này.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Thiết lập Độ dài Mật khẩu{2} cho phép xác định hiệu quả của mật khẩu trong việc chống lại các vụ tấn công 'brute-force attack'.{0}Sử dụng thanh {1}Độ dài Mật khẩu Tối thiểu{2} để xác định độ dài mật khẩu cần thiết. Kiểm tra các hộp thích hợp bên dưới để xác định tập hợp ký tự phải được sử dụng trong mật khẩu.{0}Để các thông số bạn thiết lập có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối phần này.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Cổng công cộng{2} là tùy chọn miễn phí cho phép mọi người xem nội dung công khai của bạn mà không cần đăng ký. Sẽ không có các dự án kín và mô-đun CRM của các cổng thông tin đó sẽ tắt.{0}Không giới hạn số lượng người dùng đăng ký vào cổng thông tin công cộng, người dùng mới được thêm vào theo yêu cầu của quản trị viên hệ thống. Sử dụng tùy chọn {1}Đăng ký người dùng mới ngay lập tức{2} để xóa yêu cầu xác nhận đăng ký nếu cần.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Ở đây bạn có thể thay đổi địa chỉ cổng thông tin của bạn. Nhập phần sẽ xuất hiện bên cạnh địa chỉ cổng thông tin  onlyoffice.com/onlyoffice.eu.{0}{1}Lưu ý{2}: địa chỉ cổng thông tin cũ của bạn sẽ khả dụng cho người dùng ONLYOFFICE mới ngay khi bạn bấm vào nút {1}Lưu{2}.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Phiên bản Cổng{2} cho phép chuyển đổi giữa các phiên bản cổng ONLYOFFICE™.{0}Bạn có thể sử dụng phiên bản mới hoặc chuyển về các phiên bản trước đó.{0}Để các thông số bạn thiết lập có hiệu lực, bấm vào nút {1}Lưu{2} ở dưới cuối.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Template nhóm{2} là một cách tùy biến để đặt tên tổ chức (hoặc nhóm), thành viên và các hoạt động của họ.{0}Thả xuống danh sách {1}Template{2} để chọn một trong các cài đặt trước có sẵn hoặc tự nhập tên, chọn tùy chọn{1}Tùy chỉnh{2} từ danh sách này.{0}Để áp dụng template đã chọn, sử dụng nút {1}Lưu{2} ở dưới cuối phần này.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Di chuyển cổng thông tin này tới các server thuộc vùng gần vị trí địa lý của bạn nhất sẽ giúp cổng thông tin phản hồi nhanh hơn. Người dùng và khách hàng của bạn càng ở gần vùng server này thì tốc độ cổng thông tin càng nhanh.{0}Để bắt đầu quá trình di chuyển, hãy bấm vào nút {1}Thay đổi Vùng Server{2} ở dưới cùng.{0}{1}Lưu ý:{2} một khi quá trình được bắt đầu thì sẽ không thể bị hủy. Cũng xin lưu ý rằng do hạn chế về mặt kỹ thuật nên chỉ những thư trong 30 ngày qua mới được chuyển.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Trung tâm Hỗ trợ</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Mục đích của chương trình này là quảng cáo một cách hợp pháp cho ONLYOFFICE™ để nhận hoa hồng từ các thuê bao được mua bởi các cá nhân được giới thiệu.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Nhập tài khoản AIM của bạn</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Nhập hồ sơ Blogger của bạn</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Nhập Email của bạn</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Nhập hồ sơ Facebook của bạn</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Nhập tên đăng nhập tài khoản hoặc ID của bạn</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Nhập tài khoản GoogleTalk</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Nhập hồ sơ GoogleBuzz của bạn</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Nhập tài khoản Google của bạn</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Nhập tài khoản ICQ của bạn</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Nhập tài khoản Jabber</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Nhập hồ sơ LiveJournal của bạn</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Nhập số điện thoại di động của bạn</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Nhập tài khoản MSN của bạn</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Nhập hồ sơ MySpace của bạn</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Nhập số điện thoại của bạn</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Nhập tài khoản Skype của bạn</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Nhập hồ sơ Twitter của bạn</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Nhập tài khoản Yahoo của bạn</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Đăng nhập Host</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Mật khẩu Host</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} đã tồn tại</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Không có liên hệ nào được nhận. {0}Bạn cũng có thể nhập liên hệ từ các hồ sơ khác.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Nhập tên người dùng</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Nhập họ người dùng</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Nhập email của bạn</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Nhập tên của bạn</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Lỗi nhập</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Nhập họ của bạn</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Vui lòng nhập họ tên và email của {!user} người sẽ được thêm vào cổng thông tin vào các trường ở trên. Bấm vào nút 'Thêm' để thêm {!user} vào danh sách.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Từ file</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>File được chọn để nhập có định dạng không đúng.{0}Vui lòng chọn một file khác và lặp lại quá trình nhập một lần nữa.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Thêm {!users} vào cổng thông tin</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Đảm bảo nhập chính xác tất cả các trường người dùng bao gồm họ tên và địa chỉ email.</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Nhập từ Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Nhập từ Yahoo</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Gói hiện tại của bạn cho phép bạn thêm {0} người dùng.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Nâng cấp gói dịch vụ hoặc thêm người dùng làm khách với quyền truy cập ở chế độ chỉ xem. sau này bạn sẽ có thể thay đổi vai trò của họ trong mô-đun 'Nhân sự'.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Đang thêm người dùng</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Nâng cấp gói của bạn hoặc thêm người dùng làm khách với quyền truy cập ở chế độ chỉ xem. Sau này bạn sẽ có thể thay đổi vai trò của họ trong mô đun 'Nhân sự' hoặc {0}Đọc về cách sử dụng phi lợi nhuận{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Gói của bạn không cho phép bạn thêm người dùng nữa</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>trong</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Tên người dùng hoặc mật khẩu không chính xác.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Để bắt đầu làm việc trên cổng thông tin, bạn nên kiểm tra tính chính xác của {0}tên{1} và {0}họ{1} của bạn ở mẫu bên phải và đặt {0}mật khẩu cá nhân{1} để có thể đăng nhập.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Liên kết Lời mời</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Bạn nhận được liên kết đến cổng thông tin này từ một người bạn, người quen hoặc đồng nghiệp của bạn</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Bạn đã được thêm vào cổng thông tin này bởi một người bạn, người quen hoặc đồng nghiệp của bạn</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Bạn được mời tham gia cổng thông tin này!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Thêm người dùng với tư cách là {!guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Mời người dùng vào cổng thông tin</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}Bảo mật IP{1} được sử dụng để hạn chế đăng nhập vào cổng thông tin từ tất cả các địa chỉ IP trừ các địa chỉ nhất định. Bạn có thể thiết lập các địa chỉ IP được phép truy cập, sử dụng địa chỉ IP chính xác theo định dạng IPv4 (#.#.#.#, trong đó # là một giá trị số từ 0 đến 255) hoặc khoảng IP (theo định dạng #.#.#.#-#.#.#.#). Bảo mật IP không áp dụng với người sở hữu cổng thông tin, họ có thể truy cập vào hệ thống từ bất kỳ địa chỉ IP nào.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>Bảo mật IP</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Trước tiên bạn cần chỉ rõ IP hiện tại của bạn hoặc phạm vi IP của địa chỉ IP hiện tại, nếu không quyền truy cập cổng thông tin của bạn sẽ bị chặn ngay sau khi bạn lưu cài đặt này. Người sở hữu cổng thông tin sẽ có quyền truy cập từ địa chỉ IP bất kỳ.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Di chuyển cả ONLYOFFICE™ Mail (không nên)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Trở thành Affiliate của chúng tôi</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Bạn có thể tiếp tục thêm người dùng với tư cách là {!guests} hoặc đổi sang gói có số lượng lớn người dùng lớn hơn.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>Cài đặt LDAP</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Xác thực Người dùng</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Bật tùy chọn này nếu người dùng Windows hiện tại không có quyền đọc từ LDAP server/Active Directory và nhập thông tin xác thực của người dùng khác có quyền đọc.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Lỗi kết nối</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Trường rỗng</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Bật tùy chọn này nếu bạn muốn tự động thêm người dùng từ LDAP server/Active Directory vào ONLYOFFICE™. Những người dùng được thêm này sẽ có thể ủy quyền sử dụng thông tin xác thực LDAP server/Active Directory của họ. ONLYOFFICE™ không lưu mật khẩu người dùng cục bộ nhưng sẽ xác thực người dùng gửi thông tin đăng nhập và mật khẩu tới LDAP server/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Không thể tạo người dùng, dữ liệu nhận được không chính xác.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Server không thể nhận cài đặt.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Server không thể lưu cài đặt.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Tên đăng nhập hoặc mật khẩu không chính xác.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>Không tìm thấy tên miền LDAP.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Không tìm thấy nhóm nào.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Giá trị Lọc Người dùng không hợp lệ.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Lỗi không xác định.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Không tìm thấy người dùng.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Không thể gán Thuộc tính nhóm cho một hoặc nhiều nhóm.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Lọc Nhóm không chính xác.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Không thể gán Thuộc tính Tên Nhóm cho một hoặc nhiều nhóm.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Không thể gán Thuộc tính Đăng nhập cho một hoặc nhiều người dùng.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Không thể kết nối với LDAP server. Vui lòng kiểm tra tính chính xác của địa chỉ server và số cổng.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Không thể gán Thuộc tính Người dùng cho một hoặc nhiều người dùng.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Thuộc tính nhóm</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Nhập thuộc tính của đối tượng trong nhóm để xác định kiểu người dùng có trong nhóm này.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>DN nhóm</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Nhập tên phân biệt cho thư mục chứa các nhóm mà bạn muốn thêm.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Lọc nhóm</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Sử dụng bộ lọc tìm kiếm LDAP để chọn các nhóm sẽ được nhập. Lưu ý rằng chỉ những người dùng từ các nhóm này mới được thêm vào.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Thành viên nhóm</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Bật tùy chọn này nếu bạn muốn thêm nhóm từ LDAP server/Active Directory vào ONLYOFFICE™. Lưu ý rằng chỉ những người dùng thuộc các nhóm này mới được thêm vào.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Thuộc tính tên nhóm</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Vui lòng chỉ rõ thuộc tính đối tượng tương ứng với tên nhóm.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Lỗi nội bộ server.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Thuộc tính đăng nhập</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Nhập thuộc tính đối tượng tương ứng với thông tin đăng nhập của người dùng.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>Điều chỉnh người dùng LDAP thành người dùng cổng thông thường</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Đăng nhập DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Nhập mật khẩu của người dùng có quyền truy cập để đọc dữ liệu từ LDAP server/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Số cổng</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Nhập số cổng cho LDAP server/Active Directory của bạn.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Cài đặt mặc định</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Khôi phục về cài đặt mặc định</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Lưu cài đặt</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Nhập LDAP server URL không bao gồm số cổng, ví dụ: LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>đang thêm người dùng</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Xác minh chứng chỉ</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Kiểm tra thiết lập hỗ trợ LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>Ngắt kết nối LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Đang truy xuất danh sách nhóm từ LDAP server</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Đang truy xuất danh sách người dùng từ LDAP server</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>Đang tải thông tin cơ bản về LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>đang xóa người dùng</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Đang loại bỏ các nhóm đã lỗi thời được tải qua LDAP trước đó</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Đang loại bỏ hồ sơ người dùng đã lỗi thời được tải qua LDAP trước đó</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Đang lưu nhóm</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Đang lưu cài đặt</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Đang lưu người dùng</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Đang đồng bộ người dùng</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Yêu cầu hình thức xác thực bảo mật hơn. Vui lòng sử dụng kết nối được mã hóa hoặc cho phép xác thực cơ bản trên server.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Đã lưu thành công.</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Đồng bộ người dùng</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Đã đạt đến giới hạn số người dùng của gói hiện tại</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>Server LDAP hiện tại không được hỗ trợ StartTLS.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Quá nhiều hoạt động từ LDAP.</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Thuộc tính Người dùng</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Nhập thuộc tính đối tượng người dùng được dùng để xác định tư cách thành viên nhóm của người dùng này.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>DN người dùng</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Nhập tên phân biệt cho thư mục chứa người dùng bạn muốn thêm.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Lọc người dùng</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Sử dụng bộ lọc tìm kiếm LDAP để chọn những người dùng phải nhập.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Vui lòng chỉ định {0} người dùng có quyền truy cập LDAP server/Active Directory để đọc.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Không thể lấy ID duy nhất cho đối tượng người dùng/nhóm. Theo mặc định, hệ thống sẽ cố gắng khớp với một trong những cách nhận dạng sau: entryUUID, nsuniqueid, GUID, objectSid. Nếu không có thuộc tính nào tương ứng với LDAP server của bạn, vui lòng chỉ rõ thuộc tính cần thiết trong cài đặt ldap.unique.id của file web.appsettings.config.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Người dùng này được nhập từ LDAP. Liên hệ với quản trị viên LDAP của bạn nếu bạn muốn thay đổi các trường tiểu sử được khóa.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Người dùng đã được nhập từ LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Tìm hiểu thêm...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Giấy phép không đúng</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Giấy phép đã hết hạn</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Số cổng thông tin vượt quá số lượng quy định trong giấy phép</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Số lượng người dùng vượt quá số lượng quy định trong giấy phép</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Đã tải lên thành công</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Đang tải, vui lòng chờ</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Đang tải...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Địa điểm</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Cổng truy cập bị hạn chế. Liên hệ với quản trị viên cổng thông tin.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Tham gia</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Đăng nhập qua Mạng xã hội</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>Hoặc Đăng nhập với:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Không thể tìm thấy tài khoản liên kết bên thứ ba. Trước tiên bạn cần kết nối đến tài khoản mạng xã hội của mình ở trang chỉnh sửa hồ sơ.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Cài đặt Logo</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Email này được tạo tự động và bạn không cần trả lời nó.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>bản đồ</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Không có địa điểm</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Người tổ chức</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Lặp lại</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Địa điểm</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Người tham gia</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Không có thư chưa đọc. Vui lòng tới Mail để đọc tất cả tin nhắn của bạn.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Mail Server</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Kết nối thành công</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Ví dụ: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Cấu hình Mail Server</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Tùy chọn này cho phép kết nối cổng của bạn với {0}Mail Server{1} được cài đặt trên máy tính từ xa sử dụng {2}Cài đặt Docker{3}.{4}{0}Lưu ý:{1} đảm bảo rằng các cổng {0 }3306{1} và {0}8081{1} được mở trên máy tính cài đặt {0}Mail Server{1}. Bạn được khuyến cáo nên thay đổi mật khẩu truy cập cơ sở dữ liệu {0}Mail Server{1} của bạn.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Ẩn Cài đặt Nâng cao</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Mật khẩu cơ sở dữ liệu Mail Server</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Dịch vụ được kết nối thành công</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>IP của Mail Server</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Hiển thị Cài đặt Nâng cao</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Sau khi được kết nối, {0}Mail Server{1} sẽ {2}khả dụng{3} trong mô-đun {0}Mail{1} và bạn có thể tạo hộp thư cho người dùng cổng thông tin bằng chính tên miền mail của bạn.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Cài đặt Kết nối Mail Server</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Tên người dùng cơ sở dữ liệu Mail Server</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Cảnh báo: bạn đã có cài đặt Tên miền Mail và hộp thư cho những người dùng có trong mô-đun {0}Mail{1} của bạn. Bạn hiểu rằng thay đổi cài đặt này sẽ có thể ảnh hưởng đến công việc của họ và dẫn đến mail server không hoạt động. Nếu bạn đã chuyển toàn bộ {0}Mail Server{1} sang máy tính khác và/hoặc thông tin xác thực truy cập cơ sở dữ liệu đã thay đổi, chỉ cần cập nhật {0}Mail Server IP{1} và/hoặc thông tin xác thực tại đây. Nếu bạn đã tạo {0}Mail Server{1} mới và muốn kết nối nó, bạn cần xóa dữ liệu cũ tại {2}Trang Mail Server{3} trước.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Nam</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Chung</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Tích hợp</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Bảo mật</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Thống kê</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Xây dựng cơ sở dữ liệu CRM</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Quản lý khách hàng, theo dõi bán hàng và lập hóa đơn</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Làm việc với .docx, .xlsx và .pptx trực tuyến</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Xem và chỉnh sửa tài liệu ngay trên cổng thông tin này</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Xem thành viên nhóm của bạn</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Xem {!users} của cổng, thêm hoặc nhập họ</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Tham gia dự án</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Kiểm soát nhiệm vụ và theo dõi hiệu suất với biểu đồ Gantt</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Dưới đây là một vài bước để bắt đầu:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Chào mừng đến ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Đánh dấu đã đọc</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Vui lòng xác thực bản thân</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Hướng dẫn kích hoạt thư điện tử đã được gửi đến địa chỉ email {0}</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Hướng dẫn thay đổi email đã được gửi thành công</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Email của bạn đã được kích hoạt thành công.</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Gửi hướng dẫn mời đến địa chỉ email {0}</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Gửi email hướng dẫn kích hoạt đến địa chỉ email {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Gửi email hướng dẫn để thay đổi địa chỉ email {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Gửi hướng dẫn thay đổi mật khẩu đến địa chỉ email {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Vui lòng nhập địa chỉ email mà bạn đã dùng khi đăng ký cổng thông tin này. Hướng dẫn khôi phục mật khẩu sẽ được gửi đến địa chỉ email đó.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ là một văn phòng điện toán đám mây cho phép bạn quản lý tài liệu, dự án, nhóm và quan hệ khách hàng tại một nơi.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>trình soạn thảo văn bản trực tuyến, công cụ quản lý dự án, công cụ kinh doanh, hệ thống crm, biểu đồ gantt, hợp tác trực tuyến, cloud office, word online, quản lý tài liệu, spreadsheets online, office online, cộng tác chỉnh sửa, ứng dụng office online, docs online</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>Tính năng {0}Di chuyển vùng cổng thông tin{1} chỉ dành cho người sở hữu cổng thông tin có trả phí.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>Tính năng {0}Di chuyển vùng cổng thông tin{1} chỉ dành cho người sở hữu cổng.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Điện thoại di động mới</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Số di động thường dùng</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Đổi số điện thoại</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Tới số trang thay đổi số điện thoại.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Để thay đổi số điện thoại, sử dụng tin nhắn văn bản chứa mã code đã được gửi đến điện thoại mới của bạn.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Đã gửi</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Đổi số điện thoại di động</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Hướng dẫn về cách thay đổi số điện thoại di động của người dùng sẽ được gửi đến địa chỉ email người dùng</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Để thay đổi số, bạn cần xoá số điện thoại hiện tại của bạn</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Giám sát</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Thêm tác vụ</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Hồ sơ của tôi</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Template Nhóm</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Không bao giờ hiển thị</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Tên cổng thông tin mới</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Bạn chưa thêm bất kỳ tên miền nào. Bấm vào {0}liên kết{1} này để thêm tên miền đầu tiên.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Không có cuộc gọi nhỡ</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Không có người trực nào khác khả dụng, vui lòng trả lời.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Vai trò cho người dùng được thêm với tư cách là {!guests} có thể được thay đổi sau trong mô-đun {0}Nhân sự{1}.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Họ sẽ không được bao gồm trong tổng số người dùng của gói dịch vụ cho cổng này.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Trong trường hợp bạn không thể tìm thấy ngôn ngữ của mình trong danh sách, vui lòng gửi thư cho chúng tôi theo địa chỉ {0}documentation@onlyoffice.com{1} để tham gia dịch và được miễn phí sử dụng đến 1 năm.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Thông báo bởi:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Email &amp; Talk</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Thông báo cho {!users} về việc di chuyển cổng thông tin</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Không hoạt động</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Hoặc</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>Vùng tổ chức</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Người sở hữu</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Độ dài mật khẩu tối thiểu</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Khôi phục mật khẩu</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>ký tự</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Sử dụng chữ số</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Sử dụng ký tự đặc biệt</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Sử dụng chữ viết hoa</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Bây giờ bạn có thể tạo một mật khẩu mới.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Yêu cầu thanh toán</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Lịch sử thanh toán</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Đang chờ giải quyết</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Nhân sự</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Vui lòng chờ...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Cổng</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Cổng công cộng</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Cổng dùng riêng</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Đã vượt quá giới hạn ({0} Mb dung lượng lưu trữ)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Tính năng này chỉ được kích hoạt cho gói miễn phí</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Cài đặt Truy cập Cổng</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Đã vượt quá giới hạn ({0} người dùng hoạt động)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Tên Cổng</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Người sở hữu cổng</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Đang đổi tên cổng</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Truy cập Cổng</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Được hỗ trợ bởi</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Trang báo giá chỉ dành cho quản trị viên</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Cài đặt trang báo giá {1} cho phép quản trị viên cổng thông tin bật hoặc tắt chế độ hiển thị trang báo giá cả cho tất cả người dùng để nó chỉ hiển thị cho quản trị viên cổng thông tin.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Cài đặt Trang báo giá</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Mô-đun &amp; Công cụ</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Chọn các mô-đun và công cụ ONLYOFFICE bạn cần. Các mô-đun và công cụ bị tắt sẽ không hiện trên tất cả các cổng {!users}. Lưu ý rằng sau khi bật lại mô-đun và công cụ này, chúng sẽ khả dụng cho tất cả các cổng {!users}. Để hạn chế quyền truy cập, tham khảo phần Quyền truy cập trong Cài đặt Cổng.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Công cụ</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Mô-đun</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Hồ sơ</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Hồ sơ đã bị loại bỏ</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Đăng lên</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Kích hoạt lại</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Tài khoản của bạn đã được kích hoạt lại thành công. {0}Trong 10 giây, bạn sẽ là chuyển hướng {1}tại đây{2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Phân bổ lại dữ liệu</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Quá trình phân bổ lại dữ liệu cho {0} không được hoàn thành.</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Chuyển hướng</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Ngày đăng ký</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Đăng ký mới cho {!users} ngay</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Email đăng ký của bạn</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Ghi nhớ</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Lời mời sẽ được gửi tới email đã nhập</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Gửi lại</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Bạn có muốn gửi lời mời một lần nữa?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Gửi lại lời mời</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Khôi phục</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Danh sách sao lưu</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Nếu bạn xóa bất kỳ mục nào trong danh sách này, các file tương ứng của chúng cũng sẽ bị xóa. Hành động này không thể được hoàn tác. Để xóa tất cả các file sử dụng liên kết này: {0}Xoá danh sách này{1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Khôi phục</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>File từ máy tính</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Khôi phục về mặc định</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để khôi phục lại cổng của bạn từ file sao lưu đã lưu trước đó.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Chưa có bản sao lưu nào được tạo. Tạo một hoặc nhiều bản sao lưu để chúng xuất hiện trong danh sách này.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>Tùy chọn {0}Khôi phục dữ liệu{1} được sử dụng để khôi phục lại dữ liệu cổng thông tin được lưu trữ trước đó (từ server cục bộ hoặc cổng SaaS). Chọn bộ nhớ để lưu dữ liệu, nhập thông tin cần thiết và kiểm tra {0}Gửi thông báo tới người dùng cổng thông tin {1} để thông báo cho người dùng cổng thông tin về các thao tác sao lưu/khôi phục.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Khi quá trình khôi phục kết thúc, bạn sẽ tự động được chuyển hướng đến cổng thông tin của bạn.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Đang tiến hành khôi phục cổng .</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Gửi thông báo về khôi phục cổng cho người dùng</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Hiển thị danh sách sao lưu</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Khôi phục dữ liệu</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Cổng sẽ trở nên không khả dụng trong quá trình khôi phục. Sau khi hoàn tất khôi phục tất cả các thay đổi được thực hiện sau ngày khôi phục đã chọn sẽ bị mất.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Đảm bảo nhập đúng chính tả tất cả các từ. Thử sử dụng từ khoá khác.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Không tìm thấy</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Kết quả tìm kiếm</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Xem tất cả</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Xem tất cả video</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Địa chỉ email của người gửi</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Tên hiển thị của người gửi</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Gửi lời mời một lần nữa</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Gửi lời mời</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Bấm vào đây để tham gia</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Bạn muốn trở thành {!user} của cổng thông tin?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Vui lòng nhập địa chỉ Email sẽ nhận lời mời đăng ký :</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Gửi thư thử nghiệm</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Máy chủ bị lỗi trong khi xử lý yêu cầu của bạn. Vui lòng chờ một thời gian và thử lại. Nếu lỗi vẫn còn, bạn có thể có thể cần liên hệ với người quản trị trang web.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Lỗi Server</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Vùng server</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Đây chính là phiên bản hiện tại</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Phiên bản cổng không hợp lệ</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Giới tính</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Châu Á-Thái Bình Dương (Singapore)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Hiển thị tất cả</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Hiển thị tất cả các kết quả</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Bật/tắt tooltips</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Hiện kế tiếp</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Đăng ký có sẵn sàng cho người dùng có tài khoản email với tên miền bất kỳ. 
+Để đăng ký, nhập địa chỉ email của bạn và bấm Gửi lời mời.  Một tin nhắn email có chứa liên kết để kích hoạt tài khoản của bạn sẽ được gửi tới email chỉ định.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Xác thực một lần</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Bất ngờ</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomb</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Điên rồ</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Khóc</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Khiêu vũ</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Đồ uống</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Tức giận</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Nháy mắt</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Xanh lá cây</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Nụ cười Hollywood</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Buồn</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Âm nhạc</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Cười</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Cười nhe răng</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Xin lỗi</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Lồi mắt</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Xuất sắc</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Lưỡi</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hoan hô</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Xác thực hai yếu tố{1} là cách an toàn hơn để người dùng truy cập vào cổng thông tin. Sau khi nhập thông tin xác thực, người dùng sẽ phải nhập mã code từ tin nhắn SMS được gửi đến điện thoại di động với số được xác định khi đăng nhập đầu tiên vào cổng thông tin thông qua xác thực hai yếu tố. {2}Bật tùy chọn này để tất cả người dùng cổng thông tin truy cập vào cổng an toàn hơn.{2}Để áp dụng các thay đổi mà bạn đã thực hiện, bấm vào nút {0}Lưu{1} bên dưới phần này.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Mã không chính xác</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Code: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Thời gian sử dụng mã code này đã hết hạn. Vui lòng yêu cầu một tin nhắn văn bản mới.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Lưu ý{1}: khi bạn thoát khỏi SMS, tùy chọn truy cập cổng thông tin bằng xác thực hai yếu tố sẽ tự động bị tắt. Đừng quên mua thêm gói SMS.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Lưu ý{1}: để có thể sử dụng xác thực hai yếu tố, bạn cần chọn ít nhất một nhà cung cấp SMS và cấu hình nó tại trang {3}{0}Ủy quyền bên thứ ba{1}{4}.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Lưu ý{1}: xác thực hai yếu tố chỉ dành cho các cổng thông tin đã trả phí.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Xác thực hai yếu tố</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} số dư</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>xem trên tài khoản {0} của bạn</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>Cài đặt SMS không khả dụng</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Bạn đã gửi quá nhiều tin nhắn văn bản. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Tùy chỉnh cài đặt</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Cài đặt Mail Server</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>Cài đặt SMTP</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Nếu bạn sử dụng tài khoản Gmail cho SMTP server, bạn sẽ không thể gửi thư cho đến khi bạn làm như sau: đăng nhập vào tài khoản Gmail mà bạn sử dụng thông qua giao diện web tiêu chuẩn và xác nhận các câu hỏi xác minh về việc truy cập từ ONLYOFFICE™ vào tài khoản, nếu bạn đang cố gắng truy cập.{0}Bạn được khuyến cáo sử dụng các cổng 587 hoặc 25 để gửi các tin nhắn email, vì các giá trị khác có thể ngăn SMTP hoạt động chính xác.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>Cài đặt SMTP là cần thiết để thiết lập một tài khoản email sẽ được sử dụng để gửi thông báo từ cổng thông tin sử dụng SMTP server của chính bạn thay vì từ server mà ONLYOFFICE™ sử dụng. Vui lòng điền vào tất cả các trường và bấm nút 'Lưu'. Bạn có thể sử dụng nút 'Gửi Mail thử nghiệm' để kiểm tra xem tất cả các cài đặt bạn đã nhập có chính xác và hoạt động đúng như dự kiến ​​không.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Hồ sơ Xã hội</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Nguồn</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Không thể tạo người dùng bằng token xác thực này</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Không thể lưu thiết lập</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Cài đặt không được vô hiệu</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Xác thực một lần tắt</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Không tìm thấy token xác thực</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Binding không hợp lệ: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>ID tổ chức không hợp lệ</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Sắp xếp các trường không hợp lệ</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Token xác thực không hợp lệ</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Người dùng này không hoạt động</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Người dùng này được nhập từ SSO. Liên hệ với quản trị viên SSO của bạn nếu bạn muốn thay đổi các trường hồ sơ được khóa.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Người dùng này được nhập từ SSO</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Thống kê</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Cài đặt Tên miền Mail được tin cậy</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Thiết lập độ dài mật khẩu</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Cài đặt Ngôn ngữ và Múi giờ</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Phiên bản Cổng</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Đăng ký</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Sự kiện và thông báo cho người sở hữu hoặc quản trị viên cổng thông tin</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Đọc tin tức và sự kiện hàng ngày từ cổng</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Tên dự án</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>từ tất cả</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Thông báo qua</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Thuê bao</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Cổng đã được đổi tên thành công</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Thiết lập Trang Chào Mừng đã được lưu thành công</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Cài đặt đã được cập nhật thành công</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Hướng dẫn xóa hồ sơ của bạn đã được gửi đến địa chỉ email {0}</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Lời mời đã gửi thành công</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Gửi email</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Liên hệ với chúng tôi để tìm hiểu về các ưu đãi đặc biệt</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Giảm thông số bắt buộc hoặc chọn gói dịch vụ khác.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Mua ngay</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Kéo dài</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Bạn có thể gia hạn gói hiện tại hoặc thay đổi nó bằng cách sử dụng bảng dưới đây.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Chọn gói phù hợp với nhu cầu của bạn nhất. Gói đề xuất được đánh dấu dưới đây.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Không thể chọn kế hoạch này</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Kích thước dung lượng lưu trữ cho phép: {0}. Dung lượng lưu trữ hiện tại: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Số người dùng cổng thông tin được phép: {0}. Số người dùng hiện tại: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Bạn không thể chọn gói này vì dung lượng lưu trữ hoặc số lượng người dùng vượt quá giới hạn của gói đã chọn:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Thanh toán định kỳ được bật</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Dung lượng lưu trữ sắp vượt quá: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Bạn có thể xóa các file không cần thiết hoặc {0}bấm vào đây{1} để tìm gói tốt hơn cho cổng của bạn.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Sẽ hết hạn vào ngày {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Bạn đang sử dụng Gói miễn phí.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Bấm vào đây{1} để tải lên file giấy phép cho cổng của bạn.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Đăng ký của bạn đã hết hạn.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Cổng ONLYOFFICE™ của bạn sẽ bị chặn {2}. Vui lòng {0}bấm vào đây{1} để gia hạn gói hiện tại hoặc đổi sang gói thích hợp.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Số cổng thông tin bạn đã tạo: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Gói dịch vụ này không khả dụng cho đến khi kết thúc năm đã trả phí.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Gói dịch vụ này không khả dụng cho đến khi kết thúc gói dịch vụ 3 năm.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Để tự động gia hạn, hãy đảm bảo bật hộp tùy chọn Thanh toán Định kỳ trong tài khoản Avangate của bạn.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Để hủy Thanh toán Định kỳ, vui lòng truy cập tài khoản Avangate của bạn.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Tối đa là {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Phương án báo giá</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Để thuận tiên, thanh toán bằng đồng rúp của Nga sẽ được tính theo tỷ giá hối đoái cố định {0}đồng rúp của Nga đổi được 1 đô la Mỹ.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Thanh toán</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Số người dùng hoạt động bạn đã thêm: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Dung lượng lưu trữ đã sử dụng: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Bạn đang sử dụng Gói dùng thử miễn phí.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Cảm ơn bạn đã dùng thử ONLYOFFICE™!{2}{0}Thời gian dùng thử miễn phí đã hết hạn.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Dung lượng lưu trữ được sử dụng</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Tổng số {!users}</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Ủy quyền Bên thứ ba</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>Gmail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Điện thoại di động</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Tốp 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Tổng số tìm thấy</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>đến</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Đổi Vùng Server</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Bạn sắp bắt đầu di chuyển cổng thông tin sang một vùng khác. Cổng thông tin này sẽ không khả dụng trong quá trình di chuyển. Sau khi kết thúc, thông báo sẽ được gửi đến địa chỉ email của bạn.{1}{0}Tên miền của Mail, hộp thư (ngoại trừ dịch vụ của bên thứ ba) và các email có trong đó sẽ không được chuyển đi trong quá trình di chuyển.{1}{0}Bạn có chắc là muốn tiếp tục?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Khi quá trình di chuyển kết thúc, bạn sẽ tự động được chuyển hướng đến URL mới của cổng thông tin của bạn.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Đang tiến hành di chuyển cổng{0} đến khu vực khác.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Vùng cổng</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Thay đổi vùng server</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Cổng sẽ không khả dụng trong quá trình di chuyển. Sau khi quá trình di chuyển hoàn tất, URL của cổng sẽ được thay đổi và  sẽ không thể truy cập vào tất cả các liên kết của tài liệu đã được chia sẻ.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Thời gian dùng thử: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Thời gian dùng thử miễn phí đã hết hạn</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Bấm vào đây{1} để chọn gói phù hợp nhất cho cổng của bạn.</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Bạn đang sử dụng phiên bản dùng thử</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Tùy chỉnh tên miền</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Đăng ký có sẵn cho người dùng có tài khoản email là {0}.
+Để đăng ký, nhập email của bạn và bấm Gửi lời mời. Một tin nhắn email chứa liên kết để kích hoạt tài khoản ONLYOFFICE™ của bạn sẽ được gửi đến email đã chỉ định.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Xảy ra lỗi không xác định</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Hủy đăng ký</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Nâng cấp gói dịch vụ</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Tải lên</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Diễn đàn người dùng</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Nghề nghiệp/Chức vụ</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>Vùng Tây Hoa Kỳ (Oregon)</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Video hướng dẫn</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Hiển thị video chưa xem</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Xem các gói dịch vụ</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>lượt ghé thăm</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>hosts</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Sử dụng đồ thị</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Truy cập</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Kết nối đã được thiết lập trong một cửa sổ khác</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Thật không may, hiện không có dịch vụ này. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Cảnh báo!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Cảm ơn bạn đã chọn ONLYOFFICE™! Vì lý do an ninh, bạn cần tiến hành quy trình thiết lập mật khẩu.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Chào mừng đến Cổng thông tin ONLYOFFICE™ của bạn</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Tin tức mới</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Nhãn trắng</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Cài đặt Ngôn ngữ và Múi giờ</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Thiết lập cổng - Thực hiện các bước đơn giản này để bắt đầu web office một cách dễ dàng</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Cài đặt Đăng ký</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Bạn đã quyết định tham gia cổng thông tin này.</value>
+  </data>
+</root>

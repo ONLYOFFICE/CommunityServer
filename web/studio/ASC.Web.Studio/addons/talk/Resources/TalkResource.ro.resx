@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Acceptați</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Crează</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Toate fișierele</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Caută</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Trimite un fișier</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>citește</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Mesaj nou</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>te-a invitat</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Trimite</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Simboluri valide</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Găsește contactul</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>din</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Deconectat</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Disponibil</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Șterge conversație</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Scrie un mesaj...</value>
+  </data>
+</root>

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>संपादित करें अनुभाग: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>फ़ाइल</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>फ़ाइल का नाम</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>पाठ</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>पृष्ठ शीर्षक</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>फ़ाइल अपलोड करें</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>अपलोड की गई फ़ाइल का नाम</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>ज़ूम इन</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>मदद</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'' विकी के लिए आपका स्वागत है! '' '
+
+यहाँ आप लगाना, पेज बनाने के लिए और अपने वेब ब्राउज़र के माध्यम से उन श्रेणियों में शामिल हो सकते हैं। विकी निम्न सुविधाओं की विशेषता परियोजना से संबंधित प्रलेखन रखने के लिए एक सुविधाजनक उपकरण है:
+
+* एकाधिक लेखकों। प्रत्येक साइट के सदस्य किसी भी पेज की सामग्री को संपादित कर सकते हैं।
+* त्वरित संपादन। हर पृष्ठ पर '' संपादन '' 'लिंक availabe पर क्लिक करें और अपने ब्राउज़र में सही संपादन शुरू।
+* विकी HTML से आसान हस्तांतरण। जानें [[आंतरिक: विकी स्थानांतरण करने के लिए सहायता # एचटीएमएल | कैसे]]
+* पेज संस्करण का समर्थन है। पिछले संस्करण एसटीआई के लिए पृष्ठ लौटना द्वारा संपादित किया गया है क्या की जाँच करें।
+
+@@टीओसी
+
+== == विकी नेविगेशन और संरचना
+
+आप विकि अंदर हैं, जबकि हमेशा उपलब्ध विकि '' 'नेविगेशन पैनल' '' के माध्यम से नेविगेट कर सकते हैं।
+
+=== === पेज
+
+पेज &lt;br&gt; |: आप [सूचकांक] सूचकांक [आंतरिक] पर वर्णानुक्रम में सॉर्ट कर रहे हैं बनाए जाने वाले सभी विकी पृष्ठों।
+नई | NewPages: सभी नव निर्मित पृष्ठों [[आंतरिक पर कालानुक्रमिक क्रम में प्रदर्शित कर रहे हैं</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>पृष्ठ मौजूद नहीं है। बनाने और इसे संपादित करने के लिए {here} क्लिक करें।</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>एंकर</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>बोल्ड</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>नेत्रहीन तीसरे पक्ष के कोड को उजागर करने के लिए</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>टिप्पणी</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>एचटीएमएल कोड के उदाहरण</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>बाहरी लिंक</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>लोकल फ़ाइल को लिंक</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (संयम के साथ प्रयोग)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>क्षैतिज रेखा</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>छवि</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>इटैलिक</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>नई लाइन</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>nobr टैग</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>विकी भाषा से व्याख्या नहीं की जा सकती</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>पृष्ठ लिंक</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>विशेष टैग</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>हड़ताल</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>सबस्क्रिप्ट</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>सुपरस्क्रिप्ट</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>विशेष प्रतीक</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>रेखांकित करें</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>ब्लॉक</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>अपलोड की गई फ़ाइल का अधिकतम आकार से अधिक हो गई है</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>डाउनलोड फ़ाइल</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>श्रेणियाँ</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>अधिकतम अपलोड की गई फ़ाइल का आकार है {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>धारा: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>= पेज-कर दिया गया है के लिए ले जाया =
+पृष्ठ नाम में बदल [[{0} | {0}]]।
+आप नवीनतम संस्करण पा सकते हैं [[{0} | यहाँ]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>सामग्री की तालिका</value>
+  </data>
+</root>

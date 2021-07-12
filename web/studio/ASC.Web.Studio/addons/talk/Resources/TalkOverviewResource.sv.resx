@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Kontaktlistan uppdateras automatiskt när personer läggs till eller tas bort från listan med anställda, så du slipper kontrollera det manuellt.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Avisering i en webbläsare</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chattrum</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Chattflikar</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Kontaktlista med inställningar</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Som standard kommer alla aviseringar skickas både till din mejladress och i Talk. Du kan konfigurera dem på</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Radera skickade filer</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Förteckning över kontakter som har gått med i grupper</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>här</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Gömma offline kontakter</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Mailing</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Mer information om aviseringar finns {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Aviseringsinställning</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk är ett företags IM system för att utbyta snabbmeddelanden bland de anställda i realtid.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk erbjuder alla de traditionella funktioner som du kan förvänta dig från en snabbmeddelandetjänst - Val av status, historia, arkivering, filöverföring, multi-användare chatt support, och mer.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Talk Översikt</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Starta vår webbklienten för att börja använda Talk just nu utan tidigare inställningar.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profilsida</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Sök meddelanden med Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Input fältets inställningar</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Starta webbklient</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Inga ytterligare inställningar! Klicka för att starta webbklienten och börja prata på en gång</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Abonnemangssektion för</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Evenemangsröster</value>
+  </data>
+</root>

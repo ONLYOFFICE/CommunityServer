@@ -1,0 +1,883 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Virhe tilin kytkennässä.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Jos ongelma jatkuu, lue {0}Usein kysytyt kysymykset{1} avun löytämiseksi.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Virhe tilin kytkemisessä. Tää on niin tätä.</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Tilin asetukset</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Tämä tili käyttää OAuth-metodia, muokkaus on rajoitettua.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Tilit</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Toiminnot</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Haluatko aktivoida tilin %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Lisää tili</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Haluatko lisätä ensimmäisen sähköpostitilisi nyt?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Sinulla ei ole mitään sähköpostitiliä liitettynä ONLYOFFICE™ Sähköpostiin. Ole hyvä ja lisää sähköpostitili jotta voit alkaa vastaanottamaan ja lähettämään sähköpostiviestejä.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Lisää uusi tili aloittaaksesi ONLYOFFICE™ sähköpostin käytön.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Hallinta</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>%mailbox_address% postilaatikon alias, muokataan vain pääkäyttäjän paneelissa</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Jotkin parametrit ovat virheellisiä. Joudut itse arvaamaan mitkä.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Pääsy asiakirjaan on kielletty</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Asiakirjaa ei löytynyt. Minne lie lipsahtanut.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tyhjiä tiedostoja ei voida käyttää. Ihan hyödyttömiä ovat.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>Suoritettavia tiedostoja ei ole sallittu tietyissä palveluissa kuten esim. Gmail.</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Huomautus: tiedostokoko ei saa ylittää %1 Mt. Kaikkien tiedostojen yhteiskoon olisi oltava enintään %2 Mt.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Viestiä ei löytynyt. Hävisi.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Liitetiedostojen yhteiskoko on liian suuri. Ei mahdu.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Odottamaton virhe. Yritä myöhemmin uudelleen. Ehkä toimii sitten, ehkä ei.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0} Sähköpostitiliin ei saatu yhteyttä pitkään aikaa, ja tämän vuoksi otettiin pois käytöstä. {1} Ole hyvä ja tarkista kaikki päivittämäsi tilien asetukset tai kirjaudu sisään käyttämääsi sähköpostipalveluun ja tarkista turvallisuusasetukset. Kun olet varma, että kaikki tilin yhteyteen liittyvät ongelmat ovat ratkaistu, voit taas aktivoida tilin yhdistettyjen tilien luettelossa.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Postilaatikko on asetettu epäaktiiviseksi johtuen virheestä yhteydessä.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Sähköpostitili ei ole käytössä</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Tapahtui virhe {0} sähköpostitilin lähetyksen ja vastaanoton toiminnoissa. Syynä voi olla se, että olet vaihtanut tilisi salasanan. Ole hyvä ja tarkista kaikki syöttämäsi tiedot tililläsi, tai kirjaudu sisään sähköpostipalveluun ja varmista turvallisuusasetukset. </value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Viesti tilin sisäänkirjautumisessa. </value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>t</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Esityslista</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Ei myöhäisempiä tapahtumia</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Ei aikaisempia tapahtumia</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Koko päivä</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Edellinen päivä</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Kalenteri</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>kartta</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Ei paikkatietoa</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organisoija</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Osallistujat</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Toistuminen</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Vastaa</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Ehkä</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Milloin</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Missä</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Kuka</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Vaihda tilin asetukset</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Valitse tunniste</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Piilota kaikki</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Yleiset Asetukset</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Tämä keskustelu sisältää tiivistettyjä viestejä, jotka voivat sisältää piilotettuja kuvia. Haluatko tulostaa sen?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Tämä keskustelu sisältää kuvia, joita ei voida näyttää tällä hetkellä. Haluatko tulostaa sen?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Virhetilanne tapahtui kopioidessa tiedostoa</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Kopioidaan "Omat Asiakirjat" kansioon</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Luo kontakti</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Luo postilaatikko</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Olemme luoneet sinulle valmiin ja ilmaisen verkkotunnuksen, jotta voit heti luoda uuden postilaatikon.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Tämä verkkotunnus on yhteinen kaikille portaaleille, joten on suositeltavaa, että yrityksesi verkkotunnusta käytetään yrityksen sähköpostiviesteihin.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Luo postilaatikko</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Luo uusi kontakti</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Lisää uusi yritys kontakteihin</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Lisää uusi henkilö kontakteihin</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Luo henkilökohtainen kontakti</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Yritys</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>Kontaktit</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Milloin</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Haluatko poistaa käytöstä tilin %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Jotkut tileistäsi eivät vastaanota viestejä.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>Tätä tiliä käytetään oletuksena sähköpostin lähetykseen</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Haluatko poistaa tilin %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Haluatko varmasti poistaa tunnisteen %1?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Poistaa viestejä</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Viestin "{subject}" lähetys epäonnistui.{separator}Tarkista vastaanottajien osoitteet ja viestin muoto. Jos et havaitse virheitä, tarkista seuraavaksi sähköpostitilin {account_name} asetukset. Jos kaikki on kunnossa, kirjaudu sähköpostitilille selaimen kautta ja vastaa mahdollisiin varmistuskysymyksiin. Yritä lähetystä uudelleen.{separator}Jos ongelma jatkuu edelleen, lue {faq_link_open_tag}Usein Kysytyt Kysymykset{faq_link_close_tag} saadaksesi lisätietoa ongelmasta.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Tapauksessa, jossa virhe ei tunnu poistuvan, ole hyvä ja lue {faq_link_open_tag}FAQ osiossa{faq_link_close_tag} jotta voit oppia lisää ongelmasta.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Lähetys epäonnistui viestille: "{subject}".</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Viestin lähetys epäonnistui</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Sähköpostitilit ovat poistettu käytöstä.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Sähköpostitilit eivät ole käytössä</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Portaaliasi ei ole käytetty pitkään aikaan, joten sähköpostitilit, jotka ovat liitetty ONLYOFFICE™ Sähköpostiin, ovat kytketty pois. Jos haluat vielä käyttää niitä, niin siirry tilisi sivulle ja aktivoi ne takaisin uudelleen.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Muokkaa kontaktia</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Liitteen lataaminen valittuun kansioon epäonnistui.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Virhe liitteissä. </value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Valittuun liitteiden kansioon ei ollut pääsyä ja sen linkki poistettiin sinun {account} sähköpostitilistä. Ole hyvä ja varmista, että sinulla on riittävästi käyttöoikeutta valittuun kansioon ja yhdistä linkki siihen uudelleen.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Valittua liitteiden kansiota ei löytynyt ja sen linkki poistettiin sinun {account} sähköposti tilistä. Ole hyvä ja tarkista että valittu kansio on olemassa ja linkitä se takaisin uudelleen.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Kirjoita ensimmäinen luonnos</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Luonnokset kansioon voit tallentaa viestit, jotka aiot viimeistellä ja lähettää vasta myöhemmin. Voit merkitä tärkeimmät viestit ja poistaa tarpeettomat.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Ei luonnoksia</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Luo uusi viesti</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Saapuneet kansiossa voit hallita vastaanottamiasi viestejä. Voit merkitä tärkeimmät viestisi, ryhmitellä niitä tunnisteiden avulla ja poistaa tarpeettomat viestit.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Ei vastaanotettuja viestejä</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Määrittele ensimmäinen tili</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Luo sähköpostitili lahettääksesi ja vastaanottaaksesi viestejä suoraan sivustoltasi. Tarkastele viestihistoriaa, kontakteja ja liitetiedostoja selaimellasi missä tahansa, milloin tahansa. Järjestele viestejäsi omien tägien/tunnisteiden avulla.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Yhtään tiliä ei ole vielä määritelty</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Siirry Kontakteihin</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Tämä kontaktiluettelo sisältää kaikki asiakkaasi Asiakkuudenhallinnasta</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Kontaktiluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>Tämä kontaktiluettelo näyttää kaikki sinun henkilökohtaiset kontaktit osoitekirjasta. Et ole vielä syöttänyt sinne mitään kontakteja.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Luo uusi sähköpostitunniste</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Sinun täytyy ensin luoda tunniste voidaksesi käyttää sitä</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Yhtään tunnistetta ei ole luotu</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Luo uusi viesti</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Lähetetyt kansiossa voit hallita lähettämiäsi viestejä. Voit merkitä tärkeimmät viestisi, ryhmitellä niitä tunnisteiden avulla ja poistaa tarpeettomat viestit.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Ei lähetettyjä viestejä</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Roskapostikansioon siirretään kaikki roskapostiksi määrittelemäsi viestit. Voit poistaa viestejä, luokitella niitä ei-roskaposteiksi tai poistaa koko kansion sisällön.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Ei roskapostia</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Roskakoriin siirretään poistamasi viestit. Voit palauttaa niitä käyttöön tai poistaa niitä pysyvästi.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Ei poistettuja viestejä</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Sähköpostin automaattivastaaja on aktivoitu</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Tämä tili on jo olemassa</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Kalenteria ei voitu näyttää</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>tyhjä kenttä</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Tyhjä 'Vastaanottaja' kenttä. </value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Virheellinen osoite</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Virheellinen osoite</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>Postilaatikkoa ei ole valittu</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Tuntematon virhe. Käsittämätön suorastaan.</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>Käyttäjää ei ole valittu</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Viestiä avattaessa tapahtui virhe. Kamala virhe.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Ole hyvä ja virkistä sivu ja yritä avata tämä viesti uudelleen. Tilanteessa, jossa ongelma tuntuu jatkuvan, {0}ota yhteyttä asiakaspalveluumme.{1} </value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Valitettavasti sähköpostiviesti ei lataantunut ONLYOFFICE™ sähköpostiin. Käytä alkuperäisen viestin kopiota liitteenä ja avaa se saatavilla olevan sähköpostiohjelman kautta tai {0}ota yhteyttä asiakaspalveluumme.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Tämä puhelinnumero on jo luotu</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Tunniste %1 on jo olemassa</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Tiedostoformaatti, jota ei ole tuettu</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Jos haluat liittää tämän tilin uudelleen, poista se ensin liitettyjen tilien listalta sivulla 'Asetukset &gt; Tilien asetukset'.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Olemassaoleva tili</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Vie viesti Asiakkuudenhallintaan</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Sähköpostin viennin virhe</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Virhe viestin viemisessä.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Viesti, jota olet yrittämässä viedä, on jo linkitetty valittuun Asiakkuudenhallinnan nimikkeeseen.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Viestin vienti Asiakkuudenhallinnan kontaktihistoriaan onnistui</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Toinen</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Lämpötilan taso</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Ajanjaksolla</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Yritykset</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Lämpötilan taso</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Ei määritelty</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Keneltä</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Tärkeä</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Kustomoitu jakso</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Jaksolla</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Viime viikko</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Eilen</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Henkilöt</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Luettu</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Kenelle</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Ei luettu</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Sisältää liitteitä</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>Kalenterilla</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Mahdollisuuksilla</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Tunnisteilla</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Edell</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Edelleenlähetetyt viestit</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Keneltä</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>Voit {0} tai muuttaa sen: {1}</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Siirry {0} niiden aktivointia varten.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Siirry Kalenteriin</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Siirry Tapahtumaan</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Ryhmää ei voida asettaa oletus postilaatikkona</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Apua</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Piilota aina kuvat lähettäjältä</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Tili on kytketty onnistuneesti</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Kaikki viestit viimeisen 30 päivän ajalta noudetaan.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Sähköpostien tuonti on käynnissä, se voi kestää jonkin aikaa. Voit sulkea tämän ikkunan ja jatkaa sähköpostin käyttöä. Voit jopa sulkea koko selaimen, sähköpostien tuonti jatkuu taustalla.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Tärkeä</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Muiden palveluiden kautta aiemmin luettuja viestejä ei ehkä saada tuotua. Lue {0}Usein Kysytyt Kysymykset{1} lisätietojen saamiseksi.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Jos sinulle on ongelmia tuonnin kanssa, lue {0}Usein Kysytyt Kysymykset{1}.</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Lisätty linkin kautta</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>kt</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Keskustelun linkitys Asiakkuudenhallintaan</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Keskustelun linkitys Asiakkuudenhallinnan kontaktihistoriaan viimeisteltiin onnistuneesti</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Keskustelun linkityksen virhe</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Virhe linkitettäessä keskustelua Asiakkuudenhallintaan</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Valittua Asiakkuudenhallinnan nimikettä ei ole enää saatavilla, tai sen yhteys on menetetty. Ole hyvä ja varmista valitun Asiakkuudenhallinnan nimikkeen sijainti ja tarkista verkon yhteys. Jos virhetilanne tuntuu jatkuvan, niin ole hyvä ja ota yhteyttä portaalisi pääkäyttäjään.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>ladataan liitteitä...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>Lähettäjä:</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Sähköpostin automaattivastaaja</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Vastaanottaja</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Luodaan postilaatikkoa...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Sähköpostilaatikon päivitys</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Tilien hallinta</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Allekirjoitusten hallinta</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Merkitse kaikki vastaanottajien viestit</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Merkitse kaikki lähettäjien viestit</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>Mt</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Tämä viesti sisältää kuvia, joita ei voida näyttää tällä hetkellä. Haluatko jatkaa?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Jatka ilman kuvia</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Tämä viesti sisältää kuvia, joita ei voida näyttää tällä hetkellä. Haluatko tulostaa sen?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Vahvista tulostus ilman kuvia</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Viestiä ei ole lähetetty. Oletko varma, että haluat poistaa sen?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 lisää</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>Lisätietoa</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Siirretään viestejä</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Lisää uusi tili</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Uusi viesti</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Ei tarvetta muille toimenpiteille.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Hakuehtoja vastaavia viestejä ei löytynyt. Muuta hakuehtoja tai poista suodattimet nähdäksesi kaikki tämän kansion viestit.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Ei viestejä tällä suodattimella</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Ei mikään</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>ei aihetta</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Ei tärkeä</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Merkitse ei roskapostiksi</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Noudetaan toimialueen oletusasetuksia...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Luonnos</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Lähetä edelleen</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Vastaa</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Henkilökohtaiset kontaktit</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Tulosta kaikki</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Tulosta</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Sivustosi levytila on täynnä. Kaikkia viestejä ei voida ladata eikä uusia viestejä voida lähettää. Voit vapauttaa levytilaa poistamalla viestejä tai asiakirjoja sivustoltasi. Voit myös ostaa sivustollesi lisää levytilaa.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Käytettävissä oleva levytila on täynnä</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Luettu</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Haluatko poistaa kaikki viestit Roskapostikansiosta?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Haluatko poistaa kaikki viestit Roskakorista?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Vs</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>EMail-In kansion uudelleenasetus epäonnistui.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value> EMail-In kansion uudelleenasetus onnistui.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Hakuehtojasi vastaavia kontakteja ei löytynyt. Muuta hakuehtoja tai poista suodattimet nähdäksesi kaikki kontaktisi.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Ei kontakteja tällä suodattimella</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Tyhjennä suodatin</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Valitun suodattimen mukaisia kontakteja ei löytynyt. Ole hyvä ja valitse toinen suodatin tai poista tämä jotta voit nähdä kaikki kontaktit. </value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>Ei löytynyt kontakteja jotka vastaavat tätä suodatinta</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Hakuehtojasi vastaavia kontakteja ei löytynyt. Muuta hakuehtoja tai poista suodattimet nähdäksesi kaikki kontaktisi.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Ei kontakteja tällä suodattimella</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Palautetaan viestejä</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>Tallennettu onnistuneesti %real_count% / %count% Omissa Asiakirjoissa.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Tallennus epäonnistui.</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' on onnistuneesti tallennettu Kalenteriin.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' on onnistuneesti tallennettu: '%folder_name%'.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Tallennetaan viestiä</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Tämä tili on poistettu käytöstä. Aktivoi tili tai valitse toinen tili.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Lähettää viestiä</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Palvelin</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Palvelimen postilaatikko, voidaan muokata vain pääkäyttäjän paneelissa</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>EMail-In kansion perustaminen epäonnistui.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>EMail-In kansion perustaminen onnistui.</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Aseta oletuksena ja käytä sähköpostin lähetykseen</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Tiedostojen jakamisen asetukset</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Allekirjoitus lisätään tältä tililtä lähtevien viestien loppuun. Voit syöttää sinne nimesi, yhteystietosi ja/tai iskulauseen tai sitaatin tms.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Merkitse roskapostiksi</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Aihe</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Tunnisteen luonti...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Tuotu Asiakkuudenhallinnasta. Et voi muokata tai poistaa tätä tägiä.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tunnisteet</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Sivuston käyttäjät</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Kenelle</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Kontakteja yhteensä:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Poista linkki Asiakkuudenhallintaan</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Ei luettu</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Käytä allekirjoitusta</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Sisältää liitteitä</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Ilman tunnisteita</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Tunnisteilla</value>
+  </data>
+</root>

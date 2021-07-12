@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Eztabaida honetarako iruzkina editatua: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" -k iruzkin bat editatu du hemen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Gehiago irakurri":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Mezu hau jaso duzu hemen erregistratuta zaudelako "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpen mota aldatzeko, zure "harpidetzaren ezarpenak" aldatu:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Iruzkina editatua Ataza honetan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" -k iruzkin bat editatu du "$EntityTitle" atazan:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Gehiago irakurri":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Mezu hau jaso duzu atari honetan errejistratuta zaudelako "${__VirtualRootPath}":"${__VirtualRootPath}". Ataza honetako jakinarazpen gehiago ez baduzu jaso nahi "baja eman":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Editatutako eztabaida: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" (e)k eztabaida hau editatut du:"${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall   
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Gehiago irakurri":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+ ^Mezu hau jaso duzu gune honetako erabiltzaile erregistratua zarelako "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez kudeatu "zure harpidetza ezarpenak":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Eztabaida ezabatua: "$EntityTitle"
+$__DateTime "$__AuthorName":"$__AuthorUrl"-k "$EntityTitle" eztabaida kendu du "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" proiektutik.
+
+ ^Mezu hau jasotzen ari zara erregistratuta zaudelako atari honetan: "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez, aldatu zure "harpidetza ezarpenak":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Mugarria itxita: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"-k mugarri hau itxi du: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" proiektu honetan: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Mezu hau jaso duzu erregistratutako erabiltzailea zarelako hemen "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez, "harpidetzaren ezarpenak" doitu: "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Mugarria sortuta: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"-k mugarria gehitu du: $EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" proiektu honetan: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Mezu hau jaso duzu erregistratutako erabiltzailea zarelako hemen "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez, "harpidetza ezarpenak" doitu:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1. Helburuaren iraungitzeari buruzko jakinarazpena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Helburu honen data mugarako 48 ordu baino gutxiago falta dira: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" helburua "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" proiektuan.
+
+^Mezu hau jaso duzu erregistratutako erabiltzailea zarelako hemen: "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpen mota aldatzeko, mesedez kudeatu harpidetza ezarpenak:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Mugarria ezabatuta: "$EntityTitle"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"-k mugarri hau ezabatu du: "$EntityTitle" proiektu honetatik: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+ $AdditionalData 
+
+
+^Mezu hau jaso duzu erregistratutako erabiltzailea zarelako hemen: "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez, "harpidetza ezarpenak" doitu:"$RecipientSubscriptionConfigURL".</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Proiektuko taldean gehituta izan zara</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ezabatutako eztabaida: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria itxita: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria sortuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria berrartuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Eztabaida berria: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Proiektuak. Proiektua ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Esleitu zaizun mugarria: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Proiektuaren kudeatzailea izendatua izan zara</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Zuri esleitutako azpiataza: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Zuri esleitutako ataza: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza itxita: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza sortuta: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza ezabatuta: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza berrartuta: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza amaituta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza sortuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza berrartuta: $EntityTitle</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Zuri esleitutako mugarria: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"-k mugarri honen arduradun izendatu zaitu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" proiektu honetan: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Mezu hau jaso duzu erregistratutako erabiltzailea zarelako hemen "${__VirtualRootPath}":"${__VirtualRootPath}". Jakinarazpenak aldatzeko, mesedez "harpidetza ezarpenak" doitu:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Eztabaidako iruzkina editatua: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Atazaren iruzkina editatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Eztabaida editatua: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Proiektuak. Datuak Basecamp-etik inportatzen</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Proiektuko taldean gehituta izan zara</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Iraungitako mugarriari buruzko jakinarazpena: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ezabatutako eztabaida: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria itxita: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria sortuta: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarriaren epe mugaren jakinarazpena: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria editatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Mugarria berrartuta: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Iruzkin berrian eztabaidan: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Iruzkin berria atazan: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle].Fitxategi berria eztabaidan: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Fitxategi berria atazan: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Eztabaida berria: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Proiektuak. Proiektua ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Proiektuko taldera gehitua izan zara</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Eztabaida ezabatu da</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Mugarria itxi da</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Mugarri berria sortu da</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Mugarria ezabatu da</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Mugarria berrartu da</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Eztabaida berri bat sortu da</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Proiektuak. Proiektua ezabatuta</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Mugarria esleitu zaizu</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Proiektuko kudeatzailea izendatua izan zara</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Azpiatatza esleitu zaizu</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Ataza esleitu zaizu</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Azpiataza itxi da</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Azpiataza berria sortu da</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Azpiataza ezabatu da</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Azpiataza berrartu da</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Ataza itxi da</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Ataza berria sortu da</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Ataza ezabatu da</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Ataza berrartu da</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Atazaren gaineko gogorarazpena: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Atazaren gaineko gogorarazpena: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Proiektuk taldetik ezabatua izan zara</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Zuretzako esleipena kendu zaion ataza: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Esleitu zaizun mugarria: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Proiektuaren kudeatzailea izendatua izan zara</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Zuri esleitutako azpiataza: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Zuri esleitutako ataza: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza itxita: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza sortuta: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza ezabatuta: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza editatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Azpiataza berrartuta: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza amaituta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza sortuta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza editatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza ezabatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza lekuz aldatuta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Proiektuak [$ProjectTitle]. Ataza berrartuta: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Inor ez</value>
+  </data>
+</root>

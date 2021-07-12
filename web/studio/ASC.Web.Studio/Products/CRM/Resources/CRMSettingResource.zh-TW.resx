@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>權限和標籤</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>為通過“網站聯繫表”添加的用戶設置存取權限，否則所有CRM用戶都將看到新的聯繫人。創建標籤，將在列表中標記新客戶端。</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>頁面存取權限</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>添加率</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>新增工作樣板</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>添加新的任務模板容器</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>添加選項</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>添加標籤中</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>不再顯示“連接聯繫人”對話框</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>添加任務模板容器</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>添加任務模板容器中</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>添加任務模板中</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>添加此任務模板</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>添加此任務模板容器</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>驗證</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>基本資料</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>聯絡人和公司</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>變更顏色</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>不再顯示“連接聯繫人”對話框</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>變更圖示</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>變更商誌</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>複選框</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>欄</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>一般設定</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>聯絡人類型</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>創建類別</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>創建溫度水平</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>創建聯繫人類型</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>創建用戶字段</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>創造階段中</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>創建領域</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>建立新類別</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>新類別</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>創建新的聯繫人類型</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>新聯繫人類型</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>創造新階段</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>新的階段</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>建立新欄位</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>新欄位</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>創建新的溫度水平</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>新溫度水平</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>建立新標籤</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>新標籤</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>貨幣匯率</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>貨幣設定</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>設置預設貨幣，該預設貨幣將用於計算門戶網站CRM模塊中存在的所有機會的“總計”。轉換率僅適用於列表中的貨幣，並且可通過“ Money Converter.com”網站進行計算。{0}該貨幣將被設置為“產品和服務”目錄的默認貨幣，並將其用於發票。</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>用戶字段</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>關閉機會失敗。</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>成功關閉機會。</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>預設貨幣</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>刪除類別</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>刪除溫度水平</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>刪除聯繫人類型</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>刪除欄位</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>具有所有數據的所選字段將從存在該字段的所有聯繫人中刪除。你確定你要繼續嗎？</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>刪除階段</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>刪除標簽</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>類別刪除確認</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>刪除任務模板</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>刪除任務模板容器</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>刪除未使用的標籤</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>設置您的聯繫人的溫度，以表徵潛在買家購買您的產品或服務的意願。例如，溫度水平可以是“冷”，“熱”和“溫暖”。</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>只有在沒有該溫度等級的觸點的情況下，才可以編輯或刪除該溫度等級。</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>聯繫人類型使您可以根據聯繫人相對於組織的角色來表徵聯繫人。預設聯繫人類型為“客戶”，“競爭對手”，“合作夥伴”和“供應商”。</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>只有在沒有這種類型的聯繫人的情況下，您才可以編輯或刪除該聯繫人類型。</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>機會階段使您可以確定完成交易所需的步驟。例如，您可以添加機會階段“商業要約”，“預付款”，“執行”。組
+
+機會階段的必要順序將其拖累。</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>只有在此階段沒有機會的情況下，您才可以編輯或刪除機會階段。</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>歷史記錄事件類別使您可以將歷史記錄事件分組。標準歷史記錄事件類別為郵件，便箋，電話，會議。您需要具有管理員權限才能進行編輯。</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>僅在該類別中沒有歷史事件的情況下，才可以編輯或刪除歷史事件類別。</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>任務類別使您可以根據要實現的目標將任務分為幾組。例如，任務類別可以是“約會”，“電話
+
+呼籲”或“表達感激之情”。</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>僅在沒有與此類別的任務的情況下，才可以編輯或刪除任務類別階段。</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>天數偏移</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>將所有數據下載到一個ZIP歸檔中</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP存檔生成開始</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>下載ZIP存檔連結</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>編輯類別</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>編輯溫度水平</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>編輯聯絡人類型</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>編輯欄位</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>編輯階段</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>編輯«{0}»任務類別</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>編輯«{0}»溫度水平</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>編輯“ {0}”聯繫人類型</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>編輯«{0}»機會階段</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>編輯«{0}»任務模板</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>編輯«{0}»任務模板容器</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>編輯任務模板</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>編輯任務模板容器</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>用戶字段列表為空</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>用戶字段使您可以確定有關客戶，機會或案例的其他信息。例如，您可以添加“來源”字段以指定用戶來自何處：廣告，直接銷售等。只有在沒有聯繫人或機會使用此字段值的情況下，才能編輯或刪除用戶字段。</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>標籤列表為空</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>標籤可用於描述和分組具有相似之處的聯繫人（公司和個人），機會和案例。例如，您可以使用通用標籤為來自不同公司但來自同一業務領域的所有人員添加標籤，以實現更好的分類。只有在沒有聯繫人，機會或案例的情況下，您才能編輯或刪除該標籤。</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>任務模板列表為空</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>任務模板使您可以在CRM模塊內部創建類似的任務。您可以通過單擊鼠標將任務添加到聯繫人，機會或案例中。選擇容器以為每個容器任務模板創建一個任務。</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>此字段必須正確填寫</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>每個字段都必須有一個標題</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>字段標題不能為空</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>啟用SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>輸出所有數據</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>導出功能會生成一個ZIP歸檔文件，其中包含帶有您的所有CRM數據（聯繫人，機會，案例，歷史記錄等）的CSV文件。帶有已創建存檔鏈接的電子郵件將發送到您的電子郵件地址。</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>生成外部程式列表</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>欄位清單</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>字段選擇</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>選擇將在表單上顯示的字段</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>表單源代碼</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>在您的網站上使用此表格</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>這是您網站上的表單的外觀</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>表單屬性</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>網站聯繫表主要設置</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>產生表格</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>獲取預設設置</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>歷史事件類別</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>主辦</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>主辦登入</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>主辦密碼</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>內部SMTP（最多{0}個電子郵件收件人）</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>只為公司</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>只有聯絡人</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>成功概率</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>通知{！users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>選擇通過“網站聯繫表”添加新聯繫人時將收到通知的{！users}</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>從上一個任務算起</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>從容器開始算起</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>發票商標</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>
+其他欄位</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>刪除選項</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>恢復為預設值</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>重定向網址</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>填寫表單後，將用戶重定向到的網站地址。</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>線數</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>已儲存</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>選擇框</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>選擇項</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>請在任務中選擇要用當前類別替換的類別階段</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>發件人顯示名稱</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>發件人電子郵件地址</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>自訂用戶字段</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>設置您組織的帳單郵寄地址，該地址將放入您的所有發票中。從列表中選擇{0}國家{1}，並在字段中填寫{0}地址{1}，{0}城市{1}，{0}州{1}和{0}郵政編碼{1 }。</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>您組織的預設{0}徽標{1}將顯示在您的{0}發票{1}上。{3}
+要替換商標，請單擊“更改商標”連接，然後選擇存儲在計算機上的圖像以將其加載到門戶。請記住，您可以上傳不大於{0} {4} x {5}像素{1}的圖像，否則它將自動調整大小。最大圖像尺寸不能超過{0} {2} {1}。</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>發送數據</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>具有此標題的標籤已存在</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>任務模板</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>文字區</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>網絡表單密鑰</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>唯一的Web表單密鑰，用於驗證用於發送數據的表單以及表單正確工作所必需的表單。出於安全考慮，這樣做是為了防止垃圾郵件，欺詐並保護您的Web表單免遭未經授權的使用。當您生成新密鑰時，具有舊密鑰的現有表單將停止工作。</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>網站聯繫表</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>無效的表單密鑰</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>使用“網站聯繫表單”功能來構建可以在網站上發布的表單。它將允許您自動捕獲新的聯繫人。定義表單屬性，選擇必要的字段並生成代碼以創建自己的Web表單。</value>
+  </data>
+</root>

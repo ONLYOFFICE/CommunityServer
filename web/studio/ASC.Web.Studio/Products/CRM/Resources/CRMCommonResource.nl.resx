@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>om te lezen</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>om te lezen/schrijven</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>De toegangsrechten worden alleen worden ingesteld voor de contacten die door u aangemaakt zijn.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>{!group} toevoegen</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Bijkomende informatie</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Mailaccount toevoegen</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Trefwoord toevoegen</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Deelnemer toevoegen</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Voeg dit evenement toe</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Notitie aan het toevoegen...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Voeg {!user} toe</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Gebruik de symbolen {0}?{1} en {0}*{1} om te zoeken naar één of meerdere karakters. Om bijvoorbeeld alle woorden die beginnen met {0}O{1} te zoeken, gebruik de {0}O*{1} zoekopdracht. Het is niet aan te bevelen om deze symbolen aan het begin van uw zoekopdracht te gebruiken. Om een exacte zin te zoeken, gebruik aanhalingstekens.{2}Meer informatie...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Overeenkomstig het ONLYOFFICE™ CRM-veld</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Bijlagen</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Link met contact</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Maker</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Meer informatie...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Casussen</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Wijzigen</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Kies</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Filter terugzetten</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Sluit dit venster</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Sluit venster</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Dubbele punt</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Bestandskolom</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Komma</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Stel een brief op om te verzenden aan alle klanten die in de contactlijst zijn geselecteerd. U kunt het aantal geselecteerde klanten controleren in het veld 'Aan', een gemeenschappelijk 'Onderwerp' invoeren en de 'Persoonlijke tags' gebruiken om alle benodigde informatie in uw brief op te nemen. Dit is een bèta-versie voor degenen die nieuwe functionaliteiten van ONLYOFFICE™ CRM willen uitproberen.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Weet u zeker dat u deze elementen wilt verwijderen?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Om de lijst van temperatuurniveaus voor contacten te wijzigen, ga naar het onderdeel {0}Instellingen{1} voor CRM.</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Contactinstellingen</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Inhoud</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Koers</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Koersconvertor</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Aanmaken</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Datum gemaakt</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Aanmaken </value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Nieuw contact maken</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Project maken</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Nieuw trefwoord toevoegen</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Datum gemaakt</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>De CRM-module is niet ingeschakeld</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Basisvaluta</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Andere valuta</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Huidige {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Aangepast</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Aangepaste periode</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andere gebruikers</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Vervalt over {0} dag(en)</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dag(en) te laat</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Kansen</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Gebeurtenis verwijderen</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Deelnemer verwijderen</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Tag verwijderen</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Gebruiker verwijderen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Alles deselecteren</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Doe hetzelfde voor alle toekomstige voorvallen </value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dubbele aanhalingstekens</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Dupliceer Records</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Leeg bestand</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Geen records die overeenkomen met uw filter kunnen in dit onderdeel worden weergegeven. Selecteer alstublieft andere filteropties of verwijder het filter om alle records in dit onderdeel weer te geven. Of u kunt het record aanmaken als het afwezig is in de lijst.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Er kunnen hier geen records voor deze filter worden gevonden </value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Hoeveelheid invoeren</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Bestandgrootte overschrijdt {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Huidige lijst exporteren naar CSV-bestand</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>De maximale bestandsgrootte is overschreden</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Datum gemaakt</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Verantwoordelijke</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Met tag</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Een bedrijf of persoon zoeken op naam...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verbergen</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Paneel voor bestandsbijlagen verbergen</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Geschiedenis</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>U kunt de lijst met categorieën voor voorbije gebeurtenissen {0}hier{1} aanpassen</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Telefoongesprek</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Afspraak</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Notitie</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>is ontvangen</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>is verzonden</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Max. aantal karakters overschreden: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Negeer de eerste rij bij het importeren</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Dupliceren</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Gebruik deze optie om contacten te importeren die de dezelfde contacten dupliceren. Bijv. er zijn twee records - 'A' en 'B' - in uw ONLYOFFICE™ CRM. U wilt records 'B' en 'C' importeren. Als u de optie 'Dupliceren' selecteert, wordt een duplicaatrecord voor 'B' gemaakt tijdens het importeren.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Controle voor dubbelen wordt uitgevoerd gebaseerd op het e-mailveld.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Overschrijven</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Gebruik deze optie om contacten te importeren die de dezelfde contacten overschrijven. Bijv. er zijn twee records - 'A' en 'B' - in uw ONLYOFFICE™ CRM. U wilt records 'B' en 'C' importeren. Als u de optie 'Overschrijven' selecteert, wordt de bestaande 'B' overschreven door de geïmporteerde tijdens het importeren.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Overslaan</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Gebruik deze optie om contacten te importeren en de bestaande contacten te behouden. Bijv. er zijn twee records - 'A' en 'B' - in uw ONLYOFFICE™ CRM. U wilt records 'B' en 'C' importeren. Als u de optie 'Overslaan' selecteert, blijft de bestaande 'B' behouden tijdens het importeren. </value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Scheidingsteken</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Versleuteling</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV-bestand Instellingen</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Scheidingsteken</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Het bestand scannen...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Begin met data importeren</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informatie is ingediend</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Facturen</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Factuur instellingen</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Belastingen</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Afgelopen maand</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Meer informatie...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Hoofdtekst van Brief</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Koppelen aan</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Wacht alstublieft ...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Hoofdtekst e-mail</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ Massa-verzendfunctie: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Bericht afleveren aan {0} mislukt</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Ongeldig e-mailadres: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Levering mislukt - opnieuw proberen in {0} seconden.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Onderwerp e-mail</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Rekenmachine</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Mijn</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Mijn gebeurtenissen</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Volgende record</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Geen records</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Geen mailaccounts beschikbaar</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Geen overeenkomsten</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Niet gespecificeerd</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Melden</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Niet gespecificeerd</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Bovenaan</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Organisatieprofiel</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Overig</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Andere instellingen</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Hier ziet u de brief die u aan het opstellen bent. Gebruik de knop 'Terug' om wijzigingen aan te brengen of gebruik de knop 'Verzenden', als u het resultaat goed vindt.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Vorige record</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Vorige Stap</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>privé</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Beschikbaar voor {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Toegang beperken</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>De toegang wordt standaard toegekend aan alle portaal {!users}. Om de toegang te beperken, vinkt u het onderstaande vakje aan.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Toegangsrechten</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Doe hetzelfde als CRM-gebruiker|Data importeren, exporteren| Stuur e-mails naar CRM-contacten|Beheer instellingen|Beheer elk(e) contact, taak, casus, kans</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Beheer je klantenrelaties, identificeer je belangrijkste contacten, volg je communicatiehistoriek en verkoopssucces op. </value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Beheer uw klantrelaties, identificeer uw belangrijkste contacten, volg uw communicatiegeschiedenis en verkoopprestaties.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Producten &amp; Diensten </value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Een contactpersoon, taak, casus, kans aanmaken met de mogelijkheid om de toegang ertoe te beperken|Een contact, taak, casus, kans bewerken met de ingestelde toegangsrechten</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projecten</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Gelinkt met</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Rapporten</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Verantwoordelijke</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Waarde</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Wijzigingen opslaan...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alles Selecteren</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Gebruikers op de hoogte stellen</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Puntkomma</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>E-mail verzenden</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Instellen Toestemmingen</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tonen</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Toon het bestandbijlagenpaneel </value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Informatie tonen</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Enkele aanhalingstekens</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Spatie</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Sla dit bericht op in Geschiedenis</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Onderwerp</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Nieuwe gebeurtenissen</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Nieuwe contacten</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Export voltooid</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Import voltooid</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Verantwoordelijke voor kans</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Taken aan u toegewezen</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Toegang verleend</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Samenvattingstabel</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabulatie</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Taken</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>De e-mail</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Deze maand</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Bedrijf/persoon</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Contact ontkoppelen</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Omhoog</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Bestand bijvoegen</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Bestanden tonen</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Bekijk mailgeschiedenis met deze deelnemer</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Oproepen</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Nummers</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP Instellingen</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Gisteren</value>
+  </data>
+</root>

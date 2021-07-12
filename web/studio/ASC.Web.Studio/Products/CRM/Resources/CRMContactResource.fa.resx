@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddingCompany" xml:space="preserve">
+    <value>در حال افزودن شرکت...</value>
+  </data>
+  <data name="AddingPersonProgress" xml:space="preserve">
+    <value>در حال افزودن مخاطب...</value>
+  </data>
+  <data name="AddNewAddress" xml:space="preserve">
+    <value>اضافه کردن آدرس جدید</value>
+  </data>
+  <data name="AddNewCompany" xml:space="preserve">
+    <value>افزودن شرکت جدید</value>
+  </data>
+  <data name="AddNewContact" xml:space="preserve">
+    <value>افزودن شخص جدید</value>
+  </data>
+  <data name="AddThisAndCreateCompanyButton" xml:space="preserve">
+    <value>اضافه کردن و ایجاد شرکت جدید</value>
+  </data>
+  <data name="AddThisAndCreatePeopleButton" xml:space="preserve">
+    <value>اضافه کردن و ایجاد شخص جدید</value>
+  </data>
+  <data name="AddThisCompanyButton" xml:space="preserve">
+    <value>افزودن این شرکت</value>
+  </data>
+  <data name="AddThisPersonButton" xml:space="preserve">
+    <value>افزودن این شخص</value>
+  </data>
+  <data name="AddToLetterBody" xml:space="preserve">
+    <value>اضافه کردن به متن نامه</value>
+  </data>
+  <data name="AllContacts" xml:space="preserve">
+    <value>همه مخاطبان</value>
+  </data>
+  <data name="AllPersons" xml:space="preserve">
+    <value>همه اشخاص</value>
+  </data>
+  <data name="BreadCrumbsAddCompany" xml:space="preserve">
+    <value>افزودن شرکت</value>
+  </data>
+  <data name="BreadCrumbsAddPerson" xml:space="preserve">
+    <value>افزودن شخص</value>
+  </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>تغییر تصویر</value>
+  </data>
+  <data name="ChooseProfilePhoto" xml:space="preserve">
+    <value>انتخاب تصویر پروفایل</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>شرکتها</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شرکت</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>نام شرکت</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>مخاطب</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>مخاطبان</value>
+  </data>
+  <data name="ContactStatus_Cold" xml:space="preserve">
+    <value>سرد</value>
+  </data>
+  <data name="ContactStatus_Hot" xml:space="preserve">
+    <value>داغ</value>
+  </data>
+  <data name="ContactStatus_Warm" xml:space="preserve">
+    <value>گرم</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>نام مخاطب</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>نوع مخاطب</value>
+  </data>
+  <data name="ContactWebSiteAndSocialProfiles" xml:space="preserve">
+    <value>وب سایت/شبکه های اجتماعی</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>ادامه</value>
+  </data>
+  <data name="CreateFirstCompany" xml:space="preserve">
+    <value>ایجاد اولین شرکت</value>
+  </data>
+  <data name="CreateFirstPerson" xml:space="preserve">
+    <value>ایجاد اولین شخص</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>مشتری</value>
+  </data>
+  <data name="DeleteContact" xml:space="preserve">
+    <value>حذف مخاطب</value>
+  </data>
+  <data name="DeleteThisCompany" xml:space="preserve">
+    <value>حذف این شرکت</value>
+  </data>
+  <data name="DeleteThisPerson" xml:space="preserve">
+    <value>حذف این شخص</value>
+  </data>
+  <data name="DeletingContacts" xml:space="preserve">
+    <value>حذف مخاطبان</value>
+  </data>
+  <data name="DoNotImportThisField" xml:space="preserve">
+    <value>این فیلد وارد نشود</value>
+  </data>
+  <data name="EditCompany" xml:space="preserve">
+    <value>ویرایش شرکت «{0}»</value>
+  </data>
+  <data name="EditPerson" xml:space="preserve">
+    <value>ویرایش شخص «{0}»</value>
+  </data>
+  <data name="EditProfileCompany" xml:space="preserve">
+    <value>ویرایش شرکت</value>
+  </data>
+  <data name="EditProfilePerson" xml:space="preserve">
+    <value>ویرایش شخص</value>
+  </data>
+  <data name="EmptyContactListHeader" xml:space="preserve">
+    <value>لیست مخاطبان خالی می باشد</value>
+  </data>
+  <data name="ErrorEmptyCompanyName" xml:space="preserve">
+    <value>نام شرکت را وارد کنید</value>
+  </data>
+  <data name="ErrorEmptyContactFirstName" xml:space="preserve">
+    <value>نام را وارد کنید</value>
+  </data>
+  <data name="ErrorInvalidEmail" xml:space="preserve">
+    <value>ایمیل نامعتبر است</value>
+  </data>
+  <data name="ErrorInvalidPhone" xml:space="preserve">
+    <value>شماره تلفن نامعتبر است</value>
+  </data>
+  <data name="FindCompanyByName" xml:space="preserve">
+    <value>یافتن یک شرکت بر اساس نام...</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>یافتن یک فرد بر اساس نام...</value>
+  </data>
+  <data name="FindEmployeeByName" xml:space="preserve">
+    <value>یافتن یک کارمند بر اساس نام...</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>اطلاعات عمومی</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>تولید</value>
+  </data>
+  <data name="ImportContacts" xml:space="preserve">
+    <value>وارد کردن مخاطبان</value>
+  </data>
+  <data name="Industry" xml:space="preserve">
+    <value>صنعت</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>سمت</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="LoadPhotoFromPC" xml:space="preserve">
+    <value>آپلود تصویر از کامپیوتر</value>
+  </data>
+  <data name="MassSendEmailsTotal" xml:space="preserve">
+    <value>کل ایمیل ها</value>
+  </data>
+  <data name="MassSendErrors" xml:space="preserve">
+    <value>خطاها</value>
+  </data>
+  <data name="MergeButtonText" xml:space="preserve">
+    <value>این تکراری است</value>
+  </data>
+  <data name="MergePanelHeaderText" xml:space="preserve">
+    <value>ادغام مخاطبان</value>
+  </data>
+  <data name="MergePanelProgress" xml:space="preserve">
+    <value>در حال ادغام مخاطبان...</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>شخص</value>
+  </data>
+  <data name="PersonalTags" xml:space="preserve">
+    <value>برچسبهای شخصی</value>
+  </data>
+  <data name="PersonPosition" xml:space="preserve">
+    <value>سمت</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>اشخاص</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>ذخیره تغییرات</value>
+  </data>
+  <data name="SavingChangesProgress" xml:space="preserve">
+    <value>در حال ذخیره تغییرات...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>نمایش بر روی نقشه</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>تامین کننده</value>
+  </data>
+</root>

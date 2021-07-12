@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Prijať úlohu</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Prijať</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Pridať prvú úlohu</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Pridať novú podriadenú úlohu</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Pridať novú úlohu</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Pridať podriadenú úlohu</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Pridať novú úlohu</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Všetky úlohy</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Priradené k</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Najlepší spôsob je vrátiť sa a ukončiť podriadené úlohy manuálne, potom znova skúste zatvoriť úlohu</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>Najlepším spôsobom je vrátiť a zatvoriť podúlohy manuálne, potom skúsiť znova ukončiť úlohy
+
+</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Zodpovedný</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Zmena stavu</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Vyberte typ odkazu</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Vyberte projekt</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Vyberte úlohu</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Uzavrel</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Dátum uzavretia</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Záverečné úlohy
+
+</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Ukončenie úlohy</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Žiadne komentáre k tejto úlohe neboli nájdené.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Neboli nájdené žiadne komentáre</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Kopírovať úlohu</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Vytvoril</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Vytvoriť nový odkaz</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Dátum vytvorenia</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Dátum ukončenia</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Žiadne úlohy vyhovujúce filtru nemôžu byť v tejto sekcii zobrazené.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Každá úloha musí mať názov</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Upraviť úlohu</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Zatvorte všetky podriadené úlohy a potom zatvorte úlohu</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Zatvoriť všetky podúlohy, potom zatvoriť úlohy
+
+</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Dátum ukončenia</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Chyba pri vytváraní nového odkazu</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Sledovať úlohu</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Prejsť na úlohu</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Vysoká</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Informovať zodpovedných ľudí</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Správa bola úspešne odoslaná</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Míľnik </value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Presunúť úlohy do ďalšieho míľnika
+
+</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Presunúť do míľnika</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Presunúť úlohu do nasledujúceho míľnika</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Presunúť do míľnika</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>žiadny</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Nikto</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Žiadne úlohy nevyhovujú zadanému filtru</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Zatiaľ neboli vytvorené žiadne úlohy</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Otvorené</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorita</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Neplatný odkaz. Uistite sa, že dátum začiatku a termínu sú správne.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Súvisiace úlohy</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Interval medzi dátumom začiatku a dátumom ukončenia dvoch úloh</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>K tejto úlohe nie sú spojené žiadne ďalšie úlohy.</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Neboli nájdené žiadne súvisiace úlohy</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Odstrániť úlohu</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Naozaj chcete odstrániť túto úlohu?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Odstrániť úlohy
+
+</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Naozaj chcete odstrániť tieto úlohy?
+
+</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Zodpovední užívatelia</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Zobraziť úlohy bez zodpovednej osoby</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Podriadená úloha</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Podriadené úlohy</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Pre túto úlohu neboli vytvorené žiadne podriadené úlohy.</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Neboli nájdené žiadne podriadené úlohy</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Úloha</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Vytvoril</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Priradené k</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Úlohy</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Počet úloh
+
+</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Úlohy pomáhajú manažérovi deliť všetku prácu rovnomerne medzi účastníkmi projektu, určiť zodpovedných pre rôzne časti projektu. Začnite pridávať úlohy, ukončujte ich, určte kto je zodpovedný, riaďte tímovú prácu.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Dátum začiatku</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Sledovať čas</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>Snažíte sa ukončiť úlohy s otvorenými podúlohami</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Pokúšate sa zatvoriť úlohu s nedokončenými podriadenými úlohami</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Zrušiť sledovanie úlohy</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Netriedené úlohy</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Bude presunutý do míľnika</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Nikto</value>
+  </data>
+</root>

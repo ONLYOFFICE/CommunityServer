@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Uložit a vytvořit nový případ</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Všechny případy</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Obchodní případ</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Povolení budou nastavena na případy, kdy jste autorem</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Účastník případu</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Účastníci případu</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Případový štítek</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Seznam značek případů</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Název případu</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Uzavřený případ</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Vytváření případu...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Vytvořte první případ</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Vytvořit nový případ</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Vymazat případ</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Smazání případů</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Upravit případ</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Upravte «{0}» případ </value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Případy umožňují uchovat na jednom místě stejné údaje o historii korespondence, přiřadit úkoly a nahrát dokumenty pro kontakty, které se účastní společné události. Může se jednat např. O týmovou přípravu nebo organizaci výstavy.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>V této části nejsou zobrazeny žádné případy odpovídající vašemu filtru. Chcete-li zobrazit všechny případy v této části, vyberte prosím další možnosti filtru nebo zrušte filtr. Nebo můžete případ vytvořit, pokud v seznamu chybí.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>V tomto filtru nejsou zobrazeny žádné případy</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Seznam případů je prázdný</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Seznam účastníků je prázdný
+</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Přidejte účastníky k vašemu případu ze seznamu firem nebo osob. Poté budete vědět, kdo se bude účastnit nadcházejících událostí spojených s tímto případem.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importujte případy</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Na HDD počítače by měl být vybrán správně vytvořený soubor CSV. Musí obsahovat pole nebo sloupce oddělené vybraným oddělovačem, které budou použity pro importování případů. Soubory obsahující více než {0} řádků by měly být rozděleny na menší části pro správné importy. Ujistěte se, že jste vybrali uživatele portálu, kterému je třeba udělit přístup k importovaným informacím, jinak budou data z souboru CSV dostupná všem uživatelům portálu.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Před importováním případů vyberte soubor CSV a nastavte přístupová práva</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Spojte své sloupce s odpovídajícími políčky ONLYOFFICE ™ CRM. Věnujte prosím pozornost skutečnosti, že ke správnému importu případů musíte mít z vašeho souboru alespoň jeden sloupec, který je shodný s políčkem "Case Title" v systému ONLYOFFICE™ CRM. Políčka obsahující data musí mít následující formát: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prosím, ověřte tuto oblast</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Přejděte na seznam případů</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import případů může trvat několik minut v závislosti na množství vašich dat.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Import začal</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Účastníci případu</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Otevřít případ</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Účastníci</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Omezte přístup k případu</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Uložit změny</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Přejděte na profil</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Otevřít na nové kartě</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Začít importovat</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Všechny případy</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>聊天功能中的联系人列表将会根据工作站的用户列表进行实时更新，省却手动操作。</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>浏览器中通知</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>聊天标签</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>联系人列表设置</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>默认情况下，所有通知将发送到您的电邮地址与Talk中。 您可以进行配置，在</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>删除已发送文件</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>加入小组的联系人列表</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>此处</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>隐藏离线联系人</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>邮件发送</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>关于通知的更多信息位于{0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>通知设置</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>“聊天”是一个即时通信系统（IM system）。用户可以通过此功能在工作站内进行即时沟通。</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>“聊天”为您提供您所期望的即时通信工具的功能：状态更新、消息历史记录、文件传输、多用户聊天模式……</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>聊天概述</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>现在就启动网页客户端，无需任何设置就可以使用“聊天”功能。</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>档案页面</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>通过Ctrl+Enter发送消息</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>输入栏设置</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>启动网页客户端</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>无需额外的设置！点击“启动网页客户端，现在就开始交谈</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>{0}的订阅部分</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型：</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>活动的心声</value>
+  </data>
+</root>

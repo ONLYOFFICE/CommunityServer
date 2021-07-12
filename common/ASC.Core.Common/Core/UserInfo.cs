@@ -144,13 +144,7 @@ namespace ASC.Core.Users
 
         internal GroupInfo[] GetGroups(IncludeType includeType, Guid? categoryId)
         {
-            var groups = groupCache.Get(ID.ToString(), () => {
-                if (CoreContext.Configuration.Personal)
-                {
-                    return new GroupInfo[2] { Constants.GroupUser, Constants.GroupEveryone };
-                }
-                return CoreContext.UserManager.GetUserGroups(ID, IncludeType.Distinct, null);
-            });
+            var groups = groupCache.Get(ID.ToString(), () => CoreContext.UserManager.GetUserGroups(ID, IncludeType.Distinct, null));
 
             if (categoryId.HasValue)
             {

@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Direitos de acesso e Tags</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Configurar os direitos de acesso para os utilizadores adicionados através do "Formulário de contacto do site", caso contrário todos os utilizadores do CRM verão novos contactos. Crie tags com que os clientes na lista serão marcados.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Permissões de Acesso ao Portal</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Adicionar novo modelo de tarefa</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Adicionar novo contentor de modelo de tarefa</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Adicionar uma opção</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Adicionar tag</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Adicione o contentor de modelo de tarefa</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Adicionando contentor de modelo de tarefa</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Adicionar modelo de tarefa</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Adicione este modelo de tarefa</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Adicionar este contentor de modelo de tarefa</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autenticação</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Pessoa &amp; Empresa</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Alterar a cor</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Alterar ícone</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Checkbox</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Colunas</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Configurações comuns</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Criando uma categoria</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Criando um tipo</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Criar o campo de utilizador</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Criando uma fase</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Criando um campo</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Criar uma nova categoria</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Nova Categoria</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Criar uma nova etapa</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Nova Etapa</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Criar um novo campo</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Novo Campo</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Criar um tipo novo</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Novo Tipo</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Criar uma nova tag</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Nova Etiqueta</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Configurações de moeda</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Campos do utilizador</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Fecha a oportunidade sem sucesso.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Fecha a oportunidade com êxito.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Moeda padrão</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Eliminar categoria</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Eliminar tipo</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Eliminar campo</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Eliminar fase</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Eliminar tag</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Eliminar modelo de tarefa</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Eliminar contentor de modelo de tarefa</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Eliminar tags não utilizadas</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Tipos de contactos permitem caracterizar os potenciais compradores de uma determinada maneira. Por exemplo, tipos de conctatos podem ser "Frio", "Morno", "Quente", que significa disponibilidade do contacto para comprar o seu produto.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Pode editar ou eliminar o tipo de contacto apenas no caso de não existirem contactos desse tipo.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>As fases de oportunidade permitem determinar as etapas necessárias para concluir o negócio. Por exemplo, pode adicionar estados de oportunidade "Proposta comercial", "Pré-pagamento", "Execução". Defina a ordem necessária para as fases de oportunidade arrastando-as.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Pode editar ou eliminar a fase de oportunidade apenas no caso de não existir nenhuma oportunidades nesta fase.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>O histórico de categorias de eventos permitem dividir o seu histórico em grupos. As categorias de histórico de eventos padrão são mail, nota, telefonema, reunião. Precisa de ter direitos de administrador para poder editá-los.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Pode editar ou eliminar o histórico e categorias de eventos apenas no caso de não existir nenhum eventos nesta categoria.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>As cdategorias de tarefa permitem dividir as tarefas em grupos, consoante os objetivos que pretenda alcançar. Por exemplo, uma categoria de tarefas pode ser "Compromisso", "Telefonema" ou "Expressão de agradecimento".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Pode editar ou eliminar a fase da categoria da tarefa apenas no caso não existirem tarefas com esta categoria.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Deslocamento em dias</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Carregar todos os dados a partir de um ficheiro ZIP</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Geração de arquivo ZIP iniciada</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Link para carregar o arquivo ZIP</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Actualizar categoria</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Actualizar tipo</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Actualizar campo</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Actualizar fase</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Editar categoria da tarefa «{0}»</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Editar tipo de contacto «{0}» </value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Editar fase de oportunidade «{0}» </value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Editar o modelo de tarefa «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Editar contentor de modelo da tarefa «{0}»</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Editar modelo de tarefa</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Editar contentor de modelo de tarefa</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>A lista de campo de utilizador está vazia</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Campos do utilizador permite obter informações adicionais sobre o cliente, oportunidades ou casos de negócio. Por exemplo, pode adicionar o campo 'Origem' para especificar de onde veio o utilizador, publicidade, vendas diretas, etc. Pode editar ou eliminar o campo do utilizador apenas no caso de não ter contactos ou oportunidades nesse registo.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>A lista de tags está vazia</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>As tags podem ser usadas para descrever e agrupar contactos (empresas e pessoas), oportunidades e casos que tenham algo de semelhante entre elas. Por exemplo, pode marcar todas as pessoas de diferentes empresas, mas da mesma esfera de negócio com uma marca comum para uma melhor classificação. Pode editar ou excluir a tag apenas no caso de não existirem contactos, oportunidades ou casos com esta tag.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>A lista de modelos de tarefas está vazia</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Os modelos de tarefas permitem que crie tarefas semelhantes dentro do módulo CRM. Pode adicionar as tarefas ao contactos, oportunidades ou casos com um único clique do rato. Selecione o contentor para criar uma tarefa para cada modelo de contentor de tarefas.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Este campo deve ser preenchido corretamente</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Cada campo deve ter um título</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>O campo título não pode ser vazio</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Habilitar SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Exportação de todos os dados</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>A função de exportação gera um arquivo ZIP contendo ficheiros CSV com todos os seus dados CRM (contactos, oportunidades, casos, história, etc.) O e-mail com o link para o arquivo criado será enviado para seu endereço de e-mail.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Gerar lista para programa externo</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Lista de campos</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Seleção de campos</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Selecione os campos que serão mostrados no formulário</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Código fonte do formulário</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Use este formulário no seu site</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Isto é como o formulário será mostrado no seu site</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Propriedades do formulário</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Configurações principais do formulário de contacto do site</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Criar Formulário</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Categorias de eventos de histórico</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Password do Host</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>SMTP interno (máximo de caixas de e-mail {0})</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Apenas para a empresa</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Apenas para pessoa</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Probabilidade de sucesso</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Notificar {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Seleccione {!users} que serão notificados quando um novo contacto for adicionado através do "formulário de contacto de site"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Contagem a partir da tarefa anterior</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Contar a partir do contentor de início</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Outros campos</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Porta</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Eliminar opção</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>URL de redirecionamento</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>O endereço do seu site web para onde o utilizador será redirecionado após o formulário ser preenchido.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Linhas</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Guardados!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Caixa de seleção</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Nome do remetente a mostrar </value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Endereço de E-mail do remetente</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Personalizar campos do utilizador</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Enviar dados</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Modelos de tarefas</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Área de texto</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Chave do formulário Web</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>A chave de formulário web serve para autenticar no formulário usado para enviar os dados. Isto é feito por razões de segurança de modo a evitar spam, fraudes e proteger o formulário da web contra uso não autorizado. Quando gera uma nova chave, os formulários existentes com a antiga chave deixarão de funcionar.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Formulário de contacto do site</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Chave de formulário inválida</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Use a funcionalidade de formulário de contato do site para criar um formulário que pode publicar no seu site. Ele permitirá capturar novos contactos automaticamente. Defina as propriedades do formulário, selecione os campos necessários e gira o código para criar o seu próprio formulário na web.</value>
+  </data>
+</root>

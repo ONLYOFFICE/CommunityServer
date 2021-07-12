@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Permissões de Acesso do Portal</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Adicionar Meta</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Adicionar tarefa</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Gestor de projeto pode</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>adicionar ou eliminar utilizadores de/para a equipa do projeto</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>definir direitos de acesso para os membros do projeto  (para {0}projetos privados{1} apenas)</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>gerir (criar, editar, eliminar) metas, tarefas, debates, documentos e {2}{0}restringir o acesso a elas{1}</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Contacto via Talk</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Enviar e-mail</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Fechar projeto</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Criar o primeiro projeto</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Criar novo projeto</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Eliminar projeto</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Tem a certeza que deseja eliminar este projeto?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Não há projetos correspondentes ao filtro que possam ser exibidos nesta secção</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Editar projeto</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Crie os projetos e trabalhar de forma eficaz</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>A lista de projetos está vazia</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Seguir este projeto</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Projeto privado</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Guardar o projeto como privado.</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Gestor da Equipa</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Introdução manual de tempo</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Não pode fechar o projeto com metas ativas.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Não pode fechar o projeto com tarefas ativas.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Notificar o gestor do projeto por e-mail</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projeto</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Eliminar Projeto</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Gestor de Projeto</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projetos</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Estado do projeto</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Equipa</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Modelo de projeto</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Modelos de projeto</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Guardar Projeto</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Selecione modelo de projeto</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Tarefas fechadas. Clique para abrir a lista completa da Meta actual.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Abrir Tarefas. Clique para abrir a lista completa da Meta actual.
+</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Utilizador responsável pela Meta. Clique para ver todos as metas geridas pelo utilizador actual.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Gestor de projecto. Clique para ver todos os projectos geridos pelo utilizador actual.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Abrir tarefas. Clique para abrir a lista completa do projecto actual.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Equipa. Clique para abrir a lista de todos os membros da equipa do projecto.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Abrir sub-tarefas. Clique para abrir a lista completa da tarefa actual.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Utilizador responsável pela Tarefa. Clique para ver todas as tarefas atribuídas ao utilizador actual.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Utilizadores responsáveis pela Tarefa. Clique para ver todos os utilizadores responsáveis ​​pela tarefa.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Visualizar metas ativas</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Mostrar tarefas ativas</value>
+  </data>
+</root>

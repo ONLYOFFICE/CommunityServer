@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>để đọc</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>để đọc/viết</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Quyền truy cập sẽ chỉ được đặt cho các địa chỉ liên hệ do bạn tạo.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Hoạt động</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Thêm {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Thông tin thêm</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Thêm tài khoản mail</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Thêm tag</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Thêm người tham gia</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Thêm sự kiện này</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Thêm ghi chú...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Thêm {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Sử dụng biểu tượng {0}?{1} và {0}*{1} để thực hiện tìm kiếm một/nhiều ký tự. Ví dụ: để tìm kiếm tất cả các từ bắt đầu bằng {0}O{1}, sử dụng truy vấn {0}O*{1}. Không nên sử dụng những ký hiệu này vào đầu truy vấn của bạn. Để tìm cụm từ chính xác sử dụng dấu ngoặc kép.{2}Tìm hiểu thêm... {3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Cảnh báo</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Trường ONLYOFFICE™ CRM tương ứng</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Đính kèm</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Liên kết với địa chỉ liên hệ</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Tìm hiểu thêm...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Đề mục</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Trường hợp</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Đề mục</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Đặt lại bộ lọc</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Đóng cửa sổ này</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Đóng cửa sổ</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>hai chấm</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Cột file</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Phẩy</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Soạn một bức thư được gửi đến tất cả các khách hàng được lựa chọn trong danh sách liên hệ. Bạn có thể kiểm tra số lượng khách hàng đã chọn trong trường 'Đến', nhập vào một 'Chủ đề' chung và sử dụng 'Tag cá nhân' để bao gồm tất cả các thông tin cần thiết vào lá thư của bạn. Đây là phiên bản beta cho những người muốn thử các tính năng mới của ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Xác nhận thay đổi</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Bạn đã xóa bản thân khỏi quản lý liên hệ.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Bạn sẽ mất quyền đọc và ghi vào liên hệ nếu quyền truy cập thích hợp này không được trao cho tất cả người dùng CRM.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa các chi tiết này?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Để thay đổi danh sách các mức nhiệt độ liên hệ, tham khảo mục {0}Cài đặt{1} CRM</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Cài đặt liên hệ</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Tỉ giá
+</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Chuyển đổi tiền tệ</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Tạo liên hệ mới</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Tạo dự án</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Thêm tag mới</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Mô-đun CRM không được bật</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Tiền tệ</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Đồng tiền cơ bản</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Đồng tiền khác</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>{!user} hiện tại </value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Tuỳ chỉnh</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Tuỳ chỉnh giai đoạn</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Người dùng khác</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Đến hạn trong {0} ngày</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} ngày quá hạn</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Cơ hội</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Xóa sự kiện</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Xoá người tham gia</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Xóa tag</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Xoá người dùng</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Bỏ chọn tất cả</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Làm tương tự cho tất cả các lần tiếp theo</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dấu ngoặc kép</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Nhân bản Hồ sơ</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>File rỗng</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Không thể hiển thị hồ sơ phù hợp tiêu chí lọc của bạn trong mục này. Vui lòng thay đổi các tùy chọn lọc khác hoặc chọn tất cả để xem toàn bộ hồ sơ. Bạn cũng có thể tìm kiếm hồ sơ bạn cần trong lịch sử liên hệ khác.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Không tìm thấy hồ sơ phù hợp tiêu chí lọc này</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Nhập số tiền</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Kích thước file vượt quá {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Xuất danh sách hiện tại sang file CSV</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Vượt quá kích thước tối đa của file</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Ngày đến hạn</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Chịu trách nhiệm</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Có tag</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Tìm công ty hoặc cá nhân bằng tên...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Ẩn bảng tập tin đính kèm </value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Lịch sử</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Bạn có thể thay đổi danh sách cho các danh mục lịch sử sự kiện {0}ở đây{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Cuộc gọi điện thoại</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Cuộc hẹn</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Lưu ý</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>đã được nhận</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>đã được gửi</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Vượt quá số lượng ký tự tối đa: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Bỏ qua hàng đầu tiên khi nhập</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Nhân bản</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để nhập địa chỉ liên hệ và nhân bản các địa chỉ liên lạc trùng khớp. Ví dụ. có hai hồ sơ - 'A' và 'B' - trong ONLYOFFICE™ CRM của bạn. Bạn muốn nhập hồ sơ 'B' và 'C'. Trong trường hợp bạn chọn tùy chọn 'Nhân bản', một hồ sơ giống hệt với 'B' sẽ được tạo trong khi nhập.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Kiểm tra các bản sao sẽ được thực hiện trên trường Email.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Ghi đè</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để nhập địa chỉ liên hệ và ghi đè lên các liên hệ hiện có. Ví dụ. có hai hồ sơ - 'A' và 'B' - trong ONLYOFFICE™ CRM của bạn. Bạn muốn nhập hồ sơ 'B' và 'C'. Trong trường hợp bạn chọn tùy chọn 'Ghi đè', 'B' hiện có sẽ được ghi đè bằng hồ sơ được nhập này trong khi nhập.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Bỏ qua</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Sử dụng tùy chọn này để nhập địa chỉ liên hệ và giữ liên hệ hiện có. Ví dụ. có hai hồ sơ - 'A' và 'B' - trong ONLYOFFICE™ CRM của bạn. Bạn muốn nhập hồ sơ 'B' và 'C'. Trong trường hợp bạn chọn tùy chọn 'Bỏ qua', 'B' hiện có sẽ được giữ nguyên khi nhập.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Dấu phân cách</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Mã hóa</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Cài đặt File CSV</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Dấu phân cách chữ</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Đang quét file...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Bắt đầu nhập dữ liệu</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Thông tin đã được gửi</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Hoá đơn</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Thiết lập Hóa đơn</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Thuế</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Tháng trước</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Tìm hiểu thêm...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Nội dung thư</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Liên kết với</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Vui lòng chờ...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Nội dung thư</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>Tính năng gửi nhiều thư ONLYOFFICE™: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Không thể gửi tin nhắn tới {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Email không hợp lệ : {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Không thể gửi - thử lại sau {0} giây.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Tiêu đề tin nhắn</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Máy tính</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Của tôi</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Sự kiện của tôi</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Hồ sơ tiếp theo</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Không có hồ sơ</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Không có tài khoản mail khả dụng</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Không phù hợp</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Không xác định</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Không xác định</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Lên đầu</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Hồ sơ tổ chức</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Cài đặt khác</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Ở đây bạn có thể thấy thư bạn đang soạn. Sử dụng nút 'Quay lại' để thực hiện một số thay đổi hoặc sử dụng nút 'Gửi', nếu bạn thích kết quả này.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Hồ sơ trước</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Bước trước</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>riêng tư</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Khả dụng với {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Hạn chế truy cập</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Truy cập được mặc định trao cho tất cả {!users} cổng thông tin. Để hạn chế quyền truy cập đánh dấu vào ô dưới đây.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Quyền truy cập</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Làm tương tự như người dùng CRM|Nhập, xuất dữ liệu|Gửi email đến các liên hệ CRM|Quản lý cài đặt|Quản lý liên hệ, nhiệm vụ, trường hợp, cơ hội</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Quản lý quan hệ khách hàng, xác định liên hệ ưu tiên, theo dõi lịch sử giao tiếp và hiệu suất bán hàng.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Quản lý quan hệ khách hàng, xác định liên hệ ưu tiên, theo dõi lịch sử giao tiếp và hiệu suất bán hàng.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Sản phẩm &amp; Dịch vụ</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Tạo liên hệ, nhiệm vụ, trường hợp, cơ hội và có thể hạn chế quyền truy cập vào chúng|Chỉnh sửa liên hệ, nhiệm vụ, trường hợp, cơ hội và thiết lập quyền truy cập</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Hồ sơ</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Liên kết với</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Chịu trách nhiệm</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Giá trị</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Lưu thay đổi</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Đang lưu thay đổi...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Thông báo cho người dùng</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Dấu chấm phẩy</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Gửi Email</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Thiết lập cho phép</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Hiển thị bảng đính kèm file</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Hiển thị thông tin</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Báo giá đơn</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Cách</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Lưu tin nhắn này vào Lịch sử</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Sự kiện mới</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Liên hệ mới</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Xuất hoàn tất</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Hoàn tất nhập</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Chịu trách nhiệm cơ hội</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Nhiệm vụ được giao cho bạn</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Được trao quyền truy cập</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Bảng tổng hợp</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Lập bảng</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Nhiệm vụ</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tháng này</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Công ty/Cá nhân</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Bỏ liên kết liên hệ</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Lên</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Đính kèm file</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Hiển thị file</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Xem lịch sử gửi thư với người tham gia này</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Cuộc gọi</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Chung</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Số</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>Cài đặt VoIP</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+</root>

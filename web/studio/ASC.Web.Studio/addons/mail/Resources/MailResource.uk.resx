@@ -1,0 +1,766 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Права доступу на порталі</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Будь-ласка, перевірте всі введені параметри облікового запису. Якщо ви впевнені, що ваші налаштування правильні, увійдіть до поштової служби, яку ви використовуєте, і пройдіть перевірку, якщо потрібно. Після цього спробуйте ще раз.</value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>Цей обліковий запис не отримує пошту.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>Цей обліковий запис не відправляє пошту.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Ім'я облікового запису</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>За допомогою цього списку можна керувати обліковими записами і коригувати їх параметри.
+</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Розділ "Надіслані" дає змогу керувати надісланими повідомленнями. Тут можна позначити найбільш важливі повідомлення, згрупувати повідомлення електронної пошти за категоріями за допомогою тегів, або видалити непотрібні повідомлення.
+</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Керування обліковими записами
+</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Після активації облікового запису відновиться отримання пошти з нього
+</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Активувати обліковий запис
+</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Активувати
+</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Додати копію
+</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Додати адресу електронної пошти
+</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Адреса електронної пошти
+</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Контакти
+</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Додати тег
+</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Розширений
+</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Завжди відображати усі зображення </value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Завжди відображати зображення з
+</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Видалити все
+</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Завантажити усе</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Додайте посилання на файли</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Прикріпити файли з модуля "Документи"
+</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Вкладення
+</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Прикріпити в контакти CRM
+</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Тип автентифікації
+</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Автоматично відповідає на всі вхідні повідомлення, наприклад, поки ви відсутні. Якщо якийсь контакт надсилає вам кілька повідомлень, автовідповідь буде надіслана щонайменше на кожне{0}.</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>ПК
+</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Додати новий обліковий запис
+</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Створити поштову скриньку</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Налаштувати домен</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Зображення вимкнено.
+</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Тіло</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>Завантажте непрочитані повідомлення з папки "Вхідні" в кеш-пам'ять для швидкого відкривання</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Кеш непрочитаних вхідних повідомлень</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>Поточний час відображається відповідно до ваших налаштувань календаря.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Порожня папка
+</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Загальні налаштування</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Скопійювати до Моїх документів</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Копія
+</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Ви хочете створити CRM-контакт і приєднатися до цієї бесіди?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Створіть та зв'яжіть</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Просто створіть контакт</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Створити електронну пошту відправнику</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Створити поштову скриньку</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Додати новий обліковий запис
+</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Створити новий тег
+</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Після відключення облікового запису з нього більше не надходитимуть повідомлення.
+</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Деактивувати
+</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Деактивувати
+</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Видалення облікового запису спричинить видалення усіх повідомлень поштової скриньки.
+</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Видалити
+</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Видалити
+</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Видалити
+</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Видалити тег
+</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Видалення тега зі списку спричинить його видалення з контактів і повідомлень, позначених цим тегом.
+</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Відобразити зображення
+</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Вам наданий готовий безкоштовний домен за замовчуванням, щоб відразу створити новий поштовий ящик.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Цей домен є загальним для всіх порталів, тому рекомендується використовувати корпоративний домен для кореспонденції корпоративної електронної пошти.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Завантажити
+</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редагувати
+</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Редагувати
+</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Відкрити в редакторі документа</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Змінити контакт</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Електронна пошта
+</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Увімкнути бесіди</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Автовідповідач пошти активовано для цього облікового запису.</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Зашифрований пароль
+</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Ця адреса вже існує
+</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Тіло не може бути пустим</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Зберегти усе в Мої документи</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Будь ласка, виберіть елементи CRM, щоб приєднати це повідомлення до:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Експорт
+</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Експорт в:
+</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Доступ до журналу електронної пошти для користувачів CRM буде здійснюватись відповідно до прав доступу.
+</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Експорт в CRM
+</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>Ви можете лише "Переглядати" певний доданий файл, тому ви не зможете поділитися ним з іншими. {0} {0} Ці файли можна скопіювати до папки «Мої документи», після чого їх буде додано як посилання. {0} {0} Крім того, ви можете попросити власників документів надати вам дозволи «Повного доступу» до файлів, які ви хочете прикріпіти як посилання та повторіть операцію ще раз.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Деякі файли не можуть бути додані як посилання.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Від'єднати папку</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Чернетки
+</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Вхідні
+</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Відправлено </value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Кошик
+</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Переадресувати
+</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Повний доступ</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Повний розмір
+</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Отримати настройки за замовчуванням
+</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>У іншому випадку поверніться до Inbox.</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Перейдіть до наступного повідомлення після переміщення / видалення поточного перегляду</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Далі</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Попередній</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Група повідомлень редагована лише на панелі адміністратора</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP-сервер
+</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Важливо
+</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Пов'язати з CRM
+</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Виберіть елемент:
+</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Інцидент
+</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Контакт
+</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Угода</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Будь ласка, виберіть елементи CRM, щоб приєднати цю бесіду до:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Всі повідомлення цієї розмови (зокрема майбутні повідомлення) буде показано в CRM. Журнал повідомлень буде доступним користувачам CRM відповідно до прав доступу.
+</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Посилання на:
+</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Пошук за іменем...
+</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Розірвати зв'язок з усіма
+</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Завантаження...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Увійти
+</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Опис
+</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Імпортувати повідомлення за останні 30 днів
+</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Пошта
+</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Позначте як важливе</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Позначте як неважливе</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Позначити як прочитане
+</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Позначити як непрочитане
+</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Позначити всі повідомлення від
+</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Цей обліковий запис було вимкнуто.
+</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>більше
+</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Більше
+</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Створити новий тег:
+</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>no address</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>немає</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>немає</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>без теми</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>або зв'язок з:</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Надіслати автоматичну відповідь людям лише в контактах</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Вгорі</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Відкрити у новій вкладці</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>або</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>всі
+</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>Важливо
+</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>Важливо
+</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>читати</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>читати</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>непрочитані
+</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>непрочитані
+</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>із вкладеннями
+</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>із вкладеннями
+</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Скасувати вибір усіх
+</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>Обрано</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>Сервер POP</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Пошта
+</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Лише читання</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Отримати пошту</value>
+  </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Повторно підключити</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Отримати нові повідомлення
+</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Відповісти усім</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Відповісти</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Перевірити</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Зберегти та надіслати повідомлення</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Зберегти у Календар</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Зберегти у Документи</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Зберегти у Мої документи</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Зберегти у Документи проекту</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Збережено в</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Вибрати
+</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Вибрати все</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Папка для вкладень</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Папка для вкладень</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Надіслати</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Надіслати повідомлення</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Сервер</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Автовідповідач поштової скриньки</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>Файли, які ви додали як посилання, будуть спільно використовуватись для одержувачів електронної пошти через посилання для людей за межами порталу. Ви можете змінити права доступу до файлів у модулі Документи пізніше.</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Налаштуйте права доступу до файлів, доданих як посилання для одержувачів електронної пошти:</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Показати більше облікових записів</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Показати більше тегів</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Відображати на сторінці</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Простий пароль</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Відкрити у новій вкладці</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>Сервер SMTP</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Редагувати тег
+</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Ім'я тега
+</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Повідомлення і контакти можна позначати за допомогою тегів. В майбутньому це полегшить пошук необхідних повідомлень і контактів за допомогою фільтрації тегів.
+</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Можна редагувати і видаляти лише теги, створені в пошті. Теги, імпортовані з модуля CRM, не можна змінити або видалити. Адміністратор може змінити теги в модулі CRM.
+</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Теги керування
+</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Сьогодні
+</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Включіть автовідповідач</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Ви можете виключити це</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Включіть це</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Дійсно видалити зв'язок цієї розмови з CRM?
+</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Розірвання зв'язку з цією розмовою з CRM призводить до розірвання зв'язку з усіма контактами, потенційними угодами і справами, вибраними раніше. Всі отримані раніше повідомлення залишиться в історії розсилки CRM, але майбутні повідомлення з розділу розмов не будуть відображатися в модулі CRM.
+</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Розірвати зв'язок
+</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Шифрування для IMAP-сервера
+</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Шифрування для POP-сервера
+</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Шифрування для SMTP-сервера
+</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Перегляд
+</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Переглянути профіль контакту
+</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Написати листа
+</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Нове повідомлення</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Учора
+</value>
+  </data>
+</root>

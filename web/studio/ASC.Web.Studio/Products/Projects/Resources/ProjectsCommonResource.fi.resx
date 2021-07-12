@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Hallinnoi tilaajia</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Kaikki {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Siirrä linkitetyillä tehtävillä</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Kaikki {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Käynnistä tai pysäytä ajastin</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Lisää aika</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Keskeytä</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Aseta uudelleen</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Aloita</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Projektit</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Kokeile mobiilisovellusta</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopio</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Luo uusi projekti</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Linkitä tai lisää kontakti</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Valitse Asiakkuudenhallinnan moduulin luettelosta kontakteja linkitettäväksi hallitsemaasi projektiin,tai  lisää uusia tai muokkaa olemassaolevia kontakteja. Näin hyödyntämällä Asiakkuudenhallinnan ominaisuuksia voit työskennellä tehokkaammin.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kontaktiluettelo on tyhjä</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Ei hakuehtoja vastaavia projekteja</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Seuraa</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Valitse tämä valintaruutu, jos et ole tämän projektin päällikkö, mutta haluat seurata kaikkia sen muutoksia. Saat päivittäisessä tiedotteessa yhteenvedon uusista välitavoitteista, tehtävistä ja keskusteluista.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Yksityisen projektin{2} avulla voit rajoittaa pääsyn projektiin vain projektiryhmäsi jäsenille.{0} Yksityisessä projektissa voit myös hallita jokaisen projektitiimin jäsenen pääsyoikeuksia yksilöllisesti.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Yksityisen projektin{2} avulla voit rajoittaa pääsyn projektiin vain projektiryhmäsi jäsenille.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Merkitsemällä välitavoitteen tärkeäksi voit korostaa sen merkitystä suhteessa muihin välitavoitteisiin.{0} Tärkeät välitavoitteet merkitään punaisella avainsymbolilla.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Voit asettaa projektin kolmeen eri tilaan:{0}{1}Aktiivinen.{2} Kaikki uudet projektin merkitään aktiivisiksi kunnes ne merkitään valmiiksi tai keskeytetään.{0}{1}Keskeytetty.{2} Jos haluat keskeyttää projektin tilapäisesti, aseta se tilaan Keskeytetty.{0}{1}Valmis.{2} Kun projektisi työt on tehty ja kaikki sen tehtävät suljettu, merkitse projekti valmiiksi. Valmiin projektin voi avata uudelleen merkitsemällä se aktiiviseksi.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Lisätäksesi jäseniä projektiisi, klikkaa {1}Hallinnoi projektiryhmää{2} linkkiä ja valitse haluamasi käyttäjät luettelosta.{0}Voit lisätä tai poistaa jäseniä myöhemmin siirtymällä {1}Projektiryhmä{2} välilehdelle projektin {1}Yhteenveto{2} sivulla ja klikkaamalla {1}Hallinnoi Projektiryhmää{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Jokaisella projektiryhmän jäsenellä on pääsy kaikkeen projektin sisältöön: välitavoitteisiin, tehtäviin, asiakirjoihin ja keskusteluihin. Rajoittaaksesi pääsyoikeuksia, valitse projektiryhmän jäsen ja Klikkaa yhtä sen oikealla puolella olevista linkeistä. Näin voit säätää jokaisen jäsenen pääsyoikeuksia erikseen. Muista kuitenkin, että sivuston järjestelmänvalvojilla on pääsy kaikkien projektien kaikkeen sisältöön.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Mitä 'Seuraa tätä projektia' tarkoittaa?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Mikä on yksityinen projekti?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Mitä tärkeä välitavoite tarkoittaa?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Mitä tiloja projektilla voi olla?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Kuinka hallita projektiryhmää?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Tämä käyttäjä ei saa ilmoituksia tästä keskustelusta, sillä tämä projekti on yksityinen eikä käyttäjä kuulu sen projektiryhmään.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktiivinen</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projektit / Seuraa</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Uusimmat</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Omat keskustelut</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Omat projektit</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontaktit</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Siirrä tehtävä</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Uudet kommentit keskusteluissa</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Uudet kommentit tehtävissä</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Ei linkitettäviä kontaktia</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Ei tietoja</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Tehtävällä on linkkejä muihin tehtäviin. Jos poistat tehtävän, linkit poistetaan.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Poista linkit ja siirrä</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Huomautus: tätä toimintoa ei voi kumota.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Esikatselu</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Toimi kuten projektipäällikkö|Nimitä projektipäällikkö|Luo, muokkaa tai poista mikä tahansa projekti|Luo/muokkaa projektimalleja</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Luo projektiryhmä ja jaa tehtäviä sen jäsenille. Ajoita projektin välitavoitteet, seuraa projektia ja luo raportteja.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Luo projektiryhmä ja osoita tehtäviä sen jäsenille. Luo projektille välitavoitteet, seuraa edistymistä ja luo raportteja.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Tarkastele projekteja ja osallistu keskusteluihin|Luo ja muokkaa välitavoitteita, tehtäviä, keskusteluja ja asiakirjoja|Seuraa tehtäviin käytettyä aikaa ja luo raportteja|Hallinnoi projektiryhmää ja aseta pääsyoikeuksia</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Projektiin linkitettävät ´kontaktit</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Projektin nimi</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Poista käyttäjä projektiryhmästä</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Korvaa</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Raportit</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Tallenna ja lisää uusi tehtävä</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Valitse nykyisistä kontakteista tai lisää uusi</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Käytetty laskutettava aika</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Käytetty aika</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Vastaanota kommentteja</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Tehtävä lisätty</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Alkupäivän on oltava ennen määräpäivää. </value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Tehtävällä on linkkejä muihin tehtäviin. {0} Valitse seuraavista vaihtoehdoista:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Poista linkit ja päivitä</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Valitse teksti, jonka haluat piilottaa syötteissä ja keskusteluluettelossa ja klikkaa "Text Cut" painiketta.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Aika</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Ajanseuranta</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Lopeta seuraaminen</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Pura kontaktin linkitys projektiin</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Lopeta kommenttien tilaus</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Päivitä takaraja</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Tehtävällä on linkkejä muihin tehtäviin. {0} Valitse seuraavista vaihtoehdoista:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Lisää kommentti</value>
+  </data>
+</root>

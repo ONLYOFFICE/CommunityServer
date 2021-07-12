@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>Dodaj naslov prekretnice</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Dodaj zadatak</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>Dodaj naslov zadatka</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>Svi predlošci projekta</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Odaberi odgovornu osobu</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Kreiraj projekt</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>Kreiraj predložak projekta</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Kreiraj iz predloška - {0}</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>Uredi strukturu projekta</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>Uredi predložak projekta</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>Kreiraj prvi predložak</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Šabloni projekta vam pomažu da napravite slične projekte sa unaprijed izgrađenom strukturom, čime možete uštedjeti dosta vremena.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>Nema projektnih predložaka</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>Svaka prekretnica mora imati naslov</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>prekretnice</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Niko</value>
+  </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Obavijesti odgovorne</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Sigurno želite pobrisati ovaj predložak?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Ukloni predložak</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Spremi &amp; Kreiraj projekt iz predloška</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Spremi izmjene</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Spremi predložak</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Zadatak</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Svaki zadatak mora imati naslov</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Zadaci</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>Zadaci bez prekretnice</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>Svaki predložak mora imati naslov</value>
+  </data>
+</root>

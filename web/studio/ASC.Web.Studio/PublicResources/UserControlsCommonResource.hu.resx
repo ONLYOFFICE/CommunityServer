@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Adjon a szavazáshoz választási lehetőségeket.</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Hozzáadás {!Users}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Új Szociális Profil Hozzáadása</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Üzenet hozzáadása</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Fájlok csatolása</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Fájl csatolása a Dokumentumokból</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Fájl csatolása projekt dokumentumaiból</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Kapcsolódjon kedvenc felhőszolgáltatásához és tárolja az összes fájlját egy helyen.</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>Hívja ügyfeleit közvetlenül a CRM-ből az {0}ONLYOFFICE Twilio{1} integrációjának köszönhetően.</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Bemutató létrehozása</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Táblázat létrehozása</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokumentum létrehozása</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Cégméret</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Cég</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>A gyorsabb szerkesztés érdekében valamennyi feltöltött dokumentumot Office Open XML formátumba konvertáljuk.</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>Kapcsolódási támogatás</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Fájl törlése</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Fájl letöltése</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Fájl szerkesztése</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}hozzon létre{1} fálokat itt a portálján, vagy{2}töltse fel{3} azokat ide, hogy{4}megnyithassa{5} és {6}szerkeszthesse{7} azokat az ONLYOFFICE™ portálszerkesztővel.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Tölsön Fel{3} fájlokat a portáljára.</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Írja be a szavazásra bocsátandó kérdését</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Mindenki</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Poszt hozzáadása</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Könyvjelző hozzáadása</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Ugrás a dokumentumokhoz</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Új cég létrehozása</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Új személy létrehozása</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Új projekt létrehozása</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Bármit ad a közösségi modulhoz, az itt megjelenik. A felhasználók megoszthatják érdekes információikat, gondolataikat, tapasztalataikat másokkal, kifejthetik elképzeléseiket, visszajelzéseket kaphatnak mindezekről mások hozzászólásaiból.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Esmény hozzáadása</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Táplál</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Többes válasz engedélyezése ennél a szavazási kérdésnél.</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Ha fizetni kíván az ONLYOFFICE portáljáért, a Vegye Meg Most gombot használja.</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Szűrő:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>Írja be lekérdezését</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Tól</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Ezen doboz bejelölésével elfogadja a {0}Licenc-megállapodásokat{1}</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online Dokumentum-szerkesztők {1}{0}Dokumentumkezelés{1}{0}Levezés{1}{0}Projektek{1}{0}CRM{1}{0}Naptár{1}{0}Közösség{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktív felhasználók</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktív felhasználó</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>Aktuális méret</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>Teljes képernyő</value>
+  </data>
+  <data name="MediaViewerZoomIn" xml:space="preserve">
+    <value>Nagyítás</value>
+  </data>
+  <data name="MediaViewerZoomOut" xml:space="preserve">
+    <value>Kicsinyítés</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Adja meg a számot</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>A portál-hozzáférési kódot tartalmazó SMS-t elküldtük a {0}{1}{2} telefonszámra.{5}Kérjük, adja meg a kódot, majd kattintson a(z) "{3}" gombra. Ha három percen túl sem érkezett üzenet, kattintson a(z) "{4}" gombra.</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Adja meg a mobiltelefon-számot</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Minden portálaktivitás itt, ebben a részben jelenik meg. Jelenleg nincs megjeleníthető esemény. Kezdje el használni a portált, töltse fel hozzászólásokkal, és minden új dolog meg fog jelenni ezen az oldalon.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Csak egy válasz engedélyezése ennél a szavazási kérdésnél.</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Biztos, hogy törli ezt a fájlt?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Töröl</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Adjon hozzá felhasználókat vagy csoportokat, majd adjon jogosultságot nekik.</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Alapár</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Szabad</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Hónap{2}{1} Előfizetés</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 Év{2}{1} Előfizetés</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 Év{1} Előfizetés</value>
+  </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0}Lejárt a fizetési határidő.{1} Az {2}ONLYOFFICE együttműködési képességeinek további használatához, {2}hosszabbítsa meg jelenlegi előfizetését, vagy válasszon másik csomagot.</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 év</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Az új portál hozzáadásával túllépi a jelenlegi előfizetése által lehetővé tett portálok számát.</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} felhasználó/hó</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Válassza meg csapattársai számát</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Mennyi felhasználóra van szüksége?</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Új felhasználók hozzáadása nem lehetséges</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Az új felhasználók hozzáadásával túllépi az előfizetése által lehetővé tett felhasználószámot.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Új felhasználók hozzáadása</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>Adja meg 6 számjegyű generált kódját az alkalmazásából. Ha jelenleg nem fér hozzá a telefonjához, használja a tartalék kódját.</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>Állítsa be az azonosító-alkalmazását </value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>Csatlakoztasson alkalmazást</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Fájlfeltöltés</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Választás</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Szavazzon</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Újdonságok</value>
+  </data>
+</root>

@@ -1,0 +1,768 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.議論のコメントは編集された: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は議論のコメントを編集した: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"詳細について":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました. 通知型を変更するように、”サブスクリプション設定” を管理してください:　"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.議論のコメントは編集された: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は　"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"　のタスクにコメントを編集しました: 
+
+$AdditionalData
+
+"詳細について":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました.　このタスクに関する通知を無効にするように 「アンサブスクライブ」を押してください:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.議論が編集されました: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"　はディスカッションを編集しました: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"詳細について
+":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"　ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください
+:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.プロジェクト。ベースキャンプからのデータのインポート
+
+新しいデータが正常にインポートされた
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"$RecipientSubscriptionConfigURL".</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.あなたがプロジェクトチームに追加されました: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added you to the team of the project:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.延滞マイルストーンの通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+The "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" milestone of the project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" is overdue. 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.議論は、削除済み: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトの "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID" ディスカッションを削除しました。
+
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。. 通知型を変更するには、”サブスクリプション設定” を管理してください
+:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.マイルストーンは休館: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.マイルストーンは、作成された: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は　"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトに新たなマイルストーンを追加しました：　"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending"
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"　ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:　"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.マイルストーン期日の通知: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+48時間未満では、期日までに残され "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.マイルストーンは、削除された: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトの "$EntityTitle" マイルストーンを削除しました。
+
+$AdditionalData 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。 通知型を変更するように、”サブスクリプション設定” を管理してください: "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.マイルストーンが編集されました: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.マイルストーンは再開された:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトの "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" マイルストーンを再開しました:
+
+$AdditionalData
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"$RecipientSubscriptionConfigURL".</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.ディスカッションへの新しいコメント: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.タスクにコメントが追加された: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクに新しいコメントを追加しました: 
+
+$AdditionalData
+
+"詳細について":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"　ポータルの登録ユーザーであるのためにそのメールを送信されました。 このタスクについての通知を受信したくない場合は、"登録解除"をしてください :"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.ディスカッションに新しいファイル: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new file to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" discussion: 
+
+$AdditionalData
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.タスクの新しいファイル: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"　は "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクに新しいファイルを追加しました: 
+
+$AdditionalData
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。 このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.新しいディスカッションが作成: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has started a new discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.プロジェクトが削除された: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$EntityTitle" プロジェクトを削除しました.
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"　ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. あなたがプロジェクトチームに追加されました</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 議論は削除します: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは休館: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは、作成: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは、削除された: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは再開: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 新しいディスカッション: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>プロジェクト。削除されたプロジェクト： $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 自分に割り当てられたマイルストーン: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. あなたは、プロジェクトマネージャに任命された</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 自分に割り当てられたサブタスク: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクは、自分に割り当てられた: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクは休館: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクが作成され: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクは削除: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクが再開: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクは休館: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクが作成され: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクの削除: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクが再開： $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.タスクに関するリマインダ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" reminds you about the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.タスクに関するリマインダ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+今日はタスクの期限日です: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"ポルタルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.あなたはプロジェクトチームから削除されました: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has removed you from the team of the project: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.タスクは、もはやあなたに割り当てられていない: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime you are no longer responsible for the task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData.get_item("TaskDescription")
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.自分に割り当てられたマイルストーン: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" マイルストーンのためにあなたが責任を任命しました: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.あなたは、プロジェクトマネージャに任命された: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you as manager of the project "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.自分に割り当てられたサブタスク: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the subtask: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.タスクは、自分に割り当てられた: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"　に　"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" プロジェクトの　"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+タスクの責任者として任命されていただきました。
+
+
+$AdditionalData.get_item("TaskDescription") 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}"ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.サブタスクは休館: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has closed the subtask added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.サブタスクが作成され: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new subtask: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+The subtask is assigned to "$Responsible". 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.サブタスクは削除: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the subtask: "$SubEntityTitle" of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.サブタスクは編集された: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクの "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" サブタスクを編集しました。
+
+サブタスクは　"$Responsible"　に割り当てられました.
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。このタスクに関する通知を無効にするように 「アンサブスクライブ」を押してください:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.再開されたサブタスク: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は　"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクの　"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" サブタスクを再開しました。
+
+^ "${__VirtualRootPath}":"${__VirtualRootPath}"　ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.完了されたタスク: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトの "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクを完了しました：
+
+$AdditionalData 
+
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.タスクが作成され: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has added a new task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" to the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+ $AdditionalData.get_item("TaskDescription") 
+
+The task is assigned to "$Responsible"
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.タスクの削除: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the task "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project:
+
+$AdditionalData 
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.タスクが編集されました: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited the  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.移動されたタスク: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトで"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" のマイルストーンから"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクを移動しました。
+
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクはどれものマイルストーンに関していません。
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。 通知型を変更するように、”サブスクリプション設定” を管理してください:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.移動されたタスク: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" は　"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" プロジェクトの "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" マイルストーンに "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" タスクを移動しました。
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、”サブスクリプション設定” を管理してください
+:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.タスクが再開:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has resumed the task "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project: 
+
+$AdditionalData
+
+^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". このタスクについての通知を受信したくない場合は、をしてください "登録解除":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]。$EntityTitle　ディスカッションのコメントは編集されていました。</value>
+  </data>
+  <data name="subject_EditedCommentForMessage_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).ディスカッションへのコメントの編集：[$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>プロジェクト　[$ProjectTitle]。$EntityTitle　タスクのコメントは編集されていました。</value>
+  </data>
+  <data name="subject_EditedCommentForTask_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクへのコメントの編集：[$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 編集ディスカッション：$EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). ディスカッションが編集されました：[$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>プロジェクト。ベースキャンプからのデータのインポート</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. あなたがプロジェクトチームに追加されました</value>
+  </data>
+  <data name="subject_InviteToProject_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).プロジェクトチームに追加されました。</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 延滞マイルストーンの通知: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 議論は削除します: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). ディスカッションが削除されました：[$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは休館: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). マイルストーンは終了しました：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed)</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは、作成: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 作成されたマイルストーン：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーン期日の通知: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは、削除された: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). マイルストーンが削除されました：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンが編集されました: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 編集されたマイルストーン：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. マイルストーンは再開: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). マイルストーンが再開されました：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. ディスカッションへの新しいコメント: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). ディスカッションへの新しいコメント：[$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクへの新しいコメント: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクへの新しいコメント： [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. ディスカッションに新しいファイル: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).ディスカッションに追加された新しいファイル：[$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクへの新規ファイル: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクへの新しいファイル：[$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 新しいディスカッション: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 新しいディスカッション: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>プロジェクト。削除されたプロジェクト： $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>プロジェクトチームに追加させられていただきました。</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>議論は削除されました</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>マイルストーンは完了されました</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>新たなマイルストーンは作成されました</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>マイルストーンは削除されました</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>マイルストーンは再開されました</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>新たな議論が作成されました</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>プロジェクト。プロジェクトは削除されていました。</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>マイルストーンは貴方に割り当てられました</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>プロジェクトマネージャを任命させられていただきました</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>サブタスクは貴方に割り当てられています。</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>タスクは貴方に割り当てられています。</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>サブタスクは完了されています。</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>新たなサブタスクは作成されました</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>サブタスクは削除されています。</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>サブタスクは再開されています。</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>タスクは完了されています。</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>新たなタスクは作成されました</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>タスクは削除されています。</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>タスクは再開されています。</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクについて思い出させる: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTask_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクに関するリマインダー：[$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクについて思い出させる: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクに関するリマインダー：[$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. あなたはプロジェクトチームから削除されました</value>
+  </data>
+  <data name="subject_RemoveFromProject_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).プロジェクトチームから削除されました。</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクは、もはやあなたに割り当てられていない: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクが割り当てられなくなりました: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 自分に割り当てられたマイルストーン: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).あなたに割り当てられたマイルストーン：[$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. あなたは、プロジェクトマネージャに任命された</value>
+  </data>
+  <data name="subject_ResponsibleForProject_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).プロジェクトマネージャーとして任命されました。</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. 自分に割り当てられたサブタスク: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). あなたに割り当てられたサブタスク：[$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクは、自分に割り当てられた: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID).あなたに割り当てられたタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクは休館: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). サブタスクが修了しました: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクが作成され: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 作成されたサブタスク：[$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクは削除: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 削除されたサブタスク: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>プロジェクト　[$ProjectTitle]。$EntityTitle　サブタスクは編集されていました。</value>
+  </data>
+  <data name="subject_SubTaskEdited_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 編集されたサブタスク: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. サブタスクが再開: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). サブタスクが再開されました: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクは休館: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 終了したタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクが作成され: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 作成されたタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクの削除: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 削除されたタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクが編集されました: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited_tg" xml:space="preserve">
+    <value>プロジェクト[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 編集されたタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>プロジェクト　[$ProjectTitle].　取り除かれたタスクは：$EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクが削除されました: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]。$EntityTitle　タスクは移動されていました。</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). 移動されたタスク: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle]. タスクが再開： $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed_tg" xml:space="preserve">
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクが再開されました: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>誰もない</value>
+  </data>
+</root>

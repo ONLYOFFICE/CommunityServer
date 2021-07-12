@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Commentaar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formulier vullen</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Eigenaar</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Alleen-lezen</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Volledige toegang</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Toegang weigeren</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Beoordelen</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Varieert</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archief</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Geen submappen</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Alle bestanden</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mappen</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Afbeeldingen</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>In inhoud</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Presentaties</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Werkbladen</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Toon meer {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Uploaden...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Toon meer {0} van {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Maker</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Aanmaakdatum</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Datum laatste wijziging</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Code is gecopieerd naar</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Weet u zeker dat u {0} wilt verwijderen uit de 'Documenten' module? Dit heeft op geen enkele manier invloed op uw {1} account.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Weet u zeker dat u de prullenbak wilt legen?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Weet je zeker dat je deze pagina wil verlaten? Het downloaden van de bestand zal worden onderbroken. </value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>U staat op het punt dit bestand te verwijderen. Denk eraan dat, indien u dit deelde met iemand anders, het onbeschikbaar zal worden. Bent u zeker dat u wil doorgaan?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>U staat op het punt deze map te verwijderen. Denk eraan dat, indien u deze deelde met iemand anders, deze onbeschikbaar zal worden. Bent u zeker dat u wil doorgaan?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>U staat op het punt deze elementen te verwijderen. Denk eraan dat, indien u deze bestanden/mappen deelde met iemand anders, deze onbeschikbaar zullen worden. Bent u zeker dat u wil doorgaan?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>U gaat bestanden verplaatsen vanuit de {1} map. In een dergelijk geval worden ze verwijderd van uw {1} account en niet langer beschikbaar zijn voor andere gebruikers, wanneer deze eerder gedeeld waren. {0}Weet u zeker dat u deze bestanden wilt verplaatsen?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Algemeen documenten</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Afwijkend formaat</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Afdelingen</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Gegevens archiveren</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Gegevens wijzigen</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Versie afronden</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopie</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Gemaakt</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Signeer via DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Laden versies...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Markeren als gelezen</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Verwijderen...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Hernoemen</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Versie aan het bijwerken</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Bestand prepareren voor encryptie</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Bestand encrypteren</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Geëncrypteerd bestand bewaren</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Signeer document ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Selecteer ten minste één map of document om te downloaden</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Schrijf commentaar</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>U kunt geen lege map of leeg bestand uploaden</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Conversiefout</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Alle velden zijn verplicht</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>De maximale bestandsgrootte is overschreden</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>U moet aanmelden om toe te voegen </value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sorry, deze bestandsindeling wordt niet ondersteund</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Het wachtwoord dat u ingaf is fout. Probeert u opnieuw.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Wacht tot de vorige download is afgerond of annuleer deze</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>U heeft niet voldoende rechten om deze bewerking uit te voeren</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Je kunt deze actie niet uitvoeren in deze map.</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>De titel mag geen van de volgende tekens: {0} bevatten</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>De portal opslagruimte is vol. U kunt geen bestanden meer uploaden groter dan {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Het bestand met de naam {0} bestaat al in de map {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Geconverteerd</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Bezig met converteren</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} documenten met dezelfde naam bestaan al in de map '{1}'. Wilt u deze bestanden overschrijven?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Geupload</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Bestand uploaden</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box map</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign account</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox map</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google directory</value>
+  </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>kDrive directory</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint map</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrivemap</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV map</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex map</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Nu is '{0}' eigenaar van '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Nu is '{0}' eigenaar van '{1}'</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' gewijzigd</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Kopie {1}{0}{2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} gekopieerde elementen</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' gekopieerd</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} elementen</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Nieuw bestand '{0}' is gemaakt</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Het nieuwe bestand '{0}' is aangemaakt in '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Nieuwe map '{0}' is gemaakt</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>U kunt niet de map naar de submap kopiëren</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>U kunt de map niet verplaatsen naar de submap</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>U heeft geen rechten om enkele van de bestanden te verplaatsen</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Verplaats {1}{0}{2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} elementen zijn verplaatst</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' verplaatst</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Het document '{0}' is verwijderd</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>De map '{0}' is verwijderd</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Is verwijderd {0} van {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Derde partij '{0}' is niet meer verbonden</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>De naam van het document '{0}' is gewijzigd in '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>De naam van de map '{0}' is gewijzigd in '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' toegevoegd aan '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} documenten zijn succesvol geüpload</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mijn documenten</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Origineel formaat</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Presentaties</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Fout bij het tonen van het geuploade bestand {0}</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Project-documenten</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>bewerkingen: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>U hebt toegang gekregen tot het document {0}. Klik op de koppeling hieronder om het document nu meteen te openen: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>U hebt toegang gekregen to het document {0}.</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Voeg gebruikers an groepen toen en</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Werkbladen</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Gegevens archiveren</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Markeren als gelezen</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} bewerkingen</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Verbindingsinstellingen voor {0} wijzigen</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Wordt momenteel bewerkt</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Wordt momenteel bewerkt door: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Vergrendeld</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Vergrendeld door: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Meer eigenschappen</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Nieuwe presentatie</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Nieuw werkblad</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Nieuw Document</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Nieuwe map</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Algemene instellingen</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Verbind accounts</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Upload compleet</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Bezig met uploaden...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Uploaden {0} bestand ({1}% voltooit)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} van {1} gebruikt</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Gebruikers</value>
+  </data>
+</root>

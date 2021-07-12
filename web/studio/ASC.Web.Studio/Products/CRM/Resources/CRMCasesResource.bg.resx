@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Запазване и създаване на нов случай</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Всички случаи</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Случай</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Разрешенията ще бъдат зададени в случаите, в които сте автор</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Участник в казуса</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Участници в казуса</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Таг</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Списък с етикети на казуси</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Заглавие на делото</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Затвори случая</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Създаване на случай ...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Създайте първия случай</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Създайте нов случай</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Изтриване на случай</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Изтриване на случаи</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Редактиране на случая</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Редактирайте случая «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Случаите ви позволяват да запазите на едно и също място цялата история на кореспонденция, да зададете задачи, да качите документи за контактите, които участват в общо събитие. Например, тя може да бъде екипна подготовка или организация на изложби.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>В този раздел не могат да се показват случаи, съответстващи на вашия филтър. Моля, изберете други опции за филтриране или изчистете филтъра, за да видите всички случаи в този раздел. Или можете да създадете случая, ако той отсъства от списъка.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Тук няма да се показват случаи за този филтър</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Списъкът с казуси е празен</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Списъкът на участниците е празен</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Добавете участници във вашия случай от списъка на фирми или лица. След това ще знаете кой ще участва в предстоящите събития, свързани с този случай.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Случаи на внос</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>На твърдия диск на компютъра трябва да се избере правилно оформен CSV файл. Тя трябва да съдържа полетата или колоните, разделени от избрания разделител, които ще се използват за импортиране на случаи. Файловете, съдържащи повече от {0} реда, трябва да бъдат разделени на по-малки части за правилно импортиране. Уверете се, че сте избрали потребителите на портала, които трябва да получат достъп до информацията за импортиране, в противен случай данните от CSV файла ще бъдат достъпни за всички потребители на портала.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Изберете CSV файл и задайте права за достъп, преди да импортирате случаи</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Съвпадете колоните на файловете си със съответните полета ONLYOFFICE™ CRM. Моля, обърнете внимание на факта, че за внос на случаи правилно трябва да имате поне една колона от файла, съвпадаща с полето 'Заглавие на делото' на ONLYOFFICE™ CRM. Полетата, съдържащи датите, трябва да имат следния формат: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Моля, проверете полетата</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Към списъка с казуси</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Импортирането на случаи може да отнеме няколко минути в зависимост от количеството на данните ви.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Импортирането започна</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Участници в казуса</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Отворен случай</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Участниците</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ограничете достъпа до делото</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Запазите промените</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Към профила</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Отваряне в нов раздел</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Започнете да импортирате</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Всички случаи</value>
+  </data>
+</root>

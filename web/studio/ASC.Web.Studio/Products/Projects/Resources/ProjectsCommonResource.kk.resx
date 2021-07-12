@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Жазылушыларды басқару</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Барлығы</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Барлық {! Топтар}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Байланысты міндеттермен жылжыту</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Барлық пайдаланушылар}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Іске қосу / тоқтату таймері</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Уақытты қосу</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Кідірту</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Тастау</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Бастаңыз</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>TeamLab Жобалар</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Мобильді қосымшаны көріңіз</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>болдырмау</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Түсін өзгерту</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Мәртебелер тек тапсырманы жасаған пайдаланушыға ғана қол жетімді</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Таңбашаны өзгерту</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Жасыру</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Жалпы параметрлер</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>көшірме</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Құрыңыз</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Жаңа жобаны бастау</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>категория</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Тапсырма мәртебесіне қажетті тәртіп орнатыңыз. Әрбір санат кемінде бір мәртебеге ие болуы тиіс.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Жаңа мәртебе</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>атау</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Күні</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>өшіру</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>құжаттар</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>редакциялау</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Сілтеме немесе контакт қосу</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Сіз басқаратын жобамен байланыстыру үшін бар CRM контактілерін таңдаңыз немесе жаңа контактілерді қосыңыз. Жеке ақпаратты өңдеу. CRM терең интеграция сіздің жұмысыңызды тиімді басқаруға көмектеседі.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Контактілер тізімі бос</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Әрбір мәртебенің тақырыбы болуы тиіс</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Осы сүзгіге сәйкес жобалар жоқ</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>қадағалау</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Барлық жаңадан жасалған кезеңдер, міндеттер мен талқылаулар туралы ақпарат "Қандай жаңалықтар бар?".</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1} жеке жоба {2} - тек команда мүшелері ғана қол жеткізе алатындай, жобаға кіруді шектеудің тәсілі. {0} сіздің жобаңызды жеке ретінде сақтау, сондай-ақ осы жоба ішінде әр команда мүшесі үшін қол жеткізу құқығын орнатуға мүмкіндік береді.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1} жеке жоба {2} - тек команда мүшелері ғана қол жеткізе алуы үшін сіздің жобаңызға қолжетімділікті шектеудің жолы.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>"Кілт" кезеңі басқалардан аса маңызды деп санайтын кезеңдерді жасау үшін қолданылады. {0} барлық негізгі кезеңдер оның тақырыбының жанында орналасқан Қызыл кілт белгісімен белгіленген.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Жобаның үш күйі арасында ауысуға болады: {0} {1} Белсенді. {2} сіз қазір жұмыс істеп жатқан барлық жобалар сіз оларды тоқтата тұруды немесе аяқтауды шешкенше Белсенді ретінде белгіленеді. {0} {1} тоқтатылды . {2} Егер сіз жобаңыздағы жұмысты уақытша тоқтатуды шешсеңіз, оның мәртебесін уақытша тоқтатуға өзгертіңіз. Жобаны жаңарту үшін, тиісті мәртебені орнату арқылы оны белсендіріңіз. {0} {1} Жабық. {2} жобамен жұмыс аяқталған және барлық міндеттер жабық болған кезде, оның мәртебесін жабық етіп өзгертіп, өз жобаңызды аяқтаңыз. Одан әрі жұмыс істеу үшін оны іске қосу керек.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Дәл қазір командаға қатысушыларды қосу үшін {1} Mangage Team {2} сілтемесіне басыңыз және тізімнен қосқыңыз келетін пайдаланушыларды таңдаңыз. {{0} {1} Team {2} бет қойындысын { 1} жоба шолуы {2} және {1} түймешігін басыңыз {2} команданы басқару.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Әдетті бойынша, жоба командасының әрбір мүшесі таңдалған жобаның ішінде барлық мазмұнды көре алады: кезеңдер, міндеттер, құжаттар және талқылаулар. Кіруді шектеу үшін, кіру құқығын орнатқыңыз келетін команда бойынша досыңызды таңдап, оң жақтағы сілтемелердің бірін басыңыз. Сондай-ақ, егер Портал әкімшісінің құқығы болмаса, сіздің жоба командасының әрбір мүшесі үшін қол жеткізу құқығын орнатуға болады. ONLY OFFICE ° әкімшісі барлық жобаларда барлық мазмұнға толық қол жеткізе алады.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Бұл жобаны қадағалау " дегеніміз не?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Жеке жоба дегеніміз не?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Негізгі кезең дегеніміз не?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Жобаның қандай мәртебелері бар?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Өз командасын қалай басқаруға болады?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Жасыру</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Тоқтатылған жобаларда нысандарды жасыру</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Бұл пайдаланушы талқылау туралы хабарлама алмайды, өйткені жобаның жеке мәртебесі бар, ал пайдаланушы жоба командасының мүшесі болып табылмайды.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Көбірек үйрету...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>белсендi</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Мен қадағалайтын жобалар</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Ең соңғы</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Менің талқылауым</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Менің жобаларым</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>контакты</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>жоба</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Тапсырманы жылжыту</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Талқылаудағы жаңа Пікірлер</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Тапсырмадағы жаңа Пікірлер</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Сілтеме үшін байланыс жоқ</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Деректер жоқ</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Тапсырма басқа тапсырмалармен байланысты, ол жойылған жағдайда барлық сілтемелер жойылады.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Сілтемелерді жою және жылжыту</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Жеке параметрлері</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Ескертпе: бұл іс-әрекет жойылуы мүмкін емес.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>алдын ала қарау</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Жоба менеджері сияқты жасаңыз | жоба менеджерін тағайындау | құру және редакциялау, кез келген жобаны жою | жасау / үлгіні өңдеу</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Командаларды жасап, тапсырмаларды белгілеңіз. Жоба кезеңдерінің кестесі, жобаның белсенділігін қадағалау және есептер жасау.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Командаларды жасап, тапсырмаларды белгілеңіз. Жоба кезеңдерінің кестесі, жобаның белсенділігін қадағалау және есептер жасау.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>жоба</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Жобаларды қарау және талқылауларға қатысу | негізгі кезеңдерді, тапсырмаларды, талқылауларды, құжаттарды жасау және редакциялау | тапсырмаларды орындау уақытын қадағалау, есептерді жасау | Жоба командасын құру және қол жеткізу құқығын белгілеңіз</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Жобаға байланысты контакттер</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Жобаның Атауы</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Көбірек оқыңыз</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Командадан пайдаланушыны өшіру</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>алмастыру</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Есеп бумасы</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Есептер</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сақтау</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Жаңа тапсырманы сақтау және жасау</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Өзгерістерді сақтау</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Іздеу</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Таңдау</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Бар контактілерді таңдаңыз немесе жаңасын қосыңыз</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>параметрлері</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Кез келген пайдаланушы жобаны жасай алады</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Шоу</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Беттегі көрсету</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Уақыт жұмсалған</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Уақыт жұмсалған</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Бастапқы бет</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Мәртебе</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Пікірге жазылу</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Тапсырма қосылды</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Бастау күні мерзімінен бұрын болуы тиіс</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Сіз жылжытатын міндет басқа міндеттермен байланысты. {0} әрекеттердің бірін таңдаңыз:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Есептер мәртебесі</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Сілтемелерді жою және жаңарту</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Арналардың беттерінде және талқылаулар тізімінің бетінде жасырғыңыз келетін мәтінді таңдап, "мәтінді қиып алу" түймешігін басыңыз.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Мәтінді қиып алу</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Уақыт</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Уақытты бақылау</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>атау</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Бүгін</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Барлығы</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>жазылымнан бас тарту</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Жобаны контактіден ажырату</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Пікірден бас тарту</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Мерзімді жаңарту</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Жаңарту керек болатын тапсырма басқа міндеттермен байланысты. {0} әрекеттердің бірін таңдаңыз:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>чч</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Пікірді қосу</value>
+  </data>
+</root>

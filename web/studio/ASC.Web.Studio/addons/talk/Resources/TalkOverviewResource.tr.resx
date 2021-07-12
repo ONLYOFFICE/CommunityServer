@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Kişiler listesi, çalışanlar listesine insanlar eklenip silindikçe otomatik olarak güncellenir, bu sebeple listeyi elle kontrol etmek zorunda değilsiniz.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Tarayıcıda bildirim</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Sohbet odası</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Sohbet Sekmeleri</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Ayarlı Kişi Listesi</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Varsayılan olarak tüm bildirimler hem e-posta adresinize hem de Talk'a gönderilecektir. Bunları yapılandırmak için</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Gönderilen dosyaları sil</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Gruba dahil olan kişi listesi</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>burada</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Offline kişileri gizle</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>E-postalaşma</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Bildirim hakkında daha fazla bilgi mevcut {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Bildirim Kurulumu</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Sohbet, çalışanlar arasında mesajların iletilmesi için bir kurumsal anında mesajlaşma sistemidir.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Sohbet bir mesajlaşma programından beklediğiniz tüm temel özellikleri sunar - durum tercihi, geçmişin arşivlenmesi, dosya transferi, çok kullanıcılı sohbet desteği, ve daha fazlası.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Sohbete Genel Bakış</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Hiçbir ayar yapmadan anında Sohbet için web istemicimizi başlatın.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profil sayfası</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Mesajları Ctrl+Enter ile gönder</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Girdi alanı ayarları</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Web İstemcisini Başlat</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Ekstra ayar yok! Web istemcisi başlatmak ve hemen konuşmaya başlamak için tıklayın</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>{0} abonelik bölümü</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Etkinlik sesleri</value>
+  </data>
+</root>

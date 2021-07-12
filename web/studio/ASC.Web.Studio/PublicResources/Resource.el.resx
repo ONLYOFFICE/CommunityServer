@@ -1,0 +1,892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>διεύθυνση</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Σχετικά με αυτό το πρόγραμμα</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Προσθήκη {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Προσθήκη {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Όλοι {!users}</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Απενεργοποίηση Λογαριασμού</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Ένας σύνδεσμος για να επιβεβαιώσετε τη λειτουργία έχει σταλεί στο: e-mail (η διεύθυνση ηλεκτρονικού ταχυδρομείου του ιδιοκτήτη της δικτυακής πύλης ).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Διαγραφή λογαριασμού</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Ένας σύνδεσμος για να επιβεβαιώσετε τη λειτουργία έχει σταλεί στο: e-mail (η διεύθυνση ηλεκτρονικού ταχυδρομείου του ιδιοκτήτη της δικτυακής πύλης ).</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Προσθήκη {!group}</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Προσθήκη σχολίου</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Προσθήκη αξιόπιστου domain</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Προσθήκη {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Προσθήκη χρηστών</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Διαχειριστής</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Ειδοποιήσεις Διαχειριστού</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Διαχειριστές</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Οποιoδήποτε domain</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Απάντηση</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Απάντηση</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Σύνδεση</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Συνδεδεμένος</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Αποσύνδεση</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Όχι συνδεδεμένο</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>στο</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Πιστοποίηση</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Εξουσιοδότηση</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Μετάβαση στην σελίδα τίτλου</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>{0} Μπορείτε να κατεβάσετε το αντίγραφο ασφαλείας στην τοπική μονάδα δίσκου σας χρησιμοποιώντας τον παραπάνω σύνδεσμο. Ο σύνδεσμος θα είναι ενεργός για 24 ώρες απο τη στιγμή που ζητήθηκε. {1} Ένα μήνυμα ηλεκτρονικού ταχυδρομείου που περιέχει το σύνδεσμο και τις οδηγίες σας έχει σταλεί στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας. {2}</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Προσθήκη {!Group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Ημερομηνία γεννήσεως</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Προσθήκη νέας επαφής</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Όλα τα στοιχεία που έχετε εισάγει θα χαθούν. Είστε σίγουροι ότι θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Αλλαγή Logo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Ένας σύνδεσμος για να επιβεβαιώσετε τη λειτουργία έχει σταλεί στο: e-mail (η διεύθυνση ηλεκτρονικού ταχυδρομείου του ιδιοκτήτη της δικτυακής πύλης ).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>% B% d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Ιαν, Φεβ, Μαρ, Απρ, Μάι, Ιούν, Ιούλ, Αύγ, Σεπ, Οκτ, Νοε, Δεκ</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Κλείσε</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Σχόλια</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>σχόλιο έχει διαγραφεί</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Επιβεβαιώστε ότι θέλετε να απενεργοποιήσετε το λογαριασμό σας</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Επιβεβαιώστε ότι θέλετε να διαγράψετε το λογαριασμό σας</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να αλλάξετε την  διεύθυνση πύλης στο {0};</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Ο ιδιοκτήτης portal έχει αλλάξει με επιτυχία. {0}μέσα σε 10 δευτερόλεπτα θα μεταφερθείτε {1} εδώ {2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Επιβεβαιώστε ότι θέλετε να αλλάξετε ιδιοκτήτη τς πύλης για {0}</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Επιβεβαιώστε ότι θέλετε να επανενεργοποιήσετε το λογαριασμό σας</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να διαγράψετε το σχόλιό σας;</value>
+  </data>
+  <data name="ConsumerseasyBibappkey" xml:space="preserve">
+    <value>Κλειδί εφαρμογής</value>
+  </data>
+  <data name="ConsumersEasyBibKey" xml:space="preserve">
+    <value>Κλειδί εφαρμογής</value>
+  </data>
+  <data name="ConsumersEasyBibSecret" xml:space="preserve">
+    <value>Κλειδί εφαρμογής</value>
+  </data>
+  <data name="ConsumersS3" xml:space="preserve">
+    <value>Amazon AWS S3</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Συνεχίστε</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>δημιουργία αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Προσαρμοσμένο όνομα domain</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Προσαρμογή</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Προσθήκη αντικειμένου</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Προσθήκη αντικειμένου</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Backup δεδομένων</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Ο λογαριασμός σας έχει απενεργοποιηθεί επιτυχώς. {0} σε 10 δευτερόλεπτα θα μεταφερθείτε {1} εδώ {2}</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>{0} Μπορείτε να απενεργοποιήσετε το δικό σας portal προσωρινά, έτσι ώστε κανένας να μην έχει πρόσβαση στην πύλη σας για ένα συγκεκριμένο χρονικό διάστημα. {1} Κάντε κλικ στο κουμπί Απενεργοποίηση για να συνεχίσετε. Ένας σύνδεσμος για να επιβεβαιώσετε τη λειτουργία θα σταλεί στην ηλεκτρονική διεύθυνση της πύλης ιδιοκτήτη. Για να συνεχίσετε τη χρήση του portal, θα χρειαστεί να χρησιμοποιήσετε το δεύτερο σύνδεσμο που παρέχονται στο email επιβεβαίωσης. {2}</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Θα θέλατε να συνεχίσετε;</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Ο λογαριασμός σας έχει διαγραφεί επιτυχώς. {0} σε 10 δευτερόλεπτα θα μεταφερθείτε {1} εδώ {2}</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Μπορείτε να διαγράψετε το δικό σας portal μόνιμα. Σε αυτή την περίπτωση όλα τα δεδομένα θα χαθούν και δεν θα μπορούν να ανακτηθούν.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>Ο {!user} δεν θα εμφανίζεται στη λίστα των ενεργών {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Ένας σύνδεσμος για να επιβεβαιώσετε τη λειτουργία έχει σταλεί στο {0} (η διεύθυνση ηλεκτρονικού ταχυδρομείου του ιδιοκτήτη της δικτυακής πύλης ).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Ρυθμίσεις DNS</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} πριν</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} ημέρα</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} ημέρες</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} ημέρες</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>μόλις</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} ώρα</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} ώρες</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} ώρες</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} λεπτό</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} λεπτά</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} λεπτά</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} μήνας</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} μήνες</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} μήνες</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} χρόνια</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} χρόνια</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} χρόνια</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Προχθές</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Αύριο</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Χτες</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Επεξεργασία Προφίλ</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Όλες {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Αναζήτηση Προσωπικού</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Ενεργοποίηση SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ενεργοποίηση</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>Το {!user} θα εμφανίζεται ως ενεργός και πάλι</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Δεν έχετε δικαιώματα για να εκτελέσετε αυτήν την ενέργεια</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Άκυρα email ή ληγμένος σύνδεσμος</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} με αυτό το email έχει ήδη καταχωρηθεί</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Παρακαλώ συμπληρώστε όλα τα πεδία</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Το αρχείο δεν βρέθηκε</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Πληκτρολογήστε το όνομα σας</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Πληκτρολογήστε το επώνυμό σας</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Άκυρα email</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Μη έγκυρο όνομα Domain</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης είναι άδειος.</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Ο χρήστης με το "{0}" email δεν μπορούσε να βρεθεί</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Γυναίκα</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>b, KB, MB, GB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>για χρονικό διάστημα</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>από</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>Προς</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>τελευταίους 3 μήνες</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>τον περασμένο μήνα</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>την περασμένη εβδομάδα</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Ο σύνδεσμος για την επιβεβαίωση του λογαριασμού σας έχει σταλεί στο συγκεκριμένο e-mail</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Ξεχάσατε τον κωδικό σας;</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Για να συνδεθείτε παρακαλούμε να ακολουθήσετε αυτό το {0} link {1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>από</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Ρυθμίσεις χαιρετισμού</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Ομάδα</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Επικεφαλής Ομάδος</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Ομάδες</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Πληκτρολογήστε το λογαριασμό σας στο AIM</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Πληκτρολογήστε το Blogger προφίλ σας</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Εισάγετε το email σας</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Πληκτρολογήστε το προφίλ σας στο Facebook</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Εισάγετε GoogleTalk λογαριασμό σας</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Πληκτρολογήστε το προφίλ GoogleBuzz σας</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Πληκτρολογήστε το λογαριασμό σας στο Google</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Εισάγετε ICQ λογαριασμό σας</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Πληκτρολογήστε το λογαριασμό Jabber σας</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Πληκτρολογήστε το LiveJournal προφίλ σας</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Εισάγετε τον αριθμό του κινητού σας</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Πληκτρολογήστε το MSN λογαριασμό σας</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Πληκτρολογήστε το MySpace προφίλ σας</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Εισάγετε τον αριθμό τηλεφώνου σας</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Πληκτρολογήστε το Skype λογαριασμό σας</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Πληκτρολογήστε το Twitter προφίλ σας</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Εισάγετε τον λογαριασμό Yahoo σας</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Προσθήκη χρηστών</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Άκυρο όνομα χρήστη ή κωδικός πρόσβασης.</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Επιλέξτε τον κωδικό σας</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Επώνυμο</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Τοποθεσία</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Σύνδεση</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Είσοδος</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Γίνετε μέλος</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>ή συνδεθείτε με:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Δεν μπορείτε να βρείτε συνδεδεμένο λογαριασμό τρίτου</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Άντρας</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Το προφίλ μου</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Πρότυπο</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Πρότυπο Ομάδος</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Ειδοποίηση από:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Email &amp; Ομιλία</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Ομιλία</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>Εφαρμογές</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Κωδικός</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Ιστορικό πληρωμών</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Άνθρωποι</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Παρακαλώ περιμένετε ...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Θύρα</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portal Ιδιοκτήτης</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Προφίλ</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Το προφίλ έχει αφαιρεθεί</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Επανενεργοποίηση</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Ο λογαριασμός σας έχει ενεργοποιηθεί με επιτυχία. {0} σε 10 δευτερόλεπτα θα μεταφερθείτε {1} εδώ {2}</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Ημερομηνία Εγγραφής</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Θυμάμαι</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Επαναφορά σε προεπιλογή</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Έρευνα</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Τίποτα δεν έχει βρεθεί.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Αποτελέσματα Αναζήτησης</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Αποστολή πρόσκλησης</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Το λογισμικό διακομιστή εντόπισε ένα σφάλμα κατά την επεξεργασία του αιτήματός σας. Παρακαλώ περιμένετε για κάποιο χρονικό διάστημα και προσπαθήστε ξανά. Εάν το σφάλμα παραμένει, ίσως  χρειαστεί να επικοινωνήσετε με τον διαχειριστή.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Σφάλμα διακομιστή</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Φύλο</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Εμφάνιση όλων</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Δείτε όλα τα αποτελέσματα</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Η εγγραφή είναι διαθέσιμη στους χρήστες με ένα λογαριασμό email σε κάθε Domain. Για να εγγραφείτε, εισάγετε το email σας και κάντε κλικ στο Αποστολή πρόσκλησης. Ένα μήνυμα ηλεκτρονικού ταχυδρομείου με ένα σύνδεσμο για να ενεργοποιήσετε το λογαριασμό σας ONLYOFFICE™ θα αποσταλλεί στο συγκεκριμένο e-mail.</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Έκπληξη</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Βόμβα</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Τρελός</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Κραυγή</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Χορός</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Ποτό</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Θυμωμένος</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Ριπή οφθαλμού</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Πράσινος</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywood χαμόγελο</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Λυπημένος</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Μουσική</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Χαμόγελο</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Γκριμάτσα</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Συγνώμη</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Γυαλιά</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Σούπερ</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Γλώσσα</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Ζήτω</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Ρυθμίσεις</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Στατιστικά</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Ρυθμίσεις Αξιόπιστου Mail Domain</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Γλώσσα και ρυθμίσεις ώρας ζώνης</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Εγγραφή</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Εγγραφές</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Οι ρυθμίσεις χαιρετισμού έχουν αποθηκευτεί επιτυχώς</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Ρυθμίσεις έχουν ενημερωθεί με επιτυχία</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Πληρωμές</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Δημιουργήθηκε</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Χώρο αποθήκευσης που χρησιμοποιείται</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Σύνολο χρηστών</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Ζώνη ώρας</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Κουβεντολόι</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Αριθμός κινητού τηλεφώνου</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Αριθμός τηλεφώνου</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Βρέθηκαν συνολικά</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>έως</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Προσαρμοσμένα domain</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Η εγγραφή είναι διαθέσιμη στους χρήστες με ένα λογαριασμό email στο {0}. Για να εγγραφείτε, εισάγετε το email σας και κάντε κλικ στο Αποστολή πρόσκλησης. Ένα μήνυμα ηλεκτρονικού ταχυδρομείου με ένα σύνδεσμο για να ενεργοποιήσετε τον ONLYOFFICE™ λογαριασμός σας θα αποσταλλεί στο συγκεκριμένο e-mail.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Προέκυψε ένα άγνωστο σφάλμα</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Ανεβάστε</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Χρήστης</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Χρήστες</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Εργασία / Τίτλος</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>hits</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>φιλοξενεί</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Χρήση Γραφήματος </value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Επισκέψεις</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Τι νέο υπάρχει</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

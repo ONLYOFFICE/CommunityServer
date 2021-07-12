@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FooterCommonV10" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt; &lt;/td&gt;&lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
+              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
+              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
+              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;¿Se necesita ayuda?&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Preguntas de ventas&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Solicitar demostración&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
+              &lt;a href="%SUPPORTURL%" target="_blank" style="color: #333;"&gt;Haga pregunta&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
+              &lt;a href="mailto:%SALESEMAIL%" style="color: #333;"&gt;Contáctenos&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
+              &lt;a href="%DEMOURL%" target="_blank" style="color: #333;"&gt;Envie solicitud&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+  <data name="FooterOpensourceV10" xml:space="preserve">
+    <value>&lt;tr borde = "0" espaciadodecelda = "0" rellenodecelda = "0"&gt; &lt;td colspan = "3" estilo = "altura: 10px; línea-altura: 10px; fondo: #fff; relleno: 0; margen: 0 ; "&gt; &amp; nbsp; &lt;/ td&gt; &lt;/ tr&gt;
+        &lt;tr borde = "0" espaciadodecelda = "0" rellenodecelda = "0"&gt;
+            &lt;td estilo = "alineación vertical: superior; margen: 0; relleno: 34px 0 0 0; ancho: 210px; alto: 108px; fondo: # f6f6f6; -moz-borde-radio-izquierdasuperior: 6px; -webkit-borde -superior-izquierdo-radio: 6px; borde-superior-izquierdo-radio: 6px; "&gt;
+              &lt;img src = "%IMAGEPATH%/tech-100.png" estilo = "ancho: 100px; altura: 100px; margen: 0 auto;" /&gt;
+            &lt;/ td&gt;
+            &lt;td estilo = "alineación vertical: superior; margen: 0; relleno: 34px 0 0 0; ancho: 180px; alto: 108px; fondo: # f6f6f6;"&gt;
+              &lt;img src = "%IMAGEPATH%/mailus-100.png" style = "ancho: 100px; altura: 100px; margen: 0 auto;" /&gt;
+            &lt;/ td&gt;
+            &lt;td estilo = "alineamiento vertical: superior; margen: 0; relleno: 34px 0 0 0; ancho: 210px; alto: 108px; fondo: # f6f6f6; -moz-border-radio-superiorderecha: 6px; -webkit-borde -superior-derecha-radio: 6px; borde-superior-derecha-radio: 6px; "&gt;
+              &lt;img src = "%IMAGEPATH%/demo-100.png" style = "ancho: 100px; altura: 100px; margen: 0 auto;" /&gt;
+            &lt;/ td&gt;
+        &lt;/ tr&gt;
+        &lt;tr borde = "0" espaciadodecelda= "0" rellenodecelda= "0"&gt;
+            &lt;td estilo= "alineamiento vertical: superior; margen: 0; relleno: 0; ancho: 210px; alto: 16px; fondo: # f6f6f6;"&gt; ¿Necesita ayuda técnica? &lt;/ td&gt;
+            &lt;td estilo = "alinemaiento vertical: superior; margen: 0; relleno: 0; ancho: 180px; alto: 16px; fondo: # f6f6f6;"&gt; Preguntas de venta &lt;/ td&gt;
+            &lt;td estilo= "alineamiento vertical: superior; margen: 0; relleno: 0; ancho: 210px; alto: 16px; fondo: # f6f6f6;"&gt; Pedir Demo &lt;/ td&gt;
+        &lt;/ tr&gt;
+        &lt;tr borde = "0" espaciadodecelda= "0" rellenodecelda= "0"&gt;
+            &lt;td estilo= "alineamiento vertical: superior; margen: 0; relleno: 0 0 30px; ancho: 210px; fondo: # f6f6f6; -moz-border-radio-inferiorizquierdo: 6px; -webkit-borde-inferior-izquierda- radio: 6px; borde-inferior-radio-izquierdo: 6px; "&gt;
+              &lt;a href="http://dev.onlyoffice.org/" destino="_en blanco" estilo="color: #333;"&gt; Pregunta a la comunidad &lt;/a&gt;
+            &lt;/ td&gt;
+            &lt;td estilo= "alineción vertical: superior; margen: 0; relleno: 0 0 30px; ancho: 180px; fondo: # f6f6f6;"&gt;
+              &lt;a href="mailto:sales@onlyoffice.com" estilo="color: #333;"&gt; Envíenos un correo electrónico &lt;/a&gt;
+            &lt;/ td&gt;
+            &lt;td estilo= "alineación vertical: superior; margen: 0; relleno: 0 0 30px; ancho: 210px; fondo: # f6f6f6; -moz-borde-radio-inferiorderecha: 6px; -webkit-borde-inferior-derecha- radio: 6px; borde-inferior-derecho-radio: 6px; "&gt;
+              &lt;a href="http://www.onlyoffice.com/demo-order.aspx" destino="_en blanco" estilo="color: #333;"&gt; Enviar una solicitud &lt;/a&gt;
+            &lt;/ td&gt;
+        &lt;/ tr&gt;</value>
+  </data>
+  <data name="HtmlMaster" xml:space="preserve">
+    <value>&lt;body style="margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
+&lt;div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;"&gt;
+    &lt;table cellspacing="0" cellpadding="0" style="font-family: Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;"&gt;
+      &lt;tbody&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;"&gt;
+            &lt;div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;"&gt;
+                &lt;a href="%SITEURL%" style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;" target="_blank"&gt;
+                    &lt;img src="%LOGO%" style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;" alt="%LOGOTEXT%" /&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="3" style="margin: 0; padding: 15px 30px 15px; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"&gt;
+            &lt;div style="font-family: Arial; font-size: 14px; color: #333; margin: 0; padding: 0; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;"&gt;
+              %CONTENT%
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        %FOOTER%
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;table cellspacing="0" cellpadding="0" style="font-family: Arial; font-size: 14px; color: #333; text-align: center; vertical-align: top; width: 600px; margin: 0; padding: 0; border-collapse: collapse; border: 0; border-spacing: 0; "&gt;
+      &lt;tbody&gt;
+        %FOOTERSOCIAL%
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="6" style="width: 600px; vertical-align: top; margin: 0; padding: 20px 30px 15px;"&gt;
+              &lt;p style="color: #7b7b7b; font-family: Arial, Tahoma; font-size: 12px; margin: 0; padding: 0; text-align: center; width: 540px;"&gt;
+              %TEXTFOOTER%
+              &lt;/p&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+&lt;/body&gt;</value>
+  </data>
+  <data name="SocialNetworksFooterV10" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 155px;"&gt;
+              &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-fb-40.png" alt="Facebook" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://twitter.com/ONLY_OFFICE" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-tw-40.png" alt="Twitter" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://www.onlyoffice.com/blog" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-blog-40.png" alt="ONLYOFFICE" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://www.youtube.com/user/onlyofficeTV" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-youtube-40.png" alt="YouTube" style="width: 40px; height: 40x;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://vk.com/onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-vk-40.png" alt="VK" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 155px 0 5px;"&gt;
+              &lt;a href="https://www.instagram.com/the_onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="%IMAGEPATH%/social-inst-40.png" alt="Instagram" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+  <data name="TextForFooterWithUnsubscribeLink" xml:space="preserve">
+    <value>Este correo electrónico se genera automáticamente y no es necesario responder.
+&lt;br /&gt;Usted recibe este correo electrónico porque usted es un usuario registrado de &lt;a href="{0}" style="color: #7b7b7b;" target="_blank"&gt;{0}&lt;/a&gt;
+&lt;br /&gt;Si ya no desea recibir estos mensajes de correo electrónico, haga click en el siguiente enlace: &lt;a href="{1}" style="color: #7b7b7b;" target="_blank"&gt;Unsubscribe&lt;/a&gt;
+&lt;br /&gt;</value>
+  </data>
+</root>

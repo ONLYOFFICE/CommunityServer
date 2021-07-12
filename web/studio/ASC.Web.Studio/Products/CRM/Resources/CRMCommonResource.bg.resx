@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>за четене</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>за четене/писане</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Правата за достъп ще бъдат зададени само за контактите, създадени от вас.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Мерки</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Добави {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Допълнителна информация</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Добавете пощенски акаунт</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Добавете маркер</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Добави участник</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Добавяне на това събитие</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Добавя се бележката ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Добавяне на {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Използвайте символите {0}? {1} и {0} * {1}, за да извършите търсене с едно или няколко знака. Например, за да търсите всички думи, започващи с {0} O {1}, използвайте заявката {0} O * {1}. Не се препоръчва използването на тези символи в началото на заявката. За да търсите точната фраза, използвайте кавичките. {2} Научете повече ... {3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Тревога</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Съответстващо поле за ONLYOFFICE™ CRM</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Прикачени</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Връзка с контакт</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Обратно</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Научете повече...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Случаи</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Промяна</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Избирам</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Нулиране на филтъра</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Затворете този прозорец</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Затвори прозореца</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Дебело черво</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Графа 'Файл'</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Запетая</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Съставете писмо, което да бъде изпратено до всички клиенти, избрани в списъка с контакти. Можете да проверите броя на избраните клиенти в полето 'До', да въведете общ 'Тема' и да използвате 'Лични маркери', за да включите цялата необходима информация в писмото ви. Това е бета версия за тези, които искат да изпробват новите възможности на ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Потвърждаване</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Потвърждаване на промените</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Изтрихте себе си от мениджърите на контакти.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Ще загубите достъп за четене и запис до контакта, ако съответните права за достъп не са разрешени за всички потребители на CRM.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Наистина ли искате да изтриете тези елементи?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>За да промените списъка с нивата на температурата на контакт, вижте раздела CRM {0} Настройки {1}</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Настройки за контакти</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Съдържание</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Скорост</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Конвертор на валута</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Създавам</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Cъздавам</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Създайте нов контакт</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Създайте проект</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Добавяне на нов маркер</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>CRM модулът не е активиран</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валута</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Основни валути</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Други валути</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Текущия потребител</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Персонализиран</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Потребителски период</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Други потребители</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Приключва след {0} ден (и)</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Закъснели са {0} дни</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Възможни сделки</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Изтриване на събитие</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Изтриване на участник</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Изтриване на маркер</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Изтриване на потребител</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Премахнете избора от всички</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Направете същото за всички бъдещи събития</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Двойна оферта</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Дублирани записи</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Празен файл</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>В този раздел не могат да се показват записи, съответстващи на вашия филтър. Моля, изберете други опции за филтриране или изчистете филтъра, за да видите всички записи в този раздел. Можете също да потърсите записите, от които се нуждаете в друга история на контактите.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Няма записи за този филтър</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Въведи сума</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Размерът на файла надвишава {1} {0} {2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Експортирайте текущия списък в CSV-файла</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Експортиране на данни</value>
+  </data>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>Винаги можете да виждате, изтегляте, редактирате или изтривате всички експортирани файлове в {0} Documents/My Documents {1}</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>Експортиране на данни ({0}% завършено)</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Максималният размер на файла е надвишен</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Крайна дата</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Отговорен</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>С етикет</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Намерете фирма или човек по име ...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>от</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Крия</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Скриване на панела за прикачени файлове</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Можете да промените списъка за категории събития от историята {0} тук {1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Телефонно обаждане</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Уговорена среща</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Забележка</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>е получено</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>е изпратена</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Макс. превишен брой знаци: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Игнорирайте първия ред при импортиране</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Дубликат</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Използвайте тази опция, за да импортирате контакти, дублиращи съвпадащите контакти. Например има две записи - 'A' и 'B' - във вашия ONLYOFFICE™ CRM. Искате да импортирате записи 'B' и 'C'. В случай, че изберете опцията 'Дубликат', при импортирането ще бъде създаден дублиран запис към 'B'.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Проверката за дублирания ще бъде извършена въз основа на полето за имейл.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Презаписване</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Използвайте тази опция, за да импортирате контакти, презаписващи съществуващите контакти. Например има две записи - 'A' и 'B' - във вашия ONLYOFFICE™ CRM. Искате да импортирате записи 'B' и 'C' В случай, че изберете опцията 'Презаписване', съществуващите 'B' ще бъдат презаписани от импортирания при импортирането.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Пропускане</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Използвайте тази опция, за да импортирате контакти, запазващи съществуващите контакти. Например има две записи - 'A' и 'B' - във вашия ONLYOFFICE™ CRM. Искате да импортирате записи 'B' и 'C'. В случай, че изберете опцията 'Прескачане', съществуващите 'B' ще бъдат запазени при импортирането.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Разделител</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Настройки на CSV файла</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Разделител на текст</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Сканирането на файла ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Започнете да импортирате данни</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Предоставя се информация</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Фактури</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Настройки за фактури</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Данъци</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Миналия месец</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Научете повече...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Тяло на писмото</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Връзка с</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Моля Изчакай ...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Тяло по имейл</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Копие</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>Функция за масово изпращане на ONLYOFFICE™: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Неуспешно предаване на съобщението до {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Невалиден имейл адрес: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Неуспешно показване - ще опита отново след {0} секунди.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Тема по имейл</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Да се</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Калкулатор</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Мой</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Моите събития</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Следващ запис</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Няма записи</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Няма налични пощенски акаунти</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Няма съвпадения</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Неопределено</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Уведоми</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Неопределено</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Най-отгоре</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Профил на организацията</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Друг</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Други настройки</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Тук можете да видите писмото, което композирате. Използвайте бутона 'Назад', за да направите някои промени или използвайте бутона 'Изпрати', ако ви харесва резултатът.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Предишен запис</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Предишна стъпка</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Частен</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>На разположение на {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ограничете достъпа</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Достъпът е разрешен за всички портала {!users} по подразбиране. За да ограничите достъпа, поставете отметка в квадратчето по-долу.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Права за достъп</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Направете същото като CRM потребител | Импортиране, експортиране на данни | Изпращане на имейли до CRM контакти | Управление на настройки | Управление на контакт, задача, случай, възможност</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Управление на връзките с клиентите, идентифициране на приоритетните контакти, проследяване на историята на комуникациите и ефективността на продажбите</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Управление на връзките с клиентите, идентифициране на приоритетните контакти, проследяване на историята на комуникациите и ефективността на продажбите</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Продукти и услуги</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Създаване на контакт, задача, случай, възможност с възможност за ограничаване на достъпа до тях|Редактиране на контакт, задача, случай, възможност с настроените права за достъп</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профил</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Свързано е с</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Доклади</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Отговорен</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Стойност</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Запазите промените</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Промените се запазват ...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Изберете</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Избери всички</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Уведомяване на потребителите</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Точка и запетая</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Изпратете имейл</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Задайте Разрешения</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Шоу</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Показване на панела за прикачени файлове</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Показване на информация</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показване на страницата</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Единична оферта </value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Пространство</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Съхранявайте това съобщение в историята</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Предмет</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Нови събития</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Нови контакти</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Експортирането е завършено</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Вносът е завършен</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Отговорен за възможността</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Задачите, които ви възлагат</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Предоставен достъп</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Обобщена таблица</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Етикети</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Имейлът</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Този месец</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Да се</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Фирма/човек</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Прекъсване на връзката</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Нагоре</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Прикачите файл</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Показване на файлове</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Вижте историята на изпращането с този участник</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Призовава</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Често срещани</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Номера</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>Настройки на VoIP</value>
+  </data>
+  <data name="WholeCRMModule" xml:space="preserve">
+    <value>Цели CRM модул</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+</root>

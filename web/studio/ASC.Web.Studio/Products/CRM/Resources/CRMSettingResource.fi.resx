@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Käyttöoikeudet &amp; tunnisteet</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Valitse käyttäjät, jotka ovat lisätty sivuston yhteydenottolomakkeen kautta. Muutoin kaikki Asiakkuudenhallinnan käyttäjät näkevät uudet kontaktit. Luo tägejä luettelosi uusille asiakkaille.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portaalin käyttöoikeudet</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Lisää uusi tehtävämalli</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Lisää uusi tehtävämallin säilö</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Lisää vaihtoehto</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Osoite</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Lisätään tunniste</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Älä näytä kontaktien linkittämisen dialogia uudelleen.</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Lisää tehtävämallin säilö</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Lisätään tehtävämallin säilöä</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Lisätään tehtävämallia</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Lisää tämä tehtävämalli</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Lisää tämä tehtävämallin säilö</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Tunnistus</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Perustiedot</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Sekä Henkilö ja Yritys</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Muuta väriä</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Älä näytä kontaktien linkittämisen dialogia uudelleen.</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Vaihda kuvake</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Muuta logoa</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Valintaruutu</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Sarakkeet</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Kontaktien tyypit</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Luodaan luokkaa</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Luodaan lämpötilan tasoa</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Luodaan kontaktin tyyppiä</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Luo käyttäjän kenttä</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Luodaan vaihetta</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Luodaan kenttää</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Luo uusi luokka</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Uusi luokka</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Luo uusi kontaktin tyyppi</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Uusi kontaktin tyyppi</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Luo uusi vaihe</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Uusi vaihe</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Uusi kenttä</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Uusi kenttä</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Lisää Uusi lämpötilan taso</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Uusi lämpötilan taso</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Lisää uusi tunniste</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Uusi tunniste</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valuutta-asetukset</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Käyttäjän kentät</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Mahdollisuus suljettu epäonnistuneesti.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Mahdollisuus suljettu onnistuneesti.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Oletusvaluutta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Poista luokka</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Poista lämpötilan taso</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Poista kontaktin tyyppi</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Poista kenttä</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Valittu kenttä ja sen arvot poistetaan kaikista kontakteista, missä se sijaitsee. Haluatko varmasti jatkaa?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Poista vaihe</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Poista tunniste</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Luokan poisto</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Poista tehtävämalli</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Poista tehtävämallin säilö</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Poista käyttämättömät tunnisteet</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Kontaktin lämpötilan atsot mahdollistavat potentiaalisten ostajien luokittelun haluamallasi tavalla. Oletustasot ovat "Kylmä", "Lämmin" ja "Kuuma", sen mukaan kuinka halukkaita he ovat ostamaan tuotteitasi. </value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Voit muokata tai poistaa kontaktin lämpotilan tason, jos sitä ei ole liitetty mihinkään kontaktiin samalla tasolla.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Kontaktien tyypit mahdollistavat kontaktien lajittelun tietyllä tavalla. Oletuksena kontaktityyppejä ovat "Asiakas", "Kilpailija", "Kumppani" ja "Toimittaja" - luokitellen kontakteja sen mukaan mikä on heidän roolinsa suhteessa organisaatioon.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Voit muokata tai poistaa kontaktin tyypin vain jos sitä ei käytetä missään tämän tyypin kontaktitiedoissa.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Mahdollisuuden vaiheiden avulla voit määrittää vaiheet kaupan loppuunsaattamiseksi. Voit lisätä uusia vaiheita kuten "Kaupallinen tarjous", "Ennakkomaksu", "Suoritus". Määritä vaiheiden järjestys hiirellä vetämällä.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Voit muokata tai poistaa mahdollisuuden vaiheen vain jos tässä vaiheessa ei ole mahdollisuuksia</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Tapahtumahistorian luokat mahdollistavat tapahtumahistorian ryhmittelyn. Vakioluokkia ovat muistio, sähköposti, puhelu ja tapaaminen. Järjestelmänvalvoja voi muokata luokkia.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Voit muokata tai poistaa tapahtumahistorian luokan vain, jos siinä ei ole yhtään tapahtumahistoriaa.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Tehtäväluokkien avulla voit jakaa tehtävät ryhmiin tarpeidesi mukaan. Tehtäväluokka voi olla esimerkiksi "Tapaaminen", "Puhelu" tai "Kiittäminen".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Voit muokata tai poistaa tehtäväluokan vain, jos siinä ei ole yhtään tehtävää.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Siirtymä päivissä</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Lataa kaikki tiedot yhtenä ZIP-tiedostona</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP-arkiston luominen aloitettiin</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Linkki ZIP-tiedoston lataamiseen</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Muokkaa luokkaa</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Muokkaa lämpötilan tasoa</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Muokkaa kontaktin tyyppiä</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Muokkaa kenttää</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Muokkaa vaihetta</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Muokkaa tehtäväluokkaa «{0}»</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Muokkaa lämpötilan tasoa «{0}»</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Muokkaa kontaktin tyyppiä "{0}"</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Muokkaa mahdollisuuden vaihetta «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Muokkaa tehtävämallia «{0}»</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Muokkaa tehtävämallin säilöä «{0}»</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Muokkaa tehtävämallia</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Muokkaa tehtävämallin säilöä</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Käyttäjän kenttäluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Käyttäjän kentät mahdollistavat tarvittavan lisätiedon keräämisen kontakteista, mahdollisuuksista ja tapauksista. Voit esimerkiksi luoda kentän "Lähde", johon tallennat tiedon mistä asiakas tuli, esim. mainos, suoramyynti, jne. Voit muokata tai poistaa käyttäjän kentän vain, jos sitä ei käytetä missään kontaktitiedossa, mahdollisuudessa tai tapauksessa.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Tunnisteluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Tägejä/Tunnisteita voidaan käyttää kuvaamaan ja ryhmittelemään kontakteja (sekä yrityksiä että henkilöitä), mahdollisuuksia ja tapauksia. Voit esimerkiksi merkitä eri yrityksissä työskenteleviä, mutta samalla alalla toimivia, henkilöitä yhteisellä tunnisteella, mikä auttaa järestelyä ja hallintaa. Voit muokata tai poistaa tunnisteen vain jos sitä ei ole liitetty mihinkään kontaktiin, mahdollisuuteen tai tapaukseen.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Tehtävämallien luettelo on tyhjä</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Tehtävämallit mahdollistavat samankaltaisten tehtävien luonnin Asiakkuudenhallinnan moduulissa. Voit lisätä tehtäviä kontakteihin, mahdollisuuksiin ja tapauksiin yhdellä hiiren klikkauksella. Valitse tehtäväsäilö luodaksesi sinne erilaisille tehtävämalleille.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Tämä kenttä on täytettävä oikein</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Jokaisella kentällä on oltava otsikko. </value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Kentän otsikko ei voi olla tyhjä. </value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Ota käyttöön SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Vie</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Vie kaikki tiedot</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Vientitoiminto luo ZIP-arkiston, joka sisältää CSV-tiedostot kaikista Asiakkuudenhallinnan tiedoista (kontaktit, mahdollisuudet, tapaukset, historia, jne.) Linkki luotuun ZIP-arkistoon lähetetään sähköpostiisi.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Luo luettelo ulkoista ohjelmaa varten</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Kenttäluettelo</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Kenttien valinta</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Valitse kentät, jotka näytetään lomakkeessa</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Lähdekoodista</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Käytä allaolevaa lomaketta sivustollasi</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Tältä lomakkeesi näyttää sivustollasi</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Lomakkeen ominaisuudet</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Sivuston yhteydenottolomakkeen pääasetukset</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Luo lomake</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Hae oletusasetukset</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Tapahtumahistorian luokat</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Isäntäpalvelin</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Isäntäpalvelimen Käyttäjätunnus</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Isäntäpalvelimen Salasana</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Sisäinen SMTP (vastaanottajia max {0})</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Vain yritykselle</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Vain henkilölle</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Onnistumisen todennäköisyys</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Ilmoita käyttäjille</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Valitse {!users} jotka saavat ilmoituksen, kun uusi kontakti lisätään sivuston yhteydenottolomakkeen kautta</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Laske edellisen tehtävän alusta</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Laske säilön alkamisesta</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Laskun logo</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Muut kentät</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Portti</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Poista vaihtoehto</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Palauta oletus</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Uudelleenohjaus verkko-osoitteeseen</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Sivusto, jonne käyttäjä ohjataan, kun hän on lähettänyt yhteydenottolomakkeen.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Viivat</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Tallennettu</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Valintaruutu</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Vaihtoehdot</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Ole hyvä ja valitse luokan vaihe, joka korvataan nykyisellä luokalla tehtävissä</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Lähettäjän nimi</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Lähettäjän sähköpostiosoite</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Mukauta käyttäjän kenttiä</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Organisaatiosi laskutusosoite lisätään kaikille laskuille. Valitse {0}Maa{1} listalta ja lisää tiedot kenttiin {0}Osoite{1}, {0}Kaupunki{1}, {0}Osavaltio{1} and {0}Postinumero{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Organisaatiosi {0}logo{1} näytetään kaikilla {0}laskuillasi{1}.{3}
+Klikkaa 'Muuta logoa' valitaksesi haluamasi logokuvan tietokoneeltasi. Kuvan koko saa olla korkeintaan {0}{4}x{5} kuvapistettä{1}, sitä isommat kuvat pienennetään automaattisesti. Kuvatiedoston maksimikoko on {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Koko</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Lähetä tiedot</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Tunniste on jo olemassa</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Tehtävämallit</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Tekstialue</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Teksti</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Lomakkeen avain</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Yksilöllinen avain, joka toimii web-lomakkeen tunnisteena ja estää lomakkeen väärinkäyttöä ja spämmiä. Jos luot uuden avaimen, vanhalla avaimella toimivat web-lomakkeesi lakkaavat toimimasta.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Sivuston yhteydenottolomake</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Virheellinen lomakkeen avain</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Käytä tätä toimintoa luomaan yhteystietojen lomake, jonka voit julkaista sivustollasi. Sen avulla voit kerätä yhteystietoja automaattisesti. Määrittele lomakkeen ominaisuudet, valitse tarvittavat kentät ja luo HTML-koodi, jonka voit kopioida omalle sivustollesi.</value>
+  </data>
+</root>

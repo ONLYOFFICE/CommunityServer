@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Ενέργειες</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Προσθήκη μελών</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Αλλαγή κατάστασης</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Εάν αυτός ο αριθμός υπερβαίνει το τρέχον πρόγραμμα τιμολόγησης, θα πρέπει να αναβαθμίσετε το πρόγραμμά σας και να επαναλάβετε τη λειτουργία, διαφορετικά η κατάσταση άλλων χρηστών δεν θα αλλάξει.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Αλλαγή τύπου</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Αναβαθμίστε το πρόγραμμά σας και επαναλάβετε τη λειτουργία, διαφορετικά ο τύπος άλλων χρηστών δεν θα αλλάξει.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Αλλαγή τύπου χρήστη</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Επαναφορά φίλτρου</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Αναίρεση επιλογής όλων</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Απενεργοποίηση</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ενεργοποίηση</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Εισάγετε ένα όνομα</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Το μέγεθος της εικόνας είναι πολύ μεγάλο</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Το μέγεθος του αρχείου εικόνας είναι πολύ μεγάλο</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Άγνωστος τύπος αρχείου εικόνας</value>
+  </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>Παραδείγματα τιμών</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>Πεδία στο αρχείο</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Απόκρυψη της επιλεγμένης λίστας χρηστών</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Στήλη</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Από αρχείο</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Εισαγωγή χρηστών</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Κόμμα</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>Ανω τελεία</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Κενό</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Καρτέλα</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Εισαγωγή επαφών</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Επεξεργασία επαφών</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Πρόσκληση χρηστών</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Επώνυμο</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Αλλαγή συνθηματικού</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Διαγραφή προφίλ</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Αποστολή μηνύματος</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Εγγραφές</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Μέλη</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Στην κορυφή</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Κάντε το ίδιο με έναν χρήστη|Δημιουργία προφίλ και ομάδων|Εισαγωγή προφίλ|Πρόσκληση χρηστών</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Άνθρωποι</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Προβολή προφίλ και ομάδων</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>Η μεταφορά δεδομένων ματαιώθηκε</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Έγγραφα</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>Η μεταφορά δεδομένων διακόπηκε λόγω σφάλματος διακομιστή</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Ταχυδρομείο</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>Διακόπηκε, ορισμένα δεδομένα θα μπορούσαν να μεταφερθούν</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>Σφάλμα διακομιστή</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Γενικά και προσωπικά έγγραφα διαθέσιμα σε άλλους χρήστες του πόρταλ·</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Ομιλία</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>Η διαγραφή δεδομένων ματαιώθηκε</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>Διαγραφή προσωπικών δεδομένων</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>Η διαγραφή δεδομένων διακόπηκε λόγω σφάλματος διακομιστή</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>Διακόπηκε, ορισμένα δεδομένα θα μπορούσαν να διαγραφούν</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Επιλογή όλων </value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Εμφάνιση στη σελίδα</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Ο χρήστης έχει διαγραφεί επιτυχώς</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+</root>

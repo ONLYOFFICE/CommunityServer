@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Smazat soubor?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Smazat stránku?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Porovnat vybrané verze</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Zveřejnit</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Vrátit</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Nahrát</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Verze {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Zatím nebyly vytvořené žádné kategorie</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Zde jsou uvedeny všechny kategorie wiki článků. Jakmile se vytvoří kategorie na stránce, tak je přidána sem do seznamu kategorií.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>V této sekci nejsou k zobrazení žádné soubory</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Soubory nahrané všemi wiki autory pro wiki stránky jsou uložené v této sekci. Tyto soubory lze připojit ke stránkám pomocí wiki nebo html značek.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>V této sekci nejsou žádné složky k zobrazení</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Na stránce indexu jsou uvedeny všechny stránky vytvořené autory wiki v abecedním pořadí. Jakmile je stránka vytvořena, automaticky se přidá do indexu.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>V této sekci nejsou žádné složky k zobrazení</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Zde jsou uvedeny všechny nově vytvořené nebo nedávno upravené stránky se svými autory. Jsou přidány do tohoto seznamu automaticky seřazené podle doby jejich vytvoření nebo úpravy.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>V této sekci nejsou žádné složky k zobrazení</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Zde jsou uvedeny všechny nedávno upravené stránky se svými autory. Jsou přidány do tohoto seznamu automaticky seřazené podle doby jejich úpravy.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Nový soubor</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Nová stránka</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Domů</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Upravit soubor</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Upravit stránku</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Soubor neexistuje.  {0Vytvořit} soubor s tímto názvem[[nebo vyhledejte v {1search result}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Požadovaná stránka neexistuje. &lt;/div&gt;Chcete {0create} it[[ o vyhledávat v {1search result}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Nahrát soubor</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Vytvořit novou stránku</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Odstranit stránku</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Upravit stránku</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kategorie: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Tisknout stránku</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Zobrazit historii</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Firemní wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Není vybrán soubor pro nahrání.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Vyskytla es interní chyba. Prosím, kontaktujte administrátora.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Chyba při označení stránky</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Nebyly provedeny žádné změny.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Tato stránka byla upravena jiným uživatelem. Prosím, obnovte stránku a zobrazte nejnovější verzi.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Pole Názvu stránky je prázdné.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Název stránky je nesprávný. Prosím, zkuste zadat náhradní jméno.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Stránka s tímto názvem již existuje.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Změny byly uloženy.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Přidat stránku do kategorie</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Aktualizace/Komentáře stránky</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Nové stránky</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Odebírat stránku</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wiki Vyhledávání </value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Odhlásit odběr stránky</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>přidaný komentář</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>vymazaný komentář</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>upravený komentář</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>Soubor byl přidán</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>Soubor byl odstraněn </value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>stránka byla přidána</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>stránka byla upravena</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>Verze stránky byla vrácena</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Porovnání Ver.{0} s Ver.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Nahrát soubor</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Nejnovější změny od {0} v {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Chcete vrátit tuto verzi?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Ver.</value>
+  </data>
+</root>

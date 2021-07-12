@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Dodaj i Utwórz nową umowę</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Dodaj umowę</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Wszystkie umowy</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Stawka</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fiksowany</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>dziennie</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>za godzinę</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>miesięcznie</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>tygodniowo</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>rocznie</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Okres płatności</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Etap</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Typ etapu</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Kontakt umowy</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Dodaj pierwszą umowę</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Stwórz okazje</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Umowa jest na etapie</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Okres niestandardowy</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Inni użytkownicy</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Umowa</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Uprawnienia zostaną ustalone na możliwości, w których jesteś autorem</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Kwota</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Etapy umowy</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Sprzedawca prowadzi szereg sesji pytań i odpowiedzi, aby zidentyfikować wymagania klienta</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Dyskusja</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Potrzebny jest kontakt z potencjalnym nabywcą w celu zrozumienia przyszłych perspektyw sprzedaży</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Początkowy kontakt</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Początek lub niepowodzenie. Do umowy jeszcze nie przystąpili lub zamknęli z powodu braku perspektywy.</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Punkt zerowy</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potencjalny klient zgodzi się na spotkanie lub ocenę Twojej oferty</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Ocena</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Sprzedawca zbada, czy klient może być jego potencjalnym nabywcą</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Zastosowanie kryteriów wstępnego dopasowania</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potencjalny klient już przedyskutował szczegóły Twojej oferty</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Negocjacje</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potencjalny nabywca jest identyfikowany jako osoba lub podmiot posiadający zainteresowanie i uprawnienia do zakupu produktu lub usługi</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Początek</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potencjalny klienty zgodził się negocjować z Tobą ustnie</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Ustna umowa</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Umowa sfinalizowana. Została zamknięta z powodzeniem</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Sukces</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Rodzaj etapu</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Uczestnik Oferty</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Uczestnicy Oferty</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Umowy</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Tag potencjalności</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Lista tagów możliwych transakcji</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Tagi możliwych transakcji</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Usuń umowę</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Usuwanie możliwości</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Opis umowy</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Edytuj umowę "{0}"</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Edytuj tę umowę</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Umowy pozwalają na śledzenie możliwej sprzedaży. 
+Ustalaj etapy umowy według twojego planu biznesowego, prowadź historię, pytaj, dodawaj dokumenty, obliczaj zyski od każdego klienta.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>W tej sekcji nie można wyświetlać żadnych możliwości dopasowanych do Twojego filtru. Proszę wybrać inne opcje filtru lub wyczyścić filtr, aby wyświetlić wszystkie możliwości w tej sekcji. Lub możesz stworzyć oofertę, jeśli nie ma jej na liście.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Nie ma ofert, odpowiednich do danego filtra</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Lista ofert jest pusta</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Podaj nazwę umowy</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Każdej umowie powinna zostać przydzielona osoba odpowiedzialna</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Lista uczestników jest pusta</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Dodaj uczestników do swojej oferty z listy firm lub osób. Po wykonaniu tej czynności będziesz wiedział, jakie są kontakty z tą umową i kim możesz się z tym uporać.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Szacowany / Aktualny termin</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budżet</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Uczestnik</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Rodzaj etapu / etapu</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Importuj umowy</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Prawidłowo uformowany plik CSV powinien zostać wybrany na dysku twardym komputera. Musi zawierać pola lub kolumny oddzielone przez wybrany ogranicznik, który będzie używany do importowania okazji. Pliki zawierające więcej niż {0} wierszy powinny być podzielone na mniejsze części dla prawidłowego importowania. Upewnij się, że wybrali użytkownicy portalu, którym trzeba uzyskać dostęp do informacji, które mają zostać zaimportowane, w przeciwnym razie dane z pliku CSV będą dostępne dla wszystkich użytkowników portalu.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Wybierz plik CSV i ustaw prawa dostępu przed zaimportowaniem szans</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Dopasuj kolumny plików do odpowiednich pól ONLYOFFICE ™ CRM. Zwróć uwagę na fakt, że prawidłowe importowanie możliwości wymaga co najmniej następujących kolumn z pliku dopasowanego do pól ONLYOFFICE ™ CRM: "Tytuł umowy", "Odpowiedzialny za umowę". Pola zawierające daty muszą mieć następujący format: {0}. Pole walutowe musi być ustawione zgodnie z międzynarodowym kodem trzech liter (np. USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Proszę zweryfikować pola</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Przejdź do listy umów.</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import umowy może potrwać kilka minut, w zależności od ilości danych.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Rozpoczęcie importowania</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Powiązać lub tworzyć ofertę</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Moje umowy</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Nazwa umowy</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budżet nie został ustalony</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Pozostałe uczestnicy umowy</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Uczestniki</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ogranicz dostęp do umowy</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Możliwość sukcesu</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Osoba odpowiedzialna za umowę</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Przejdź do profilu</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Otwórz w nowej karcie</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Pokaż całkowitą kwotę</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Zacznij importować</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Etapy umowy umożliwiają określenie kroków niezbędnych do zakończenia transakcji. Domyślnyme etapami umowy są podejście, dyskusja, ocena, negocjacje, zaangażowanie, sukces, zero-punkt. Aby móc je edytować, potrzebne są prawa administratora portalu.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Całkowita kwota</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Wszystkie możliwości</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Razem na stronie</value>
+  </data>
+</root>

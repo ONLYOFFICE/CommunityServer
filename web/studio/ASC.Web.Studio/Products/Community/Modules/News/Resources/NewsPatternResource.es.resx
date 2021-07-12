@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_new_text" xml:space="preserve">
+    <value>h1.#if($FEED_TYPE == "feed")Nuevo evento añadido: "$Caption":"$URL"
+
+$Date "$UserName":"$UserURL" ha añadido un nuevo evento: "$Caption":"$URL"
+
+$Text
+
+"Leer más":"$URL"
+
+#end#if($FEED_TYPE == "poll")Nueva encuesta añadida: "$Caption":"$URL"
+
+$Date "$UserName":"$UserURL" ha añadido nueva encuesta: "$Caption":"$URL"
+
+#foreach($Answer in $Answers)
+
+#each
+
+* $Answer
+
+#end
+
+"Vote":"$URL"
+
+#end
+
+^Usted recibe este email como un usuario registrado del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no desea recibir las notificaciones sobre los eventos añadidos, por favor maneje sus "ajustes de suscripción":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_new_text_comment" xml:space="preserve">
+    <value>h1.#if($FEED_TYPE == "poll")Nuevo comentario a encuesta#end#if($FEED_TYPE == "feed")Nuevo comentario al evento#end: "$Caption":"$URL"
+
+$Date "$UserName":"$UserURL" ha añadido nuevo comentario a "$Caption":"$URL" #if($FEED_TYPE == "poll")poll#end#if($FEED_TYPE == "feed")event#end :
+
+$CommentBody
+
+"Leer más":"$CommentURL"
+
+^Usted recibe este email como un usuario registrado del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no desea recibir las notificaciones sobre los nuevos comentarios añadidos a este evento, por favor maneje sus "ajustes de suscripción":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="subject_new_text" xml:space="preserve">
+    <value>Comunidad. #if($FEED_TYPE == "poll")Nueva encuesta añadida 
+
+#end
+
+#if($FEED_TYPE == "feed")Nuevo evento añadido#end: $Caption</value>
+  </data>
+  <data name="subject_new_text_comment" xml:space="preserve">
+    <value>Comunidad. #if($FEED_TYPE == "poll")Nuevo comentario a la encuesta#end#if($FEED_TYPE == "feed")Nuevo comentario al evento#end: $Caption</value>
+  </data>
+  <data name="subject_new_text_comment_tg" xml:space="preserve">
+    <value>Comunidad. #if($FEED_TYPE == "poll")Nuevo comentario para la encuesta#end#if($FEED_TYPE == "feed")Nuevo comentario para el evento#end: [$Caption]($CommentURL)</value>
+  </data>
+  <data name="subject_new_text_tg" xml:space="preserve">
+    <value>Comunidad. #if($FEED_TYPE == "poll")Nueva encuesta añadida#end#if($FEED_TYPE == "feed")Nuevo evento añadido#end: [$Caption]($URL)</value>
+  </data>
+</root>

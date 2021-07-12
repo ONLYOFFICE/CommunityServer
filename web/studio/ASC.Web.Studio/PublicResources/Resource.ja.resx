@@ -1,0 +1,3597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>版権</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>プログラムの詳細情報</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>バージョン</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>著作権© {0} {1}. 著作権所有。 </value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>アクセス権</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>{0}モジュールが与えられるへのアクセス</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>加える{!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>加える{!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>すべての{!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>メールアドレスを変更</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>変更はメールで確認後に適用されます。</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>ポータルの所有者を変更するには、以下の新しいポータルの所有者の名前を選択してください。</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0}モジュールは無効化され、ポータルに表示されていません。これを有効にするには、ポータルの設定のモジュール＆Tools]セクションを参照してください。</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>{!user}リストは空です</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>フルアクセス</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>変更ポータル者| 権利を除いて、ポータルの所有者と同じアクセス権を持って無効化またはポータルを削除</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>ポータル所有者がすることができます</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>モジュールの管理者と同じ操作を行います|モジュールの管理人を選任|セット·モジュールへのアクセス権の管理|ポータル構成|管理ユーザアカウント|変更ポータル者|バックアップポータルデータ|ポータルを無効化したり削除</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} 管理者がすることができます</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0}のユーザは缶</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0}は、異なるアクセス権を持つユーザーは、缶</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>リストから{!Users}</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>あなたのアカウントは現在はほぼアクティブです</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>ポータル停止</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>ポータルを削除前に、自動請求は無効であることを確認してください。自動請求の状態を{0}Avangateアカウント{1}でチェックできます。</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>メール（ポータル所有者の電子メールアドレス）：動作を確認するためのリンクがに送信されました。</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>ポータルの削除</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>メール（ポータル所有者の電子メールアドレス）：動作を確認するためのリンクがに送信されました。</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>コードを再度送信</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>コードを入力します。</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>もう一度メールを有効に</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>検証コードフィールドは空にすることはできません</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>携帯電話番号を入力し</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>検証コードフィールドは空にすることはできません</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>加える</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>作成する{!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>グループの追加</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>許可されるIPアドレスを追加する。</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>コメントを追加</value>
+  </data>
+  <data name="AddToPortalBtn" xml:space="preserve">
+    <value>ポータルに追加する</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>信頼されたドメインを追加</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>{!Users}を追加する</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>ユーザーを追加する</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>管理者通知</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>メッセージを送る</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>ポータルにアクセスできないのですか？</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>あなたに連絡するために使用することができる電子メールアドレス</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>ポータル管理お問い合わせ</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>あなたのメッセージが正常に送信されました。あなたは、ポータル管理者がご連絡いたします。</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>管理者メッセージの設定</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>あなたの問題を説明してください</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>あなたは、このポータルへのアクセスに問題があるか、またはポータルを入力する必要がありますが、そうした場合
+                それを行う方法を知らない、下記のフォームを使用して、ポータル管理者にお問い合わせください。</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>アフィリエイトのステータス</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>任意のドメイン</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>版権所有</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>© Ascensio System SIA {0}.版権所有。</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>返信</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>返事する</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>サービス</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>第三者サービスとの統合によるウェブオフィス機能を拡張できます。必要なサービスを有効にするために、ポータル管理者を連絡してください。</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>詳細については、{0}ヘルプセンター{1}をご覧ください</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>接続する</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>接続</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>切断</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>接続されていない</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>に</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>承認</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>第三者サービス統合</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="AuthorizationKeysHelpTextV11" xml:space="preserve">
+    <value>{0}ヘルプセンター{1}では詳細情報です</value>
+  </data>
+  <data name="AuthorizationKeysSupportTextV11" xml:space="preserve">
+    <value>質問がありますか？{0}サポートチーム{1}を連絡してください。</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>承認キーはONLYOFFICE™ポータルを第三者サービス（Twitter、 Facebook、 DropBoxなど）と接続するために使えるものです。ポータルに入る度にログインとパスワードを入力する必要がないように、ポータルをFacebook、Twitter 及びLinkedin と接続します。第三者ストレージから文書をONLYOFFICE™文書モジュールへ移動できるように、DropBoxやOneDriveなどのサービスとリンクします。</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>利用規約</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>自動的なポータルデータのバックアップをするためにこの操作を使用してください。</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>自動バックアップ</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>{0}自動バックアップ{1}はポータルデータの写しを自動的に取って保管し、ローカルサーバに復元するのために使用される機能です。データのためのストレージ、自動バックアップ期間、保存されるコピーの最大数を選択してください。{2}　{0}ご注意してください：{1}バックアップを保存する前に、第三者サービスのアカウント（DropBox、Box.com、OneDriveまたはGoogle Drive）をONLYOFFICE「共通文書」フォルダーに接続する必要です。</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>タイトルページに行く</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>バックアップ</value>
+  </data>
+  <data name="BackupConsumerStorage" xml:space="preserve">
+    <value>第三者ストレージ</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE文書</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox、 Box、OneDrive、Google Driveなど</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>バックアップをダウンロードする</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>コピーを作成する</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>「メール」をバックアップに含める</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>統合された第三者サービスが見つかりません。{0}接続するように、「文書」モジュールに移動してください。</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>以下のリンクをたどって、ローカルドライバにバクアップをダウンロードできます。リンクは、リクエストされてから24時間有効になります。</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>ストレージ</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>一時記憶</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>バックアップを保存する前に、第三者サービスのアカウント（DropBox、Box.com、OneDriveまたはGoogle Drive）をONLYOFFICE「共通文書」フォルダーに接続する必要です。</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>加える{!Group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>誕生日</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>ブラウザ</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>顧客を追加する</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>SMSで</value>
+  </data>
+  <data name="ButtonTfaAppEnable" xml:space="preserve">
+    <value>認証アプリで</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>電話する</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>通話は終了です</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>接続中です</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>現在通話中です。</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>受信</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>入力したすべてのデータが失われます。続行してもよろしいですか？</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>メールアドレスは正常に変更された</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>ポータル所有者を変更</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>パスワードが正常に変更されました</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>メール（ポータル所有者の電子メールアドレス）：動作を確認するためのリンクがに送信されました。</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>月、2月、3月、4月、月、6月、7月、8月、9月、10月、11月、12月</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>所有者を選択する</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>{!user}を選択する</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>[フィルタのクリア]</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>明るい青色</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>深緑色</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>深青色</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>明るくグリーン</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>オレンジ色</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>配色テーマ</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>ピンク色</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>注釈</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>コメントが削除されました</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>切断する</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>ポータルを非能動化したいことを確認してください</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>あなたのアカウントを削除することを確認してください</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>あなたは{0}へのポータルアドレスを変更してもよろしいですか？</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>ポータル者が正常に変更されました。 {0}は、10秒では、あなたがリダイレクトされます{1}ここで{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>あなたは{0}へのポータルの所有者を変更することを確認してください</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>参加する</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>登録は正常に承認されました。パスワードを作成して、仕事し始めます！</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>あなたがアカウントを再開することを確認してください</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>あなたがあなたのコメントを削除してもよろしいですか？</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>コメントを削除する</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>祝う</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>接続する</value>
+  </data>
+  <data name="Consumersacesskey" xml:space="preserve">
+    <value>Ｓ３アクセスキー</value>
+  </data>
+  <data name="ConsumersapiKey" xml:space="preserve">
+    <value>Rackspace APIキー</value>
+  </data>
+  <data name="ConsumersauthPwd" xml:space="preserve">
+    <value>Selectel authPwd</value>
+  </data>
+  <data name="ConsumersauthUser" xml:space="preserve">
+    <value>Selectel authUser</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>ポータルの招待リンクと文書モジュール共有リンクをを短くするように、Bitlyサービスを接続します。</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Bitlyサービスを追加すると、ONLYOFFICE™に新しいユーザを招待するための短縮されたリンクまたは外部ユーザと共有したい「文書」モジュール内の文書への短縮リンクを取得できるようになります。　</value>
+  </data>
+  <data name="ConsumersBitlyInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、文書と招待リンクを短くすることができます。{0}以下にBitlyログインとAPIキーを入力してください：</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Boxキー</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Boxファイルとフォルダを管理するように、アプリを接続します。</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Boxサービスのアップリを追加する場合に、「文書」モジュールでBoxアカウントを接続できます。Boxでファイルをアップロードまたは作成したり、存在のファイルを編集・コピー・削除したり、ONLYOFFICE™ポータルユーザーとファイルとフォルダーを共有したりすることができるようになります。</value>
+  </data>
+  <data name="ConsumersBoxInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Boxアカウントを文書モジュールに接続して、Boxの文書を管理・編集・別のONLYOFFICEユーザと共有できます。{0}Box開発者ページでサインインし、ONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Boxキー</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Clickatellを介して二要素認証のアプリを有効します</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Clickatellサービスアプリを追加すると、二要素ユーザ認証システムを有効にして、ユーザーがＯＮＬＹＯＦＦＩＣＥポータルに入ることを可能にするＳＭＳコードを受信できるようになります。</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSignのキー</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSignの秘密なキー</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>DocuSignの電子サインを文書に追加するように、アプリを接続します。</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>DocuSign認証端点</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>DocuSignサービスのアプリを追加すると、「文書」モジュールからのファイルを署名できます。DocuSignサービスを介して、ONLYOFFICE™ポータルユーザに電子署名するようにファイルを送信できます。署名されたファイルがONLYOFFICE™「文書」モジュールで保存されるようになります。</value>
+  </data>
+  <data name="ConsumersDocuSignInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、DocuSignを使用してデジタル的に文書を署名します。{0}DocuSign管理者コンソールでONLYOFFICE統合を追加してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSignのキー</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>DocuSign認証端点</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSignの秘密なキー</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>Dropboxキー</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Dropboxファイルとフォルダを管理するように、アプリを接続します。</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>DropBoxサービスのアップリを追加する場合に、「文書」モジュールでDropBoxアカウントを接続できます。DropBoxでファイルをアップロードまたは作成したり、存在のファイルを編集・コピー・削除したり、ONLYOFFICE™ポータルユーザーとファイルとフォルダーを共有したりすることができるようになります。</value>
+  </data>
+  <data name="ConsumersDropBoxInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Dropboxアカウントを文書モジュールに接続して、Dropboxの文書を管理・編集・別のONLYOFFICEユーザと共有できます。{0}Dropbox開発者ページでサインインし、ONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>Dropboxキー</value>
+  </data>
+  <data name="ConsumersEasyBib" xml:space="preserve">
+    <value>EasyBib</value>
+  </data>
+  <data name="ConsumerseasyBibappkey" xml:space="preserve">
+    <value>アプリキー</value>
+  </data>
+  <data name="ConsumersEasyBibDescription" xml:space="preserve">
+    <value>EasyBibアプリを接続して、書誌リストを作成します。</value>
+  </data>
+  <data name="ConsumersEasyBibInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、ONLYOFFICEエディターで書誌を作成できます。{0}EasyBibサインアップページでフォームを入力して、ONLYOFFICE統合を追加してください。その後、アプリキーをを以下に貼り付けてください：</value>
+  </data>
+  <data name="ConsumersEasyBibKey" xml:space="preserve">
+    <value>アプリキー</value>
+  </data>
+  <data name="ConsumersEasyBibSecret" xml:space="preserve">
+    <value>アプリキー</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookAccessToken_Default" xml:space="preserve">
+    <value>Appトークン</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebookキー</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>CRMでのFacebookキー</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>Appトークン</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>アプリをONLYOFFICEに接続すると、Facebookでポータルにサインインし、コンタクトを検索できます。</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Facebookサービスのアプリを追加すると、プロフィールページでFacebookアカウントを接続し、 これに介してONLYOFFICE™ポータルにサインインできます。 または顧客のFacebookアカウントを検索し、CRMモジュールの「個人/会社の編集」ページでこのアカウントをリンクできます。</value>
+  </data>
+  <data name="ConsumersFacebookInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Facebookを使用してONLYOFFICEにサインイン、またはCRMモジュールで顧客のFacebookアカウントをリンクできます。{0}Facebook開発者ポータルでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebookキー</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>Appトークン</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>ウェブAPIキー</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>サーバーキー</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>送信者ID</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>プロジェクトＩＤ</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>このアプリを有効にすると、Firebase Cloud Messagingサービスを使用して送信されたメッセージ通知を受信するようになります。</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Firebase Cloud Messaging（FCM）サービスを接続すると、オフラインであっても送信されたメッセージ通知を受信できるようになります。</value>
+  </data>
+  <data name="ConsumersFirebaseInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、オフラインであっても送信されたメッセージ通知を受信できます。{0}FirebaseコンソールでONLYOFFICE統合のために新しいプロジェクトを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>ウェブAPIキー</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>送信者ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>プロジェクトＩＤ</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>サーバーキー</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Googleキー</value>
+  </data>
+  <data name="ConsumersGoogleCloud" xml:space="preserve">
+    <value>Googleクラウドストレージ</value>
+  </data>
+  <data name="ConsumersGoogleCloudbucket" xml:space="preserve">
+    <value>バケット</value>
+  </data>
+  <data name="ConsumersGoogleCloudbucketDescription" xml:space="preserve">
+    <value>バックアプを保存したいGoogleクラウドバケット名を入力してください。</value>
+  </data>
+  <data name="ConsumersGoogleCloudDescription" xml:space="preserve">
+    <value>バックアップし、ポータルデータをストアするように、Googleクラウドストレージを接続します。</value>
+  </data>
+  <data name="ConsumersGoogleCloudInstructionV11" xml:space="preserve">
+    <value>Googleクラウドストーレジを接続すると、ポータルデータのバックアップと保存するように使用できます。{0} Google Cloud PlatformコンソールでONLYOFFICEのために新しいサービスアカウントを作成してください。その後、受けたデータを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersGoogleCloudjson" xml:space="preserve">
+    <value>GoogleCloud jsonファイル</value>
+  </data>
+  <data name="ConsumersGoogleCloudjsonPath" xml:space="preserve">
+    <value>GoogleクラウドストレージjsonPath</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>プロジェクトを接続して、Googleアカウントを介してポータルにサインインしたり、Google Driveファイルとフォルダーを管理したりすることだできます。</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Googleサービスのプロジェクトを追加する場合に、Googleアカウントを介してONLYOFFICE™ポータルにサインインし、「文書」モジュールでGoogle Driveアカウントを接続できます。Google Driveでファイルをアップロードまたは作成したり、存在のファイルを編集・コピー・削除したり、ONLYOFFICE™ポータルユーザーとファイルとフォルダーを共有したりすることができるようになります。</value>
+  </data>
+  <data name="ConsumersGoogleInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Google Driveアカウントを文書モジュールに接続して、Google Driveの文書を管理・編集・別のONLYOFFICEユーザと共有できます。{0} Google Drive APIsコンソールでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Googleキー</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>アプリをONLYOFFICEに接続して、LinkedInでポータルにサインインします。</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>LinkedInサービスのアプリを追加すると、プロフィールページでLinkedInアカウントを接続し、 これに介してONLYOFFICE™ポータルにサインインできます。</value>
+  </data>
+  <data name="ConsumersLinkedInInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、LinkedInアカウントでONLYOFFICEにサインインできます。{0}LinkedIn開発者ウェブサイトでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedinキー</value>
+  </data>
+  <data name="ConsumersMailru" xml:space="preserve">
+    <value>Mail.ru</value>
+  </data>
+  <data name="ConsumersMailruClientId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ConsumersMailruClientSecret" xml:space="preserve">
+    <value>秘密なスキー</value>
+  </data>
+  <data name="ConsumersMailruDescription" xml:space="preserve">
+    <value>Mail.ruアカウントでポータルにサインインするようにアプリを接続します。</value>
+  </data>
+  <data name="ConsumersMailruInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、mail.ruアカウントでONLYOFFICEにサインインできます。{0} https://api.mail.ru/sites/my/でONLYOFFICEを新しいウェブサイトとして接続してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersRackspace" xml:space="preserve">
+    <value>Rackspaceクラウド・ストレージ</value>
+  </data>
+  <data name="ConsumersRackspaceDescription" xml:space="preserve">
+    <value>バックアップし、ポータルデータをストアするように、Rackspaceクラウドストレージを接続します。</value>
+  </data>
+  <data name="ConsumersRackspaceInstructionV11" xml:space="preserve">
+    <value>Rackspace Cloud Storageを接続すると、ポータルデータのバックアップと保存するように使用できます。{0}Rackspace Cloudコントロールパネルのセキュリティ設定でRackspace APIキーの隣に［リンク表示］というオプションをクリックしてください。以下に受けたデータを入力してください：</value>
+  </data>
+  <data name="ConsumersRackspaceprivate_container" xml:space="preserve">
+    <value>プライバット・コンテナ</value>
+  </data>
+  <data name="ConsumersRackspaceprivate_containerDescription" xml:space="preserve">
+    <value>バックアップを保存したいRackspace民間コンテナのURLアドレスを入力してください。</value>
+  </data>
+  <data name="ConsumersRackspacepublic_container" xml:space="preserve">
+    <value>パブリック・コンテナ</value>
+  </data>
+  <data name="ConsumersRackspacepublic_containerDescription" xml:space="preserve">
+    <value>バックアップを保存したいRackspace公開コンテナのURLアドレスを入力してください。</value>
+  </data>
+  <data name="ConsumersRackspaceregion" xml:space="preserve">
+    <value>地域</value>
+  </data>
+  <data name="ConsumersRackspaceregionDescription" xml:space="preserve">
+    <value>Rackspaceコンテナが存在する地域を入力してください。</value>
+  </data>
+  <data name="ConsumersS3" xml:space="preserve">
+    <value>Amazon AWS S3</value>
+  </data>
+  <data name="ConsumersS3bucket" xml:space="preserve">
+    <value>バケット</value>
+  </data>
+  <data name="ConsumersS3bucketDescription" xml:space="preserve">
+    <value>バックアップを保存するAmazonバケットの固有の名前を入力して下さい。</value>
+  </data>
+  <data name="ConsumersS3Description" xml:space="preserve">
+    <value>ポータルデータをバックアップと保存するようにAmazon AWS S3を接続します。</value>
+  </data>
+  <data name="ConsumersS3forcepathstyle" xml:space="preserve">
+    <value>強制パススタイル</value>
+  </data>
+  <data name="ConsumersS3forcepathstyleDescription" xml:space="preserve">
+    <value>強制パススタイル説明</value>
+  </data>
+  <data name="ConsumersS3Instruction" xml:space="preserve">
+    <value>Amazon AWS S3をポータルに接続すると、それを使用してポータルのバックアップを作成して、データが失われないようにすることができます。ポータルのデータと静的コンテンツの保存にも使用できます。</value>
+  </data>
+  <data name="ConsumersS3InstructionV11" xml:space="preserve">
+    <value>ポータルデータを保存とバックアップするように、Amazon AWS S3を接続してください。{0}AWS マネジメントコンソールでONLYOFFICEのためにアクセスキーを作成してください。以下にそのキーを入力してください：</value>
+  </data>
+  <data name="ConsumersS3region" xml:space="preserve">
+    <value>地域</value>
+  </data>
+  <data name="ConsumersS3regionDescription" xml:space="preserve">
+    <value>Amazonバケットが存在するAWS地域を入力してください。</value>
+  </data>
+  <data name="ConsumersS3serviceurl" xml:space="preserve">
+    <value>サービスURL</value>
+  </data>
+  <data name="ConsumersS3sse" xml:space="preserve">
+    <value>サーバー側暗号化方法</value>
+  </data>
+  <data name="ConsumersS3sseDescription" xml:space="preserve">
+    <value>オブジェクトをS3に保存する時、サーバー側暗号化アルゴリズムが使用されていました。</value>
+  </data>
+  <data name="ConsumersS3usehttp" xml:space="preserve">
+    <value>Httpを使用します</value>
+  </data>
+  <data name="ConsumersS3usehttpDescription" xml:space="preserve">
+    <value>このプロパティが[true]である場合は、クライアントが HTTP プロトコルを使用するようになります（目標エンドポイントはそれをサポートはずです）。既定は、プロパティが[false]です。</value>
+  </data>
+  <data name="Consumerssecretaccesskey" xml:space="preserve">
+    <value>S3の秘密なアクセスキー</value>
+  </data>
+  <data name="ConsumersSelectel" xml:space="preserve">
+    <value>Selectelクラウド・ストレージ</value>
+  </data>
+  <data name="ConsumersSelectelauthPwd" xml:space="preserve">
+    <value>認証パスワード</value>
+  </data>
+  <data name="ConsumersSelectelauthUser" xml:space="preserve">
+    <value>認証ユーザ</value>
+  </data>
+  <data name="ConsumersSelectelDescription" xml:space="preserve">
+    <value>バックアップし、ポータルデータをストアするように、Selectelクラウドストレージを接続します。</value>
+  </data>
+  <data name="ConsumersSelectelInstructionV11" xml:space="preserve">
+    <value>Selectel Cloud Storageを接続すると、ポータルデータのバックアップと保存するように使用できます。{0}バックアップを保存する予定のコンテナ用の読み取り/書き込み権限を持つユーザーのアクセスデータを取得し、以下に入力してください：</value>
+  </data>
+  <data name="ConsumersSelectelprivate_container" xml:space="preserve">
+    <value>プライバット・コンテナ</value>
+  </data>
+  <data name="ConsumersSelectelprivate_containerDescription" xml:space="preserve">
+    <value>バックアプを保存したいSelectel民間バケット名を入力してください。</value>
+  </data>
+  <data name="ConsumersSelectelpublic_container" xml:space="preserve">
+    <value>パブリック・コンテナ</value>
+  </data>
+  <data name="ConsumersSelectelpublic_containerDescription" xml:space="preserve">
+    <value>バックアプを保存したいSelectel公開バケット名を入力してください。</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDriveキー</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>OneDriveファイルとフォルダを管理するように、アプリを接続します。</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>OneDriveサービスのアップリを追加する場合に、「文書」モジュールでOneDriveアカウントを接続できます。OneDriveでファイルをアップロードまたは作成したり、存在のファイルを編集・コピー・削除したり、ONLYOFFICE™ポータルユーザーとファイルとフォルダーを共有したりすることができるようになります。</value>
+  </data>
+  <data name="ConsumersSkyDriveInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、OneDriveアカウントを文書モジュールに接続して、OneDriveの文書を管理・編集・別のONLYOFFICEユーザと共有できます。{0}Microsoft Azureアカウントにサインインし、ONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDriveキー</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMSセンター</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>SMSセンターを介して二要素認証のアプリを有効します</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>SMSセンターサービスアプリを追加すると、二要素ユーザ認証システムを有効にして、ユーザーがONLYOFFICEポータルに入ることを可能にするSMSコードを受信できるようになります。SMSセンターサービスアプリはCIS諸国のためにプロバイダとして有用です。</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>パスワードまたはパ スワードのＭＤ５ハッシュ小文字で</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>パスワードまたはパ スワードのＭＤ５ハッシュ小文字で</value>
+  </data>
+  <data name="ConsumersTelegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="ConsumersTelegramBotName" xml:space="preserve">
+    <value>ボットのユーザ名</value>
+  </data>
+  <data name="ConsumersTelegramBotToken" xml:space="preserve">
+    <value>ボットのトークン </value>
+  </data>
+  <data name="ConsumersTelegramDescription" xml:space="preserve">
+    <value>ポータル通知を受けるように、Telegramアカウントを接続します</value>
+  </data>
+  <data name="ConsumersTelegramInstruction" xml:space="preserve">
+    <value>Telegram用のボットを作成して、ポータル通知を受けるようにプロフィールのページでTelegramアカウントを接続します。</value>
+  </data>
+  <data name="ConsumersTelegramInstructionV11" xml:space="preserve">
+    <value>Telegramを使用してポータル通知を受けるように、Telegram用のボットを有効にしてください。新しいボットを作成するためにTelegramデスクトップでBotFatherを使用してください。そのボットを使用を使用するように、各ユーザがプロフィールのページでTelegram通知を有効にしなければなりません。{0}ボットのユーザ名とトークンを以下のフィールドに入力してください：</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>アカウントSid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>認証トークン</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Twilioを追加すると、ブラウザー直接からＣＲＭ顧客に電話できます。</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Twilioを追加する後に、ブラウザー直接からＣＲＭ顧客に電話できます。</value>
+  </data>
+  <data name="ConsumersTwilioInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Twilioを使用してCRMモジュールから顧客に電話できます。{0}Twilioコンソールからのデータを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>アカウントSid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Twilioの電話番号(SMS承認のために必要です)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>認証トークン</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Twilioの電話番号(SMS承認のために必要です)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>アクセストークン</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>秘密なアクセストークン</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitterキー</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>アプリをONLYOFFICEに接続すると、Twitterでポータルにサインインし、コンタクトを検索できます。</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Twitterサービスのアプリを追加すると、プロフィールページでTwitterアカウントを接続し、 これに介してONLYOFFICE™ポータルにサインインできます。 または顧客のTwitterアカウントを検索し、CRMモジュールの「個人/会社の編集」ページでこのアカウントをリンクし、Twitterニュースフィードを表示できます。</value>
+  </data>
+  <data name="ConsumersTwitterInstructionV11" xml:space="preserve">
+    <value>このアプリを接続すると、Twitterを使用してONLYOFFICEにサインイン、またはCRMモジュールでお客様のTwitterアカウントをリンクできます。{0} Twitter開発者ポータルでONLYOFFICE統合のために新しいアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>アクセストークン</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitterキー</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>秘密なアクセストークン</value>
+  </data>
+  <data name="Consumersusername" xml:space="preserve">
+    <value>Rackspaceユーザー名</value>
+  </data>
+  <data name="ConsumersVk" xml:space="preserve">
+    <value>VK</value>
+  </data>
+  <data name="ConsumersVkClientId" xml:space="preserve">
+    <value>アプリID</value>
+  </data>
+  <data name="ConsumersVkClientSecret" xml:space="preserve">
+    <value>安全なキー</value>
+  </data>
+  <data name="ConsumersVkDescription" xml:space="preserve">
+    <value>VKアカウントでポータルにサインインするようにアプリを接続します。</value>
+  </data>
+  <data name="ConsumersVkInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、VKアカウントでONLYOFFICEにサインインできます。{0}ONLYOFFICEのために新しいVKアプリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersWordpress" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="ConsumersWordpressDescription" xml:space="preserve">
+    <value>WordPressで文書を公開するように、アプリを接続します。</value>
+  </data>
+  <data name="ConsumersWordpressInstruction" xml:space="preserve">
+    <value>WordPress アプリを接続して、WordPressウェブサイトで文書を書式付けを変更せず公開出来ます。</value>
+  </data>
+  <data name="ConsumersWordpressInstructionV11" xml:space="preserve">
+    <value>このアプリを接続すると、WordPressウェブサイトに文書を投稿に使用できます。{0}Wordpress開発者ページでONLYOFFICE統合のために新しいアプリを作成します。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersWordpressKey" xml:space="preserve">
+    <value>WordPressキー</value>
+  </data>
+  <data name="ConsumersWordpressSecret" xml:space="preserve">
+    <value>WordPressの秘密なキー</value>
+  </data>
+  <data name="ConsumerswpClientId" xml:space="preserve">
+    <value>WordPressキー</value>
+  </data>
+  <data name="ConsumerswpClientSecret" xml:space="preserve">
+    <value>WordPressの秘密なキー</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>クライアントID </value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>クライアントの秘密鍵</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Yahoo連絡先インポートのアプリを接続します</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Yahooサービスアプリを追加すると、連絡先リストからONLYOFFICEポータルの新しいユーザーを追加できるようになります。</value>
+  </data>
+  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、Yahooの連絡先リストからのユーザをポータルに追加できます。{0}Yahoo!デベロッパーネットワークのアプリ作成というページでONLYOFFICE統合のために新しいアップリを作成してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>クライアントID </value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>クライアントの秘密鍵</value>
+  </data>
+  <data name="ConsumersYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="ConsumersYandexClientId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ConsumersYandexClientSecret" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="ConsumersYandexDescription" xml:space="preserve">
+    <value>Yandexアカウントでポータルにサインインするようにアプリを接続します。</value>
+  </data>
+  <data name="ConsumersYandexInstructionV11" xml:space="preserve">
+    <value>このアプリを有効にすると、YandexアカウントでONLYOFFICEにサインインできます。{0}Yandex OAuthサーバーでONLYOFFICEを新しいアプリとして登録してください。その後、データを以下に入力してください：</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>連絡先</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>操作パネル</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>操作パネル</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}セッション生存期間{1}はポータルにアクセスするために、ポータルの資格情報を再入力する必要な時間を（分単位で）設定のを可能にするサービスです。{2}保存する後で、全てのユーザはポータルからログアウトされるようになります。</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>有効期間　（分）</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>セション生存期間</value>
+  </data>
+  <data name="CopyEmailAndPassword" xml:space="preserve">
+    <value>電子メールとパスワードをコピーする</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>リンクをコピーします</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>共同利用</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>パスワード回復は、LDAPユーザーのために禁止されます</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>パスワード回復は、SSOユーザーのために禁止されます</value>
+  </data>
+  <data name="CreateEmailOnDomain" xml:space="preserve">
+    <value>ドメインでＥメールを作成する</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>プロファイルを作成する</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>バックアップを作成する</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>カスタムドメイン名</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>カスタマイズ</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>項目の追加する</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>項目の追加する</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>大きいアイコン、100ｘ100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>イメージを変更する</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>アイテム設定</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>｛０｝カストムナビゲーション（Custom Navigation）｛１｝はナビゲーションメニューを変更するための設定です。｛２｝ポータルの利用便利さを高めるためには、独自のアイテムを追加してください。ご注意してください：サイトがＨＴＴＰＳ を使用している場合に、他のリンクもＨＴＴＰＳである必要があります。逆に、ブラウザーで警告のメッセージウィンドウが表示されます。</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>ラベル</value>
+  </data>
+  <data name="CustomNavigationLabelPlaceholder" xml:space="preserve">
+    <value>例文</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>アイテムを削除する</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>メニューで表示する</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>ホーム・ページで表示する</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>小さいアイコン、16ｘ16</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>カスタム・ナビゲーション</value>
+  </data>
+  <data name="CustomNavigationURLHeader" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="CustomNavigationURLPlaceholder" xml:space="preserve">
+    <value>http://example.com</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>データのバックアップ</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}データ バックアップ{1}  はポータルデータの写しを取って保管し、ローカルサーバに復元するのために使用される機能です。データのためのストレージを選択してください。（アクセスすることができるように、第三者サービスストレージ詳細も入力してください）。{2}
+メールも含めることを選択する場合に、 過去30日間のメッセージはバックアップされるようになります。{2}
+{0}ご注意してください：{1}バックアップを保存する前に、第三者サービスのアカウント（DropBox、Box.com、OneDriveまたはGoogle Drive）をONLYOFFICE「共通文書」フォルダーに接続する必要です。</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>データ管理</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>非能動化する</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>非能動化する</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>あなたのアカウントは正常に非アクティブ化されています10秒で{0}はあなたがここに{2}を{1}にリダイレクトされます</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>ポータル停止/削除</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>一時的にポータルを無効にするには、このオプションを使用します。</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>モジュールの選択</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>既定開始ページ</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>既定設定：</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>この操作は取り消せません。
+あなたは必ず削除したい{!group}`{0}`？</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>ポータルは正常に削除されました。 {0}お客様は10秒で、{1}ここに{2}リダイレクトされるようになります。</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>アカウントを削除する</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>私のプロファイルを削除します</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>ご注意ください！アカウントを削除しようとしています。続けますか？</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>「アカウントを削除」ボタンをクリックすると、｛０｝プライバシーポリシー｛１｝に同意いただいたものと致します。</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>メールアドレスにプロファイル削除の命令を送信</value>
+  </data>
+  <data name="DeleteProfileSuccessMessageInfo" xml:space="preserve">
+    <value>アカウントとそれに対応したデータの削除について読むために、{0}プライバシー・ポリシー{1}をご覧ください。</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>プロファイルのダイアログを削除する</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>プロファイルを削除します</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} は削除されるようになります。</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>別のユーザーに利用可能なユーザーの個人文書も削除されるようになります。これを避けるには、削除前にデータ再割当て過程を開始する必要です。</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>永久にあなたのポータルを削除するには、このオプションを使用します。</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>編集{!group}</value>
+  </data>
+  <data name="DesktopEditorsFor" xml:space="preserve">
+    <value>{0}向けのONLYOFFICEデスクトップ</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>使用禁止</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user} アクティブの一覧には表示されません {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>操作を確認するためのリンクが{0}（ポータル所有者の電子メールアドレス）に送信されました。</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS設定</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>文書サービス</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>文書サービス位置は文書サービスがインストルしたサーバアドレスを指定しています。以下のリンクでサーバアドレスのために'&amp;lt;editors-dns-name&amp;gt;'だけを変更し、残りの部分をそのままに保存してください。</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>文書サービス位置</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>文書編集サービスアドレス</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>例：｛０｝</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>｛文書サービス｝は文書編集したり、適切なOfficeOpen XML形式に変換したりすることを可能にするサーバーサービスです。</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>コミュニティ・サーバーからの要求に対するのための文書サービスアドレス</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>文書サービスからの要求に対するのためのコミュニティ・サーバー・アドレス</value>
+  </data>
+  <data name="DocumentsForDevices" xml:space="preserve">
+    <value>｛０｝デバイス向けのONLYOFFICE文書</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>ダウンロードする</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0}の前に</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0}日</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0}日</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0}日</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>ちょうど</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0}時間</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0}時間</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0}時間</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0}分</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0}分</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0}分</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0}月</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0}ヶ月</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0}ヶ月</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0}年</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>おととい</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>明日</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>昨日</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>写真を更新する</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>プロフィールを編集</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>アクティベーション手順は、入力された電子メールに送信されます</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>アクティベーション電子メールにあるリンクを使用しています。アクティベーションリンクを含む電子メールを受け取っていない？</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>すべてのポータルの機能へのアクセスを得るためにメールアドレスを有効にしてください</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>もう一度リクエスト活性化</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>アクティベーションメールがあなたのメールアドレスに送信されました。自分のアカウントをアクティブにするには、メッセージ内のリンクに従ってください。</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>メールでのアクティベーション</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
+  <data name="EmailAndPasswordCopiedToClipboard" xml:space="preserve">
+    <value>メールとパスワードはクリップボードにコーピーされました。</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>ポータルは、以下のドメインに登録されています：</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>間違ったパスワード</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectAmiId" xml:space="preserve">
+    <value>インスタンスIDが間違っているようです</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>正しくないメールアドレス</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>プロモーションコードが間違っているようです</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>プロモーション　コードを持っていますか？こちらで入力してください。</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>ポータルは、以下の電子メールから登録されている：</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>これらの設定は正常に保存されています</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>ロゴ変更</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>タイプパスワード</value>
+  </data>
+  <data name="EmailAndPasswordTypePasswordRecommendation" xml:space="preserve">
+    <value>（最小長さは{0}文字）</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>パスワードとその確認が一致しません</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>メールアドレスを変更</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>アクティベーション手順は、入力された電子メールに送信されます</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>メールの変更</value>
+  </data>
+  <data name="EmailIsAvailable" xml:space="preserve">
+    <value>有効なメール</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>電子メールが有効化されていません</value>
+  </data>
+  <data name="EmailOnDomainIsNotCreated" xml:space="preserve">
+    <value>ドメインの電子メールアドレスは作成されていません。</value>
+  </data>
+  <data name="EmailPopupHelper" xml:space="preserve">
+    <value>{0}メインのメールはパスワードを忘れた場合にポータルへのアクセスを復元し、通知の送信することに必要です。{1}ドメインに新しいメールを主要として作成できます。その場合に、ユーザがポータルにログインできるために、ワンタイムパスワードを設定のは必要です。 {2} メインメールはログインメールとしても使用可能です。{3}</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>All {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>スタッフ検索</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>収納スペースを取るデータがありません</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>LDAP認証を有効にする</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSLを有効に</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} 再びアクティブとして表示されます</value>
+  </data>
+  <data name="Encryption" xml:space="preserve">
+    <value>プライバシー・ルーム</value>
+  </data>
+  <data name="EncryptionOff" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="EncryptionOn" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>新しいメールアドレスを入力します</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>あなたはこのページを表示する権限がありません</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>エラー403 - 禁止</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>この操作を実行するアクセス許可がありません</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>ポータルアクセスは制限です。</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>不正なライセンスキー</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>不正なリクエスト</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>無効なメールや期限切れのリンク</value>
+  </data>
+  <data name="ErrorDefaultStorageMethod" xml:space="preserve">
+    <value>既定なディスクストレージだけのための方法。続ける前に、第三者サービスを無効にしてください。</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} このメールアドレスは既に登録されていると</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>このドメインからのメールは登録できません。</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>メールフィールドは空です</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>現在のメールアドレスと新しいメールアドレスは同じです</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>すべての欄に記入してください</value>
+  </data>
+  <data name="ErrorEmptyMessage" xml:space="preserve">
+    <value>メッセージテキストを入力してください</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>アップロードされたファイルが見つかりませんでした</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>あなたのメールアドレスを入力します</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>あなたの最初の名前を入力してください</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>あなたの姓を入力してください</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>リンクの有効期限が切れてい</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>画像サイズが大きすぎます</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>イメージファイルのサイズが大きすぎます</value>
+  </data>
+  <data name="ErrorIncorrectUserName" xml:space="preserve">
+    <value>不適切な名または姓</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>無効なアクティベーションリンク</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>ポータルアクセスは制限です。</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>登録日付が生年月日の後でなければなりません</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>あなたの料金プランは、このオプションをサポートしていません</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>日付の書式が無効です</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>無効なメール</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>無効なドメイン名</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>パスワードは空です。</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>{0}～{1}文字</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>パスワードが含まれている必要な記号</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>パスワードが含まれている必要な記号</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>桁</value>
+  </data>
+  <data name="ErrorPasswordNoSpaces" xml:space="preserve">
+    <value>スペースを含めない</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>特殊文字</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>大文字</value>
+  </data>
+  <data name="ErrorPasswordOnlyLatinLetters" xml:space="preserve">
+    <value>ラテン字のみ</value>
+  </data>
+  <data name="ErrorPasswordRechange" xml:space="preserve">
+    <value>新しいパスワードを設定しなければなりません</value>
+  </data>
+  <data name="ErrorRequestLimitExceeded" xml:space="preserve">
+    <value>要求数が上限を超過しました。</value>
+  </data>
+  <data name="ErrorServerEditionMethod" xml:space="preserve">
+    <value>サーバー版だけのための方法です。</value>
+  </data>
+  <data name="ErrorTenantTooShortFormat" xml:space="preserve">
+    <value>ドメイン名の長さは{0}文字から{1}文字の間でなければなりません。</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>未知の画像ファイルの種類</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>ユーザーが見つかりませんでした</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>"{0}"のメールアドレスのユーザーは見つかりませんでした</value>
+  </data>
+  <data name="ErrorWaitForBackupProcessComplete" xml:space="preserve">
+    <value>バックアップのプロセスがポータルの一つで開始されました。こちらの完了をお待ちください。</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>欧州（アイルランド島）地域</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>毎日</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>毎月</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>毎週</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>フィードバックとサポート</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>最大ファイルサイズを超えています</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>注：ファイルサイズを超えることはできません{1}{0}{2}
+</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>期間</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>へ</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>最後の3ヶ月</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>先月</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>先週</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>アカウントを確認するためのリンクが指定された電子メールに送信されました</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>ファーストネーム</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>パスワードを忘れましたか？</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>モバイル機器向け</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>サインインするには、この{0}のリンクをクリックしてください{1}</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>PCのため</value>
+  </data>
+  <data name="FreeOfficeDesktopDndMobileApps" xml:space="preserve">
+    <value>無料なONLYOFFICEデスクトップと携帯電話アプリ</value>
+  </data>
+  <data name="FreeSms" xml:space="preserve">
+    <value>無料なＳＭＳ</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>フルテキスト検索サービスは実行されていません</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>フルテキスト検索サービスは実行されています</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx設定</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>スフィンクスを使用する、及びインデクサーと検索デーモンを起動するにための設定です。［searchd］の検索デーモンがリッスンしているホストとポート番号を指定してください。この設定はsphinx.conf.inの［searchd］部分であるのスフィンクス設定と一致する必要です。</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>一般的</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>今すぐ入手する</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>短縮なリンクを受ける</value>
+  </data>
+  <data name="GoToContactListBtn" xml:space="preserve">
+    <value>連絡先リストを表示する</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>ロゴ</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>「開始ページ」設定</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>題名</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>グループのリード</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>あなたは{1} {2}ポータルは、ポータルとそれに関連付けられているすべての情報は誰もが特定の期間のそれへのアクセスを持っていないようにブロックされますを非アクティブ化したい場合。それを行うには、{1}{2}無効化]ボタンをクリックします。操作を確認するためのリンクがポータル所有者の電子メールアドレスに送信されます。{0}ケースでは、ONLYOFFICE™ポータルに戻って来て、あなたは確認メールに記載されている2番目のリンクを使用する必要がありますそれを使用して再開したいと思います。だから、安全な場所にこのメールを保つ、お願いします。{0}あなたはONLYOFFICE™ポータルを使用すると思うし、しない場合は{1}削除{2}ポータルは永久に使用してリクエストを送信したいと思います{1}削除{2}ボタンをクリックします。してください、あなたはポータルを再開するか、それに関連付けられたすべての情報を回復することはできませんことを覚えておいてください。</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}管理者メッセージの設定{2}は、ポータル管理者に連絡するための方法です。その人がポータルにメッセージを送ることができるように、{0} {2}ページ{1}サインにお問い合わせフォームを表示するには、このオプションを有効にする彼らがポータルにアクセスするトラブルがあった際の管理者。{0}あなたが設定したパラメータを作るためには、効果がセクションの下部に{1}{2}[保存]ボタンをクリックしてください。</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}色テーマ{2}は会社ブランドに従いポータルインターフェイスをカスタマイズするための機能です。{0}左側リストからの色テーマを選択してください。{0}変更を適用するように、このセクションの下部であるの{1}保存{2}ボタンを押してください。</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}のデフォルトのスタートページ{1}は、ポータルにログインするか、既にパラメータを作成するにはサインインしたときONLYOFFICE™のロゴをクリックした後、右に行くモジュールを選択するための方法ですあなたはをクリックして有効になる設定セクションの下部にあるの{0}保存{1}ボタンをクリックします。</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1} DNS設定{2}はONLYOFFICE™ポータルの代替URLを設定する機能です。{0}{1}カスタムドメイン名{2}ボックスを確認して、下のフィールドにONLYOFFICE™ポータル用に独自ドメイン名を入力してください。{0} 変更を適用するように、セクションの下部に{1}保存{2}ボタンを押してください。</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1} DNS設定{2}はあなたのONLYOFFICE™ポータルの代替URLを設定する方法です。{0}のどちらか{2}フィールド{1}ポータル住所で目的のエイリアスを入力するか、{1}カスタムドメインを確認することができます名{2}ボックスと下のフィールドにONLYOFFICE™ポータル用に独自のドメイン名を指定します。{0}は、セクションの下部に{1}保存{2}ボタン効果のクリックを取る設定されたパラメータを作成するには。{1}挨拶設定{2}上に表示されるデフォルトのポータル·タイトルロゴを変更する方法は{1}、ポータルの[ようこそ]ページ{2}{0}は{1}タイトル{2}のように名前を入力しますフィールド。ポータルロゴは{1}ロゴ変更{2}のリンクをクリックして、ポータルにそれをロードする。お使いのコンピュータに保存されている画像を選択して交換するには{0}は{1}より大きくない画像をアップロードすることを念頭に置いてください、お願いします250x100ピクセル{2}は、それ以外のサイズ変更が行われます。画像の最大サイズは{1}1メガバイト{2}を超えることはできません。</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>招待リンクは、ポータルに参加するようにユーザーを招待するための方法です。</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}の言語およびタイムゾーンの設定{2}は、すべてのポータル·ユーザーのためのポータル全体の言語を変更するとONLYOFFICE™ポータルのすべてのイベントが正しい日付と時刻が表示されるようにタイムゾーンを設定する方法ですあなたが設定したパラメータを作るために。{0}は効果がセクションの下部に{1}{2}[保存]ボタンをクリックしてください。</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}ロゴ設定{2}はポータルの{1}開始ページ{2}で表示される既定ロゴを変更するための機能です。{0}ポータルロゴを変更するように{1}ロゴ変更{2}リンクを押して、パソコンから画像をアップロードしてください。{0}ご注意ください：アップロードされる画像は{1}250ｘ100ピクセル{2}より大きくてはいけません。そうでなければ、画像はリサイズされるようになります。最大画像サイズは{1}1MB{2}を超えることが出来ません。</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}トラステッドメールドメインの設定{2}は、ユーザーの自己registerationに使用するメールサーバを指定する方法です。{0}することができますどちらか{1}カスタムドメイン{2}オプションをチェックしての信頼されたメールサーバーを入力する下のフィールドには、そのために口座を持っているその人は、{2}、[サインイン]ページまたはこのオプションを無効にして{1}の参加リンクをクリックして、彼（彼女）自身を登録することができます。{0}はパラメータを作成するにはあなたは、セクションの下部に{1}{2}を保存]ボタンをクリックしますを有効に設定します。</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}のパスワード強度の設定{2}は、推測やブルートフォース攻撃に抵抗するパスワードの有効性を決定するための方法です。{0}はどのくらいパスワードがかを判断するためには、{1}の最小パスワード長は、{2}バーを使用して、である。パスワードで使用する必要がある文字セットを決定するために、下記の該当するチェックボックスをオンにしますので、設定したパラメータを作るために{0}が有効になるセクションの下部に{1}{2}[保存]ボタンをクリックします。</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}公開ポータル{2}が登録なし誰かに公開コンテンツを見られることを可能にする無料な機能です。民間プロジェクト、ＣＲＭモジュールは不可能です。{0}新しいユーザーがポータル管理者への要求に応じて登録され、ユーザー数は無期限です。登録確認の必要を削除するように{1}新規ユーザーをすぐに登録{2}オプションを使用してください。</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>ここではポータルアドレスを変更できます。　「onlyoffice.com/onlyoffice.eu」の前に表示される部分を入力してください。{0}{1}ご注意ください{2}：{1}保存{2}ボタンをクリックすると、古いポータルアドレスが新しいONLYOFFICEユーザに使用できるようになります。</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1} Portalバージョン{2}が使用可能ONLYOFFICE™ポータルのバージョンを切り替える方法です。{0}のどちらか裏ポータルの以前のバージョンに新しいバージョンまたはスイッチを使用することができます。{0}あなたが設定したパラメータを作成するにはセクションの下部に{1}{2}[保存]ボタンをクリックすると有効になります。</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}チームテンプレート{2}は組織（またはグループ）の名前にカスタマイズ可能な方法であり、そのメンバーとその活動は、{0}利用可能なプリセットのいずれかを選択または入力します{1}テンプレート{2}のリストをドロップダウン名前はリストから{1}{2}カスタムオプション。{0}選択されたテンプレートを使用するセクションの下部に{1}{2}[保存]ボタンを適用する]を選択がた。</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>ポータルを地理的な場所に最も近い地域のサーバに移動するのはポータル作動を早くされるようになります。つまり、ユーザーとクライアントがサーバー領域に近いほど、ポータルの応答は速くなります。{0} 移行プ ロセスを始めるように {1}サーバー地域を変更する{2}ボタンを押してください。{1}ご注意ください{2}移行プロセスが開始されると、キャンセルできません。技術的な制限により、過去 30 日間のメールのみが転送されることもご注意してください。</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>ヘルプセンター</value>
+  </data>
+  <data name="HelpPrivacyRoomSettings" xml:space="preserve">
+    <value>文書編集と共用を安全な環境を作るように、このオプションを有効にしてください。プライベートルームで既存されている文書や共用されたデータはAES-256暗号化アルゴリズムを用いて暗号化され、許可されていないユーザにアクセスできなくなります。{0}プライベートルームは{3}ONLYOFFICE Desktop Editors{4}を使用して利用可能です。初めに、ユーザが「クラウドに接続する」セクションでONLYOFFICEクラウドにログインしなければなりません。接続すると、一対の暗号化キーを自動的に得ます。詳細情報は{5}こちらです{6}。</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隠す</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>AIMアカウントを入力します。</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Bloggerのプロフィールを入力してください</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>あなたのメールアドレスを入力して</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>自分のFacebookのプロファイルを入力します。</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>アカウントログイン名、またはＩＤを入力してください</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>あなたのGoogleTalkのアカウントを入力します</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>あなたのGoogleBuzzプロファイルを入力します</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Googleアカウントを入力してください</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>あなたのICQのアカウントを入力します</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Jabberアカウントを入力します。</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>あなたのLiveJournalのプロファイルを入力します</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>あなたの携帯電話番号を入力してください</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>MSNアカウントを入力します</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>あなたのMySpaceのプロフィールを入力してください</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>電話番号を入力</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Skypeアカウントを入力してください</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>あなたのTwitterプロフィールを入力してください</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Yahooアカウントを入力します</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>ホスト・ログイン</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>ホスト</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>ホスト·パスワード</value>
+  </data>
+  <data name="ImportButtonManually" xml:space="preserve">
+    <value>手動で</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User}はもう存在しています</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>全く接点が受信されていない。{0}また、他のプロファイルから連絡先をインポートすることができます。</value>
+  </data>
+  <data name="ImportContactsEmptyEmail" xml:space="preserve">
+    <value>ユーザメールを入力する</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>ユーザの名を入力</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>ユーザの姓を入力してください</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>あなたのメールアドレスを入力して</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>あなたの最初の名前を入力してください</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>インポートエラー</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>あなたの姓を入力してください</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>最初の名前、上記のフィールドにポータルに追加されるユーザーの姓とメールアドレスを入力してください。リストにユーザーを追加する場合は、"追加"ボタンをクリックします。</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>ファーストネーム</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>ファイルから</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>インポートするために選択したファイルが間違った形式を持っています{0}してください、別のファイルを選択して、再度インポート処理を繰り返します。</value>
+  </data>
+  <data name="ImportContactsFromFileErrorTooLarge" xml:space="preserve">
+    <value>選択されたファイルは大きい過ぎます。アップロードされるファイルサイズは：｛０｝kBを超過できません。</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>ポータルへのユーザーの追加</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>姓、名、電子メールアドレスを含むすべてのユーザーのフィールドが正しく入力されていることを確認</value>
+  </data>
+  <data name="ImportContactsInvalidEmail" xml:space="preserve">
+    <value>無効なユーザメール</value>
+  </data>
+  <data name="ImportContactsInvalidFirstName" xml:space="preserve">
+    <value>無効なユーザー名</value>
+  </data>
+  <data name="ImportContactsInvalidLastName" xml:space="preserve">
+    <value>無効なユーザー姓</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>区切り記号</value>
+  </data>
+  <data name="ImportEncoding" xml:space="preserve">
+    <value>符号化</value>
+  </data>
+  <data name="ImportFileCSV" xml:space="preserve">
+    <value>手動で生成した、またはOutlook、Gmail、Thunderbirdなどのようなアプリから抽出されたCSVファイルを選択してください。</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Googleからのインポート</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahooからのインポート</value>
+  </data>
+  <data name="ImportSelectAnotherSource" xml:space="preserve">
+    <value>別のソースを選択します</value>
+  </data>
+  <data name="ImportTextDelimiter" xml:space="preserve">
+    <value>テキスト区切り</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>ユーザーを追加する</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>コンプライアンスの設定</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>を置いて</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>ユーザ名またはパスワードが無効である。</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>ポータルで作業し始めるためには、自身の{0}名{1}と{0}姓{1}は、右側のフォームで正しいかどうかを確認し、ログインすることができるように{0}パスワード{1}を設定する必要があります。</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>招待リンク</value>
+  </data>
+  <data name="InviteLinkValidInterval" xml:space="preserve">
+    <value>リンクは{0}日間に有効です</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>あなたはあなたの友人、知人や同僚からこのポータルへのリンクを受け取った</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>あなたは、あなたの友人、知人や同僚のことで、このポータルに追加されました</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>あなたは、このポータルへの参加を誘われます！</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>{!Guests}ステータスを持っているユーザを追加する</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>ユーザーをポータルに招待する</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IPセキュリティー (IP Security){1}は特定のアドレスを除くすべてのIPアドレスからポータルへのログインを限定するように使われている機能です。IPv4形式のIPアドレス（#.#.#.#、［#］は０から２５５までの数値）またはIP レンジ （#.#.#.#-#.#.#.# 形式）を使用して、許可のあるIPアドレスを設定できます。所有者はどんなでもＩＰアドレスからポータルにログインできます。</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IPセキュリティ</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>まず、現在IP、またはIPアドレスが属するIP範囲を指定しなければなりません。そうでなければ、ポータルアクセスは設定を保存した直後にブロックされるようになります。ポータル所有者は任意IPアドレスからポータルに入られます。</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>ONLYOFFICE™メールも移動する（推奨されません）</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>アフィリエイトとなる</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP設定</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>ユーザー認証</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>現在のWindowsユーザーは LDAPサーバー /Active Directory からの読み取り権限がない場合にこのオプションを有効にし、読み取り権限を持つユーザーの資格情報を入力して下さい。</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>接続エラー</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>空のフィールド</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>LDAP サーバー/Active DirectoryからONLYOFFICE™へ自動にユーザーを追加するように、このオプションを有効にしてください。追加されたユーザーはLDAP サーバー/Active Directory資格情報を使用して、承認できます。ONLYOFFICE™はユーザーログインとパスワードを保存しなくて、LDAP サーバー/Active Directoryに転送することに介して承認します。</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>サーバが設定を取得中に失敗した</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>ログインまたはパスワードが間違っているようです。</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>LDAPドメインが見つかりません。</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>グループが見つかりません</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>ユーザーフィルター値が無効です。</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>不明なエラー</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>ユーザーは見つかりません</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>一つまたは複数のグループのグループ属性を入手できません。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>グルップフィルターが間違っているようです。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>一つまたは複数のグループのグループ名属性を入手できません。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>一つまたは複数のユーザーのログイン属性を入手できません。</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>一つまたは複数のユーザーのユーザー属性を入手できません。</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>グループの属性</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>このグループに含めているユーザーを指定するグループオブジェクト属性を入力して下さい。</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>グループ識別名</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>追加したいグループを含むディレクトリに識別名を入力してください。</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>グループのフィルタ</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>グループ・メンバシップ</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>LDAP サーバー/Active DirectoryからONLYOFFICE™へグループを追加するように、このオプションを有効にしてください。これらグループに属するユーザーのみが追加される点にご注意してください。</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>グループ名の属性</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>グループ名に対応するオブジェクト属性を指定してください。</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>サーバ内エラー。</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>ログイン属性</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>ユーザーログインに対応するオブジェクト属性を入力してください。</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>LDAPユーザーを通常なポータルユーザーに変更する</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>ログイン識別名</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>LDAPサーバー／Active Directoryからデータを読み取るアクセス権を持つユーザのパスワードを入力してください。</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>ポート番号</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>LDAPサーバ/Active Directoryのポート番号を入力してください。</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>既定設定</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>既定設定を復元する</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>設定を保存する</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>サーバー</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>ポート番号なし、LDAPサーバURLを入力してください（例：LDAP://mycompany.com）</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>ユーザーの追加</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>証明書の検証</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>LDAPサポート設定の確認</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>LDAP接続解除中</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>LDAPサーバーからグループリストの取得中</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>LDAPサーバーからユーザーリストの取得中</value>
+  </data>
+  <data name="LdapSettingsStatusGivingRights" xml:space="preserve">
+    <value>｛０｝ユーザーを｛１｝管理者として設定する</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>LDAPベースから情報を読み込んでいます</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>ユーザーアカウント削除中</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>以前にLDAPによってロードされた古いグループの削除</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldRights" xml:space="preserve">
+    <value>以前にLDAPによってロードされた古いアクセス権の削除</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>以前にLDAP 経由でアップロードされた古いユーザープロフィル無効にしています。</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>グルップ保存</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>設定保存</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUserPhoto" xml:space="preserve">
+    <value>写真保存</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>ユーザー保存</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>ユーザーの同期</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>より安全な認証の種類が必要です。 暗号化された接続を使用し、または "plain" 認証をサーバーに有効にしてください。</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>正常に保存されました</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>ユーザーを同期する</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>現在の料金プランのユーザー数制限に達しました</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>現在のLDAPサーバーでStartTLSがサポートされません。</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>LDAP操作が多すぎています</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>ユーザー属性</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>このユーザがグループの参加者であるかどうか判断するために使用されるユーザーオブジェクト属性を入力してください。</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>ユーザー識別名</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>追加したいユーザーを含むディレクトリに識別名を入力してください。</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>ユーザーフィルター</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>{0}LDAPサーバー/Active Directoryからのデータに読み取り権限を持つユーザーを指定してください。</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>詳細はこちら...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>ライセンスが間違っているようです</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>ユーザー数はライセンスで許可されたユーザー数を超過した</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>データをロードしています。お待ちください...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>読み込んでいます...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>場所</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>にサインイン</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>ポータルにアクセスが制限された。ポータル管理者を連絡してください。</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>参加する</value>
+  </data>
+  <data name="LoginSettings" xml:space="preserve">
+    <value>ログイン設定</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>コードを生成するアプリを介した{0}二要素認証{1}システムはクラウドサービス管理者で有効されました。</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>ソーシャル·ネットワークでログイン</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>またはを使用してログイン：</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>関連するサードパーティのアカウントを見つけることができません。あなたが最初のプロファイルの編集ページであなたのソーシャルネットワーキングのアカウントを接続する必要があります。</value>
+  </data>
+  <data name="LoginWithBruteForce" xml:space="preserve">
+    <value>承認は一時的にブロックされました。 </value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>ロゴ設定</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>メールは自動的に作成され、答えらる必要がありません。</value>
+  </data>
+  <data name="MailIcsCalendarDescriptionLabel" xml:space="preserve">
+    <value>説明書</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>地図</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>場所が指定されていません。</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>オルガナイザー</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>再現</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>いつですか　(для вопросов)
+
+場合に (для придаточных времени)</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>メールサーバー</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>接続に成功した</value>
+  </data>
+  <data name="MailServiceCouldNotGetHostnameErrorMsg" xml:space="preserve">
+    <value>エラー：ホスト名が得られません。</value>
+  </data>
+  <data name="MailServiceCouldNotGetTokenErrorMsg" xml:space="preserve">
+    <value>エラー：Authトークンを取得できません</value>
+  </data>
+  <data name="MailServiceDatabase" xml:space="preserve">
+    <value>メールサーバー・データベース</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>例：｛０｝</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>メールサーバを構成する</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>詳細設定を隠す</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>メールサーバーデータベースホスト</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>メール・サーバ・データベースのパスワード</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>ホストへの接続中に入出力エラーが発生しました{0}:{1}</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>サービスは正常に接続されました</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>メールサーバーIP</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>詳細設定を表示</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>接続すると、{0}メールサーバー{1}が{0}メール{1}モジュールで利用可能になります。自分のドメイン名を使用してポータルユーザのためにメールボックスを作成することができるようになります。</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>メールサーバー接続設定</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>メール・サーバ・データベースのユーザ名</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>男性</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>共通の</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>統合</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>安全</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>CRMデータベースを作成する</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>顧客を管理し、売上をトラッキングし請求書を取り組むことができます。</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>ポータルで文書を表示と編集できます</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>チーム参加者を表示します</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>ポータル{!users}を表示、追加あるいはインポートします</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>プロジェクトに参加します</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>ガントチャートでタスク達成の過程を管理します</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>以下の簡単なステップだけで始められます：</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>ONLYOFFICEへようこそ、｛０｝さん！</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>既読としてマークする</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>自分を承認してください</value>
+  </data>
+  <data name="MessageAuthorizeLdap" xml:space="preserve">
+    <value>サインインしてください：</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>メールのアクティベーション</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>メールアドレスの変更手順は、{0}メールアドレスに送信されました</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>あなたのメールは正常にアクティブ化された</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>{0}のメールアドレスに招待指示を送る</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>{0}の電子メールアドレスに電子メールを有効にする手順を送信</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0}の電子メールアドレスに電子メールの変更命令を送信</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0}のメールアドレスにパスワードの変更命令を送信</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>ポータルに登録している間に使用したメールアドレスを入力してください。パスワード回復手順では、その電子メールアドレスに送信されます。</value>
+  </data>
+  <data name="MessageYourPasswordSendedToEmail" xml:space="preserve">
+    <value>{0}メールアドレスを持つユーザが存在する場合は、パスワード変更手順はこのメールアドレスに送信されます。</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™は文書、プロジェクト、チームと顧客関係を一か所で管理できるクラウドオフィスです。</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>オンライン文書エディター・プロジェクト管理ツール・ビジネスツール・CRMシステム・ガントチャート・オンライン共同作業・クラウドオフィス・オンラインワード・文書管理・オンラインスプレッドシート・オンラインオフィス・共同編集・オンラインオフィスアプリ・オンライン文書</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>{0}ポータル地域移行{1}は支払い済みポータルでのみ使用できます。</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>{0}ポータル地域移行{1}はポータル所有者でのみ使用できます。</value>
+  </data>
+  <data name="MigrationPortalProcessTitle" xml:space="preserve">
+    <value>{0}ポータル移動が進行中です。</value>
+  </data>
+  <data name="MigrationPortalText" xml:space="preserve">
+    <value>新しい記憶へ移行過程が完了し、再度ポータルで作業する準備ができます。 </value>
+  </data>
+  <data name="MigrationPortalTitle" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>新携帯電話番号</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>主要な携帯電話</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>電話番号を変更する</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>あなたの携帯電話番号を変更する命令はあなたの電子メールアドレスに送信されます</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>携帯電話を変更する</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>ユーザの携帯電話番号を変更する方法は電子メールアドレスに送信されました。</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>電話番号を変更のために、現在電話番後を削除するのは必要です。</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>監視</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>他のアクション</value>
+  </data>
+  <data name="MoreLanguages" xml:space="preserve">
+    <value>他の言語</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>私のプロフィール</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="NameInFirstLine" xml:space="preserve">
+    <value>フィールド名を表示する</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>チームテンプレート</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>表示しない</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>新のポータル名</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>不在着信がありません</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>他のオペレーターがいません。答えてください。</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>{!guests}として追加されたユーザのロールを{0}「人達」{1}モジュールで変更できます。</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>これらは、ポータル価格設定でユーザー総数に含まれません。</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>利用可能な言語の一覧で自分の言語を見つからない場合に、{0}documentation@onlyoffice.com{1} にメールして、翻訳に参加し、1年間の無料使用を受ける可能があります。</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>で通知する：</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>メール＆チャット</value>
+  </data>
+  <data name="NotifyByTelegram" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>チャット</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>ポータル移行について{!users}を通知する</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>使用禁止</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>アプリケーション</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG地域 </value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>所有者</value>
+  </data>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>サポートとアップデートのサブスクリプションの有効期限が切れています </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>パスワードを変更する</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>最小のパスワードの長さ</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>パスワードの復元</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>桁を使用</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>特殊文字を使用する</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>大文字を使用</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>新しいパスワードを作成できます</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>支払は必要です</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>支払い</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>支払歴</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>ペンディング</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>ディスク容量制限を超えました</value>
+  </data>
+  <data name="PersonalTariffExceedLimit" xml:space="preserve">
+    <value>記憶領域の量は超過されるようとしています：{0}</value>
+  </data>
+  <data name="PersonalTariffExceedLimitInfoText" xml:space="preserve">
+    <value>お客様がストレージの空いている収納スペースを使い果たしています。記憶領域クォータは超過されるときに、新しいファイルをアップロードできなくて、現在ファイルの更新は保存されなくようになります。{2}必要がないファイルを削除できます。または追加のスペースを無料に取得方法があるか知るのために、{0}弊社のサポートチームを連絡してください{1}。</value>
+  </data>
+  <data name="PhotoMaxSize" xml:space="preserve">
+    <value>JPGまたはPNG、最大{0}</value>
+  </data>
+  <data name="PhotoNotSelected" xml:space="preserve">
+    <value>写真が選択されていません</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>しばらくお待ちください...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>ポート</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>公共ポータル</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>プライバット・ポータル</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>制限は超過です（{0}Mbディスクストレージ）</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>この機能はフリー料率でのみ有効です。</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>ポータル・アクセス設定</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>制限は超過です（{0}有効なユーザ）</value>
+  </data>
+  <data name="PortalEncryptionProcessTitle" xml:space="preserve">
+    <value>暗号化は進行中です</value>
+  </data>
+  <data name="PortalEncryptionText" xml:space="preserve">
+    <value>プロセスが終わるとすぐに、ポータルデータが利用可能になります。</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>ポータル名</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>ポータル所有者</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>ポータル改名</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>ポータルでのアクセス</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>プレゼント</value>
+  </data>
+  <data name="PresentAdminHdr" xml:space="preserve">
+    <value>コントロールパネルでエンタープライズ機能に無料アクセスを有効にします：</value>
+  </data>
+  <data name="PresentAdminHideBtn" xml:space="preserve">
+    <value>今ではなく</value>
+  </data>
+  <data name="PresentAdminOkBtn" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="PresentItemMobile" xml:space="preserve">
+    <value>モバイルブラウザでドキュメント、シート、スライドを編集する</value>
+  </data>
+  <data name="PresentItemPrivate" xml:space="preserve">
+    <value>オンライン文書を暗号化された共同編集</value>
+  </data>
+  <data name="PresentItemPro" xml:space="preserve">
+    <value>文書比較・コンテンツコントロール・ピボットテーブル</value>
+  </data>
+  <data name="PresentUserHdr" xml:space="preserve">
+    <value>プローな機能に30日中の無料なアクセスを有効にするために、ポータル管理者を連絡してください。</value>
+  </data>
+  <data name="PresentUserHideBtn" xml:space="preserve">
+    <value>オファーを表示しない</value>
+  </data>
+  <data name="PresentUserOkBtn" xml:space="preserve">
+    <value>はい、ありがとう</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>価格設定ページが管理者だけに可能です</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}価格設定ページ {1}により、ポータル管理者は料金設定ページの視認性を設定し、全てのユーザに表示を有効し、または無効にし、ポータル管理者のみに表示させることができます。</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>価格設定ページの設定</value>
+  </data>
+  <data name="PrintButton" xml:space="preserve">
+    <value>印刷する</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>モジュール＆ツール</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>ONLYOFFICE™モジュールと必要なツールを選択します。無効化されたモジュールおよびツールは、すべてのポータル·ユーザーから隠されることになります。モジュールとツールを有効にした後、再び彼らが同様にすべてのポータル·ユーザーのために利用できるようになることを覚えておいてください。アクセスを制限するには、ポータルの設定の[アクセス権]の項を参照してください。</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>ツール</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>モジュール</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>プロフィールは削除されました</value>
+  </data>
+  <data name="ProfileTypePopupHelper" xml:space="preserve">
+    <value>お客様はポータル機能とモジュールへのアクセスが制限されています。</value>
+  </data>
+  <data name="ProjectsForDevices" xml:space="preserve">
+    <value>{0}デバイス向けのONLYOFFICEプロジェクト</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>パブリッシュ</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>復活させる</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>あなたのアカウントは正常に再開されました。 {0}は、10秒では、あなたがリダイレクトされます{1}ここで{2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>データを再割当てする</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>{0}にデータの再割り当て過程が完了です。</value>
+  </data>
+  <data name="RecaptchaInvalid" xml:space="preserve">
+    <value>Recaptchaが間違っているようです</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>リダイレクト</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>新しい{!users} をすぐに登録します</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>メールを入力する</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>断る</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>覚える</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>既定のセッション生存期間は20分です。1年に設定するようにこのボックスをチェックしてください。カスタムの期間を指定するように、設定に移動してください。</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>個人データを削除する</value>
+  </data>
+  <data name="RequestNewButton" xml:space="preserve">
+    <value>新しいのを要求する</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>招待状が入力した電子メールに送信されます</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>再送信</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>あなたはもう一度招待状を送りたいのですか？</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>再送信する招待</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>復元する</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>バックアップリスト</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>リストから項目を削除すると、対応するファイルも削除されるようになります。このアクションは元に戻せません。すべてのファイルを削除するように、次のリンクを使用してください：{0}一覧を消去する{1}</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>復元する</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>コンピュータファイル</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>デフォルトへの復元</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>バックアップ・ファイルからポータルを復するためにこの操作を使用してください。</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>バックアップはまだ作成されていません。バックアップを作成すると、このリストに表示されるようになります。</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>｛０｝データリストア(Data Restore)｛1｝は以前に取っておいたポータルデータ（Saasポータルあるいはローカルサーバデータ）の複製を書き戻すなどして復元する機能です。データは保存しているストレージを選択し、必要な詳細を入力し、｛０｝ポータルユーザに通知を送信する｛１｝というオプションにチェックを付け、ポータルユーザをバックアップ／リストア過程を知らせてください。</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>復元過程が完了されると、自動的にポータルに移動されるようになります。</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>ポータルの復元が実施中です。</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>ポータル復元についてユーザーを通知する</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>バックアップ・リストを表示する</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>データ復元</value>
+  </data>
+  <data name="ReturnToImportSettingsBtn" xml:space="preserve">
+    <value>インポート設定に戻る：</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>すべての単語のスペルを確認してください。違うキーワードを使ってみてください。</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>何も見つかりませんでした。</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>検索結果</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>すべて表示する</value>
+  </data>
+  <data name="SelectDataSource" xml:space="preserve">
+    <value>データ・ソースを選択する</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>送信者の電子メールアドレス</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>送信者の表示名</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>もう一度招待状を送る</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>招待状を送る</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>参加するにはここをクリック</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>ポータル{!user}になりたいですか？</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>招待状が送信される電子メールアドレスを入力してください：</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>テスト　メールを送信する</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>リクエストの処理中にサーバー·ソフトウェアがエラーをenconted。しばらく待ってから再度試してください。エラーが解決しない場合は、おそらくサイトの管理者に連絡する必要があるかもしれません。</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>サーバーエラーが発生しました</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>サーバー地域</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>パスワードを設定する</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>これは、すでに現在のバージョンです</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>無効なポータルバージョン</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>アジア太平洋 (シンガポール)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>\を表示</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>すべてを表示</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>すべての結果を表示</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>ツールチップを有効する</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>次のを表示する</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>登録は{0}で電子メールアカウントを持つユーザーが使用できます。今登録するには、入会をクリックしてください。
+登録は任意のドメインでメールアカウントを持つユーザーが使用できます。登録するには、メールアドレスを入力し、案内状の送信をクリックしてください。あなたのONLYOFFICE™アカウントを有効にするためのリンクを記載したメールメッセージは、指定された電子メールに送信されます。</value>
+  </data>
+  <data name="SignInLDAP" xml:space="preserve">
+    <value>サインイン： {0}</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>シングルサインオン</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>驚き</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>爆弾</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>クレイジー</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>泣く</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>踊る</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>飲む</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>怒って</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>ウィンク</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>グリーン</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>ハリウッドの笑顔</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>悲しい</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>音楽</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>笑顔</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>にっこり笑う</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>ソーリー</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>ゴーグル</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>スーパー</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>舌</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>万歳</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>二要素認証｛１｝はポータルに入るのより安全な方法です。資格情報を入力した後で、登録時に指定された電話番号に受信したＳＭＳコード、または認証アプリで発生されたコードを入力してください。｛２｝より安全なポータルアクセスのためにこの機能をを有効にします。｛２｝セクションの以下の｛０｝保存｛１｝ボタンをクリックと、変化を保存します。｛２｝</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>不正なコード</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>コード：{0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>コードを利用する時間は期限が切れています。新しいテクストメッセージを請求してください。</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}ご注意ください{1}：アカウントに残高がない場合に、ＳＭＳメッセージは送信できません。SMSプロバイダアカウントで現在のバランスをチェックできます。事前にバランスの補充してください。</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}ご注意ください{1}：SMS認証の利用前には、{3}{0}第三者サービス{1}{4}ページで少なくも一つのSMSプロバイダが選択される必要です。</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}ご注意ください{1}：ＳＭＳで二要素認証は支払い済みのポータルのみに利用可能です。</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>二要素認証</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0}バランス</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>アカウント{0}で見てください</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS設定は利用できません</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>カスタム設定</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>メールサーバ設定</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTPの設定</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>SMTPサーバー用のGmailアカウントを使用する場合は、メールを送信できるように以下のステップを行ってください：標準の Web インターフェイスを介して使用している Gmail アカウントにサインインし、アカウントへの ONLYOFFICE ™アクセス試行についての検証の質問がある場合は確認して下さい。{0}電子メールメッセージを正常に送信するには587または25ポートを使用してください。</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>社会的なプロファイル</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>ソース</value>
+  </data>
+  <data name="SpamSubscriptionDescription" xml:space="preserve">
+    <value> 最新製品情報、告知及び特別なオファーを含むメール通知</value>
+  </data>
+  <data name="SpecifyAnExistingEmail" xml:space="preserve">
+    <value>存在するメールを指定してください。</value>
+  </data>
+  <data name="SsoAttributesNotFound" xml:space="preserve">
+    <value>認証に失敗しました（属性値アサーションが見つかりません）</value>
+  </data>
+  <data name="SsoAuthFailed" xml:space="preserve">
+    <value>認証に失敗しました</value>
+  </data>
+  <data name="SsoError" xml:space="preserve">
+    <value>内部サーバ・エラー</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>その認証トークンでユーザを作成できません</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>設定は保存できませんでした。</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>設定はnullにすることはできません</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>シングルサインオンは無効です</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>認証トークンは見つかりません。</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>無効な束縛：｛０｝</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>無効なエンティティーID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>無効なフィールドマッピング</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>無効な認証トークン</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>ユーザーは無効ようにされた</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>ストレージ</value>
+  </data>
+  <data name="StorageText" xml:space="preserve">
+    <value>このページで第三者サービスを接続し、選択されたストレージに移動過程を始めます。移動過程は開始されると、ポータルは使用できなくなります。</value>
+  </data>
+  <data name="StorageTitle" xml:space="preserve">
+    <value>ストレージ設定</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>信頼されたメールドメインの設定</value>
+  </data>
+  <data name="StudioEncryptionSettings" xml:space="preserve">
+    <value>プライバシー・ルーム</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>パスワード強度の設定</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>言語およびタイムゾーンの設定\</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>ポータルのバージョン</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>購読する</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>所有者と管理者のためのイベントと通知</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>ポータルの毎日ニュース＆イベントのダイジェスト</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>プロジェクト名</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>すべての通知から</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>通知方法</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>サブスクリプション</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>ポータル名が正常に変更された</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>「開始ページ」設定は保存しました</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>設定が正常に更新されました</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>プロファイルの削除方法は、お使いのメールアドレスに送信されました</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>招待状は、正常に再送信されている</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>メールを送信する</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>特別オファーについてはお問い合わせください</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>必要なパラメータを縮小したり、現在の料金プランを維持します。</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>すぐに購入</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>延ばす</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>あなたは、現在の計画を延長するか、下の表を使用して、それを変更することができます。</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>最高のあなたのニーズに合ったプランを選択します。お勧めプランは、以下の強調表示されます。</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>ダウングレード</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>ストレージ·スペースのサイズが許可されました：{0}。現在のストレージ·スペース：{1}。</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>許可されたポータルユーザー数：{0}。現在のユーザー数：{1}。</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>あなたは、ユーザーのスペース/番号は、選択した料金プランの制限を超えるストレージとして格下げしてアカウントをすることはできません：</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>定期支払いがオンになっている</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>ストレージ·スペースの量を超過されようとしています：{0}</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>それは{0}で期限切れになります。</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>あなたは無料プランを使用している。</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>ポータルにライセンスファイルをアップロードするために、｛０｝こちらをクリックしてください。｛１｝</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>サブスクリプションは期限切れです</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>作成されたポータルの数：{0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>料金プランは、支払われた年の終わりまで使用できません。</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>自動的に任期を延長するために、あなたのAvangateは口座に定期支払い]チェックボックスがオンになっていることを確認してください。</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>定期支払いをキャンセルするには、あなたのAvangateは口座に行き、お願いします。</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>料金プラン</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>お客様の便宜のために、ルーブルで支払う場合は、１米ドル当たり０ルーブルの固定為替換算レートで米ドルからルーブルに換算されています。</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>支払い</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>あなたが追加したアクティブユーザー数：{0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>使用済みの記憶領域：{0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>あなたはFreeTrialプランを使用しています。</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>ONLYOFFICE™をチェックアウトしたことをありがとう！{2} {0}の無料試用期間が期限切れになっています。{1}</value>
+  </data>
+  <data name="TelegramConnected" xml:space="preserve">
+    <value>Telegramアカウントが接続された</value>
+  </data>
+  <data name="TelegramHowToConnect" xml:space="preserve">
+    <value>Telegram用のボットをアカウントに接続するように、秘密リンクをたどってください:</value>
+  </data>
+  <data name="TemporaryPasswordToAccess" xml:space="preserve">
+    <value>ポータルをアクセスのための一時パスワード</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>ポータルは作成された</value>
+  </data>
+  <data name="TenantStorageSpace" xml:space="preserve">
+    <value>ポータルに利用可能な記憶領域</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>使用する記憶領域</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>有効なユーザー数</value>
+  </data>
+  <data name="TermsOfUsePopupHelperLink" xml:space="preserve">
+    <value>利用規約をご覧ください</value>
+  </data>
+  <data name="TfaAppAuthMessageError" xml:space="preserve">
+    <value>不正なコード</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(残り: {0})</value>
+  </data>
+  <data name="TfaAppNotAvailable" xml:space="preserve">
+    <value>二要素認証アプリ設定は無効です。</value>
+  </data>
+  <data name="TfaAppResetApp" xml:space="preserve">
+    <value>アプリをリセットする</value>
+  </data>
+  <data name="TfaAppResetAppDescription" xml:space="preserve">
+    <value>認証アプリ構成は復元されます。</value>
+  </data>
+  <data name="TfaAppResetAppHeader" xml:space="preserve">
+    <value>アプリ設定をリセットする</value>
+  </data>
+  <data name="TfaAppShowBackupCodes" xml:space="preserve">
+    <value>バックアップのコードを表示</value>
+  </data>
+  <data name="TfaAppShowBackupCodesDescription" xml:space="preserve">
+    <value>バックアップコードは電話にアクセスがない場合に、ログインを確認できるように使用しているコードです。｛０｝残りのコードは｛１｝個で、各コードが一回しかに使用できない。プリントして、必要なときに使用してください。</value>
+  </data>
+  <data name="TfaAppShowBackupCodesNote" xml:space="preserve">
+    <value>新しいコードをいつでもに取得可能です。最新生成されたコードだけが有効です。</value>
+  </data>
+  <data name="TfaAppShowBackupCodesTitle" xml:space="preserve">
+    <value>バックアップコード</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>第三者サービス</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>時間帯</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>ヒントとトリックを含むメール通知</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>ブロガー</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>Gmail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>携帯電話</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>マイスペース</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>スカイプ</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>トップ10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>トータル発見</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>耕す</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>サーバー地域を変更する</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}別の地域へのポータル移行しようとしているようです。移行中にポータルは不利用可能にされるようになります。その後、完成通知はメールアドレスに送信されます。{1}{0}メールドメイン、メールボックス（第三者のメールボックスを除く）及びそこに含まれているメールは移行されません。{1}{0}移行開始を確認してください。{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>移行過程が完了されると、自動的にポータルの新しいURLに移動されるようになります。</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>ポータル移動{0} が実施中です</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>ポータルの地域</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>サーバ地域の変更</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>ポータル移動が実施中にポータルを使用できません。移動が終わる後に、ポータルURLは変更され、すべての共有された文書リンクは無効になります。</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>試用期間：{0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>無料試用期間の期限が切れました</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>ポータルに一番適当な料金プランを選択するために｛０｝こちらをクリックしてください｛１｝。</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>カスタムドメイン</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>スワードを変更することができます。</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>不明なエラーが発生しました</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>退会</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>ユーザフォーラム</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>ジョブ/タイトル</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>US西部地域（オレゴン）</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>ビデオガイド</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>非見られたビデオを表示</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>料金プランを参照してください。</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>ヒット</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>ホスト</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>使用量グラフ</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>訪問</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>接続は他のウィンドウで確立されています</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>ONLYOFFICE™をお選びいただき、ありがとうございます！セキュリティ上の理由から、パスワードの設定手順を実行する必要があります。</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>あなたONLYOFFICE™ポータルへようこそ</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>新着情報</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>ホワイトラベル</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>言語およびタイムゾーンの設定\</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>ポータル設定 - 簡単にあなたのウェブオフィスを開始するためにこれらの簡単な手順を介して移動</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>登録設定</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>このポータルに参加することを決めた。</value>
+  </data>
+</root>

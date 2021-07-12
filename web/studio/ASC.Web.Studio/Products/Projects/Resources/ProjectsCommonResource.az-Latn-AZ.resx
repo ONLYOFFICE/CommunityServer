@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Abonentləri idarə et</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Bütün</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Bütün{!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Bütün{!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Xronometri Başla/Dayandır</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Vaxt yaz</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Durdur</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Sıfırla</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Başla</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Gizlət</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Yaradın</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Yeni bir layihəyə başla</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıqlama</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Kontaktı əlaqələndirin və ya əlavə edin</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Mövcud CRM kontaktları siyahıdan seçin ki, onları menecer olduğunuz layihə ilə əlaqələndirəsiniz. Kontaktlar haqqında məlumatı redaktə edin. CRM modulu ilə inteqrasiya Sizə işi effektiv təşkil etməyə kömək edəcək.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kontakt siyahısı boşdur</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Bu filtrə uyğun heç bir layihə yoxdur</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>İzlə</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Yaratdığınız layinənin meneceri deyilsinizsə, lakin layihədəki hadisələri izləmək istəyirsinizsə, bu qutunu işarələyin. Bütün yaradılmış pillələr, tapşırıqlar və müzakirələr haqqında məlumatlar "Yeniliklər" adlı portal xəbərlərinə əlavə olunacaqlar.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Şəxsi layihə{2} - Layihənin yalnız komanda iştirakçılarına açıq olması üçün layihəyə girişin məhdudlaşdırılması üsuludur. Layihənin şəxsi edilməsi həmçinin Sizə bu layihə çərçivəsində hər bir komanda iştirakçısına giriş hüququ verməyə yardım edir.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Şəxsi layihə{2} - Layihənin yalnız komanda iştirakçılarına açıq olması üçün layihəyə girişin məhdudlaşdırılması üsuludur.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Açar pillə digər pillələrdən daha önəmli hesab etdiyiniz pilləni yaratmağınız üçün hesab olunur.{0}Bütün açaq pillələr adın yanında qırmızı açaq işarəsi ilə işarələniblər.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Siz layihənin üç durumu arasında keçid edə bilərsiniz:{0}{1}Aktiv.{2}Üzərində işlədiyiniz bütün yaradılmış layihələr Siz onları durdurana və bitirənə kimi aktiv şəklində işarələnir.{0}{1}Durdurulmuş.{2}Layihə üzərində işi müvəqqəti dayandırmağı qərara  almısınızsa, statusu Durdurulmuş edin. Layihəni yeniləmək üçün onu sadəcə müvafiq durumu seçərək, aktiv edin.{0}{1}Qapalı.{2}Layihə üzərində işlər yerinə yetiriliblərsə və bütün tapşırıqlar bağlıdırlarsa, layihənin durumunu Qapalı edərək, onu tamamlayın.Daha sonra layihənin üzərində işləmək üçün onu davam etdirməli olacaqsınız.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Elə indi iştirakçıları komandaya əlavə etmək üçün {1}Komandanı idarə et{2} keçidini basın və siyahıdan əlavə etmək istədiyiniz iştirakçını seçin.{0}Siz həmçinin {1}Komanda{2} keçidinə basaraq, komanda iştirakçılarını əlavə edə və ya uaqlaşdıra bilərsiniz. Layihəyə baxış səhifəsində {1}Komandanı idarə et{2} keçidini basaraq bunu edə bilərsiniz.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>İlkin olaraq layihə komandansının hər bir iştirakçısı seçilmiş layihənin içindəki bütün materiallara baxa bilər: pillələr, tapşırıqlar, sənədlər və müzakirələr. Girişi məhdudlaşdırmaq üçün giriş hüquqları təyin etmək istədiyiniz komanda iştirakçısını seçin və sağdakı keçidlərdən birinə basın. Eyni yol ilə Siz hər layihə komanda iştirakçısının, əgər həmin iştirakçının portal administratoru üstünlükləri yoxdursa, giriş hüquqlarını tənzimləyə bilərsiniz. ONLYOFFICE™ administratoru bütün layihələrin bütün materiallarına giriş hüququna malikdir.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Layihəni izləmək nə deməkdir?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Şəxsi layihə nə deməkdir?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Açar pillə nə deməkdir?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Hansı layihə durumları mövcuddur?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Komandanı necə idarə etmək olar?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Gizlət</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Bu istifadəçi müzakirəyə dair bildiriş almır, çünki bu layihə şəxsidir və istifadəçi layihə komandasının iştirakçısı deyil.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Daha çox öyrənin...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>İzlədiyim layihələr</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Sonuncu</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Müzakirələrim</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Layihələrim</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontaktlar</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Layihələr</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Müzakirələrdə yeni şərhlər</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Tapşırıqlarda yeni şərhlər</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Layihə ilə əlaqələndirməli kontaktlar yoxdur</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Verilənlər yoxdur</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Qeyd: Bu əyləm ediləndən sonra geri qaytarıla bilməz.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Layihə menecerinin etdiyini edin|Layihə menecerini təyin edin|İstənilən layihəni yaratmaq, redaktə etmək və silmək|Şablonları yaratmaq/Redaktə etmək</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Komanda qurub tapşırıqları ayırın. Dönüş nöqtəsi planlayın, layihə çərçivəsində fəaliyyəti izləyin və hesabatlar yaradın.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Komanda qurub tapşırıqları ayırın. Pillə planlayın, layihə çərçivəsində fəaliyyəti izləyin və hesabatlar yaradın.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Layihələr</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Layihələrə baxmaq və müzakirələrdə iştirak etmək|Pillələri, tapşırıqları, müzakirələri, sənədləri yaratmaq və redaktə etmək|Tapşırııqların yerinə yetirilməsi vaxtını təyin etmək və hesabatlar hazırlamaq|Layihə komandasını təşkil etmək və giriş haqlarını təyin etmək</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Layihəyə bağlı olacaq kontaktlar</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Layihə başlığı</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Ardını oxu</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>İstifadəçini komandadan sil</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Hesabatlar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Qeyd et və yeni tapşırıq yarat</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Dəyişiklikləri qeyd et</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Axtar</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Mövcud olan kontaktlardan seç və ya yenisini əlavə et</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Göstər</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Səhifədə göstər</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Xərclənən vaxt</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Şərhlərə abunə ol</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Tapşırıq əlavə olundu</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Siçan ilə əsas hissəni seçin və "Text Cut" basın ki, müzakirələr siyahısı olan səhifədə və xəbər lentində müzakirənin başlanğıcı görünsün.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vaxt</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Vaxt hesabı</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Toplam</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>İzləmədən imtina et</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Layihəni kontaktdan ayırın</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Şərhlərə abunəliyi ləğv et</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>ss</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>dd</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Şərh yaz</value>
+  </data>
+</root>

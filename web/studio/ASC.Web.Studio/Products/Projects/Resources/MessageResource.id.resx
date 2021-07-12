@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arsip</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arsip</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Penyusun</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Buat diskusi baru</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Mulai diskusi</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Buat tugas yang didiskusikan</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Anda yakin ingin menghapus diskusi ini?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Hapus diskusi</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Tidak ada diskusi yang sesuai dengan filter Anda yang dapat ditampilkan pada bagian ini.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Diskusi digunakan untuk menemukan solusi yang tepat bersama tim proyek Anda untuk mengatasi masalah apapun yang mungkin muncul saat proyek sedang berlangsung. Diskusikan semua isu dengan rekan Anda, undang pengguna dari proyek lain untuk bergabung dengan diskusi Anda.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Diskusi digunakan untuk menemukan solusi yang tepat dengan tim proyek Anda terkait masalah apa yang mungkin terjadi ketika proyek sedang berlangsung. Diskusikan masalah dengan kolega Anda.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Belum ada diskusi yang telah dimulai </value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Pelanggan</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Edit diskusi</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Setiap pesan harus berisi teks</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Tidak ada diskusi yang cocok dengan filter ini</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Diskusi</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Teks</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Diskusi</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Baca Selengkapnya</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Pilih proyek</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Mulai diskusi pertama</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Orang yang Anda pilih akan diberitahu tentang pesan ini dan komentar untuk pesan tersebut.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Beritahukan</value>
+  </data>
+</root>

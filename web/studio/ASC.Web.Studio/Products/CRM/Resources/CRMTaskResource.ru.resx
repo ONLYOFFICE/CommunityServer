@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Создать новую задачу</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Создать задачу</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Срок выполнения</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Закрытая задача</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Связать с контактом</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Создать первую задачу</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Создать задачу</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Пользовательский период</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Другие пользователи</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Удалить задачу</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Срок выполнения</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Редактировать задачу</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Задачи - это простой способ создать напоминание о том, что Вам необходимо сделать. Например, задача может быть использована для напоминания о предстоящей встрече или телефонном звонке. Вы можете создавать задачи {0}разных категорий{1}, связывать их с контактом, возможной сделкой или мероприятием или же создать простое напоминание для себя.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>В этом разделе нет задач, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все задачи в этом разделе. Вы можете также поискать нужные задачи на вкладках Контакты, Возможные сделки или Мероприятия.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Нет задач, соответствующих данному фильтру</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Список задач пуст</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Необходимо выбрать правильно оформленный CSV-файл на жёстком диске Вашего компьютера. Он должен содержать поля или столбцы, разделённые выбранным разделителем, которые будут использоваться для импорта задач. Файлы, содержащие более {0} строк, следует разделить на меньшие части для правильного импортирования.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Выберите файл CSV</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Сопоставьте колонки из своего файла с соответствующими полями в ONLYOFFICE™ CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта задач необходимо, чтобы по крайней мере следующие колонки из вашего файла соответствовали полям в ONLYOFFICE™ CRM: 'Название задачи', 'Ответственный', 'Срок выполнения'. Поля, содержащие даты, должны иметь следующий формат: 'дд.ММ.гггг'.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Пожалуйста, проверьте поля</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Перейти к списку задач</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Импорт задач может занять несколько минут в зависимости от объема ваших данных.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Импорт начался</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Импорт задач</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Мои задачи</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>Никогда</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Закрытые</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Открытые</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Просроченные</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>за 15 минут</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>за 5 минут</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>за полчаса</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>за час</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>за день</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>за 2 часа</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ответственный</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Сохранение задачи</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Начать импорт</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Категории задач</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Категория задачи</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Звонок</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Возможная сделка</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Демо</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Факс</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Проверка выполнения</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Обед</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Встреча</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Заметка</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Доставка</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Социальные сети</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Выражение благодарности</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Описание задачи</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Назначить на</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Статус задачи</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Закрыта</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Открыта</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Название задачи</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Ближайшие</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 дня</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Сегодняшние</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Категории задач предоставляют вам возможность разбить ваши задачи на группы в зависимости от целей, которые вы хотите достичь. Стандартные категории задач - это звонок, сделка, демо, почта, факс, проверка выполнения, обед, встреча, заметка, доставка, социальные сети, выражение благодарности. Чтобы иметь возможность редактировать их, требуются права администратора.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Все задачи</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+</root>

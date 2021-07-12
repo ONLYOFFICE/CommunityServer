@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>提交，并再新建一个商业活动</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>商业活动</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>商业活动</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>权限将被设置为您是作者的案例</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>按状态查看</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>商业活动标签</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>商业活动标签列表</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>活动标题</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>结束此商业活动</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>创建案例...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>创建第一个商业活动</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>新建商业活动</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>删除此商业活动</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>正在删除商业活动</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>修改活动信息</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>修改商业活动«{0}»的信息</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>通过“商业活动”，您可以将某次活动相关的联系人、沟通记录、待办事项、附件等资料整合到一起，方便跟进。例如：您可以将一次团队培训的组织（或一次展览举办）的沟通和实施过程整合到一个“商业活动”中。</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>暂无符合此筛选条件的商业活动。您可以：① 尝试新的筛选条件；② 点击“清除筛选”以查看全部商业活动；③ 新建一个商业活动</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>暂无符合此筛选条件的商业活动</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>暂无商业活动</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>本活动暂无其他参与者</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>将参加者从公司或个人名单中添加到您的案件中。完成后，您将知道谁将参加即将发生、且与此案例有关的活动。</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>导入商业活动</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>应在计算机硬盘上选择正确格式的CSV文件。它必须包含由选定的分隔符分隔的字段或列，将用于导入案例。 包含{0}行以上的文件应分为较小的部分，以正确导入。确保您选择了需要授予访问以导入信息的门户用户，否则CSV文件中的数据将可供所有门户的用户使用。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>请选择要导入的CSV文件，并设置访问权限。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>将您的文件列与相应的ONLYOFFICE™CRM字段相匹配。请注意，若想正确导入案例，您需要至少有一列与您的文件匹配的ONLYOFFICE™CRM的“案例标题”字段。包含日期的字段须具有以下格式：{0}。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>请验证字段</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>回到商业活动列表</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>导入可能需要几分钟的时间，具体耗时取决于您导入的数据量。导入进度完成后，系统会通知您。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>启动商业活动</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>限制用户访问此商业活动</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>前往档案</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>在新标签中打开</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>商业活动总数</value>
+  </data>
+</root>

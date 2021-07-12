@@ -1,0 +1,751 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>アカウント接続エラー</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>エラーが続く場合には、問題の詳細については、{0} FAQセクション{1}をお読みください。</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>アカウントの接続エラー</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>アカウントの設定</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Googleアカウントは正常に再接続された</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>あなたは％1を有効にしますか？</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>アカウントを追加する</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>今すぐ最初のメールアカウントを追加したいですか?</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>ONLYOFFICE™メールを使用し始めるように、アカウントを追加してください。</value>
+  </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>条件を追加する</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>メールサーバー</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>（別名）</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>メールボックスエイリアスが%mailbox_address%であり、管理パーネルしかで編集されない</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>と</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>{}に適用する</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>{}からのメッセージに適用する</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>いくつかの入力パラメータが無効です。</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>ドキュメントへのアクセスは拒否されます。</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>文書が見つかりませんでしたか、選択されたストレージ上に存在しません。</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>空のファイルはサポートされません。</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>注：ファイルサイズが％1 MBを超えてはなりません。すべてのファイルの合計サイズは％2メガバイト以上のものであるべきではありません。</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>メッセージは見つかりませんでした。</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>すべての添付ファイルの合計サイズが制限を超えています。</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>いくつかの予期しないエラーが発生しました。後ほどおかけ直しください。</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>{0}のメールアカウントへの接続中にエラーが発生しました。すべてのアカウントの設定を確認してください。あなたはすべての設定が正しいことを確信している場合は、その標準的なWebインターフェイスを介して使用するメールサービスにサインインすると、任意の確認の質問を確認し、いくつかのケースでもあります。エラーは{1}{2}シューティングセクションのヘルプセンターをご覧解決しない場合は。</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>アカウント接続中にエラーが発生しました</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>議題</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>一日中</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>前日</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>カレンダー</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>返事する</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>アカウント設定を変更する</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>タグを選択してください</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>すべてを折りたたむ</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>共通設定</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>含んでいる</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>ファイルをコピー中にエラーが発生してしまいました。</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>「私の文書」フォルダにコピーする</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>連絡作成</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>メールボックスを作成する</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>メールボックスを作成する</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>新規連絡を作成する</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>新しいCRM会社を作成する</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>新しいCRM人を作成</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>個人的な連絡先を作成する</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRMのコンタクト</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>あなたは％1を無効にしますか？</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>あなたは％1を削除しますか？</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>あなたはこのタグ％1を削除してもよろしいですか？</value>
+  </data>
+  <data name="DeleteUserFolderShure" xml:space="preserve">
+    <value>{0}フォルダの削除を確認してください</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>メッセージの削除</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>配送は以下のようなメッセージで失敗しました "{subject}".{separator}してください、あなたのメッセージの受信者のアドレスとメッセージ·フォーマットを確認してください。あなたのメッセージが正しいものであることがわかっている場合は、すべての{account_name}のアカウント設定を確認して、すべてが正しいかどうかは、使用するメールサービスにサインインして、任意の確認の質問を確認した場合にいくつかあります。それはもう一度試した後。{separator}エラーが続く場合には、読んでください{faq_link_open_tag}FAQセクション{faq_link_close_tag}問題について詳しく知ることができます。</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>"{subject}"メッセージ配送は失敗しました</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>メッセージの配信に失敗しました</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="DoNotSave" xml:space="preserve">
+    <value>保存しない</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>連絡先を編集する</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>添付エラー</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>最初のドラフトを作る</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>ドラフトのセクションでは、あなたが後で別の人に送ることができるメッセージを作成してソートすることができます。ここでは、最も重要なメッセージにチェックを入れたり、不要なものを削除することができます。</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>このフォルダに表示するメッセージがありません</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>新しいメッセージを作成</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>受信トレイのセクションでは、受信したメッセージを管理することができます。ここでは、対応履歴を参照してタグを使用して、カテゴリ別に、最も重要なメッセージは、グループの電子メールにチェックを入れたり、不要なものを削除することができます。</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>メッセージは一切受け取っていません</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>最初にアカウントを設定する</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>右のポータルでの順序でメッセージを送信、受信および維持するためにアカウントを設定します。いつでも、どこでも、どのブラウザを介してメッセージの履歴、連絡先およびファイルへのアクセスを取得します。独自のタグを使用して、ソート·メッセージ。</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>いいえアカウントはまだ設定されていません</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>CRMに行く</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>この連絡先リストは、CRMからすべてのクライアントが含まれています</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>連絡先リストは空です</value>
+  </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>フィルタ作成</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>新着メールのタグの作成</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>てタグを作成して、その唯一の後にそれを使用する最初の必要</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>作成しませんタグ</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>フォルダー作成</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>新しいメッセージを作成</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>送信されたセクションは、あなたが送信したメッセージを管理することができます。ここでは、タグを使用して、カテゴリ別に、最も重要なメッセージは、グループの電子メールにチェックを入れたり、不要なものを削除することができます。</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>何もメッセージがまだ送信されていません</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>スパムのセクションでは、迷惑メールとして識別されたメッセージが含まれています。ここでは、メールを削除する"非迷惑メール"としてそれらを分類したり、セクション全体をクリアすることができます。</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>このフォルダに表示するメッセージがありません</value>
+  </data>
+  <data name="EmptyTemplatesButton" xml:space="preserve">
+    <value>最初のテンプレートを作成する</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>ゴミ箱セクションでは、削除されたメッセージが含まれています。ここでは、いくつかの電子メールを回復することができますまたは完全に削除する。</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>このフォルダに表示するメッセージがありません</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>メールの自動返信が有効になっている</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>このアカウントはすでに存在している</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>カレンダーは利用可能できません</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>このフィールドは空欄にできません</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>フィールドの 'To'空</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>誤ったアドレス</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>誤ったアドレス</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>不明なエラーが発生しました</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>メッセージを開く中にエラーが発生しました</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>タグ％1は既に存在します</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>既存のアカウント</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>すべてを展開</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>メッセージをCRMにエクスポートする</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>メッセージのエクスポート中にエラーが発生しました</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>メッセージのCRM連絡先履歴ににエクスポートは成功です</value>
+  </data>
+  <data name="FilterActionDeleteLabel" xml:space="preserve">
+    <value>完全に削除する</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>タグを追加する</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>フォルダーに移動する</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>詳細設定</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>全てのメールボックスに適用する</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>企業</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>選択されたアカウントは削除されました</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>送り主から</value>
+  </data>
+  <data name="FilterIgnoreOther" xml:space="preserve">
+    <value>他のフィルターを無視する</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>重要</value>
+  </data>
+  <data name="FilterName" xml:space="preserve">
+    <value>フィルタ名</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>期間による</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>先週</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>読む</value>
+  </data>
+  <data name="FilterSelectFolderLabel" xml:space="preserve">
+    <value>フォルダーを選択する</value>
+  </data>
+  <data name="FilterSelectTagLabel" xml:space="preserve">
+    <value>タグを選択する</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>\を表示</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>アドレスをメールに</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>読まれていない</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>添付ファイル付き</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>機会を持つ</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>タグ付き</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>転送されたメッセージ</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>カレンダーに移動する</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>イベントに移動する</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>{}からのイメージを隠す</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>表示しない</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>アカウントが正常に接続されている</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>過去30日間のすべてのメールがインポートされます。</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>インポートするメッセージが進行中です。これは、いくつかの時間がかかることがあります。このウィンドウを閉じて、メールを継続して使用したり、ブラウザを閉じることができます。インポートするには、バックグラウンドで継続されます。</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>重要</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>他のサービスを使用して受信されたメッセージの一部は、以前にインポートしていない場合もあります。詳細については、{0} FAQセクション{1}をお読みください。</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>メールのインポート中にエラーが発生した場合は、詳細については、{0}のFAQセクション{1}をお読みください。</value>
+  </data>
+  <data name="InfoSelectConversation" xml:space="preserve">
+    <value>会話</value>
+  </data>
+  <data name="InfoSelectConversations" xml:space="preserve">
+    <value>会話：{0}</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>会話リンクエラー</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>会話をCRMとリンクする中にエラーが発生しました</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>添付ファイルを読み込んでいます...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>メール自動返信</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>メールボックスを作成しています...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>メールボックスの更新...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>アカウントを管理する</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>すべての受信者のメールにマークを付ける</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>すべての送信者のメールにマークを付ける</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>「重要」としてマーク</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>「重要でない」としてマーク</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>Mb</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>イメージなし続ける</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>イメージなし印刷を確認してください</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>メッセージが送信されていません。は\ r \ n本当にあなたがそれを削除してもよろしいですか？</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>％1以上</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>メッセージの移動</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>メールアカウントを追加する</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>新しいメッセージ</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致するメッセージはこのフォルダに表示することはできません。このフォルダ内のすべてのメッセージを表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>なるようにメッセージがありません</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="NotContainsLabel" xml:space="preserve">
+    <value>含まれていません</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>重要ではない</value>
+  </data>
+  <data name="NotMatchesLabel" xml:space="preserve">
+    <value>マッチしない</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>スパムではない</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>デフォルトのドメインの設定を取得...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>ドラフト</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>フォワード</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>返信</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>個人的な連絡先</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>全部を印刷する</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>印刷する</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>使用可能なディスク·ストレージ·スペースは、ポータル上に超えています。すべてのメッセージをロードすることができなくなり、新しいメッセージは送信されませんできるわけではありません。受信トレイからメッセージを削除するか、Documentsモジュールからいくつかのファイルを削除してください。また、より多くの利用可能なディスク領域を持つように料金プランを変更することができます。</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>使用可能なディスクストレージを超えています</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>［引用テキストは非表示です］</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>読む</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>あなたは、迷惑メールからのすべてのメッセージを削除しますか？</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>ゴミ箱からのすべてのメッセージを削除しますか？</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致するCRMの連絡先はこのページに表示することはできません。すべてのCRMの連絡先を表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>いいえCRM接点はここに、このフィルター用に表示されませんする</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>フィルタリセット</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致するONLYOFFICE™接点はこのページに表示することはできません。すべてONLYOFFICE™連絡先を表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>いいえONLYOFFICE™接点はここに、このフィルター用に表示されませんする</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>復元する</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>復元メッセージ</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%'は正常にカレンダーで保存された</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%'は正常に'%folder_name%'内で保存された</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>テンプレートを保存する</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>保存メッセージ</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>このアカウントは無効になっています。は、このアカウントを有効にするか、別のものを選択してください。</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>メッセージを送る</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>サーバー</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>表示する</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>スパム</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>件名</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>タグの作成...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>CRMから輸入された。このタグを編集したり削除することはできません。</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>ONLYOFFICE™コンタクト</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>へ</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>合計接点：</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>再試行する</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>読まれていない</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>添付ファイル付き</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>タグなし</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>タグ付き</value>
+  </data>
+</root>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>刪除文件？</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>刪除頁面?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>比較所選版本</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>發表</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>還原</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>上傳</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>版本{0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>尚未創建類別</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>此處列出了所有Wiki文章類別。在頁面上創建類別後，它將被添加到此處的類別列表中。</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>在此階段沒有檔案可以顯示</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>本節保留所有Wiki作者為Wiki頁面上載的文件。這些文件可以使用Wiki或html標記附加到頁面。</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>本節中沒有要顯示的頁面</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>索引頁面列出了Wiki作者按字母順序創建的所有頁面。創建頁面後，它會自動添加到索引中。</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>本節中沒有要顯示的頁面</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>這裡列出了所有新創建或最近編輯過的頁面及其作者。它們被添加到該列表中，並按其創建或編輯時間自動排序。</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>本節中沒有要顯示的頁面</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>這裡列出了所有最近編輯的頁面及其作者。它們被添加到該列表中，並按其編輯時間自動排序。</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>新檔案</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>新頁面</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>住家</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>編輯檔案</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>編輯頁面</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>該文件不存在。 {0創建}具有該名稱的文件[[或在{1搜索結果}]中搜索]？</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class =“ wikiEmptyPage”&gt; &lt;div class =“ secondaryCaption”&gt;請求的頁面不存在。 &lt;/ div&gt;您想{0create}嗎[[在{1search result}中搜索]]？&lt;/ div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>上傳檔案</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>建立新頁面</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>刪除頁面</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>編輯頁面</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>類別：{0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>列印頁面</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>查看歷史</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>企業Wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>維基</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>未選擇要上傳的文件。</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>發生內部錯誤。請聯絡系統管理員。</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>頁面標記錯誤</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>沒有變化。</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>此頁面已由其他用戶編輯。請刷新頁面以查看最新版本。</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>頁面標題字段為空。</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>頁面名稱不正確。請嘗試輸入其他名稱。</value>
+  </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>文本字段為空。</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>已存在相同標題頁面。</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>更改已保存。</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>新增頁面到分類</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>頁面更新/評論</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>新頁面</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>訂閱頁面</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>維基搜尋</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>退訂頁面</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>已添加評論</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>評論已刪除</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>評論已編輯</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>文件已添加</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>文件已刪除</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>頁面已添加</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>頁面已編輯</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>頁面版本已還原</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>比較版本{0}與版本{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>上傳檔案</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>歷史紀錄</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>{0}在{1}的最新更改</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>您要還原此版本嗎？</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>版本</value>
+  </data>
+</root>

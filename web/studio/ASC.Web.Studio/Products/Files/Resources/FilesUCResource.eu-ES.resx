@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Sarbidea ukatu</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Kontua gehitu</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box kontua gehitu</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox kontua gehitu</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google kontua gehitu</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive kontua gehitu</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Dena Utzi</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Jabea aldatu</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Hirugarrenen informazioa aldatu</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Garbitu iragazkia</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Itxi</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Kopia bat sortu</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopiatu</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Kopiatu</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Sortu</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokumentua</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Ezabatu</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Hirugarrenen baliabidea ezabatu</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Jaitsi</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Fitxategiaren kopia egin</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Editatu</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Dokumentua Kapsulatzea</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Hustu zakarrontzia</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Konprimitutako fitxategiak</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumentuak</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blokeatu</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Dena</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Atzera Karpeta nagusira </value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Bertan behera utzita</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konbertsioa egin eta ireki</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Jabea aldatu</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Fitxategi bakoitzerako deskargatzeko formatoa aukeratu </value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Ezarpen komunak</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Egiaztapena</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Ziur zaude zerrendako elementu hauek ezabatu nahi dituzula?</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konbertsioa egin</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Jaitsi horrela</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Errorea konbertsioa egitean</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Dokumentu komunak</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Zorionak</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumentuak</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Mezua gehitu</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Dokumentu izena</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>{!user} Gehitu</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Jaitsi horrela</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Jaitsi</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Jaitsi</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Arrastra eta jaregin fitxategiak zure ordenagailutik errezago igotzeko atarira.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Errorea</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Iragazi</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Dukumentuen kudeaketa</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM eta fakturazioa</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Posta agregatzailea</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Ezarpen komunak</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Lotu kontua</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Lotu kontuak</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Kontua lotzen</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Hirugarrenen baliabidea ezabatu</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Hirugarrenen ezarpenak gaitu erabiltzaileentzat</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Kontua</value>
+  </data>
+</root>

@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Təqvim</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Olay</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Yeni olay yarat</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Yarat</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>bütün gün</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Həftə</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Yeni təqvim yarat</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Rəng:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Təqvimi redaktə et</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Mətn rəngi:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Saat qurşağı</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Əlavə et</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Təqvimlərim</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Digər təqvimlər</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>İdarə et</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Yeni olay yarat</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 dəqiqə</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 saat</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>yarım saat</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 dəqiqə</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>bir gün</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>bir saat</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Xəbərdarlıq:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>heç vaxt</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Bu, bütün günlük olaydır.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Bütün gün olayı</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Təqvim:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Qapat</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Açıqlama:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Bundan başlayaraq:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Bu olay bütün günlük deyil.</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Sahib:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>İstifadəçi seçimləri</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>Hər gün</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Təkrar:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Hər ay</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>heç vaxt</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Hər həftə</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Hər il</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Bu olay paylaşılmayıb.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Qədər:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Abunəlikdən çıx</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Göstərilməli olay yoxdur</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Mini təqvimi gizlət</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Mini təqvimi göstər</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d olaylar</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Paylaşmaq üçün istifadəçi əlavə et</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>%d istifadəçi də göstər</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Paylaşılan:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Təqvimi redaktə et</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Sahib:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Siyahıdan gizlət</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Sürətli axtarış</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Digər təqvimləri idarə et</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Təqvim görüntüsü</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Siyahı görünüşü</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Bütün olaylar seriyada</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Tətbiq et</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Bu olay və bütün sonrakılar</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Təkrarlanan olayı sil</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Bu sadəcə olaydır</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Fayl seçin</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Qapat</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>ONLYOFFICE™ təqvimindın layların eksport olunması</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>fayl seçilmədi</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>fayl seçildi</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Import/Eksport</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>ONLYOFFICE™ təqviminə olayların import edilməsi</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>iCal faylı üçün yalnız formatdır</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>iCal lent linkini daxil edin</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>iCal lentindən kalendar</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal lentinə keçid:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>ilə başlayan</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>sonra</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>hər</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>hər</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>ilk</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Təkrarlanma quraşdırması</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>Həftə</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>İl</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>sonuncu</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>günlər</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>vasitəsi ilə</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>aylar</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>həftələr</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>illər</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>dəfələrin sayı</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>heç vaxt</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>sondan öncə</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>ikinci</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>üçüncü</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>dəfə</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>son</value>
+  </data>
+</root>

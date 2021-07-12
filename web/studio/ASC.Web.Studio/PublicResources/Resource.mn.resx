@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Баталгаа</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Нэмэх</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Сэтгэгдэл нэмэх</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Баталгаажсан домайн хаяг нэмэх</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Админы мэдэгдэл</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Админууд</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Нэвтрэх хуудас</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Гол хуудсанд шилжих</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Нөөцлөх</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Төрсөн өдөр</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Шинэ холбоо барих мэдээлэл нэмэх</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Болих</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Таны оруулсан бүх мэдээлэл устах болно. Та үргэлжлүүлэхдээ итгэлтэй байна уу?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Логог өөрчлөх</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%сар %өдөр</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>1 сар, 2 сар, 3 сар, 4 сар, 5 сар, 6 сар, 7 сар, 8 сар, 9 сар, 10сар, 11 сар, 12 сар</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Хаах</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Сэтгэгдэл</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>сэтгэгдэл устсан</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Дотоод сүлжээний хаягаа {0} болгож солихдоо итгэлтэй байна уу?</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Оруулсан сэтгэгдлээ устгахдаа итгэлтэй байна уу?</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Үргэлжлүүлэх</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>нөөц хувь үүсгэж байна</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Тусгай домайн нэр</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Тусгай</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Мэдээллийн нөөц хувь</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Идэвхгүй болгох</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Идэвхгүй болгох</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Устгах</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Устгах</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Түдгэлзүүлсэн</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Түдгэлзүүлэх</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS тохиргоо</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0}-ийн өмнө</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} өдөр</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} өдөр</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} өдөр</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>дөнгөж</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} цаг</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} цаг</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} цаг</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} минут</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} минут</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} минут</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} сар</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} сар</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} сар</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} жил</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} жил</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} жил</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Уржигдар</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Засах</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Профайл засах</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>И-мейл</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Нууц үгээ баталгаажуулах</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL-ийг ашиглах</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Идэвхжүүлэх</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>И-мейл буруу байна эсвэл холбоосны хугацаа дууссан байна</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Нэрээ оруулна уу</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Овгоо оруулна уу</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>И-мейл буруу байна</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Домайн нэр буруу байна</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Эм</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>байт,Кб,Мб,Гб</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>Тусгай</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>...-ээс</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>Өнгөрсөн 3 сар</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>Өнгөрсөн сар</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>Өнгөрсөн долоо хоног</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Нэр</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Нууц үгээ мартсан уу?</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>...-ээс</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Лого</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Мэндчилгээний тохиргоо</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>AIM дансаа оруулна уу</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Blogger профайлаа оруулна уу</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>И-мейл хаягаа оруулна уу</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Facebook профайлаа оруулна уу</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>GoogleTalk дансаа оруулна уу</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz профайлаа оруулна уу</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Google дансаа оруулна уу</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>ICQ дансаа оруулна уу</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Jabber дансаа оруулна уу</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>LiveJournal профайлаа оруулна уу</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Гар утасны дугаараа оруул</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>MSN дансаа оруулна уу</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>MySpace профайлаа оруулна уу</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Утасны дугаараа оруулна уу</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Skype дансаа оруулна уу</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Twitter профайлаа оруулна уу</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Yahoo дансаа оруулна уу</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Болих</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>И-мейл</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Нэр</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Овог</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Нууц үг сонгох</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Хэл</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Овог</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Байршил</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Нэвтрэл</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Элсэх</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Эр</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Нууц үг солих</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Түдгэлзүүлсэн</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Бөмбөг</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Галзуу</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Уйлах</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Бүжиглэх</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Уух</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Ууртай</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Ногоон</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Холливуд инээмсэглэл</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Хөгжим</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Инээдтэй</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Нүдний шил</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Ура!</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Цагийн бүс ба хэлний тохиргоо</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Мэндчилгээний тохиргоо амжилттай хадгалагдлаа</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Үүсгэсэн огноо</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>И-мейл</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>Gmail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Гар утас</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Итгэмжлэгдсэн домайныг нэвтрэхийг зөвшөөрөх</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Үл мэдэх алдаа илэрлээ</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>хандалт</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>Хост</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Цагийн бүс ба хэлний тохиргоо</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

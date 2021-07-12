@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>გარიგების დამთავრების ფიქტიური თარიღი</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>დაამატე გარიგებები ...</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>ახალი დავალების დანიშვნა</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>მისამართი</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>ამ დავალების გაცემა</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>შეცვლა</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>მონიშნე როგორც მთავარი</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>არჩევა</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>ქალაქი</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>ორგანიზაცია</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ ამ დავალების წაშლა?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>შეიყვანეთ თქვენი Twitter ანგარიში. მაგალითად, teamlabdotcom</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ '{0}' კომპანიის წაშლა?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>შენიშვნა: ეს მოქმედება შეუქცევადია.</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ '{0}' ხელშეკრულების წაშლა?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>ხელშეკრულების წაშლა...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ '{0}' პირის  წაშლა?</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>ცვლილებების შენახვა</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>«{0}» ველის რედაქტირება</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>დავალების რედაქტირება</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>ელემენტების სია არ უნდა იყოს ცარიელი</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>ყველა დავალებას უნდა გააჩნდეს შესრულების დრო</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>ყველა დავალებას აუცილებელია ყავდეს პასუხისმგებელი პირი</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>ყველა დავალეაბს აუცილებლად უნად ქონდეს დასახელება</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>პირი არ არის არჩეული</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>შეიყვანეთ ღონისძიების დასახელება</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>აუცილებელი ველები უნდა იყოს ერთ ეგზემპლარად</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>გამოსახულების ფორმატი მხარდაუჭერელია</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>ფაილის ფორმატი მხარდაუჭერელია</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>შეცდომა სურათის ატვირთვისას სერვერზე</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>ტიპი "{0}" არის უკანასკნელი. მისი წაშლა შეუძლებელია.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>ეს არის გარიგების ერთადერთი ეტაპი. წაშლა შეუძლებელია.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>კატეგორია "{0}" არის უკანასკნელი. მისი წაშლა შეუძლებელია.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>გარიგების დასრულების სავარაუდი თარიღი</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>მოძებნე ანგარიში Twitter ზე</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>კონტაქტები</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>გარიგებები</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>დავალებები</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>არ არის დახურვის თარიღი</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>კონტაქტები არ არის</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>გარიგებები არ არის</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>დავალებები არ არის</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>კონტაქტი</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>გარიგება</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>დავალება</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0} დღის განმავლობაში</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0} საათის განმავლობაში</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0} თვის განმავლობაში</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0} კვირის განმავლობაში</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0} წლის განმავლობაში</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>გთხოვთ განაახლოთ გვერდი.</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>შესაძლებელი პროფილები {0} -თვის</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>ძირითადი</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>ცვლილებების შენახვა</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>CSV ფაილის აჩევა</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>არჩეული ფაილი CSV: {0}</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>კონტაქტის სახეობა</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>შტატი</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>ინდექსი</value>
+  </data>
+</root>

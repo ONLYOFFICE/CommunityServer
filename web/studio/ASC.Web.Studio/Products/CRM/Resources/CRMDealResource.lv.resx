@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Pievienot un izveidot jauno iespēju</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Visas iespējas</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Staķe</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>Labot</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>dienā</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>stundā</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>mēnesī</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>nedēļā</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>gadā</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Maksājumu atkārtošanās</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Stādija</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Pēc stādijas tipa</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Iespējas kontakts</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Pievieno pirmo iespēju</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Izveidot jaunu iespēju</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Iespēja stadijā</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Personalizēts periods</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Citi lietotāji</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Iespēja</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Atļaujas tiks uzstādītas tiem iespējamajiem darījumiem, kuras esat izveidojis/-usi jūs</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Iespēju stādijas</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Pārdevējs veic aptauju sesijas lai varētu identificēt potenciālo klientu prasības</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Vajadzīga identifikācija</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Kontakts ar potenciālo pircēju ir vajadzīgas, lai izprastu nākotnes potenciālas pārdošanas</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Sākuma kontakts</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Kļūme. Iespēja ir slēgta perspektīvas trūkuma dēļ</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Slēgts zaudēts</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potenciālais pircējs ir norādījis produktu vai servisu nepieciešamību</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Novērtējums</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Pārdevējs cenšas noteikt, vai klients var kļūst par potenciālo pircēju</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Sākotnēji piemēroto kritēriju piemērošana</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Rakstiskais piedāvājums tika nodots no pārdevēja potenciālajam pircējam</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Piedāvājums</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potenciālais pircējs tiek uzskatīts kā persona, kam ir intereses un tiesības iegādāties preci vai pakalpojumu</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Pieeja</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potenciālais pircējs apsprieda jūsu piedāvājumu detaļās</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Apņemšanās</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Darījums. Iespēja ir veiksmīgi pabeigta</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Slēgšanas/Darījuma transakcija</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Posma tips</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Iespēju dalībnieks</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Iespēju dalībnieki</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Iespējas</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Iespēju Tags</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Iespēju tagu saraksts</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Iespēja Tagi</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Dzēst iespēju</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Iespējas dzēšana</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Iespēju apraksts</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Rediģēt iespēju "{0}"</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Rediģēt iespēju</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Iespējas ļauj izsekot iespējamo pārdošanu jūsu klientiem. Noteikt {0}iespēju stādijas{1} saskaņā ar jūsu biznesa procesu, saglabāt vēsturi, piešķirtos uzdevumus, augšupielādētos dokumentus, aprēķina peļņu ar katru klientu.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Nav iespējas kuras atbilstu filtram. Lūdzu, atlasiet citu filtrēšanas opciju vai notīriet filtru, lai apskatītu visas iespējas šajā sadaļā. Vai gadījumā, ja tas nav klāt, varat izveidot iespēju.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Nav iespēju kuras var parādīt ar šo filtru</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Iespēju saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Ievadiet iespējas nosaukumu</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Katrai iespējai, jābūt atbildīga persona</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Dalībnieku saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Pievienojiet dalībniekus savai iespējai no saraksta ar uzņēmumiem vai personām. Pēc tam, kad tas tiek darīts, jūs zināt, kādi kontakti ir saistīti ar šo iespēju, un kas var izskatīt.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Plānotais/faktiskais datums</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budžets</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakts</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Dalībnieks</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Stādija/stādijas tips</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Importēt iespējas</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Jāizvēlas pareizi veidoto CSV failu, jūsu datorā HDD. Tajā jābūt laukiem vai kolonnam, kas atdalīti ar izvēlēto norobežotāju, kas tiks izmantoti, lai importētu iespējas. Failus, kuros ir vairāk nekā {0} rindās ir jāsadala mazākās daļās pareizu importēšanai. Pārliecinieties, vai esat izvēlējies portāla lietotājus, kuriem var piešķirt piekļuvi informācijai, kas importēti, citādi dati no CSV faila būs pieejami visiem portāla lietotājiem.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Atlasiet CSV failu un iestatiet piekļuves tiesības, pirms iespēju importēšanas</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Saskaņojiet faila kolonnas ar atbilstošiem ONLYOFFICE™ CRM laukiem. Lūdzu pievērst jūsu uzmanību faktam, ka iespējas pareizai importēšanai jūsu failā jābūt vismaz šādas kolonnas no faila, kas atbilst laukiem ONLYOFFICE™ CRM: 'Opportunity Title', 'Opportunity Responsible'. Laukiem, kas satur datumus jābūt šādā formātā: {0}. Valūtas laukam jāiestata saskaņā ar starptautisko trīs burtu kodu (piem., USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lūdzu, pārbaudiet jomas</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Doties uz iespēju sarakstu</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Iespēju importēšana var aizņemt vairākas minūtes atkarībā no datu apjoma.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importēšana uzsākta</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Piesaistīt vai izveidot iespējamo darījumu</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Manas iespējas</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Iespējas nosaukums</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budžets nav iestatīts</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Citi iespējas dalībnieki</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Dalībnieki</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ierobežot piekļuvi iespējai</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Veiksmes varbūtība</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Iespējas atbildīga persona</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Iet uz profilu</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Atvērt jaunā cilnē</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Parāda kopējo skaitu</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Sākt importēt</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Iespēju stādijas ļauj noteikt pasākumus, kas vajadzīgi, lai pabeigtu darījumu. Noklusējuma iespējas stādijas ir pieeja, diskusijas, novērtēšanas, sarunas, saistības, veiksmes, nulles punkts. Lai tos rediģētu vajadzīgas portāla administratora tiesības.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Kopējais skaits</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Visas iespējas</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Lapas kopā</value>
+  </data>
+</root>

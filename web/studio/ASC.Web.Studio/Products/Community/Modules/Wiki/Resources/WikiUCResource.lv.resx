@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Rediģēt sadaļu:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Faila Nosaukums</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Teksts</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Lapas Nosaukums</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Augšuplādēt failu</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Augšuplādēta faila nosaukums</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Pietuvināt</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Wiki lapu veidošana ir ļoti viegla, pat ja jūs to nekad nedarījāt. Tālāk ir nedaudz vieglu noteikumu. Mēs ceram, ka jums tie palīdzēs.
+
+@@TOC@@
+
+==Sadaļas, Panti, Saraksti, Rindas==
+
+Lai iesāktu jaunu sadaļu, izmantojiet = simbolu panta sākumā:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Sadaļa=&lt;br&gt;
+==Apakšnodaļa==&lt;br&gt;
+===Apakš-apakšnodaļa===&lt;br&gt;
+
+&lt;p&gt;
+Lai apvienotu visas sadaļas in apakšnodaļas vienā satura rādītājā, ielieciet @TOC@.
+&lt;/p&gt;
+
+Wiki marķēšana neredz līniju pārrāvumus. Jūs varat tos izmantot, lai atdalīt teikumus pantos. 
+
+&lt;p&gt;
+Izmantojiet «br» atzīmi, lai nesākt jaunu pantu.
+&lt;/p&gt;
+
+Lai iesāktu jaunu paragrāfu, divreiz nospiediet Enter uz tastatūras. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Izveidot sarakstu arī ir viegli:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* katra punkta sākumā ielieciet zvaigznīti;&lt;br&gt;
+** jo vairāk zvaigznīšu,&lt;br&gt;
+** jo dziļāk ir saraksta līmenis.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Var izveidot arī numurētu sarakstu:&lt;br&gt;
+## tie izskatās strukturizēti;&lt;br&gt;
+## un viņus ir viegli lasīt.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ JA rindas sākumā ir atstarpe,
+ TAD saglabāsies tāds pats fORMatējums, kāds Bija ievadīts; 
+ tādā pašā fontā; bez līniju pārrāvumiem;[[nav linku]].
+
+Jūs varat izmantot atstārpi rindas sākumā, ja jums vajag: 
+
+*ielīmēt iepriekšēji formatētu tekstu;
+*parādīt pirmkodu; 
+*izveidot/ielīmēt ascii (bilžu veidošana ar teksta simboliem).
+
+Horizontālu līniju var izveidot ar četram domuzīmēm: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Linku Ielikšana==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Lai ieliktu linku uz citu wiki lapu, ielieciet lapas nosaukumu divos kvadrātiekavās: &lt;br&gt; [[Palīdzība]]&lt;/p&gt;
+
+&lt;p&gt;
+Gadījumā, ja links un nosaukums, kurus jūs gribat parādīt vienā lapā atšķirās, ievadiet linka nosaukumu pēc | simbola: &lt;br&gt; [[Viki Marķēšanas Palīdzības Lapa|Palīdzības Lapa]] &lt;/p&gt; 
+
+&lt;p&gt;
+Ārējus linkus var ielikt tekstā:: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Ja jūs gribat izmainīt ārēja linka nosaukumu, ielieciet to kvadrātiekavās un ievadiet jūsu nosaukumu uzreiz pēc atstarpes: &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+Lai ieliktu e-pasta adresi, izmantojiet kvadrātiekavas: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Lai pievienotu lapas kategoriju, pievienojiet vēlamo kategoriju [[Category: Vēlamā kategorija]] lapas beigās.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Teksta Formatēšana==
+
+Izmantojiet šos padomus jūsu teksta formatēšanai::
+
+''Kursīvs'
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''te jābūt jūsu tekstam kursīvā''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Treknraksts'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''te jābūt jūsu tekstam treknrakstā'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Treknraksta Kursīvs'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''te jābūt jūsu tekstam treknraksta kursīvā'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Pasvītrots__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__te jābūt jūsu pasvītrotam tekstam__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Nosvītrots--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--te jābūt jūsu nosvītrotam  tekstam--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indeksi: &lt;sup&gt;augšraksts&lt;/sup&gt; and &lt;sub&gt;apakšraksts&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;jūsu augšraksts&lt;/sub&gt;&lt;br&gt;
+&lt;sub&gt;jūsu apakšraksts&lt;/sub&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Jūs varat arī lietot &lt;mazu&gt; mazu tekstu &lt;/mazu&gt; komentāriem, īpašai formatēšanai, lai attēlot &lt;code lang="language"&gt;programmas kodu&lt;/code&gt; fragmentus un noteiktu tekstu  &lt;tt&gt;tehniskai terminoloģijai&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Bilžu ielikšana==
+
+Lai varētu ielikt bildi wiki lapā, vispirms jums vajag augšuplādēt to.
+
+Lietojiet šos linkus, lai augšuplādēt bildes:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Bilde = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Bilde ar noteiktu platumu = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Bilde ar aprakstu = [[Image:Image Title  | Description]]&lt;/p&gt;
+&lt;p&gt;
+Sīktēls =  [[Image:Image Name  | thumb]] – bilde būs samazināta un attēlotā labājā pusē.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML Viki Vietnē==
+
+Ja jums ir html-formātēts teksts, kuru jūs gribētu ielikt te, to var izdarīt viegli un ātri. Uzklikšķiniet uz “Izveidot jaunu lapu” uz “Darbības” paneļa. Tad ielīmējiet jūsu tekstu reģīdētajā un pārslēdzēties uz wiki marķēšanu, uzklikšķinot uz Wiki vietnes ikonu uz formatēšanas paneļa. Html atzīmes būs aizvietoti ar wiki marķēšanu. Pārbaudiet rezultātus, izlabojiet kļūdas, ja tādas ir un nospiediet “Publicēt”. Jūsu lapa ir gatava.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Palīdzība</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>''Laipni lūgti Wiki!''' 
+
+Šeit jūs varat izveidot vietnes, savstarpēji tās saistīt vai apvienot kategorijās, izmantojot savu tīmekļa pārlūku. Wiki ir ērts rīks ar projektu saistīto dokumentu sadalīšanai atbilstoši ar šādām iespējām:
+
+*vairāki autori. Katrs portāla dalīvnieks var rediģēt jebkuras lapas saturu.
+*ātrā rediģēšana. Nospiediet "Rediģēt" saiti, kas ir pieejama katrā lapā un sāciet rediģēšanu no sava pārlūka.
+*vienkārša pārnese no HTML uz WIKI. Sīkāk [[Internal:Help#HTML to Wiki Transfer|how]] 
+*lapas versijas atbalsts. Apskatiet, kas ir ticis rediģēts, atgriežot lapu tās iepriekšējā versijā.
+
+@@TOC@@
+
+==Wiki navigācija un struktūra==
+
+Jūs varat pārvietoties pa wiki, izmantojot "Navigācijas paneli", kas ir vienmēr pieejams, kad atrodaties wiki.
+
+===Lapas===
+
+Visas wiki lapas, ko esat izveidojuši, tiek alfabētiski izkārtotas lapā [[Internal:Index|Indekss]].&lt;br&gt; 
+Visas jaunizveidotās lapas tiek attēlotas hronoloģiskā secībā lapā [[Internal:NewPages|Jaunas lapas]].&lt;br&gt;
+Visvairāk rediģēto lapu saraksts atrodas lapā [[Internal:Recently|Nesen rediģētas]].
+
+===Kategorijas===
+
+Jūs varat apvienot vairākas saistītas lapas vienā kategorijā. Visas kategorijas ar tām atbilstošajām lapām atrodas lapā [[Internal:Categories|Kategorijas]]. Jūs varat pievienot lapu jau eksistējošai kategorijai vai izveidot jaunu. Spiediet [[Internal:Help|šeit]], lai iegūtu vairāk informācijas par kategorijas piešķiršanu lapai.
+
+===Faili===
+
+Wiki lapu izveides laikā jūs varat wiki augšupielādēt jebkura formāta un izmēra failus, kā arī sniegt saites uz augšupielādētiem attēliem.  Uzziniet vairāk [[Internal:Help#Inserting Images|šeit]].
+
+===Palīdzība===
+
+Wiki lapu izveide ir vienkārša. Jums ir tikai jāzina daži vienkārši noteikumi. Apmeklējiet [[Internal:Help|wiki noteikumi]], lai ar tiem iepazītos.
+
+==Savas wiki lapas izveidošana==
+
+Lai izveidotu savu wiki lapu, spiediet "Izveidot jaunu lapu" saiti, kas atrodas panelī "Darbības". Tad ievadiet savu tekstu teksta redaktora vietā. Sekojiet [[Internal:Help|wiki padomiem]], lai teksts lapā tiktu attēlots pareizi.
+
+Atcerieties, ka šī ir jūsu privātā telpa, kurās jūs varat visu kārtot atbilstoši savām vajadzībām. Pat šis lapas saturs ir rediģējams. Piemēram, jūs varat dzēst šo tekstu un atbilstoši savām ērtībām ievietot saites uz jūsu projektiem. &lt;br&gt;Vēlam veiksmi!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Šī lapa neeksistē. Uzklikšķiniet {šeit} lai izveidot un rediģēt to.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Enkors</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Treknraksts</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Lai vizuāli iezīmēt citu kodu</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Komentēt</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML koda piemērs</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Ārējais links</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Lokala faila links</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (izmantot ar moderāciju)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horizontāla rinda</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Bilde</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kursīvs</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Jauna rinda</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>Tag NoBR</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Nevar interpretēt ar Wiki valodu</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Lapas Links</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Īpašas atzīmes</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Nosvītrots</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Apakšteksts</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Augšteksts</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Īpaši simboli</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Pasvītrot</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Bloķēt</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Maksimāls augšuplādēta faila izmērs ir pārsniegts</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Lejuplādēt failu</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategorijas</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maksimāls faila izmērs {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Sadaļa: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Lapa ir pārvietota=
+Lapas nosaukums mainīts uz [[{0}|{0}]].
+Jūs varat atrast jaunāko versiju [[{0}|šeit]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Satura Rādītājs</value>
+  </data>
+</root>

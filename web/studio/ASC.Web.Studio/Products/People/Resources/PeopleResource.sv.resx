@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portalrättigheter</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Händelser</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Lägg till {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Lägg till medlemar</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Ändra status</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Ändra användarstatus</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Om detta nummer överskrider den aktuella prisplanen kommer du behöva uppgradera din plan och upprepa operationen annars kommer inte andra användares status ändras.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Ändra användarstatus</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Du kan inte ändra status för portalägare och dig själv</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Användarna med "Avaktiverad" status kommer aktiveras.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Användarna med "Aktiv" status kommer avaktiveras.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Ändra typ</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Uppgradera din plan och upprepa operationen annars kommer andra typer av användare inte ändras.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Ändra användarstatus</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Du kan inte ändra typ för portaladminstratörer och dig själv</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Användare med '{!User}' typen kommer flyttas till '{!Guest}' typen</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Användarna med '{!Guest}' typen kommer flyttas till '{!User}' typen</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Nollställ filter</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bekräftelse</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Endast användare eller gäster med 'avaktiverad'-status kan raderas</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>Radera profil när förändringen är klar</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Radera användare från portalen</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Dessa användares personliga dokument som är åtkomliga för andra kommer att raderas. För att undvika detta måste du starta dataöverföringen innan radering.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>De utvalda avaktiverade användarna kommer raderas från portalen.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Avmarkera allt</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Skriv in namn</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>The uppladdade filerna hittades inte</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Bilden är för stor</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>För stor bild</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Okänt bildformat</value>
+  </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>Exempelvärden</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>Fält i filen</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>Fält i ONLYOFFICE-portalen</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Göm listan för vald användare</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Kolumn</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>Dubbla citationstecken</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>Enkelt citationstecken</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Från fil</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Importera Användare</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>Kolon</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Komma</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>Semikolon</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Mellanslag</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Tabb</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Importera kontakter</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>Lägg till i portalen</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Ställ in efterlevnad</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Redigera Kontakter</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Inbjudningslänk</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Ändra e-post</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Byt lösenord</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Radera profil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Omplacera data</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>Radera personlig data</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Skicka inbjudan igen</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Skicka om aktiveringslänken</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Skicka e-post</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Skicka meddelande</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Prenumenation</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Verktygstips</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Medlemmar</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Ingen som matchar ditt filter kan visas i denna sektion. Vänligen välj andra filtreringsoptioner eller rensa filtrer för att se alla i denna sektion.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Din sökning gav ingen resultat</value>
+  </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>Importera inte</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Överst</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Gör samma sak som en användare|Skapa profiler och grupper|Importera profiler|Bjuda in användare</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Lägg till ny användare, bjud in eller importera dem. Hantera och se information om användare.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Lägg till ny användare, bjud in eller importera dem. Hantera och se detaljerad information om användare.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Personer</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Visa profiler och grupper</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Eller {0}läs om ideell användning{1}</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>Avbryta överföring</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>Dataöverföring avbruten</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Omplacera</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>Dataöverföring avbruten pga serverfel</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Mejl</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Dataomplacering</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>Börja om överföringen</value>
+  </data>
+  <data name="ReassignsProgressNotifyInfo" xml:space="preserve">
+    <value>Du kan stänga denna sida. När processen är klar kommer administratorn som kört den bli aviserad via mejl.</value>
+  </data>
+  <data name="ReassignsProgressUserInfo" xml:space="preserve">
+    <value>Dataomplacerings processen från användare {0} till användare {1} har startat, det kan ta en viss tid.</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Mer om dataöverföring</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>Avbruten, vissa data kunde ej överföras</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>Serverfel</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>All data överfördes</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>Data överfördes ej</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>I kö</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>Startat</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Anställd datan kommer överföras till -</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Kommer överföras:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Allmänna och personliga dokument tillgängliga för andra portalanvändare;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Öppna projekt, milstolpar och aktiviteter;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Kontakter, öppna aktiviteter, ej stängda möjligheter och CRM fall;</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Prata</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>Avbryta radering</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>Dataradering avbruten</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>Personlig data raderas...</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>Data radering avbröts pga serverfel</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>Kommer raderas:</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>Alla personliga dokument</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>CRM rapportfiler;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>Alla mejl och bifogade filer</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>Bifogade från Talk-filer</value>
+  </data>
+  <data name="RemovingProgressUserInfo" xml:space="preserve">
+    <value>Raderingsprocessen av {0} användares personliga uppgifter har startat, det kan ta en viss tid.</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>Mer om radering av personliga uppgifter</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>Börja om radering</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>Avbruten, vissa data kunde ej raderas</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>All data raderades</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>Data raderades ej</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Efter att användare bekräftat inbjudan till portalen kommer deras status ändras till "Aktiv"</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Skicka inbjudan igen</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Inbjudan till portalen kommer skickas om till de utvalda användarna med 'Väntande' status som inte är avaktiverade.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Markera allt</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Visa på sidan</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Visa vald användares lista</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Användaren har raderats</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Total antal</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Väntar på bekräftelse</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Skriv brev</value>
+  </data>
+</root>

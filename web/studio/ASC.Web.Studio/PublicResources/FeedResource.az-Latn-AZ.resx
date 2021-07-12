@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>İcmada yeni elan yaratdı</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Müəllif</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>İcmada yeni səhifə qeydi yaratdı</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>İstifadəçi</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>CRM'da yeni olay yaratdı</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>İcma</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>CRM'də yeni kompaniya yaratdı</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Bağlantı</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>CRM'də yeni tapşırıq yaratdı</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Bu ay</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Bu həftə</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>İstifadəçi periodu</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>CRM'də yeni saziş yaratdı</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>Layihələrdə yeni müzakirələr yaratdı</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>Sənədlərdə yeni fayl yaratdı</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>Fayl yeniləndi</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>Sənədlərdə yeni qovluq yaratdı</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>İcmada yeni forum soröusu yaratdı</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>İcmada yeni forum yazısı yaratdı</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>İcmada yeni forum mövzusu yaratdı</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Üzvlər</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>Layihələrdə yeni dönüş nöqtəsi yaratdı</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>İcmada yeni xəbər yaratdı</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>İcmada yeni əmr yaratdı</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Digər istifadəçilər</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>CRM'də yeni şəxs yaratdı</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>İcmada yeni sorğu yaratdı</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Layihə</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>Layihələrdə yeni layihə yaratdı</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Menecer</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Layihələr</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Cavabdeh</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Cavabdeh istifadəçilər</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>Sənədlərdə Sizinlə fayl paylaşıldı</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>Sənədlərdə Sizinlə qovluq paylaşıldı</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Hamısını göstər</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Ölçü</value>
+  </data>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>Layihələrdə yeni tapşırıq yaratdı</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="TodayAt" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Şərh yaz</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Dünən saat</value>
+  </data>
+</root>

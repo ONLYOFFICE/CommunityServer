@@ -1,0 +1,574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessSettingsHeader" xml:space="preserve">
+    <value>
+{0}的存取設置</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>自訂過濾條件</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>表格填寫</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>擁有者</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>唯讀</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>完整權限</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>存取被拒</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>評論;回顧</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>變化</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>
+封存檔案</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>排除子文件夾</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>全部文件</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>資料夾</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>圖片</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>在內容上</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>媒體</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>簡報</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>試算表</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>顯示更多{0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>上傳中...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>顯示更多{0}/{1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>建立日期</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value> 最後修改日期</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>代碼已復製到剪貼板</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>您確定要從“文件模組"移除{0}嗎？此操作不會影響您的{1}帳號。</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>您確定要清空垃圾桶嗎？</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>您確定要離開目前頁面嗎？下載中檔案將會停止。</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>您確定要刪除此文件嗎？請注意，如果您與某人共享了這些文件/文件夾，則它們將不可用。確定要繼續嗎？</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>您確定要刪除此資料夾嗎？請注意，如果您與某人共享了此資料夾，則它們將不可用。確定要繼續嗎？</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>您確定要刪除這些元件嗎？請注意，如果您與某人共享了這些文件/文件夾，則它們將不可用。確定要繼續嗎？</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>您將要從{1}目錄中移動元素。在這種情況下，如果以前共享了這些元素，則它們將從您的{1}帳戶中刪除，並且其他用戶將不再可以存取它們。 {0}確定要移動元素嗎？</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>公用文件</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>自定格式</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>資料歸檔中</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>變更資料</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>
+最終版本建立中</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>通過DocuSign簽名</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>版本載入中...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>標示為已讀</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>搬移</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>刪除中...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>版本更新中</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>
+文件準備加密</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>文件加密中</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>加密文件保存中</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>簽署文件（{0}）</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value> 至少選擇一個資料夾/文件以下載</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>輸入評論</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>您無法上傳空的檔案或資料夾</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>囀檔錯誤</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>所有欄位都必須填寫</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>超出最大文件大小</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>您需要登入來增加</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>抱歉，不支援此檔案格式</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>您輸入密碼不正確。請再試一次。</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>請等待完成先前的下載或取消</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>您沒有足夠權限執行此操作</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>您無法在此資料夾執行這個動作</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>標題不能包含任何下列字元：{0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>
+門戶網站存儲空間不足。您不能上傳大於{0}的文件。</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>檔案名稱{0}已存在於資料夾{1}。</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>已轉檔</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>轉檔中</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} 資料夾已存在相同名稱文件 '{1}'。 要覆蓋檔案嗎？</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>已上傳</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>上傳中</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box目錄</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign 帳號</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox目錄</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google目錄</value>
+  </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>
+kDrive目錄</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint目錄</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive目錄</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV目錄</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex 目錄</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>現在，“ {0}”是“ {1}”的所有者</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>現在'{0}'是{1}個項目的所有者</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' 已變更</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>
+複製{1} {0} {2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>'{0}' 已複製元件</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' 已複製</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>
+{0}個元素</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>新檔案'{0}'已被建立</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>新的“ {0}”文件在“ {1}”中創建</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>已建立新資料夾'{0}'</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>您無法複製資料夾至它的子資料夾</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>您無法搬移資料夾至它的子資料夾</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>您無權移動某些文件</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>
+移動{1} {0} {2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>已搬移{0}元件</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}'已搬移</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>已刪除文件'{0}'</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>已刪除資料夾'{0}'</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>已成功自{1}刪除{0}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>第三方'{0}'已斷線</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>文件'{0}'以重新命名為'{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>資料夾'{0}'以重新命名為'{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' 增加到 '{1}'</value>
+  </data>
+  <data name="InfoTemplateAdd" xml:space="preserve">
+    <value>
+文件添加到模板</value>
+  </data>
+  <data name="InfoTemplateRemove" xml:space="preserve">
+    <value>
+文件以從模板中刪除</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} 文件已成功上傳</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>我的文件</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>原格式</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其它</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>簡報</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>無法上傳文件{0}以顯示</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>隱私室</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>專案文件</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>修訂：{0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>您被授予存取{0}文檔的權限。點選下面的連結以立即打開文檔：{1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>
+您已被授予存取{0}文檔的權限</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>
+添加用戶和組以與他們共享文檔。{0}設置其閱讀，編輯等權限。</value>
+  </data>
+  <data name="SharingSettingsHeader" xml:space="preserve">
+    <value>
+{0}的共享設置</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>試算表</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>資料歸檔中</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>複製中</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>刪除中</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>標示為已讀</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0}操作</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>搬移</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>變更{0}連接設定</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>正在編輯中</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>目前被：{0}編輯中</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>已鎖定</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>鎖定者：{0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>更多功能</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>新簡報</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>新試算表</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>新文件</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>新資料夾</value>
+  </data>
+  <data name="TitleSettingsAdmin" xml:space="preserve">
+    <value>
+管理員設定</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>一般設定</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>輔助說明</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>互聯雲端</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>directory</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>未知錯誤...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>上傳完成</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>上傳中</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>上傳{0}個文件（已完成{1}％）</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>已使用{1}中的{0}</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+</root>

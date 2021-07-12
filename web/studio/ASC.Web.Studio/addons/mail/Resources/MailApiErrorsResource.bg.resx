@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Достъпът е отказан. Имате нужда от администраторски привилегии.</value>
+  </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>Възникна грешка по време на изтриването на контакт. Моля, проверете връзката си с мрежата или се свържете с администратора на мрежата или портала.</value>
+  </data>
+  <data name="ErrorDkimPublicKeyInUse" xml:space="preserve">
+    <value>Този DKIM публичен ключ вече се използва. Моля, отворете отново съветника.</value>
+  </data>
+  <data name="ErrorDuplicateAlias" xml:space="preserve">
+    <value>Искате да създадете псевдоним с вече съществуващ адрес.</value>
+  </data>
+  <data name="ErrorDuplicateDomain" xml:space="preserve">
+    <value>Домейнът вече се използва.</value>
+  </data>
+  <data name="ErrorDuplicateGroup" xml:space="preserve">
+    <value>Искате да създадете пощенска група с вече съществуващ адрес.</value>
+  </data>
+  <data name="ErrorDuplicateMailbox" xml:space="preserve">
+    <value>Искате да създадете пощенска кутия с вече съществуващ адрес.</value>
+  </data>
+  <data name="ErrorDuplicateMailGroupAddress" xml:space="preserve">
+    <value>Искате да добавите вече съществуващ адрес.</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Вътрешна грешка на сървъра. Опитайте отново по-късно.</value>
+  </data>
+  <data name="ErrorInvalidAddress" xml:space="preserve">
+    <value>Невалиден адрес.</value>
+  </data>
+  <data name="ErrorInvalidAlias" xml:space="preserve">
+    <value>Невалидно име на псевдоним.</value>
+  </data>
+  <data name="ErrorInvalidDomain" xml:space="preserve">
+    <value>Невалидно име на домейн.</value>
+  </data>
+  <data name="ErrorInvalidMailbox" xml:space="preserve">
+    <value>Невалидно име на пощенска кутия.</value>
+  </data>
+  <data name="ErrorInvalidMailGroup" xml:space="preserve">
+    <value>Неправилна група.</value>
+  </data>
+  <data name="ErrorMailboxLimit" xml:space="preserve">
+    <value>Превишен е лимитът на пощенските кутии на потребителя.</value>
+  </data>
+  <data name="ErrorUnknownUser" xml:space="preserve">
+    <value>Неизвестен потребител.</value>
+  </data>
+  <data name="ErrorUnpaidAccessDenied" xml:space="preserve">
+    <value>Не се предлага в неплатена версия</value>
+  </data>
+  <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
+    <value>Невалидна операция за споделен домейн</value>
+  </data>
+</root>

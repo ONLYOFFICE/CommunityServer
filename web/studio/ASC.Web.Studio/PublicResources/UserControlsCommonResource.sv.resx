@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Lägg till {!Users}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Lägg till Ny Social Profil</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Lägg till meddelande</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Omröstningsalternativ</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Bifoga Filer</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Bifoga fil från Dokument</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Bifoga fil från projektdokument</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Skapa presentation</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Skapa kalkylark</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Skapa dokument</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lär dig mer...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Företagsstorlek</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Företag</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Alla dokument du laddar upp kommer att konverteras till Office Open XML-format för snabbare redigering.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Radera fil</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Redigera fil</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Skapa{1} filer direkt på din portal eller {2}ladda upp{3} dem här för att kunna {4}öppna{5} och {6}redigera{7} dem i ONLYOFFICE™ portal redigeraren.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Ladda upp{3} filer direkt på din portal.</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Välj omröstningsfråga</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Lägg till post</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Lägg till bokmärke</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Skapa ett nytt företag</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Skapa en ny person</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Skapa ett nytt projekt</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Lägg till händelse</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Du måste ange en licensnyckel</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online Documentredigerare{1}{0}Documenthandling{1}{0}Mejl{1}{0}Projekt{1}{0}CRM{1}{0}Kalendar{1}{0}Community{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktiva användare</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktiva användare</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>Spela</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>Rotera vänster</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>Rotera höger</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Ditt nuvarande mobil telefonnummer: {0}</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Mer</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Nytt dokument</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Ny fil</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Alla portalaktiviteter visas här i denna sektion. Just nu finns det inga evenemang på portalen som ska visas. Börja använda din portal, fyll den med innehåll och alla nyheter kommer visas på denna sida.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Omröstningsfråga</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Omröstningstyp</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Är du säker på att du vill radera denna fil?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Nollställ filter</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Markera allt</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Skicka avisering</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Lägg till användare eller grupper och ge dem rätten.</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Baspris</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Stor filstorlek</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Skulle du vilja välja en ny prisplan?</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Ja, uppgradera planen</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Månads-{2}{1} Abonnemang</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 Års-{2}{1} Abonnemang</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 Års-{1} Abonnemang</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Du använder en plan för ideella organisationer.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Din portalbetalning har gått ut.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Du använder planen {0} - {1} aktiva användare. {2}Betalningen är försenad.{3}{4} För att fortsätta att använda ONLYOFFICE, förläng din nuvarande plan eller ändra den med hjälp av tabellen nedan.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Du använder planen {0} - {1} aktiva användare.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Du använder ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>månad</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 år</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Att lägga till en ny portal kommer överskrida antalet portaler tillåtna på din nuvarande prisplan.</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} per användare/månad</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Det går inte att lägga till nya användare</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Att tillägga nya användare kommer överskrida antalet portalmedlemmar tillåtna på din nuvarande prisplan.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Tillägger nya användare</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Du kan nedgradera en prisplan.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Du kan ladda upp vilken fil som helst till Dokumenten.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Val</value>
+  </data>
+</root>

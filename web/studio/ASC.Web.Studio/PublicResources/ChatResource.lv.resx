@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>Ielūgums uz čata telpu</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>Aizvērt visus miničata logus</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>Aizvērt elementu</value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>Aizvērt logu</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>Izvērst miničatu</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>Lūdzu, pārslēdzieties uz Čatu.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Izmantot Ctrl+Enter, lai sūtītu ziņas</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>Atslēgt skaņu</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>Ievadiet savu ziņojumu..</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>Samazināt visus čata logus</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>Samazināt visus logus, kad nav fokusa</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>Samazināt logu</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>Jauns ziņojums</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>Izvērst visus miničata logus</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>Izvērst logu</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Meklēt</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Iekšēja servera kļūda.</value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>Rādīt/slēpt mini čatu</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>Rādīt neredzamos dialogu logus</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>Iespējas</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>Smaidiņi</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Prombūtnē</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Nav pieejams</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Bezsaistē</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Onlainā</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>raksta ziņu...</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Nav jūsu kritērijiem atbilstošu kontaktu.</value>
+  </data>
+</root>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_1" xml:space="preserve">
+    <value>h1.新维基页：《"$PageName":"$URL"》
+
+$Date "$UserName":"$UserURL"新建了一个维基页《"$PageName":"$URL"》：
+
+$PagePreview
+
+"查看原文":"$URL"
+
+^收到此电子邮件是因为您是工作站"${__VirtualRootPath}":"${__VirtualRootPath}"的注册用户。如果您不希望再接收到此类通知邮件，请通过修改"订阅设定":"$RecipientSubscriptionConfigURL"来进行退订。^</value>
+  </data>
+  <data name="pattern_2" xml:space="preserve">
+    <value>h1.维基页内容有更新："$PageName":"$URL"
+
+$Date "$UserName":"$UserURL"更新了维基页《"$PageName":"$URL"》的内容：
+
+$PagePreview
+
+"查看原文":"$URL"
+
+您的工作站地址:"$__VirtualRootPath":"$__VirtualRootPath"
+^收到此电子邮件是因为您是工作站"${__VirtualRootPath}":"${__VirtualRootPath}"的注册用户。如果您不希望再接收到此类通知邮件，请通过修改"订阅设定":"$RecipientSubscriptionConfigURL"来进行退订。^</value>
+  </data>
+  <data name="pattern_3" xml:space="preserve">
+    <value>h1.维基页《"$PageName":"$URL"》有新评论
+
+$Date "$UserName":"$UserURL"对维基页《"$PageName":"$URL"》发表了新评论：
+
+$CommentBody
+
+"查看原文":"$URL"
+
+^收到此电子邮件是因为您是工作站"${__VirtualRootPath}":"${__VirtualRootPath}"的注册用户。如果您不希望再接收到此类通知邮件，请通过修改"订阅设定":"$RecipientSubscriptionConfigURL"来进行退订。^</value>
+  </data>
+  <data name="subject_1" xml:space="preserve">
+    <value>社区. 有新的维基页: $PageName</value>
+  </data>
+  <data name="subject_2" xml:space="preserve">
+    <value>社区. 维基页有更新: $PageName</value>
+  </data>
+  <data name="subject_3" xml:space="preserve">
+    <value>社区. 维基页有新评论: $PageName</value>
+  </data>
+</root>

@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Přístupová práva portálu</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Přidat skupinu</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Přidat členy</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Zakázáno</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Změnit stav</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Změnit stav uživatele</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Pokud toto číslo přesáhne aktuální tarifní plán, tak budete muset upgradovat váš plán a opakovat operaci jinak se stav ostatních uživatelů nezmění.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Změnit stav uživatele</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Stav nemůžete změnit pro vlastníka portálu a pro sebe</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Uživatelé se stavem "Zakázáni" budou aktivováni.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Uživatelé se stavem "Aktivní" budou zakázáni.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Změnit typ</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Aktualizujte svůj plán a zopakujte operaci, jinak se typ ostatních uživatelů nezmění.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Změnit typ uživatele</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Typ nemůžete změnit pro správce portálu a pro sebe</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Uživatelé s typem '{!User}' budou přesunuti do typu '{!Guest}'</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Uživatelé s typem '{!Guest}' budou přesunuti do typu '{!User}'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Reset filtru</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potvrzení</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Pouze uživatelé nebo hosté se stavem "Zakázáno" mohou být smazáni</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Vymazat uživatele z portálu</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Osobní dokumenty těchto uživatelů, které jsou k dispozici ostatním, budou smazány. Abyste tomu zabránili, musíte před odstraněním spustit proces přenosu dat.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>Vybraní neaktivní uživatelé budou z portálu smazáni.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Odznačit vše</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Zakázat</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Povolit</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Zadejte jméno</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Nebyl nalezen nahraný soubor.</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Velikost obrázku je příliš velká</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Velikost obrázku je příliš velká</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Neznámý typ souboru obrázku</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Křestní jméno</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Skrýt vybraný seznam uživatelů</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Lidé</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Odkaz pozvánky</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktivní</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Změnit email</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Změnit heslo</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Smazat profil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Znovu přiřadit data</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Ještě jednou odeslat pozvánky</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Znovu odeslat aktivační odkaz</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Odeslat e-mail</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Odeslat zprávu</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Předplatné</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Zakázáno</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Tipy</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Členové</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>V této sekci nelze zobrazit žádné osoby, které by odpovídali vašemu filtru. Prosím, zvolte další možnosti filtru nebo zrušte filtr, abyste zobrazili všechny lidi v této sekci.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Nebyly nalezeny žádné výsledky odpovídající vašemu vyhledávání</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Na vrchu</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Dělat to samé jako uživatel|Vytvořit profily a skupiny|Importovat profily|Pozvat uživatele</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Nové uživatele přidejte, pozvěte je nebo je importujte. Spravujte uživatele a zobrazte jejich podrobné informace.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Lidé</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Zobrazit profily a skupiny</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Nebo {0}čtěte o neziskovém použití{1}.</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Znovu přiřadit</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Změna dat</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Více informací o přenosu dat</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Zaměstnanec, kterému budou přeneseny data-</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Bude převedeno:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Všeobecné a osobní dokumenty dostupné ostatním uživatelům portálu;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Otevřené projekty, milníky a úkoly;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Kontakty, otevřené úkoly, neuzavřené příležitosti a CRM případy;</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Poté, co uživatelé potvrdí pozvánku na portál, se jejich stav změní na "Aktivní"</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Ještě jednou odeslat pozvánku</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Pozvánka na portál bude opět odeslána vybraným uživatelům se stavem "Čekající", kteří nejsou zakázáni.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Vybrat vše</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Ukázat na stránce</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Zobrazit seznam vybraných uživatelů</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Uživatel byl úspěšně odstraněn</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Nadpis</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Celkový součet</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Čekání na potvrzení</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Napsat dopis</value>
+  </data>
+</root>

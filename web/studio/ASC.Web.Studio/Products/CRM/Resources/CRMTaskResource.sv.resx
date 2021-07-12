@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Skapa ny uppgift</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Skapa Ny Uppgift</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Stängd uppgift</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Länka med kontakt</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Skapa första uppgiften</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Skapa uppgift</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andra användare</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Radera uppgiften</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Redigera uppgift</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Aktiviteter är ett enkelt sätt att skapa en påminnelse om vad som behövs göras. Till exempel, en aktivitet kan användas för att påminna om en evenemang, eller ett telefonsamtal. Du kan skapa aktiviteter av {0}olika kategorier{1}, länka dem med en kontakt, möjlighet eller fall, eller skapa en enkel påminnelse för dig själv.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Inga aktiviteter som matchar ditt filter kan visas i denna sektion. Vänligen välj andra filtreringsalternativ eller rensa filtret för att se alla aktiviteter i denna sektion. Du kan också söka efter de aktiviteterna du behöver i kontakt, möjlighet eller fall flikar.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Inga uppgifter att visa för detta filter.</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Uppgiftslistan är tom</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>En korrekt formaterad CSV-fil borde väljas på din dators hårddisk. Den måste innehålla fälten eller kolumnerna åtskiljade av den utvald avgränsningstecken som kommer användas för att importera aktiviteter. Filerna som innehåller mer än {0} rader bör divideras i mindre delar för en korrekt importering.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Välj en CSV-fil</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Matcha kolumner i din fil med de motsvarande ONLYOFFICE™ CRM fälten. Vänligen observera att för att importera aktiviteter på rätt sätt måste du ha minst de följande kolumner från din fil matchade med fälten i ONLYOFFICE™ CRM: 'Aktivitetstitel', 'Ansvarig', 'Förfallodatum'. De fälten som innehåller datum måste ha det följande formatet: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vänligen kontrollera fälten</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Gå till uppgiftslista</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Uppgiftersimporteringen kan ta upp till flera minuter beroende på antal data.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importen har startat</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Importera uppgifter</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Mina uppgifter</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Försenad</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 minuter</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 minuter</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>en halvtimme</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>en timme</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>en dag</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 timmar</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Sparar uppgifter</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Starta importen</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Uppgift</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Uppgiftskategorier</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Aktivitetskategori</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Telefonsamtal</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Möjlighet</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Exekveringskontroll</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Bokat tid</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Leverans</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Sociala nätverk</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Uttryck av tacksamhet</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Aktivitetsbeskrivning</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Tilldela till</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Aktiviteter</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Aktivitetsstatus</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Öppen</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Aktivitetstitel</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Kommande</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 dagar</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tid</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Aktivitetskategorier låter dig dividera dina aktiviteter i grupper beroende på de mål du vill uppnå. Aktivitetskategorier som standard är de följande: telefonsamtal, möjligheter, demo, mejl, fax, exekveringskontroll, lunch, tidsbokning, not, leverans, sociala nätverk, uttryck av tacksamhet. För att kunna redigera dem krävs det administratörsbehörighet.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Alla uppgifter</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Vecka</value>
+  </data>
+</root>

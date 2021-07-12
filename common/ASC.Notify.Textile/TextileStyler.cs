@@ -117,7 +117,7 @@ namespace ASC.Notify.Textile
 
             if (CoreContext.Configuration.Personal && !CoreContext.Configuration.CustomMode)
             {
-                logoImg = imagePath + "/mail_logo.svg";
+                logoImg = imagePath + "/mail_logo.png";
             }
             else
             {
@@ -131,7 +131,7 @@ namespace ASC.Notify.Textile
                     }
                     else
                     {
-                        logoImg = imagePath + "/mail_logo.svg";
+                        logoImg = imagePath + "/mail_logo.png";
                     }
                 }
             }

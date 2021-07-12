@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Jotkin parametrit ovat virheellisiä. Joudut itse arvaamaan mitkä.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Pääsy asiakirjaan on kielletty</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Asiakirjaa ei löytynyt. Minne lie lipsahtanut.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tyhjiä tiedostoja ei voida käyttää. Ihan hyödyttömiä ovat.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Viestiä ei löytynyt. Hävisi.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Liitetiedostojen yhteiskoko on liian suuri. Ei mahdu.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Odottamaton virhe. Yritä myöhemmin uudelleen. Weird!</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>Tämä viesti on luotu automaattisesti sähköpostin lähetyksen ohjelmistolla.</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>Vaihda viestisi</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>Tapauksessa, jossa virhe ei tunnu poistuvan, ole hyvä ja lue lisää {url_begin}FAQ osiosta{url_end} jotta voit oppia lisää ongelmasta.</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>Viestin lähetys epäonnistui aiheella "{subject}" ajalla {date}.</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Syy</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>Viestiä ei voitu toimittaa vastaanottajille</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>Ole hyvä ja tarkista viestin vastaanottajien osoitteet ja viestin formaatti. Jos olet varma, että viesti on oikein, niin tarkista kaikki {account_name} tilin asetukset, ja, jos kaikki on oikein, kirjaudu sisään käyttämääsi  sähköpostipalveluun ja vahvista tarvittaessa mitkä tahansa varmentavat kysymykset. Tämän jälkeen yritä uudelleen.</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>Viestin lähetys epäonnistui</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Tämä kenttä ei voi olla tyhjä. Ei vain voi.</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>Virheellinen sähköpostiosoite %1 kentässä</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Tunniste %1 on jo olemassa</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>Tunnisteen nimi ei saa olla tyhjä. </value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>Piilokopio</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>Kopio</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>Keneltä</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>Kenelle</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>IMAP palvelimen yhteyden aikarajoitus saavutettiin.</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP vastaus:</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>POP3 palvelimen yhteyden aikarajoitus ylittyi.</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3 vastaus:</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>SMTP palvelimen yhteyden aikarajoitus ylittyi.</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP vastaus:</value>
+  </data>
+</root>

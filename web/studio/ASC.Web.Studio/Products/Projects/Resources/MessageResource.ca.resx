@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arxiu</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arxiu</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentaris</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Crear un nou debat</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Inicieu un debat</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Crea una tasca sota la base del debat</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Esteu segur que voleu eliminar aquest debat?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Esborra el debat</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>No es poden mostrar en aquesta secció debats que coincideixin amb el seu filtre</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripció</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Els debats s'utilitzen per trobar, amb el seu equip del projecte, la solució idònia per a qualsevol problema que pugui sorgir una vegada iniciat el projecte. Debateu totes les qüestions amb els vostres companys i inviteu als usuaris d'altres projectes a afegir-se al debat.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>S'utilitzen debats per trobar la solució adequada amb l'equip de projecte a qualsevol tipus de problema que es pugui produir un cop el projecte estigui en marxa. Comenteu tots els problemes amb els vostres col·legues.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>No s'ha iniciat cap debat</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Subscriptors</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Editar debat</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Cada missatge ha de contenir text</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>No hi ha debats que coincideixin amb aquest filtre</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Debats</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Debats</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Títol</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Obrir</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Llegir més</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Seleccioneu el projecte</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Inicieu el primer debat</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>S'informarà a les persones seleccionades sobre el missatge i els seus comentaris.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Notificar</value>
+  </data>
+</root>

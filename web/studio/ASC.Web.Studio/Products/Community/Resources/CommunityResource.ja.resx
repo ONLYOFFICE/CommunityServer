@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>ポータルのアクセス権</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>発表</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>お知らせ</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>誕生日</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>ブックマーク</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>ブックマーク</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>カテゴリー</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="DashboardCreateWelcomePost" xml:space="preserve">
+    <value>ウェルカムポストを作成する</value>
+  </data>
+  <data name="DashboardDiscussWithTeam" xml:space="preserve">
+    <value>チームと話し合う</value>
+  </data>
+  <data name="DashboardDiscussWithTeamFirstLine" xml:space="preserve">
+    <value>企業のブログやフォーラムをご作成になれます。</value>
+  </data>
+  <data name="DashboardDiscussWithTeamSecondLine" xml:space="preserve">
+    <value>投票と調査を追加します。</value>
+  </data>
+  <data name="DashboardDiscussWithTeamThirdLine" xml:space="preserve">
+    <value>チャットを使用してインスタントメッセージをご交換になれます。</value>
+  </data>
+  <data name="DashboardKeepYourTeamPosted" xml:space="preserve">
+    <value>チームに最新の情報をあげられます</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
+    <value>チャットでグループチャットまたは大量メールを作成する</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
+    <value>共有ドキュメント、締め切り、チームメートの誕生日に関する通知を設定する</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
+    <value>メッセージを見逃さないようにFirebaseをご使用ください。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledge" xml:space="preserve">
+    <value>ニュースと知識を共有する</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeFirstLine" xml:space="preserve">
+    <value>企業のニュースボードをご作成になれます。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
+    <value>役に立つWebリソースをブックマークに追加して共有します。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeThirdLine" xml:space="preserve">
+    <value>企業ウィキをご使用になれます。</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>フォーラムエディタ</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>フォーラム投稿</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>助ける</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>インデックス</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>で</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>新規ページ</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>ニュース</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>オーダー</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>受注</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>世論調査</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>世論調査</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>ユーザーと同じ操作を行います|ブログ、ウィキ、フォーラムのメッセージなどで任意の投稿を編集</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>イベントやブログ記事を作成します。世論調査を整理します。ブックマークを作成し、他のユーザーと共有することができます。</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>イベントやブログ記事を作成します。世論調査を整理します。ブックマークを作成し、他のユーザーと共有することができます。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>イベントやブログ記事を作成します。世論調査を整理します。ブックマークを作成し、他のユーザーと共有することができます。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>コミュニティ</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>ブログ、株式ニュースなどで自分の記事を作成および編集</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>最近編集された</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>サブスクライブ</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>トピック</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>ウィキ</value>
+  </data>
+</root>

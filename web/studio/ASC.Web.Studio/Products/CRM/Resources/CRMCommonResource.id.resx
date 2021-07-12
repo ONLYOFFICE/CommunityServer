@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>untuk membaca</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>untuk membaca/menulis</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Hak akses akan ditetapkan hanya untuk kontak yang dibuat oleh Anda.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Tambahkan</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Tambahkan {!group} </value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Informasi tambahan</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Tambahkan akun email</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Tambahkan Tag</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Tambahkan peserta</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Tambahkan Acara Ini</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Menambahkan catatan ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Tambahkan {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Gunakan simbol {0}? {1} dan {0} * {1} untuk melakukan pencarian karakter tunggal / ganda. Sebagai contoh, untuk mencari semua kata yang dimulai dengan {0} O {1}, gunakan {0} O * {1} query. Tidak dianjurkan untuk menggunakan simbol-simbol ini pada awal query Anda.{2}Selengkapnya...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Waspada</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Sesuai bidang ONLYOFFICE ™ CRM</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Lampiran</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Tautkan dengan kontak</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Penulis</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Kembali</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Kasus</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Ubah</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Atur ulang filter</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Tutup jendela ini</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Tutup Halaman</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Titik dua</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Kolom file</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Koma</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Tulis surat untuk dikirim ke semua klien yang dipilih dalam daftar kontak. Anda dapat memeriksa jumlah klien yang dipilih dalam kolom 'To', masukkan'Subjek' umum dan gunakan 'tag Pribadi' untuk memasukkan semua informasi yang diperlukan untuk surat Anda. Ini adalah versi beta bagi mereka yang ingin mencoba fitur baru dari ONLYOFFICE ™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Anda yakin ingin menghapus elemen tersebut?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Untuk mengubah daftar tingkat suhu kontak, lihat CRM {0} Setting {1} bagian</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Pengaturan kontak</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Isi</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Jumlah</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Konverter mata uang</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Tanggal Pembuatan</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Buat kontak baru</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Buat Proyek</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Tambahkan tag baru</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Modul CRM tidak diaktifkan</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Mata uang</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Mata uang dasar</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Mata uang lainnya</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Saat ini {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Khusus</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Periode khusus</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Pengguna lain</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Jatuh tempo dalam {0} hari</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Terlambat {0} hari (s)</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Hapus acara</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Hapus peserta</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Hapus tag</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Hapus pengguna</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Batalkan semua pilihan</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Lakukan hal yang sama untuk semua kejadian di masa depan</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Kutip ganda</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplikat Catatan</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Tidak ada catatan yang cocok dengan filter Anda dapat ditampilkan di bagian ini. Silakan pilih opsi filter lain atau hapus penyaring untuk melihat semua catatan di bagian ini. Anda juga dapat mencari catatan yang Anda butuhkan dalam sejarah kontak lainnya.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Tidak ada catatan untuk filter ini dapat ditemukan di sini</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Masukkan jumlah</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Ukuran file melebihi {1} {0} {2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Ekspor daftar terbaru ke file CSV</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Tanggal Pembuatan</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Tanggal jatuh tempo</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Penanggung Jawab</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Dengan tanda</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Cari perusahaan atau orang berdasarkan nama...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Sembunyikan</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Sembunyikan file panel lampiran</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Riwayat</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Anda dapat mengubah daftar untuk kategori riwayat peristiwa {0} sini {1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Panggilan telepon</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Janji</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Catatan</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>telah diterima</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>telah dikirim</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Abaikan baris pertama saat mengimpor</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplikat</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Gunakan opsi ini untuk memasukkan kontak duplikasi ke kontak bertepatan. Misalnya ada dua catatan - 'A' dan 'B' - di ONLYOFFICE™ CRM Anda. Anda ingin memasukkan 'B' dan catatan 'C'. Jika anda memilih opsi 'Gandakan', catatan duplikat untuk 'B' akan dibuat saat peroses pemasukan.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Pemeriksaan duplikat akan dilakukan berdasarkan bagian email</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Timpa</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Gunakan opsi ini untuk memasukkan kontak, timpa kontak yang ada. Misalnya ada dua catatan - 'A' dan 'B' - di ONLYOFFICE™ CRM Anda. Anda ingin memasukkan 'B' dan catatan 'C'. Jika Anda memilih opsi 'Menimpa', 'B' akan ditimpa oleh masukan saat proses pemasukan.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Lewati</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Gunakan opsi ini untuk mengimpor kontak dan menjaga kontak yang ada. Misalnya ada dua catatan - 'A' dan 'B' - di ONLYOFFICE™ CRM Anda. Anda ingin mengimpor 'B' dan catatan 'C'. Dalam kasus Anda memilih 'Buka' pilihan, yang ada 'B' akan dipertahankan saat mengimpor.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Pembatas</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Enkoding</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Pengaturan File CSV</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Batas Teks</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Memindai file....</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Mulai mengimpor data</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informasi disampaikan</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Pengaturan invoice</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Pajak</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Bulan lalu</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Tubuh Surat</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Tautkan dengan</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Silakan tunggu...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Tubuh email</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE ™ Fitur Pengiriman Massal: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Gagal untuk menyampaikan pesan ke {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Alamat email tidak valid : {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Pengiriman gagal - akan dicoba lagi dalam {0} detik</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Subyek email</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>untuk</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulator</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Saya</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Acara saya</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Rekaman berikutnya</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Tidak ada rekaman</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Tidak tersedia akun surat</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Tidak cocok</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Tidak sesuai</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Beritahukan</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Tidak sesuai</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Di atas</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Profil Organisasi</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Pengaturan lainnya</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Di sini Anda dapat melihat kata yang Anda tulis. Gunakan tombol 'Kembali' untuk membuat beberapa perubahan atau gunakan tombol 'Kirim', jika Anda suka hasilnya.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Rekaman sebelumnya</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Langkah sebelumnya</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Pribadi</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Tersedia untuk {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Membatasi akses</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Akses sudah diberikan kepada semua portal {!users} secara default. Untuk membatasi akses centang kotak di bawah ini.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Hak akses</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Lakukan hal yang sama sebagai pengguna CRM | Impor, ekspor data | Kirim email ke kontak CRM | Mengelola pengaturan | Mengelola kontak, tugas, kasus, peluang</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Mengelola hubungan pelanggan Anda, mengidentifikasi kontak prioritas, melacak riwayat komunikasi dan kinerja penjualan.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Mengelola hubungan pelanggan Anda, mengidentifikasi kontak prioritas, melacak riwayat komunikasi dan kinerja penjualan.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produk dan Layanan</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Buat kontak, tugas, kasus, kesempatan dengan kemungkinan untuk membatasi akses kepada mereka | Edit kontak, tugas, kasus, peluang dengan hak mengatur akses</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Dihubungkan dengan</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Penanggung Jawab</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Nilai</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Simpan Perubahan</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Menyimpan perubahan...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Beritahu pengguna</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Titik koma</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Kirim Email</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Izin Set</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tampilkan</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Tampilkan file panel lampiran</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Tampilkan informasi</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tampilkan pada halaman</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Kutip tunggal</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Spasi</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Simpan pesan ini di Riwayat</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subyek</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Acara baru</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Kontak baru</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Ekspor selesai</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Impor selesai</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Bertanggung jawab untuk kesempatan</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Tugas yang diberikan kepada Anda</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Akses diberikan</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Tabel ringkasan</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabulasi</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Bulan ini</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>untuk</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Perusahaan/ Orang</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>kontak tidak terhubung</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Naik</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Lampirkan file</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Tampilkan file</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Lihat riwayat mailing dengan peserta ini</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Panggilan</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Nomor</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>pengaturan VoIP</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Kemarin</value>
+  </data>
+</root>

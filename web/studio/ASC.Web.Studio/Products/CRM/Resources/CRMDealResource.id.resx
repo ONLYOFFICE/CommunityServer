@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Simpan dan Buat Kesempatan Baru</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>semua kesempatan</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Rancang</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>memperbaiki</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per hari</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per jam</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per bulan</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per minggu</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per tahun</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Pengulangan pembayaran</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Tahap</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Tipe tahap</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Kontak kesempatan</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>tambahkan kesempatan pertama</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>buat kesempatan baru</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Tahap kesempatan</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Periode khusus</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Pengguna lain</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Hak akses akan ditetapkan ke kesempatan di mana Anda adalah penulisnya</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Jumlah</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Tahap Kesempatan</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Penjual mengambil serangkaian sesi tanya jawab untuk mengidentifikasi kebutuhan prospek</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Butuh penilaian</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>dibutuhkan kontak dengan pembeli potensial untuk mengetahui prospek penjualan ke depan </value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Inisial kontak</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>gagal. Kesempatan ini ditutup karena kurangnya perspektif</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Tidak berhasil ditutup</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Pembeli potensial telah menyatakan minatnya pada barang atau jasa penjual</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Prospek yang berkualitas</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Penjual mencoba untuk mengidentifikasi apakah pelanggan dapat menjadi pembeli  potensialnya</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>aplikasi untuk kriteria initial fit</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Pembeli potensial telah menerima penawaran tertulis dari penjual</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Pembeli potensial diidentifikasi sebagai orang atau badan yang memiliki kepentingan dan kewenangan untuk membeli produk atau jasa</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Tersangka</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Pembeli potensial telah membahas tawaran Anda secara rinci</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Negosiasi</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>sebuah kesepakatan. kesempatan ini ditutup dengan sukses</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>penutupan/Transaksi</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Tipe tahap</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Peserta Kesempatan</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Peserta Kesempatan</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Tag Kesempatan</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Daftar Tag Kesempatan</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Tag Kesempatan</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>hapus kesempatan</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>menghapus kesempatan</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Sunting «{0}» kesempatan</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>sunting kesempatan</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Kesempatan membiarkan Anda melacak potensi penjualan untuk klien Anda. Tentukan {0} tahap kesempatan {1} sesuai dengan proses bisnis Anda, menyimpan riwayat, menetapkan tugas, unggah dokumen, menghitung keuntungan dengan setiap klien.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Tidak ada kesempatan yang cocok dengan filter Anda dapat ditampilkan di bagian ini. Silakan pilih opsi filter lain atau hapus penyaring untuk melihat semua kesempatan dalam bagian ini. Atau Anda dapat membuat kesempatan jika itu tidak ada dari daftar.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Tidak ada kesempatan yang akan ditampilkan untuk filter ini di sini</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Daftar kesempatan kosong</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>masukkan judul kesempatan</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Setiap kesempatan harus memiliki orang yang bertanggung jawab</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Daftar peserta kosong</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Tambahkan peserta untuk kesempatan Anda dari daftar perusahaan atau orang. Setelah ini dilakukan Anda akan tahu kontak apa yang terkait dengan kesempatan ini dan siapa yang dapat Anda ajak.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Perkiraan / Aktual tanggal jatuh tempo</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>anggaran</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>kontak</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Peserta</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Tahap/ jenis tahap</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Impor kesempatan</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Sebuah file CSV yang benar harus dipilih pada HDD komputer Anda. Ini harus berisi bidang atau kolom yang dipisahkan oleh pembatas terpilih yang akan digunakan untuk mengimpor peluang. File-file yang mengandung lebih dari {0} baris harus dibagi menjadi bagian-bagian yang lebih kecil untuk mengimpor langsung. Pastikan Anda memilih pengguna Portal yang harus diberikan akses ke informasi yang akan diimpor, jika tidak maka data dari file CSV akan tersedia untuk semua pengguna Portal.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Pilih file CSV dan set hak akses sebelum Anda impor kesempatan</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Cocokkan kolom file Anda dengan bidang ONLYOFFICE ™ CRM yang sesuai. Silahkan perhatikan fakta bahwa untuk impor kesempatan dengan benar Anda harus memiliki setidaknya kolom berikut dari file Anda yang cocok dengan bidang ONLYOFFICE ™ CRM: 'Judul Kesempatan', 'Penanggung Jawab Kesempatan'. Bidang yang berisi tanggal harus memiliki format berikut: {0}. Bidang mata uang harus diatur sesuai dengan kode tiga huruf internasional (misalnya USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Silakan pastikan bidang</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Pergi ke daftar kesempatan</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Impor kesempatan dapat memakan waktu beberapa menit tergantung pada jumlah data Anda.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Memulai impor</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Tautkan atau buat kesempatan</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Kesempatan saya</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Judul kesempatan</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>anggaran tidak di atur</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Peserta kesempatan lainnya</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Peserta</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Membatasi akses ke kesempatan</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Kemungkinan berhasil</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Bertanggung jawab untuk kesempatan</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Pergi ke profil</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Tunjukkan jumlah total</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Mulai Mengimpor</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Tahap kesempatan membiarkan Anda menentukan langkah yang diperlukan untuk menyelesaikan kesepakatan. Tahapan default kesempatan adalah pendekatan, diskusi, evaluasi, negosiasi, komitmen, sukses, titik nol. Untuk dapat mengeditnya diperlukan hak administrator portal.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Jumlah total</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>semua kesempatan</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Total halaman</value>
+  </data>
+</root>

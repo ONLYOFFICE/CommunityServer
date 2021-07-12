@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>नया मील का पत्थर बनाएं</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>लागू करें</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>जिम्मेदार चुनें</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>संपर्क</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>नए कार्य बनाएँ</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>कंपनी का नाम</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>एक कंपनी या नाम से एक व्यक्ति को मिल ..</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>पहला नाम</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>अंतिम नाम</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>दिन</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>दिनों</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>चर्चा पाया नहीं जा सका</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>विचार विमर्श</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>संपादित मील का पत्थर</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>संपादित करें कार्य</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>प्रत्येक संदेश एक शीर्षक होनी चाहिए</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>प्रत्येक परियोजना के एक प्रबंधक होने चाहिए</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>प्रत्येक परियोजना एक शीर्षक होनी चाहिए</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>सक्रिय कार्य</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>मील के पत्थर के नीचे संक्षिप्त करें कार्य सूची</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>मील के पत्थर के नीचे कार्य सूची का विस्तार</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value> जोड़ना</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>आरंभ करने की तिथि</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>अंतिम तिथि</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>उच्च</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>प्राथमिकता</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>जिम्मेदार</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>मील के पत्थर</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>नया मील का पत्थर</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>नया कार्य</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>लिंक निर्माण के लिए उपलब्ध नहीं कार्य </value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>आप अभी इस पेज को छोड़ अगर आप हाल में किए गए परिवर्तनों को सहेजा नहीं जा सकता है।</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} जिम्मेदार उपयोगकर्ता</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>उपकार्यों</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>उप कार्य</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>विवरण</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>टास्क अतिदेय {0} दिनों का है</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>कार्यों</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>मील के पत्थर के बिना कार्य</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>साल</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>चुना गया</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>दिनांक स्वरूप अमान्य है</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>अमान्य समय प्रारूप</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>माइलस्टोन जोड़ा गया</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>मील का पत्थर निकाला गया</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>मील के पत्थर</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>माइलस्टोन संपादित</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>अगला</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>कोई सक्रिय भागीदारी कर रहे हैं</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>नहीं मील का पत्थर</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>पूर्व</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>परियोजना </value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>परियोजना पाया नहीं जा सका</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>परियोजना </value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>अंत-अंत</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>अंत- शुरू</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>शुरू - अंत</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>शुरू-शुरू</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>टेम्पलेट नहीं पाया जा सका</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>रोका गया</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>सफलतापूर्वक शामिल</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>टास्क जोड़ा</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>टास्क पाया नहीं जा सका</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>टास्क निकाला गया</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>कार्यों</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>टास्क अपडेट किया</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>टीम</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>टेम्पलेट सहेजा</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>समय हटाया</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>कोई डेटा नहीं</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>समय ट्रैकिंग</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>समय अद्यतन</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>कार्य सूची के लिए</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>सभी खुले कार्य देखें</value>
+  </data>
+</root>

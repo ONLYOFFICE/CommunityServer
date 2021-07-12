@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formfyllning</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Ägare</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Läs endast</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Full tillgång</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Neka Tillgång</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Granska</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Varierar</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arkiv</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Skapare</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Inga undermappar</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Alla filer</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mappar</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Bilder</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>I innehållet</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Presentationer</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Kalkylblad</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Visa mer {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Laddar upp...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Visa mer {0} av {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Upphovsman</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Skapandedatum</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Modifieringsdatum</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Koden har kopierats till Urklipp</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Är du säker på att du vill radera {0} från 'Dokument' modulen? Detta kommer inte påverka ditt {1} konto på något sätt.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Är du säker på att du vill tömma papperskorgen?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Är du säker på att du vill lämna sidan? Nedladdning av filer kommer avbrytas.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Du är på väg att radera denna fil. Vänligen observera att om du har delat den med någon så blir den otillgänglig. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Du är på väg att radera denna mapp. Vänligen observera att om du har delat den med någon så blir den otillgänglig. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Du är på väg att radera dessa element. Vänligen observera att om du har delat dessa filer/mappar med någon så blir de otillgängliga. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Du är på väg att flytta element från {1} katalog. I ett sådant fall, kommer de att raderas från ditt {1} konto och kommer inte längre att vara tillgängliga för andra användare, ifall dessa element har tidigare delats. {0}Är du säker på att du vill flytta elementen?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Gemensamma Dokument</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Anpassat format</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Grupper</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Arkiverar Data</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Ändra data</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Fullbordar version</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Skapelse</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Signera via DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Laddar versioner...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Markerar som Läst</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Flytta</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Raderar...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Döp om</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Uppdaterar version</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Förbereder för filkryptering</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Krypterar fil</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Spara krypterad fil</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Signera dokument ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Välj minst en mapp/dokument att ladda ner</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Skriv en kommentar</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Du kan inte ladda upp en mapp eller en tom fil</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Konverteringsfel</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Alla fält kräver att fyllas i</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Maximal filstorlek är överskriden</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Du behöver logga in för att kunna lägga till</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Det här filformatet stöds ej.</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Angivet lösenord är felaktigt. Försök igen.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Vänligen vänta på den förra nedladdningen för att färdigställa eller avbryta den</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Du har inte tillräcklig tillåtelse att genomföra operationen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Du kan inte genomföra den handlingen i denna mappen</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Titeln får inte innehålla några av de följande karaktärerna: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Portallagringen har slut på utrymme. Du kan inte ladda upp filer större än {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Filen med namnet {0} finns redan i mappen {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Konverterad</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Konverterar</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} dokument med samma namn finns redan i mappen {1}.</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Uppladdad</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Laddar upp</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Låda katalog</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign konto</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>DropBox katalog</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google katalog</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint katalog</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive katalog</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV katalog</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Katalog</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Nu är '{0}' ägaren av '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Nu är '{0}' ägaren av {1} objekt</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' ändrad</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Kopiera {1}{0}{2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} kopierade element</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' kopierad</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} element</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Ny fil '{0}' skapades</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Den nya filen '{0}' skapades i '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Ny mapp '{0}' skapades</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Du kan inte kopiera mappen till sin underordnade mapp</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Du kan inte flytta mappen till sin underordnade mapp</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Du har inte rättigheter att flytta vissa filer</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Flytta {1}{0}{2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} element har flyttats</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>{0} flyttade</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Dokumentet '{0}' raderades</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Mappen '{0}' är raderad</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Det var raderat {0} från {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Tredje Parten '{0}' är ej ansluten</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Dokumentet '{0}' döptes om till '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Mappen '{0}' döptes om till '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' tillagd i '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} dokument är uppladdade</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mina dokument</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Originalformat</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Annan</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Presentationer</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Misslyckades att ladda upp filen {0} för förhandsgranskning</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektdokument</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>revideringar: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Du har beviljats tillgång till {0} dokumentet. Klicka på länken nedan för att öppna dokumentet nu: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Du har beviljats tillgång till {0} dokumentet </value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Lägg till användare eller grupper och ge dem tillåtelse{0} att läsa, granska eller redigera dokument.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Kalkylblad</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Arkiverar Data</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopierar</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Raderar</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Markerar som Läst</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} operationer</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Flytta</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Byt {0} anslutningsinställningar</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Det redigeras just nu</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Det redigeras just nu av: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Låst</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Låst av: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Fler funktioner</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Ny presentation</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Nytt kalkylblad</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Nytt dokument</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Ny mapp</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Vanliga Inställningar</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Hjälp</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Anslut konton</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Låda</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Okänt fel...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Uppladdning färdig</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Laddar upp ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Laddar upp {0} filer ({1}% klart)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} av {1} använda</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+</root>

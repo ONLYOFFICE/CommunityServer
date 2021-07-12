@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Ngân sách trung bình của cơ hội</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Thời gian trung bình của một cơ hội thành công, ngày</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Hóa đơn đã thanh toán</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Ngân sách</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Template Document Builder trống</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Theo ngân sách</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Theo số lượng</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Cuộc gọi</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Số cuộc gọi</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Thời lượng cuộc gọi</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Cuộc gọi theo giai đoạn</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Đã đóng</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Nhiệm vụ đã đóng</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Liên hệ theo mức nhiệt độ</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Liên hệ theo hình thức</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Có cơ hội</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Không có cơ hội</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Chuyển đổi</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Để tạo báo cáo, ngân sách cơ hội phải được đưa về đơn vị tiền tệ cơ sở. Thiết lập tỷ giá hối đoái đã sử dụng để làm điều đó.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Thiết lập đồng tiền</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Tháng hiện tại</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Quý hiện tại</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Tuần hiện tại</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Năm hiện tại</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Ngân sách của cơ hội</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Cơ hội theo ngân sách</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Cơ hội theo số lượng</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Cơ hội theo giai đoạn</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Cơ hội theo trạng thái</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Số cơ hội</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Thời lượng</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Trong suốt thời gian</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Báo cáo đã được tạo</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Tất cả báo cáo được tạo sẽ được hiển thị ở đây. Bạn có thể chỉnh sửa, xóa hoặc tải về các file báo cáo. Để tạo báo cáo, hãy chọn template từ danh sách ở bên trái, thiết lập tiêu chí lọc và nhấp vào nút 'Tạo'.</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Tạo báo cáo</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Gọi đến</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Hoá đơn theo trạng thái</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Hoá đơn trong giai đoạn</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Mục</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Đã mất</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>trong đó {0} không được trả lời</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Sẽ đóng trong 30 ngày tới</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Liên hệ mới</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Liên hệ mới có và không có cơ hội</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Nhiệm vụ mới</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Tháng sau</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Quý sau</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Tuần sau</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Năm sau</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Không có dữ liệu để báo cáo. Chọn tiêu chí lọc khác.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Đã mở</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Gọi đi</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Nhiệm vụ quá hạn</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Tháng trước</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Quý trước</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Tuần trước</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Năm trước</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Lập báo cáo</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Bạn có thể xem, tải xuống, chỉnh sửa hoặc xóa tất cả báo cáo được tạo ra trong {0}CRM/Báo cáo/Báo cáo đã tạo{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Đang lập báo cáo ({0}% hoàn thành)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Doanh thu theo ngày, theo quản lý</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Doanh thu theo giờ, theo quản lý</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Doanh thu theo Quản lý</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm mục đích hiển thị các cơ hội đã chốt thành công cho {1}Khoảng thời gian{2} đã chọn cho tất cả các quản lý hoặc chỉ những người được chọn.{0} Khi thời gian theo tuần hoặc tháng được chọn, báo cáo cho thấy các kết quả được nhóm theo ngày, quý và năm sẽ tập hợp dữ liệu theo tháng.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Doanh thu theo tháng, theo quản lý</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Dự báo doanh thu</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm mục đích hiển thị dự báo doanh thu cho một khoảng thời gian cụ thể, có tính đến xác suất cơ hội. Nó thể hiện số lượng cơ hội cho {1}Khoảng thời gian{2} được chọn cho tất cả quản lý hoặc chỉ những người được chọn.{0} Dữ liệu bao gồm tổng ngân sách cho các cơ hội, ước tính ngày chốt rơi vào khoảng thời gian đã chọn.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Phễu bán hàng theo ngân sách của cơ hội</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Phễu bán hàng theo số lượng cơ hội</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Phễu bán hàng</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm mục đích xây dựng phễu bán hàng trong một khoảng thời gian cụ thể. Nó cho biết số cơ hội trong {1}Khoảng thời gian{2} được chọn cho tất cả các quản lý hoặc chỉ những người được chọn.{0} Dữ liệu chính bao gồm số lượng cơ hội trong phễu, ngân sách cơ hội trung bình, thời gian trung bình của các cơ hội được chốt thành công, tỷ lệ để các cơ hội được chốt. {0} Dữ liệu được sắp xếp theo số lượng và ngân sách của cơ hội.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Giai đoạn</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Tổng</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm hiển thị dữ liệu tóm tắt về các cơ hội, liên hệ, nhiệm vụ và hóa đơn theo {1}Khoảng thời gian{2} đã chọn cho tất cả các quản lý hoặc chỉ những người được chọn. Báo cáo sẽ hiển thị các cơ hội được ghi theo trạng thái và theo giai đoạn, địa chỉ liên hệ theo hình thức và giai đoạn, nhiệm vụ và hoá đơn theo trạng thái.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Tóm tắt cho thời điểm hiện tại</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Tóm tắt cho giai đoạn</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm hiển thị dữ liệu tóm tắt về các cơ hội, địa chỉ liên hệ, nhiệm vụ và hóa đơn cho {1}Khoảng thời gian{2} đã chọn cho tất cả quản lý hoặc chỉ những người được chọn. Báo cáo sẽ chỉ ra các cơ hội theo ngân sách và số lượng, địa chỉ liên hệ theo hình thức, nhiệm vụ và hoá đơn theo khoảng thời gian.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Nhiệm vụ theo trạng thái</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Nhiệm vụ theo giai đoạn</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Khoảng thời gian</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Tổng ngân sách của các cơ hội</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Tổng số cơ hội</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Tổng doanh thu trong khoảng thời gian theo quản lý</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Có được</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm hiển thị tổng số địa chỉ liên hệ cho {1}Khoảng thời gian{2} đã chọn cho tất cả quản lý hoặc chỉ những người được chọn. Báo cáo sẽ chỉ ra các liên hệ mới theo hình thức và theo khả năng có và không có cơ hội. Dữ liệu chỉ được nhóm theo quản lý.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Liên hệ theo quản lý</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm hiển thị tổng khối lượng công việc của các cơ hội có được và đã mất cho {1}Khoảng thời gian{2} đã chọn cho tất cả các quản lý hoặc chỉ những người được chọn. Dữ liệu chỉ được nhóm lại theo quản lý.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Cơ hội theo quản lý</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm mục đích hiển thị tổng số hoá đơn cho {1}Khoảng thời gian{2} đã chọn cho tất cả các quản lý hoặc chỉ những người được chọn. Báo cáo sẽ hiển thị tổng số hoá đơn được gửi cũng như số hoá đơn đã thanh toán, bị từ chối và quá hạn. Dữ liệu chỉ được nhóm theo quản lý.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Hóa đơn theo quản lý</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm mục đích hiển thị tổng số nhiệm vụ cho {1}Khoảng thời gian{2} đã chọn cho tất cả quản lý hoặc chỉ những người được chọn. Báo cáo sẽ hiển thị các nhiệm vụ đã đóng, mới và quá hạn được xác định theo loại. Dữ liệu chỉ được nhóm theo quản lý.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Nhiệm vụ theo quản lý</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Báo cáo này nhằm hiển thị tổng số cuộc gọi cho {1}Khoảng thời gian{2} đã chọn cho tất cả quản lý hoặc chỉ những người được chọn. Báo cáo sẽ hiển thị tổng số cuộc gọi đến, cuộc gọi đi và thời lượng cuộc gọi. Dữ liệu chỉ được nhóm theo quản lý.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Lưu ý rằng báo cáo này sẽ chỉ khả dụng nếu bạn kết nối Twilio. Để kết nối, truy cập {0}liên kết{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP theo Quản lý</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+</root>

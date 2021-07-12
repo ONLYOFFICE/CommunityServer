@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>O acesso foi negado. É necessário privilégio de administrador.</value>
+  </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>Ocorreu um erro durante a exclusão do contato. Verifique sua conexão de rede ou entre em contato com o administrador da rede ou do portal.</value>
+  </data>
+  <data name="ErrorDkimPublicKeyInUse" xml:space="preserve">
+    <value>Esta chave pública DKIM já está em uso. Reabra o assistente.</value>
+  </data>
+  <data name="ErrorDuplicateAlias" xml:space="preserve">
+    <value>Você quer criar um alias com endereço já existente.</value>
+  </data>
+  <data name="ErrorDuplicateDomain" xml:space="preserve">
+    <value>Domínio já está em uso.</value>
+  </data>
+  <data name="ErrorDuplicateGroup" xml:space="preserve">
+    <value>Você quer criar um grupo de e-mail com endereço já existente.</value>
+  </data>
+  <data name="ErrorDuplicateMailbox" xml:space="preserve">
+    <value>Você quer criar uma caixa de correio com endereço já existente.</value>
+  </data>
+  <data name="ErrorDuplicateMailGroupAddress" xml:space="preserve">
+    <value>Você quer adicionar endereço já existente.</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Erro do servidor interno. Tente novamente depois.</value>
+  </data>
+  <data name="ErrorInvalidAddress" xml:space="preserve">
+    <value>Endereço inválido.</value>
+  </data>
+  <data name="ErrorInvalidAlias" xml:space="preserve">
+    <value>Nome do alias inválido.</value>
+  </data>
+  <data name="ErrorInvalidDomain" xml:space="preserve">
+    <value>Nome do domínio inválido.</value>
+  </data>
+  <data name="ErrorInvalidMailbox" xml:space="preserve">
+    <value>Nome da caixa de correio inválido.</value>
+  </data>
+  <data name="ErrorInvalidMailGroup" xml:space="preserve">
+    <value>Grupo incorreto.</value>
+  </data>
+  <data name="ErrorMailboxLimit" xml:space="preserve">
+    <value>O limite de caixas de correio de usuário foi excedido.</value>
+  </data>
+  <data name="ErrorUnknownUser" xml:space="preserve">
+    <value>Usuário desconhecido.</value>
+  </data>
+  <data name="ErrorUnpaidAccessDenied" xml:space="preserve">
+    <value>Não disponível na versão não paga</value>
+  </data>
+  <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
+    <value>Operação inválida para domínio compartilhado</value>
+  </data>
+</root>

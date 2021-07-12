@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Archívum</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Archívált</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Hozzászólások</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Új megbeszélés</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Megbeszélés indítása</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Feladat létrehozása a megbeszéléshez</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Biztos törölni akarja ezt a megbeszélést?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Megbeszélés törlése</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Nincsen a szűrőfeltételnek megfelelő megbeszélés ebben a szekcióban</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>A megbeszélések azt a célt szolgálják, hogy a projekt folyamán esetlegesen felmerülő problémákra a projektteam megtalálhassa a jó megoldásokat. Beszéljen meg minden ügyet a kollégáival, kérjen meg felhasználókat más projektekből, hogy csatlakozzanak a mefbeszéléshez. </value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>A megbeszélések azt a célt szolgálják, hogy a projekt folyamán esetlegesen felmerülő problémákra a projekt team megtalálhassa a jó megoldásokat. Beszéljen meg minden ügyet a kollégáival.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Nem kezdődött még megbeszélés</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Résztvevők</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Megbeszélés szerkesztése</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Minden üzenetnek tartalmaznia kell szöveget</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Nincs a feltételnek megfelelő megbeszélés</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Megbeszélés</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Szöveg</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Megbeszélések</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Bővebben</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Válassz projektet</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Indítsa az első megbeszélést</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Az Ön által kiválasztottak értesülnek majd az üzenetről és a hozzáfűzött kommentekről</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Értesítés</value>
+  </data>
+</root>

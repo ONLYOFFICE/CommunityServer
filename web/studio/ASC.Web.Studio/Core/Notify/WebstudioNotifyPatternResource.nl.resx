@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blog is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Bladwijzer is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM-casus is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Opmerking is toegevoegd op</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM-contact is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>CRM kans is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Discussie is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Gebeurtenis is aangemaakt op </value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Document is aangemaakt/geüpload op </value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Map is aangemaakt op </value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Forum is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Poll is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Post is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Mijlpaal is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Project is aangemaakt op</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Taak is aangemaakt op</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Toegang Controlepaneel</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Toegang tot Uw Portaal</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Toegang tot uw WebKantoor</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Nu Configureren</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Nu Uitnodigen</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Een Telefoongesprek Aanvragen</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Selecteer de Abonnementen Nu</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Meer Informatie &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.Activeer uw e-mail voor "${__VirtualRootPath}":"$InviteLink" portaal.
+
+Hallo!
+
+Om deel uit te gaan maken van het "${__VirtualRootPath}":"$InviteLink" portaalleven moet u uw e-mailadres activeren. Dit vanwege veiligheidsredenen. 
+
+$GreenButton
+
+Deze link is maar 7 dagen geldig. Rond alstublieft uw e-mailactivatie af binnen die periode.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portaal back-up aangemaakt
+
+Beste $OwnerName,
+
+Er is een back-upbestand met data van uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaal aangemaakt. 
+
+Om meer te weten te komen over de back-upprocedure ga alstublieft naar onze "Data back-up": "http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" handleiding.
+
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Met vriendelijke groet,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Verzoek wijzigen wachtwoord voor het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+Er is een verzoek gedaan om uw wachtwoord te wijzigen waarmee u inlogt op het ${LetterLogoText} portaal.
+
+Klik alstublieft op de onderstaande link om uw wachtwoord te wijzigen:
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om uw wachtwoord te wijzigen alstublieft binnen die periode. 
+
+Als u uw wachtwoord niet wilt wijzigen of deze e-mail ten onrechte ontvangt, kunt u deze negeren of contact opnemen met uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaalbeheerder om meer informatie te krijgen.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Verzoek wijzigen mobiel telefoonnummer
+
+U heeft een verzoek gedaan om uw mobiele nummer te wijzigen waarmee u inlogt op het
+${LetterLogoText} portaal.
+
+Klik alstublieft op de link hieronder om uw mobiele nummer te wijzigen: 
+
+$GreenButton
+
+Als u uw mobiele nummer niet wilt wijzigen of deze e-mail ten onrechte ontvangt, kunt u deze negeren of contact opnemen met uw portaalbeheerder om meer informatie te krijgen.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Verandering van "${__VirtualRootPath}":"${__VirtualRootPath}" portaaleigenaar
+
+Beste $OwnerName,
+
+Er is een verzoek binnengekomen om de "${__VirtualRootPath}":"${__VirtualRootPath}" portaaleigenaar te veranderen naar $UserName.
+
+Klik alstublieft op de link hieronder om de actie te bevestigen: 
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om de portaaleigenaar te veranderen alstublieft binnen die periode.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Verandering van portaaladres
+
+Beste $OwnerName,
+
+Er is een verzoek binnengekomen om het "${__VirtualRootPath}":"${__VirtualRootPath}" portaaladres te veranderen naar "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end.
+
+Klik alstublieft op de link hieronder om de actie te bevestigen: 
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om het portaaladres te veranderen alstublieft binnen die periode.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.Bericht van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+E-mail: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.Uitnodiging om lid te worden van het "${__VirtualRootPath}":"$InviteLink" portaal
+
+Hallo,
+
+U heeft een aanvraag gedaan om lid te worden van het "${__VirtualRootPath}":"$InviteLink" portaal op ${LetterLogoText} - een platform voor document- en projectmanagement. Word lid van het portaal en begin onmiddellijk met samenwerken met uw collega's en vrienden.
+
+Voer, om de uitnodiging te accepteren, alstublieft uw naam en wachtwoord in op de volgende link: 
+
+$GreenButton
+
+*Let op*: deze link is maar 48 uur geldig. Voltooi de actie alstublieft binnen die periode.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Migratiefout portaal andere regio
+
+Er is een fout ontstaan bij het migreren naar de $RegionName regio. Probeer het alstublieft later opnieuw. Uw portaal is nu beschikbaar op het oude adres "$PortalUrl":"$PortalUrl"
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Vriendelijke groet,
+ONLYOFFICE™ Supportteam
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Om het notificatietype te veranderen, beheer alstublieft uw "abonnementsinstellingen": "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Migratiefout portaal andere regio
+
+Er is een fout ontstaan bij het migreren naar een andere regio. Probeer het alstublieft later opnieuw. Uw portaal is nu beschikbaar op het oude adres "$PortalUrl":"$PortalUrl"
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Vriendelijke groet,
+ONLYOFFICE™ Supportteam
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Om het notificatietype te veranderen, beheer alstublieft uw "abonnementsinstellingen": "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Portaalmigratie naar andere regio gestart
+
+De portaalmigratie naar de $RegionName regio is gestart. Het kan even duren afhankelijk van de hoeveelheid data.
+
+*Let op*: het portaal zal niet beschikbaar zijn tijdens het migratieproces. Nadat de migratie is voltooid zal de URL van het portaal worden veranderd en alle gedeelde documentlinks zullen niet toegankelijk zijn. 
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Vriendelijke groet,
+ONLYOFFICE™ Supportteam
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Deactivatie van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+Beste $OwnerName,
+
+U heeft een verzoek gedaan voor tijdelijke deactivatie van uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.
+
+Klik alstublieft op onderstaande link om de actie te bevestigen:
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om uw profiel te verwijderen alstublieft binnen die periode. 
+
+U kunt uw portaal op elk moment weer activeren door te klikken op de volgende link:
+p=. "Portaal Reactiveren":"$ActivateUrl" (deze link heeft geen tijdslimiet)
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Met vriendelijke groet,
+ONLYOFFICE Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.Verwijdering van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+Beste $OwnerName,
+
+U heeft een verzoek gedaan voor permanente verwijdering van uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.
+
+*Belangrijk! Alle data die is opgeslagen op uw portaal, en ook uw registratiegegevens gaan verloren en kunnen niet worden hersteld.*
+
+#if($AutoRenew == "True")
+Zorg er, voordat u het portaal verwijdert, alstublieft voor dat automatische facturering uit staat. U kunt de status van automatische facturering bekijken in uw "Avangate account":"https://secure.avangate.com/myaccount/".
+#end
+
+Als u uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaal nog steeds wilt verwijderen, klik dan alstublieft op de link om de actie te bevestigen:
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om uw profiel te verwijderen alstublieft binnen die periode. 
+ 
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Met vriendelijke groet,
+ONLYOFFICE Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Verandering van portaaladres
+
+Beste $OwnerName,
+
+Uw $PortalUrl portaaladres is veranderd naar het nieuwe "${__VirtualRootPath}":"${__VirtualRootPath}" adres.
+
+*Let op*: Alle gedeelde documenten zijn nu niet toegankelijk, evenals DNS-instellingen en opties voor single sign-on zijn gestopt met werken totdat u ze wijzigt. De iCal-links van derde partijen die aan uw kalender zijn toegevoegd, stoppen ook met updaten totdat u ze opnieuw laadt.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Verwijdering van profiel van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+U heeft een verzoek gedaan om uw profiel permanent te verwijderen van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.
+
+Als u uw profiel nog steeds wilt verwijderen, klik dan alstublieft op de link om de actie te bevestigen:
+
+$GreenButton
+
+*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om uw profiel te verwijderen alstublieft binnen die periode.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Uw profiel op "$__VirtualRootPath":"$__VirtualRootPath" is veranderd
+
+Beste $UserName,
+
+De details van uw gebruikersprofiel op "$__VirtualRootPath":"$__VirtualRootPath" zijn veranderd door "$__AuthorName":"$__AuthorUrl".
+
+Om uw profiel te bekijken, klik op de onderstaande link:
+"$UserName":"$MyStaffLink"
+
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Enterprise licentieverzoek
+
+h3.Voornaam
+$UserName
+
+h3.Achternaam
+$UserLastName
+
+h3.Positie
+$Position
+
+h3.E-mail
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefoon
+$Phone
+
+h3.Bedrijfswebsite
+$Website
+
+h3.Bedrijfsnaam
+$CompanyTitle
+
+h3.Bedrijfsgrootte
+$CompanySize
+
+h3.Inhoud verzoek
+$Body
+
+h3.Portaaladres
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Portaalherstel begonnen
+
+Het portaalherstel is begonnen. Het kan even duren afhankelijk van de hoeveelheid data.
+
+*Let op*: het portaal zal niet beschikbaar zijn tijdens het herstelproces.
+
+Als u vragen of hulp nodig heeft neem dan gerust contact met ons op via "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Met vriendelijke groet,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Om het notificatietype te veranderen, kunt u dit beheren in uw "abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portaal notificatie profielverandering
+
+"$__AuthorName":"$__AuthorUrl" heeft zijn/haar profieldetails veranderd op het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal.
+
+
+^U ontvangt deze e-mail omdat u beheerder bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Als u geen notificaties wilt ontvangen over profielupdates, kunt u dit beheren in uw "abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Wat is er nieuw op "${__VirtualRootPath}":"${__VirtualRootPath}" portaal voor $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Auteur*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^U ontvangt deze e-mail omdat u een geregistreerde gebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Als u geen notificaties wilt ontvangen over nieuwe geberutenissen op het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal, kunt u dit beheren in uw "abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP testbericht
+
+Deze melding is automatisch gegenereerd om uw SMTP-instellingen te testen. Als u dit ziet, betekent dit dat de instellingen correct zijn en u ze op uw portaal kunt gebruiken.
+
+Vriendelijke groet,
+ONLYOFFICE Team</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.Nieuwe gebruiker toegevoegd aan "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
+
+"$__AuthorName":"$__AuthorUrl" is lid geworden van het portaal op "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^U ontvangt deze e-mail omdat u een beheerdersgebruiker bent van het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal. Als u geen notificaties wilt ontvangen over nieuwe gebruikers, kunt u dit beheren in uw "abonnementsinstellingen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Activeer aub uw email adres</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath} Portaal Backup gecreërd</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} wachtwoord assistentie</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Mobiele telefoon wijzigings verzoek</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Verandering van Portaal eigenaar</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Verandering van Portaal adres</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Gebruikersbericht aan beheerders</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Uitnodiging om u aan te sluiten bij het ${__VirtualRootPath} portaal</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Andere regio Portaal migratiefout</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Andere regio Portaal migratie gestart</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Andere regio Portaal migratie succesvol afgerond</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Deactiveren van het ${__VirtualRootPath} portaal</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>Verwijdering van het ${__VirtualRootPath} portaal</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Verandering van Portaal adres</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Verwijdering van uw profiel van het ${__VirtualRootPath} portaal</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Uw profiel op ${__VirtualRootPath} is gewijzigd</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Enterprise licentieverzoek</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>SaaS abonnementsverzoek</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Herstel afgerond</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Herstel gestart</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} portaal profiel wijzigings notificatie</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Wat is er nieuw op uw portaal voor $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP testbericht</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Nieuwe gebruiker toegevoegd aan het ${LetterLogoText} portaal</value>
+  </data>
+</root>

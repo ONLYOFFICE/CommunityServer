@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Prieigos teisės ir žymės</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Nustatykite prieigos prie kontaktų, gautų iš Tinklapio kontaktų formos, teises, kitaip visi CRM vartotojai matys naujus kontaktus. Kurkite žymas, kurios bus priskirtos naujiems klientams sąraše.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portalo prieigos teisės</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Pridėti naujos užduoties šabloną</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Pridėti naują užduoties šabloną</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Pridėti parinktį</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresas</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Žymės pridėjimas</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Neberodyti kontaktų susiejimo dialogo</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Pridėti užduočių šablonų konteinerį</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Pridedamas užduoties šablono talpykla</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Pridedamas užduoties šablonas</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Pridėti šį užduoties šabloną</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Pridėti šį užduoties šabloną</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikavimas</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Pagrindinė informacija</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Asmuo ir bendrovė</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Keisti spalvą</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Neberodyti kontaktų susiejimo dialogo</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Keisti piktogramą</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Pakeisti logotipą</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Žymės langelis</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Stulpeliai</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Bendri parametrai</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Kontaktų tipai</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Sukuriama kategorija</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Temperatūros lygio kūrimas</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Sukuriamas kontaktų tipas</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Sukurti naudotojo laukelį</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Sukuriama būsena</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Sukuriamas laukelis</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Sukurti naują kategoriją</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Nauja kategorija</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Sukurti naują kontaktų tipą</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Naujas kontaktų tipas</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Sukurti naują būseną</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Nauja būsena</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Sukurti naują laukelį</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Naujas laukelis</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Sukurti naują temperatūros lygį</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Naujas temperatūros lygis</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Sukurti naują žymę</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Nauja žyma</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valiutos parametrai</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Vartotojo laukai</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Uždaro nesėkmingą pardavimą.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Užbaigia sėkmingą pardavimą.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Numatytoji valiuta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Panaikinti karegoriją</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Panaikinti temperatūros lygį</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Naikinti kontaktų tipą</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Panaikinti lauką</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Pasirinktas laukelis su visais duomenimis bus ištrintas iš visų kontaktų, kuriuose jis yra. Ar tikrai norite tęsti?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Panaikinti etapą</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Naikinti žymę</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Kategorijos pašalinimo patvirtinimas</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Naikinti užduoties šabloną</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Naikinti užduoties šabloną</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Naikinti nenaudojamas žymes</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Kontaktų temperatūros lygiai leidžia Jums tiksliau apibūdinti jūsų potencialius pirkėjus. Pavyzdžiui, kontaktų tipai gali būti "Šaltas", "Karštas", "Šiltas", reiškiantys kontakto norą pirkti jūsų produktą.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Galite redaguoti arba naikinti kontakto temperatūros lygį tik jeigu nėra šio lygio kontaktų.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Kontaktų tipai padeda apibūdinti kontaktus. Numatytieji kontaktų tipai yra „Klientas“, „Konkurentas“, „Partneris“, „Tiekėjas“, apibūdinantys kontakto santykį su organizacija.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Redaguoti arba ištrinti kontaktų tipą galima tik jei nėra nei vieno šio tipo kontakto.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Pardavimų etapai leidžia apsibrėžti žingsnius sandorio pabaigimui. Pavyzdžiui, galimi pardavimų etapai yra „Komercinis pasiūlymas“, „Avansas“, „Vykdymas“. Etapų eiliškumą galima keisti juos perkeliant pele aukštyn ar žemyn.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Redaguoti ir naikinti pardavimų etapus galima tik tuo atveju, jei šiame etape nėra jokių pardavimų</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Istorinių įvykių kategorijos leidžia Jums suskirstyti istorinius įvykius į grupes. Standartinės istorinių įvykių kategorijos yra el. paštas, pastaba, skambutis, susitikimas. Norint kategorijas keisti, reikia turėti administratoriaus teises.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Redaguoti ar panaikinti istorinio įvykio kategoriją galima tik jei nėra nei vieno tos kategorijos įvykio.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Užduočių kategorijos leidžia grupuoti užduotis priklausomai nuo norimų pasiekti tikslų. Pavyzdžiui, užduoties kategorija gali būti „Susitikimas“, „Skambutis“ ar „Padėka“ .</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Galite redaguoti arba naikinti užduoties kategoriją tik atveju jei ši kategorija dar neturi užduočių.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Atidėti, dienomis</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Atsisiųsti visus duomenis viename ZIP-Archyve</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP archyvo generavimas prasidėjo</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Nuoroda parsisiųsti ZIP archyvą</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Redaguoti kategoriją</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Redaguoti temperatūros lygį</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Redaguoti kontaktų tipą</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Redaguoti lauką</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Redaguoti etapą</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Redaguoti užduočių kategoriją „{0}“</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Redaguoti temperatūros lygį „{0}“</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Redaguoti kontakto tipą „{0}“</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Redaguoti pardavimo etapą „{0}“</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Redaguoti užduočių šabloną „{0}“</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Redaguoti užduočių šablono „{0}“ konteinerį</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Redaguoti užduoties šabloną</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Redaguoti užduočių šablonų konteinerį</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Vartotojo laukų sąrašas yra tuščias</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Vartotojo laukai leidžia nurodyti papildomą informaciją apie klientą, pardavimą arba renginį. Pavyzdžiui, galite pridėti lauką „Šaltinis“, kad galėtumėte kaupti informaciją apie tai, kaip užmegztas kontaktas su klientu: reklama, tiesioginiai pardavimai ir pan. Keisti ar panaikinti vartotojo lauką galima tik jei nėra nei vieno kontakto ar pardavimo su šiuo lauku.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Žymių sąrašas yra tuščias</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Žymos gali būti naudojamos kontaktų grupavimui arba aprašymui (tiek asmenims tiek bendrovėms), pardavimams ir renginiams, kurie turi kažką bendro. Pavyzdžiui, lengvesniam grupavimui visus asmenis iš skirtingų bendrovių, tačiau tos pačios verslo sferos, galite žymėti viena žyma. Galite keisti ar panaikinti žymą tik jei ta žyma nėra niekam priskirta.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Užduočių šablonų sąrašas tuščias</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Užduočių šablonus galima naudoti CRM modulyje kuriant tipines, vienodas užduotis. Užduotys vienu pelės mygtuko spustelėjimu gali būti sukurtos kontaktams, pardavimams, renginiams. Pasirinkite konteinerį, kad sukurtumėte užduotį kiekvienam užduočių konteinerio šablonui.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Šis laukas turi būti užpildytas teisingai</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Kiekvienas laukas turi turėti pavadinimą</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Lauko pavadinimas negali būti tuščias</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Įgalinti SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Eksportavimas</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Visų duomenų eksportas</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Eksportavimo fukcija sugeneruoja ZIP archyvą, kuriame patalpinami CSV failai su visais CRM duomenimis (kontaktais, pardavimais, renginiais, istorija ir t.t.). Jums bus atsiųstas el. laiškas su nuorodą į sugeneruotą archyvą.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Generuoti sąrašą išorinei programai</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Laukų sąrašas</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Laukų pasirinkimas</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Pasirinkite laukus, kurie bus rodomi formoje</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Pirminis formos kodas</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Naudokite šią formą savo svetainėje</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Štai, kaip atrodys forma jūsų svetainėje</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Formos ypatybes</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Pagrindiniai svetainės kontaktų formos parametrai</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Generuoti formą</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Gauti numatytuosius nustatymus</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Antraštė</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Istorinių įvykių kategorijos</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Serveris</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Prisijungimo vardas</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Prisijungimo slaptažodis</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Vidaus SMTP (daugiausia {0} pašto gavėjų)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Tik bendrovei</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Tik asmeniui</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Pavadinimas</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Sėkmės tikimybė</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Informuoti {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Nurodykite {!users}, kurie gaus pranešimą apie naują kontaktą, gautą iš Tinklapio kontaktų formos</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Skaičiuoti nuo ankstesnės užduoties</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Skaičiuoti nuo konteinerio pradžios</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Sąskaitos logotipas</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Kiti laukeliai</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Prievadas</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Panaikinti parinktį</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Atkurti numatytąjį</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Peradresavimo URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Interneto svetainės adresas, į kurį vartotojas bus nukreiptas po to, kai užpildys formą.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Eilutes</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Įrašyta!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Pasirinkimo laukas</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Pasirinkimai</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Pasirinkite kategoriją, pakeisiančią dabartinę užduočių kategoriją</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Rodomas siuntėjo vardas</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Siuntėjo el. pašto adresas</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Nustatyti naudotojo laukus</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Nurodykite savo organizacijos adresą, kuris bus rodomas sąskaitose-faktūrose. Pasirinkite {0}Valstybę{1} iš sąrašo ir užpildykite {0}Adresas{1}, {0}Miestas{1}, {0}Sritis{1} ir {0}Pašto indeksas{1} laukelius.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Numatytasis Jūsų organizacijos {0}logotipas{1} bus rodomas {0}Sąskaitose{1}.{3} Kad pakeistumėte logotipą, spauskite 'Keisti logotipą' nuorodą ir pasirinkite paveikslėlį iš savo kompiuterio įkėlimui į portalą. Paveikslėlis neturėtų būti didesnis nei {0}{4}x{5} taškų {1}, kitaip jo dydis bus sumažintas. Didžiausias leistinas paveikslėlio dydis - {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Dydis</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Siųsti duomenis</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Žyma tokiu pavadinimu jau yra</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Užduoties šablonai</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Teksto laukas</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Tekstas</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Antraštė</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipas</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Tinklapio formos raktas</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Nustatymai</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Svetainės kontaktų forma</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Neleistinas formos raktas</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Pasinaudokite Tinklapio kontaktų formos, kurią galite paskelbti savo tinklapyje, funkcionalumu. Forma leidžia automatiškai gauti naujų kontaktų. Nurodykite formos ypatybes, pasirinkite būtinus laukus ir sugeneruokite kodą, kurį galėsite panaudoti svetainėje.</value>
+  </data>
+</root>

@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Paskyros pavadinimas</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Paskyrų valdymas</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktyvuoti paskyrą</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktyvuoti</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Pridėti kopiją</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Pridėti el. pašto adresą</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>El. pašto adresas</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontaktai</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Pridėti žymę</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Papildomai</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Pašalinti viską</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Atsisiųsti viską</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Prisegti nuorodų į failus</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Prisegti failų iš Dokumentų</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Priedai</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Susieti su CRM kontaktu</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>Nematomoji kopija</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Pridėti naują paskyrą</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Sukurti el. pašto dėžutę</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Pranešimo tekstas</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Bendrieji nustatymai</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Rašyti laišką</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Kopijuoti į Mano dokumentus</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopija</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Sukurti ir susieti</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Sukurti el. pašto dėžutę</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Pridėti naują paskyrą</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Išjungti</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Išjungti</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Rodyti paveikslėlius</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Redaguoti kontaktą</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>El. paštas</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Pranešimo tekstas negali būti tuščias</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Išsaugoti viską "Mano Dokumentuose"</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Juodraščiai</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Gauti laiškai</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Išsiųsti laiškai</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Šlamštas</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Šiukšlinė</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Persiųsti</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Toliau</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP serveris</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Svarbus</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Susieti su CRM</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Renginys</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontaktas</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Susieti su:</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Įkėlimas...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Vartotojo vardas</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>El. paštas</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Pažymėti kaip svarbų</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Pažymėti kaip nesvarbų</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Pažymėti kaip skaitytą</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Pažymėti kaip neskaitytą</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Pažymėti visus laiškus nuo</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>daugiau</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Daugiau</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>visi</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>svarbu</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>svarbių</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Atžymėti viską</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>pasirinkta</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>El. paštas</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Atsakyti visiems</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Atsakyti</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Išsaugoti ir išsiųsti laišką</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Išsaugoti Kalendoriuje</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Išsaugoti Dokumentuose</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Išsaugoti "Mano dokumentuose"</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Išsaugoti Projekto dokumentuose</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Išsaugota </value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Pasirinkti</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Pažymėti viską</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Siųsti</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Laiškų siuntimas</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Serveris</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Autoatsakiklis</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Peržiūrėti kontakto profilį</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Rašyti laišką</value>
+  </data>
+</root>

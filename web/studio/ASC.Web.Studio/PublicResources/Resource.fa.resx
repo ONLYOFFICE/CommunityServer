@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>حقوق دسترسی</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>افزودن {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>افزودن {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>همه کاربران</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} کاربران می توانند</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>فعالسازی مجدد ایمیل</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>اضافه کردن</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>افزودن {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>افزودن گروهها</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>اضافه کردن نظر</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>افزودن کاربرها</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>مدیران سایت</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>پاسخ</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>برقراری ارتباط</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>متصل نشده است</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>تایید هویت</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>تاریخ تولد</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>افزودن نحوه تماس جدید</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>تغییر لوگو</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>ادامه</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>شخصی سازی</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>حذف پروفایل من</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} قبل</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} روز</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} روز</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} روز</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} ساعت</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} ساعت</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} ساعت</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} دقیقه</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} دقیقه</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} دقیقه</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} ماه</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} ماه</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} ماه</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} سال</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} سال</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} سال</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>فردا</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>ویرایش پروفایل</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>تایید رمز عبور</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>همه {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>فعال کردن SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>فعال کردن</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>یک آدرس ایمیل جدید وارد کنید</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>آدرس ایمیل خود را وارد کنید</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>نام خود را وارد کنید</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>نام خانوادگی خود را وارد کنید</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>لینک منقضی شده است</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>زن</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>رمز ورود خود را فراموش کرده اید؟</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>آرم</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>گروه</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>ایمیل خود را وارد کنید</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>نام کاربر را وارد کنید</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>نام خانوادگی کاربر را وارد کنید</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>از پرونده</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>افزودن کاربرها به پرتال</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>شناسه کاربری و یا رمز عبور اشتباه است.</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>رمز عبور</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>در حال بارگذاری...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>مکان</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ورود به سیستم</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>ورود به برنامه</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>یا با یکی از این روشها وارد شوید:</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>مرد</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>لطفا آدرس ایمیلی که در هنگام ثبت نام در پرتال استفاده کرده اید را وارد نمایید. دستورالعمل نحوه بازیابی رمز عبور به آن آدرس ایمیل ارسال خواهد شد.</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>پروفایل من</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>الگو</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>رمز عبور</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>حداقل طول رمز عبور</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>بازيابي رمز عبور</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>ایجاد رمز عبور جدید</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>اشخاص</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>لطفاً منتظر بمانید...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>پورت</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>مالک پرتال</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>پروفایل</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>انتشار</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>ارسال مجدد</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>نتایج جستجو</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>موسیقی</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>متفرقه</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>منطقه زمانی</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>فیس بوک</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>شماره تلفن همراه</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>شماره تلفن</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>کاربر</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

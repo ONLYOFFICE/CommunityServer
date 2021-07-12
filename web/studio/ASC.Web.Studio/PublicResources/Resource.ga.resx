@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>seoladh</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Lean ar aghaidh</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Freagra</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Dáta Breithe</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Roghnaigh</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Dún é</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Lean ar aghaidh</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>lá</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Scrios</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Scrios</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Íosluchtaigh é</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} ó shin</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Inné</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Athraigh é</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>an tseachtain seo caite</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>Faigh anois é</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Folaigh</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Sloinne</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Sloinne</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Foghlaim tuilleadh...</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Nuair a</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Cá</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Cé</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Comhad ríomhaire</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Roghnaigh</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Feargach</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Uaine</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>ó gach</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Ceannaigh anois é</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(fágtha: {0})</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Rabhadh!</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Cad Atá Úr</value>
+  </data>
+</root>

@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Skapa nytt bokmärke</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Lägg till bokmärke i favoriter</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Lägg till i Favoriter</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Skapar bokmärke...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Bokmärke detaljerad beskrivning</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Bokmarkerad av</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Sök i bokmärken</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Antal personer som lagt till detta bokmärke i favoriter</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Bokmärken</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Skriv in de nödvändiga nyckelorden separerade med kommatecken</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Kontrollera URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Kontrollerar URL...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Gå till bokmärkeskommentarer</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Skapa nytt bokmärke</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detaljer</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Redigera bokmärke</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Redigera bokmärke</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>Bokmärkets URL-fält får ej lämnas tomt</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>Inga bokmärken har lagts till än</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>Skapa det första bokmärket</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Hittade inga bokmärken </value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Skapa dina bokmärken, spara och dela användbar information med dina kollegor direkt på din portal som sparar länkar till webbresurser vilket låter dig enkelt gå tillbaka till din favoritplats.</value>
+  </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>Visa bokmärken som lagrar användbar information direkt i din portal. Sparade länkar till webbresurser låter användare enkelt komma tillbaka till sina favoritplatser.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Favoriter</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>månad</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Senaste</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Populärast</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Ta bort bokmärke från favoriter</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera bokmärket?</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera {0} bokmärket från favoriter?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Ta bort bokmärke</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Tar bort bokmärke...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Visa:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Visa på sidan</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Prenumerera på kommentarer</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Etikett</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketter</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Dagens Topp</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Sluta prenumerera på kommentarer</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Vecka</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>år</value>
+  </data>
+</root>

@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Enregistrer et créer une nouvelle action</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Toutes les actions</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Les droits seront définis pour les actions que vous avez créées</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Participant de l'action</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Participants de l'action</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Tag de l'action</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Liste des tags de l'action</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Titre de l'action</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Fermer l'action</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Création de l'action en cours...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Créer la première action</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Créer une nouvelle action</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Supprimer l'action</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Supression des actions en cours</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Modifier l'action</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Modifier l'action «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Les actions vous permettent de garder toute l'historique de correspondance, d'assigner les tâches, de charger les documents pour les contacts qui prennent part à un événement commun dans un seul et même endroit. Par exemple, cela peut être un entraînement de l'équipe ou une organisation de l'exposition.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Aucune action correspondant à votre filtre ne peut être affiché dans cette section. Veuillez sélectionner d'autres options de filtrage ou désactiver le filtre pour afficher toutes les actions dans cette section. Ou vous pouvez créer une action si elle est absente de la liste.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Aucune action à afficher pour ce filtre ici</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>La liste des actions est vide</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>La liste des participants est vide</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Ajoutez des participants à votre action de la liste des entreprises ou des personnes. Après cela, vous saurez qui va prendre part aux événements à venir liés à cette action.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importer les actions</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Un fichier CSV correctement formé doit être sélectionné sur le disque dur de votre ordinateur. Il doit contenir des champs ou des colonnes, séparés par un délimiteur défini, qui seront utilisés pour importer des actions. Les fichiers contenant plus de {0} lignes doivent être divisés en parties plus petites pour une importation correcte. Assurez-vous que vous avez sélectionné les utilisateurs du portail qui ont besoin d'avoir accès à l'information importée, sinon les données du fichier CSV seront disponibles pour tous les utilisateurs du portail.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Sélectionnez un fichier CSV et définissez les droits d'accès avant d'importer les actions</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Adaptez les colonnes de votre fichier avec les champs correspondants de CRM ONLYOFFICE™. Payez votre attention sur le fait que pour correctement importer des actions, vous devez avoir au moins une colonne de votre fichier correspondante au champ 'Nom de l'action' de CRM ONLYOFFICE™. Les champs qui contiennent les dates doivent avoir le format suivant: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Veuillez vérifier les champs</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Passer à la liste des actions</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>L'importation des actions peut prendre plusieurs minutes selon la quantité de vos données.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>L'importation a commencé</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Participants de l'action</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Ouvrir l'action</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Limiter l'accès à l'action</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Enregistrer changements</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Passer au profil</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Ouvrir dans un nouvel onglet</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Toutes les actions</value>
+  </data>
+</root>

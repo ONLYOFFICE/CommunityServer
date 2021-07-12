@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmailError" xml:space="preserve">
+    <value>Erro ao adicionar um endereço postal</value>
+  </data>
+  <data name="AddEmailSuccess" xml:space="preserve">
+    <value>Endereço postal adicionado</value>
+  </data>
+  <data name="AddPhoneError" xml:space="preserve">
+    <value>Erro ao adicionar um número de telefone</value>
+  </data>
+  <data name="AddPhoneSuccess" xml:space="preserve">
+    <value>Número de telefone adicionado</value>
+  </data>
+  <data name="AlreadyContainsEmailAddress" xml:space="preserve">
+    <value>Este endereço já foi adicionado</value>
+  </data>
+  <data name="AlreadyContainsPhone" xml:space="preserve">
+    <value>Este número de telefone já foi adicionado</value>
+  </data>
+  <data name="AutoreplyServiceTitle" xml:space="preserve">
+    <value>Resposta automática do ONLYOFFICE </value>
+  </data>
+  <data name="BackupServiceTitle" xml:space="preserve">
+    <value>Backup ONLYOFFICE </value>
+  </data>
+  <data name="BackupServiceWorksIncorrectMsg" xml:space="preserve">
+    <value>O serviço de backup não está funcionando corretamente.</value>
+  </data>
+  <data name="CacheCleared" xml:space="preserve">
+    <value>O cache está limpo</value>
+  </data>
+  <data name="CacheClearError" xml:space="preserve">
+    <value>Erro ao limpar o cache</value>
+  </data>
+  <data name="CoAuthoringServiceTitle" xml:space="preserve">
+    <value>Coautoría de Editores de ONLYOFFICE</value>
+  </data>
+  <data name="DownloadLogError" xml:space="preserve">
+    <value>Registros de download de erros</value>
+  </data>
+  <data name="EditorsCoAuthoring_AccessError" xml:space="preserve">
+    <value>Erro de acesso</value>
+  </data>
+  <data name="EditorsFileConverter_AccessError" xml:space="preserve">
+    <value>Erro de acesso</value>
+  </data>
+  <data name="EditorsSpellchecker_AccessError" xml:space="preserve">
+    <value>Erro de acesso</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Seu plano tarifário não suporta esta opção</value>
+  </data>
+  <data name="ErrorSendNotification" xml:space="preserve">
+    <value>Erro ao enviar a carta</value>
+  </data>
+  <data name="FeedService_NewsGenerationError" xml:space="preserve">
+    <value>Endereço Postal Incorreto</value>
+  </data>
+  <data name="FeedServiceTitle" xml:space="preserve">
+    <value>Feed ONLYOFFICE</value>
+  </data>
+  <data name="FileConverterServiceTitle" xml:space="preserve">
+    <value>Conversor de arquivos de editores ONLYOFFICE</value>
+  </data>
+  <data name="FullTextIndexServiceWorksCorrectMsg" xml:space="preserve">
+    <value>O serviço de pesquisa de texto completo está funcionando corretamente</value>
+  </data>
+  <data name="FullTextIndexServiceWorksIncorrectMsg" xml:space="preserve">
+    <value>O serviço de pesquisa de texto completo não está funcionando corretamente</value>
+  </data>
+  <data name="GetDriveSpaceError" xml:space="preserve">
+    <value>Erro durante a recuperação de informações em disco</value>
+  </data>
+  <data name="GetNotifiersError" xml:space="preserve">
+    <value>Erro no recebimento de dados</value>
+  </data>
+  <data name="GetNotifySettingsError" xml:space="preserve">
+    <value>Erro ao receber as configurações de notificação</value>
+  </data>
+  <data name="GigaByte" xml:space="preserve">
+    <value>{0} Gb</value>
+  </data>
+  <data name="HostError" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="HostWorks" xml:space="preserve">
+    <value>Está funcionando</value>
+  </data>
+  <data name="HttpDescription" xml:space="preserve">
+    <value>Utilizado para o upload/envio de dados desprotegidos para o site</value>
+  </data>
+  <data name="HttpsDescription" xml:space="preserve">
+    <value>Usado para carregar/enviar dados para o site de forma segura</value>
+  </data>
+  <data name="ImapDescription" xml:space="preserve">
+    <value>Utilizado para coletar correspondência dos serviços OnlyOffice Mail via protocolo IMAP</value>
+  </data>
+  <data name="ImapsDescription" xml:space="preserve">
+    <value>Utilizado para coletar correspondência pelos serviços OnlyOffice Mail via protocolo IMAPS.</value>
+  </data>
+  <data name="IndexServiceTitle" xml:space="preserve">
+    <value>Índice do ONLYOFFICE</value>
+  </data>
+  <data name="JabberServiceTitle" xml:space="preserve">
+    <value>Jabber do ONLYOFFICE</value>
+  </data>
+  <data name="MailAggregatorServiceTitle" xml:space="preserve">
+    <value>Agregador de Correio de ONLYOFFICE</value>
+  </data>
+  <data name="MailWatchdogServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Mail Watchdog</value>
+  </data>
+  <data name="MegaByte" xml:space="preserve">
+    <value>{0} Mb</value>
+  </data>
+  <data name="MiniChatServiceTitle" xml:space="preserve">
+    <value>Minichat ONLYOFFICE</value>
+  </data>
+  <data name="MonoServeRestartError" xml:space="preserve">
+    <value>Erro de reinício de serviço monosserviço: {0}</value>
+  </data>
+  <data name="NoSuchEmailAddress" xml:space="preserve">
+    <value>Não foi encontrado um endereço de correspondência desse tipo.</value>
+  </data>
+  <data name="NoSuchHardDrive" xml:space="preserve">
+    <value>Nenhuma unidade com o nome especificado encontrado.</value>
+  </data>
+  <data name="NoSuchPnone" xml:space="preserve">
+    <value>Não foi encontrado tal número de telefone.</value>
+  </data>
+  <data name="NotExpectedState" xml:space="preserve">
+    <value>Não se espera status de serviço</value>
+  </data>
+  <data name="NotifyServiceTitle" xml:space="preserve">
+    <value>Notifique ONLYOFFICE</value>
+  </data>
+  <data name="Pop3Description" xml:space="preserve">
+    <value>Utilizado para coletar correspondência pelos serviços OnlyOffice Mail via protocolo POP3.</value>
+  </data>
+  <data name="Pop3sDescription" xml:space="preserve">
+    <value>Utilizado para coletar correspondência pelos serviços de Correio do OnlyOffice utilizando o protocolo POP3S.</value>
+  </data>
+  <data name="PortStatusClose" xml:space="preserve">
+    <value>Encerrado.</value>
+  </data>
+  <data name="PortStatusClosedForIncomingRequests" xml:space="preserve">
+    <value>Fechado para pedidos entrantes</value>
+  </data>
+  <data name="PortStatusClosedForOutgoingRequests" xml:space="preserve">
+    <value>Fechado para pedidos de saída</value>
+  </data>
+  <data name="PortStatusOpen" xml:space="preserve">
+    <value>Aberto</value>
+  </data>
+  <data name="RemoveEmailError" xml:space="preserve">
+    <value>Erro ao excluir endereço de e-mail</value>
+  </data>
+  <data name="RemoveEmailSuccess" xml:space="preserve">
+    <value>Endereço de correio excluído</value>
+  </data>
+  <data name="RemovePhoneError" xml:space="preserve">
+    <value>Erro ao apagar o número de telefone</value>
+  </data>
+  <data name="RemovePhoneSuccess" xml:space="preserve">
+    <value>Número de telefone apagado</value>
+  </data>
+  <data name="SendNotificationError" xml:space="preserve">
+    <value>Erro ao enviar a notificação</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Erro no servidor</value>
+  </data>
+  <data name="ServiceCheckFailed" xml:space="preserve">
+    <value>Erro ao verificar o serviço</value>
+  </data>
+  <data name="ServiceError" xml:space="preserve">
+    <value>Erro de serviço</value>
+  </data>
+  <data name="ServiceNotFound" xml:space="preserve">
+    <value>Serviço não encontrado na máquina local</value>
+  </data>
+  <data name="ServiceProblem" xml:space="preserve">
+    <value>Havia um problema inesperado com o serviço {0}. Por favor, verifique seu status e operabilidade. Status: {1}. Mensagem: {1}: {2}</value>
+  </data>
+  <data name="ServiceRestartError" xml:space="preserve">
+    <value>Erro de reinício de serviço</value>
+  </data>
+  <data name="ServiceRun" xml:space="preserve">
+    <value>Serviço iniciado</value>
+  </data>
+  <data name="ServiceStartError" xml:space="preserve">
+    <value>Erro ao iniciar o serviço</value>
+  </data>
+  <data name="ServiceStartWorking" xml:space="preserve">
+    <value>Serviço em andamento</value>
+  </data>
+  <data name="ServiceStillNotStarted" xml:space="preserve">
+    <value>O serviço ainda não começou.</value>
+  </data>
+  <data name="ServiceStillNotStoped" xml:space="preserve">
+    <value>O serviço ainda não parou</value>
+  </data>
+  <data name="ServiceStop" xml:space="preserve">
+    <value>Serviço parado</value>
+  </data>
+  <data name="ServiceStopError" xml:space="preserve">
+    <value>Erro ao interromper o serviço</value>
+  </data>
+  <data name="ServiceWorks" xml:space="preserve">
+    <value>Serviço está funcionando</value>
+  </data>
+  <data name="SetNotifySettingsError" xml:space="preserve">
+    <value>Configurações de notificação de salvamento de erros</value>
+  </data>
+  <data name="SignalRServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE SignalR</value>
+  </data>
+  <data name="SmallDriveSpace" xml:space="preserve">
+    <value>O espaço livre em disco está se esgotando</value>
+  </data>
+  <data name="SmtpDescription" xml:space="preserve">
+    <value>Usado para o envio não seguro de mensagens via Web-cliente OnlyOffice Mail</value>
+  </data>
+  <data name="SmtpsDescription" xml:space="preserve">
+    <value>Usado para enviar mensagens com segurança via Web-client OnlyOffice Mail</value>
+  </data>
+  <data name="SpellCheckerServiceTitle" xml:space="preserve">
+    <value>Verificador ortográfico dos editores ONLYOFFICE</value>
+  </data>
+  <data name="StatusServiceError" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="StatusServiceStartWorking" xml:space="preserve">
+    <value>Lançamentos.</value>
+  </data>
+  <data name="StatusServiceStoped" xml:space="preserve">
+    <value>Paradas</value>
+  </data>
+  <data name="StatusServiceWork" xml:space="preserve">
+    <value>Lançado.</value>
+  </data>
+  <data name="SuccessfulSendNotification" xml:space="preserve">
+    <value>Email enviado para suporte</value>
+  </data>
+  <data name="WrongEmailAddress" xml:space="preserve">
+    <value>Endereço Postal Incorreto</value>
+  </data>
+  <data name="WrongParameter" xml:space="preserve">
+    <value>Parâmetro incorreto {0}</value>
+  </data>
+  <data name="WrongPhone" xml:space="preserve">
+    <value>Número de telefone incorreto</value>
+  </data>
+  <data name="WrongServiceName" xml:space="preserve">
+    <value>Nome de serviço inválido</value>
+  </data>
+  <data name="XmppDescription" xml:space="preserve">
+    <value>Usado pelo servidor Jabber para estabelecer conexões e transferir dados</value>
+  </data>
+</root>

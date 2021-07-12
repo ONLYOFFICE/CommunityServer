@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>在线编辑文字，在线文字编辑，在线免费字词，网上办公</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>或登录</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>开始从您的个人、CRM联系人或门户网站用户输入电子邮件地址或联系人姓名，或使用任何其他电邮邀请他人参加您的活动。</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>查看您的电子邮件以确认帐户。</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>方便的协同编辑和审阅</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>文档协作</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>连接说明</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>创建帐户</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>创建云</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>文件讨论</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>它将帮助您轻松创建和编辑具有任何复杂程度格式的文本文档。</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>电邮</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>请填写您的电邮地址</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>或登录</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}在线文档编辑器{1}{0}文档管理{1}{0}邮件{1}{0}项目{1}{0} CRM {1}{0}日历{1}{0}社区{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>帐户登录</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>连接到云</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>尚未注册？</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>具备普通用户的操作权限|在“公用文档”区中链结Dropbox、Box.net等第三方云储存服务中的文档资源|为“公用文档”区中文档和文件夹设置访问权限</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>创建和编辑自己创建的文档，以及修改自己有访问权限的共享文档|可设置其他用户对自己的文档、文件夹的浏览和编辑权限|在“我的文档”区中导入自己在Dropbox、Box.net等其他第三方云储存服务中的文档资源。</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>现在创建</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>记住</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>检查</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>注册云</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>您正在使用ONLYOFFICE™企业版。</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>使用条款</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>协作云</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>获取免费云端办公室</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>变更跟踪</value>
+  </data>
+</root>

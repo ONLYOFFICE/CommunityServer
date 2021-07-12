@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Приемам</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Добави към масовата поща</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Затваряне на историята</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Създавам</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Упадък</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Премахване на изпращането</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Премахване на член</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Изпращане на покана</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Говоря</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Чат стаи</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Връзка</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Добре дошли в {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonymous</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Изтрийте изпратените файлове</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Всички файлове</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>Файловете, които сте изпратили чрез чат, заемат &lt;b&gt; &lt;/b&gt; от дисковото пространство на портала. Ако изберете да изтриете тези файлове, ще освободите място, но файловете вече няма да бъдат достъпни чрез връзките в историята за всички участници в разговора. Изберете какво да изтриете:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Файловете са изпратени преди повече от месец</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Файлове, изпратени преди повече от година</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Свързване ...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Свържете ме</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Създайте стая за чат</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Изпращане на няколко</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Създавайте преки пътища и стартирайте Говоря като уеб приложение.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Използвайте Ctrl + Enter, за да изпращате съобщения, Enter, за да стартирате нов параграф </value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Емотикони</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Активиране/деактивиране на филтъра</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Версията на Adobe Flash Player не е правилна</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Показване/Скриване на групи</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>История на съобщенията</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player не е инсталиран</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Следващия</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>предишен</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Изберете лице от списъка с контакти, за да започнете разговор </value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Изпращане на файл</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Преместете контакт тук, за да добавите получател.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Показване на раздела вляво</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Показване на раздела вдясно</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>Прочети</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Търсене по съдържание на съобщенията</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Преместете контакт тук, за да добавите получател</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Актуално състояние</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Не питай следващия път</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>първо изберете потребител {0} от списъка, за да започнете чат</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Наистина ли искате да премахнете този потребител от чата?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Ново съобщение</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>Ви покани</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Наистина ли искате да изтриете тази стая?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Изпращам</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Временна стая (ще бъде изтрита, когато всички потребители я напуснат)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Валидни символи</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Пощенски списъци</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Говоря</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Намерете контакт</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Търсене в историята на съобщенията</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Файл: {0} Размер: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>на</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Показване на списъка</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Далеч</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Не е наличен</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Извън линия</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>На разположение</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Чат с колеги в реално време. Автоматично актуализиране на списъка с контакти. Получавайте известия 'Какво ново'.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Известия за браузър</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Създайте масово изпращане</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Създайте стая за чат</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Изтрийте потребителя от чата</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Поканете в чата</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Изтриване на чата</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>букви, цифри и периоди (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Напишете съобщение ...</value>
+  </data>
+</root>

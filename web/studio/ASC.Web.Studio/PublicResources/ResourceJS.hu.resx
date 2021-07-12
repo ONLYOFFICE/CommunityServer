@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Az érvényesítési kód mező nem lehet üres.</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Adja meg a mobiltelefon-számot</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>Az érvényesítési kód mező nem lehet üres.</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Hozzáad</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Szűrő hozzáadása</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>Emelkedő/csökkenő</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Foglalt</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Bejövő hívás</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Követés hatályban</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Változtatások sikeresen alkalmazva.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Hiba merült fel. Kérjük, forduljon az adminisztrátorához. </value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Folytatni kívánja?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Új kapcsolat létrehozása</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Adja meg a vállalati titulust</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Hiba a riport generálása során</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>A hozzászólás nem lehet üres</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Adja meg az emailcímet</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Adja meg a csoprotcímet</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Adja meg a keresztnevet</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Adja meg a családnevet</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>Érvénytelen keresztnév</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>Érvénytelen családnév</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>maximum 64 karakter</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Nem adhatja hozzá kétszer ugyanazt a fiókot.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Helytelen email</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>{0} csoport sikeresen létrehozva</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Új csoport létrehozása</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Helytelen IP-címformátum</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Üres mező</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Helytelen portszám</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>egész nap</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Esemény törölve.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Megszakítva: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Esemény befejeződött.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} ideiglenesen elfogadta a meghívást a(z)</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} meghívás lemondása</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} elfogadta a meghívást</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} meghív téged</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>és</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>hozzávetőleges</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>nál</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>nap</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>napok</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>minden</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>ért</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>óra</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>órák</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>-ben/-ban</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>hétköznap</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>hétköznapok</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>Hét</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>hetek</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Esemény megváltozott.</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Probléma keletkezett ennek az üzenetnek a küldése közben.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Eseménytörlési értesítés elküldve a résztvevőknek.</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Hiba a művelet végrehajtása során.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Arra készül, hogy átnevezze a portált.{1}{0}Biztos folytatni szeretné?{1}</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Új projekt készítése</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Minden projektnek kell legyen egy menedzsere.</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Az összes projektnek kell címet adni</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Cég</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Cégnév</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Kapcsolattípus</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Csoport</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Vezető</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Típus</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Felhasználó</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Vendég</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Elkészítettem saját webirodám. Csatlakozzon hozzám itt: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Kapcsolódás</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>CDN (tartalomelosztó hálózat) beállítások</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} felhasználó(k) sikeresen tagjai lettek a portálnak</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Üres fájl</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Hiba a fájlfeltöltés közben</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>A fájlméret nem lehet 5MB-nál nagyobb</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Új profil létrehozása</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>A felhasználók maximális számát meghaladja</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Ha most kilép, az összes eddigi beírt, vagy mentetlen adat el fog veszni.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Ez azt jelenti, hogy a további lehetőségei: {1}megtekintheti mindazon tartalmat, amihez minden portálfelhasználó hozzáfér,{2}hozzászólásokat tehet,{3}csatolhat és letölthet fáljlokat.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Ha további jogosultságokra van szüksége kérjük, forduljon a portáladminisztrátorhoz. </value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Üdvözöljük az ONLYOFFICE-ban</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Üdvözöljük az ONLYOFFICE-ban</value>
+  </data>
+</root>

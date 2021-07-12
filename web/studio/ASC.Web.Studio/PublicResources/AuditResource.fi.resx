@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Tapahtuma</value>
+  </data>
+  <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
+    <value>Kun sivustoa käytetään, kaikki tieto käyttäjien toimista sivustolla on nähtävissä täällä.</value>
+  </data>
+  <data name="AuditTrailEmptyScreenHeader" xml:space="preserve">
+    <value>Tässä ei ole mitään näytettävää</value>
+  </data>
+  <data name="AuditTrailNav" xml:space="preserve">
+    <value>Tapahtumien seuranta</value>
+  </data>
+  <data name="AuditTrailOnlineUsers" xml:space="preserve">
+    <value>Sisäänkirjautuneet käyttäjät</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="DownloadReportBtn" xml:space="preserve">
+    <value>Lataa ja avaa raportti</value>
+  </data>
+  <data name="EmailNotSpecified" xml:space="preserve">
+    <value>Sähköpostia ei ole määritelty</value>
+  </data>
+  <data name="GenerateText" xml:space="preserve">
+    <value>Raporttia luodaan...</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
+    <value>Kun sivustoa käytetään, kaikki kirjautumiset ja kirjautumisyritykset ovat nähtävissä täällä.</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenHeader" xml:space="preserve">
+    <value>Tässä ei ole mitään näytettävää</value>
+  </data>
+  <data name="LoginHistoryNav" xml:space="preserve">
+    <value>Kirjautumishistoria</value>
+  </data>
+  <data name="LoginHistoryTitle" xml:space="preserve">
+    <value>Kirjautumishistoria</value>
+  </data>
+  <data name="TotalAuditItems" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Käyttäjä</value>
+  </data>
+</root>

@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Kommentar Redigerad för Diskussion:Comment Edited for Discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat en kommentar i diskussionen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Läs mer":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Du har fått det är emailet för att du är registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portal. För att ändra på uderrättelsetypen, vänligen ändra på dina "abboneringsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Comment redigerat för uppgift: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat en kommentar till "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
+
+$AdditionalData
+
+"Läs mer":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Du har fått det här meddelandet pga att du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha fler meddelanden om dessa uppgifter, var vänlig "avprenumera":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Diskussion redigerad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat diskussionen: 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Läs mer":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" 
+"Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projekt. Dataimporten från Basecamp. Dataimporten lyckades. Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Du har lagts till en projektgrupp. "$__AuthorName":"$__AuthorUrl" har tilldelat dig en plats i projektgruppen ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Underättelse om passerad förfallodag för milstolpe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" Milstolpen i projektet ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] har passerat sin förfallodag: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" . Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Diskution borttagen: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has deleted the discussion "$EntityTitle" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project.
+
+
+^Du fick detta mail eftersom du är registrerad som användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portal. För att ändra meddelandetyp, vänligen hantera "prenumerationsinställningar ":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Milstolpe stängt: "$ EntityTitle": "$ {__ VirtualRootPath} /Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed"
+
+$ __ Datetime "$ __ authorName": "$ __ AuthorUrl" har stängt "$ EntityTitle": "$ {__ VirtualRootPath} /Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" milstolpe i "$ ProjectTitle": "$ {__ VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID" projekt.
+
+  ^ Du får det här meddelandet eftersom du är en registrerad användare av "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}" portalen. Om du vill ändra meddelandetyp, vänligen hantera "prenumerationsinställningar ": ". $ RecipientSubscriptionConfigURL" ^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Milstolpe skapad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har lagt till en ny milstolpe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" till "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektet. 
+
+^Du får det här meddelandet eftersom du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra meddelandetyp, vänligen hantera "prenumerationsinställningar:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Underättelse om förfallodag för milstolpe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" Mindre än 48 timmar kvar tills milstolpen förfaller i projektet ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]. Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Milstolpe borttagen: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har tagit bort milstolpe "$EntityTitle" i "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektet:
+
+$AdditionalData 
+
+^ Du får det här meddelandet eftersom du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra meddelandetyp, vänligen hantera "prenumerationsinställningar ":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Milstolpe redigerad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milstolpe i projekt "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^ Du får det här meddelandet eftersom du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra meddelandetyp, vänligen hantera "prenumerationsinställningar ":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Milstople återupptagen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har fortsatt med milstolpen "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" i projektet "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData
+
+^Du får detta mail då du är en användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra notifieringar, "notifieringsinställningar":"$RecipientSubscriptionConfigURL".^  </value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Ny diskussionskommentar: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" har lagt en ny kommentar till diskussionen: $AdditionalData "Läs mer":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"  Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Ny kommentar till uppgift: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har lagt en ny kommentar till uppgiften: 
+
+$AdditionalData 
+
+"Läs mer":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Ny gren till diskussion:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har skapat en ny gren "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" till diskussionen: 
+$AdditionalData
+
+^Du får detta mail då du är en användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifikationer om denna diskussion, "sluta följ":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Ny uppgift till aktivitet: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har skapat ny uppgift "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+^Du får detta mail för du är en användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna ktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Ny diskussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" har startat en ny diskussion: 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Läs mer":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projekt raderat: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har raderat projektet "$EntityTitle"
+
+^Du får detta mail då du är användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra notifieringarna, "notifieringsinställningar":"$RecipientSubscriptionConfigURL".^   </value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Du har blivit tillagd till projektgruppen</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Diskussion raderad: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe stängd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projekt  [$ProjectTitle]. Milstolpe skapad: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe raderad: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe återupptagen: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny diskussion: $EntityTitle  </value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekt. Raderat projekt: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpen tilldelad till dig: $EntityTitle </value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Du har blivit utsedd till projektledare</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet tilldelad till dig: $SubEntityTitle </value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet tilldelad dig: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet stängd: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet skapad: $SubEntityTitle </value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet raderad: $SubEntityTitle </value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Återupptagen delaktivitet: $SubEntityTitle </value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet stängd: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet skapad: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet raderad: $EntityTitle </value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Återupptagen aktivitet: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Påminnelse om uppgift: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" "$__AuthorName":"$__AuthorUrl" vill påminna dig om uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . $AdditionalData.get_item("TaskDescription") #foreach($fileInfo in $AdditionalData.get_item("Files").Keys) #beforeall ---------------------------------------- #each "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" #end Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"
+</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Påminnelse om uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" Idag är deadline för uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . $AdditionalData.get_item("TaskDescription") Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.You har tagits bort från projektgruppen. Du har tagits bort från projektgruppen för projektet ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Du är inte längre tilldelad aktiviten: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime är du inte längre tilldelad aktiviteten: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" i projektet "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+$AdditionalData.get_item("TaskDescription")
+
+^Du får detta mail då du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra inställningar till notifieringar, "notififeringsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Milestone har tilldelats dig: "$ EntityTitle": "$ {__ VirtualRootPath} /Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har utsett dig som ansvarig för milstolpe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" i " $ ProjectTitle ":" $ {__ VirtualRootPath} /Products/Projects/Projects.aspx?prjID=$ProjectID "projekt.
+
+^ Du får det här meddelandet eftersom du är registrerad användare av "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}" portal. Om du vill ändra meddelandetyp, vänligen hantera "prenumerationsinställningar ": ". $ RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Du har utsetts till projektledare: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" "$__AuthorName":"$__AuthorUrl" har utsett dig till projektledare för projektet ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]. $AdditionalData Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Delaktivitet tilldelad till dig: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har tilldelat dig delaktiviteten: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" som ligger under "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten:  
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Du får detta mail för du är en användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna aktivitet i fortsättningen, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Du har tilldelats uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har satt dig som ansvarig för uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" i "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekt.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Du får detta mejl eftersom du är deltagare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra dina notifikationsinställningar, redigera dina "prenumerationsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Delaktivitet stängd: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har stängt delaktiviteten till "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+^Du får detta mail då du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifationer om denna aktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1Delaktivitet skapad: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har lagt till en ny delaktivitet: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" till "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+Delaktiviteten är tilldelat till: "$Responsible". 
+
+^Du får detta mail då du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna aktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Delaktivitet raderad: "$SubEntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har raderat delaktiviteten: "$SubEntityTitle" till "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+^Du får detta mail för du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna aktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Delaktivitet redigerad: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" delaktiviteten i "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+Delaktiviteten är tilldelat till: "$Responsible". 
+
+^ Du får detta mail för du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna aktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Delaktivitet återupptogs: "$SubEntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har återupptagit delaktivitet: "$SubEntityTitle" av 
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten.
+
+^Du får detta mail då du är en användare i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Vill du inte ha notifikationer om denna aktivitet kan du "Sluta följa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Uppgift stängd: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" har stängt uppgiften i projektet ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]. $AdditionalData Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Uppgift skapad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" "$__AuthorName":"$__AuthorUrl" har skapat uppgiften: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . $AdditionalData.get_item("TaskDescription") Projekt: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" #foreach($fileInfo in $AdditionalData.get_item("Files").Keys) #beforeall ---------------------------------------- #each "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" #end Din portaladress: "$__VirtualRootPath":"$__VirtualRootPath" "Redigera prenumerationsinställningar":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Aktivitet raderad: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har raderat aktiviteten "$EntityTitle"  i
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektet:
+$AdditionalData
+
+^Du får detta mail då du är en användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra inställningarna till notifieringarna, använder du "Notifieringsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1. Aktiviteten har redigerats: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har redigerat "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten i "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektet.
+
+^Du får detta mail då du är en användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra notifieringarna går du till "notifieringsinställningar":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1. Aktivitet flyttad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har ändrat 
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" aktiviteten från 
+"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milstolpe i 
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektet.
+
+Aktiviteten "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ligger inte inom denna milstolpe längre.
+
+^Du får detta mail då du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. För att ändra notifiering går du till "notifieringsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Aktivitet flyttad: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har flyttat till aktiviteten "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" till milstolpen "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" i projektet "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Du får detta mail för du är medlem i "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Vill du ändra inställningarna till notifieringarna, "notifieringsinställningar":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Aktivitet återupptagen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" har fortsatt aktiviteten "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" i projektet "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+$AdditionalData
+
+ ^Du får detta mail då du är en användare i  "${__VirtualRootPath}":"${__VirtualRootPath}" portalen. Om du inte vill ha notifieringar om denna aktivitet, "sluta följ":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Redigerad kommentar i diskussionen: $EntityTitle </value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Redigerad kommentar till aktiviteten: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Diskussion redigerad: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projekt. Import av data från Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Förändringar i projektgruppen</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Underrättelse om förfallen milstolpe : $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Diskussion raderad: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe stängd: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe skapad: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Underrättelse om förfallodag för milstolpe: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe raderad: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe redigerad: $EntityTitle </value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpe återupptagen: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny kommentar till diskussionen: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny kommentar till uppgift: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny gren i diskussionen: $EntityTitle </value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny uppgift till aktivitet: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Ny diskussion: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projekt. Raderat projekt: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Du har blivit tillagd till projektgruppen</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Diskussionen har blivit</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Milstolpen har stängts</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>En ny milstolpe har blivit</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Milstolpen har raderats</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Milstolpen har återupptagits</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>En ny diskussion har</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekt. Projektet raderat</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Milstolpen har tilldelats till dig</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Du har blivit utsedd till projektledare</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Underaktiviteten har tilldelats dig</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Uppgiften har tilldelats dig</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Underaktiviteten har stängts</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>En ny underuppgift har blivit</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Underaktiviteten har raderats</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Underaktiviteten har återupptagits</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Uppgiften har stängts</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>En ny uppgift har blivit</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Uppgiften har raderats</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Uppgiften har återupptagits</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Påminnelse om uppgiften: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Påminnelse om uppgiften: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Förändringar i projektgruppen</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projket [$ProjectTitle]. Aktivitet är inte längre din: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Milstolpen tilldelad till dig: $EntityTitle </value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Du har blivit utsedd till projektledare</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet tilldelad till dig: $SubEntityTitle </value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Uppgift tilldelad dig: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet stängd: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet skapad: $SubEntityTitle  </value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet raderad: $SubEntityTitle </value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Delaktivitet redigerad: $EntityTitle </value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Återupptagen delaktivitet: $SubEntityTitle </value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Uppgift stängd: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Uppgift skapad: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet raderad: $EntityTitle </value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet redigerad: $EntityTitle </value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Borttagen aktivitet: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Aktivitet flyttad: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projekt [$ProjectTitle]. Återupptagen aktivitet: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+</root>

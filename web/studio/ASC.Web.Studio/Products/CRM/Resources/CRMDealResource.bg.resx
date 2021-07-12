@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Добавете нова възможност</value>
+  </data>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Запазете и създайте нова възможност</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Всички възможности</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Залог</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>фиксира</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>на ден</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>на час</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>на месец</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>на седмица</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>на година</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Повтаряне на плащанията</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Сцена</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Тип етап</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Възможен контакт</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Добавете първата възможност</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Създайте нова възможност</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Възможност на етап</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Потребителски период</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Други потребители</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Възможна сделка</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Разрешенията ще бъдат зададени на възможностите, на които сте автор</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Възможни етапи</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Продавачът провежда серия от сесии за въпроси и отговори, за да идентифицира изискванията на перспективата</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Оценка на нуждата</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Необходим е контакт с потенциалния купувач, за да се разбере бъдещата перспектива за продажби</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Първоначален контакт</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Провал. Възможността е затворена поради липсата на перспектива</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Неуспешно затворен</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Потенциалният купувач е изразил интерес към стоките или услугите на продавача</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Квалифицирана перспектива</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Продавачът се опитва да установи дали клиентът може да бъде негов/неин потенциален купувач</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Прилагане на първоначалните критерии за годност</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Потенциалният купувач е получил писмено предложение от продавача</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Предложение</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Потенциалният купувач се идентифицира като лице или юридическо лице, което има интерес и право да закупи продукт или услуга</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Заподозрян</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Потенциалният купувач вече обсъжда подробно Вашето предложение</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Преговори</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Сделка. Възможността се затваря успешно</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Закриване/транзакция</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Тип етап</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Възможност за участник</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Участници в възможностите</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Възможности</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Тег за възможност</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Списък с маркери за възможности</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Етикети за възможности</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Изтрийте възможността</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Изтриване на възможности</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Редактирайте «{0}» възможност</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Възможност за редактиране</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Възможностите ви позволяват да следите потенциалните продажби на клиентите си. Определете {0} етапите на възможностите {1} в съответствие с вашия бизнес процес, запазете историята, задайте задачи, качвайте документи, изчислявайте печалбата с всеки клиент.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>В този раздел не могат да се показват никакви възможности, съответстващи на вашия филтър. Моля, изберете други опции за филтриране или изчистете филтъра, за да видите всички възможности в този раздел. Или можете да създадете възможност в случай, че тя липсва от списъка.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Тук няма да се показват възможности за този филтър</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Списъкът с възможности е празен</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Въведете заглавието на възможността</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Всяка възможност трябва да има отговорна</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Списъкът на участниците е празен</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Добавете участниците към Вашата възможност от списъка на фирми или лица. След това ще знаете кои контакти са свързани с тази възможност и с кого можете да се справите.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Прогнозна/фактическа дата на падежа</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Участник</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Тип етап/етап</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Намерете възможност по заглавие</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Възможности за внос</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>На твърдия диск на компютъра трябва да се избере правилно оформен CSV файл. Тя трябва да съдържа полетата или колоните, разделени от избрания разделител, които ще се използват за импортиране на възможности. Файловете, съдържащи повече от {0} реда, трябва да бъдат разделени на по-малки части за правилно импортиране. Уверете се, че сте избрали потребителите на портала, които трябва да получат достъп до информацията за импортиране, в противен случай данните от CSV файла ще бъдат достъпни за всички потребители на портала.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Изберете CSV файл и задайте права за достъп, преди да импортирате възможности</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Съвпадете колоните на файловете си със съответните полета ONLYOFFICE™ CRM. Моля, обърнете внимание на факта, че за правилно импортиране на възможностите трябва да имате поне следните колони от вашия файл, съвпадащи с полетата на ONLYOFFICE™ CRM: "Заглавие за възможност", "Отговорност за възможности". Полетата, съдържащи датите, трябва да имат следния формат: {0}. Полето за валута трябва да бъде зададено в съответствие с международния трибуквен код (например USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Моля, проверете полетата</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Отидете в списъка с опции</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Импортирането на възможности може да отнеме няколко минути в зависимост от количеството на данните ви.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Импортирането започна</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Изберете от съществуващите възможности или добавете нов</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Свържете или създайте възможност</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Моите възможности</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Заглавие за възможност</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Бюджетът не е зададен</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Други участници във възможността</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Участниците</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ограничете достъпа до възможността</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Вероятност за успех</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Отговорен за възможността</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Към профила</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Отваряне в нов раздел</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Показване на общата сума</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Започнете да импортирате</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Възможните етапи ви позволяват да определите необходимите стъпки за завършване на сделката. Фазите на възможност по подразбиране са подход, дискусия, оценка, договаряне, ангажираност, успех, нулева точка. За да можете да ги редактирате, са необходими права на администратора на портала.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Всички възможности</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Общ брой страници</value>
+  </data>
+</root>

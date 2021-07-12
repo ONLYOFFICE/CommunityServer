@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Adicionar operador</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Adicionar operadores</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Adicionar toque</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0}Alias{1} ajuda a identificar o número com alguma palavra ou frase (por ex., suporte, vendas, etc.). Ele será visível na lista de número virtual.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Inserir um nome para o número</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Comprar número de telefone</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Compra de número</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Chamar</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Agente</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Custo</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Data/Hora</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Tempo de espera</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>O número será salvo para o Twilio, mas estará indisponível para o portal atual</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Excluir número</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Excluir número</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Excluir toque</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Compre um novo número de telefone IP para adicioná-lo ao portal ONLYOFFICE. Depois de adicionado, você pode usar este número de telefone com o portal CRM.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Nota: os números de telefone que você já tem no site do Twilio não podem ser transferidos para o portal.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Nenhum número de telefonia IP foi adicionado ainda</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Configurações gerais</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Toques de saudação</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0}Fila de chamada recebida{1} mostra o número de chamadas recebidas atribuídas aos operadores disponíveis atualmente. Se o número das chamadas recebidas exceder a fila, elas serão redirecionadas para o serviço de correio de voz.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Tamanho da fila de chamada recebida</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Uma vez vinculado, todas as chamadas serão processadas pelo portal atual.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Número comprado do link</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Vínculo de número</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>O número foi vinculado com sucesso</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>O upload está em progresso, aguarde</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Infelizmente não há nenhum número disponível, tente novamente depois.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>Você não tem nenhum número até agora.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>Você não tem nenhum número. Eles podem ser comprados {0}aqui{1}.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Estes números não foram encontrados</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Operadores do número</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>Você pode defini-las {0}aqui{1}.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Números que você tem atualmente</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operador</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Pausa do operador</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Desabilitado</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0}Pausa do operador{1} permite ao operador ter algum tempo antes de aceitar chamadas de novo. Isso pode ser usado para tirar notas sobre a chamada anterior, etc.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Habilitado</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Chamadas realizadas</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Toques da fila</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Configuração rápida</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0}Configuração rápida{1} é usada para habilitar ou desabilitar rapidamente chamadas realizadas, a gravação de chamada para o número bem como a configuração das horas de funcionamento quando o número estará disponível para os clientes.</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Gravação de chamada</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>A gravação de conversa é salva no formato WAV. O seu navegador não suporta reprodução de arquivo de áudio com este formato, ou seja, você não poderá ouvir essas gravações.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>A lista dos navegadores que suportam esta função pode ser encontrada {0}aqui{1}</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Lista de toque</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Configuração de toque</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0}Configuração de toque{1} é usado para ver e editar toques atualmente atribuídos para várias operações de telefone.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}Recomendações de toque carregado{1}: o tamanho do arquivo não deve exceder 5 MB. Formatos suportados: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Configuração de número</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Não especificado</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Atualizar configurações</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Números virtuais</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Números e operadores virtuais</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0}Números virtuais{1} são usados para comunicar com os seus clientes CRM com a ajuda de telefones VoIP fornecidos pelo Twilio.</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Correio de voz</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Toques do correio de voz</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Aguardando toques</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Tempo limite de espera</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 minutos</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 minutos</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 minutos</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0}Tempo limite de espera{1} mostra o tempo durante o qual o cliente aguardará pela resposta do operador. Quando este tempo for excedido, a chamada será redirecionada para o serviço de correio de voz.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Horas de funcionamento</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Intervalo incorreto</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Inserir a hora no formato ##:##</value>
+  </data>
+</root>

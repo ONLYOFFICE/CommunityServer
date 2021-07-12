@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portāla Piekļuves Tiesības</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Darbības</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Pievienot</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Pievienot {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Pievienot lietotājus</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Atspējots</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Mainīt statusu</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Mainīt lietotāja statusu</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Ja šis skaitlis pārsniedz šībrīža cenu plānu, Jums būs jāatjaunina Jūsu plāns un jāatkārto darbība, vai arī netiks mainīts citu lietotāju statuss.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Mainīt lietotāja statusu</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Jūs nevarat mainīt savu un portāla īpašnieka statusu</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Lietotāji ar statusu "atspējots" tiks iespējoti.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Lietotāji ar statusu "Aktīvs" tiks atspējoti</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Mainīt veidu</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Atjauniniet savu plānu un atkārtojiet darbību. Pretējā gadījumā netiks mainīts lietotāju veids.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Mainīt lietotāja veidu</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Jūs nevarat mainīt portāla administratoru un savu statusu</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Lietotāji ar veidu '{!User}' tiks pārnesti uz veidu '{!Guest}'</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Lietotāji ar veidu '{!Guest}' tiks mainīti uz veidu '{!User}'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Atjaunot filtru</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Apstiprinājums</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Var tikt dzēst vienīgi lietotāji vai viesi ar statusu "Atspējots"</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Dzēst lietotāju no portāla</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Šo lietotāju privātie dokumenti, kas ir pieejami citiem, tiks dzēsti. Lai no tā izvairītos, jums ir pirms dzēšanas jāuzsāk datu pārneses process.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>Izvēlētie atspējotie lietotāji tiks dzēsti no portāla.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Attīrīt visus</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Atslēgt</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-pasts</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ieslēgt</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Ievadiet vārdu</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Nav atrasts augšupielādētais fails</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Attēla izmērs ir pārāk liels</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Attēla faila izmērs ir pārāk liels</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Nezināms attēla faila tips</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Slēpt izvēlēto lietotāju sarakstu</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Importēt personas</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Uzaicinājuma saite</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktīvs</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Mainīt epastu</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Mainīt Paroli</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Dzēst profilu</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Pārnest datus</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>Personīgo datu dzēšana</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Atkārtoti nosūtīt uzaicinājumus</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Sūtīt aktivizācijas saiti vēlreiz</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Sūtīt e-pastu</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Nosūtīt ziņu</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Parakstīšanās</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Atspējots</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Padomi</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Dalībnieki</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Nav cilvēku kas atbilst jūsu filtram var parādīt šajā sadaļā. Lūdzu, izvēlieties citas filtra opcijas vai attīriet filtru, lai apskatītu visus cilvēkus šajā sadaļā.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Nav rezultātu kas atbilst jūsu kritērijiem</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Uz augšu</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Dariet to pašu, ko lietotājs |Izveidot profilus un grupas|Importēt profilus|Uzaicināt lietotājus</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Pievienojiet jaunus lietotājus, aicinājiet vai importējiet tos. Pārvaldiet lietotājus un skatiet detalizētu informāciju.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Cilvēki</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Apskatīt profilus un grupas</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Vai {0}izlasiet par nekomerciālo lietošanu{1}.</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>Pārtraukt pārnesi</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>Datu pārnese pārtraukta</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Pārnest</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>Datu pārnesi pārtrauca servera kļūda</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Pasts</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Datu pārnese</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>Atkārtot pārnesi</value>
+  </data>
+  <data name="ReassignsProgressNotifyInfo" xml:space="preserve">
+    <value>Jūs varat aizvērt šo lapu. Kad process būs pabeigts, administrators, kurš to pārvalda, tiks informēts uz pastu.</value>
+  </data>
+  <data name="ReassignsProgressUserInfo" xml:space="preserve">
+    <value>Uzsākta datu nodošana no lietotāja {0} lietotājam {1}, tas var prasīt ievērojamu laika daudzumu.</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Vairāk informācijas par datu pārnesi</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>Pārtraukts, daži dati varētu būt pārsūtīti</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>Servera kļūda</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>Visi dati pārnesti</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>Dati netika pārnesti</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>Rindā</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>Uzsākts</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Darbnieks, kuram tiks pārsūtīti dati –</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Tiks pārsūtīts:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Vispārīgie un privātie dokumenti, kas ir pieejami citiem portāla lietotājiem;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Atvērti projekti, posmi un uzdevumi;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Kontakti, atvērtie uzdevumi, neaizvērtie darījumi un CMR lietas;</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Čats</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>Atcelt noņemšanu</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>Datu dzēšana pārtraukta</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>Personīgo datu dzēšana</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>Datu dzēšanu pārtrauca servera kļūda</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>Tiks dzēsti:</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>Visi personīgie dokumenti;</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>CRM atskaišu faili;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>Visi e-pasti un pievienotie faili;</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>Pievienoti no Čata failiem;</value>
+  </data>
+  <data name="RemovingProgressUserInfo" xml:space="preserve">
+    <value>Uzsākta lietotāja {0} personīgo datu dzēšana, tā var prasīt ievērojamu laika daudzumu.</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>Vairāk par personīgo datu dzēšanu</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>Dzēst no jauna</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>Pārtraukts, daži dati varētu būt dzēsti</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>Visi dati dzēsti</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>Dati netika dzēsti</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Pēc tam, kad lietotāji apstiprinās ielūgumu uz portālu, viņu statuss nomainīsies uz "Aktīvs"</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Nosūtīt ielūgumu atkārtoti</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Atkārtots ielūgums uz portālu tiks nosūtīts izvēlētajiem lietotājiem ar statusu "Gaida", kuri nav atspējoti.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izvēlēties visu</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Rādīt lapā</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Apskatīt izvēlēto lietotāju sarakstu</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Lietotājs tika veiksmīgi dzēsts </value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Kopējais daudzums</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Gaida apstiprinājumu</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Rakstīt vēstuli</value>
+  </data>
+</root>

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Radera fil?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Radera sida?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Jämför valda versioner</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Förhandsgranska</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Publicera</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Ladda upp</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Inga kategorier har skapats än</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Alla wiki artikelkategorierna är listade här. När en kategori skapas läggs den till listan här.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>Inga filer som ska visas i detta avsnitt</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Alla filer som är uppladdade för wikisidor finns här. Dessa filer kan bifogas till sidorna med wiki eller html kod.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Inga sidor som ska visas i den här sektionen</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Indexsidan listar alla sidor som är skapade av wikiredaktörer i alfabetisk ordning. När en sida skapas läggs den automatiskt till i indexet.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Inga sidor som ska visas i den här sektionen</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Alla de senaste tillagda eller redigerade sidorna är listade här. Dom läggs automatiskt till i listan sorterade efter när de skapades eller redigerades.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Inga sidor som ska visas i den här sektionen</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Alla de senaste redigerade sidorna är listade här. Dom läggs automatiskt till i listan sorterat efter när de redigerades.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Ny fil</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Ny sida</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Hem</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Redigera fil</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Redigera sida</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Filen finns inte.  {0Crea} en fil med detta namn[[ eller sök genom {1risultati di ricerca}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Sidan finns inte. &lt;/div&gt;Vill du {0create} den[[ o search in the {1search result}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Ladda upp fil</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Skapar ny sida</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Radera sida</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Redigera sida</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kategori: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Skriv ut sida</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Visa historik</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Företagets wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Filen att ladda upp är inte markerad.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Ett internt fel uppstod. Vänligen kontakta en administratör.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Fel i sidan</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Det har inte gjorts några ändringar.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Sidan har redigerats av en annan användare. Uppdatera sidan för att se den senaste versionen.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Sidotitelfältet är tomt.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Sidonamnet är inkorrekt. Prova ett annat namn.</value>
+  </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>Textfältet är tomt.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>En sida med den här titeln existerar redan.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Ändringarna har sparats.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Lägg till sida till kategori</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Sidouppdatering/kommentarer</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Nya sidor</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Prenumerera på sida</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Förhandsgranska</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wikisökning</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Avprenumerera från sida</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>kommentar tillagd</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>kommentar raderad</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>kommentar redigerad</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>fil tillagd</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>fil raderad</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>sida tillagd</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>sida redigerad</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>Sidoversionen återställd</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Å,Ä,Ö</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Jämför Ver.{0} med Ver.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Ladda upp fil</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Historik</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Senaste ändringarna av {0} vid {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Vill du återställa den här versionen?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>lasīšanai</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>lasīšanai/rakstīšanai</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Piekļuves tiesības noteiks tikai tām kontaktpersonām, kas Jūs izveidojat.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Darbības</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Pievienot</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Pievienot {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Papildu informācija</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Pievienot pasta kontu</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Pievienot tagu</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Pievienot dalībnieku</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Pievienot šo notikumu</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Pievienojot piezīmi ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Pievienot {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Izmantojiet {0}?{1} un {0}*{1} simbolus vienas/vairāku-rakstzīmju meklēšanai. Tā, piemēram, lai meklētu visus vārdus, kas sākas ar {0}O{1}, izmantojiet {0}O*{1} pieprasījumu. Nav ieteicams lietot šos simbolus jūsu pieprasījuma sākumā. Lai meklētu precīzu frāzi, izmantojiet jautājuma zīmes.{2}Uzziniet vairāk...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Brīdinājums</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Atbilstošais ONLYOFFICE™ CRM lauks</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Pielikumi</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Saistīt ar kontaktu</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autors</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Atpakaļ</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Uzziņiet vairāk ...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Lietas</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Mainīt</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Izvēlieties</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Atjaunot filtru</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Aizvērt šo logu</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Aizvērt Logu</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Kols</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Failu sleja</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Komats</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Uzrakstīt vēstuli visiem klientiem, kas atlasīti kontaktpersonu sarakstā. Pārbaudiet atlasīto klientu skaitu laukā "Kam" , ievadiet kopējo "Tēmu" un izmantojiet "Personiskus tagus" jāiekļauj visa nepieciešamu informāciju jūsu vēstulē. Šī ir beta versija, tiem, kuri vēlas izmēģināt jaunas ONLYOFFICE™ CRM funkcijas. </value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Apstiprinājums</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Izmaiņu apstiprinājums</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Jūs izdzēsāt sevi no kontakta pārvaldniekiem.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Jūs pazaudēsit visu lasīšanas un rakstīšanas piekļuvi kontaktam, ja atbilstošas piekļuves tiesības nav atļautas visiem CRM lietotājiem.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Vai jūs tiešām gribat izdzēst šos elementus?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Lai mainītu kontakta temperatūras līmeņu sarakstu, skatiet CRM {0}uzstādījumu{1} sadaļu</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Kontaktu uzstādījumi</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Saturs</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Vērtēt</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Valūtas konvertētājs</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Izveidošanas datums</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Izveidot Jauno Kontaktu</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Izveidot projektu</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Pievienot jaunu tagu</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Izveides datums</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>CRM modelis nav iespējots</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valūta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Pamata valūtas</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Citas valūtas</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Pašreizējais {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Personalizēts</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Personalizēts periods</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Citi lietotāji</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>{0} dienu laikā</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Pārsniegtās dienas: {0}</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Iespējas</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Dzēst notikumu</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Dzēst dalībnieku</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Dzēst tagu</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Dzēst lietotāju</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Attīrīt visus</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Darīt to pašu visos turpmākajos gadījumos</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dubultās pēdiņas</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Ierakstu dublikāti</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Tukšs fails</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Nav ierakstu, kas atbilst filtram var parādīt šajā sadaļā. Lūdzu, atlasiet citas filtrēšanas opciju vai notīriet filtru, lai skatītu visus ierakstus šajā sadaļā. Jūs varat arī apskatīt ierakstus citā kontaktu vēsturē.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Nevar atrast ierakstus ar šo filtru</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Ievadiet daudzumu</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Kļūda</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Faila izmērs pārsniedz {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Eksportēt šo sarakstu CSV failā</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Ir pārsniegts faila maksimālais izmērs</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Izveidošanas datums</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Galatermiņš</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Atbildīgais</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Ar tagu</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Meklēt uzņēmumu vai personu pēc vārda ...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Paslēpt</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Paslēpt faila pielikumu paneli</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Vēsture</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Jūs varat izmainīt sarakstu kategorijās vēstures notikumiem {0}šeit{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Tālruņa zvans</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-pasts</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Satikšanās</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Piezīme</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>ir saņemts</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>ir nosūtīts</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Maksimālais pārsniegto zīmju skaits: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignorēt pirmo rindu, importējot</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Dublikāts</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Izmantojiet šo opciju, lai importētu kontaktpersonas, kas sakrīt kontaktpersonu dublikātiem. Piemēram Jūsu ONLYOFFICE™ CRM ir divi ieraksti - "A" un "B" . Jūs gribāt importēt ierakstu "B" un "C". Gadījumā, ja atlasāt opciju "Dublikāts", "B" ieraksta dublikāts tiks izveidots importēšanas procesā.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Pārbaudiet, vai nav veiktu dublikātu pamatojoties uz e-pasta jomu.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Pārrakstīt</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Izmantojiet šo opciju, lai importētu kontaktpersonas, pārrakstot esošas kontaktpersonas. Piemēram Jūsu ONLYOFFICE™ CRM ir divi ieraksti - "A" un "B" . Jūs gribāt importēt ierakstu "B" un "C". Gadījumā, ja atlasāt opciju "Pārrakstīt", "B" ieraksts tiks pārrakstīts ar importējamo kontaktu.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Izlaist</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Izmantojiet šo opciju, lai importētu kontaktpersonas, saglabājot esošās kontaktpersonas. Piemēram Jūsu ONLYOFFICE™ CRM ir divi ieraksti - "A" un "B" . Jūs gribāt importēt ierakstu "B" un "C". Gadījumā, ja atlasāt opciju "Izlaist", "B" ieraksts tiks saglabāts importēšanas procesā.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Norobežotājs</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kodēšana</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV faila iestatījumi</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Teksta ierobežotājs</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Notiek failu skenēšana ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Sākt datu importēšanu</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informācija ir iesniegta</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Rēķini</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Rēķinu iestatījumi</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Nodokļi</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Pēdējā mēneša laikā</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Uzziniet vairāk...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Vēstules saturs</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Saistīt ar</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Lūdzu, uzgaidiet...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>E-pasta saturs</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ Masveida Sūtīšanas Funkcija: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Neizdevās piegādāt ziņojumu {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Nederīgs e-pasta adrese: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Piegādes neizdevās - mēģinās  pēc {0} sekundem.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>E-pasta tēma</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>līdz</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulators</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Mans</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Mani notikumi</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Nākamais ieraksts</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Nav ierakstu</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Nav pieejami pasta konti</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Nav atbilstību</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Nav norādīts</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Paziņot</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Nav norādīts</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Uz augšu</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Organizācijas profils</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Citi</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Citi uzstādījumi</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Šeit jūs varat redzēt vēstuli, kuru jūs rakstāt. Ja esat apmierināts ar rezultātu, izmantojiet pogu 'Sūtīt', lai veiktu dažas izmaiņas izmantojiet pogu "Atpakaļ".</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Iepriekšējais ieraksts</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Iepriekšējais solis</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>privāts</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Pieejams {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ierobežot piekļuvi</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Piekļuve tiek piešķirta visiem portāla {!users} pēc noklusējuma. Lai ierobežotu piekļuvi atzīmējiet rūtiņu zemāk.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Piekļuves tiesības</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>rīkoties tāpat kā ka CRM lietotājs|Importēt, eksportēt datus|Sūtīt e-pastus CRM kontaktiem|Pārvaldīt iestatījumus|Pārvaldīt jebkuru kontaktpersonu, uzdevumu, lietu, iespēju</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Pārvaldiet savu klientu attiecības, noteikt prioritārās kontaktus, sekojiet saziņas vēsturei un pārdošanas rezultātiem.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Pārvaldiet savu klientu attiecības, noteikt prioritārās kontaktus, sekojiet saziņas vēsturei un pārdošanas rezultātiem.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkti un pakalpojumi</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Izveidot kontaktpersonu, uzdevumu, lietu, iespēju ar iespēju ierobežot piekļuvi tiem|Rediģēt kontaktpersonas, uzdevumus, lietas, iespējas ar piekļuves tiesībām uzstādīšanai</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Saistīts ar</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Atskaites</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Atbildīgais</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Vērtība</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Saglabāt izmaiņas</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Saglabā izmaiņas ...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izvēlēties</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Atlasīt visus</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Paziņot lietotājus</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Semikols</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Sūtīt e-pastu</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Atļauju iestatīšana</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Rādīt</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Rādīt faila pielikumu paneli</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Parādīt informāciju</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Rādīt lapā</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Vienpēdiņa</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Atstarpe</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Saglabāt šo vēstuli vēsturē</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Tēma</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Jaunie notikumi</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Jauni kontakti</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Eksports pabeigts</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Importēšana pabeigta</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Atbildīgais par iespēju</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Uzdevumi kas piešķirti jums</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Piešķirta piekļuve</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Kopsavilkuma tabula</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabulācija</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Uzdevumi</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Ziņojums</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Šajā mēnesī</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Kam</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Kopā</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Uzņēmums / Persona</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Kontaktpersonas saistības noņemšana</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Augšā</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Pievienot failu</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Rādīt failus</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Apskatīt vēsturi sarakstei ar šo dalībnieku</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Zvani</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Kopējs</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Skaitļi</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP uzstādījumi</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Vakar</value>
+  </data>
+</root>

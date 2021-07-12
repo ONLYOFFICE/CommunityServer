@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Fayl silinsin mi?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Səhifə silinsin mi?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Seçilmiş versiyaları müqayisə et</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Qapat</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Yayınla</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Geriyə keçirmək</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Yüklə</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Versiya {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Hələ heç bir yeni kateqoriya yaradılmayıb</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Bütün wiki məqalə kateqoriyaları burada göstəriliblər. Kateqoriya shifədə yaradılandan sonra bu siyahıya düşür.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>Burada göstəriləsi heç bir fayl yoxdur</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Bu bölmədə wiki səhifələr üçün bütün müəlliflər tərəfindən yüklənmiş fayllar saxlanılır. Bu fayllar səhifələrə wiki vasitəsi ilə və ya hipermətn biçimləmə vasitəsi ilə bərkidilə bilərlər.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Bu bölmədə göstərilmək üçün səhifə yoxdur</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>İndeks səhifəsində əvvəllər müəlliflər tərəfindən yaradılmış bütün səhifələr əlifba sırası ilə sadalanıb. Səhifə yaradılan kimi avtomatik olaraq indeks səhifəsinə əlavə olunur.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Bu bölmədə göstərilmək üçün səhifə yoxdur</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Burada bütün yeni və ya az öncə dəyişdirilmiş səhifələr müəllifləri ilə birlikdə göstəriliblər. Bu səhifələr siyahıya avtomatik olaraq əlavə olunurlar və yaradılma və ya redaktə olunma tarixləri üzrə sıralanırlar.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Bu bölmədə göstərilmək üçün səhifə yoxdur</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Burada az öncə dəyişdirilmiş səhifələr öz müəllifləri ilə birlikdə göstəriliblər. Bu səhifələr avtomatik əlavə olunurlar və redaktə olunma tarixi üzrə sıralanırlar.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Yeni fayl</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Yeni səhifə</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Ana səhifə</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Fayl redaktə et</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Səhifəni redaktə et</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Belə fayl mövcud deyil. Belə adlı fayl {0yaradın} [[və ya {axtarış nəticələrinə} baxın]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Üzr istəyirik! Axtardığınız səhifə yoxdur.&lt;/div&gt;Onu {0yaratmaq}[[ və ya axtarışın nəticələrinə {1baxmaq istəyirsiniz mi}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Fayl yüklə</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Yeni səhifə yarat</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Səhifəni sil</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Səhifəni redaktə et</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kateqoriya: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Səhifəni çap et</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Tarixi göstər</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Korporativ wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Yükləmək üçün fayl seçilmədi.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Daxili xəta baş verdi. Lütfən, administratora müraciət edin.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Səhifə biçimində xəta</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Burada heç bir dəyişiklik olmayıb.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Bu səhifə digər istifadəçi tərəfindən redaktə olundu. Lütfən, sonuncu versiyanı görmək üçün səhifəni yeniləyin.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Səhifənin başlığı boşdur.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Səhifənin adı düzgün deyil. Lütfən, alternativ ad daxil etməyə çalışın.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Bu başlıqlı səhifə artıq mövcuddur.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Dəyişikliklər qeyd edildilər</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Kateqoriyaya yeni səhifələr əlavə et</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Səhifəyə dair yenilənmələr/şərhlər</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Yeni səhifələr</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Səhifəyə abunə ol</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Wiki Axtarış</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Səhifəyə abunəlikdən çıx</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>şərh əlavə olundu</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>şərh silindi</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>şərh redaktə edildi</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>fayl əlavə olundu</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>fayl silindi</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>səhifə əlavə olundu</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>səhifə redaktə olundu</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>səhifə versiyasının geriyə keçirilməsi</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,Ç,D,E,Ə,F,G,Ğ,H,İ,I,J,K,L,M,N,O,Ö,P,Q,R,S,Ş,T,U,Ü,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Versiya {0} ilə Versiya {1} müqayisəsi</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Fayl yüklə</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>{0}-dan {1}-a qədər sonuncu dəyişikliklər</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Siz bu versiyaya keçmək istəyirsiniz mi?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Versiya</value>
+  </data>
+</root>

@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Toegangsrechten portal</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Controleer alstublieft alle accountinstellingen die u heeft ingevoerd. Als u er zeker van bent dat de instellingen kloppen, meld u dan aan bij de mailservice die u gebruikt en bevestig eventuele verificatievragen. Probeer het daarna nogmaals. </value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>Dit account ontvangt geen mail.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>Dit account verstuurt geen mail.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Accountnaam</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Creëer mailbox voor het standaarddomein en beheer de accounts en pas hun instellingen aan met gebruik van deze lijst.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>De instellingen voor de accounts verbonden door middel van OAuth kunnen niet worden bewerkt. U kunt er alleen de accountnaam voor veranderen.</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Accountsbeheer</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Na het activeren van uw account kunt u er weer mail op ontvangen</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Account activeren</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Kopie toevoegen</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>E-mailadres toevoegen</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>E-mailadres</value>
+  </data>
+  <data name="AddonAdminOpportunities" xml:space="preserve">
+    <value>Hetzelfde als mail gebruiker|Beheer mail server|Beheer de algemene mail instellingen</value>
+  </data>
+  <data name="AddonUserOpportunities" xml:space="preserve">
+    <value>Beheer uw eigen email accounts, ontvang en verstuur berichten|Beheer eigen mail instellingen|Beheer de tags an het adresboek</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Contacten</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Tag toevoegen</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Geavanceerd</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Toon altijd afbeeldingen van iedereen</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Toon altijd afbeeldingen van</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Alles verwijderen</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Alles Downloaden</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Links toevoegen aan bestanden</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Bestanden toevoegen vanaf Documenten</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Bijlagen</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Toevoegen aan CRM Contact</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Authenticatietype </value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Automatische antwoorden aan alle inkomende berichten, bijvoorbeeld als u afwezig bent. Als een contact u meerdere berichten stuurt, wordt de autoreply maximaal elke {0} eenmalig verstuurd. </value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Nieuwe account toevoegen</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Creëer mailbox</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Domein instellen</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Afbeeldingen zijn uitgeschakeld.</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Hoofdtekst</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>De ongelezen berichten uit de Inboxmap laden naar de cache zodat de gebruiker ze sneller kan openen.</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Cache ongelezen Inbox berichten</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>De huidige tijd wordt weergegeven in overeenkomst met uw kalenderinstellingen.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Lege map</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Algemene instellingen</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Opstellen</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Kopieer naar Mijn Documenten</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Wilt u een CRM contact en link met dit gesprek aanmaken?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Maken en koppelen</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Alleen contact aanmaken</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>E-mail Opstellen naar Zender</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Creëer Mailbox</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Nieuwe account toevoegen</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Nieuwe tag aanmaken</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Na deactiveren van een account ontvangt u er geen mail meer van.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Als u het account verwijdert zullen alle berichten worden verwijderd uit de mailbox.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Tag verwijderen</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Als u de tag van de lijst verwijdert, zal deze ook worden verwijderd uit de contacten en berichten die ermee gemarkeerd zijn.</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Toon afbeeldingen</value>
+  </data>
+  <data name="DomainHelperExportFromMSExchange" xml:space="preserve">
+    <value>Het is mogelijk om {0}data te exporteren vanuit MS Exchange.{1}</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Het kant en klare gratis standaarddomein wordt u aangeboden zodat u meteen uw nieuwe mailbox kunt aanmaken.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Dit domein is gemeenschappelijk voor alle portalen, dus het wordt aanbevolen dat uw bedrijfsdomein wordt gebruikt voor zakelijke e-mailcorrespondentie.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Downloaden</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Openen in documentbewerker</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Contact aanpassen</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Gesprekken Inschakelen</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Mail autoreply is ingeschakeld voor dit account.</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Versleuteld Wachtwoord</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Dit adres bestaat al</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Hoofdtekst mag niet leeg zijn</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Allen opslaan in Mijn Documenten</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Kies alstublieft CRM items om dit bericht te bevestigen aan:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Exporteren</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Exporteren naar:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Mailgeschiedenis zal beschikbaar zijn voor CRM-gebruikers volgens toegangsrechten.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Exporteren naar CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>U heeft "Alleen Inzien" toegangsrechten voor een aantal bijgevoegde bestanden, daardoor kunt u ze niet delen met anderen. {0}{0} Deze bestanden kunnen naar de map 'Mijn Documenten' worden gekopieerd en daarna als koppelingen worden bijgevoegd. {0}{0} Als alternatief kunt u ook de documenteigenaren vragen om u volledige toegangsrechten te geven voor de bestanden die u wilt bevestigen als links en de actie nog eens herhalen. </value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Sommige bestanden kunnen niet worden toegevoegd als links.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Map ontkoppelen</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Groep}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Concepten</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Verstuurd</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Prullenbak</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Doorsturen</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Volledige Toegang</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Volledige grootte</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Ontvang standaardinstellingen</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>Anders naar Inbox terugkeren.</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Ga naar het volgende bericht na het verplaatsen/verwijderen van het huidige bekeken</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Mailgroep, alleen in beheerpanel bewerkt</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Belangrijk</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Link met CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Item kiezen:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Verzoek</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Neem contact op met</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Kans</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Kies alstublieft CRM items om dit gesprek te bevestigen aan:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Alle berichten uit dit gesprek (inclusief toekomstige berichten) worden getoond in CRM. Mailinggeschiedenis zal beschikbaar zijn voor CRM-gebruikers op basis van toegangsrechten.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Link naar:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Zoeken op naam</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Alles ontkoppelen</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Laden...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Alleen berichten van de laatste 30 dagen importeren</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Markeer als Belangrijk</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Markeer als Niet Belangrijk</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Markeer als gelezen</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Markeer als Ongelezen</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Markeer alle berichten van</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Dit account is gedeactiveerd.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>meer</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Meer</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Nieuwe tag aanmaken</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>geen adres</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>geen onderwerp</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>of link met:</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Stuur autoreply alleen naar personen in Contacten</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Bovenaan</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Openen in nieuw tabblad</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>alle</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>belangrijk</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>belangrijk</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>lezen</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>lezen</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>ongelezen</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>ongelezen</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>met bijlagen</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>met bijlagen</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Alles deselecteren</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>geselecteerd</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Telefoon</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Poort</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Alleen-lezen</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Mail ontvangen</value>
+  </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Opnieuw verbinden</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Haal nieuwe berichten op</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Allen Beantwoorden</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Beantwoorden</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Beoordelen</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Bericht Opslaan &amp; Versturen</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Opslaan in Kalender</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Opslaan in Documenten</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Opslaan in Mijn Documenten</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Opslaan in Projectdocumenten</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Bewaard op</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alles selecteren</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Map voor Bijlagen</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Map voor Bijlagen</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Verzenden</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Stuur mail</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Mail autoreply</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>De bestand(en) die u heeft bevestigd als link(s) zullen worden gedeeld met de e-mailontvanger(s) via link voor mensen van buiten het portaal. U kunt de toegangsrechten voor de bestanden later in de Documentenmodule aanpassen.</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Toegangsrechten instellen voor bijgevoegde bestand(en) als links voor e-mail ontvanger(s):</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Meer accounts tonen</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Meer tags tonen</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Makkelijk Wachtwoord</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Openen in nieuw tabblad</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Tag aanpassen</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Tagnaam</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>U kunt berichten en contacten beheren met gebruik van de tags. Het zal het zoeken naar de benodigde berichten vergemakkelijken als u de tag filteroptie gebruikt in de toekomst.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>U kunt alleen de tags aangemaakt in Mail bewerken en verwijderen. De tags geïmporteerd uit de CRM-module kunnen niet worden bewerkt of verwijderd. Ze kunnen rechtstreeks worden veranderd in de CRM-module door een beheerder.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Tags Beheer</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Zet autoreply aan</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>U kunt het uitzetten.</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Aanzetten</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Wilt u dit gesprek echt uit CRM verwijderen?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Ontkoppelen van dit gesprek van CRM zorgt ervoor dat u het ontkoppelt van alle contacten, kansen en zaken die u eerder heeft gekozen.
+Alle berichten die hiervoor zijn ontvangen, blijven in de CRM mailingsgeschiedenis staan, maar toekomstige berichten in het gesprek zullen niet worden getoond in CRM.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Ontkoppelen</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Bestand uploaden</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Versleuteling voor IMAP Server</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Versleuteling voor POP Server</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Versleuteling voor SMTP Server</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Bekijken</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Bekijk profiel van contact</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Mail opstellen</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Nieuwe E-mail Opstellen</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Gisteren</value>
+  </data>
+</root>

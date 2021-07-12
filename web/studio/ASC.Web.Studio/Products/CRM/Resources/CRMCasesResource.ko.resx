@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>추가 후 케이스 신규 생성</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>모든 케이스</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>케이스</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>멤버</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>멤버</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>케이스 태그</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>케이스 태그 목록</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>케이스 제목</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>케이스 종료</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>케이스를 만드는 중 ...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>첫 번째 경우를 만듭니다</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>새로운 사건을 만들어</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>케이스 삭제</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>삭제 가지 경우</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>케이스 편집</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>«{0}» 케이스 편집</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>케이스는 하나와 같은 곳의 모든 통신 기록에 유지 작업을 할당 공통 이벤트에 참여 연락처 문서를 업로드 할 수 있습니다. 예를 들어, 팀이 훈련이나 전시 조직이 될 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>필터와 일치하는 사건이이 섹션에 표시 할 수 없습니다. 이 섹션의 모든 사례를 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오. 이 목록에 결석을하는 경우 또는 사건을 만들 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>어떤 사건이 여기에 필터 표시되지 않음</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>케이스 목록이 비어 있습니다.</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>멤버 목록이 비어 있습니다.</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>회사 나 사람의 목록에서 귀하의 사건에 참가자를 추가합니다. 이 작업을 수행 한 후이 사건과 관련된 예정된 이벤트에 참여 것입니다 누군지 알 것입니다.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>케이스 가져오기</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>제대로 형성된 CSV 파일은 컴퓨터 HDD에 선택해야합니다. 이 사건을 가져 오는 데 사용됩니다 선택한 구분 기호로 구분 된 필드 나 열을 포함해야합니다. {0} 행 이상을 포함하는 파일을 적절한 가져 오기위한 작은 부분으로 나누어해야합니다. 가져온 될 정보에 대한 액세스 권한을 부여 할 필요가 포털 사용자를 선택했는지 확인, CSV 파일에서 그렇지 않으면 데이터는 모든 포털 사용자가 사용할 수 있습니다.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSV 파일을 선택하고 케이스를 가져 오기 전에 액세스 권한을 설정</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>해당 ONLYOFFICE™의 CRM 분야로 파일 항목과 일치합니다. 올바르게 ONLYOFFICE™의 CRM의 '사례 제목'입력란에 일치하는 파일에서 하나 이상의 열이 필요합니다 케이스를 가져 있다는 사실에주의하시기 바랍니다. 날짜를 포함하는 필드는 다음과 같은 형식이 있어야합니다 : {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>필드를 확인 하십시오</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>케이스 목록으로 이동</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>가지 경우 가져 오기는 데이터의 양에 따라 몇 분의 시간이 소요될 수 있습니다.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>가져오기 시작</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>멤버</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>케이스 열기</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>멤버</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>경우에 대한 액세스를 제한</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>변경 사항 저장</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>프로필로 이동</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>가져오기 시작</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>모든 케이스</value>
+  </data>
+</root>

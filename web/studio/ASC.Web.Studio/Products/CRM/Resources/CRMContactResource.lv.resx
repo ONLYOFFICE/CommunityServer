@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortMassSend" xml:space="preserve">
+    <value>Pārtraukt epasta sūtīšanu</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Piezīme</value>
+  </data>
+  <data name="AddingCompany" xml:space="preserve">
+    <value>Uzņēmuma pievienošana ...</value>
+  </data>
+  <data name="AddingPersonProgress" xml:space="preserve">
+    <value>Kontakta pievienošana  ...</value>
+  </data>
+  <data name="AddNewAddress" xml:space="preserve">
+    <value>Pievienot jaunu adresi</value>
+  </data>
+  <data name="AddNewCompany" xml:space="preserve">
+    <value>Pievienot jaunu uzņēmumu</value>
+  </data>
+  <data name="AddNewContact" xml:space="preserve">
+    <value>Pievienot jaunu personu</value>
+  </data>
+  <data name="AddTagToContactGroupHelpForAdmin" xml:space="preserve">
+    <value>Noklusējuma darbību var nomainīt {0}šeit{1}</value>
+  </data>
+  <data name="AddTagToContactGroupHelpForUser" xml:space="preserve">
+    <value>Tikai CRM administators drīkst pēc tam uzstādīt šo parametru</value>
+  </data>
+  <data name="AddThisAndCreateCompanyButton" xml:space="preserve">
+    <value>Saglabāt un Izveidot jaunu uzņēmumu</value>
+  </data>
+  <data name="AddThisAndCreatePeopleButton" xml:space="preserve">
+    <value>Saglabāt un izveidot jaunu personu</value>
+  </data>
+  <data name="AddThisCompanyButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisPersonButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddToLetterBody" xml:space="preserve">
+    <value>Pievienot vēstules saturam</value>
+  </data>
+  <data name="AfterStage" xml:space="preserve">
+    <value>Temperatūras līmenis</value>
+  </data>
+  <data name="AllContacts" xml:space="preserve">
+    <value>Visi kontakti</value>
+  </data>
+  <data name="AllPersons" xml:space="preserve">
+    <value>Visas personas</value>
+  </data>
+  <data name="AssignContact" xml:space="preserve">
+    <value>Saistīt vai pievienot personu</value>
+  </data>
+  <data name="AssignContactFromExisting" xml:space="preserve">
+    <value>Izvēlieties kādu no esošajām kontaktiem</value>
+  </data>
+  <data name="AssignContactManager" xml:space="preserve">
+    <value>Piešķirt šim kontaktam pārvaldītāju</value>
+  </data>
+  <data name="AssignPersonFromExisting" xml:space="preserve">
+    <value>Izvēlieties kādu no esošajām personām vai pievienojiet jaunu</value>
+  </data>
+  <data name="AssignProject" xml:space="preserve">
+    <value>Saistīt vai pievienot projektu</value>
+  </data>
+  <data name="BatchSize" xml:space="preserve">
+    <value>Partijas lielums</value>
+  </data>
+  <data name="BatchSizeInfoText" xml:space="preserve">
+    <value>Mēs iesakām uzreiz sūtīt epastu partiju, lai epasta programmatūra strādātu efektīvi. Ja vēlaties, varat mainīt saņēmēju daudzumu katrā partijā.</value>
+  </data>
+  <data name="BlindLinkInfoText" xml:space="preserve">
+    <value>Paslēpt e-pasta adreses no adresātiem?</value>
+  </data>
+  <data name="BreadCrumbsAddCompany" xml:space="preserve">
+    <value>Izveidot jauno uzņēmumu</value>
+  </data>
+  <data name="BreadCrumbsAddPerson" xml:space="preserve">
+    <value>Izveidot jauno personu</value>
+  </data>
+  <data name="ByContactManager" xml:space="preserve">
+    <value>Vadītājs</value>
+  </data>
+  <data name="CancelAddContactTagToGroupForCompany" xml:space="preserve">
+    <value>Pievienot tikai uzņēmumam</value>
+  </data>
+  <data name="CancelAddContactTagToGroupForPerson" xml:space="preserve">
+    <value>Pievienot tikai personai</value>
+  </data>
+  <data name="CancelContactStatusGroupChange" xml:space="preserve">
+    <value>Nē, tikai šo kontaktu</value>
+  </data>
+  <data name="CancelDeleteContactTagFromGroupForCompany" xml:space="preserve">
+    <value>Dzēst vienīgi no uzņēmuma</value>
+  </data>
+  <data name="CancelDeleteContactTagFromGroupForPerson" xml:space="preserve">
+    <value>Dzēst tikai no personas</value>
+  </data>
+  <data name="CategoryNotSpecified" xml:space="preserve">
+    <value>Nav norādītas kategorijas</value>
+  </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Mainīt fotoattēlu</value>
+  </data>
+  <data name="ChangePhotoToDefault" xml:space="preserve">
+    <value>Mainīt foto uz noklusējuma</value>
+  </data>
+  <data name="ChooseProfilePhoto" xml:space="preserve">
+    <value>Izvēlieties profila fotogrāfiju</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Uzņēmumi</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Uzņēmums</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Uzņēmuma nosaukums</value>
+  </data>
+  <data name="ConfirmationAddTagToCompanyGroup" xml:space="preserve">
+    <value>Dažas personas ir saistītas ar šo uzņēmumu.
+Vai vēlaties pievienot šo birku arī visām šīm personām?</value>
+  </data>
+  <data name="ConfirmationAddTagToPersonGroup" xml:space="preserve">
+    <value>Šī persona ir pie uzņēmuma.
+Vai vēlaties pievienot šo birku arī uzņēmumam un visām tā personām?</value>
+  </data>
+  <data name="ConfirmationChangeCompanyStatus" xml:space="preserve">
+    <value>Vai vēlaties mainīt visu ar šo uzņēmumu saistīto personu kontaktstatusu?</value>
+  </data>
+  <data name="ConfirmationChangePersonsStatus" xml:space="preserve">
+    <value>Vai vēlaties mainīt visu ar šo uzņēmumu saistīto personu kontaktstatusu?</value>
+  </data>
+  <data name="ConfirmationDeleteTagFromCompanyGroup" xml:space="preserve">
+    <value>Šim uzņēmumam ir saistītas personas.
+Vai vēlaties dzēst šo birku arī no visām personām, kas ir saistītas ar šo uzņēmumu?</value>
+  </data>
+  <data name="ConfirmationDeleteTagFromPersonGroup" xml:space="preserve">
+    <value>Šī persona ir pie uzņēmuma.
+Vai vēlaties dzēst šo birku arī no uzņēmuma un visām tā personām?</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakts</value>
+  </data>
+  <data name="ContactManager" xml:space="preserve">
+    <value>Kontaktu pārvaldnieks</value>
+  </data>
+  <data name="ContactPhotoInfo" xml:space="preserve">
+    <value>Jūs varat augšupielādēt attēlu, kas nav lielāks par {1}200x300 pikseļiem{2}, pretējā gadījumā notiks izmēru maiņas. Maksimālais attēla izmērs nedrīkst pārsniegt  {1}{0}{2}.</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="ContactStage" xml:space="preserve">
+    <value>Kontakta temperatūras līmenis</value>
+  </data>
+  <data name="ContactStages" xml:space="preserve">
+    <value>Kontaktu temperatūras līmeņi</value>
+  </data>
+  <data name="ContactStatus_Cold" xml:space="preserve">
+    <value>Auksts</value>
+  </data>
+  <data name="ContactStatus_Hot" xml:space="preserve">
+    <value>Karsts</value>
+  </data>
+  <data name="ContactStatus_Warm" xml:space="preserve">
+    <value>Silts</value>
+  </data>
+  <data name="ContactStatusGroupChangeHelpForAdmin" xml:space="preserve">
+    <value>Noklusējuma darbību var nomainīt {0}šeit{1}</value>
+  </data>
+  <data name="ContactStatusGroupChangeHelpForUser" xml:space="preserve">
+    <value>Tikai CRM administators drīkst pēc tam uzstādīt šo parametru</value>
+  </data>
+  <data name="ContactTag" xml:space="preserve">
+    <value>Kontakta tags</value>
+  </data>
+  <data name="ContactTagList" xml:space="preserve">
+    <value>Kontaktu tagu saraksts</value>
+  </data>
+  <data name="ContactTags" xml:space="preserve">
+    <value>Kontaktu tagi</value>
+  </data>
+  <data name="ContactTitle" xml:space="preserve">
+    <value>Kontakta vārds</value>
+  </data>
+  <data name="ContactType" xml:space="preserve">
+    <value>Kontakta veids</value>
+  </data>
+  <data name="ContactType_Client" xml:space="preserve">
+    <value>Klients</value>
+  </data>
+  <data name="ContactType_Competitor" xml:space="preserve">
+    <value>Konkurents</value>
+  </data>
+  <data name="ContactType_Partner" xml:space="preserve">
+    <value>Partneris</value>
+  </data>
+  <data name="ContactType_Supplier" xml:space="preserve">
+    <value>Piegādātājs</value>
+  </data>
+  <data name="ContactWebSiteAndSocialProfiles" xml:space="preserve">
+    <value>Web Lapa / Sociālie tīkli</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Saturs</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="CreateFirstCompany" xml:space="preserve">
+    <value>Izveidot pirmo uzņēmumu</value>
+  </data>
+  <data name="CreateFirstPerson" xml:space="preserve">
+    <value>Izveidot pirmo personu</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Izveidot projektu</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Klients</value>
+  </data>
+  <data name="DeleteContact" xml:space="preserve">
+    <value>Dzēst kontaktu</value>
+  </data>
+  <data name="DeleteTagFromContactGroupHelpForAdmin" xml:space="preserve">
+    <value>Noklusējuma darbību var nomainīt {0}šeit{1}</value>
+  </data>
+  <data name="DeleteTagFromContactGroupHelpForUser" xml:space="preserve">
+    <value>Tikai CRM drīkstēs uzstādīt šo parametru</value>
+  </data>
+  <data name="DeleteThisCompany" xml:space="preserve">
+    <value>Dzēst uzņēmumu</value>
+  </data>
+  <data name="DeleteThisPerson" xml:space="preserve">
+    <value>Dzēst personu</value>
+  </data>
+  <data name="DeletingContacts" xml:space="preserve">
+    <value>Dzēst kontaktpersonu</value>
+  </data>
+  <data name="DoNotImportThisField" xml:space="preserve">
+    <value>Neimportēt šo jomu</value>
+  </data>
+  <data name="EditCompany" xml:space="preserve">
+    <value>Rediģēt uzņēmumu «{0}»</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Rediģēt kontaktu</value>
+  </data>
+  <data name="EditPerson" xml:space="preserve">
+    <value>Rediģēt personu «{0}»</value>
+  </data>
+  <data name="EditProfileCompany" xml:space="preserve">
+    <value>Rediģēt uzņēmumu</value>
+  </data>
+  <data name="EditProfilePerson" xml:space="preserve">
+    <value>Rediģēt personu</value>
+  </data>
+  <data name="EmptyContactListDescription" xml:space="preserve">
+    <value>Paturiet visas kontaktpersonas, kas strādā ar jūsu uzņēmumu vienā vietā. Pievienojiet jaunus uzņēmumus un personas, sadaliet tos pa {0}tipiem{1}, saistiet ar otru, pievienojiet personisko informāciju. Importējiet vairākus kontaktus, no {2}CSV failā{3}, vienā rāvienā.</value>
+  </data>
+  <data name="EmptyContactListFilterDescribe" xml:space="preserve">
+    <value>Nav kontaktpersonas, kas atbilst filtram. Lūdzu, atlasiet citu filtrēšanas opciju vai notīriet filtru, lai apskatītu kontaktpersonas šajā sadaļā. Vai gadījumā, ja tas nav klāt, var izveidot kontaktpersonu.</value>
+  </data>
+  <data name="EmptyContactListFilterHeader" xml:space="preserve">
+    <value>Nav kontaktpersonu, ko varētu parādīt šajā filtra</value>
+  </data>
+  <data name="EmptyContactListHeader" xml:space="preserve">
+    <value>Kontaktu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContactProjectListDescription" xml:space="preserve">
+    <value>Izvēlieties esošos projektus no saraksta, lai saistītu tos ar CRM kontaktu, vai ejiet uz Projekti moduli, lai radītu jaunus projektus. Tas palīdzēs jums organizēt savu darba plūsmu un plānotu darbu. Dziļāka integrācija ar projektiem palīdzēs jums pārvaldīt savu darbu efektīvāk.</value>
+  </data>
+  <data name="EmptyContactProjectListDescriptionWithoutButton" xml:space="preserve">
+    <value>Jums nav atļaujas savienot kontaktus ar projektiem. Lai to darītu, jums ir jābūt projekta vadītājam vai portāla administratoram.</value>
+  </data>
+  <data name="EmptyContactProjectListHeader" xml:space="preserve">
+    <value>Projektu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentPeopleDescribe" xml:space="preserve">
+    <value>Pievienojiet personas šeit izveidojot jaunus cilvēkus vai saistot esošos ar uzņēmumiem, kur viņi strādā. Kad persona ir izveidota Jūs varat aizpildīt visu kontaktinformāciju un iestatīt piekļuves tiesību līmeni citiem portāla lietotājiem.</value>
+  </data>
+  <data name="EmptyContentPeopleHeader" xml:space="preserve">
+    <value>Personu saraksts ir tukšs</value>
+  </data>
+  <data name="ErrorEmptyCompanyName" xml:space="preserve">
+    <value>Ievadiet kompānijas nosaukumu</value>
+  </data>
+  <data name="ErrorEmptyContactFirstName" xml:space="preserve">
+    <value>Ievadiet vārds</value>
+  </data>
+  <data name="ErrorInvalidEmail" xml:space="preserve">
+    <value>Nepareizs e-pasts</value>
+  </data>
+  <data name="ErrorInvalidPhone" xml:space="preserve">
+    <value>Nederīgs tālruņa numurs</value>
+  </data>
+  <data name="FilterByAccessibility" xml:space="preserve">
+    <value>Pieejamība</value>
+  </data>
+  <data name="FilterByContactManager" xml:space="preserve">
+    <value>Vadītājs</value>
+  </data>
+  <data name="FindCompanyByName" xml:space="preserve">
+    <value>Atrast uzņēmums pēc vārda ...</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Meklēt personu pēc vārda ...</value>
+  </data>
+  <data name="FindEmployeeByName" xml:space="preserve">
+    <value>Meklēt darbinieku pēc vārda ...</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>Vispārīga informācija</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Ģenerēt</value>
+  </data>
+  <data name="GenerateLinks" xml:space="preserve">
+    <value>Ģenerēt saites</value>
+  </data>
+  <data name="Generation" xml:space="preserve">
+    <value>Generacija</value>
+  </data>
+  <data name="HistoryVoipIncomingNote" xml:space="preserve">
+    <value>Ienākošais zvans. Ilgums: {0}</value>
+  </data>
+  <data name="HistoryVoipOutcomingNote" xml:space="preserve">
+    <value>Izejošais zvans. Ilgums: {0}</value>
+  </data>
+  <data name="ImportContacts" xml:space="preserve">
+    <value>Importēt kontaktus</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Jūsu datora cietajā diskā ir jāizvēlas atbilstoši noformēts CSV fails. Tam ir jāsatur ar atdalītāju nodalīti lauki vai kolonnas, kas tiks izmantotas personu vai uzņēmumu importēšanā - "Vārds" un "Uzvārds" personām, "Uzņēmuma nosaukums" uzņēmumiem. Faili, kas satur vairāk nekā {0} rindas, ir jāiedala mazākās daļās, lai tos varētu pareizi importēt. Pārliecinieties, ka esat atlasījuši tos portāla lietotājus, kuriem ir nepieciešama piekļuve kontaktinformācijai; pretējā gadījumā dati no CSV faila būs pieejami vienīgi jums.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Izvēlieties CSV failu un uzstādiet pieejas tiesības, pirms importēšanas</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Saskaņojiet sava faila slejas ar atbilstošiem ONLYOFFICE™ CRM jomām. Lūdzam pievērst Jūsu uzmanību - lai importētu kontaktus pareizi, jums ir nepieciešams, lai vismaz viena no jūsu failu kolonnam jāsaskaņo ar "First Name" laukiem ONLYOFFICE™ CRM. Tas pats ir ar uzņēmumu importam - jums būs nepieciešams, lai faila kollona atbilstu "Uzņēmuma nosaukums" laukam. Laukiem, kas satur datumus jābūt šādā formātā: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lūdzu, pārbaudiet jomas</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Iet uz kontaktu sarakstu</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Kontaktu importēšana var aizņemt vairākas minūtes, atkarībā no datu daudzuma. </value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importēšana uzsākta</value>
+  </data>
+  <data name="Industry" xml:space="preserve">
+    <value>Industrija</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Amats</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Uzvārds</value>
+  </data>
+  <data name="Lead" xml:space="preserve">
+    <value>Valdība</value>
+  </data>
+  <data name="LoadPhotoFromPC" xml:space="preserve">
+    <value>Augšupielādēt foto no datora</value>
+  </data>
+  <data name="LoadPhotoFromSocialMedia" xml:space="preserve">
+    <value>Izvēlēties no sociālajiem tīkliem</value>
+  </data>
+  <data name="MakePublicPanelCheckBoxLabelForCompany" xml:space="preserve">
+    <value>Atļaut piekļuvi uzņēmumam visiem CRM lietotājiem</value>
+  </data>
+  <data name="MakePublicPanelCheckBoxLabelForImportContacts" xml:space="preserve">
+    <value>Atļaut visiem CRM lietotājiem piekļuvi šim kontaktam</value>
+  </data>
+  <data name="MakePublicPanelCheckBoxLabelForPerson" xml:space="preserve">
+    <value>Atļaut piekļuvi personai visiem CRM lietotājiem</value>
+  </data>
+  <data name="MakePublicPanelDescrForContact" xml:space="preserve">
+    <value>Piekļuve tiek nodrošināta vienīgi kontaktu pārvaldniekiem. Lai ļautu piekļuvi šim kontaktam visiem lietotājiem, atzīmējiet zemāk esošo lauciņu</value>
+  </data>
+  <data name="MakePublicPanelTitleForCompany" xml:space="preserve">
+    <value>Padarīt šo uzņēmumu publisku</value>
+  </data>
+  <data name="MakePublicPanelTitleForImportContacts" xml:space="preserve">
+    <value>Padarīt kontaktu publisku</value>
+  </data>
+  <data name="MakePublicPanelTitleForPerson" xml:space="preserve">
+    <value>Padarīt šo personu publisku</value>
+  </data>
+  <data name="MassSendAlreadySent" xml:space="preserve">
+    <value>Jau nosūtīts</value>
+  </data>
+  <data name="MassSendEmailsTotal" xml:space="preserve">
+    <value>Kopā e-pastu</value>
+  </data>
+  <data name="MassSendErrors" xml:space="preserve">
+    <value>Kļūdas</value>
+  </data>
+  <data name="MassSendEstimatedTime" xml:space="preserve">
+    <value>Aprēķinātais beigu laiks</value>
+  </data>
+  <data name="MassSendInfo" xml:space="preserve">
+    <value>Pēdēja epasta sūtīšana ir progresā. Paldies, ka izmantojāt mūsu sūtīšanas līdzekli!</value>
+  </data>
+  <data name="MergeButtonText" xml:space="preserve">
+    <value>Šis ir dublikāts</value>
+  </data>
+  <data name="MergePanelButtonStartText" xml:space="preserve">
+    <value>Sākt kontaktu apvienošanu</value>
+  </data>
+  <data name="MergePanelDescriptionText" xml:space="preserve">
+    <value>Lūdzu, izvēlieties kontaktu, kas ir dublēta ar pašreizējo kontaktu. Abas kontakta dati tiks apvienoti un pašreizējais kontakts tiks dzēsts.</value>
+  </data>
+  <data name="MergePanelHeaderText" xml:space="preserve">
+    <value>Apvienot kontaktus</value>
+  </data>
+  <data name="MergePanelProgress" xml:space="preserve">
+    <value>Kontaktu apvienošana ...</value>
+  </data>
+  <data name="NoMatchSelect" xml:space="preserve">
+    <value>Nav atbilstības ONLYOFFICE™ CRM, izvēlieties no saraksta</value>
+  </data>
+  <data name="NoPhotoFromSocialMedia" xml:space="preserve">
+    <value>Nav pieejamu foto, kas atbilstu profilam</value>
+  </data>
+  <data name="NotifyContactManager" xml:space="preserve">
+    <value>Paziņot kontaktu pārvaldniekam pa e-pastu</value>
+  </data>
+  <data name="OKAddContactTagToGroup" xml:space="preserve">
+    <value>Pievienot saistītajiem kontaktiem</value>
+  </data>
+  <data name="OKCompanyStatusGroupChange" xml:space="preserve">
+    <value>Jā, mainīt personām</value>
+  </data>
+  <data name="OKDeleteContactTagFromGroup" xml:space="preserve">
+    <value>Dzēst no saistītā kontakta</value>
+  </data>
+  <data name="OKPersonStatusGroupChange" xml:space="preserve">
+    <value>Jā, mainīt uzņēmumam</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Persona</value>
+  </data>
+  <data name="PersonalTags" xml:space="preserve">
+    <value>Personiskie tagi</value>
+  </data>
+  <data name="PersonPosition" xml:space="preserve">
+    <value>Amats</value>
+  </data>
+  <data name="Persons" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="PublicContacts" xml:space="preserve">
+    <value>Publisks</value>
+  </data>
+  <data name="RelativeEntity" xml:space="preserve">
+    <value>Saistīta identitāte</value>
+  </data>
+  <data name="RestrictedContacts" xml:space="preserve">
+    <value>Ierobežots</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Saglabāt izmaiņas</value>
+  </data>
+  <data name="SaveThisAndCreateCompanyButton" xml:space="preserve">
+    <value>Saglabāt un izveidot uzņēmumu</value>
+  </data>
+  <data name="SaveThisAndCreatePeopleButton" xml:space="preserve">
+    <value>Saglabāt un izveidot personu</value>
+  </data>
+  <data name="SavingChangesProgress" xml:space="preserve">
+    <value>Saglabā izmaiņas ...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Meklēt</value>
+  </data>
+  <data name="ShowContactProfile" xml:space="preserve">
+    <value>Iet uz profilu</value>
+  </data>
+  <data name="ShowContactProfileNewTab" xml:space="preserve">
+    <value>Atvērt jaunā cilnē</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>Parādīt uz kartes</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Personāls</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Sākt kontaktu importēšanu</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Piegādātājs</value>
+  </data>
+  <data name="TeamlabWatermarkInfo" xml:space="preserve">
+    <value>Mēs pievienosim teksta ūdenszīmi jūsu vēstulē kā "Izstrādāts ONLYOFFICE.com". Jūs varat redzēt nākamajā (ziņojuma priekšskatījums) solī.</value>
+  </data>
+  <data name="TooltipCsv" xml:space="preserve">
+    <value>CSV (comma separated values) faili saglabā tabulas datu vienkārša teksta veidā. Šādus failus var izveidot no izklājlapas ONLYOFFICE™ dokumentus.</value>
+  </data>
+  <data name="TooltipTypes" xml:space="preserve">
+    <value>Kontaktu veidi ļauj raksturot jūsu potenciālus klientus noteiktā veidā. Noklusējuma kontaktpersonu tipi ir auksts, silts un karsts kas nozīmē kontaktpersonas vēlmi iegādāties jūsu produktu. Lai varētu tos rediģēt, nepieciešamas administratora tiesības.</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Visi kontakti</value>
+  </data>
+  <data name="ViewMailingHistory" xml:space="preserve">
+    <value>Skatīt sarakstes vēsturi</value>
+  </data>
+  <data name="WithoutContactManager" xml:space="preserve">
+    <value>Bez kontaktu pārvaldnieka</value>
+  </data>
+  <data name="WriteEmail" xml:space="preserve">
+    <value>Rakstīt ziņojumu</value>
+  </data>
+  <data name="WriteEmailByMailProductDscr" xml:space="preserve">
+    <value>Sākot ar šo ziņu tās saruna būs attēlota kontaktu vēsturē.</value>
+  </data>
+</root>

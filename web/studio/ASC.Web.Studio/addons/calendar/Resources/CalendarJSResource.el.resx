@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Νέο ημερολόγιο</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Συμβάν</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Προσθήκη νέου συμβάντος</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>Ολη Μέρα</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>Λίστα</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Ημέρα</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Περίοδος</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Μήνας</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Εβδομάδα</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>«Προσθήκη νέου ημερολογίου»</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Χρώμα:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Ημερολόγιο Επεξεργασία</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Εισαγωγή συμβάντων</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Χρώμα κειμένου:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Ζώνη ώρας:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Τα ημερολόγιά μου</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Συνδρομές</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Διαχείριση</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Προσθήκη νέου συμβάντος</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 λεπτά</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 ώρες</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>Μισή ώρα</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 λεπτά</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>Μια μέρα</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>προεπιλογή</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>Μια ώρα</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Alert:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>Ποτέ</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Αυτό είναι ένα ολοήμερο συμβάν.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Ολοήμερο συμβάν</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Επισκέπτες:</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Ημερολόγιο</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Περιγραφή:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Λεπτομέρειες</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Συμβάν</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Από:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Προσθήκη νέου συμβάντος</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Επεξεργασία συμβάντος</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Προβολή συμβάντος</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Τοποθεσία:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Περισσότερες λεπτομέρειες</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Αυτό το συμβάν δεν είναι όλη την ημέρα.</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Οργανωτής:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Κύριος του έργου:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>προσαρμοσμένο</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>κάθε μέρα</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Επανάληψη:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Κάθε μήνα</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>Ποτέ</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Κάθε εβδομάδα</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Κάθε χρόνο</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Προσθήκη χρηστών</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Αυτό το συμβάν δεν είναι κοινόχρηστο.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>ΑΚΥΡΩΘΗΚΕ</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>ΕΠΙΒΕΒΑΙΩΘΗΚΕ</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Όνομα συμβάντος:</value>
+  </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Ώρα:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Προς:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Κατάργηση εγγραφής</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>Από αρχείο</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Εισαγωγή σε</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Απόκρυψη μίνι ημερολόγιου</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Εμφάνιση μίνι ημερολόγιου</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d συμβάντα</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Νέο ημερολόγιο</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Επεξεργασία συνδρομής</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Κύριος του έργου:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Γρήγορη αναζήτηση</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Διαχείριση συνδρομών</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Περιγραφή:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Ημερομηνία:</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Τίτλος:</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Εκπρόθεσμο</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Προβολή Ημερολογίου</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Προβολή λίστας</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Το συμβάν ακυρώθηκε</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Να μην αποσταλεί</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Αυτό το συμβάν και όλα όσα ακολουθούν</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Δεν είναι δυνατή η επαναφορά του διαγραμμένου συμβάντος. Είστε σίγουροι ότι θέλετε να συνεχίσετε;</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Διαγραφή συμβάντος</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Μόνο αυτό το συμβάν</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Επισκέπτες:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Επιλέξτε αρχείο</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Αντιγραφή</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Κέντρο βοήθειας</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Δοκιμάστε ξανά</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Εξαγωγή συμβάντων από το ημερολόγιο του ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Εισαγωγή συμβάντων</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Εισαγωγή/Εξαγωγή</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Επιλέξτε αρχείο iCal</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Εισαγωγή συμβάντων στο ημερολόγιο του ONLYOFFICE™</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>μετά</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>κάθε</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>κάθε</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>πρώτος</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>ημέρα</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>μήνας</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>εβδομάδα</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>έτος</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>τελευταίο</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>ημέρες</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>μήνες</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>εβδομάδες</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>έτη</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>ημερομηνία</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>ποτέ</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+</root>

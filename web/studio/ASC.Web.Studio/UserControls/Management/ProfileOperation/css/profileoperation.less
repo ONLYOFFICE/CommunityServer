@@ -1,0 +1,219 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2021
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+@orangeMain: #FF6F3D;
+
+.border-radius(@value) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
+}
+
+.transition-duration(@time: 0.3s) {
+    -webkit-transition-duration: @time;
+    -o-transition-duration: @time;
+    transition-duration: @time;
+}
+
+.box-sizing {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.h2-mixin {
+    font-weight: bold;
+    line-height: 133%;
+    letter-spacing: -0.02em;
+    font-size: 32px;
+    margin: 0 auto;
+    text-align: center;
+
+    @media screen and (max-width: 1023px) {
+        font-size: 30px; letter-spacing: -0.01em;
+    }
+
+    @media screen and (max-width: 592px) {
+        font-size: 20px;
+    }
+}
+
+.body-personal-confirm {
+    background-color: transparent;
+    background-image: url(images/first_screen_bg.svg);
+    background-position: center -508px;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+
+    main {
+        height: auto;
+        padding: 0;
+    }
+
+    .paging-content {
+        padding: 0;
+    }
+
+    #studioPageContent {
+        min-width: auto;
+    }
+}
+
+.confirm-block-page.confirm-personal {
+    .big-button-container {
+        margin-top: 32px;
+    }
+
+    .blue-text {
+        display: none;
+    }
+
+    .button.blue {
+        background-color: @orangeMain;
+        border: none;
+        .border-radius(3px);
+        .box-sizing();
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 16px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        .transition-duration();
+        top: 0;
+        width: 100%;
+
+        &:hover, &:active {
+            background-color: #ff7a4b;
+        }
+
+        &.disabled {
+            background-color: #FFD4C5;
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+
+    .confirm-block-header {
+        position: absolute;
+
+        a {
+            background-image: url(images/logo.svg);
+            background-repeat: no-repeat;
+            display: block;
+            height: 25px;
+            margin-top: 26px;
+            width: 206px;
+        }
+
+        img {
+            display: none;
+        }
+    }
+
+    .confirm-block-title {
+        .h2-mixin();
+        padding-bottom: 32px;
+
+        &:before {
+            background-repeat: no-repeat;
+            content: '';
+            display: block;
+            height: 40px;
+            margin: 0 auto 24px;
+            width: 40px;
+        }
+
+        & + a {
+            color: @orangeMain;
+        }
+    }
+
+    .confirm-block-cnt {
+        margin: 0 auto;
+        width: 1120px;
+    }
+
+    #ctl00_PageContent_ctl00_operationBlock .confirm-block-title:before {
+        background-position-x: right;
+        background-image: url(images/checkmark_exclamatiomark.svg);
+    }
+
+    #ctl00_PageContent_ctl00_result .confirm-block-title:before {
+        background-position-x: left;
+        background-image: url(images/checkmark_exclamatiomark.svg);
+    }
+
+    #ctl00_PageContent_ctl00_operationBlock, #ctl00_PageContent_ctl00_result {
+        font-size: 16px;
+        line-height: 160%;
+        margin: 0 auto;
+        padding: 48px 0;
+        text-align: center;
+        width: 544px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .confirm-block-page.confirm-personal .confirm-block-cnt {
+        max-width: 928px;
+        width: 91vw;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .confirm-block-page.confirm-personal .confirm-block-cnt {
+        width: 90vw;
+
+        #ctl00_PageContent_ctl00_operationBlock, #ctl00_PageContent_ctl00_result {
+        }
+    }
+}
+
+@media screen and (max-width: 592px) {
+    .confirm-block-page.confirm-personal {
+        .big-button-container {
+            margin-top: 24px;
+        }
+
+        .button.blue {
+            font-size: 12px;
+            padding: 16px;
+        }
+
+        .confirm-block-header a {
+            margin-top: 12px;
+            width: 25px;
+        }
+
+        .confirm-block-title {
+            padding-bottom: 24px;
+
+            &:before {
+                margin-bottom: 16px;
+            }
+        }
+
+        #ctl00_PageContent_ctl00_operationBlock, #ctl00_PageContent_ctl00_result {
+            font-size: 14px;
+            padding: 96px 0;
+            width: 100%;
+        }
+    }
+}

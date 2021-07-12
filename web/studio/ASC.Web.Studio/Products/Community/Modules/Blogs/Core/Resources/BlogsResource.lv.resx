@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Korporatīvs blogs</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blogi</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Visi autora ieraksti</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogi</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Ieraksta tēmas laukam jābūt aizpildītam</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Pievienot Komentāru</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Komentāri</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Vai Jūs tiešām gribat dzēst šo ierakstu?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Teksts</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Rediģēt ierakstu</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Nav izveidots neviens blogs</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Izveidot pirmo blogu</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Izveidojiet savu lapu, lai dalītos ar interesantu informāciju, domam un pieredzi ar citiem, izteikt savu viedokli, saņemt atsauksmes no lietotājiem.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Ievadiet nepieciešamas atzīmes, atdalot tos ar komatiem</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Izveidot jauno postu</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Publicēt</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Autors</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Lasīt tālāk</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Meklēt blogos</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Rādīt lapā</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Parakstīties uz visu lietotāju ierakstiem</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Parakstīšanās ļauj jums sēkot līdz jauno lietotāju ierakstiem blogos</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Jauns lietotāja posts</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Parakstīties uz ierakstu komentāriem</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Parakstīšanās ļauj jums sēkot līdz jauniem komentāriem</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Posta Komentāri</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Parakstīties uz visiem ierakstiem</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Parakstīšanās ļauj jums sēkot līdz jauniem ierakstiem blogos</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Jauns bloga posts</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Atzīmes</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Atlasiet tekstu, kuru vēlaties paslēpt no lentas un blogu saraksta lapas un noklikšķiniet "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Kopā</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Atrakstīties no lietotāju ierakstiem</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Atrakstīties no ierakstu komentāriem</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Atrakstīties no visiem ierakstiem</value>
+  </data>
+</root>

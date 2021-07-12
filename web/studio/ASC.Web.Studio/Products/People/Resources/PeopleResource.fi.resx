@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portaalin käyttöoikeudet</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Toiminnot</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Lisää {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Lisää jäseniä</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Ei käytössä</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Muuta tilaa</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Vaihda käyttäjän tila</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Jos tämä määrä ylittää nykyisen palvelutason, niin sinun on päivitettävä tilauksesi ja toistettava toiminto. Muussa tapauksessa käyttäjien tilaa ei voida muuttaa.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Vaihda käyttäjän tila</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Et voi muuttaa omaa etkä portaalin omistajan tilaa.</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Valittujen 'Ei käytössä' käyttäjien tilaksi muutetaan 'Aktiivinen'.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Valittujen Aktiivien käyttäjien tilaksi muutetaan 'Ei käytössä'.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Muuta tyyppiä</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Sinun on päivitettävä tilaustasi ennen kuin voit muuttaa muiden käyttäjien tyyppiä.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Vaihda käyttäjän tyyppiä</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Et voi muuttaa omaa etkä portaalin pääkäyttäjien tyyppiä.</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Käyttäjät tyypillä '{!User}' muutetaan tyypiksi '{!Guest}'</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Käyttäjät tyypillä '{!Guest}' muutetaan tyypiksi '{!User}'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Aseta uudelleen suodatin</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Vain 'Ei käytössä' tilassa olevia käyttäjiä tai vieraita voidaan poistaa </value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Poista käyttäjiä portaalista</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Poista kaikki valinnat</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Syötä nimi </value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Ladattua tiedostoa ei löytynyt. </value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Kuvan koko on liian suuri. </value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Kuvatiedoston koko on liian suuri. </value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Tuntematon kuvatiedoston tyyppi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Piilota valittujen käyttäjien luettelo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Tuo käyttäjiä</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Kutsun linkki</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktiivinen</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Muuta sähköpostiosoite</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Muuta salasana</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Poista profiili</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Lähetä kutsut uudelleen</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Lähetä aktivointilinkki uudelleen</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Lähetä sähköposti</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Lähetä viesti</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Tilaukset</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Ei käytössä</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Työkaluvinkit</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Jäsenet</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Ei käyttäjiä antamillasi hakuehdoilla tässä osiossa. Muuta suodattimia tai poista ne kokonaan nähdäksesi kaikki käyttäjät tässä osiossa.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Ei tuloksia hakuehdoillasi</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Päällä</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Tee samaa mitä käyttäjät|Luo profiileita ja ryhmiä|Tuo profiileita|Kutsu käyttäjiä</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Lisää, kutsu ja tuo uusia käyttäjiä. Hallinnoi käyttäjiä ja tarkastele heidän tietojaan.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Käyttäjät</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Selaa profiileja ja ryhmiä</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Tai {0}lue ei-kaupallisesta käytöstä{1}.</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Käyttäjien vahvistettua kutsun portaaliin, heidän tilansa vaihtuu 'Aktiiviseksi'</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Lähetä kutsu uudelleen</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Portaalin kutsu lähetetään uudelleen käyttäjille, jotka ovat 'Odottaa' tilassa ja jotka ovat aktiiveja.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Valitse kaikki</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Näytä valittujen käyttäjien luetteloa</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Käyttäjä on poistettu onnistuneesti</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Yhteismäärä</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Odotetaan vahvistusta</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Lähetä viesti</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>已結束</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>刪除時間的開支</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>您確實要刪除此時間花費嗎？</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>此階段無符合您篩選條件的工時記錄</value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>取消全選</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>頂上 在上面</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>全選 選擇全部</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>沒有任務可以提供給妳，請在此基礎上先創建壹個任務，然後啟動壹個計時器。</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>無工時記錄</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>記錄您花費在專案任務中的時間以做好更有效的時間管理。在任務開始時開始計時並且在任務完成後停止。增加所選任務的計算時間。</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>尚未開始記錄工時</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>進行中</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>已記帳 收費</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>不收費</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>不收費</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>時</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>開始記錄工時</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>任務總花費時間</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>已記帳： 收費：</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>常見：</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>符合篩選條件的總活動花費時間：</value>
+  </data>
+</root>

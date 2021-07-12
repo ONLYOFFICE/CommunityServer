@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Επεξεργασία ενότητας: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Αρχείο</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Όνομα αρχείου</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Κείμενο</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Τίτλος σελίδας</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Ανέβασμα αρχείου</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Όνομα αρχείου που φορτώθηκε</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Μεγέθυνση</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Δημιουργία σελίδων wiki είναι πολύ απλή, ακόμη και αν δεν έχετε χρησιμοποιήσει ποτέ οποιαδήποτε γλώσσα markup πριν. Όλα όσα πρέπει να γνωρίζετε είναι μερικοί απλοί κανόνες που αναφέρονται παρακάτω. Ελπίζουμε ότι θα τους βρείτε χρήσιμους. 
+
+@@TOC@@
+
+==Sections, Paragraphs, Lists, Lines==
+
+Για να ξεκινήσετε μια νέα ενότητα, χρησιμοποιήστε το = symbol στην αρχή μιας παραγράφου:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Section=&lt;br&gt;
+==Subsection==&lt;br&gt;
+===Sub-subsection===&lt;br&gt;
+
+&lt;p&gt;
+Εισάγοντας @TOC@ σε μια σελίδα θα ενώσετε όλα τα τμήματα της σελίδας και υποτμήματα σε έναν πίνακα περιεχομένων.
+&lt;/p&gt;
+
+Wiki markup αγνοεί τις αλλαγές γραμμών. Μπορείτε να τα χρησιμοποιήσετε για να ξεχωρίσετε προτάσεις μέσα σε μια παράγραφο. 
+
+&lt;p&gt;
+Χρησ. the «br» tag να ξεχωρίσετε γραμμές χωρίς να κάνετε νέα παράγραφο.  
+&lt;/p&gt;
+
+Για να ξεκινήσετε μια νέα παράγραφο, πατήστε Enter δύπ φορές ακριβώς όπως θα κάνατε με οποιοδήποτε πρόγραμμα επεξεργασίας κειμένου. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Για να κάνετε bulleted lists είναι απλό:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* αρχίσετε κάθε σημείο λίστα με αστερίσκο;&lt;br&gt;
+** όσοι περισ. αστερίσκοι;&lt;br&gt;
+** τόσο βαθύτερηη λίστα.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Αριθμ λίστες δεν είναι κακές:&lt;br&gt;
+## ούτε δείχνουν άσχημα;&lt;br&gt;
+## και διαβάζονται εύκολα.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ IF υπάρχει κενό,
+ THEN η γραμμή θα foRmaTTed τον ίδιο τρόπο όπως γράφετε; 
+ με ίδια font; χωρίς διαχ γραμμών;[[no links]].
+
+Μπορείτε να χρησιμοποιήσετε κενό στην αρχή μιας γραμμής, εάν χρειάζεται να: 
+
+*επικόλληση προηγουμένως ορισμένο μορφοποιημένο κείμενο;
+*δείξετε source code; 
+*δημιουργείτε/επικολήστε ascii art (δημιουργώντας εικόνες με τη χρήση συμβόλων κειμένου).
+
+Μια οριζόντια γραμμή συμβολίζεται από τέσσερις παύλες: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Εισαγωγή Links==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Για να εισάγετε το σύνδεσμο σε άλλη σελίδα wiki, βάλτε τον τίτλο της σελίδας στις διπλές αγκύλες: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+Σε περίπτωση που η σύνδεση και ο τίτλο που θέλετε να εμφανίζονται σε μια σελίδα είναι διαφορετικά, πληκτρολογήστε τον τίτλο του συνδέσμου μετά το | symbol: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+Οι εξωτερικοί σύνδεσμοι εισάγεται ακριώς στο κείμενο, όπως αυτό: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Σε περίπτωση που χρειαστεί να αλλάξετε τον εξωτερικό τίτλο σύνδεσμο, το βάζετε σε ένα αγκύλες, και πληκτρολογήστε τον τίτλο σας μετά από ένα διάστημα: &lt;br&gt; [http://example.com YourTitle]&lt;/p&gt; 
+
+&lt;p&gt;
+Για να εισάγετε μια διεύθυνση e-mail, χρησιμοποιήστε μονές αγκύλες: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Για να προσθέσετε μια σελίδα στην κατηγορία, προσθέστε το σύνδεσμο στην επιθυμητή κατηγορία [[Category: Desired category]] στο κάτω μέρος της σελίδας.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Formatting Text==
+
+Χρησιμοποιήστε τις παρακάτω συμβουλές για να μορφοποιήσετε το κείμενό σας:
+
+''Italics''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''your text in italics goes here''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Bold'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''your bold text goes here'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Bold Italics'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''your text in bold italics goes here'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Underline__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__your underlined text goes here__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Strike--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--text you need to strike out goes here--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indexes: &lt;sup&gt;superscript&lt;/sup&gt; and &lt;sub&gt;subscript&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;your subscript index&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;your superscript index&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+You may also use &lt;small&gt; small text &lt;/small&gt; for commentaries, special formatting for displaying &lt;code lang="language"&gt;program code&lt;/code&gt; fragments and fixed pitch text for &lt;tt&gt;technical terms&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Inserting Images==
+
+Για να μπορείτε να τοποθετήσετε τις εικόνες σε μια σελίδα wiki θα πρέπει να ανεβάσετε τις παλαιότερες στο wiki. 
+
+Χρησιμοποιήστε τους παρακάτω συνδέσμους για να εισάγετε διάφορους τύπους των εικόνων:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Image = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Image with fixed width = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Image with description = [[Image:Image Title  | Description]]&lt;/p&gt;
+&lt;p&gt;
+Thumbnail image =  [[Image:Image Title | thumb]] – the image will be compressed and aligned to the right.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML to Wiki Transfer==
+
+Εάν έχετε μια μορφή HTML κειμένου που θα θέλατε να μεταφέρετε εδώ, μπορείτε να το κάνετε γρήγορα και εύκολα. Κάντε κλικ στο '''Δημιουργία νέας σελίδας''' στο '''Ενέργειες''' panel. Στη συνέχεια επικολλήστε το κείμενό σας στο παράθυρο του επεξεργαστή κειμένου και μεταβείτε στην οθόνη wiki markup κάνοντας κλικ στο εικονίδιο του Wiki στο panel μορφοποίηση παραπάνω. Η html tags θα αλλάξει στο wiki markup. Ελέγξτε τα αποτελέσματα, διορθώστε μικρά λάθη αν υπάρχουν και πιέστε '''Publish'''. Η σελίδα σας είναι έτοιμο.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Βοήθεια</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Καλώς ήλθατε στο ONLYOFFICE™ Wiki!'''
+
+Εδώ μπορείτε να δημιουργήσετε σελίδες, διασυνδέσεις και να ενώσετε αυτές σε κατηγορίες μέσω του web browser σας. Το Wiki είναι ένα βολικό εργαλείο για τη διατήρηση αρχείων έργου και έχει  τα εξής χαρακτηριστικά:
+
+* πολλούς συγγραφείς. Κάθε μέλος '''ONLYOFFICE™''' μπορεί να επεξεργαστεί το περιεχόμενο οποιασδήποτε σελίδας.
+* Γρήγορη επεξεργασία. Κάντε κλικ στο σύνδεσμο '''Επεξεργασία''' που διατίθεται σε κάθε σελίδα και ξεκινήστε την επεξεργασία  στον browser σας. 
+* Εύκολη μεταφορά από HTML σε WIKI. Μάθετε [[Internal:Help#HTML to Wiki Transfer|how]] 
+* υποστηρίζει την έκδοση σελίδας. Δείτε τι έχει επεξεργαστεί με την επαναφορά της σελίδας στην προηγούμενη έκδοσή της. 
+
+@@TOC@@
+
+==Wiki πλοήγησης και Δομή== 
+
+Μπορείτε να πλοηγηθείτε στο wiki μέσω του'''Navigation Panel''' πάντα διαθέσιμο, όταν είστε μέσα στο wiki'''ONLYOFFICE™'''.
+
+===Σελίδες=== 
+
+Όλες οι σελίδες wiki που δημιουργείτε είναι ταξινομημένα αλφαβητικά με το [[Internal:Index|Index]] page.&lt;br&gt;. Όλες οι νέες σελίδες που δημιουργούνται εμφανίζονται με χρονολογική σειρά, στην [[Internal:NewPages|New Pages]] σελίδα Κάντε μια λίστα με τα πιο πρόσφατα επεξεργασμένες σελίδες που βρίσκονται στο [[Internal:Recently|Recently Edited]]  
+
+===Κατηγορίες=== 
+
+Μπορείτε να ενώσετε πολλές σχετικές σελίδες σε μια κατηγορία. Όλες οι κατηγορίες με τις αντίστοιχες σελίδες τους που εμφανίζεται στην [[Internal:Categories|Categories]] σελίδα. Μπορείτε να προσθέσετε μια σελίδα σε μια ήδη υπάρχουσα κατηγορία, ή να δημιουργήσετε τις δικές σας. Κάντε κλικ στο [[Internal:Help|here]] για περισσότερες πληροφορίες σχετικά με το πώς να αντιστοιχίσετε μια σελίδα σε μια κατηγορία.
+
+===Αρχεία===
+
+Μπορείτε να ανεβάσετε αρχεία οποιουδήποτε μεγέθους και μορφής στο wiki, καθώς και να δώσετε συνδέσεις για να  μεταφορτώσετε εικόνες κατά τη δημιουργία σελίδων wiki. Διαβάστε περισσότερα για το [[Internal:Help#Inserting Images|here]]. 
+
+===Βοήθεια=== 
+
+Δημιουργία σελίδων για wiki'''ONLYOFFICE™''' είναι εύκολη. Όλα όσα πρέπει να γνωρίζετε είναι ορισμένοι απλοί κανόνες. Επισκεφθείτε την [[Internal:Help|wiki markup tips]] για να διαβάσετε μέσω του wiki κανόνες σήμανσης. 
+
+==Δημιουργία Wiki σας== 
+
+Για να δημιουργήσετε τις δικές wiki , ξεκινήστε με τη δημιουργία μιας νέας σελίδας, κάνοντας κλικ στο σύνδεσμο «Δημιουργία νέας σελίδας''' στο''' Ενέργειες''' πανελ. Στη συνέχεια πληκτρολογήστε το κείμενό σας στο χώρο επεξεργασίας κειμένου. Χρησιμοποιήστε το [[Internal:Help|wiki markup tips]] για  να εμφανίζεται σωστά το κείμενο σε μια σελίδα. Να θυμάστε ότι αυτός είναι προσωπικό σας χώρο όπου μπορείτε να οργανώσετε τα πάντα ανάλογα με τις ανάγκες σας. Ακόμα και το περιεχόμενο της σελίδας αυτής είναι επεξεργάσιμο. Για παράδειγμα, μπορείτε να σβήσετε αυτό που είναι γραμμένο εδώ και να το επικολλήστε   στα έργα σας για την εξυπηρέτησή σας. Καλή τύχη!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Η σελίδα δεν υπάρχει. Κάντε κλικ εδώ {} για να δημιουργήσετε και να επεξεργαστείτε.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Anchor</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Προ μπλόκ</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Για να τονίσει οπτικά τον κώδικα τρίτου μέρους</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Σχόλιο</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML παράδειγμα κώδικα</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Εξωτερικός σύνδεσμος</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Τοπική σύνδεση αρχείου</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (χρήση με μέτρο)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Οριζόντια γραμμή</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Εικόνα</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Πλάγιοι</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Νέα γραμμή</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR ετικέτα</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Δεν μπορεί να ερμηνευθεί από τη γλώσσα Wiki</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Δεσμός σελίδας</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Ειδικές ετικέτες</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Απεργία</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Δείκτης</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Εκθέτης</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Ειδικά σύμβολα</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Υπογράμμιση</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Αποκλεισμός</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Το μέγιστο μέγεθος του αρχείου που φορτώθηκε έχει υπερβεί</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Κατεβάστε το αρχείο</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Κατηγορίες</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Μέγιστο μέγεθος του αρχείου που φορτώθηκε είναι {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Ενότητα: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>= Η σελίδα έχει μετακινηθεί = 
+Όνομα σελίδας άλλαξε σε [[{0}|{0}]].
+ Μπορείτε να βρείτε την τελευταία έκδοση [[{0}|εδώ]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Περιεχόμενα</value>
+  </data>
+</root>

@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Lagre og Opprett Ny Sak</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Alle Saker</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Sak</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Deltaker i sak</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Deltakere i Sak</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Merkelapp for Sak</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Liste med merkelapper for sak</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Tittel for sak</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Lukk sak</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Oppretter sak...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Opprett den første saken</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Opprett ny sak</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Fjern sak</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Fjerner saker</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Rediger sak</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Rediger «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Med en sak kan du på et og samme sted få oversikt over historien, tilegne oppgaver og laste opp dokumenter for kontakter som deltar i en felles aktivitet. Det kan for eksempel være en gruppe som jobber spesifikt med å organisere en messe.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Ingen saker samsvarer med filteret ditt. Vennligst endre filteret eller fjern filteret for å se alle saker i denne seksjonen. Du kan også opprette en ny sak dersom det er behov for det. </value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Ingen saker å vise med valgt filter</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Listen med saker er tom</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Listen med deltakere er tom</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Velg personer og firma som skal ha tilgang til saken. Når dette er gjort, vet du hvem som deltar i kommende hendelser som er tilknyttet saken.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importer saker</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Velg en velformatert CSV-fil fra din datamaskins harddisk. Filen må inneholde felter eller kolonner som er separert med skilletegnet du har valgt ved import av saker. Filene som inneholder mer enn {0} rader, bør deles opp i flere filer for å gjennomføre en vellykket import. Sørg for å velge de portal-brukerne som skal ha tilgang til informasjonen som blir importert, ellers vil dataene fra CSV-filen bli tilgjengelig for alle portalbrukerne.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Velg en CSV fil og sett tilgangsrettigheter før du importerer saker</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Samkjør kolonnene i filen med kolonnene i ONLYOFFICE™. Legg merke til at du må minst ha en kolonne i filen som er tilknyttet kolonnen 'Tittel' i ONLYOFFICE™. Feltene som inneholder datoer må være i følgende format: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vennligst sjekk at feltene er korrekt utfylt</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Gå til listen med alle saker</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import av saker kan ta opp til flere minutter, avhengig av datamengde. Du blir informert når importen er ferdig.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importering startet</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Deltakere i sak</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Åpne sak</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Deltakere</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Begrens tilgang til saken</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Lagre endringer</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Gå til profil</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Start importering</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Alle saker</value>
+  </data>
+</root>

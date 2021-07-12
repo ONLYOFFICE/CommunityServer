@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Sahip</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Salt Okunur</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Tam Erişim</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Erişimi Reddet</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Onizleme</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Çeşitlilik</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arşivler</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Yazar</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dökümanlar</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Tüm dosyalar</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Klasörler</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Resimler</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Medya</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Sunumlar</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Spreadsheetler</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Türü</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Daha fazla göster {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Yükleniyor...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Daha fazla {0} göster ({1} tane)</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Yayıncı</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Oluşturulma tarihi</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Son değiştirilme tarihi</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Türü</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Kod panoya kopyalandı</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>{0} 'ı 'Dökümanlar' modülünden silmek istediğinizden emin misiniz? Bu {1} hesabınızı etkilemeyecektir.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Çöpü boşaltmak için istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Mevcut sayfadan ayrılmak istediğinizden emin misiniz? Dosyaların yüklenmesi kesilecektir.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Belgeyi silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Klasörü silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Bu öğeleri silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>(1) Yoludnaki parcalarin yerini degistirmek uzeresiniz. Bu durumda 1 hesabinizdan bu dosyalar silinecek ve daha onceden paylasmis oldugunuz diger kullanicilar tarafindan erisilemez duruma gelecektir. Emin misiniz ?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Ortak Belgeler</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Özel format</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Gruplar</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Veri Arşivleme</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Veriyi değiştir</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Versiyon sona erdiliyor</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Oluşturma</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>DocuSign tarafindan imzali</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Sürümler yükleniyor...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Okundu olarak İşaretleniyor</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Taşı</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Siliniyor...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Sürüm güncelleniyor</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dökümanlar</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Imzali Dokuman</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>İndirmek için en az bir klasör/belge seçin</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Yorum girin</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Boş bir belge veya klasör yükleyemezsiniz</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Çevrim Hatası</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Tüm alanların doldurulması gerekmektedir</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Maksimum dosya boyutu aşıldı</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Eklemek için giriş yapmalısınız</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Uzgunum bu dosya formati desteklenmemektedir</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Girdiğiniz parola yanlış. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Bir önceki indirmenin tamamlanması bekleyin veya iptal edin</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Bu işlemi gerçekleştirmek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Bu klasörde bu işlemi yapamazsınız</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Başlık şu karakterleri içeremez: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Portal depolama alani kalmamistir. (0) dan buyuk dosyalari yukleyemezsiniz</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>{0} adlı dosya {1} klasöründe zaten var.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Çevrildi</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Çevriliyor</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>'{1}' klasöründe aynı isimde {0} belge bulunuyor. Dosyaların üzerine yazılsın mı?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Yüklendi</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Yükleniyor</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box dizini</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>Dokuman Imza Hesabi</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox dizini</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google dizini</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint dizini</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive dizini</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Yolu</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Yolu</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>1 in sahibi 0 dir simdi</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>0 simdi 1 in sahibidir</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' değişti</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} kopyalanmış öğe</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' kopyalandı</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Yeni dosya '{0}' oluşturuldu</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Yeni '{0}' dosyası '{1}''da oluşturuldu</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Yeni klasör '{0}' oluşturuldu</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Klasörü kendi altklasörüne kopyalayamazsınız</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Klasörü kendi altklasörüne taşıyamazsınız</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Bazi dosyalarin yerini degistirmek icin yetkiniz yok</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} taşınmış öğe</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' taşındı</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>'{0}' belgesi silindi</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>'{0}' klasörü silindi</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>{0}, {1}'dan başarıyla silindi</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Üçüncü taraf '{0}' silindi</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>'{0}' belgesinin adı '{1}' olarak değiştirildi</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>'{0}' klasörünün ismi '{1}' olarak değiştirildi.</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' '{1}' için eklendi</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} sayıda belge başarıyla yüklendi</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Belgelerim</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Orjinal format</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Sunumlar</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Dosya {0}'ı görüntülemek için yükleme başarısız oldu</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Proje belgeleri</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>revizyonlar: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>{0} belgesine erişim izni aldınız. Aşağıdaki linke tıklayarak belgeye hemen açabilirsiniz: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>{0} belgesine erişim izni aldınız</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Kullanıcı veya grup ekle ve onlara okuma, inceleme veya belgeleri düzenleme izni{0} ver</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Spreadsheetler</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Veri Arşivleme</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopyalanıyor</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Siliniyor</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Okundu olarak İşaretleniyor</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} işlem</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Taşı</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>{0} bağlantı ayarlarını değiştirme</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Şu an düzenleniyor</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Şu anda {0} tarafından düzenleniyor</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Kilitlendi</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Şunun tarafından kilitlendi: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Daha Fazla Özellik</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Yeni Sunum</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Yeni Hesap Tablosu</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Yeni Belge</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Yeni Klasör</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Ortak Ayarlar</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Hesapları bağla</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Bilinmeyen hata...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Yükleme tamamlandı</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Yükleniyor...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>{0} dosya yükleniyor ({1}% tamamlandı)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0}'da {1}'i kullanıldı</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+</root>

@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal Erişim Hakları</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Hareketler</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>{!group} ekle</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Üye ekle</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Devre Dışı</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Durumu Değiştir</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Kullanıcı durumunu değiştir</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Bu sayı mevcut fiyatlandırma planını aşarsa planınızı yükseltmeniz ve işlemi yeniden başlatmanız gerekir. Aksi takdirde diğer kullanıcıların statüsü değişmez.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Kullanıcı durumunu değiştir</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Portal sahibinin ve kendinizin durumunu değiştiremezsiniz</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>'Devre Dışı' durumundaki kullanıcılar etkinleştirilecektir.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>'Aktif' durumdaki kullanıcılar devre dışı bırakılacaktır.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Tipi değiştir</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Planınızı yükseltin ve işlemi yeniden başlatın. Aksi takdirde diğer kullanıcıların tipleri değiştirilmeyecektir</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Kullanıcı tipini değiştir</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Portal sahibinin ve kendinizin tipini değiştiremezsiniz</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>'{!User}' tipindeki kullanıcılar '{!Guest}' tipine taşınacaktır</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>'{!Guest}' tipindeki kullanıcılar '{!User}' tipine taşınacaktır</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Filtreyi Sıfırla</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Konfirmasyon</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Sadece 'Devre Dışı' durumundaki kullanıcılar yada misafirler silinebilir</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Portaldan kullanıcıları sil</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Bu kullanıcıların diğerlerine açık olan belgeleri silinecektir. Bunu engellemek için silme öncesinde veri transferini başlatmanız gerekir.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>Seçili devre dışı kullanıcılar portaldan silinecektir.</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Tüm Seçimleri Kaldır</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Devre Dışı Bırak</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Eposta</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Etkinleştir</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Bir isim girin</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Yüklenen dosya bulunamadı</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Resim boyutu çok büyük</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Resim dosyası boyutu çok büyük</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Bilinmeyen resim dosyası tipi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Seçilmiş kullanıcılar listesini gizle</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Dosyadan</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Kişileri Aktar</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Boşluk</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Davetiye Bağlantısı</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyadı</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Epostayı değiştir</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Şifre Değiştir</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Profili sil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Veriyi yeniden ata</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Davetiyeleri bir kez daha gönder</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Aktivasyon bağlantısını bir kez daha yolla</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>E-posta Gönder</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Mesaj gönder</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Abonelikler</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Devre Dışı</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>İpuçları</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Üyeler</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen kişi yok. Lütfen diğer filtre seçeneklerini seçiniz yada bölümdeki tüm kişileri görmek için filtreyi sıfırlayınız.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Aramanızla eşleşen sonuç bulunamadı</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Yukarıda</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Kullanıcı gibi davranın|Profil ve grup oluşturun|Profil içe aktarın|Kullanıcı davet edin</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Yeni kullanıcıları ekleyin, davet edin yada aktarın. Kullanıcıları yönetin ve detaylı bilgilerine bakın.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Kişiler</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Profil ve grupları görüntüle</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Veya {0}kar amacı gütmeyen kullanım hakkında bilgi edinin{1}.</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Yeniden ata</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Posta</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Veri yeniden atama</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Projeler</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Veri transferi hakkında daha fazla bilgi</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Verinin transfer edileceği çalışanlar -</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Transfer edileceği:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Diğer portal kullanıcılarına açık genel ve kişisel belgeler;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Açık projeler, aşamalar ve görevler;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Kişiler, açık görevler, kapanmamış fırsatlar ve CRM vakaları;</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Sohbet</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Kullanıcılar portala davetiyeyi onayladıktan sonra durumları 'Aktif' olacaktır</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Davetiyeyi tekrar gönder</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Portala davetiye 'Askı' durumundaki devredışı bırakılmamış seçilen kullanıcılara tekrar yollanacaktır.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Hepsini seç</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Sayfada göster</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Seçilen kullanıcılar listesini görüntüle</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Kullanıcı başarıyla silindi</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Toplam sayı</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Konfirmasyon bekleniyor</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Mektup Yaz</value>
+  </data>
+</root>

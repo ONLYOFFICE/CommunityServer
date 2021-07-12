@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Kommenttia muokattu keskustelussa: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut kommenttia keskustelussa "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut kommenttia tehtävässä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Keskustelua muokattu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut keskustelua: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projektin tietojen tuominen Basecampista 
+
+Tietojen tuominen onnistui. 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Sinut on lisätty projektiryhmään: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt sinut projektiryhmään: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>1.Ilmoitus välitavoitteen myöhästymisestä: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+Välitavoite "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" on myöhässä. 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Keskustelu poistettu: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut keskustelun "$EntityTitle" projektista "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Valitavoite suljettu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on sulkenut välitavoitteen "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Sait tämän sähköpostin, koska olet sivuston "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Välitavoite luotu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt uuden välitavoitteen "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" projektiin "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Imoitus välitavoitteen määräajasta: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Alle 48 tuntia aikaa välitavoitteen "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" määräaikaan projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Valitavoite poistettu: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut välitavoitteen "$EntityTitle" projektista "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Välitavoitetta muokattu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut välitavoitetta "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Välitavoite avattu uudelleen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on avannut uudelleen välitavoitteen "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Uusi kommentti keskusteluun: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt uuden kommentin keskusteluun "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Uusi kommentti tehtävään: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on kommentoinut tehtävää "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData 
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"  
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Uusi asiakirja keskustelussa: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt uuden asiakirjan keskusteluun "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Uusi asiakirja tehtävässä: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt uuden asiakirjan tehtävään "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua saada tähän tehtävään liittyviä ilmoituksia, "poista tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>1.Uusi keskustelu luotu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on aloittanut uuden keskustelun: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall ---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Lue lisää":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projekti poistettu: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut projektin "$EntityTitle".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Sinut on lisätty projektiryhmään</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Keskustelu poistettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite suljettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite luotu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite poistettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite avattu uudelleen: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi keskustelu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektit. Projekti poistettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite annettu vastuullesi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Sinut on nimitetty projektipäälliköksi</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä sinulle: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä annettu sinulle: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä suljettu: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä luotu: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä poistettu: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä avattu uudelleen: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä suljettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä luotu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä poistettu: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä avattu uudelleen: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Muistutus tehtävästä: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" muistuttaa sinua tehtävästä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Muistutus tehtävästä: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Tänään on määräaika tehtävälle "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Sinut on poistettu projektiryhmästä: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut sinut projektiryhmästä: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Tehtävä ei ole enää vastuullasi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime et ole enää vastuussa tehtävästä: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription")
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Välitavoite annettu vastuullesi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimennyt sinut vastuulliseksi välitavoitteesta "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Sinut on nimitetty projektipäälliköksi: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimittänyt sinut projektipäälliköksi projektiin "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Alitehtävä annettu vastuullesi: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimittänyt sinut vastuuhenkilöksi alitehtävälle "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tehtävässä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Tehtävä annettu sinulle: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on nimennyt sinut vastuulliseksi tehtävään "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Alitehtävä suljettu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on sulkenut alitehtävän tehtävässä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".  
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>1.Alitehtävä luotu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt alitehtävän "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tehtävään "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Alitehtävän vastuuhenkilö on "$Responsible". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Alitehtävä poistettu: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut alitehtävän "$SubEntityTitle" tehtävästä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Alitehtävää muokattu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut alitehtävää "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" subtask of the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Alitehtävän vastuuhenkilö on "$Responsible".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Alitehtävä avattu uudelleen: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on avannut uudelleen alitehtävän "$SubEntityTitle" tehtävässä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Tehtävä suljettu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on sulkenut tehtävän "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "lopeta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Tehtävä luotu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on lisännyt tehtävän "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektiin "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription") 
+
+Tehtävän vastuuhenkilö on "$Responsible" 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "lopeta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Tehtävä poistettu: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut tehtävän "$EntityTitle" projektista "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Tehtävää muokattu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on muokannut tehtävää "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Tehtävä poistettu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on poistanut tehtävän "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" valitavoitteesta "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+Tehtävä "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ei liity enää mihinkään välitavoitteeseen.
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Tehtävä siirretty: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on siirtänyt tehtävän "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" valitavoitteeseen "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "tilausasetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Tehtävä avattu uudelleen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on avannut uudelleen tehtävän "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektissa "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, "peruuta tilaus":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Keskustelun kommenttia muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävän kommenttia muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Keskustelua muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projektit. Datan tuominen Basecampista</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Sinut on lisätty projektiryhmään</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Ilmoitus välitavoitteen myöhästymisestä: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Keskustelu poistettu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite suljettu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite luotu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Ilmoitus välitavoitteen määräpäivästä: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite poistettu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoitetta muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite avattu uudelleen: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi kommentti keskusteluun: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi kommentti tehtävään: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi asiakirja keskustelussa: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi asiakirja tehtävässä: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Uusi keskustelu: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projektit. Projekti poistettu: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Sinut on lisätty projektiryhmään</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Keskustelu on poistettu</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Välitavoite on suljettu</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Uusi välitavoite luotu</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Välitavoite on poistettu</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Välitavoite on avattu uudelleen</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Uusi keskustelu luotu</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektit. Projekti poistettu</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Välitavoite on annettu vastuullesi</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Sinut on nimetty projektipäälliköksi</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Alitehtävä on annettu vastuullesi</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Tehtävä on annettu vastuullesi</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Alitehtävä on suljettu</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Uusi alitehtävä luotu</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Alitehtävä on poistettu</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Alitehtävä on avattu uudelleen</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Tehtävä on suljettu</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Uusi tehtävä luotu</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Tehtävä on poistettu</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Tehtävä on avattu uudelleen</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Muistutus tehtävästä: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Muistutus tehtävästä: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Sinut on poistettu projektiryhmästä </value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä ei enää vastuullasi: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Välitavoite annettu vastuullesi: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Sinut on nimitetty projektipäälliköksi</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä sinulle: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä annettu sinulle: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä suljettu: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä luotu: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä poistettu: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävää muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Alitehtävä avattu uudelleen: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä suljettu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä luotu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä poistettu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävää muokattu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä poistettu: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä siirretty: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projektit [$ProjectTitle]. Tehtävä avattu uudelleen: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Ei vastuuhenkilöä</value>
+  </data>
+</root>

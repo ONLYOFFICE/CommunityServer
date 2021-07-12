@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>एक्सेस</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>केवल पढ़ने के लिए</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>पूर्ण पहुँच</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>पहुँच को अस्वीकार</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>व्यवस्थापक</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>फाइल के साथ काम करने के लिए आप इसे करने के लिए पहुँच देना चाहिए</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>जारी रखें</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>ONLYOFFICE ™ में इस फाइल को खोलने के लिए अपने गूगल ड्राइव में ऑफिस ओपन एक्सएमएल फॉर्मेट में इस फ़ाइल की एक नई प्रतिलिपि बनाएगा। मूल फ़ाइल संशोधित नहीं किया जाएगा इस तरह। आप एक नई प्रतिलिपि खोलने के लिए होगा ™ आगे ONLYOFFICE में फाइल को संपादित करने के लिए।</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>इसे दोबारा मत दिखाइए</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>फाईल का नाम दर्ज</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>फ़ाइल प्रकार का चयन करें </value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>लेखक</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>मुझे</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>कन्वर्ट और ओपन</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>डाउनलोड</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>टिप्पणी</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>कनेक्शन URL।</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>इसमें रूपांतरित करें</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>दस्तावेज़ का नाम</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>खाली फ़ाइल</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>खराब अनुरोध।</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>त्रुटि दस्तावेज़ सेवा में हुई</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0} एक मोबाइल आवेदन में संपादन के लिए फ़ाइल खोला</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>खाली फ़ाइल</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>आवश्यक फ़ाइल नहीं मिला</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>{0} परिवर्तित नहीं किया जाएगा की तुलना में बड़ा फ़ाइल</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>{0} संपादित नहीं किया जाएगा की तुलना में बड़ा फ़ाइल</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>आप अपने सबफ़ोल्डर के लिए फ़ोल्डर की नकल नहीं कर सकते</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>आवश्यक फ़ोल्डर नहीं मिला</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>गलत शीर्षक</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>फ़ाइल वर्तमान में किसी अन्य उपयोगकर्ता द्वारा बंद कर दिया गया है</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>संदेश भेजने के लिए कोई कमरा खाते हैं। मेल में जाओ और एक मेलबॉक्स से कनेक्ट।</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>बहुत से डाउनलोड।</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>क्षमा करें, यह फ़ाइल स्वरूप समर्थित नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>सहेजें के लेखक अज्ञात है</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>आप इसे बचाने की कोशिश की जब फ़ाइल भ्रष्ट था</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value> फाइल सेव करनेमे असफल </value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>आप कार्रवाई करने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>दिए गए पहचान के साथ {0} प्रदाता को अधिकृत नहीं किया जा सकता।</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>तुम बनाने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>यह संपादन के लिए खोला जाता है, क्योंकि फ़ाइल को नष्ट नहीं किया जा सकता</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>फ़ाइलों में से एक संपादन के लिए खोला जाता है, क्योंकि फ़ोल्डर को नष्ट नहीं किया जा सकता</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>आप फ़ाइल को नष्ट करने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>आप फ़ोल्डर को नष्ट करने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>आप फ़ाइल को संपादित करने के लिए पर्याप्त अनुमतियाँ नहीं हैं</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>इस दस्तावेज़ को दूसरे टैब में आप द्वारा संपादित किया जा रहा है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>आप फाइल देखने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>आप फ़ोल्डर सामग्री को देखने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>आप फ़ाइल का नाम बदलने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>आप फ़ोल्डर का नाम बदलने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>यह संपादन के लिए खोला गया है, क्योंकि फ़ाइल को अद्यतन नहीं किया जा सकता</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>आप फ़ोल्डर सामग्री को देखने के लिए पर्याप्त अनुमति नहीं है</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>तीसरे पक्ष फ़ोल्डर की सामग्री उपलब्ध नहीं हैं। खाते में फिर से कनेक्ट करने के लिए प्रयास करें</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>फाइल संपादन प्रारंभ करने में त्रुटि</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>आप संपादन के लिए खोला गया है जो एक फ़ाइल को अद्यतन नहीं कर सकता</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>आप रीसायकल बिन में तत्वों का पूर्वावलोकन करने की अनुमति नहीं है</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>सब लोग</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>फ़ाइल</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>फ़ोल्डर</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>फ़ोल्डर का नाम</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>गुमनाम</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>नया</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>लॉग इन करें</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>पुनर्स्थापित</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>पासवर्ड</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>एक उपयोगकर्ता के रूप में वही करो | लिंक ड्रॉपबॉक्स, बॉक्स और 'आम दस्तावेज' खंड में अन्य खातों | 'Common D में दस्तावेजों और फ़ोल्डरों के लिए पहुँच अधिकार सेट अप करें</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>बनाएँ, संपादित करें, बचाने के लिए और शेयर दस्तावेजों। अपने गूगल ड्राइव, ड्रॉपबॉक्स और बॉक्स खातों से कनेक्ट और एक जगह में सभी दस्तावेजों है।</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>बनाएँ, संपादित करें, बचाने के लिए और शेयर दस्तावेजों। अपने गूगल ड्राइव, ड्रॉपबॉक्स और बॉक्स खातों से कनेक्ट और एक जगह में सभी दस्तावेजों है।</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>पढ़ने देना दस्तावेजों और फ़ोल्डरों के लिए अन्य उपयोगकर्ताओं के लिए / संपादन का उपयोग | | बनाएँ और स्वयं के दस्तावेज के रूप में अच्छी तरह से उचित उपयोग के अधिकार के साथ साझा दस्तावेजों को संपादित लिंक ड्रॉपबॉक्स, बॉक्स और 'मेरा दस्तावेजों' खंड में अन्य खातों
+</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} हटा दिया</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>मार्क पढ़ें के रूप में</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>साझा करें</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>एक फ़ोल्डर साझा किया गया जब सूचित करें</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>दिखाएँ संस्करण</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>आकार</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>एक दस्तावेज़ साझा किया गया जब सूचित करें</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>फ़ोल्डर शीर्षक</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>साझा बनाओ और 'Common दस्तावेज़' फ़ोल्डर में डाल दिया है</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>बनाया गया</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>अपडेट</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>हटाए</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>चुनना</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>अनुमति सेटिंग्स</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>दिखाएँ फ़ाइल क्रियाएं</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>दिखाएँ फ़ोल्डर कार्य</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>सबफ़ोल्डर</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>अपलोड की गई</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>मार्क संस्करण के रूप में</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>मार्क संशोधन के रूप में</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>संस्करण इतिहास:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>पहला नाम</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>अंतिम नाम</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>फ़ाइल अनलॉक की है</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

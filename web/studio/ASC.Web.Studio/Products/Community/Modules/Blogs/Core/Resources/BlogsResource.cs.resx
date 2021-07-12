@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Korporátní blog</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blogy</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Všechny záznamy autora</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogy</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Položka příspěvkového tématu nemůže být prázdná</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Přidat komentář</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Komentáře</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Opravdu chcete smazat příspěvek</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Upravit příspěvek</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Dosud nebyly vytvořeny žádné blogy</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Vytvořit první blog</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Vytvořte si vlastní stránku, kde můžete sdílet zajímavé informace, myšlenky a zkušenosti s ostatními, vyjadřovat své názory a získávat zpětnou vazbu z komentářů uživatelů.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Zadejte potřebné tagy oddělené čárkou</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Vytvořit nový příspěvek</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Zveřejnit</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Čtěte více</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Vyhledávání v blogu</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Ukázat na stránce</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Přihlaste se k příspěvkům všech uživatelů</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Předplatné vám umožňuje sledovat nové uživatelské příspěvky v blogu</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Nové uživatelské příspěvky</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Přihlaste se k přidávání komentářů</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Předplatné vám umožňuje sledovat nové příspěvky</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Sdělit komentáře</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Přihlásit se k odběru všech příspěvků</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Předplatné vám umožňuje sledovat nové příspěvky v blogu</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Nové blogy
+</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Značky</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Vyberte text, který chcete skrýt, na stránkách s informacemi a na stránce seznamu blogů a klikněte na tlačítko "Vyjmout text".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Zrušení textu</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Celkem</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Zrušit odběr příspěvků uživatele</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Zrušte odběry z příspěvků
+</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Odhlásit se ze všech příspěvků</value>
+  </data>
+</root>

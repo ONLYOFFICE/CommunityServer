@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Komentar yang Diedit untuk Diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit sebuah komentar pada diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Komentar yang Diedit untuk Tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit sebuah komentar untuk "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tugas: 
+
+$AdditionalData 
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Diskusi yang Diedit: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit diskusi: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+
+$AdditionalData.get_item("MessagePreview") #foreach($fileInfo in $AdditionalData.get_item("Files").Keys) #beforeall 
+---------------------------------------- 
+#each 
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+#end 
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Proyek. Impor data dari Basecamp
+
+Data baru telah berhasil diimpor.
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Anda Telah Ditambahkan ke Tim Proyek: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan Anda ke dalam tim proyek:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Pemberitahuan Tahap Pekerjaan yang Terlambat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending"
+
+Tahap pekerjaan "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID"  untuk proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" telah melewati tenggat waktu.
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Diskusi yang Dihapus: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menghapus diskusi "$EntityTitle" dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di  portal"${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Ditutup: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menutup "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" tahap pekerjaan dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Dibuat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah tahap pekerjaan baru: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" untuk proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Pemberitahuan Tenggat Waktu Tahap Pekerjaan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Anda memiliki waktu kurang dari 48 jam sebelum tenggat waktu untuk tahap pekerjaan "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" berakhir.
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Dihapus: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menghapus tahap pekerjaan "$EntityTitle" dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Diedit: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" tahap pekerjaan dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Dilanjutkan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah melanjutkan tahap pekerjaan "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Komentar Baru pada Diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah komentar baru pada diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Komentar Baru pada Tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah komentar baru pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" : 
+
+$AdditionalData
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.File Baru pada Diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah file baru pada diskusi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" : 
+
+$AdditionalData
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai diskusi ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.File Baru pada Tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah file baru pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Diskusi Baru yang Dibuat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah memulai sebuah diskusi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID":
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Baca selengkapnya":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Proyek yang Dihapus: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menghapus proyek "$EntityTitle" 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Anda telah Dimasukkan Ke Tim Proyek</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Diskusi yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Ditutup: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dibuat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dilanjutkan : $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Diskusi Baru: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Proyek. Proyek yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Ditugaskan Kepada Anda: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Anda Ditunjuk Sebagai Manajer Proyek</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Diberikan Kepada Anda: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Diberikan Kepada Anda: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Ditutup: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dibuat: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dihapus: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dilanjutkan: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Ditutup: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dibuat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dilanjutkan: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Pengingat untuk Tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" mengingatkan Anda mengenai tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Pengingat untuk Tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Hari ini adalah batas akhir penyelesaian tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Anda telah Dipindahkan dari Tim Proyek: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah memindahkan Anda dari tim proyek: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ ^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}"  Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Tugas Tidak Lagi Diberikan Kepada Anda: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime Anda bukan lagi penanggung jawab tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData.get_item("TaskDescription")
+
+ ^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Tahap Pekerjaan yang Ditugaskan Untuk Anda: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" menyatakan bahwa Anda adalah penanggung jawab tahap pekerjaan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" dalam proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Anda Ditunjuk Sebagai Manajer Proyek: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" telah menunjuk Anda sebagai manajer proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Diberikan Kepada Anda: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menunjuk Anda sebagai penanggung jawab sub-tugas: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" added to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Tugas Yang Diberikan Kepada Anda: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menunjuk Anda sebagai penanggung jawab tugas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription")
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Ditutup: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menutup sub-tugas yang ditambahkan untuk tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^
+ </value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Dibuat: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah sub-tugas baru: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+Sub-tugas diberikan kepada "$Responsible". 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Dihapus: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" telah menghapus sub-tugas: "$SubEntityTitle" pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Diedit: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit sub-tugas "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+Sub-tugas diberikan kepada "$Responsible". 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Sub-Tugas yang Dilanjutkan: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah melanjutkan sub-tugas: "$SubEntityTitle" pada tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Tugas yang Ditutup: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menutup tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Tugas yang Dibuat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" telah menambahkan sebuah tugas baru: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+ $AdditionalData.get_item("TaskDescription")
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Tugas yang Dihapus: "$EntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah menghapus tugas "$EntityTitle" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Tugas yang Diedit: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah mengedit "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tugas pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Tugas yang Dipindahkan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah memindahkan tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" dari tahap pekerjaan  "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+Tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" ini sekarang bukan lagi bagian dari tahap pekerjaan tersebut.
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Tugas yang Dipindahkan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah memindahkan "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tugas ke tahap pekerjaan "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Untuk mengubah jenis pemberitahuan yang diterima, silakan lakukan "pengaturan status berlangganan":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Tugas yang Dilanjutkan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" telah melanjutkan tugas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pada proyek "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData 
+
+ ^Anda menerima email ini karena Anda adalah pengguna yang terdaftar di portal "${__VirtualRootPath}":"${__VirtualRootPath}". Jika Anda tidak ingin menerima pemberitahuan mengenai tugas ini, silakan "berhenti berlangganan":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Komentar yang Diedit pada Diskusi: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Komentar yang Diedit untuk Tugas: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Diskusi yang Diedit: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Proyek. Impor Data dari Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Anda telah Dimasukkan Ke Tim Proyek</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Pemberitahuan Tahap Pekerjaan yang Melewati Tenggat Waktu: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Diskusi yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Ditutup: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dibuat: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Pemberitahuan Tenggat Waktu Tahap Pekerjaan: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Diedit: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Dilanjutkan : $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Komentar Baru pada Diskusi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Komentar Baru pada Tugas: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. File Baru pada Diskusi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. File Baru pada Tugas: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Diskusi Baru: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Proyek. Proyek yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Anda telah Dimasukkan ke Tim Proyek</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Diskusi telah dihapus</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Tahap Pekerjaan telah Ditutup</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Tahap Pekerjaan Baru telah Dibuat</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Tahap Pekerjaan telah Dihapus</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Tahap Pekerjaan telah Dilanjutkan</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Diskusi baru telah Dibuat</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Proyek. Proyek Dihapus</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Tahap Pekerjaan telah Ditugaskan Kepada Anda</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Anda Ditunjuk Sebagai Manajer Proyek</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Sub-Tugas telah Diberikan kepada Anda</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Tugas telah Diberikan kepada Anda</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Sub-Tugas telah Ditutup</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Sub-Tugas Baru telah dibuat</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Sub-Tugas telah Dihapus</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Sub-Tugas telah Dipindahkan</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Tugas telah Ditutup</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Tugas Baru telah dibuat</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Tugas telah Dihapus</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Tugas telah Dilanjutkan</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Mengingatkan Anda mengenai Tugas: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Mengingatkan Anda mengenai Tugas: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Anda telah Dikeluarkan Dari Tim Proyek</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Tidak Lagi Diberikan Kepada Anda: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tahap Pekerjaan yang Ditugaskan Kepada Anda: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Anda Ditunjuk Sebagai Manajer Proyek</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Diberikan Kepada Anda: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Diberikan Kepada Anda: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Ditutup: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dibuat: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dihapus: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Diedit: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Sub-Tugas yang Dilanjutkan: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Ditutup: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dibuat: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dihapus: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Diedit: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dipindahkan: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dipindahkan: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Proyek [$ProjectTitle]. Tugas yang Dilanjutkan: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+</root>

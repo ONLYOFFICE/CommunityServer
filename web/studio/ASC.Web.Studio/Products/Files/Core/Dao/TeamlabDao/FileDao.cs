@@ -566,12 +566,11 @@ namespace ASC.Files.Core.Data
                 dbManager.ExecuteNonQuery(Delete("files_file").Where("id", fileId));
                 dbManager.ExecuteNonQuery(Delete("files_tag_link").Where("entry_id", fileId.ToString()).Where("entry_type", (int)FileEntryType.File));
                 var tagsToRemove = dbManager.ExecuteList(
-             Query("files_tag tbl_ft ")
-                 .Select("tbl_ft.id")
-                 .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
-                                                          Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
-                 .Where("tbl_ftl.tag_id  is null"))
-             .ConvertAll(r => Convert.ToInt32(r[0]));
+                    Query("files_tag")
+                        .Select("id")
+                        .Where(Exp.EqColumns("0",
+                            Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
+                    .ConvertAll(r => Convert.ToInt32(r[0]));
 
                 dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
 

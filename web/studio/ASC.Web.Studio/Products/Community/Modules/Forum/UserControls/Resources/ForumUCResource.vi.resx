@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Cho phép</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>File được đính kèm</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Tách</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn thực hiện tác vụ này?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Đã chỉnh sửa</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>File rỗng</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Không có quyền để thực hiện tác vụ này</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>Lỗi xảy ra khi xoá bài viết</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Nhập ít nhất hai lựa chọn thăm dò</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Nhập tên chủ đề</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Nhập tin nhắn</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>Không thể xoá bài viết vì có những bài viết khác liên kết với bài viết này</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Vượt quá kích thước tối đa của file</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Đính kèm file</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Nhập các tag cần thiết và phân cách chúng bằng dấu phẩy</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>Kích thước tối đa của file đính kèm không được vượt quá {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Tin nhắn</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Chức năng của Mod</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Nhập tên</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Thêm bài mới</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Tiến độ tổng thể</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Bài viết</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Đăng lên</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Nhập câu hỏi của bạn</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Trích dẫn</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>đã viết</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Bài viết mới nhất trong Chủ đề</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Cập nhật mới nhất</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Trả lời</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Dính</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Nhập tên chủ đề</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Đăng ký chủ đề này</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã bỏ dính thành công</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã được đóng thành công</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>Các file đính kèm đã được gỡ bỏ thành công</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>Bài viết đã được xóa thành công</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã được xóa thành công</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã được chỉnh sửa thành công</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã được tạo thành công</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>Chủ đề đã được dính thành công</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Nhập tin nhắn</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Lượt xem</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+</root>

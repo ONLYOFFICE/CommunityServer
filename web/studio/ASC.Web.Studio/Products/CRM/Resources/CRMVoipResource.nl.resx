@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Operator toevoegen</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Operators toevoegen</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Beltoon toevoegen</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0}Alias{1} helpt het nummer te identificeren met een woord of een zin (bijvoorbeeld ondersteuning, verkoop, enz.). Het zal zichtbaar zijn in de virtuele nummerlijst.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Voer een naam in voor het nummer</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Koop telefoonnummer</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Aankoop nummer</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Bel</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Vertegenwoordiger</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Cliënt </value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Kosten</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Datum/Tijd</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Duur</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Wachttijd</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Het nummer wordt opgeslagen op Twilio, maar zal niet beschikbaar zijn op het huidige portaal</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Nummer verwijderen</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Nummer verwijderen</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Beltoon verwijderen</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Koop een nieuw IP-telefoonnummer om deze toe te voegen aan het ONLYOFFICE portaal. Eenmaal toegevoegd kunt u dit telefoonnummer gebruiken met het CRM van het portaal.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Opmerking: de telefoonnummers die u al heeft op de Twilio website kunnen niet worden overgenomen naar het portaal.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Nog geen IP-telefonienummers toegevoegd</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Algemene instellingen</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Welkomstbeltonen</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0}Wachtrij inkomende oproepen{1} toont het aantal inkomende oproepen die zijn toegewezen aan de operators die momenteel beschikbaar zijn. Als het aantal inkomende gesprekken de wachtrij overschrijdt, worden ze doorgestuurd naar de voicemaildienst.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Wachtrij inkomende oproepen</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Na koppeling zullen alle oproepen worden verwerkt door het huidige portaal.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Link aangekocht nummer</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Nummers koppelen</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Het nummer is succesvol gekoppeld</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Het uploaden is bezig, wacht alstublieft</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Helaas geen beschikbare nummers, probeer het alstublieft later nog eens.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>U heeft nog geen nummers.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>U heeft nog geen nummers. Ze kunnen {0}hier{1} worden gekocht.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Dergelijke nummers konden niet worden gevonden</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Nummer operators</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>U kunt ze {0}hier{1} instellen.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Nummers die u momenteel heeft</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Operator pause</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0}Operator pauze{1} stelt de operator in staat om even de tijd te hebben voordat hij of zij een nieuw gesprek aanneemt. Dit kan gebruikt worden om notities te maken over het vorige gesprek, enz.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Geactiveerd</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Uitgaande oproepen</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Beltonen voor wachtrij</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Snelle installatie</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0}Snelle installatie{1} is gebruikt om snel uitgaande oproepen in of uit te schakelen, gesprekken op te nemen voor het nummer en openingstijden in te stellen voor wanneer het nummer beschikbaar is voor de klanten.</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Telefoongesprek opnemen</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>De conversatieopnamen worden opgeslagen in het WAV-formaat. Uw browser ondersteunt geen weergave van een geluidsbestand met dit formaat, dat betekent dat u deze opnames niet kunt beluisteren.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>De lijst van browsers die deze functie ondersteunen kan {0}hier{1} worden gevonden</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Beltoonlijst</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Installatie beltoon</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0}Installatie beltoon{1} wordt gebruikt om de beltonen die momenteel zijn toegewezen aan verschillende telefoonacties, te bekijken en te bewerken.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}Geüploade aanbevelingen voor beltonen{1}: De bestandsgrootte mag niet meer dan 5 MB bedragen. Ondersteunde formaten: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Installatie nummer</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Niet gespecificeerd</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Instellingen updaten</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Virtuele nummers</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Virtuele nummers en operators</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0}Virtuele nummers{1} worden gebruikt om met uw CRM-cliënten te communiceren met behulp van de VoIP-telefoons van Twilio.</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Voicemail</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Voicemail beltonen</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Beltonen voor wachten</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Timeout voor wachten</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 minuten</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 minuten</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 minuten</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0}Wacht time-out{1} geeft de tijd weer waarin de klant wacht op het antwoord van de operator. Wanneer deze tijd overschreden wordt, wordt het gesprek doorgestuurd naar de voicemaildienst.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Openingstijden</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Onjuiste interval</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Voer de tijd in, in het formaat ##:## </value>
+  </data>
+</root>

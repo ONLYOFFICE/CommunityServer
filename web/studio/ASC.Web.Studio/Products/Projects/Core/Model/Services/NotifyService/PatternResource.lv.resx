@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Labots komentārs diskusijai: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir labojis komentāru diskusijā: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Lasīt vairāk":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs esat saņēmis/-usi šo e-pastu, jo esat reģistrēts lietotājs portālā "${__VirtualRootPath}":"${__VirtualRootPath}". Lai mainītu ziņojumu veidu, lūdzu, veiciet izmaiņas savos "abonēšanas uzstādījumos":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Pievienots komentārs uzdevumam: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir labojis komentāru uzdevumam "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Lasīt vairāk":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Ja nevēlaties saņemt ziņojumus par šo uzdevumu, lūdzu,"atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Labota diskusija: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir labojis diskusiju: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Lasīt vairāk":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+ ^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1. Projekti. Datu importēšana no Basecamp
+
+Jauni dati ir veiksmīgi importēti.
+
+^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojumu veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Jūs bija pievienoti Projektu Komandā:"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+"$__AuthorName":"$__AuthorUrl" pievienoja Jūs sekojošā projekta komandā ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Nokāvēta Posma Paziņojums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+Projekta posms ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] nebija izpildīts laicīgi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Dzēsta diskusija: "$EntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir izdzēsīs "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID" diskusiju no
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekta.
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu ziņojuma veidu, lūdzu, mainiet savus "abonēšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Posms pabeigts: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" aizvēra "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" posmu projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Izveidots posms: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jaunu posmu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" projektam "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Posma Izpildes Laika Paziņojums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Mazāk nekā 48 stundas palika līdz izpildes laika izbeigšanas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" posma projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1. Dzēsts posms: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir izdzēsis "$EntityTitle" posmu no "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekta:
+
+$AdditionalData
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Rediģēts posms: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" rediģēja "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" posmu projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektam.
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Posms atjaunots: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" atjaunoja "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" posmu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektā:
+
+$AdditionalData
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Jauns komentārs: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jaunu komentāru apspriešanā: 
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData
+
+"Lasīt tālāk":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Jauns komentārs pie uzdevuma: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jaunu komentāru pie "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevuma: 
+
+$AdditionalData
+
+"Lasīt vairāk":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. ja nevēlaties saņemt ziņojumus par šo uzdevumu, lūdzu, "atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Jauns fails diskusijai: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jauno failu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" diskusijai:
+
+$AdditionalData
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Ja jūs nevēlaties saņemt paziņojumus par šo diskusiju, lūdzu "atrakstīties":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Jauns fails uzdevumā: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jauno failu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumam:
+
+$AdditionalData
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Ja jūs nevēlaties saņemt paziņojumus par šo diskusiju, lūdzu "atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Jauna Apspriešana: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" iesāka jaunu apspriešanu:
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"Lasīt tālāk":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Dzēsts projekts: "$EntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir izdzēsis "$EntityTitle" projektu.
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu, labojiet savus "abonēšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jūs esat pievienots/-a projekta komandai</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Diskusija dzēsta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pabeigts posms: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Izveidots posms: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Posms izdzēsts: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Posms atjaunots: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jauna diskusija: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekts dzēsts: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jums piešķirts posms: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jūs iecēla par projekta vadītāju</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jums piešķirts apakšuzdevums: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jums uzdoti uzdevumi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums pabeigts: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Izveidots apakšuzdevums: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums izdzēsts: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums atjaunots: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums pabeigts: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Izveidots uzdevums: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums dzēsts: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums atjaunots: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Atgādinājums par uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" atgādina jums par uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Atgādinājums par uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Šodien beigsies uzdevuma izpildīšanas galatermiņš: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Jūs bijat atcelti no Projekta Komandas:"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+Jūs bijat atcelti no sekojoša projekta komandas ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Uzdevums Vairs jums nav piešķirts: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime jus vairs neesāt atbildīgs(a) par "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData.get_item("TaskDescription")
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu, pārvaldīt savu "Parakstīšanas iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Posms piešķirts jums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" piešķira jums posmu:
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Jūs esat iecelts Projekta Vadītāja amatā: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+"$__AuthorName":"$__AuthorUrl" iecela jūs projekta vadītāja amatā šim projektam ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+$AdditionalData
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Apakšuzdevums piešķirts jums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+"$__AuthorName":"$__AuthorUrl" norādīja jūs ka atbildīgo par apakšuzdevumu:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pievienoto "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumam.
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Jums uzdoti uzdevumi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" uzdeva jums uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription")
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Apakšuzdevums pabeigts: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ir izbeigusi apakšuzdevumu uzdevumā "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Apakšuzdevums izveidots: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jauno apakšuzdevumu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumā "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . Uzdevums ir piešķirts "$Responsible". 
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Dzēsts apakšuzdevums: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" ir dzēsis apakšuzdevumu: "$SubEntityTitle" uzdevumā "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Jūs saņemāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Ja nevēlaties saņemt ziņojumus par šo uzdevumu, lūdzu, "atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Labots apakšuzdevums: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" laboja apakšuzdevumu "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumā "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Apakšuzdevums ir uzdots "$Responsible". 
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Ja nevēlaties saņemt paziņojumus par šo uzdevumu, lūdzu, "atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Apakšuzdevums atjaunots: "$SubEntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" atjaunoja apakšuzdevumu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumā "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Jūs saņemat šo vēstuli, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Ja jūs nevēlaties saņemt paziņojumus par šo uzdevumu, lūdzam, "atteikties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Pabeigts uzdevums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pabeidza projekta uzdevumu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+ 
+$AdditionalData
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Izveidots uzdevums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pievienoja jaunu uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektam "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+ $AdditionalData.get_item("TaskDescription") 
+Uzdevums uzdots "$Responsible"
+
+ ^Jūs saņēmāt šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Ja nevēlaties saņemt ziņojumus par šo uzdevumu, lūdzu, "atrakstieties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Izdzēsts uzdevums: "$EntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" izdzēsa uzdevumu "$EntityTitle" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Rediģēts uzdevums: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" rediģēja "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevumu projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^Jūs saņemat šo vēstuli tāpēc ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu pārvaldīt savu "Parakstīšanas":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Uzdevums pārvietots: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" noņema
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" no
+"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" posma
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekta.
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevums nav daļa nojebkura posma tagad.
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu, pārvaldiet savus "Abonēšanas  uzstādījumus":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Uzdevums pārvietots: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pārvietots
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" uzdevums "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" posms "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektā. 
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Lai mainītu paziņojuma veidu, lūdzu, pārvaldiet savus "Abonēšanas  uzstādījumus":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Uzdevums atjaunots: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" atjaunoja uzdevumu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projektā "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Jūs saņemat šo vēstuli tādēļ ka esat reģistrētais lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portālā. Ja jūs nevēlaties saņemt paziņojumus par šo uzdevumu, lūdzam, "atteikties":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Labots komentārs diskusijā: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Dzēsts komentārs uzdevumam: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Rediģēta apspriešana: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projects. Datu imports no Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jūs esat pievienoti Projekta Komandā</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Nokavēta Posma Paziņojums: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Diskusija izdzēsta: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pabeigts posms: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Izveidots posms: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Posma Izpildes Laika Paziņojums: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Posms izdzēsts: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Rediģēts posms: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Posms atjaunots: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jauns Komentārs Apspriešanā: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jauns Komentārs Uzdevumam: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Jauns fails diskusijā: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Jauns fails uzdevumā: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jauna Apspriešana: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekts izdzēsts: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Jūs pievienoja projekta komandai</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Diskusija ir dzēsta</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Pavērsiens ir slēgts</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Jauns pavērsiens ir Izveidots</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Pavērsiens ir Dzēsts</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Pavērsiens ir atjaunota</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Jauna diskusija ir izveidota</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekts dzēsts</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Pavērsiens ir Piešķirtie Jums</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Jūs iecēla par projekta vadītāju</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Jums ir uzdots apakšuzdevums</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Jums ir uzdots uzdevums</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Apakšuzdevums ir slēgts</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Jaunais apakšuzdevums Ir Izveidots</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Apakšuzdevums ir dzēsts</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Apakšuzdevums ir atjaunots</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Uzdevums ir slēgts</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Jauns uzdevums ir Izveidots</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Uzdevums ir dzēsts</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Uzdevums ir atjaunots</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Atgādinājums par uzdevumu: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Atgādinājums par uzdevumu: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jūs esat noņemti no Projekta Komandas</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Uzdevums vairs nav piešķirts jums: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Jums piešķirts posms: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Jūs esat iecelts Projekta Vadītāja amatā</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums piešķirts Jums: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Uzdevumi Uzticēti Jums: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums pabeigts: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums izveidots: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums izdzēsts: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums labots: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Apakšuzdevums atjaunots: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Pabeigti Uzdevumi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Uzdevumus Izveidots: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums izdzēsts: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Rediģēts uzdevums: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Noņemts uzdevums: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums pārvietots: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Uzdevums atjaunots: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Neviens</value>
+  </data>
+</root>

@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>頁面存取權限</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>添加{!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>新增成員</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>變更狀態</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>變更使用者狀態</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>如果該數量超出當前的定價計劃，則需要升級計劃並重複操作，否則其他用戶的狀態不會更改。</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>變更使用者狀態</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>您無法更改門戶網站所有者和您自己的狀態</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>具有“禁用”狀態的用戶將被啟用。</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>具有“活動”狀態的用戶將被禁用。</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>變更類型</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>升級您的計劃並重複操作，否則其他用戶類型將不會更改。</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>變更使用者類型</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>您不能為門戶網站管理員和您自己更改類型</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>類型為“ {！User}”的用戶將被移至類型為“ {！Guest}”的用戶</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>類型為“ {！Guest}”的用戶將被移至類型為“ {！User}”的用戶</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>重設過濾條件</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>只能刪除狀態為“已禁用”的用戶或來賓</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>重新分配完成後刪除配置文件</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>從門戶刪除用戶</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>這些用戶的個人文件將被其他人刪除。為避免這種情況，必須在刪除之前開始數據傳輸過程。</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>所選的禁用用戶將從門戶中刪除。</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>取消全選</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>啟用</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>輸入名稱</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>找不到上傳的文件</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>圖像尺寸太大</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>圖像文件太大</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>未知的圖檔類型</value>
+  </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>範例值</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>文件中的字段</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>ONLYOFFICE門戶上的字段</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>隱藏所選用戶列表</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>欄</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>雙引號</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>單引號</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>從檔案</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>導入用戶</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>冒號</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>逗號</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>分號</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>空間</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>匯入聯絡人</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>添加到門戶</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>設置合規性</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>編輯聯繫方式</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>邀請用戶</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>使用中</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>變更電子郵件</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>變更密碼</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>刪除個人資料</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>重新分配數據</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>刪除個人資料</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>重新發送邀請</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>重新發送啟用連結</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>發送電子郵件</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>發送訊息</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>訂閱</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>工具提示</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>成員</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>在此階段無符合您篩選條件的人可顯示。請選擇其它篩選選項或是清空篩選條件以檢視此階段所有人。</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>無符合您要的搜尋結果</value>
+  </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>不導入</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>上面</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>與用戶相同|創建配置文件和組|導入配置文件|邀請用戶</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>加入新使用者、邀請或是將他們匯入。管理使用者並且查看他們的詳細資訊。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>加入新使用者、邀請或是將他們匯入。管理使用者並且查看他們的詳細資訊。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>人員</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>查看個人資料和群組</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>或{0}了解非營利性使用情況{1}。</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>中止轉移</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>數據傳輸中止</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>重新分配</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>由於服務器錯誤，數據傳輸中斷</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>郵件</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>數據重新分配</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>專案</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>重新開始轉移</value>
+  </data>
+  <data name="ReassignsProgressNotifyInfo" xml:space="preserve">
+    <value>您可以關閉此頁面。該過程完成後，將通過郵件通知運行該過程的管理員。</value>
+  </data>
+  <data name="ReassignsProgressUserInfo" xml:space="preserve">
+    <value>從用戶{0}到用戶{1}的數據重新分配過程開始了，這可能會花費大量時間。</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>有關數據傳輸的更多信息</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>中斷，一些數據可以傳輸</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>伺服器錯誤</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>所有數據傳輸</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>數據未傳輸</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>排隊</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>已開始</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>數據將轉移到的員工-</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>將被轉移：</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>其他門戶網站用戶可以使用的常規和個人文檔；</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>開放專案，里程碑和任務；</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>聯繫人，未完成的任務，未關閉的機會和CRM案例；</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>中止清除</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>數據刪除中止</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>刪除個人資料</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>數據刪除由於服務器錯誤而中斷</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>將被刪除：</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>所有個人文件；</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>CRM報告文件；</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>所有電子郵件和附件；</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>從Talk文件附加；</value>
+  </data>
+  <data name="RemovingProgressUserInfo" xml:space="preserve">
+    <value>刪除用戶{0}的個人數據的過程已開始，可能需要花費大量時間。</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>有關刪除個人數據的更多信息</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>重新開始刪除</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>中斷，某些數據可能會被刪除</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>所有數據已刪除</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>數據未刪除</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>用戶確認門戶邀請後，其狀態將更改為“有效”</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>再次發送邀請</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>門戶的邀請將再次發送給處於“待定”狀態且未禁用的所選用戶。</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全選</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>在頁面顯示</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>查看選定的用戶列表</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>使用者已被成功刪除</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>總數</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>等待確認中</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>發送電子郵件</value>
+  </data>
+</root>

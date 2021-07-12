@@ -1,0 +1,884 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Filtre personnalisé</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Remplissage de formulaire</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Lecture seule</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Accès complet</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Accès interdit</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Révision</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Ajouter un compte</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Paramètres administrateur</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Ajouter un compte Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Ajouter un compte Dropbox</value>
+  </data>
+  <data name="ButtonAddFavorite" xml:space="preserve">
+    <value>Marquer en tant que favori</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Ajouter un compte Google</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Ajouter un  compte Nextcloud</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Ajouter un compte OneDrive</value>
+  </data>
+  <data name="ButtonAddTemplate" xml:space="preserve">
+    <value>Utiliser comme modèle</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Autre compte</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Annuler tout</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Changer le propriétaire</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Changer les paramètres de connexion</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Effacer le filtre</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Créér une copie</value>
+  </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>Copier le lien externe</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Copier</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Copier</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>Créer à partir du modèle</value>
+  </data>
+  <data name="ButtonCreateByTemplateShort" xml:space="preserve">
+    <value>A partir d'un modèle</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Créer un document</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Présentation</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Créer une présentation</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Classeur</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Créer une feuille de calcul</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Supprimer le tiers</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Créer une copie du fichier</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Incorporation de document</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Vider la corbeille</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archives</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Tous les fichiers</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Dossiers</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Média</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Présentations</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Feuilles de calcul</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Passer à '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Passer à Mes documents</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>En savoir plus...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Verrouiller</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Déplacer ou copier</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Déplacer vers</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Remplacer avec la mise à jour de la version</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Retirer des favoris</value>
+  </data>
+  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
+    <value>Retirer</value>
+  </data>
+  <data name="ButtonRemoveTemplate" xml:space="preserve">
+    <value>Suuprimer des Modèles</value>
+  </data>
+  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Restaurer</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Tous</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Signer avec DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Envoyer par émail</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Paramètres de partage</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>Paramètres de partage</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Afficher versions</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Sauter</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Retour vers le dossier parent</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Déverrouiller</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>En haut</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Charger</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>Annuler le chargement et fermer</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Télécharger les fichiers</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Télécharger les dossiers</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>Agrandir la boîte de dialogue</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>Réduire la boîte de dialogue</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Historique des versions</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Finaliser version</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Annulé</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>Le fichier est protégé par un mot de passe. Saisissez le mot de passe pour la conversion.</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Convertir et ouvrir le fichier</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Enregistrement du document</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Téléchargement du document</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Une fois les modifications appliquées, le propriétaire actuel du fichier/dossier obtiendra les droits d’accès selon les paramètres d’accès du groupe auquel il appartient ou selon les autorisations du dossier par défaut.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Changer le propriétaire</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Sélectionnez le format de chaque fichier à télécharger</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Paramètres communs</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Afficher une notification lors du déplacement de l'élément vers la corbeille</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>N'afficher plus ce message</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Il y aura deux fichiers différents dans le dossier.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Confirmation du remplacement</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Le fichier sera ajouté en tant que version au fichier avec le même nom.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Remarque: cette action ne peut pas être annulée.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Remarque: Suppression à partir de votre ne peut pas être annulée.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Le fichier ne sera pas copié. Le fichier d'origine reste dans le dossier de destination.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Enregistrer aussi la copie du fichier au format d'origine</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Le fichier du document que vous ouvrez sera convertis au format Office Open XML pour l'affichage et l'édition plus rapide.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>La copie du fichier sera créée dans le dossier {0}Mes documents{1} </value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>Tous les fichiers que vous téléchargez seront convertis dans les formats Office Open XML (docx, xlsx ou pptx) pour la modification rapide.</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Enregistrer aussi la copie du fichier au format d'origine</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Confirmation de mouvement</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Voulez vous vraiment supprimer ces éléments de la liste ?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Remplacer le fichier existant avec le même nom. {0}Sinon, une copie du fichier sera créée.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>URL de connexion</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convertir</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Télécharger comme</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>La conversion s'est terminée avec succès.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Le fichier a été créé dans le dossier '{0}'</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Erreur de conversion</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Conversion en cours ...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Documents communs</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Vous venez de créer le portail ONLYOFFICE.{0} Chargez vos fichiers hors connexion au portail et travaillez à plusieurs sur vos documents sans quitter l'application.{0}{0} Ouvrez votre portail dans le navigateur pour trouver d'autres fonctionnalités y compris {1}Projets{2}, {1}CRM{2}, {1}Calendrier{2}, {1}Mail{2} et encore plus.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Ouvrir dans le navigateur</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Pour les questions d'achat, сontactez-nous par courriel à l'adresse suivante {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Si vous avez des problèmes techniques, contactez-nous par courriel à l'adresse suivante {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Bienvenue sur votre portail !</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Félicitations</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="DocuSignAdmin" xml:space="preserve">
+    <value>Pour le faire, passez aux paramètres du portail et ouvrez la section "Intégration" -&gt; Section "Services tiers" {0}Passez aux "Paramètres"{1}</value>
+  </data>
+  <data name="DocuSignCaption" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="DocuSignConnect" xml:space="preserve">
+    <value>Pour signer le document, veuillez connecter le service DocuSign.</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Enregistrer dans le dossier :</value>
+  </data>
+  <data name="DocuSignHelp" xml:space="preserve">
+    <value>Pour en savoir davantage, visitez notre {0}Centre d'Aide{1}</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Ajouter un message</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Supprimer le message</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Nom du document</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Ajouter {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Liste de destinataires</value>
+  </data>
+  <data name="DocuSignUser" xml:space="preserve">
+    <value>Pour le faire, veuillez contacter l'administrateur de votre portail.</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Télécharger comme</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="DownloadTarGz" xml:space="preserve">
+    <value>Téléchargez les fichiers au format .tar.gz. Autrement les fichiers seront téléchargés au format .zip.</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Hauteur</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Largeur</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>La section 'Documents communs' affiche tous les documents partagés par l'administrateur du portail pour l'usage commun. Seulement l'administrateur du portail peut créer des dossiers dans cette section, mais les utilisateurs du portail, ayant un accès autorisé, peuvent également y charger leurs fichiers.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Faites glisser vos fichiers stockés sur le disque et déposez-les ici.</value>
+  </data>
+  <data name="EmptyScreenDescrFavorites" xml:space="preserve">
+    <value>Vous n'avez pas encore de favoris. Pour marquer des fichiers comme favoris ou les supprimer de cette liste, utilisez le menu contextuel.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>La section 'Partagés avec moi' est utilisée pour afficher les fichiers auxquels on vous a donné accès. Pour que vous puissiez facilement trouver les documents modifiés, ils sont marqués 'nouveau'. Vous pouvez supprimer des fichiers de la liste en cliquant sur le bouton approprié.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Les documents et les images que vous {0}créez{1} ou {2}chargez{3} sur le portail sont stockés dans la section 'Mes documents'. Vous pouvez les {4}ouvrir{5} et {6}modifier{7} en utilisant l'éditeur ONLYOFFICE™ en ligne, les partager avec vos amis ou collègues, les organiser en dossiers.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Les documents et les images que vous {2}chargez{3} sur le portail se trouvent dans la section 'Mes documents'. Vous pouvez les partager avec les amis et les collègues, les organiser en dossiers.</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyAsk" xml:space="preserve">
+    <value>Demander votre administrateur d'activer la Salle privée.</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyBrowser" xml:space="preserve">
+    <value>Travail dans la Salle privée s'effectue via les applications de bureau ONLYOFFICE. {0}Consignes{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyEnable" xml:space="preserve">
+    <value>{0}Activer la Salle privée{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyList" xml:space="preserve">
+    <value>{0}Le stockage le plus sûr pour vos fichiers docx, xlsx et pptx.{1} {0}Le partage sécurisé avec vos collègues.{1} {0}L'édition et la collaboration en temps réel chiffrées.{1} {0}L'algorithme AES-256 solide.{1}</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Les documents et les images que vous créez ou chargez pour votre projet sont stockés dans cette section. Vous pouvez ouvrir et modifier ces fichiers dans l'éditeur ONLYOFFICE™ en ligne et les organiser en dossiers.</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>Les documents et fichiers image téléchargés pour le projet sont gardés dans cette section. Vous pouvez les voir avec l'éditeur sur votre portail ONLYOFFICE.</value>
+  </data>
+  <data name="EmptyScreenDescrRecent" xml:space="preserve">
+    <value>La section "Récents" contient les fichiers récemment ouverts et édités.</value>
+  </data>
+  <data name="EmptyScreenDescrTemplates" xml:space="preserve">
+    <value>Pour marquer les fichiers en tant que modèles ou les supprimer de cette liste, utilisez le menu contextuel.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>La section 'Corbeille' contient les fichiers supprimés. Vous pouvez les restaurer s'ils ont été supprimés par erreur ou les éliminer de manière permanente. Il est à noter que quand vous supprimez les fichiers de la 'Corbeille' ils ne peuvent pas être restaurés.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Aucun fichier à afficher pour ce filtre</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Selon le filtre sélectionné, aucun fichier ou dossier ne peut être affiché dans cette section. Sélectionnez une autre option de filtrage ou videz le filtre pour voir tous les fichiers dans cette section. Vous pouvez également rechercher les fichiers nécessaires dans d'autres sections.</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Pas de fichiers dans ce dossier</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Aucun fichier à afficher dans cette section</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Pas de comptes connectés</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favoris</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>Choisissez le fichier dans le format {0} </value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Choisissez les fichiers de type: {0}</value>
+  </data>
+  <data name="FilesWillBeCompressedTarGz" xml:space="preserve">
+    <value>Les fichiers seront convertis au fichier d'archive {0}.tar.gz{1}</value>
+  </data>
+  <data name="FilesWillBeCompressedZip" xml:space="preserve">
+    <value>Les fichiers seront compressés au {0}fichier .zip{1}</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Dossiers</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Commencer maintenant</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Raccourcir</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>par email</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>Si vous souhaitez convertir un fichier dans un format different du format d'origine, certaines données risquent de disparaître.</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Sélectionner tout</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Taille maximale de fichier est {0}</value>
+  </data>
+  <data name="MobileAndroid" xml:space="preserve">
+    <value>Télécharger ONLYOFFICE Documents sur Google Play</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>Télécharger les applications</value>
+  </data>
+  <data name="MobileIos" xml:space="preserve">
+    <value>Télécharger ONLYOFFICE Documents sur App Store</value>
+  </data>
+  <data name="MobileLinux" xml:space="preserve">
+    <value>Télécharger les applications de bureau ONLYOFFICE pour Linux</value>
+  </data>
+  <data name="MobileMac" xml:space="preserve">
+    <value>Télécharger les applications de bureau ONLYOFFICE pour Mac OS</value>
+  </data>
+  <data name="MobileWin" xml:space="preserve">
+    <value>Télécharger les applications de bureau ONLYOFFICE pour Windows</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Voudriez-vous collaborer {0}avec votre équipe ? {0}{1}En savoir plus{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Gestion des documents</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM et facturation</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Gestion des tâches et diagramme de Gantt</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Agrégateur d'emails</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Avez-vous un projet et une équipe à collaborer ? {0}Nous avons préparé quelque chose pour vous.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Invitez des collègues ou des sous-traitants et bénéficiez des fonctionnalités supplémentaires gratuitement:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Bienvenue à ONLYOFFICE™ pour les équipes !</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mes documents</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Ouvrir un emplacement </value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Masquer la liste des documents</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Afficher la liste des documents</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>Salle privée</value>
+  </data>
+  <data name="PrivacyRoomEmptyFolder" xml:space="preserve">
+    <value>Bienvenue à la salle privée ONLYOFFICE où chaque caractère que vous saisissez est chiffré</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Documents du projet</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Récents</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Marquer comme lu</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Marquer tout comme lu</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Marquer comme lu</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Nom de fichier</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Ouvrir le document enregistré dans un nouvel onglet</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Sélectionner dossier</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Veuillez sélectionner une action :</value>
+  </data>
+  <data name="SettingFavorite" xml:space="preserve">
+    <value>Montrer les favoris</value>
+  </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>Sauvegarder les versions intermédiaires lors de l'édition</value>
+  </data>
+  <data name="SettingRecent" xml:space="preserve">
+    <value>Affichier les fichiers récents</value>
+  </data>
+  <data name="SettingSection" xml:space="preserve">
+    <value>Sections supplémentaires</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>Garder toutes les versions intermédiaires sauvgardées</value>
+  </data>
+  <data name="SettingTemplates" xml:space="preserve">
+    <value>Afficher les modèles</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Paramètres communs</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>Stockage des versions de fichier</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Partager</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Partagés avec moi</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>L'accès par le lien externe</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Fournit l'accès au lien et au code à incorporer</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Afficher plus</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Afficher une version réduite de cette fenêtre</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="switchToThumbnails" xml:space="preserve">
+    <value>Passer à l'affichage des miniatures</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Activer la vue compacte</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Activer la vue commune</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Modèles</value>
+  </data>
+  <data name="TemplatesEmpty" xml:space="preserve">
+    <value>Aucun modèle</value>
+  </data>
+  <data name="TemplatesLoader" xml:space="preserve">
+    <value>Chargement...</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Comptes de tiers
+</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Connecter le cloud</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Lier les comptes</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Vous pouvez connecter les services suivants  à votre compte ONLYOFFICE™. Ils seront affichés dans le dossier "Mes Documents" et vous pourrez modifier et sauvegarder tous vos documents dans un espace de travail unique.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>Pour une connexion réussie, entrez les données requises sur {0}cette page{1}.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Connecter un compte</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Remplissez pour changer</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Supprimer le tiers</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Activer les paramètres de tiers pour les utilisateurs</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Titre du dossier</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Reconnexion</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Partager et placer dans le dossier Documents partagés</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive pour les entreprises</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Rechercher dans</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>et {0}tous les sous-dossiers{1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Cliquer pour rechercher sans sous-dossiers</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Vous pouvez créer des documents ({0}), des classeurs ({1}), des présentations ({2}) et les télécharger en plusieurs formats populaires.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Vous pouvez modifier les fichiers suivants : {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Vous pouvez ouvrir les fichiers avec les extensions suivantes : {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Vous pouvez charger tout type de fichiers à Documents.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Corbeille</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Retirer de la liste</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Remplacerr le fichier existant avec le même nom</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Passer à un plan supérieur</value>
+  </data>
+</root>

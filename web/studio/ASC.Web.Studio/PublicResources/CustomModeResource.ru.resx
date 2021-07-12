@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>© 1999 - {0}. АО "Новые коммуникационные технологии". Все права защищены.</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>Организуйте эффективную совместную работу над документами, таблицами и презентациями. Два режима совместного редактирования, комментарии, чат, история версий.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>онлайн редактор документов, совместная работа онлайн, облачный офис, word онлайн, управление документами, электронные таблицы онлайн, онлайн офис, совместное редактирование, офисные приложения онлайн, документы онлайн</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>Вход через ЕСИА и другие сервисы</value>
+  </data>
+  <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
+    <value>Работа в браузере или через десктопное приложение Р7-Офис</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Начните вводить адрес электронной почты или имя человека из списка ваших личных контактов, контактов CRM или
+пользователей портала или используйте любой другой email, чтобы пригласить людей участвовать в событии.</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Проверьте электронную почту для подтверждения учетной записи.</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Удобное совместное редактирование и рецензирование</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Совместная работа над документами</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100% совместимость с форматами MS Office</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Инструкции по подключению</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Создать аккаунт</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Создать тестовое облако</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Обсуждение документа</value>
+  </data>
+  <data name="DiscussionDocumentDescriptionCustomMode" xml:space="preserve">
+    <value>Используйте комментарии и чат, чтобы обсудить работу над документом, не покидая редактор.</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>Редактор документов Р7-Офис</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Поможет вам легко создавать и редактировать текстовые документы с форматированием любого уровня сложности.</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Введите адрес электронной почты</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>Вход через ЕСИА и другие сервисы</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Здесь вы можете изменить адрес портала. Введите часть адреса портала, которая идет перед доменным именем.{0}{1}Обратите внимание{2}: ваш старый адрес портала станет доступен для новых пользователей Р7-Офис, как только вы нажмете кнопку {1}Сохранить{2}.</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>Для активации "Р7-Офис. Сервер. Профессиональный." необходимо купить лицензионный ключ.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Онлайн-редакторы документов{1}{0}Управление документами{1}{0}Проекты{1}{0}Почта{1}{0}CRM{1}{0}Календарь{1}{0}Чат{1}{0}Сообщество{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Вход в аккаунт</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Подключиться к тестовому облаку Р7-Офис</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>Р7-Офис всегда под рукой</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>Еще не зарегистрированы?</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>Р7-Офис десктоп</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Подключите вашу копию Р7-Офис к тестовому облаку, чтобы работать над документами совместно, не покидая приложение.</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>Р7-Офис онлайн</value>
+  </data>
+  <data name="OfficeOnlineDescriptionCustomMode" xml:space="preserve">
+    <value>Вам понадобится только браузер, чтобы работать откуда угодно. Надежный хостинг обеспечит безопасность ваших данных.</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>Тестовая онлайн-версия российского офисного пакета Р7-Офис</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Здравствуйте, $UserName,
+
+Ваш пользовательский профиль успешно добавлен на портал "${__VirtualRootPath}":"${__VirtualRootPath}". Начните работать с ним прямо сейчас!
+
+h3.Начните работу с документами:
+
+# Создавайте и редактируйте текстовые документы, электронные таблицы и презентации.
+# Подключите облачные хранилища, которые Вы используете, чтобы создать единое рабочее пространство для всех своих документов.
+# Делитесь документами с участниками команды.
+# Познакомьтесь с различными способами совместной работы над документами: два режима совместного редактирования, рецензирование, комментарии, чат.
+
+h3.Попробуйте дополнительные инструменты ${LetterLogoText}:
+
+# Добавьте свою учетную запись электронной почты в "Почту ${LetterLogoText}":"${__VirtualRootPath}/addons/mail/".
+# Создавайте "Проекты":"${__VirtualRootPath}/products/projects/" и управляйте рабочим процессом, добавляя вехи и ставя задачи.
+# Управляйте взаимоотношениями с клиентами, используя модуль "CRM":"${__VirtualRootPath}/products/crm/", определяйте приоритетные контакты, следите за историей взаимодействия и эффективностью продаж.
+# Используйте "Сообщество":"${__VirtualRootPath}/products/community/", чтобы вести блоги, общаться на форумах, добавлять события, делиться закладками.
+# Планируйте рабочий график с помощью встроенного "Календаря":"${__VirtualRootPath}/addons/calendar/".
+# Запустите "Чат":"${__VirtualRootPath}/addons/talk/", чтобы общаться со своей командой онлайн.
+
+$GreenButton
+
+С уважением,
+команда ${LetterLogoText}</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Экспорт данных успешно завершен
+
+Пожалуйста, перейдите по следующей ссылке, чтобы скачать архив: "${EntityTitle}":"${EntityRelativeURL}"
+
+^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}". Чтобы изменить тип оповещения, пожалуйста, настройте "параметры подписки":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Импорт данных успешно завершен
+
+Перейти к списку "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}".
+
+^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}". Чтобы изменить тип оповещения, пожалуйста, настройте "параметры подписки":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.Добро пожаловать тестовое в облако для совместной работы Р7-Офис
+
+Вы только что создали тестовый облачный офис для совместной работы над документами.
+
+h3.Это виртуальное рабочее пространство, в котором вы можете редактировать и хранить документы, работать с ними, где бы вы ни находились, и предоставлять доступ своим коллегам или друзьям.
+
+Редакторы Р7-Офис полностью совместимы с форматами Microsoft Office™. Приложения позволяют просматривать и редактировать документы в формате .docx, .xlsx, .pptx без потери форматирования. 
+
+h3.Возможности тестового облака Р7-Офис:
+
+- Загружайте файлы с компьютера или создавайте новые;
+
+- Работайте со всеми популярными форматами электронных документов;
+
+- Редактируйте автофигуры, диаграммы, таблицы, формулы и другие объекты;
+
+- Используйте дополнения, чтобы расширить возможности редакторов.
+
+Чтобы работать с документами локально, подключите тестовое облако к настольным приложениям "Р7-Офис":"https://www.r7-office.ru/downloads".
+
+С уважением,
+Команда Р7-Офис</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart Подключите свое облачное хранилище к ONLYOFFICE $PersonalHeaderEnd
+
+Прошла неделя с тех пор, как вы создали свой облачный офис, и мы хотели бы рассказать вам о некоторых полезных возможностях, которые вы могли не заметить.
+
+Подключите *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* или *Yandex.Disk* к ONLYOFFICE, чтобы создать единое пространство для управления всеми документами. Вы сможете редактировать сторонние файлы в ONLYOFFICE и сохранять их в том хранилище, где ведете документацию. Инструкции по подключению файловых хранилищ к ONLYOFFICE можно найти "здесь":"${__HelpLink}/tipstricks/add-resource.aspx".
+
+Вы также можете интегрировать редакторы ONLYOFFICE в Google Drive с помощью нашего "коннектора":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
+
+Еще больше возможностей для управления документами
+
+h3.Попробуйте бизнес-решения ONLYOFFICE "в облаке":"https://www.onlyoffice.com/cloud-office.aspx" или "на собственном сервере":"https://www.onlyoffice.com/server-solutions.aspx". Они бесплатны в течение 30 дней пробного периода и наряду с набором инструментов для бизнеса включают в себя расширенные возможности управления документами:
+
+- Управление проектной документацией;
+
+- Интеграция с CRM и электронной почтой;
+
+- Индивидуальные и групповые права доступа;
+
+- Оптимизация рабочего процесса с помощью инструментов для взаимодействия с командой.
+
+Узнайте больше о возможностях "бизнес-версий ONLYOFFICE":"http://www.onlyoffice.com/document-management.aspx".
+
+С уважением,
+команда ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
+    <value>Хотите изменить адрес электронной почты в своем аккаунте?
+
+Нажмите на кнопку ниже и войдите* в ваш облачный офис.
+
+$GreenButton
+
+Ссылка действительна в течение 7 дней.
+
+*Если вы не войдете в облачный офис в этом браузере, потребуется использовать старый адрес электронной почты для подтверждения.
+
+Не хотите менять адрес электронной почты? Просто проигнорируйте это сообщение.</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>Был получен запрос на смену пароля, который Вы используете для входа на портал "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Пожалуйста, перейдите по ссылке ниже, чтобы сменить Ваш пароль:
+
+$GreenButton
+
+*Обратите внимание*: эта ссылка действительна только 7 дней. Пожалуйста, выполните смену пароля в течение этого времени.
+
+Если Вы не хотите менять Ваш пароль или получили это письмо по ошибке, пожалуйста, проигнорируйте его.
+
+С уважением,
+Команда Р7-Офис</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Здравствуйте,
+
+Вы только что зарегистрировали учетную запись Р7-Офис для персонального использования. Нажмите "сюда":"$InviteLink", чтобы подтвердить регистрацию и создать пароль.
+
+Если ссылка не открывается, скопируйте следующую ссылку "$InviteLink":"$InviteLink" и вставьте ее в адресную строку браузера.
+
+С уважением,
+Команда Р7-Офис</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Вы запросили удаление своего аккаунта. Перейдите по ссылке, чтобы завершить удаление аккаунта (ссылка действительна в течение 7 дней):
+
+$GreenButton
+
+*Обратите внимание*: После удаления вашего аккаунта все связанные с ним данные будут удалены без возможности восстановления в соответствии с нашим Положением о конфиденциальности.
+
+Проигнорируйте это сообщение, если вы не хотите удалять аккаунт. 
+
+Если у вас есть какие-то вопросы, напишите нам по адресу "support@r7-office.ru":"mailto:support@r7-office.ru"
+
+С уважением,
+Команда Р7-Офис</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Здравствуйте, $UserName,
+
+Процесс удаления данных пользователя "$FromUserName":"$FromUserLink" успешно завершен.
+
+Удаление персональных данных позволило освободить:
+
+# Документы - $DocsSpace
+# CRM - $CrmSpace
+# Почта - $MailSpace
+# Чат - $TalkSpace
+
+^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3.Зарегистрирован новый портал
+
+# URL-адрес портала: "${__VirtualRootPath}":"${__VirtualRootPath}"
+# Имя: $UserName
+# Фамилия: $UserLastName
+# Email: $UserEmail
+# Телефон: $Phone
+# Дата создания: $Date</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>Редактор презентаций Р7-Офис</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Снабдит вас всеми инструментами, чтобы создать впечатляющие презентации и представить аудитории любую идею.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Делать то же самое, что и пользователь|Подключать аккаунты Dropbox, Box и другие в разделе 'Общие'|Настраивать права доступа к документам и папкам в разделе 'Общие'</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Создавать и редактировать свои документы, а также те, к которым предоставлен доступ с соответствующими правами|Предоставлять другим пользователям доступ к документам и папкам с правами на чтение/редактирование</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>Создать сейчас</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>Я хочу подписаться на рассылку новостей  P7-Офис</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>Я принимаю {0}Условия использования{1}</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>Запомнить</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>Рецензирование</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>Включите режим рецензирования, чтобы предлагать правки в документ, не изменяя его.</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Сообщение для активации отправлено на адрес </value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>Зарегистрироваться</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>Зарегистрироваться в тестовом облаке Р7-Офис</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}Двухфакторная аутентификация{1} обеспечивает более безопасный для пользователей способ входа на портал. После ввода учетных данных пользователь должен будет ввести код из приложения для аутентификации.{2}Включите эту опцию для более безопасного для всех пользователей доступа на портал.{2}Чтобы применить изменения, нажмите на кнопку {0}Сохранить{1} внизу этого раздела.{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>Редактор таблиц Р7-Офис</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Обеспечит профессиональную работу с электронными таблицами, поможет провести сложные вычисления и организовать ваши данные.</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>Добро пожаловать в ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Работайте над документами совместно в тестовом облаке Р7-Офис</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>Р7-Офис. Помощь с паролем</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Р7-Офис. Пожалуйста, активируйте Ваш адрес электронной почты</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Удаление аккаунта Р7-Офис</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. Завершено удаление данных пользователя</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>Зарегистрирован новый портал</value>
+  </data>
+  <data name="TariffNotPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Вы используете "Р7-Офис. Сервер. Профессиональный." {0}Поддержка и обновления больше недоступны для вашей лицензии{1}.</value>
+  </data>
+  <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
+    <value>Вы используете "Р7-Офис. Сервер. Профессиональный.". {0}Техническая поддержка и обновления больше не доступны для Вашей лицензии с {2}.{1}</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Вы используете "Р7-Офис. Сервер. Профессиональный."</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>Благодарим Вас за регистрацию в P7-Офис.</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Р7-Офис. Тестовое облако для совместной работы</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>Облако для совместной работы | Р7-Офис</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>Отслеживание изменений</value>
+  </data>
+  <data name="TrackingChangesDescriptionCustomMode" xml:space="preserve">
+    <value>Включите отображение внесенных правок. Различные режимы просмотра помогут проверить, как будет выглядеть документ, если вы примите или отклоните эти правки.</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>Два режима совместного редактирования</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>В Быстром режиме вы видите, что печатает ваш соавтор, а он видит, что печатаете вы. В Строгом вы редактируете части документа приватно, а изменения показываются после сохранения.</value>
+  </data>
+</root>

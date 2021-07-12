@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>الصلاحيات سيتم تطبيقها فقط على جهات الاتصال التي تم انشاؤها من قبلك</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>اجراءات</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>معلومات اضافية</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>اضف علامة</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>اضف مشارك</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>اضف هذا الحدث</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>اضافه هذه الملاحظه ,,,</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>اضافة {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>{استخدم العلمات {0}?{1} و {0}*{1} للقيام ببحث مفرد /مزدوج . على سبيل المثال للقيام بالبحث عن {0O{1},{قم بكتابة  {0O*{1} . </value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>حقل خاص ببرنامج تيم لاب ادارة علاقات العملاء</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>مرفقات</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>اربط مع جهة اتصال</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>الكاتب</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>للخلف</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>تعلم المزيد ...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>فئة</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>مشاكل</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>فئة</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>اعادة تعيين عامل التصفية</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>اغلق هذه النافذة</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>اغلاق النافذة</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>فاصلة</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>عامود الملف</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>نقظه</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>اكتب رساله لكي يتم ارسالها الى جميع جهات الاتصال التي قمت بتحديدها. تستطيع معرفه عدد العملاء الذين اخترتهم في الحقل "الى". اكتب "عنوان" عام للرساله واستخدم "علامات شخصية" تدل على محتوى الرساله. هذه لا تزال نسخه تجريبية لمن يريد استخدام المميزات الجديده لتيم لاب.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>هل انت متأكد من أنك تريد حذف هذا العنصر؟</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>محتوى</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>معدل</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>محول العملة</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>تاريخ الإنشاء</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>انشاء جديد</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>انشاء جهة اتصال جديدة</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>انشاء مشروع</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>اضف علامه جديدة</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>العملة</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value> الحالي {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>فترة مخصصة</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>مستخدمين اخرين</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>الفرص</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>حذف حدث</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>حذف مشارك</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>حذف علامه</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>حذف مستخدم</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>عدم اختيار الكل</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>اقتباس مزدوج</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>سجلات مكررة</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>لا توجد سجلات تطابق نتيجه عامل التصفيه في هذا القسم. الرجاء تعديل معاملات عامل التصفيه او قم بمسح كل المعاملات لإظهار السجلات في هذا القسم. تستطيع ايضا البحث عن السجلات التي تريد في السجل التاريخي لجهه الاتصال</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>لا توجد سجلات لعامل التصفيه هذا في هذا المكان</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>ادخل المبلغ</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>صدر القائمة الحالية الى ملف CSV</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>الموعد النهائي</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>مع العلامة</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>ابحث عن شركة او شخص بالإسم ...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>قم بإخفاء لوحة الملف المرفق</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>سجل تاريخي</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>موعد</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>تجاهل اول سطر عند الاستيراد</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>مكرر</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>استخدم هذا الخيار لإستيراد جهات الاتصال مع تكرار جهات الاتصال بالتزامن. على سبيل المثال يوجد جهتين اتصال A  و B في نظام اداره علاقات العملاء على برنامج تيم لاب. وتريد استيراد B و C في حال اختيارك لهذا الخيار سيتم تكرار B عند الاستيراد</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>البحث عن المتشابهات سيتم عبر تشابه حقول البريد الإلكتروني</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>استبدال</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>استخدم هذا الخيار عندما تريد استيراد جهات اتصال متطابقه وتريد ان يتم استبدال جهه الاتصال المستورده بدلا من جهه الاتصال الحاليه في نظام اداره علاقات العملاء في تيم لاب. </value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>تخطي</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>استخدم هذا الخيار عند استيراد جهه اتصال متطابقه وتريد ابقائهم جميعهم. على سبيل المثال اذا كانت لديك جهتين اتصال A و B الى نظام اداره علاقات العملاء في تيم لاب.وتريد استيراد جهتين اتصال B و C فعند اختيارك لهذا الخيار سيقوم النظام بإبقاء على كل الجهتين في نفس وقت الاستيراد </value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>محدد</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>ترميز</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>اعدادات ملف CSV</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>النص المحدد</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>جاري مسح الملف ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>البدء في استيراد البيانات</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>تم تقديم المعلومات</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>اخر شهر</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>نص الرسالة</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>الربط مع</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>الرجاء الانتظار ...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>نص الرسالة</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>خدمة تيم لاب للإرسال العالي: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>فشل في ارسال الرسالة الى {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني غير صحيح: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>فشل الارسال - ستتم اعادة المحاولة في {0} ثانية.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>عنوان الرسالة</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>حاسبة</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>خاص بي</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>احداثي</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>السجل التالي</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>لا توجد سجلات</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>لا يوجد تطابق</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>غير محدد</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>إبلاغ</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>في الاعلى</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>هنا تستطيع مشاهدة الرساله التي تقوم بكتابتها. قم بإستخدام زر " للخلف " لاضافه تعديلات او زر "ارسال" اذا كنت راضيا عن النتيجة</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>سجل سابق</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>خطوة سابقة</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>خاص</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>متوفر لـ {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>لا تملك الصلاحيات</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>تمنح الصلاحيات لكل {!users} البوابة بشكل افتراضي لكي تمنع تلك الصلاحيات ضع علامه صح في هذا المربع</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>افعل مثل مستخدم نظام ادارة علاقات العملاء | استورد, صدر البيانات | ارسل ايميلات الى جهات اتصال موجوده في نظام اداره علاقات العملاء | قم بإداره اي جهه اتصال , مهمه , مشكله , فرصه</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>قم بإدارة علاقات عملائك , تعرف على جهات الاتصال ذات الاهمية, تابع عملية التواصل مع عملائك وسجل تاريخي بعمليات البيع</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>قم بإدارة علاقات عملائك , تعرف على جهات الاتصال ذات الاهمية, تابع عملية التواصل مع عملائك وسجل تاريخي بعمليات البيع</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>ادارة علاقات العملاء</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>قم بإنشاء جهة اتصال,مهمه,مشكله,فرصه مع امكانيه حصر الدخول اليها. | حرر جهه اتصال, مهمه, مشكله , فرصه باعدادات الصلاحيات</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>مربوط مع</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>قيمة</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>حفظ التعديلات</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>جاري حفظ التعديلات</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>اختر الكل</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>اعلام المستخدمين</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>فاصله منقوطه</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>ارسال بريد الكتروني</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>تعيين الصلاحيات</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>عرض قائمه الملفات الملحقه</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>عرض بيانات</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>عرض على الصفحة</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>اقتباس مفرد</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>مساحة</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>تخزين هذه الرساله في السجل التاريخي</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>احداث  جديدة</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>جهات اتصال جديدة</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>تم التصدير</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>مهام مسندة اليك</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>تم منح الصلاحيات</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>ملخص الجدول</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>جدولة</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>علامات</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>مهام</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>هذا الشهر</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>الاجمالي</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>الغاء ربط جهة الاتصال</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>اعلى</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>ارفاق ملف</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>عرض الملفات</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>الأمس</value>
+  </data>
+</root>

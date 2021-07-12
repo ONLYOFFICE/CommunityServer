@@ -1,0 +1,650 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Pouze pro čtení</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Plný přístup</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Odmítnut přístup</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Přezkoumání</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Přidat účet</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Přidat účet schránky</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Přidat Dropbox účet</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Přidat Google účet</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Přidat Nextcloud účet</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Přidat OneDrive účet</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Další účet</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Zrušit vše</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Změnit vlastníka</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Změnit informace o třetí straně</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Vymazat filtr</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Vytvořit kopii</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopie</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Složka</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Prezentace</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Tabulka</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Vymazat třetí stranu</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Vytvořit kopii souboru</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Vkládání dokumentu</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Vysypat koš</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archivy</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Všechny soubory</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Složky</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Obrázky</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Prezentace</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Tabulky</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Jděte na '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Jděte do Moje Dokumenty</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Více informací...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blokovat</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Přesunout nebo kopírovat</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Přesunout do</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Přepsat aktualizaci verze</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Přejmenovat</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Odeslat pomocí DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Odeslat</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Sdílet nastavení</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Zobrazit historii verzí</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Přeskočit</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Zpět do nadřazené složky</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Odblokovat</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Na vrchu</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Nahrát</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Historie verzí</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Finalizovat verzi</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Zrušeno</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konvertovat a otevřít dokument</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Jakmile jsou provedeny všechny změny, stávající vlastník souboru/složky získá přístupová práva podle nastavení přístupu skupiny, do které náleží, nebo podle výchozích oprávnění složky.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Změnit vlastníka</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Vybrat formát každého souboru, který chcete stáhnout</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Zobrazit upozornění při přesunutí prvku do koše</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Ve složce budou dva rozdílné soubory</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Přepsat potvrzení</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Soubor bude přidán do souboru se stejným názvem jako verze</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Potvrzení</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Poznámka: tato akce nelze vrátit zpět.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Poznámka: odstranění z Vašeho účtu nelze vrátit zpět.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Nebude kopírován žádný soubor. Původní soubor bude zachován v jeho složce.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Uložit také kopii souboru v originálním formátu</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Dokument bude konvertován do Office Open XML formátu pro rychlejší náhled a editaci. </value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Kopie souboru bude vytvořena v {0}Moje dokumenty{1}složce</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Nahrát dokumenty také v původním formátu</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Přesunout potvrzení</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Opravdu chcete odstranit tyto elementy ze seznamu?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Aktualizujte verzi souboru pro stávající soubor se stejným názvem.{0}V opačném případě bude vytvořena jeho kopie.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Připojovací URL</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konvertovat</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Stáhnout jako</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Konverze byla úspěšná</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Soubor bude vytvořen v '{0}' složce</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Chyba konvertování</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Konvertování...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Společné dokumenty</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Právě jste vytvořili Váš ONLYOFFICE portal.{0}Nahrajte Vaše offline soubory na portál, aby jste na nich mohli pracovat, aniž byste opustili aplikaci.{0}{0} Otevřete Váš portál v prohlížeči pro další funkce zahrnující {1}Projekty,{1}CRM{2},{1}Kalendář{2},{1}Mail{2} a další.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Otevřít v prohlížeči</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>V případě otázek ohledně nákupů, pošlete nám e-mail na {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Pokud máte nějaké technické problém, kontaktujte nás na {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Vítejte na Vašem portálu!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Gratulace!</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Uložit do složky:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Zpráva</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Přidat zprávu</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Odstranit zprávu</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Název dokumentu:</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Přidat uživatele</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Seznam příjemců schválení</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Stáhnout jako</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Stáhnout</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Automaticky</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Výška</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Šířka</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Sekce "Běžné Dokumenty" zobrazuje všechny dokumenty sdílené administrátorem portálu pro běžný přístup. Pouze administrátor portálu může vytvářet složky v této sekci, ale uživatelé mohou nahrávat své soubory, pokud na to mají dostatečné oprávnění.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Přetáhněte soubory Vašeho počítače sem a nahrajte je na Váš portál ještě snadněji.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Sekce "Sdíleno mnou" je používána pro zobrazení souborů, ke kterým Vám dali přístup Vaši přátelé nebo kolegové. Pokud jste neotevřeli poslední verzi dokumentu, je pak tento dokument označen jako "nový". Kliknutím na příslušné tlačítko můžete odstranit soubory.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Dokumenty a snímky, které vy {0} vytvoříte {1} nebo {2} nahrajete{3} na portál, zůstávají v sekci "Moje Dokumenty". Můžete je {4}otevřít{5} a {6}editovat{7} pomocí ONLYOFFICE™ editoru, sdílet je se svými přáteli a kolegy nebo rozdělit do dalších složek.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Dokumenty a snímky, které vy {2} nahrajete{3} na portál, zůstávají v sekci "Moje Dokumenty". Můžete je sdílet se svými přáteli a kolegy nebo je roztřídit do složek.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Dokumenty a snímky, které vytvoříte nebo nahrajete pro Váš projekt, jsou uloženy v této sekci. Můžete je otevřít a editovat pomocí ONLYOFFICE™ editoru nebo je roztřídit do složek.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Sekce Koš je místo, kam jsou všechny smazané soubory přemístěny. Můžete je obnovit v případě, že byly smazány nedopatřením nebo je odstraňte trvale. Prosím berte v úvahu, že pokud vymažete Vaše soubory z Koše, již je nemůžete znovu obnovit. </value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>V této části nelze zobrazit žádné soubory, které odpovídají Vašemu filtru.</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>V této sekci nelze zobrazit žádné soubory nebo složky, které odpovídají Vašemu filtru. Prosím vyberte si jiné možnosti filtru nebo vyčistěte filtr pro zobrazení všech souborů v této sekci. Hledaný soubor může být v jiných sekcích.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>V této sekci nelze zobrazit žádné soubory, které odpovídají Vašemu filtru</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Žádné připojené účty</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtr</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Složky</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Začít teď</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>prostřednictvím e-mailu</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Vybrat vše</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Maximální velikost souboru je {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Máte tým {0}se kterým můžete spolupracovat? {0}{1}Naučte se více{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Správa dokumentu</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM a fakturace</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Správa úkolů a Ganttův diagram</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Shromaždiště e-mailů</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Máte projekt a tým se kterým můžete spolupracovat?{0}Připravili jsme něco pro Vás.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Pozvěte své kolegy nebo subdodavatele a využijte další funkce:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Vítejte v ONLYOFFICE™ pro týmy!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Moje dokumenty</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Skrýt seznam dokumentů</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Zobrazit seznam dokumentů</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumenty projektu</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Označit jako přečtené</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Označit všechno jako přečtené</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Vybrat složku</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Prosím vyberte akci:</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Sdílet</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Sdílené se mnou</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Externí přístupový odkaz</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Poskytnutí přístupu k odkazu a vkládání kódu</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Zobrazit více</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Zobrazit toto okno minimalizované</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Přepnout na kompaktní zobrazní</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Přepnout na běžné zobrazení</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Účty třetí strany</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Schránka</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Připojit účet</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Připojit účty</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Můžete připojit následující účty do ONLYOFFICE™ Dokumentů. Zobrazí se ve složce "Moje Dokumenty" a budete je moci editovat a uložit na portálu na jednom místě.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Připojování účtu</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Vyplňte pro změnu</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Vymazat třetí stranu</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Povolit nastavení třetí strany pro uživatele</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Název složky</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Znovu připojte</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Účet</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Sdílejte a dejte do Společných Dokumentů</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive pro Obchod</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive
+</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Hledat v</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Vyber</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Můžete vytvořit dokumenty({0}), tabulky({1}), prezentace({2}) a stáhnout je v nejrozšířenějších formátech.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Můžete upravit následující soubory:{0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Můžete otevřít soubory s následujícím rozšířením:{0}</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Můžete nahrát jakékoli soubory do Dokumentů.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Koš</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Odstranit ze seznamu</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Přepsat stávající soubor stejným názvem</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Vylepšete svůj plán</value>
+  </data>
+</root>

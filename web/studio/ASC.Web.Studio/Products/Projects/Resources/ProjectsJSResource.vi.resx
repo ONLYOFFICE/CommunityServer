@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Tạo mốc sự kiện mới</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Chọn người phụ trách</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Tạo nhiệm vụ mới</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Tên công ty</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>Tìm công ty hoặc cá nhân bằng tên...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>ngày</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Không tìm thấy thảo luận</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Thảo luận</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Tài liệu</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Chỉnh sửa mốc sự kiện</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Sửa nhiệm vụ</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Mỗi tin nhắn phải có một tiêu đề</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Mỗi dự án phải có một quản lý</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Mỗi dự án phải có một tiêu đề</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>nhiệm vụ đang thực hiện</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Thu hẹp danh sách nhiệm vụ dưới mốc sự kiện</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Mở rộng danh sách nhiệm vụ dưới mốc sự kiện</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>thêm</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>đã đóng</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Sửa ngày</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>cao</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>mở</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Ưu tiên</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Chịu trách nhiệm</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>mốc sự kiện</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Mốc sự kiện mới</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Nhiệm vụ mới</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>Không có nhiệm vụ khả dụng để tạo liên kết</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>Các thay đổi gần đây sẽ không được lưu nếu bạn rời khỏi trang này ngay bây giờ.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} người phụ trách</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>nhiệm vụ con</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>nhiệm vụ con</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>Nhiệm vụ quá hạn {0} ngày</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>nhiệm vụ</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Nhiệm vụ không có mốc sự kiện</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>tuần</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>năm</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>đã chọn</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Định dạng ngày không hợp lệ</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Thời gian không hợp hệ</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Mốc sự kiện đã được thêm</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Mốc sự kiện đã được xóa</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Mốc sự kiện</value>
+  </data>
+  <data name="MilestonesRemoved" xml:space="preserve">
+    <value>Mốc sự kiện đã được xóa</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Mốc sự kiện đã được sửa</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>Không có người tham gia đang hoạt động</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Không có mốc sự kiện</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Trước</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Không tìm thấy dự án</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>kết thúc-kết thúc</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>kết thúc-bắt đầu</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>bắt đầu-kết thúc</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>bắt đầu-bắt đầu</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>Không tìm thấy template</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Đã đóng</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Đã đóng</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Tạm dừng</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Đã thêm thành công</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Nhiệm vụ đã được thêm</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Không tìm thấy nhiệm vụ</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>Nhiệm vụ đã được xóa</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Nhiệm vụ</value>
+  </data>
+  <data name="TasksRemoved" xml:space="preserve">
+    <value>Nhiệm vụ đã được xoá</value>
+  </data>
+  <data name="TasksUpdated" xml:space="preserve">
+    <value>Nhiệm vụ đã được cập nhật</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Nhiệm vụ đã được cập nhật</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Template đã được lưu</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Thời gian đã được bỏ</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Không có dữ liệu</value>
+  </data>
+  <data name="TimesRemoved" xml:space="preserve">
+    <value>Số lần đã xoá</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Theo dõi Thời gian Làm</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Thời gian đã được cập nhật</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>Tới danh sách nhiệm vụ</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Xem tất cả nhiệm vụ mở</value>
+  </data>
+</root>

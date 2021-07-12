@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>프로젝트 선택</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>책임 선택</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>마일리지 종료</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>이개월</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>마일스톤 삭제</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>이 마일스톤을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Milestones 삭제</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>당신은 Milestones을 삭제하시겠습니까?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>필터와 일치하는 이정표가이 섹션에 표시 할 수 없습니다.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>세부 설명</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>이 필터와 일치하는 이정표가 없습니다</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>이정표</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>이정표를 찾을 수 없습니다</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>이정표</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>이정표는 프로젝트 계획 과정의 주요 타임 스탬프를 표시합니다.이정표가 생성되면 모든 프로젝트 참가자 작업으로 입력 할 수 있습니다. 이정표를 계획하고 작업이 시간에 완성되어 있는지 확인 할 수있는 기한을 설정할 수 있습니다.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Milestones은 프로젝트 계획 프로세스의 주요 타임스탬프를 표시한다. Milestones이 작성되면 모든 프로젝트 참여자를 위한 태스크를 채울 수 있게된다.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>다가오는</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>열려있는 작업이있는 이정표는 닫을 수 없습니다.</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>알림</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>각 마일스톤에는 제목이 있어야 합니다.</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>지연</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>첫 번째 마일스톤 계획</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>48시간 안에 재확인바랍니다</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>책임자</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>주요 이정표</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>제목</value>
+  </data>
+</root>

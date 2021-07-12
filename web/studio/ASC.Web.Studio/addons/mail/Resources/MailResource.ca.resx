@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Nom del compte</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Gestió dels comptes</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>La recepció de correus es rependrà un cop hagueu activat el vostre compte.</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Activa el compte</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Activa</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Afegir una còpia</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Afegir una adreça de correu electrònic</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Contactes</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Afegiu una etiqueta</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Avançat</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Esborra-ho tot</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Adjunteu un fitxer des de Documents</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Fitxers adjunts</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Afegiu un contacte CRM</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Tipus d'autentificació</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>CCO</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Afegir un compte nou</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Afegir un compte nou</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Crea una nova etiqueta</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Després de desactivar un compte, no rebreu més correus.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Esborra l'etiqueta</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Crea una nova etiqueta</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>sense adreça</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>tot</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Desat a </value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Escriviu un missatge</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Crea un missatge nou</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Ahir</value>
+  </data>
+</root>

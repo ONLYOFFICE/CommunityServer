@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>頁面存取權限</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>公告</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>公告</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>部落格</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>書籤</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>書籤</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>分類</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="DashboardCreateWelcomePost" xml:space="preserve">
+    <value>建立歡迎訊息</value>
+  </data>
+  <data name="DashboardDiscussWithTeam" xml:space="preserve">
+    <value>與團隊討論</value>
+  </data>
+  <data name="DashboardDiscussWithTeamFirstLine" xml:space="preserve">
+    <value>創建公司部落格和論壇。</value>
+  </data>
+  <data name="DashboardDiscussWithTeamSecondLine" xml:space="preserve">
+    <value>添加民意測驗。</value>
+  </data>
+  <data name="DashboardDiscussWithTeamThirdLine" xml:space="preserve">
+    <value>使用Talk交換即時消息。</value>
+  </data>
+  <data name="DashboardKeepYourTeamPosted" xml:space="preserve">
+    <value>隨時通知您的團隊</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
+    <value>在Talk中創建群聊或群發郵件。</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
+    <value>配置有關共享文檔，截止日期和隊友生日的通知。</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
+    <value>使用Firebase永遠不會再錯過任何消息。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledge" xml:space="preserve">
+    <value>分享新聞和知識</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeFirstLine" xml:space="preserve">
+    <value>創建公司新聞板。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
+    <value>添加書籤並共享到有用的網路資源。</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeThirdLine" xml:space="preserve">
+    <value>維護企業Wiki。</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>我的最愛</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>論壇</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>論壇編輯器</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>論壇帖子</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>論壇</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>輔助說明</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>索引</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>新頁面</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>新消息</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>規章</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>規章</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>頁面</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>部落格文章</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>就像一般使用者一樣|在部落格、維基和論壇訊息等編輯任何文章。</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>在部落格建立事件和文章。舉行投票。建立書籤並將它們與其他使用者分享。</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>在部落格建立事件和文章。舉行投票。建立書籤並將它們與其他使用者分享。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>在部落格建立事件和文章。舉行投票。建立書籤並將它們與其他使用者分享。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>社群</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>在部落格建立並編輯您的文章，分享新消息等等。</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>最近編輯</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>已訂閱</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>話題</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>維基</value>
+  </data>
+</root>

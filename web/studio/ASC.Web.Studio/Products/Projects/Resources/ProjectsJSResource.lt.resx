@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Sukurti naują etapą</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Pritaikyti</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Nurodykite atsakingą</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontaktai</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Sukurti naują užduotį</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Bendrovės pavadinimas</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>Ieškoti bendrovės ar asmens pagal vardą...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Pavardė</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>diena</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>dienos</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Diskusija nerasta</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskusijos</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Redaguoti etapą</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Redaguoti užduotį</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Kiekviena žinutė privalo turėti antraštę</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Kiekvienas projektas privalo turėti vadovą</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Kiekvienas projektas privalo turėti pavadinimą</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>aktyvios užduotys</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Paslėpti etapų užduočių sąrašus</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Išskleisti etapų užduočių sąrašus</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>pridėti</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Pradžios data</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>uždaryta</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Pabaigos data</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>aukštas</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>aktyvi</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Prioritetas</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Atsakingas</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>etapai</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Naujas etapas</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Nauja užduotis</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>Nėra užduočių, kurias galima būtų susieti</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>Atlikti pakeitimai gali būti neišsaugoti, jei dabar išeisite iš šio lango.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} atsakingų</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>antrinės užduotys</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>antrinė užduotis</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Detalės</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>Užduotis pradelsta {0} dienų</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>užduotys</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Užduotys be etapų</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>savaitė</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>metai</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>pasirinkta</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Datos formatas nekorektiškas</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Netinkamas laiko formatas</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Etapas pridėtas</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Etapas pašalintas</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Etapai</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Etapas pakeistas</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Kitas</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>Nėra aktyvių dalyvių</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Nėra etapų</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Apžvalga</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Ankstesnis</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projektai</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Projekto surasti nepavyko</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projektai</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>pabaiga-pabaiga</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>pabaiga-pradžia</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>pradžia-pabaiga</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>pradžia-pradžia</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>Šablono rasti nepavyko</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Baigtas</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Baigtas</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Aktyvus</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Aktyvus</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Pristabdytas</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Pridėta sėkmingai</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Užduotis pridėta</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Užduoties surasti nepavyko</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>Užduotis pašalinta</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Užduotys</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Užduotis atnaujinta</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Komanda</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Šablonas išsaugotas</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Laikas pašalintas</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Nėra duomenų</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Laiko apskaita</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Laikas atnaujintas</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>Į užduočių sąrašą</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Rodyti visas atviras užduotis</value>
+  </data>
+</root>

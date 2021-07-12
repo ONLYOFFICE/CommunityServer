@@ -702,7 +702,6 @@ namespace ASC.Common.Web
             AddMimeMapping(".wmlc", "application/vnd.wap.wmlc");
             AddMimeMapping(".wmls", "text/vnd.wap.wmlscript");
             AddMimeMapping(".wmlsc", "application/vnd.wap.wmlscriptc");
-            AddMimeMapping(".woff2", "application/font-woff2");
             AddMimeMapping(".word", "application/msword");
             AddMimeMapping(".wp", "application/wordperfect");
             AddMimeMapping(".wp5", "application/wordperfect");

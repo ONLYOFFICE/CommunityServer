@@ -1,0 +1,2963 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>adres</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Over dit programma</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Toegangsrechten</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Toegang tot de {0} module is gegeven aan</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>{!group} toevoegen</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Voeg {!user} toe</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Alle {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Portaaleigenaar Veranderen</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Veranderingen worden toegepast na bevestiging via e-mail.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Om de Portaaleigenaar te veranderen, kies hieronder alstublieft de Naam van nieuwe Portaaleigenaar.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} module is niet bruikbaar en niet weergegeven op de portal. Om deze wel beschikbaar te maken raadpleeg de Modules &amp; Tools sectie onder de portalinstellingen. </value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>De {!user} lijst is leeg</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Volledige toegang</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Dezelfde toegangsrechten als de portaaleigenaar, behalve het recht om|Portaaleigenaar veranderen|Portaal uitschakelen of verwijderen</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Portaaleigenaar kan</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Doe hetzelfde als modulebeheerders|Modulebeheerders aanwijzen|Toegangsrechten voor modules instellen|Portaalconfiguratie beheren|Gebruikersaccounts beheren|Wijzigen portaaleigenaar|Back-up portaaldata maken|Portaal uitschakelen of verwijderen</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administrators kunnen</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} gebruikers kunnen</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} met verschillende toegangsrechten kunnen </value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} van de lijst</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Uw account is nu bijna actief</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Portaal Deactivatie</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Zorg er, voordat u het portaal verwijdert, alstublieft voor dat de automatische facturering is uitgeschakeld. U kunt de status van automatische facturering controleren in uw {0}Avangate account{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Een link om de actie te bevestigen is verzonden naar :email (het e-mailadres van de portaaleigenaar).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Portaal Verwijdering</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Een link om de actie te bevestigen is verzonden naar :email (het e-mailadres van de portaaleigenaar).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Stuur code opnieuw</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Code invoeren</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Activeer de email nogmaals</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Veld met validatiecode mag niet leeg zijn</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Mobiel telefoonnummer invoeren</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Nieuwe {!group} aanmaken</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Groepen toevoegen</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Voeg een toegestaan IP adres toe</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Voeg commentaar toe</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Voeg vertrouwd domein toe</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Toevoegen {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Gebruikers toevoegen</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Beheerdersmeldingen</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Verstuur bericht</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Geen toegang tot het portaal?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>E-mailadres dat gebruikt kan worden om je te contacteren</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Neem contact op met portaalbeheer</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Uw bericht is succesvol verzonden. De portaalbeheerder zal contact met u opnemen.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Instellingen beheerdersberichten</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Beschrijf alstublieft uw probleem</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Als u een bestaande {!user} bent en problemen heeft met toegang tot dit portaal of als u zichzelf wilt registreren als nieuwe {!user} op het portaal, neem dan contact op met de portaalbeheerder via het onderstaande formulier.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Beheerders</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Filiaalstatus</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Elk domein</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Alle rechten voorbehouden</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Beantwoorden</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Antwoord</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Verbonden</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Verbinding verbreken</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Niet verbonden</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>op</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Authenticatie</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Autorisatie</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Autorisatiesleutels</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Autorisatiesleutels is de optie waarmee u uw ONLYOFFICE™ portaal kunt verbinden met de services van derden zoals Twitter, Facebook, DropBox, enz. Verbind uw portaal met Facebook, Twitter of Linkedin aan als u uw portaalgegevens niet telkens wilt invoeren als u erheen gaat. Koppel het met dergelijke services zoals DropBox, OneDrive, enz. om de documenten van alle opslagplaatsen over te zetten naar de ONLYOFFICE ™ Documentenmodule.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Servicevoorwaarden</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Gebruik deze optie voor automatische back-up van de portaaldata.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automatische back-up</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>De optie {0}Automatische back-up{1} wordt gebruikt om het back-upproces voor portaalgegevens te automatiseren om deze later op een lokale server te kunnen herstellen. Kies de dataopslag, automatische back-upperiode en het maximale aantal opgeslagen kopieën.{2}{0}Opmerking:{1} voordat u de back-upgegevens kunt opslaan op een account van een derde partij (DropBox, Box.com, OneDrive of Google Drive), moet u dit account verbinden met de ONLYOFFICE map Gedeelde Documenten.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Ga naar titelpagina</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Back-up</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Het maximale aantal back-up kopieën dat kan worden opgeslagen</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE-dokumenten</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>De back-up downloaden</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Kopie maken</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Neem Mail mee in back-up</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Er zijn geen services van derde partijen verbonden.{0}Ga naar de "Documentenmodule" om te verbinden. </value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>U kunt de back-up downloaden naar uw lokale schijf via de onderstaande link. De link zal 24 uur actief zijn nadat hij is opgevraagd.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Opslag</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Tijdelijk</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Gebruik deze optie als u alle data opgeslagen op het portaal als bestand wilt ontvangen.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>U moet verbinding maken met het account van een derde partij (Dropbox, Box.com, OneDrive of Google Drive) en de ONLYOFFICE Gemeenschappelijke Documentenmap voordat u uw back-up daar kunt opslaan.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>{!group} toevoegen</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Geboortedatum</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Nieuw contact toevoegen</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Bel</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Gesprek is beeindigt</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Verbinding maken</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Gesprek wordt opgezet</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Inkomend</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Alle data die u heeft ingevoerd gaat verloren. Wilt u zeker dat u door wilt gaan?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Mail is succesvol gewijzigd</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Logo Veranderen</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Een link om de actie te bevestigen is verzonden naar :email (het e-mailadres van de portaaleigenaar).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Mei, Jun, Jul, Aug, Sep, Okt, Nov, Dec</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Kiezen</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Eigenaar Kiezen</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>{!user} kiezen</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Filter Wissen</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Helderblauw</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Donkergroen</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Diepblauw</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Lichtgroen</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Diep oranje</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Kleurthema's</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Felroze</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>opmerking is verwijderd</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Verbinding verbreken</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Bevestig alstublieft dat u uw portaal wilt deactiveren</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Bevestig alstublieft dat u uw portaal wilt verwijderen</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Weet u zeker dat u het portaaladres wilt wijzigen naar {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Portaaleigenaar is succesvol veranderd. {0}Over 10 seconden wordt u doorgestuurd naar {1}hier{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Bevestig alstublieft dat u de portaaleigenaar wilt veranderen naar {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Aansluiten</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>U heeft uw registratie succesvol bevestigd. Maak een wachtwoord aan en start uw werk!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Bevestig alstublieft dat u uw portaal opnieuw wilt activeren</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Weet u zeker dat u uw opmerking wilt verwijderen?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Opmerking Verwijderen</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Feliciteren</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Verbinden</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>inloggen</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Maak verbinding met de Bitly-service om uitnodigingslinks voor het portaal en gedeelde links in de Documentenmodule te verkorten.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Als u de Bitly-service toevoegt krijgt u verkorte links om nieuwe gebruikers uit te nodigen op het ONLYOFFICE™ portaal en verkorte links naar documenten in de Documentenmodule die zijn gedeeld met externe gebruikers.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>inloggen</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Boxsleutel</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Verbind de applicatie om bestanden en mappen in Box te beheren.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Als u een applicatie van Box toevoegt, kunt u uw Box-account verbinden met de Documentenmodule. Dit maakt het mogelijk om nieuwe bestanden te uploaden en aan te maken in Box, bestaande documenten te bewerken, kopiëren en verwijderen, bestanden en mappen te delen met gebruikers van het ONLYOFFICE™ portaal.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Boxsleutel</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Schakel de applicatie in voor de twee-factor authenticatie via Clickatell.</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Door de Clickatell serviceapplicatie toe te voegen, kunt u de twee-factor authenticatie inschakelen en een SMS ontvangen met een code waarmee de gebruiker toegang heeft tot het ONLYOFFICE portaal.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign Sleutel</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign Geheim</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Verbind de applicatie om DocuSign toe te voegen en elektronisch documenten te ondertekenen.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>DocuSign authenticatie eindpunt</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>Als u een applicatie van DocuSign toevoegt, kunt u bestanden ondertekenen vanaf de Documentenmodule. Dit maakt het mogelijk om bestanden die elektronisch ondertekend moeten worden te sturen naar medewerkers in het ONLYOFFICE™ portaal via de DocuSign-service. Het ondertekende bestand wordt opgeslagen in de ONLYOFFICE™ Documentenmodule.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign Sleutel</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>DocuSign authenticatie eindpunt</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign Geheim</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>DropBox Sleutel</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Verbind de applicatie om bestanden en mappen in Dropbox te beheren.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Als u een applicatie van Dropbox toevoegt, kunt u uw Dropbox-account verbinden met de Documentenmodule. Dit maakt het mogelijk om nieuwe bestanden te uploaden en aan te maken in Dropbox, bestaande documenten te bewerken, kopiëren en verwijderen, bestanden en mappen te delen met gebruikers van het ONLYOFFICE™ portaal.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>DropBox Sleutel</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook Sleutel</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook in CRM Sleutel</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Verbind de applicatie om in te loggen op het portaal met een Facebook-account en zoek naar contacten.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Als u een applicatie van Facebook toevoegt, kunt u uw Facebook-account verbinden met uw profielpagina zodat u in kunt loggen op het ONLYOFFICE™ portaal en het kunt gebruiken. U zult ook Facebook-accounts van contacten kunnen vinden in de CRM-module en deze koppelen op de pagina 'Bewerk persoon/bedrijf'. </value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook Sleutel</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>Web API sleutel</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Serversleutel</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>Zender ID</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>Project ID</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Verbind Firebase Cloud Messaging service om notificaties te ontvangen over de berichten die naar u worden gestuurd.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Als u verbinding maakt met Firebase Cloud Messaging, kunt u meldingen ontvangen over de berichten die u verzonden heeft, zelfs als u offline bent.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Web API sleutel</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>Zender ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>Project ID</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Serversleutel</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google Sleutel</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Verbind het project door in te loggen op het portaal met een Google-account en beheer Google Drive-bestanden en mappen.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Als u een project van Google toevoegt, kunt u uw Google-account op uw profielpagina verbinden, zodat u zich kunt aanmelden bij het ONLYOFFICE™ -portaal en het kunt gebruiken en ook verbinden met uw Google Drive-account in de Documentenmodule. Hiermee kunt u nieuwe bestanden uploaden en aanmaken in Google Drive, bestaande bewerken, kopiëren en verwijderen, en bestanden en mappen delen met gebruikers van het ONLYOFFICE™ portaal.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Sleutel</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Verbind de applicatie om in te loggen op het portaal met een LinkedIn-account.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Als u een applicatie van LinkedIn toevoegt, kunt u uw LinkedIn-account verbinden met uw profielpagina zodat u in kunt loggen op het ONLYOFFICE™ portaal en het kunt gebruiken.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>LinkedIn ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>LinkedIn Sleutel</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive Sleutel</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Verbind de applicatie om bestanden en mappen in OneDrive te beheren.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Als u een applicatie van OneDrive toevoegt, kunt u uw OneDrive-account verbinden met de Documentenmodule. Dit maakt het mogelijk om nieuwe bestanden te uploaden en aan te maken in OneDrive, bestaande documenten te bewerken, kopiëren en verwijderen, bestanden en mappen te delen met gebruikers van het ONLYOFFICE™ portaal.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive Sleutel</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS Center</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Schakel de applicatie in voor de twee-factor authenticatie via SMS Center.</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>Als u de SMS Center service applicatie toevoegt, kunt u de tweefactorverificatie inschakelen en een SMS ontvangen met een code waarmee de gebruiker het ONLYOFFICE portaal kan betreden. SMS Center applicatie is bruikbaar als provider voor CIS landen.</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Wachtwoord of wachtwoord MD5 hash in kleine letters</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Wachtwoord of wachtwoord MD5 hash in kleine letters</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Account Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Auth Token</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Twilio toevoegen om te kunnen bellen naar CRM-contacten rechtstreeks vanaf de browser.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Nadat u Twilio heeft toegevoegd, zult u elk CRM-contact kunnen bellen rechtstreeks vanaf de browser.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Account Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Telefoonnummer van Twilio (vereist voor SMS autorisatie)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Auth Token</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Telefoonnummer van Twilio (vereist voor SMS autorisatie)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Toegangstoken</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Toegangstoken Geheim</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter in CRM-sleutel</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter Sleutel</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Verbind de applicatie om in te loggen op het portaal met een Twitter-account en zoek naar contacten.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Als u een applicatie van Twitter toevoegt, kunt u uw Twitter-account verbinden met uw profielpagina zodat u in kunt loggen op het ONLYOFFICE™ portaal en het kunt gebruiken. U zult ook Twitter-accounts van personen kunnen vinden in de CRM-module en deze koppelen op de pagina 'Bewerk persoon/bedrijf' en dan de Twitter newsfeed kunnen bekijken.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Toegangstoken</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter Sleutel</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Toegangstoken Geheim</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Client Geheim</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Schakel de applicatie in voor importeren van Yahoo-contacten.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Door de Yahoo serviceapplicatie toe te voegen, kunt u nieuwe gebruikers van het ONLYOFFICE portaal uit de contactenlijst toevoegen.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Client ID</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Client Geheim</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Contactinformatie</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Ga verder</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Controle paneel</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Controle paneel</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Cookie instellingen{1} sta cookie tijdsduur toe in minuten.{2}Na opslaan worden alle gebruikers afgemeld van het portaal.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Levenslang</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Cookie Instellingen</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopieer de link</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Zakelijk Gebruik</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Wachtwoordherstelactie is verboden voor een LDAP-gebruiker</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Wachtwoordherstelactie is verboden voor een SSO-gebruiker</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Nieuw profiel maken</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>back-up aanmaken</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Aangepaste domeinnaam</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Maatwerk</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Aangepast</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Data Back-up</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Gegevens backup{1} optie wordt gebruikt om een backup te maken en later te kunnen herstellen naar uw lokale portaal. Selecteer de gegevens opslag type (vergeet niet uw Amazon gegevens in te geven om er bij te kunnen.).{2}
+Als u de optie email selecteerd worden alleen de emails van de laatste 30 dagen opgenomen in de backup.{2}
+{0}Opmerking:{1} u dient eerst uw overige accounts (Dropbox, Box.com, OneDrive of Google Drive) toe te voegen aan de ONLYOFFICE algemene documenten folder voordat u uw backup op een van deze kunt bewaren.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Databeheer</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Uw account is succesvol gedeactiveerd. {0}Over 10 seconden wordt u naar{1}hier{2} doorgestuurd </value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Portaal Deactivatie/Verwijdering</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Gebruik deze optie om uw portaal tijdelijk te deactiveren.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Modulekeuze</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Standaard Startpagina</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Standaardinstellingen</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Deze actie kan niet ongedaan gemaakt worden.
+Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Uw portaal is succesvol verwijderd. {0}Over 10 seconden wordt u naar{1}hier{2} doorgestuurd </value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Verwijder mijn profiel</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Stuur de profielverwijderingsinstructies naar het e-mailadres</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Verwijder profiel dialoog</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Profiel verwijderen</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Gebruik deze optie om uw portaal permanent te verwijderen.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Bewerk {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>De {!user} zal niet worden weergegeven in de lijst van actieve {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Een link om de actie te bevestigen is verzonden naar {0}(het e-mailadres van de portaaleigenaar).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS instellingen</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Documentservice</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Documentservice locatie specificeert het adres van de server met de geïnstalleerde documentservices. Wijzig alstublieft de '&amp; lt; bewerkers-dns-naam &amp; gt;' voor het serveradres in de onderstaande regels en laat de rest van de regel precies zoals deze is.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Documentservice Locatie</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Documentbewerking Serviceadres</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Voorbeeld: {0}</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Downloaden</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} geleden</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} dag</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} Dagen</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} Dagen</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>net</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} uur</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} uren</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} uren</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minuut</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minuten</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minuten</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} maand</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} maanden</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} maanden</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} jaar</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} jaren</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} jaren</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Eergisteren</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Morgen</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Gisteren</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Wijzig Profiel</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>De activeringsinstructies worden verzonden naar de ingevoerde e-mail</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Gebruik de link die in de activeringse-mail staat. Heeft u geen e-mail ontvangen met de activeringslink?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Activeer alstublieft uw e-mail om toegang te verkrijgen tot alle aspecten van het portaal.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Verzoek nogmaals om activatie</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Een e-mail voor activatie is verzonden naar uw e-mailadres. Klik alstublieft op de link in het bericht om uw account te activeren.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>E-mail activatie</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Wachtwoord bevestigen</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Uw portaal is geregistreerd vanaf het volgende domein:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Verkeerd wachtwoord</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Onjuist e-mailadres</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Onjuiste promocode</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Heeft u een promocode? Voer deze hier in</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Uw portaal is geregistreerd vanaf de volgende e-mail:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Deze instellingen zijn succesvol opgeslagen</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Verander het</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Type wachtwoord</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Wachtwoord en bevestiging komen niet overeen</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Verander e-mail</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>De activeringsinstructies worden verzonden naar de ingevoerde e-mail</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>E-mail wijzigen</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>E-mail is niet geactiveerd</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Alle {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Medewerkers Zoeken</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Er is geen data die opslagruimte inneemt</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>LDAP Authenticatie Activeren</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Activeer SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>De {!user} zal weer als actief worden weergegeven</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Een nieuw e-mailadres invoeren</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>U heeft geen toestemming om deze pagina te bekijken</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Fout 403 - Verboden</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Geen toestemming om deze actie uit te voeren</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>De toegang tot het portaal is beperkt.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Verkeerde sleutels</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Verkeerd verzoek</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Ongeldige e-mail of verlopen link</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Uw profiel is geschorst</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} met dit e-mailadres is al geregistreerd</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>E-mails van dit domein zijn niet toegestaan voor registratie</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Veld E-mail is leeg</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>De huidige e-mail en de nieuwe e-mail zijn hetzelfde</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Vul alstublieft alle velden in</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Het geüploade bestand kon niet worden gevonden</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Uw e-mailadres invoeren</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Uw voornaam invoeren</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Uw achternaam invoeren</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Koppeling is verlopen</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Afbeelding is te groot</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>De bestandsgrootte van de afbeelding is te groot</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Ongeldige activatielink</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>De toegang tot het portaal is beperkt</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Registratiedatum moet na geboortedatum liggen</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>U kunt maar 255 karakters in dit veld invoeren.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>U kunt maar 64 karakters in dit veld invoeren.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Uw browser ondersteunt JavaScript niet!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Uw abonnement ondersteunt deze optie niet</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Ongeldig datumformaat</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Onjuiste e-mail</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Ongeldige domeinnaam</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Het wachtwoord is leeg.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>van {0} tot {1} karakters</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Wachtwoord moet bevatten</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Het moet bevatten</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>cijfers</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>speciale karakters</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>hoofdletters</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Onbekend afbeeldingsbestandtype</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>De gebruiker kon niet worden gevonden </value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>De gebruiker met "{0}" e-mail kon niet worden gevonden</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>EU (Ierland) Regio</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Elke dag</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Elke maand</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Elke week</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Feedback &amp; Ondersteuning</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Vrouw</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>De maximale bestandsgrootte is overschreden</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Opmerking: de bestandsgrootte mag niet meer bedragen dan {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>voor een periode</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>van</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>naar</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>afgelopen 3 maanden</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>afgelopen maand</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>vorige week</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>De link om uw account te bevestigen is verstuurd naar de gespecificeerde e-mail</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Uw wachtwoord vergeten?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Om in te loggen, klik alstublieft op deze {0}link{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>van</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Volledige tekst zoekservice werkt niet</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Volledige tekst zoekservice werkt</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx Instellingen</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Om zoeken in de volledige tekst te gebruiken, moet u sfinx.2.2.10 op uw server installeren</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Instellingen voor werken met sfinx, indexer en search daemon launch. U moet de host en het poortnummer opgeven waarnaar wordt geluisterd door de searchd search daemon. Deze instellingen moeten samenvallen met sphinx configuratie in het searchd-gedeelte van het bestand sfinx.conf.in.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Testen</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Haal verkorte link op</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Welkomstpagina Instellingen</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Groep</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Groepsleiding</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Groepen</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Gast</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Gasten</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Als u het portaal wilt {1}deactiveren{2}, zal uw portal en alle daarmee verbonden worden geblokkeerd, zodat niemand toegang heeft voor een bepaalde periode. Om dit te doen, klik op de knop {1}Deactiveren{2}. Een link om de actie te bevestigen wordt verstuurd naar het e-mailadres van de portaaleigenaar.{0}Als u terug wilt komen naar het ONLYOFFICE™ portaal en het opnieuw wilt gebruiken, moet u de tweede link gebruiken die is vermeld in de bevestiging. Dus bewaar deze alstublieft op een veilige plaats.{0} Als u denkt dat u het ONLYOFFICE™ portaal niet meer gaat gebruiken en u het portaal permanent wilt {1}verwijderen{2}, dien dan uw verzoek in met de knop {1}Verwijderen{2}. Houd er alstublieft rekening mee dat u uw portal niet kunt reactiveren en eventuele bijbehorende informatie niet kunt herstellen.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Administrator Bericht Instellingen{2} is een manier om de portaladministrator een bericht te zenden.{0}Zet deze optie aan om een formulier op de {1}Inlogpagina{2} te plaatsen, zodat de gebruikers problemen kunnen melden.{0}Om de wijzigingen op te slaan klik je op de {1}Bewaar{2}-knop hieronder. </value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Kleursjablonen{2} geeft je de mogelijkheid om je portal-interface te kleuren naar je eigen bedrijfskleuren. {0} Selecteer een van de kleursjablonen uit de lijst aan de linkerkant. {0} Om het geselecteerde sjabloon toe te passen klik op {1}Opslaan{2} aan het eind van deze sectie. </value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Standaard Startpagina{0} is een manier om de module te selecteren waar je naar toe gaat als je op de portal inlogt of klikt op het ONLYOFFICE™ logo als je al ingelogt bent. Om de instellingen te wijzigen klik te op de knop {0}bewaar{1} beneden deze sectie. </value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS Instellingen{2} maakt het mogelijk om een alternatieve URL voor uw ONLYOFFICE™ portaal in te stellen.{0}Vink het vakje {1}Aangepaste domeinnaam{2} aan en specificeer uw eigen domeinnaam voor het ONLYOFFICE™ portaal in het veld hieronder.{0} Om de parameters die u heeft ingesteld door te voeren klik op de knop {1}Opslaan{2} onderaan in dit onderdeel.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Welkomsttekst Instellingen{2} is een manier om de standaard portaaltitel die wordt weergegeven op de {1}Welkomstpagina{2} te veranderen. Dezelfde naam wordt ook gebruikt voor het {1}Van{2} veld van de e-mailnotificaties van uw portaal.{0}Voer de naam die u leuk vindt in, in het {1}Titel{2}veld.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Met de Uitnodigingslink kunt u mensen uitnodigen om gebruik te maken van je portaal.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Instellingen voor Taal en Tijdzone{2} is een manier om de taal van het hele portaal voor alle portaalgebruikers te wijzigen en de tijdzone te configureren zodat alle gebeurtenissen van het ONLYOFFICE™ portaal met de juiste datum en tijd worden weergegeven.{0} Als u de parameters die u instelt in werking wilt laten treden, klikt u op de knop {1}Opslaan{2} onderaan.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Instellingen voor Logo{2} is een manier om het standaardlogo dat wordt weergegeven op de {1}Welkomstpagina{2} van uw portaal. {0} Als u het portaallogo wilt vervangen, klikt u op de link {1}Wijzig Logo{2} aan de rechterkant en selecteert u de afbeelding die op uw computer is opgeslagen om deze op uw portaal te laden.{0}Houd er alstublieft rekening mee dat u een afbeelding niet groter dan {1}250x100 pixels{2} moet uploaden, anders zal de grootte worden aangepast. Het afbeeldingsformaat mag niet groter zijn dan {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Vertrouwde Maildomein Instellingen{2} is een manier om de mailservers te specificeren die worden gebruikt voor zelfstandige registratie van gebruikers.{0}U kunt de optie {1}Aangepaste domeinen{2} aanvinken en de vertrouwde mailserver invullen in het veld hieronder, zodat een persoon die daar een account heeft, zichzelf kan registreren door op de uitnodigingslink te klikken op de {1}Inlog{2}pagina of deze optie uit te schakelen.{0} Om de parameters die u heeft ingesteld door te voeren, klik op de knop {1}Opslaan{2} onderaan in het gedeelte.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Wachtwoord Sterkte Instellingen{2}is een manier om de effectiviteit van een wachtwoord te bepalen voor het tegengaan van raden en brute kracht aanvallen.{0}Gebruik de {1}Minimale wachtwoordlengte{2} balk om te bepalen hoe lang het wachtwoord moet worden. Controleer de juiste vakken hieronder om de tekenreeks te bepalen die in het wachtwoord moet worden gebruikt.{0}Om de parameters die u instelt, in werking te laten stellen, klik op de knop {1}Opslaan{2} aan de onderkant van het onderdeel.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Openbaar Portaal{2} is een gratis optie waarmee iedereen uw publieke inhoud zonder registratie kan bekijken. Er zijn geen privéprojecten zichtbaar en de CRM-module is uitgeschakeld voor dergelijke portalen.{0}Registratie voor openbare portalen is niet beperkt in het aantal gebruikers, nieuwe gebruikers worden toegevoegd na verzoek aan de portaalbeheerder. Gebruik de optie {1}Registreer onmiddellijk nieuwe gebruikers{2} om vereiste registratiebevestiging te verwijderen.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Hier kunt u uw portaaladres veranderen. Voer het deel in dat zal verschijnen naast het onlyoffice.com/onlyoffice.eu portaaladres.{0}
+{1}Let alstublieft op{2}: uw oude portaaladres zal beschikbaar worden voor nieuwe ONLYOFFICE gebruikers zodra u klikt op de knop {1}Opslaan{2}.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Portaalversie{2} is een manier om te schakelen tussen de beschikbare ONLYOFFICE™ portaalversies.{0}U kunt de nieuwe versie gebruiken of terugschakelen naar de vorige versie van het portaal.{0}Om de parameters die u heeft ingesteld door te voeren klikt u op de knop {1}Opslaan{2} onderaan in het gedeelte.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Teamsjabloon{2} is een aan te passen manier om de organisatie (of groep), zijn leden en hun activiteiten een naam te geven. {0}Klap de {1}Sjablonen{2}lijst open om een van de beschikbare voorinstellingen te kiezen of voer de namen zelf in door de optie {1}Aangepast{2} uit de lijst te selecteren.{0}Om het geselecteerde sjabloon toe te passen, gebruik de knop {1}Opslaan{2} onderaan in het gedeelte.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Door het portaal te migreren naar de servers van de regio die het dichtst bij uw geografische locatie ligt, wordt de portaalrespons sneller. Hoe dichterbij de serverregio uw gebruikers en klanten zich bevinden, hoe sneller de portaalsnelheid zal zijn.{0}Om het migratieproces te starten, klik op de knop{1} Wijzigen serverregio{2} onderaan in het gedeelte.{0}{1}Opmerking:{2} nadat het proces is gestart, kan het niet meer worden geannuleerd. Let er alstublieft ook op dat door technische beperkingen alleen de mail van de laatste 30 dagen wordt overgedragen.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Help en ondersteuning</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Het doel van het programma is om ONLYOFFICE™ wettelijk te adverteren, om een provisie te ontvangen voor abonnementen die door de doorverwezen personen zijn gekocht.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verbergen</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Uw AIM account invoeren</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Uw Bloggerprofiel invoeren</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Uw e-mail invoeren</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Uw Facebookprofiel invoeren</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Uw account inlognaam of ID invoeren</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Uw GoogleTalk account invoeren</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Uw GoogleBuzz-profiel invoeren</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Uw Google-account invoeren</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Uw ICQ account invoeren</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Uw Jabber account invoeren</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Uw LiveJournal profiel invoeren</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Uw mobiele telefoonnummer invoeren</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Uw MSN account invoeren</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Uw MySpace profiel invoeren</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Uw telefoonnummer invoeren</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Uw Skype account invoeren</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Uw Twitter profiel invoeren</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Uw Yahoo account invoeren</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host Wachtwoord</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} bestaat reeds</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Er zijn geen contacten ontvangen.{0}U kunt ook contacten importeren vanaf andere profielen.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>De voornaam van de gebruiker invoeren</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>De achternaam van de gebruiker invoeren</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Uw e-mail invoeren</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Uw voornaam invoeren</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Fout importeren</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Uw achternaam invoeren</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Vul alstublieft de voornaam, achternaam en het e-mailadres in van de {!user} die aan het portaal worden toegevoegd in de bovenstaande velden. Klik op de knop 'Toevoegen' om de {!user} toe te voegen aan de lijst.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Van bestand</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Het bestand dat is geselecteerd voor importeren, heeft een verkeerd formaat.{0} Selecteer alstublieft een ander bestand en herhaal het importproces nogmaals.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Toevoegen {!users} aan het portaal</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Zorg ervoor dat alle gebruikersvelden inclusief voornaam, achternaam en e-mailadres correct zijn ingevuld</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Familienaam</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Importeren uit Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Importeren uit Yahoo</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Uw huidige abonnement stelt u in staat om {0} gebruikers toe te voegen.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Upgrade uw plan of voeg meer gebruikers toe als gasten met alleen-inzien rechten. U kunt hun rollen later wijzigen in de 'Personen'-module.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Toevoegen gebruikers</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Upgrade uw abonnement of voeg meer gebruikers toe als gasten met alleen-inzien rechten. U kunt hun rollen later wijzigen in de 'Personen'-module of {0}Lees meer over non-profit gebruik{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Uw abonnement staat niet toe dat u meer gebruikers toevoegt</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Ongeldige gebruikersnaam of wachtwoord.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Om te beginnen met werken op het portaal, moet u kijken of uw {0}voornaam{1} en {0}achternaam{1} correct in het formulier aan de rechterkant staan en stel een {0}persoonlijk wachtwoord{1} in om in te loggen.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Uitnodigingslink</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>U heeft de link naar dit portaal ontvangen van een vriend, kennis of collega van u</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>U bent toegevoegd aan dit portaal door een vriend, kennis of collega van u</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>U bent uitgenodigd om u aan te melden voor dit portaal!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Voeg gebruikers toe als {!guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Gebruikers voor portaal uitnodigen</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP-beveiliging{1} wordt gebruikt om de mogelijkheid tot inloggen bij de portal te beperken tot specifieke IP-adressen. Je kunt de toegestane IP-adressen instellen door exacte IP-adressen op te geven in de IPv4-notatie (#.#.#.#, waarbij # staat voor een numerieke waarde tussen 0 en 255) of door een IP-bereik op te geven (in de notatie #.#.#.#-#.#.#.#). De IP-beveiliging werkt niet voor eigenaars van de portal. Zij hebben toegang tot de portal vanaf elk IP-adres.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP Beveiliging</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Eerst moet u uw huidige IP of het IP-bereik opgeven waartoe uw huidige IP-adres behoort, anders wordt uw portaaltoegang geblokkeerd na het opslaan van de instellingen. De portaaleigenaar zal portaaltoegang hebben vanaf elk IP adres.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Migreer ONLYOFFICE™ Mail ook (niet aanbevolen)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Word onze Partner</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>U kunt de gebruikers als {!guests} blijven toevoegen of het abonnement wijzigen maar een met een groter aantal gebruikers.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Familienaam</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP instellingen</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Gebruikersauthenticatie</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Schakel deze optie in als de huidige Windows-gebruiker geen leesrechten heeft vanaf LDAP-server/Active Directory, en voer de referenties van een andere gebruiker in met de leesrechten.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Verbindingsfout</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Leeg veld</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Schakel deze optie in als u gebruikers van LDAP-server/Active Directory automatisch wilt toevoegen aan ONLYOFFICE™. De toegevoegde gebruikers kunnen autoriseren door hun LDAP-server/Active Directory-referenties te gebruiken. ONLYOFFICE™ slaat de gebruikerswachtwoorden niet lokaal op en verifieert gebruikers die hun login en wachtwoord versturen naar LDAP-server/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Gebruikers konden niet worden aangemaakt, de ontvangen data is onjuist.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>De server kon de instellingen niet ophalen.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>De server kon de instellingen niet opslaan.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Onjuiste gebruikersnaam of wachtwoord.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>LDAP-domein niet gevonden.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Er konden geen groepen worden gevonden.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Ongeldige waarde voor Gebruikersfilter.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Onbekende fout.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Er konden geen gebruikers worden gevonden.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Kon Groepsattribuut niet ophalen voor een of meerdere groepen.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Onjuiste Groepsfilter</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Kon Groepsnaamattribuut niet ophalen voor een of meerdere groepen.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Kon Loginattribuut niet ophalen voor een of meerdere gebruikers.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Kan geen verbinding maken met LDAP-server. Controleer of het serveradres en poortnummer correct zijn.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Kon Gebruikersattribuut niet ophalen voor een of meerdere gebruikers.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Groepsattribuut</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Voer het objectattribuut van de groep in dat specificeert welke gebruikers deze groep bevat.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Groep DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Voer de uitgesproken naam in, in de map die de groepen bevat die u wilt toevoegen.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Groepsfilter</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Gebruik zoek LDAP-filter om groepen te selecteren die worden geïmporteerd. Houd er alstublieft rekening mee dat alleen gebruikers uit deze groepen worden toegevoegd.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Groepslidmaatschap</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Schakel deze optie in als u groepen wilt toevoegen vanaf LDAP-server/Active Directory naar ONLYOFFICE™. Onthoud alstublieft dat alleen gebruikers die bij deze groepen horen zullen worden toegevoegd.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Groepsnaam Attribuut</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Specificeer alstublieft het objectattribuut dat overeenkomt met de groepsnaam.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Interne serverfout.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Inlogattribuut </value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Voer het objectattribuut in dat overeenkomt met de gebruikerslogin.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>LDAP-gebruikers aanpassen op gewone portaalgebruikers</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Login DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Voer het wachtwoord in voor de gebruiker met de toegangsrechten om data te lezen vanaf LDAP-server/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Poortnummer</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Het portaalnummer voor uw LDAP-server/Active Directory invoeren.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Standaardinstellingen</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Naar default instellingen herstellen</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Instellingen opslaan</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Voer de LDAP-server URL in zonder het poortnummer, bijvoorbeeld LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>gebruiker toevoegen</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Certificaatverificatie</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Controleer de LDAP-ondersteuningsinstellingen</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>De groepslijst ophalen van de LDAP-server</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>De gebruikerslijst ophalen van de LDAP-server</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>LDAP-basisinformatie laden</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>gebruiker verwijderen</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Verouderde groepen verwijderen die eerder via LDAP zijn geladen</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Verouderde gebruikersprofielen verwijderen die eerder via LDAP zijn geladen</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Groepen opslaan</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Instellingen opslaan</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Gebruikers opslaan</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Een veiliger authenticatietype is vereist. Gebruik alstublieft een versleutelde verbinding of schakel gewone authenticatie op de server in.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Opslaan is succesvol voltooid</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Synchroniseer gebruikers</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>De gebruikerslimiet van het huidige abonnement is bereikt</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>StartTLS niet ondersteund voor huidige LDAP-server.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Teveel LDAP acties.</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Gebruikersattribuut</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Voer het objectattribuut van de gebruiker in dat wordt gebruikt om vast te stellen of deze gebruiker lid is van de groepen.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>Gebruiker DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Voer de uitgesproken naam in, in de map die de gebruikers bevat die u wilt toevoegen.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Gebruikersfilter</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Gebruik de zoek LDAP-filter om de gebruikers te selecteren die moeten worden geïmporteerd.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Specificeer alstublieft {0} gebruiker die LDAP-server/Active Directory toegangsrechten voor lezen.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Unieke ID voor gebruikers-/groepsobjecten kon niet worden opgehaald. Standaard probeert het systeem een van de volgende identificaties te combineren: entryUUID, nsuniqueid, GUID, objectSid. Als geen van de attributen overeenkomt met uw LDAP-server, geef dan alstublieft het benodigde attribuut op in de instelling ldap.unique.id van het bestand web.appsettings.config.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>De gebruiker is geïmporteerd van LDAP.
+Neem contact op met uw LDAP-beheerder
+als u de geblokkeerde profielvelden wilt veranderen.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>De gebruiker is geïmporteerd van LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lees verder...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Licentie is niet correct</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Licentie is verlopen</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Het aantal portalen overschrijdt het aantal toegestaan voor de licentie</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Het aantal gebruikers overschrijdt het aantal toegestaan voor de licentie</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Succesvol geüpload </value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Laden, wacht alstublieft</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Bezig met laden...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Locatie</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Portaaltoegang is beperkt. Neem contact op met de portaalbeheerder.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Aansluiten</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Login via Sociale Netwerken</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>of meld aan met:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Kan het geassocieerde account van de derde partij niet vinden. U moet eerst verbinding maken met uw social media account op de profielbewerkingspagina.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Logo instellingen</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Deze e-mail is automatisch gegenereerd en u hoeft deze niet te beantwoorden.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>map</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Geen locatie</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Herhaling</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Wanneer</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Waar</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Wie</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Er is geen ongelezen mail. Ga alstublieft naar Mail om al uw berichten te lezen.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Mailserver</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Succesvolle verbinding</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Voorbeeld: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>E-mailserver configureren</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Met deze optie kunt u uw portaal verbinden met de {0}Mailserver{1} die is geïnstalleerd op een externe computer met de {2}Docker-installatie{3}.{4}{0}Opmerking:{1} zorg ervoor dat poorten {0}3306{1} en {0} 8081{1} zijn geopend op de computer waarop {0}Mailserver{1} is geïnstalleerd. We raden u ook sterk aan om uw {0}Mailserver{1} wachtwoord voor databasetoegang te wijzigen.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Geavanceerde Instellingen Verbergen</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Mailserver database wachtwoord</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Service succesvol verbonden</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>Mailserver IP</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Geavanceerde Instellingen Tonen</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Na verbinding, zal de {0}Mailserver{1}{2}beschikbaar worden{3} binnen de {0}Mail{1}module, en dan kunt u mailboxen aanmaken voor de portaalgebruikers met uw eigen maildomeinnaam.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Mailserver Verbindingsinstellingen</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Mailserver database gebruikersnaam</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Waarschuwing: er zijn al Maildomein-instellingen en mailboxen voor gebruikers aanwezig in uw {0}Mail{1}module. Als u de instellingen hier wijzigt, realiseert u zich dan dat deze veranderingen hun werking kunnen beïnvloeden en mogelijk resulteren in fouten voor de mailserver. Als u de {0}Mailserver{1} volledig heeft verplaatst naar een andere computer en/of veranderde database toegangsreferenties, moet u de {0}Mailserver IP{1} en/of referenties hier bijwerken. Als u een nieuwe {0}Mailserver{1} heeft aangemaakt en deze wilt verbinden, moet u eerst de oude data op de {2}Mailserverpagina{3} verwijderen.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Man</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Gedeeld</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integratie</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Beveiliging</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Statistieken</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Bouw uw CRM database</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Cliënten beheren, verkopen volgen en facturen aanmaken</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Online werken met .docx, .xlsx en .pptx</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Bekijk en bewerk documenten rechtstreeks op het portaal</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Bekijk uw teamleden</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Bekijk portaal {!users}, voeg ze toe of importeer ze</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Neem deel aan projecten</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Controleer taken en volg prestaties met een Gantt-chart</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Hier zijn een paar stappen om mee te beginnen:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Welkom bij ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Markeren als gelezen</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Autoriseer uzelf alstublieft.</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>De e-mail activatie instructies zijn verzonden naar het {0} e-mailadres</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>De e-mailwijzigingsinstructies zijn succesvol verzonden</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Uw e-mail is succesvol geactiveerd.</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Stuur de uitnodogingsinstructies naar het {0} e-mailadres</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Stuur de e-mailactivatie instructies naar het {0} e-mailadres</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Stuur de e-mailwijzigingsinstructies naar het {0} e-mailadres</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Stuur de wachtwoordwijzigingsinstructies naar het {0} e-mailadres</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Voer alstublieft het e-mailadres in dat u heeft gebruikt bij het registreren op het portaal. De wachtwoordherstelinstructies zullen daar naar toe worden verzonden.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE ™ is een cloudkantoor waarmee u documenten, projecten, team- en klantrelaties op één plaats kunt beheren.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>online documentverwerker, projectmanagement hulpmiddel, zakelijke hulpmiddelen, crm-systeem, gantt chart, online samenwerking, cloud kantoor, online word, documentbeheer, online spreadsheets, online kantoor, samen bewerken, online kantoor applicatie, online documenten</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Migratie</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>De functie {0}Migratie Portaalregio{1} is alleen beschikbaar voor eigenaars van de betaalde portalen.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>De functie {0}Migratie Portaalregio{1} is alleen beschikbaar voor eigenaars van portalen.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Nieuwe mobiele telefoon</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Eerste Mobiele Telefoon</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Telefoonnummer veranderen</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Ga naar het paginanummer om het telefoonnummer te veranderen.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Gebruik om het telefoonnummer te wijzigen, het SMS-bericht met de code dat is verzonden naar uw nieuwe telefoon.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Verstuurd</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Mobiele telefoon veranderen</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>De instructies over het wijzigen van het mobiele nummer van de gebruiker worden verzonden naar het e-mailadres van de gebruiker</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Om het nummer te veranderen, moet u uw huidige telefoonnummer verwijderen</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Monitoren</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Meer acties</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Mijn profiel</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Sjabloon</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Teamsjabloon</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Altijd verbergen</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Nieuwe portaalnaam</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>U heeft nog geen domeinen toegevoegd. Volg de {0}link{1} om het eerste domein toe te voegen.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Geen gemiste oproepen</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Geen andere operators beschikbaar, antwoord alstublieft.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Rollen voor de gebruikers toegevoegd als {!guests} kunnen later worden veranderd in de {0}Personen{1}module.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Ze worden niet inbegrepen in het totale aantal gebruikers in het portaalabonnement.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Als u uw taal niet kunt vinden in de lijst met beschikbare talen, stuur ons dan gerust een mail via {0}documentation@onlyoffice.com{1} om aan de vertaling mee te werken en tot 1 jaar gratis toegang te krijgen.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Melden door:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>E-mail &amp; Chat</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Informeer {!users} over portaalmigratie</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Of</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG Regio</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Eigenaar</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Verander wachtwoord</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Wachtwoord aanpassing</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Minimumlengte wachtwoord</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Wachtwoordherstel</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>tekens</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Gebruik cijfers</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Gebruik speciale karakters</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Hoofdletters gebruiken</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Nu kunt u een nieuw wachtwoord aanmaken</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Betaling vereist</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Betalingsgeschiedenis</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Wachtend</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Personen</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Een ogenblik geduld...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Poort</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Openbaar portaal</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Privéportaal</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limiet overschreden ({0} MB schrijfruimte)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Deze functionaliteit is alleen ingeschakeld voor gratis abonnementen</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Portaaltoegang Instellingen</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Limiet overschreden ({0} actieve gebruikers}</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portaalnaam</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portaaleigenaar</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Hernoemen Portaal</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Portaaltoegang</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Aangedreven door</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Prijspagina alleen beschikbaar voor beheerders</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>Via {0}Instellingen prijspagina{1} kan de portalbeheerder de zichtbaarheid van de prijspagina voor alle gebruikers inschakelen of uitschakelen. Indien uitgeschakeld, is de pagina alleen zichtbaar voor de portalbeheerders.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Prijspagina Instellingen</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Modules &amp; Hulpmiddelen</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Selecteer de ONLYOFFICE modules en hulpmiddelen die u nodig hebt. De uitgeschakelde modules en hulpmiddelen worden verborgen van alle portaal {!users}. Houd er rekening mee dat na het opnieuw inschakelen van de modules en hulpmiddelen, ze ook weer voor alle portaal {!users} beschikbaar zijn. Om de toegang te beperken, raadpleegt u het gedeelte Toegangsrechten in de Portaalinstellingen.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Hulpmiddelen</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profiel is verwijderd</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Reactiveren</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Uw account is succesvol gereactiveerd. {0}Over 10 seconden wordt u naar {1}hier{2}doorgestuurd </value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Omleiden</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Registratiedatum</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Registreer nieuwe {!users} onmiddellijk </value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Uw registratie e-mail </value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Afwijzen</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Onthouden</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>De uitnodiging wordt verzonden naar het ingevoerde e-mailadres</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Opnieuw sturen</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Wilt u de uitnodigingen opnieuw versturen?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Uitnodiging opnieuw sturen</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Herstellen</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Back-up lijst</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Als u items uit de lijst verwijdert, zullen de bijbehorende bestanden ook worden
+verwijderd. Deze actie kan niet ongedaan gemaakt worden. Om alle bestanden te verwijderen, gebruik de link: {0}
+Wis de lijst{1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Herstellen</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Computerbestand</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Terugzetten naar Standaard</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Gebruik deze optie om uw portaal te herstellen vanaf het voorgaande opgeslagen back-up bestand.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Er zijn nog geen back-ups gemaakt. Maak een of meer back-ups om ze in de lijst te laten zien.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>De optie {0}Gegevens herstellen{1} wordt gebruikt om de eerder opgeslagen portalgegevens te herstellen (vanaf een lokale server of een SaaS-portal). Selecteer de locatie waar de gegevens zijn opgeslagen, voer de nodige details in en schakel het selectievakje {0}Melding verzenden naar portalgebruikers{1} in om de portalgebruikers te waarschuwen over de back-ups en herstelbewerkingen.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Zodra het herstelproces voorbij is, wordt u automatisch doorgestuurd naar uw portaal.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Portaalherstel is bezig.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Stuur notificatie over portaalherstel aan gebruikers</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>De back-up lijst tonen</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Dataherstel</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Het portaal is tijdens het herstelproces niet beschikbaar. Nadat het herstel is voltooid, gaan alle veranderingen na de datum van het geselecteerde herstelpunt, verloren.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Zorg dat alle woorden juist zijn gespeld. Probeer andere zoekwoorden.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Er is niets gevonden.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Zoekresultaten</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Zie allen</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Bekijk alle video's</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Kiezen</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Verzenden</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>E-mailadres Zender</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Zender Weergave Naam</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Stuur uitnodiging opnieuw</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Uitnodiging verzenden</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Klik hier om aan te melden</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Wilt u de portaal {!user} worden?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Voer alstublieft het e-mailadres in waar de uitnodiging naar toe moet worden verzonden:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Testmail Sturen</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>In de serversoftware is een fout opgetreden tijdens het verwerken van uw aanvraag. Wacht alstublieft even en probeer het opnieuw. Als de fout blijft bestaan, moet u wellicht contact opnemen met de sitebeheerder.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Serverfout</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Serverregio</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Dit is al de huidige versie</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Ongeldige portaalversie</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Geslacht</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Asia Pacific (Singapore)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tonen</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Alles Tonen</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Alle resultaten tonen</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Hulpmiddeltips inschakelen/uitschakelen</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Volgende Tonen</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Registratie is beschikbaar voor gebruikers met een e-mailaccount op elk domein.
+Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mailbericht met een link om uw ONLYOFFICE™ account te activeren wordt verzonden naar de opgegeven e-mail.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Single Sign-on</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Verrassing</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bom</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Gek</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Huilen</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Dansen</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Drinken</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Boos</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Knipoog</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Groen</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywood glimlach</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Verdrietig</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Muziek</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Glimlach</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Gniffel</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Sorry</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Tong</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hoera</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Twee-factor authenticatie{1} is een veiligere manier voor gebruikers om in te loggen op het portaal. Nadat de referenties zijn ingevoerd zal de gebruiker een code moeten invoeren die ontvangen wordt via SMS op het telefoonnummer dat werd gebruikt om de eerste keer in te loggen op het portaal via twee-factor authenticatie.{2}Zet deze optie aan voor een veiliger toegangsbeheer voor alle portaalgebruikers. {2}Om de veranderingen die u heeft gemaakt door te voeren, klik op de knop {0}Opslaan{1} onderaan in dit onderdeel.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Incorrecte code</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Code: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>De tijd om de code te kunnen gebruiken is verlopen. Vraag alstublieft een nieuw tekstbericht aan.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Let op{1}: als u geen SMS meer heeft, wordt de twee-factor verificatie optie voor portaaltoegang automatisch uitgeschakeld. Vergeet niet om op tijd aanvullende SMS-pakketten te kopen.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Opmerking{1}: voordat u de twee-factor authenticatie kunt gebruiken, moet u ten minste één SMS-provider selecteren en configureren op de pagina {3}{0}Autorisatie Derde Partijen{1}{4}.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Opmerking{1}: twee-factor authenticatie is alleen beschikbaar voor betaalde portalen.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Twee-factor authenticatie</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} balans</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>bekijk op uw {0} account</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS instellingen zijn niet beschikbaar</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>U heeft teveel tekstberichten verstuurd. Probeer het alstublieft later nog eens.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Aangepaste instellingen</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Mailserver Instellingen</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Instellingen</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Als u een Gmail-account als SMTP-server gebruikt, kunt u geen mail versturen totdat u het volgende doet: log in op het Gmail-account dat u gebruikt via de standaard webinterface en bevestig eventuele verificatievragen over de ONLYOFFICE™ toegangspoging tot het account, als die er zijn.{0}We raden aan om poort 587 of 25 te gebruiken voor de te verzenden e-mailberichten, omdat andere waarden de SMTP ervan weerhouden om correct te werken.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>De SMTP-instellingen zijn nodig om een e-mailaccount aan te maken dat wordt gebruikt om notificaties van het portaal te verzenden met behulp van uw eigen SMTP-server in plaats van die van ONLYOFFICE™. Vul alstublieft al de velden in en klik op de knop 'Opslaan'. U kunt de knop 'Verzenden Testmail' gebruiken om te controleren of alle instellingen die u hebt ingevoerd juist zijn en naar wens werken.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Sociale Profielen</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Bron</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Kon de gebruiker met deze authenticatietoken niet aanmaken</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Kon instellingen niet opslaan</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Instellingen mogen niet leeg zijn</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Single Sign-on is geblokkeerd</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Authenticatie token kon niet worden gevonden</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Ongeldige binding: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Ongeldige entityID</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Ongeldige veldenindeling</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Ongeldige authenticatietoken</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Deze gebruiker is geblokkeerd</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>De gebruiker is geïmporteerd van SSO. Neem contact op met uw SSO-beheerder als u de geblokkeerde profielvelden wilt veranderen.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>De gebruiker is geïmporteerd van SSO</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Statistieken</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Vertrouwde Maildomein Instellingen</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Wachtwoordsterkte Instellingen</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Taal- en tijdszone-instellingen</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Portaalversie</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Abonneren</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Gebeurtenissen en notificaties voor de portaaleigenaar of beheerder</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Portaal samenvatting dagelijks nieuws en gebeurtenissen</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Projectnaam</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>van allen</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Informeren via</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Abonnementen</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portaal is succesvol hernoemd</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Welkomstpagina instellingen zijn succesvol opgeslagen</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Instellingen zijn met succes bijgewerkt</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Instructies om profiel te verwijderen is verzonden naar {0} e-mailadres</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Uitnodigingen zijn succesvol opnieuw verzonden</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>E-mail verzenden</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Neem contact met ons op om meer te weten te komen over speciale aanbiedingen</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Verminder de vereiste parameter of selecteer een ander abonnement.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Koop nu</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Verlengen</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>U kunt het huidige abonnement verlengen of veranderen met de onderstaande tabel.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Kies een abonnement dat het beste bij uw behoeften past. Het aanbevolen abonnement is hieronder gemarkeerd.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Dit abonnement kan niet worden geselecteerd</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Opslagruimte hoeveelheid toegestaan: {0}. Huidige opslagruimte: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Aantal portaalgebruikers toegestaan: {0}. Huidig aantal gebruikers: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>U kunt dit abonnement niet selecteren omdat ofwel de opslagruimte of het aantal gebruikers de beperkingen van het geselecteerde abonnement overschrijdt:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Herhaalbetalingen staan aan</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Opslagruimte staat op het punt om overschreden te worden: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>U kunt de onnodige bestanden verwijderen of {0}klik hier{1} om een beter abonnement voor uw portaal te vinden.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Het verloopt op {0}</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>U gebruikt een Gratis Abonnement.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Klik hier{1} om een licentiebestand voor uw portaal te uploaden.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Uw abonnement is verlopen.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Uw ONLYOFFICE™ portaal wordt geblokkeerd {2}. Alstublieft, {0}klik hier{1} om het bestaande abonnement te verlengen of te wijzigen naar een passender abonnement.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Aantal portalen dat u heeft aangemaakt: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Het abonnement is niet beschikbaar tot het einde van het betaalde jaar.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Het abonnement is niet beschikbaar tot het einde van het 3-jarige abonnement.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Als u de termijn automatisch wilt verlengen, controleer dan of het selectievakje voor Terugkerende Betaling in uw Avangate-account is ingeschakeld.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Om Herhaalbetalingen te annuleren, ga naar uw Avangate-account.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Slecht tot aan {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Abonnementen</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Voor uw gemak worden betalingen in Russische roebels berekend aan de hand van de vaste wisselkoers {0} Russische roebels voor 1 US dollar.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Betalingen</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Aantal actieve gebruikers die je heb toegevoegd: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Opslagruimte gebruikt: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>U gebruikt een Gratis Trial Abonnement.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Bedankt voor het uitproberen van ONLYOFFICE™!{2}{0}Gratis trialperiode is verlopen."{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Gemaakt</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Opslagruimte gebruikt</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Totaal aantal {!users}</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Derde Partij Autorisatie</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Tijdszone </value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Mobiele Telefoon</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefoonnummer</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Totaal gevonden</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>tot</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Serverregio Veranderen</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}U staat op het punt te beginnen met portaalmigratie naar een andere regio. Het portal zal niet te bereiken zijn tijdens dit migratieproces. Als het is voltooid ontvangt u een notificatie op uw e-mailadres.{1}{0}Maildomeinen, mailboxen (behalve die van derde partijen) en e-mails die hier zijn opgeslagen worden niet overgedragen tijdens het migratieproces.{1}{0}Weet u zeker dat u verder wilt gaan?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Zodra het migratieproces voorbij is, wordt u automatisch doorgestuurd naar de nieuwe URL van uw portaal.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Portaalmigratie{0} naar een andere regio is bezig.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Portaalregio</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Serverregio veranderen</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Het portaal is niet beschikbaar tijdens het migratieproces. Nadat de migratie is voltooid zal de URL van het portaal worden veranderd en alle links voor gedeelde documenten zijn niet meer toegankelijk.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Trialperiode: {0}{1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Gratis trialperiode is verlopen</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Klik hier{1} om het meest geschikte prijsplan te selecteren voor uw portaal</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>U gebruikt de trialversie</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Aangepaste domeinen</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Registratie is beschikbaar voor gebruikers met een e-mailaccount op {0}.
+Om u te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mailbericht met een link om uw ONLYOFFICE™ account te activeren wordt verzonden naar de opgegeven e-mail.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Er is een onbekende fout opgetreden.</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Afmelden</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Abonnement upgraden</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Uploaden</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Gebruikersforum</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Gebruikers</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Functie/Titel</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>VS West (Oregon) Regio</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Videohandleidingen</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Niet bekeken video tonen</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Zie abonnementen</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>hits</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>hosts</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Gebruiksgrafiek</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Bezoeken</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Verbinding is al gemaakt in een ander venster</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Helaas is de service momenteel niet beschikbaar. Probeer het later nogmaals.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Waarschuwing!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Bedankt voor het kiezen voor ONLYOFFICE™! Om veiligheidsredenen moet de instelprocedure voor het wachtwoord worden uitgevoerd.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Welkom bij Uw ONLYOFFICE™ Portaal</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>What's New</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>White Label</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Taal- en tijdszone-instellingen</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Portaalinstallatie - Onderneem deze simpele stappen om gemakkelijk te starten met uw webkantoor</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Registratie Instellingen</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>U heeft besloten om u aan te melden voor dit portaal.</value>
+  </data>
+</root>

@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Prawa dostępu do portalu</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Sprawdź wszystkie wprowadzone ustawienia konta. Jeśli masz pewność, że ustawienia są poprawne, zaloguj się do używanej usługi pocztowej i potwierdź wszelkie pytania dotyczące weryfikacji, jeśli są jakieś. Po tym spróbuj ponownie.</value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>To konto nie odbiera poczty.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>To konto nie wysyła poczty.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Nazwa konta</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Utwórz skrzynkę pocztową w domenie domyślnej, zarządzaj kontami i dostosuj ich ustawienia, korzystając z tej listy.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Nie można edytować ustawień kont połączonych za pomocą OAuth. Możesz tylko zmienić nazwę konta dla nich.</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Zarządzanie kontami</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Po aktywowaniu konta wznowisz otrzymywanie poczty z niej</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktywować konto</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktywować</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Dodać kopię</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Dodaj adres e-mail</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>E-mail adresa</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Dodać znacznik</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Zaawansowany</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Zawsze wyświetlaj obrazy ze wszystkich</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Zawsze wyświetlaj obrazy</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Usunąć wszystko</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Pobrać wstystko</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Dołącz linki do plików</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Dołącz pliki z Dokumentów</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Załączniki</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Dołącz do Kontakt CRM</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Typ uwierzytelniania</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Odpowiada automatycznie na wszystkie przychodzące wiadomości, np. podczas gdy jesteś nieobecny. Jeśli jakiś kontakt wysyła Ci kilka wiadomości, odpowiedź automatyczna zostanie wysłana co najmniej raz {0}.</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Dodać nowe konto</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Utwórz skrzynkę pocztową</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Konfiguracja domeny</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Obrazy są wyłączone.</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>Łącze z CRMLPrześlij nieprzeczytane wiadomości z folderu Skrzynka odbiorcza do pamięci podręcznej, aby użytkownik mógł je otworzyć szybciej.</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Kopiuj nieprzeczytane wiadomości w skrzynce odbiorczej</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>Aktualny czas jest wyświetlany zgodnie z ustawieniami kalendarza.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Pusty folder</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Wspólne ustawienia</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Komponować</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Skopiuj do Moich dokumentów</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopiuj</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Czy chcesz utworzyć kontakt CRM i połączyć się z tą rozmową?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Utwórz i połącz</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Wystarczy utworzyć kontakt</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Utwórz wiadomość e-mail do nadawcy</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Utwórz skrzynkę pocztową</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Dodać nowe konto</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Utwórz nowy tag</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Po dezaktywacji konta nie otrzymasz już od niego wiadomości.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Dezaktywować</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Dezaktywować</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Jeśli usuniesz konto, wszystkie wiadomości zostaną usunięte ze skrzynki pocztowej.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Usunąć</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Usunąć</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Usunąć</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Usuń tag</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Jeśli usuniesz tag z listy, zostanie on także usunięty z kontaktów i wiadomości oznaczonych tagiem.</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Wyświetl obrazy</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Otrzymujesz gotową bezpłatną domenę domyślną, aby od razu móc utworzyć nową skrzynkę pocztową.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Ta domena jest wspólna dla wszystkich portali, dlatego zaleca się, aby Twoja korporacyjna domena służyła korespondencji korespondencyjnej.</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Pobrać</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytować</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Edytować</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Otwórz w edytorze dokumentów</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Edytować kontakt</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Włącz rozmowy</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Automatyczne odbieranie poczty jest włączone na koncie</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Szyfrowane hasło</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Ten adres już istnieje</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Treść wiadomości nie może być pusta</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Zapisz wszystko w Moje dokumenty</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Proszę wybrać elementy CRM, aby podłączyć tę rozmowę do:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Eksportować</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Eksportować do:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Historia poczty będzie dostępna dla użytkowników CRM zgodnie z prawami dostępu.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Eksportuj do CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>Masz uprawnienia dostępu tylko do niektórych załączonych plików, a tym samym nie będziesz mógł dzielić się nimi z innymi. {0} {0} Pliki te można kopiować do folderu "Moje dokumenty" i dołączać do nich jako linki później. {0} {0} Możesz także poprosić właścicieli dokumentów o przyznanie uprawnień "pełen dostęp" do plików, które chcesz dołączyć jako łącza i powtórzyć operację ponownie.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Niektóre pliki nie mogą być dołączone jako linki.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Odczepić folder</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Wersje robocze</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Skrzynka odbiorcza</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Wysłano</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Kosz</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Przekaż</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Pełny dostęp</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Pełny rozmiar</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Pobierz ustawienia domyślne</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>W przeciwnym razie wróć do Inbox.</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Przejdź do następnej wiadomości po przeniesieniu / usunięciu aktualnie oglądanego</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Następny</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Poprzedni</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Grupa poczty, edytowana tylko w panelu administracyjnym</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Ważny</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Powiązanie z CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Wybrać element</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Zapisać</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Sprawa</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Okazja</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Proszę wybrać elementy CRM, aby podłączyć tę rozmowę do:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Wszystkie wiadomości z tej rozmowy (w tym przyszłe wiadomości) zostaną wyświetlone w programie CRM. Historia poczty będzie dostępna dla użytkowników CRM zgodnie z prawami dostępu.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Łączyć z:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Znajdź według nazwy</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Odczepić wsyzstko</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Ładuję...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Zaloguj Się</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Importuj wiadomości tylko przez ostatnie 30 dni</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Poczta</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Zaznacz jako ważny</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Zaznacz jako nie ważny</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Oznacz jako przeczytane</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Oznacz jako nieprzeczytane</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Zaznacz wszystkie wiadomości z</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>To konto zostało dezaktywowane.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>więcej</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>więcej</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Imię</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Utwórz nowy tag</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>Brak adresu</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>Żaden</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Żaden</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>brak tematu</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>lub połączyć się z:</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Wyślij automatyczne odpowiedzi, tylko dla osób z listy kontaktów</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Do góry</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Otworzyć</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Otwórz w nowej karcie</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>wszyscy</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>Ważny</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>Ważny</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>czytać</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>czytać</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>Nieprzeczytane</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>Nieprzeczytane</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>z załącznikami</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>z załącznikami</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Odznacz wszystkie</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>Wybrane</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Poczta</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Tylko czytać</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Odbieraj pocztę</value>
+  </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Na nowo połączyć</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Pobierz nowe wiadomości</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Odpowiedz wszystkim</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Odpowiedzieć</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Recenzja</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Zapisz &amp; Wyślij wiadomość</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Zapisz w kalendarzu</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Zapisz w dokumentach</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Zapisz w moich dokumentach</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Zapisz w dokumentach projektów</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Zapisać</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Zapisano w</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Wybierz</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Wybierz wsyzstko</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Folder do załączników</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Folder do załączników</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Wysłać</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Wyślij maila</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Serwer</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Automatyczna odpowiedź na pocztę</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>Plik dołączony jako link (y) zostanie udostępniony odbiorcom poczty e-mail za pośrednictwem linku dla osób spoza portalu. Możesz później zmienić prawa dostępu do plików w module Dokumenty.</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Ustaw prawa dostępu do plików, z dołączonym jak linki do adresatów listu:</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Pokaż więcej kont</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Pokaż więcej znaczników</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaż na stronie</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Proste hasło
+</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Otwórz w nowej karcie</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Serwer</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Edytować tag</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Nazwa znacznika</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Możesz oznaczyć wiadomości i kontakty za pomocą znaczników. Spowoduje to ułatwienie wyszukiwania niezbędnych przy użyciu opcji filtrowania tagów w przyszłości</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Możesz edytować i usuwać tagi utworzone w programie Mail. Znaczniki importowane z modułu CRM nie mogą być edytowane ani usuwane. Mogą być one zmieniane bezpośrednio w module CRM przez administratora.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Zarządzanie Tagami</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Włącz automatyczną odpowiedź</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Możesz go wyłączyć.</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Włączyć</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Czy naprawdę chcesz odłączyć tę rozmowę z CRM?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Щdwiązując tą listę e-maili od CRM, odwiązujecie ją od wszystkich wcześniej wybranych kontaktów, potencjalnych transakcji i działań.
+Wszystkie wiadomości otrzymane do tego, pozostaną w historii korespondencji CRM, ale kolejne wiadomości z tego wątku nie będą wyświetlane w programie CRM.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Odczepić</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Przesyłanie pliku</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Szyfrowanie dla serwera IMAP</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Szyfrowanie dla serwera POP</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Szyfrowanie dla serwera SMTP</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Obejrzeć</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Wyświetl profil kontaktów</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Skomponuj pocztę</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Nowa wiadomość</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Wczoraj</value>
+  </data>
+</root>

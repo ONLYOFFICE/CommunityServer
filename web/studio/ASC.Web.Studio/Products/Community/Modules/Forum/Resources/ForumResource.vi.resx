@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Thảo luận diễn đàn doanh nghiệp</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Tạo diễn đàn mới</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Tạo diễn đàn mới</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn thực hiện tác vụ này?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Tạo</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Hiện tại chưa có diễn đàn nào</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Tạo diễn đàn đầu tiên</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Tạo diễn đàn của riêng bạn, tham gia thảo luận, chia sẻ thông tin thú vị, tổ chức thăm dò ý kiến để diễn đàn của bạn tương tác hơn.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Không tìm thấy chủ đề</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Tạo diễn đàn của riêng bạn, tham gia thảo luận, chia sẻ thông tin thú vị, tổ chức thăm dò ý kiến để diễn đàn của bạn tương tác hơn.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Hiện tại chưa có chủ đề nào</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Tạo chủ đề đầu tiên</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Tạo ra chủ đề của riêng bạn, tham gia thảo luận, chia sẻ thông tin thú vị, tổ chức thăm dò ý kiến làm diễn đàn của bạn tương tác hơn.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Không có quyền để thực hiện tác vụ này</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Nhập tên đề mục</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Lỗi không xác định trong khi tạo đề mục</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>Lỗi xảy ra khi chỉnh sửa danh mục</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Nhập tên</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Lỗi xảy ra khi chỉnh đăng ký/hủy đăng ký</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Nhập tên diễn đàn</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Chủ đề trong diễn đàn "{0}"</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Tất cả Diễn đàn</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderator</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Nhập tên</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Tạo thăm dò mới</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Thêm bài mới</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Tạo chủ đề mới</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Chủ đề mới</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Bài viết</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Cập nhật mới nhất</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Tìm kiếm Diễn đàn</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Bài viết</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Đăng ký chủ đề mới</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Đăng ký diễn đàn này</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Đăng ký chủ đề này</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Diễn đàn đã được tạo thành công</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Đề mục</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Biên tập Đề mục</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Mô tả diễn đàn</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Biên tập diễn đàn</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Tên diễn đàn</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Diễn đàn</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Chủ đề</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Bài viết mới</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Tạo ra đề mục mới</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Bỏ đăng ký chủ đề mới</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Bỏ đăng ký diễn đàn này</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Bỏ đăng ký chủ đề này</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Lượt xem</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Danh sách hiển thị</value>
+  </data>
+</root>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>בלוג של החברה</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>בלוגים</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>בלוגים</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>שדה הנושא אינו יכול להישאר ריק</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>שם הבלוג</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את ההודעה?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>טקסט</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>עריכת פוסט</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>עדיין לא נוצרו בלוגים</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>צור את הבלוג הראשון</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>צור דף משלך בו תוכל לשתף עם אחרים מידע מעניין, מחשבות וחוויות, להביע את דעתך ולקבל משוב באמצעות תגובות של משתמשים אחרים.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>הזן את התגיות הרצויות, מופרדות בפסיקים</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>הוסף הודעה חדשה</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>מחבר</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>קרא עוד</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>חיפוש בבלוגים</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>קבל עדכונים במייל עבור כל ההודעות של משתמשים אחרים</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>ההרשמה לעדכונים במייל מאפשרת לך לעקוב אחר פוסטים חדשים של משמשים בבלוגים</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>הודעות חדשות של משתמשים</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>קבל עדכונים למייל כאשר מישהו מגיב</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>ההרשמה לעדכונים במייל מאפשרת לך לעקוב אחר תגובות חדשות לפוסט</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>תגובות על הפוסט</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>קבל עדכונים למייל עבור כל ההודעות</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>ההרשמה לעדכונים במייל מאפשרת לך לעקוב אחר הודעות חדשות בבלוגים</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>פוסטים חדשים בבלוג</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>תגיות</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>הפסק לקבל עדכונים במייל עבור בלוג זה</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>הפסק לקבל עדכונים במייל עבור תגובות לפוסט</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>הפסק עדכוני מייל עבור כל הפוסטים</value>
+  </data>
+</root>

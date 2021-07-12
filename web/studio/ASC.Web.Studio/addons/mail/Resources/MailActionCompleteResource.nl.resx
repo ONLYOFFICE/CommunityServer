@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContactSuccess" xml:space="preserve">
+    <value>Nieuw contact succesvol toegevoegd.</value>
+  </data>
+  <data name="AddMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" succesvol toegevoegd</value>
+  </data>
+  <data name="AddMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroep "{0}" is succesvol toegevoegd.</value>
+  </data>
+  <data name="clearFolder" xml:space="preserve">
+    <value>De %map% is geleegd.</value>
+  </data>
+  <data name="deleteFilteredConversations" xml:space="preserve">
+    <value>Alle geselecteerde gesprekken zijn verwijderd.</value>
+  </data>
+  <data name="deleteFilteredMessages" xml:space="preserve">
+    <value>Alle geselecteerde berichten zijn verwijderd.</value>
+  </data>
+  <data name="DeleteManyContacts" xml:space="preserve">
+    <value>%count% contacten zijn verwijderd.</value>
+  </data>
+  <data name="deleteManyConversations" xml:space="preserve">
+    <value>%count% conversaties zijn verwijderd.</value>
+  </data>
+  <data name="deleteManyMessages" xml:space="preserve">
+    <value>%count% berichten zijn verwijderd.</value>
+  </data>
+  <data name="DeleteOneContact" xml:space="preserve">
+    <value>Het contact is verwijderd.</value>
+  </data>
+  <data name="deleteOneConversation" xml:space="preserve">
+    <value>Het gesprek is verwijderd.</value>
+  </data>
+  <data name="deleteOneMessage" xml:space="preserve">
+    <value>Het bericht is verwijderd.</value>
+  </data>
+  <data name="EditContactSuccess" xml:space="preserve">
+    <value>Het contact is succesvol veranderd.</value>
+  </data>
+  <data name="moveFilteredConversationsTo" xml:space="preserve">
+    <value>Alle geselecteerde gesprekken zijn verplaatst naar de %map%.</value>
+  </data>
+  <data name="moveFilteredMessagesTo" xml:space="preserve">
+    <value>Alle geselecteerde berichten zijn verplaatst naar de %map%.</value>
+  </data>
+  <data name="moveManyConversationsTo" xml:space="preserve">
+    <value>%count% conversaties zijn verplaatst naar %folder%.</value>
+  </data>
+  <data name="moveManyMessagesTo" xml:space="preserve">
+    <value>%count% berichten zijn verplaatst naar %folder%</value>
+  </data>
+  <data name="moveOneConversationTo" xml:space="preserve">
+    <value>Het gesprek is verplaatst naar de %map%.</value>
+  </data>
+  <data name="moveOneMessageTo" xml:space="preserve">
+    <value>Het bericht is verplaatst naar de %map%.</value>
+  </data>
+  <data name="RemoveDomainSuccess" xml:space="preserve">
+    <value>Domein "{0}" is succesvol verwijderd.</value>
+  </data>
+  <data name="RemoveMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" succesvol verwijderd.</value>
+  </data>
+  <data name="RemoveMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroep "{0}" is succesvol verwijderd.</value>
+  </data>
+  <data name="restoreFilteredConversations" xml:space="preserve">
+    <value>Alle geselecteerde gesprekken zijn hersteld.</value>
+  </data>
+  <data name="restoreFilteredMessages" xml:space="preserve">
+    <value>Alle geselecteerde berichten zijn hersteld.</value>
+  </data>
+  <data name="restoreManyConversations" xml:space="preserve">
+    <value>%count% conversaties zijn hersteld.</value>
+  </data>
+  <data name="restoreManyMessages" xml:space="preserve">
+    <value>%count% berichten zijn hersteld.</value>
+  </data>
+  <data name="restoreOneConversationTo" xml:space="preserve">
+    <value>Het gesprek is hersteld in de %map%.</value>
+  </data>
+  <data name="restoreOneMessageTo" xml:space="preserve">
+    <value>Het bericht is hersteld in de %map%.</value>
+  </data>
+  <data name="updateMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" succesvol geüpdatet. </value>
+  </data>
+  <data name="updateMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroep "{0}" succesvol geüpdatet. </value>
+  </data>
+</root>

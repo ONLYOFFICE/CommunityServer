@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Accettato:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Collega account di Posta</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>Inviare inviti</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Crea nuovo evento</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>Di una giornata intera</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>Elenco</value>
+  </data>
+  <data name="calendarButtonNewText_todo" xml:space="preserve">
+    <value>To-Do</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Giorno</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periodo</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Mese</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Oggi</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Settimana</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Crea nuovo calendario</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Colore:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Modifica calendario</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Importa eventi</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Colore del testo:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Fuso orario:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>I miei calendari</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Altri calendari</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Gestisci</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Crea nuovo evento</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minuti</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 ore</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>mezz'ora</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minuti</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>un giorno</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>predefinito</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>un'ora</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Promemoria:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Questo è un evento di una giornata intera.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Evento di una giornata intera</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Ospiti:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Inizia digitando l'indirizzo email o il nome del contatto dalla tua rubrica, i contatti CRM o gli utenti del portale o qualsiasi altra email per invitare gente al tuo evento.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Calendario:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Descrizione:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Dettagli</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Evento</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Da:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Crea nuovo evento</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Modifica evento</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Mostra evento</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Luogo:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Più dettagli</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Questo evento non è di una giornata intera.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizzatore:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Proprietario:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>personalizzato</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>ogni giorno</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Ripeti:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>ogni mese</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>ogni settimana</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>ogni anno</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Richiesto</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
+    <value>Invia inviti </value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Utenti per la condivisione</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Aggiungi utenti</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Questo evento non è condiviso.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>ANNULLATO</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>CONFERMATO</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Stato:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>Tentativo</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Nome evento:</value>
+  </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Ora:</value>
+  </data>
+  <data name="calendarEventEditor_todoButton" xml:space="preserve">
+    <value>To-Do</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>A:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Rimuovi sottoscrizione</value>
+  </data>
+  <data name="calendarExportEvents_byLink" xml:space="preserve">
+    <value>Tramite collegamento</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>Da file</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Sincronizza con il calendario tramite collegamento</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Importa in</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Non ci sono eventi da mostrare.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Nascondi mini-calendario</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Mostra mini-calendario</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>%d eventi</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Nuovo calendario</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Aggiungi utenti per la condivisione</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Mostra %d utenti di più</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Condiviso con:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Modifica calendario</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Proprietario:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Nascondi nella lista</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Ricerca rapida</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Gestisci altri calendari</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Oggi</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Applica</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
+    <value>Elimina To-Do</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
+    <value>Il To-Do cancellato non può essere ripristinato. Sei sicuro di voler continuare?</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Descrizione:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Data:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
+    <value>Crea To-Do</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
+    <value>Modifica To-Do</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Titolo:</value>
+  </data>
+  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
+    <value>nuovo To-Do</value>
+  </data>
+  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
+    <value>nuovo To-Do</value>
+  </data>
+  <data name="calendarTodoList_noDueDate" xml:space="preserve">
+    <value>Nessuna data di scadenza</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>In ritardo</value>
+  </data>
+  <data name="calendarTodoList_title" xml:space="preserve">
+    <value>To-Do</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Vista calendario</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Vista elenco</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Evento annullato</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Vuoi inviare inviti agli ospiti?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Sto inviando inviti</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Non Inviare</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Invia</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Ospiti Nuovi &amp; Rimossi</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Vuoi inviare annullamenti agli ospiti esistenti?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Sto inviando annullamenti</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Si è verificato un errore durante l'invio delle notifiche</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Notifica inviata con successo</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Vuoi inviare aggiornamenti agli ospiti esistenti?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Invio aggiornamenti</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Prego seleziona chi vorresti notificare gli aggiornamenti: ospiti nuovi o solo quelli rimossi o tutti. Se scegli l'opzione ' Non Inviare' non verrà inviata alcuna notifica.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Rifiutato:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Tutti gli eventi della serie</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Applica</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Questo evento e tutti i seguenti</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Elimina evento ricorrente</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>L'evento eliminato non può essere ripristinato. Sei sicuro di voler continuare?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Elimina evento</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Solo questa occorrenza</value>
+  </data>
+  <data name="dialogCopyMessage" xml:space="preserve">
+    <value>il Link é stato copiato negli appunti</value>
+  </data>
+  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
+    <value>Il titolo non può contenere i seguenti caratteri: {0}</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Tutte le modifiche successive verranno applicate solo al tuo calendario.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Evento ospiti non sarà notificato. Utilizza i tuoi calendari per inviare notifiche.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Ospiti:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Seleziona file</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>Per configurare l'esportazione di eventi da questo calendario a un altro calendario, copia il link corrispondente e aggiungilo al calendario richiesto.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>Esporta e Sincronizza</value>
+  </data>
+  <data name="icalStream_export_help" xml:space="preserve">
+    <value>Istruzioni di esportazione</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Centro assistenza</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_todo_description" xml:space="preserve">
+    <value>Per configurare l'esportazione di tutti i tipi in un altro calendario, copia il link corrispondente e aggiungilo al calendario richiesto.</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Riprova</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Esporta eventi dal calendario ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>nessun file selezionato</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>file selezionato</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Importa eventi</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Importa/Esporta</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Seleziona file iCal</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importa eventi nel calendario ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Formato errato del file iCal</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Inserisci URL del feed iCal</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Calendario da feed iCal</value>
+  </data>
+  <data name="icalStream_preparing_error_message" xml:space="preserve">
+    <value>Preparazione del collegamento non riuscita</value>
+  </data>
+  <data name="icalStream_preparing_message" xml:space="preserve">
+    <value>Preparazione del collegamento per l'esportazione</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>URL del feed iCal:</value>
+  </data>
+  <data name="menuDeleteMarkedTodo" xml:space="preserve">
+    <value>Nascondi To-Do contrassegnata come completato al caricamento della pagina</value>
+  </data>
+  <data name="menuSyncLinks" xml:space="preserve">
+    <value>Esporta e Sincronizza</value>
+  </data>
+  <data name="menuTodoInCalendar" xml:space="preserve">
+    <value>Visualizza To-Do nel calendario</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>inizia il giorno</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>dopo</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>ogni</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>ogni</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>primo</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Impostazione di ricorrenza</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>giorni</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>mesi</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>settimane</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>anno</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>ultimo</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>giorni</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>per</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>mesi</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>settimane</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>anni</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>numero di volte</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>data</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>penultimo</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>secondo</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>terzo</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>volte</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>termina</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Forse</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>frequentando</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_off" xml:space="preserve">
+    <value>Segna come non fatto</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_on" xml:space="preserve">
+    <value>segna come fatto</value>
+  </data>
+</root>

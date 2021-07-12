@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Glac leis</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Cruthaigh</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Scrios</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Scrios</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Bain</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Bain</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Seol cuireadh</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Dún é</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Fáilte3 go {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anaithnid</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Gach comhad</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%U:%N:%S %d %b %b</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Níl Adobe Flash Player suiteáilte</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Cuardaigh</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Ar aghaidh</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Roimhe</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Seol Comhad</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>léigh</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Ainm</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Teachtaireacht nua</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Seol</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%U:%N:%S</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Ar Shiúl</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Ar Fáil</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Iomlán</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Scríobh teachtaireacht...</value>
+  </data>
+</root>

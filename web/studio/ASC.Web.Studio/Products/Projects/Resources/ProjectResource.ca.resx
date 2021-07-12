@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Drets d'accés al portal</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Afegir una fita</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Desa</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Afegiu una tasca</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Un cap de projecte pot</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>afegiu o esborreu usuaris a/de l'equip del projecte</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>assigneu els drets d'accés per als membres del projecte (per a {0}projecte privat només{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>gestioneu (creeu, editeu, esborreu) fites, tasques, debats, documents i {2}{0} limiteu-ne l'accès{1}</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Contactar mitjançant el Xat</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Envia correu electrònic</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Tanca el projecte</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Creeu el primer projecte</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Creeu un nou projecte</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Esborra el projecte</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Esteu segurs que voleu eliminar aquest projecte?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>No hi ha projectes que coincideixin amb el filtre aplicat en aquesta secció</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Edita el projecte</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Creeu els projectes i treballeu de manera més eficaç</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>La llista de projectes és buida</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Seguiu aquest projecte</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Projecte privat</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Desa el projecte com a privat</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Gestioneu l'equip</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Introducció de l'horari de forma manual</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>No podeu tancar un projecte amb fites obertes.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>No podeu tancar un projecte amb tasques obertes.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Notifica al cap de projecte per correu electrònic</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Accepta</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projecte</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Esborra el projecte</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Descripció</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Cap del projecte</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projectes</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Estat del projecte</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Equip</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Plantilla del projecte</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Plantilles del projecte</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Títol</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Desa el projecte</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Seleccioneu la plantilla del projecte</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiquetes</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Tasques tancades. Feu clic per obrir tota la llista per la fita actual.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Tasques obertes. Feu clic per obrir tota la llista per la fita actual.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>L'usuari responsable de la fita. Feu clic per a veure totes les fites gestionades per l'usuari actual.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Cap de projecte. Feu clic per veure tots els projectes gestionats per l'usuari actual.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Tasques obertes. Feu clic per obrir tota la llista pel projecte actual.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>L'equip. Feu clic per a obrir la llista de tots els membres de l'equip d'aquest projecte.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Subtasques obertes. Feu clic per obrir tota la llista per la tasca actual.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>L'usuari responsable de la tasca. Feu clic per a veure totes les tasques assignades a l'usuari actual.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Usuaris responsables de la tasca. Feu clic per a veure tots els usuaris responsables de la tasca.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Veure les fites actives</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Veure les tasques obertes</value>
+  </data>
+</root>

@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Piekļuves tiesības &amp; Tagi</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Iestatītu pieejas tiesības attiecībā uz lietotājiem, kas pievienoti, izmantojot "Mājas lapā Kontaktu Formu", citādi CRM lietotāji redzēs jaunus kontaktus. Izveidot tagus, kas atzīmēs jaunus klientus sarakstā.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portāla Piekļuves Tiesības</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Pievienot kursu</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Pievienot jaunu uzdevumu veidni</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Pievienot jaunu uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Pievienot variantu</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adrese</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Pievieno tagu</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Nerādīt saistītos kontaktus</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Pievienot uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Pievieno uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Pievieno uzdevumu veidni</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Pievienot šo uzdevumu veidni</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Pievienot šo uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikācija</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Pamatinformācija</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Abus Personu &amp; Uzņēmumu</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Krāsas maiņa</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Nerādīt saistītos kontaktus</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Mainīt ikonu</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Mainīt logo</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Izvēles rūtiņa</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Slejas</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Kopēji iestatījumi</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Kontaktu veidi</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Izveido kategoriju</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Izveido temperatūras līmeni</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Kontakta veida izveide</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Izveidot lietotāju lauku</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Izveido stādiju</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Izveido lauku</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Izveidot jauno kategoriju</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Jauna Kategorija</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Izveidot jaunu kontakta veidu</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Jauns kontakta veids</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Izveidot jauno stādiju</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Jauna stādija</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Izveidot jauno lauku</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Jauns lauks</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Izveidot jaunu temperatūras līmeni</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Jauns temperatūras līmenis</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Izveidot jaunu tagu</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Jauns tags</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Valūtas kurss</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valūtas iestatījumi</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Uzstādiet noklusējuma valūtu, kas tiks izmantota, lai aprēķinātu visu jūsu portāla CRM moduļua iespēju kopējo summu. Valūtas kursi ir pieejami vienīgi sarakstā esošajām valūtām un tiek iegūti no vietnes The Money Converter.com{0} Šī valūta tiks norādīta jūsu produktu un pakalpojumu katalogā, kas tiek izmantots rēķinā.</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Lietotāju lauki</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Aizver iespēju neveiksmīgi.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Aizver iespēju veiksmīgi.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Noklusējuma valūta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Izdzēst kategoriju</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Dzēst temperatūras līmeni</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Dzēst kontakta veidu</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Izdzēst jomu</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Izvēlētais lauks ar visiem datiem tiks dzēsts no visiem kontaktiem, kuros tas atrodas. Vai tiešām vēlaties turpināt?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Izdzēst posmu</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Dzēst tagu</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Kategorijas dzēšanas apstiprinājums</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Izdzēst uzdevumu veidni</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Izdzēst uzdevumu veidnes konteineri</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Dzēst neizmantotus tagus</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Kontaktu temperatūŗas līmeņi ļauj raksturot jūsu pircējus noteiktā veidā. Piemēram, kontakta veids var būt "Auksts", "Karsts", "Silts", kas nozīmē kontaktpersonas gatavību iegādāties jūsu produktu.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Jūs varat labot vai dzēst temperatūras līmeni vienīgi tad, ja tāda nav nevienam no kontaktiem.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Kontaktu veidi ļauj jums noteiktā veidā iedalīt kontaktus. Noklusējuma veidi ir "Klients", "Konkurents", "Partneris", "Piegādātājs", kas iedala kontaktus pēc to lomas organizācijā.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Jūs varat dzēst vai rediģēt kontakta veidu vienīgi gadījumā, ja nav šāda veida kontaktu.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Iespējas posmi ļauj noteikt soļus, kas vajadzīgi, lai pabeigtu darījumu. Piemēram, varat pievienot iespēju posmos "Komerc-piedāvājums", "Avanss", "Izpilde". Iestatiet nepieciešamo posmu kartību velkot viņus.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Jūs varat labot vai dzēst iespēju posmu tikai gadījumā, ja nav šajā posmā iespējas.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Vēstures notikumu kategorijas ļauj sadalīt vēstures notikumus grupās. Standarta vēstures notikumu kategorijas ir pasts, piezīme, tālruņa zvanu, satikšanas. Jums ir jābūt administratora tiesībām, lai varētu tos rediģēt.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Var rediģēt vai dzēst vēstures notikumu kategoriju, tikai gadījumā kad nav vēstures notikumus, šajā kategorijā.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Uzdevuma kategorijas ļauj sadalīt savus uzdevumus grupās atkarībā no mērķus jūs plānojat sasniegt. Piemēram, uzdevuma kategorijā var būt "Tikšanās", "Zvans"
+
+vai "Pateicība".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Jūs varat labot vai dzēst uzdevumu kategoriju posmā tikai gadījumā, ja nav uzdevumus šajā kategorijā.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Nobīdes, dienas</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Lejupielādēt visus datus vienā ZIP-arhīvā</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP arhīva ģenerēšana uzsākta</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Saite uz ZIP arhīvu</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Rediģēt kategoriju</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Rediģēt temperatūras līmeni</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Rediģēt kontakta veidu</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Rediģēt lauku</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Rediģēt stādiju</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Rediģēt «{0}» uzdevumu kategoriju</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Rediģēt «{0}» temperatūras līmeni</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Rediģēt kontakta veidu "{0}"</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Rediģēt «{0}» iespēju stādiju</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Rediģēt «{0}» uzdevumu veidni</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Rediģēt «{0}» uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Uzdevumu veidnes rediģēšana</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Rediģēt uzdevumu veidnes konteineru</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Lietotāju lauku saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Lietotāja lauki ļauj noteikt papildu informāciju par klientu, iespēju vai lietu. Tā, piemēram, var pievienot "Avots" lauku, lai norādītu, kur lietotājs nāca no: reklāma, tiešā pārdošana utt. Var rediģēt vai dzēst lietotāja lauks, tikai gadījumā jā nav kontaktu vai iespējas ar šī lauka vērtību.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Tagu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Tagus var izmantot, lai aprakstītu un grupētu  līdzīgus kontaktus (uzņēmumi un personas), iespējas un lietas. Tā, piemēram, visas personas no dažādiem uzņēmumiem, bet no vienādas biznesa sfēras var sagrupēt izmantojot kopējo tag. Var rediģēt vai dzēst tagu, tikai gadījumā jā nav kontaktpersonas, iespējas vai lietas ar šo tagu.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Uzdevumu veidņu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Uzdevumu veidnes ļauj veidot līdzīgus uzdevumus CRM modulī. Uzdevumi var būt pievienoti kontaktpersonām, iespējām vai lietam ar vienu peles klikšķi. Atlasiet konteineru, lai izveidotu uzdevumu katrai konteineru uzdevumu veidnei.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Šo lauku jāaizpilda pareizi</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Katram laukam jābūt nosaukums</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Lauka nosaukums nevar būt tukšs</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Izmantot SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Eksports</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Eksportēt visus datus</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Eksporta funkcija izveido ZIP-arhīvu, kas satur CSV failus ar visiem jūsu CRM datiem (kontakti, iespējas, lietas, vēsture uc). E-pasts ar saiti uz izveidoto arhīvu tiks nosūtīts uz jūsu e-pasta adresi.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Izveidot sarakstu ārējai programmai</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Lauku saraksts</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Lauku atlase</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Izvēlieties laukus, kas tiks parādīti uz formas</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Formas pirmkods</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Izmantojiet šo formu jūsu lapā</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Tas ir kā forma izskatīsies jūsu lapā </value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Formas īpašības</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Mājas lapas Kontaktformas pamatuzstādījumi</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Ģenerēt formu</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Noklusējuma iestatījumi</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Vēstures notikumu kategorijas</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Hosta Logins</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Hosta Parole</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Iekšējais SMTP ({0} e-pasta adresātu maksimums)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Tikai uzņēmumam</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Tikai personu</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Veiksmes varbūtība</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Paziņot {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Atlasiet {!users} kas saņems paziņojumu, izmantojot "Mājas lapā Kontaktu Formu"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Skaitīt no iepriekšējā uzdevuma</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Sākot ar konteineru sakuma</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Rēķina logotips</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Citi lauki</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Izdzēst iespēju</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Atjaunot uz noklusējuma iestatījumiem</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Novirzīšanas URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Jūsu mājas lapas adrese, kur lietotājs tiks novirzīts, pēc tam, kad forma tiek aizpildīta.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Līnijas</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Saglabāts</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Izvēles rūtiņas</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Izvēles iespējas</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Lūdzu, izvēlieties kategoriju, kuru aizvietot ar šībrīža uzdevumu kategoriju</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Sūtītāja parādāmais vārds</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Sūtītāja e-pasta adrese</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Pielāgot lietotāju laukus</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Norādiet savas organizācijas rēķina sastādīšanas adresi, kas tiks norādīta uz jūsu rēķiniem. No saraksta izvēlieties {0}valsti{1} un aizpildiet sarakstu ar {0}adresi{1}, {0}pilsētu{1}, {0}valsti{1} un {0}pasta kodu{1}. </value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Jūsu {0}rēķinos{1} tiks izvietots jūsu organizācijas {0}logotips{1}, kas tiek izvēlēts pēc noklusējuma.{3}
+Lai nomainītu logotipu, spiediet saiti "Mainīt logo" un izvēlieties attēlu no jūsu datora, kuru ielādēt jūsu portālā. Lūdzu, ņemiet vērā, ka jūs varat augšupielādēt attēlus, kuru izmērs nepārsniedz {0}{4}x{5} pikseļus{1}, Pretējā gadījumā tas tiks samazināts. Maksimālais attēla izmērs nedrīksts pārsniegt {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Izmērs</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Sūtīt datus</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Birka ar šādu nosaukumu jau pastāv</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Uzdevumu veidnes</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Teksta zonā</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Teksts</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Web formas atslēga</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Unikālua web formas atslēga, kas kalpo par autentifikācijas formu, kas lietota, lai nosūtītu datus un vajadzīga formas pareizai darbai. Tas tiek darīts, lai novērstu surogātpastu, krāpšanu un aizsargātu web veidlapu no nesankcionētas izmantošanas, drošības nolūkos. Ja formējiet jaunu atslēgu, veidlapas ar veco atslēgu pārstās darboties.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Mājas lapas Kontaktforma</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Nederīga formas atslēga</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Izmantojiet mājas lapas kontaktformas funkcionalitāti, lai izveidotu formu, kurā var publicēt jūsu lapā. Tas ļaus jums automātiski attēlotu jaunus kontaktus. Definējiet formas rekvizītus, atlasiet vajadzīgos laukus un ģenerējiet kodu, lai izveidotu savu web formu.</value>
+  </data>
+</root>

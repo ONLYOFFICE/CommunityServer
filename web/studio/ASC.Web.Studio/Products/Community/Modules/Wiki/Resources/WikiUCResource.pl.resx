@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Edytuj sekcję: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Plik</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Nazwa pliku</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Treść</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Tytuł strony</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Podgląd</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Prześlij plik</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Nazwa przesłanego pliku</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Powiększ</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Tworzenie stron wiki jest bardzo proste, nawet jeśli nigdy wcześniej nie korzystało się z żadnego języka znakowania. Wszystko, co musisz wiedzieć, to kilka prostych zasad wymienionych poniżej. Mamy nadzieję, że wymienione wskazówki będą pomocne.
+
+@@TOC@@
+
+==Sekcje, Akapity, Listy, Wiersze==
+
+Aby rozpocząć nową Sekcję, należy użyć symbolu = na początku akapitu:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Sekcja=&lt;br&gt;
+==Podsekcja==&lt;br&gt;
+===Pod-podsekcja===&lt;br&gt;
+
+&lt;p&gt;
+Wstawienie na stronie @TOC@ połączy wszystkie sekcje i podsekcje w spisie treści.
+&lt;/p&gt;
+
+Sposób formatowania Wiki ignoruje znaki końca wiersza. Możesz wykorzystać je do oddzielania poszczególnych zdań wewnątrz danego Akapitu.
+
+&lt;p&gt;
+Użyj tagu «br» by przejść do kolejnego Wiersza tekstu bez rozpoczynania nowego Akapitu.
+&lt;/p&gt;
+
+Aby rozpocząć nowy akapit, naciśnij klawisz Enter dwukrotnie - tak jak się to robi w dowolnym edytorze tekstu.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Tworzenie punktowanych list jest proste:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* Rozpocznij każdy punkt listy gwiazdką;&lt;br&gt;
+** wstawiając więcej gwiazdek;&lt;br&gt;
+** tworzysz głębszy poziom listy.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Listy numerowane także nie są takie złe:&lt;br&gt;
+## tworzą zorganizowany wygląd;&lt;br&gt;
+## oraz są łatwe do odczytania.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ JEŚLI na początku wiersza wstawisz spację,
+ to wiersz zostanie sformatowanya w ten sam sposób jak to było wpisane;
+ z tą samą czionką, bez łamania wierszy;[[no links]].
+
+Możesz użyć spacji na początku Wiersza, jeśli chcesz: 
+
+*wkleić wcześniej sformatowany tekst;
+*wyświetlić element kodu; 
+*utworzyć lub wkleić element ascii (tworzenie obrazów za pomocą symboli tekstowych).
+
+Pozioma linia jest oznaczona przez cztery kreski:
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Wstawianie Linków==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Aby wstawić link do innej strony Wiki, należy umieścić tytuł strony w podwójnych kwadratowych nawiasach:&lt;br&gt; [[Pomoc]]&lt;/p&gt;
+
+&lt;p&gt;
+W przypadku, gdy Link i jego tytuł, który ma być wyświetlany na stronie są różne, wpisz tytuł Linku po symbolu |: &lt;br&gt; [[Pomoc|Strona pomocy dla tworzenia Wiki]] &lt;/p&gt; 
+
+&lt;p&gt;
+Linki zewnętrzne są wstawiane bezpośrednio do tekstu w ten sposób: &lt;br&gt; http://example.com&lt;/p&gt;
+
+&lt;p&gt;
+W przypadku konieczności zmiany tytułu Linku zewnętrznego, umieść go w pojedynczych kwadratowych nawiasach , a następnie wpisz tytuł po spacji: &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+Aby wstawić adres e-mail, umieść go w pojedynczych kwadratowych nawiasach: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Aby dodać stronę do kategorii, dodaj link do odpowiedniej kategorii [[Category: Pożądana kategoria]] na dole strony.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Formatowanie Tekstu==
+
+Użyj podanych wskazówek, by sofmratować swój tekst:
+
+''Kursywa''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''twój pochylony tekst''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Pogrubienie'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''twój pgrubiony tekst'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Pogrubiona Kursywa'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''twój pogrubiony, pochylony tekst'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Podkreślenie__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__twój podkreślony tekst__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Przekreślenie--
+
+&lt;nowiki&gt;
+&lt;p&gt;
+--twój przekreślony tekst--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indeksy: &lt;sup&gt;Indeks górny&lt;/sup&gt; oraz &lt;sub&gt;Indeks&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;Twój indeks&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;Twój indeks górny&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Możesz też użyć &lt;small&gt; mały tekst &lt;/small&gt; dla komentarzy, specjalnego formatowania dla wyświetlania &lt;code lang="language"&gt;języków kodowania &lt;/code&gt; czy specjalnego uwypuklenia dla &lt;tt&gt;terminów technicnych&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Wstawianie obrazów==
+
+Aby móc wstawiać obraz/y do strony Wiki - musisz wcześniej je przesłać do Wiki.
+
+Użyj poniższych linków, aby wstawić różne typy obrazów:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Obraz = [[Obraz: Tytuł obrazu]]&lt;/p&gt;
+&lt;p&gt;
+Obraz określonej szerokości = [[Obraz:Tytuł obrazu | szerokość w pikselach]] &lt;/p&gt;
+&lt;p&gt;
+Image z opisem = [[Obraz:Tytuł obrazu   | Treśc opisu]]&lt;/p&gt;
+&lt;p&gt;
+Ikona obrazu =  [[Obraz:Tytuł obrazu | ikona]] - obraz będzie skompresowany i wyrównane do prawej.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+== Kopiowanie HTML do Wiki ==
+
+Jeśli masz tekst w formacie HTML, który chcesz przenieść tutaj, możesz to zrobić szybko i łatwo. Kliknij na'''Utwórz nową stronę''' w panelu '''Akcje'''. Następnie wklej tekst do okna edytora i przejdź do wyświetlania znaczników wiki, klikając na ikonę Wiki na panelu formatowania powyżej. Html zostanie zamieniony na znaczniki Wiki. Sprawdź wyniki, popraw drobne błędy (jeśli wystąpią) i naciśnij '''Publikuj'''. Twoja strona jest gotowa.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Witamy w Wiki!''' 
+
+Tutaj możesz tworzyć nowe strony, powiązać je między sobą i pogrupować w kategorie za pośrednictwem przeglądarki internetowej. Wiki jest wygodnym narzędziem do przechowywania dokumentacji związanej z projektem charakteryzują się następującymi cechami:
+
+*wielu autorów. Każdy użytkownik może edytować treść dowolnej strony. 
+*szybka edycja. Kliknij przycisk '''Edytuj''' widoczny na każdej stronie i rozpocznij edycję bezpośrednio z poziomu przeglądarki.
+*łatwy transfer z HTML do WIKI. Dowiedz się [[Internal:Help#HTML to Wiki Transfer|jak]] 
+*wsparcie dla kontroli wersji. Sprawdź co było edytowane poprzez przywrócenie strony do poprzedniego stanu.
+
+@@TOC@@
+
+==Nawigacja i struktura Wiki==
+
+
+Możesz  poruszać się po wiki za pomocą '''Panelu Nawigacyjnego''' widocznego podczas korzystania z wiki.
+
+===Strony===
+
+Wszystkie strony, które utworzysz w wiki są posortowane alfabetycznie na [[Internal:Index|Index]] stronie.&lt;br&gt; 
+Wszystkie nowo utworzone strony są wyświetlane chronologicznie pod pozycją [[Internal:NewPages|Nowe Strony]].&lt;br&gt;
+Lista ostatnio edytowanych stron znajduje się w sekcji [[Internal:Recently|Ostatnio edytowane]]
+
+===Kategorie===
+
+Możesz łączyć kilka pokrewnych stron w kategorie. Każda kategoria wraz z jej korespondującymi stronami znajduje się w sekcji [[Internal:Categories|Kategorie]]. Możesz dodawać strony do już istniejących kategorii, lub tworzyć nowe. Kliknij [[Internal:Help|tutaj]], aby uzyskać więcej informacji o przydzielaniu stron do kategorii.
+
+===Pliki===
+
+You may upload files of any size and format to wiki, as well as give links to uploaded pictures when creating wiki pages. Read more about it [[Internal:Help#Inserting Images|here]].
+
+===Pomoc===
+
+Tworznie stron dla wiki jest proste. Wszystko czego potrzebujesz to poznać kilka zasad. Odwiedź [[Internal:Help|wskazówki znaczników wiki]] aby zapoznać się z zasadami znacznikowania  w wiki. 
+
+==Creating Your Wiki==
+
+Aby stworzyć swoją własną wiki, zacznij od utworzenia nowej strony klikając na łącze '''Utwórz nową stronę''' w panelu '''Akcje'''. Następnie wprowadź treść w obszarze edytora tesktu. Skorzystaj ze [[Internal:Help|wskazówek znaczników wiki]] aby tekst na stronie wyświetlał się poprawnie.
+
+Pamiętaj że jest to twoja osobista przestrzeń, gdzie możesz organizować wszystko według swoich potrzeb. Nawet zawartość tej strony jest edytowalna. Dla przykładu, możesz usunąć wszystko co tutaj napisano i zamiast tego - dla własnej wygody - wkleić odnośniki do swoich projektów. &lt;br&gt;Powodzenia!
+
+</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Strona nie istnieje. Kliknij {tutaj}, aby utworzyć ją lub edytować.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Kotwica</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Pogrubione</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Wizualne podkreślenie kodu zewnętrznego</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Komentarz</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>Przykład kodu HTML</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Link zewnętrzny</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Link do lokalnego pliku</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (używaj z umiarem)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Linia pozioma</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Obraz</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kursywa</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Nowa linia</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Nie mozna zinterpretować za pośrednictwem języka Wiki</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Link do strony</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Tagi specjalne</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Przekreślenie</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Indeks</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Indeks górny</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Znaki specjalne</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Podkreśl</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blok</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Maksymalny rozmiar przesyłanego pliku został przekroczony</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Pobierz plik</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maksymalny rozmiar przesyłanego pliku wynosi {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>Sekcja: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Strona została przeniesiona=
+Zmieniono nazwę na [[{0}|{0}]].
+Możesz znaleźć najnowszą wersję[[{0}|tutaj]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Spis treści</value>
+  </data>
+</root>

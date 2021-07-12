@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>משימות פעילות</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>הפק דוח כזה באופן אוטומטי</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>טווח זמן</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>לחץ למיון על-פי טור זה</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>צור תבנית</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>שם המשתמש</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>תאריך יעד</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>עליך להקצות שם לתבנית</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>כל יום</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>מדי חודש</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>כל שבוע</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>הפק דוח</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>חודש קודם</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>שבוע קודם</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>שנה שעברה</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>פרוייקט זה אינו מכיל אבני דרך או משימות</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>אחר</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>דוח משימות שנסגרו</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}דוח "משתמשים בלי משימות פעילות" יציג רשימה של משתמשים אשר אינם אחראים על אף משימה פעילה.{3}{2} כברירת מחדל מוצגים בדוח כל המשתמשים ללא משימות. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק משתמשים השייכים לקבוצה מסויימת או בדיקה של משתמש ספציפי, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} שלא הוקצו עבורם משימות</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}דוח "עומס עבודה" יציג את מספר המשימות שהוקצו לכל משתמש, מאוגדות לפי הסטטוסים שלהן. {3}{2} כברירת מחדל מוצג בדוח מידע על כל המשתמשים. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק חברי קבוצה מסויימת או משתמש מסויים, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>עומס עבודה</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}דוח "אבני דרך שתאריך היעד שלהן חלף" יציג רשימה של אבני דרך שתוקפן פג.{3}{2} כדי להציג את כל אבני הדרך שחלפו בכל הפרוייקטים - לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה רק לאבני דרך של פרוייקט ספיצפי, קודם עליך לבחור בשם הפרוייקט הרצוי מהתפריט הנגלל באזור המסננים ואז ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>אבני דרך שתאריך היעד שלהן חלף</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}דוח "משימות שתאריך היעד שלהן חלף" יציג רשימה של משימות שתוקפן פג.{3}{2} כדי להציג את המשימות  שחלפו בכל הפרוייקטים - לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה רק למשימות של פרוייקט ספיצפי, קודם עליך לבחור בשם הפרוייקט הרצוי מהתפריט הנגלל באזור המסננים ואז ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>משימות שתאריך היעד שלהן חלף</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>דוח משימות פתוחות</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>דוח «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}דוח "רשימת הפרוייקטים" יציג רשימה של פרוייקטים.{3}{2} כברירת מחדל מוצגים בדוח כל הפרוייקטים הפעילים עם שמות המנהלים, מספר המשימות, אבני הדרך, הפעולות שתועדו וחברי הצוות. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק פרוייקטים השייכים לקבוצה מסויימת ו/או לצפות פרוייקטים שנמצאים הן בסטטוס פעיל והן בסטטוס "הושלם", ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>רשימת פרוייקטים</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}דוח "פרוייקט ללא אבני דרך פעילות" יציג רשימה של פרוייקטים אשר אינם מכילים אבני דרך פעילות.{3}{2} כברירת מחדל מוצגים בדוח כל הפרוייקטים שאין בהם משימות פעילות. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק פרוייקטים ללא משימות השייכים לקבוצה מסויימת, או לבצע ביקה לגבי משתמש מסויים, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>פרוייקטים שאין בהם אבני דרך פעילות</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}דוח "פרוייקט ללא משימות פעילות" יציג רשימה של פרוייקטים אשר אינם מכילים משימות פעילות.{3}{2} כברירת מחדל מוצגים בדוח כל הפרוייקטים שאין בהם משימות פעילות. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק פרוייקטים ללא משימות השייכים לקבוצה מסויימת, או לבצע ביקה לגבי משתמש מסויים, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>פרוייקטים שאין בהם משימות פעילות</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>דוחות</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}דוח "משימות לפי פרוייקט" יציג רשימה של משימות, ממוינות לפי הפרוייקטים הקשורים ואבני הדרך הקשורות.{3}{2} כברירת מחדל מוצגות בדוח כל המשימות לרוחב כל הפרוייקטים, עם שמות האחראים וציון הסטטוס. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק משימות בפרוייקט ספציפי   או סינון משימות לפי סטטוס, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>משימות בפרוייקט</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}דוח "מעקב זמן" יציג רשימת משתמשים כשלצד כל משתמש יפורט סה"כ זמן הפעולות שתועד עבור אותו משתמש. {3}{2} הדוח מיועד להצגת סה"כ זמנים שהושקעו ע"י משתמשים בעת ביצוע משימותיהם.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>דוח מעקב זמן</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}דוח "אבני דרך קרובות" יציג רשימה של אבני דרך שתאריך היעד שלהן מתקרב.{3}{2} כברירת מחדל הדוח מציג אבני דרך מכל הפרוייקטים בתקופה של השבוע הקרוב. לייצור דוח זה פשוט לחץ "צור דוח" עכשיו.{3}{2} כדי לסנן את התוצאות, למשל להציג אבני דרך קרובות המשוייכות לפרוייקט ספציפי, ו/או לתקופת זמן אחרת, בחר בפרוייקט מתוך התפריט הנגלל ו/או קבע טווח תאריכים אחר בשדה התאריך, ואז לחץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>אבני דרך קרובות</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}דוח "פעילות משתמשים" יציג רשימה של פעולות נקודתיות שבוצעו ע"י משתמשים בתוך פרוייקט בטווח זמן נתון.{3}{2} כדי להציג את הפעילות שבוצעה על-ידך בשבוע החולף, פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי להגדיר טווח זמן אחר או כדי לבחור להציג נתונים של משתמשים אחרים, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>פעילות משתמש</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}דוח "משימות לפי משתמש" יציג רשימה של משימות, מאוגדות לפי המשתמש שאחראי על ביצוען, וליד כל משימה יופיע הסטטוס שלה. {3}{2} כברירת מחדל מוצגים בדוח נתונים של כל המשתמשים בכל הפרוייקטים. לייצור דוח זה פשוט לחץ על "צור דוח" עכשיו.{3}{2} כדי לסנן את הרשימה, למשל להציג רק משימות בתוך פרוייקט ספציפי או משימות בסטטוס מסויים, ראשית יש לבצע התאמות באזור המסננים, ולאחר-מכן ללחוץ על "צור דוח".{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>משימות שהוקצו למשתמש</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>הצג משימות</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>תבניות מוכנות</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>כותרת התבנית</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>חודש נוכחי</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>שבוע נוכחי</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>שנה נוכחית</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>היום</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>משתמש</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>מיין תצוגה לפי {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>הצג בחלוקה לפי פרוייקט</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>הצג בחלוקה לפי משתמש</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>הצג בחלוקה לפי משימות המשתמש</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>הצג פרוייקטים שנסגרו</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>שבוע</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>שבוע</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>אתמול</value>
+  </data>
+</root>

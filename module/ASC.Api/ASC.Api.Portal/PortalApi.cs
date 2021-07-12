@@ -189,7 +189,7 @@ namespace ASC.Api.Portal
         [Read("userscount")]
         public long GetUsersCount()
         {
-            return CoreContext.Configuration.Personal ? 1 : CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
+            return CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
         }
 
         ///<visible>false</visible>

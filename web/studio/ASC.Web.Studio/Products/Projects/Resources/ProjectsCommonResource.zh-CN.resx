@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>管理用户</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>所有{!Groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>移动与任务挂钩</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>所有{!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>开始/停止计时</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>添加时间</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Теamlab项目</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>尝试移动应用</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>更改颜色</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>状态仅对创建任务的用户可用</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>更改图标</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>启动新项目</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>为任务状态设置必要的顺序。每个类别必须至少有一个状态</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>新的状态</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>设计项目层次结构</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>创建项目和里程碑。</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>分配任务/子任务。使用自定义状态标记任务。</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>设定最后期限和优先顺序。</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>管理访问权限</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>创建私人项目。</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>限制对里程碑、任务、文档和讨论的访问。</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>选择谁可以创建新项目-管理员或所有用户。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>跟踪时间和进度</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>使用甘特图计划项目。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>跟踪在特定任务上花费的时间。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>自动生成进度报告。</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>使用更多工具</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>创建讨论和项目模板。</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>附上文件、电子表格和演示文稿。</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>在iOS设备上处理项目。</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>连结或新增联络人</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>自清单中选择已存在的客户关系管理系统联络人并且将他们连结到您管理的专案，或是新增联络人。编辑联络人的个人资讯。与客户关系管理系统紧密结合可帮助您更有效率的管理您的工作。</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>暂无符合条件的联系人</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>每个状态都必须有一个标题</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>暂无符合此筛选条件的项目</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>跟进</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>如果您不是项目经理但希望跟进此项目进展，请勾选此项。以后，此项目下所有的里程碑、任务和讨论话题的更新情况都会纳入到定时发送的“工作站的新鲜事”邮件中，让您每天都能了解该项目的最新进展。</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>如果设定为{1}非公开项目{2}，则只有本项目团队成员才能查看项目内容。{0}同时，还能单独设置每一位成员对不同项目内容的访问权限。</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}非公开项目{2} 只允许该项目团队成员访问。</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>“关键里程碑”在整个项目中的重要程度比其他里程碑更高。{0}名称旁边有一个红色钥匙图标的就是关键里程碑。</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>您可以在三种项目状态之间进行切换：{0}{1}进行中：{2}所有新建项目的状态都默认为“进行中”，直到您手动将它标记为“暂停”或“已完成”。{0}{1}暂停：{2}如果您需要暂缓该项目的工作，只需要将项目状态切换为“暂停”，以后复工时再将其状态切换回“进行中”即可。{0}{1}已结束：{2}当一个项目已完满结束，项目属下的所有工作都已完成时，您就可以将该项目状态切换成“已结束”。如果您需要更改一个“已结束”项目下的内容，您首先需要将它的状态切换回“进行中”，才能进行下一步操作。</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>如要您希望现在就添加项目组成员，请点击左侧的{1}团队{2}链接，然后从弹窗的列表中选择您希望加入到项目组的同事。{0}稍后，您还可以通过项目概况页中的{1}管理团队{2}链接，或访问项目属下的“团队”页来为项目组添加 / 移除成员。</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>在默认情况下，每个项目团队成员都可以查看该项目所有内容，包括该项目属下的里程碑、任务、文档和讨论话题。如要限制访问权限，只需在此勾选/不选目标成员名字右侧的相应链接即可。您可以通过同样的方式来设定每一个项目组成员的权限（工作站管理员除外）。</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>“跟进此项目”是什么意思？</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>非公开项目是什么东东？</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>"关键里程碑"是什么意思？</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>项目状态有哪些？</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>如何管理您的团队？</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>隐藏暂停项目中的实体</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>这个使用者并没有收到讨论通知，因为此专案的状态是非公开，并且使用者不是专案团队的成员。</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>了解更多…</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>我跟进的项目</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>最新的</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>我参与的讨论</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>我的项目</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>联系方式</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>移动任务</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>讨论有新评论</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>当任务有新评论时</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>无连结联络人</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>没有数据</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>任务与其他任务联系在一起，如果你删除它所有的链接都将被删除。</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>删除链接和举措</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>个人设置</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>注意： 此操作无法撤消。</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>具备项目经理的操作权限|任命项目经理|创建、编辑、删除任何项目|创建、编辑项目模板</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>建立团队以及分配任务。设定确定项目里程碑；跟进项目动态并生成报表。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>组建项目团队并分配任务。设定项目里程碑、跟踪项目进度、生成项目报表。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>组建项目团队并分配任务。设定项目里程碑、跟踪项目进度、生成项目报表。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>查看项目信息，参与项目讨论|创建和修改里程碑、任务、讨论、文档|记录任务工时，生成项目报告|组建项目组并设置相关访问权限</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>将会被连结至此专案的联络人</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>项目名称</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>更多</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>自团队中移除使用者</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>替换</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>报告文件夹</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>报表</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>保存，并再新建一个…</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>请选择</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>自既有联络人中选择或新增联络人</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>任意用户都可以创建项目</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>每页显示条数</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>花费的时间开帐单</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>花费的时间</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>开始页面</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>订阅评论</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>任务已添加</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>开始日期必须早于到期日</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>你要移动的任务是联系在一起的其他任务。 {0}请选择操作之一：</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>任务状态</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>删除链接和更新</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>选择要隐藏从进料页的文本和讨论列表页面，并单击“Text Cut”按钮。</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>案文切断</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>工时记录</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>取消跟进</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>自联络人取消专案联结</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>退订评论</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>更新的最后期限</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>你要更新的任务是联系在一起的其他任务。 {0}请选择操作之一：</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>发表评论</value>
+  </data>
+</root>

@@ -1,0 +1,1288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>הרשאות גישה</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>גישה למודול {0} מוענקת ל</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>הוספת {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>הוספת {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>כל המשתמשים</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>שינוי בעלים של הפורטל</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>השינויים יוחלו לאחר אישור בדואר אלקטרוני.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>כדי לשנות את זהות בעל הפורטל אנא בחר את שם הבעלים החדש להלן.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} המודול מושבת ואינו מוצג בפורטל. כדי לאפשר את הצגתו השתמש בקישור שמופיע בצד</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>רשימת המשתמשים ריקה</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>גישה מלאה</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>הם בעלי אותן הרשאות גישה כמו הבעלים של הפורטל, פרט ל: שינוי פרטי בעלי הפורטל|השהיית או מחיקת הפורטל</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>בעל הפורטל יכול</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>לבצע פעולות כמו אלה של מנהלי מודולים|למנות מנהלים למודולים|לטפל בהרשאות גישה למודולים|לטפל בהגדרות הפורטל|לטפל בחשבונות של משתמשים|לשנות את זהות בעל הפורטל|לגבות נתונים מהפורטל|להשהות או למחוק את הפורטל</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} מנהלי מערכת יכולים</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} משתמשים יכולים</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} משתמשים שהוקצו להם הרשאות גישה שונות, יכולים</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>משתמשים מתוך הרשימה</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>החשבון שלך כבר כמעט פעיל</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>השהיית פעולת הפורטל</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>קישור לאישור הפעולה נשלח אל: מייל (כתובת מייל של בעל הפורטל).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>מחיקת הפורטל</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>קישור לאישור הפעולה נשלח אל: מייל (כתובת מייל של בעל הפורטל).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>שלח קוד שוב</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>הזן קוד:</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>להפעיל שוב את המייל</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>שדה "קוד אימות" אינו יכול להישאר ריק</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>הזן מספר טלפון נייד</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>שלח</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>הוסף</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>הוסף {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>הוסף קבוצות</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>הוסף תגובה</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>הוספת דומיין-דואר בטוח</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>הוספת משתמשים</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>הגדרות</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>הודעות למנהל מערכת</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>שלח הודעה</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>האם אינך מצליח לגשת לפורטל?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>כתובת מייל באמצעותה ניתן לפנות אליך</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>צור קשר עם מנהל/י הפורטל</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>ההודעה שלך נשלחה בהצלחה. מנהל הפורטל ייצור איתך קשר.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>הפעל/אפשר</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>הגדרות הודעות של מנהלים</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>אנא תאר את הבעיה</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>אם אתה נתקל בבעיות בגישה לפורטל זה, או שעליך לקבל גישה לפורטל אך אינך יודע כיצד, אנא פנה אל מנהל הפורטל באמצעות הטופס בהמשך.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>מנהלי מערכת</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>כל הדומיינים</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>תשובה</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>בצע חיבור</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>מחובר</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>נתק</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>לא מחובר</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>בתוך</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>מתן הרשאות</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>עבור אל הדף הראשי</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>גיבוי</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>{0}באפשרותך להוריד למחשב שלך את את הגיבוי באמצעות הקישור שלמעלה. הקישור יהיה פעיל למשך 24 שעות מרגע שהוא התבקש.{1} הודעת דואר אלקטרוני המכילה את הקישור ואת ההוראות נשלחה לכתובת המייל שלך.{2}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>תאריך לידה</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>הוסף איש קשר חדש</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>כל הנתונים שהזנת יאבדו. האם אתה בטוח שברצונך להמשיך?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>שינוי לוגו</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>קישור לאישור הפעולה נשלח אל: מייל (כתובת מייל של בעל הפורטל).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, נובמבר, דצמבר</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>נקה מסנן</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>התגובה נמחקה</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>נא אשר כי ברצונך להשהות את פעילות החשבון שלך</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>נא אשר כי ברצונך למחוק את החשבון שלך</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לשנות את כתובת הפורטל ל-{0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>זהות בעל הפורטל שונתה בהצלחה. {0}תוך 10 שניות תועבר אוטומטית {1}לכאן{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>נא אשר כי ברצונך לשנות את זהות בעל הפורטל ל-{0}</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>נא אשר כי ברצונך להפעיל מחדש את החשבון שלך</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את התגובה שלך?</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>יצירת גיבוי</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>שם דומיין מותאם אישית</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>גיבוי נתונים</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>ביטול הפעלה</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>ביטול הפעלה</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>החשבון שלך הושבת בהצלחה. {0}תוך 10 שניות תועבר אוטומטית {1}לדף הזה{2}</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>{0}השתמש באפשרות זו כדי להשבית את פעולת הפורטל שלך באופן זמני.{1}</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>לא ניתן לבטל פעולה זו. האם אתה בטוח שברצונך למחוק את {!group} `{0}`?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>החשבון שלך נמחק בהצלחה. {0}תוך 10 שניות תועבר אוטומטית {1}לדף הזה{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>מחק את הפרופיל שלי</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>שלח הוראות מחיקת פרופיל לכתובת המייל {0}</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>תיבת דו-שיח למחיקת פרופיל</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>מחיקת פרופיל</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>בחר באפשרות זו כדי למחוק את הפורטל שלך באופן מוחלט וסופי.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>לא זמין</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>הפוך משתמש ללא-זמין</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>ה{!user} לא יוצג ברשימת ה{!users} הפעילים</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>קישור לאישור הפעולה נשלח אל {0} (כתובת מייל של בעל הפורטל).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>הגדרות DNS</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} חלפו</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} יום</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} ימים</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} ימים</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>רק</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} שעה</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} שעות</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} שעות</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} דקה</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} דקות</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} דקות</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} חודש</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} חודשים</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} חודשים</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} שנה</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} שנים</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} שנים</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>שלשום</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>היום</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>מחר</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>אתמול</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>עריכת פרופיל</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>מייל</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>הוראות ההפעלה יישלחו לכתובת המייל שהוזנה</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>הפעלה באמצעות מייל</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>אשר סיסמה</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>הפורטל שלך נרשם עבור הדומיין הבא:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>סיסמה שגויה</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>כתובת מייל שגויה</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>הפורטל שלך נרשם דרך כתובת המייל הבאה:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>הגדרות אלה נשמרו בהצלחה</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>לשנות אותה</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>הקלד סיסמה</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>שדות הסיסמה ואישור הסיסמה אינם תואמים</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>הוראות ההפעלה יישלחו לכתובת המייל שהוזנה</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>שינוי כתובת מייל</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>המייל טרם הופעל</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>כל המחלקות {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>חיפוש מבין חברי הצוות</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>אין נתונים שתופסים שטח אחסון</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>הפעלת SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>הפעל/אפשר</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>ה{!user} יוצג שוב כפעיל</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>הזן כתובת מייל חדשה</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>אין לך הרשאה לצפייה בדף זה</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>שגיאה 403 - אסור</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>אין הרשאות לביצוע פעולה זו</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>מייל לא חוקי או קישור שפג תוקפו</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} עם כתובת המייל הזאת כבר רשום</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>שדה ריק: כתובת מייל</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>כתובת המייל הקיימת והכתובת החדשה זהות</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>נא למלא את כל השדות</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>לא היתה אפשרות לאתר את הקובץ שהועלה</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>הזן את כתובת המייל שלך</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>הזן את שמך הפרטי</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>הזן שם משפחה</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>פג תוקף הקישור</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>קישור הפעלה לא חוקי או שאינו בתוקף</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>כתובת מייל לא חוקית</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>שם דומיין לא חוקי</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>שדה הסיסמה ריק</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>סיסמה חדשה שגויה. עליה להכיל</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>עליה להכיל</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>ספרות</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>תווים מיוחדים</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>אותיות רישיות</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>המשתמש לא נמצא</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>המשתמש עם כתובת מייל "{0}" לא נמצא</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>אישה</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>הקובץ חורג מהגודל המקסימלי.</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>הערה: גודל הקובץ אינו יכול לחרוג מ{1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>בייטים, קילו-בייטים, מגה-בייטים, ג'יגה-בייטים</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>במשך תקופה</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>מ</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>עד</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>שלושת החודשים האחרונים</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>חודש שעבר</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>שבוע שעבר</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>הקישור לאישור חשבונך נשלח לכתובת המייל שצויינה</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>שם פרטי</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>שכחת סיסמא?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>כדי להיכנס נא עקוב אחר {0}קישור זה{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>מ</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>לוגו</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>הגדרות ברכה</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>קבוצה</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>מוביל הקבוצה</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>קבוצות</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>אם ברצונך {1}להפסיק את פעילות הפורטל{2}, המשמעות היא שכל המידע המקושר אל הפורטל לא יהיה נגיש יותר עבור אף אחד, לפרק זמן מוגדר. כדי לבצע הפסקת פעילות, לחץ על כפתור {1}הפסק פעילות{2}. קישור לצורך אישור הפעולה יישלח לכתובת המייל של מנהל הפורטל.{0} אם תרצה לחזור להשתמש בפורטל ולהפעילו, יהיה עליך להשתמש בקישור השני מופיע במייל האישור. מסיבה זו, חשוב ביותר שתשמור את מייל האישור הזה במקום בטוח.{0} אם אינך מתכוון להשתמש בפורטל עוד לעולם - וברצונך {1}למחוק אותו סופית {2} - הפעל פקודת מחיקה על-ידי לחיצה על כפתור {1}מחק{2}. שים לב: לאחר מחיקה לא תהיה עוד אפשרות להפעיל מחדש את הפורטל או לשחזר מידע כלשהו הקשור אליו.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}הגדרות DNS{2} מאפשרות לך לייצר כתובת אינטרנט חלופית לפורטל שלך.{0} באפשרותך לבחור האם להזין את שם הכינוי הרצוי בשדה{1}כתובת הפורטל {2} או לסמן ב-וי את סעיף {1}שם דומיין בהתאמה אישית{2} ושם לציין את שם הדומיין הרצוי שלך.{0} כדי לשמור את השינויים, השתמש בלחצן {1}שמור{2} בתחתית חלק זה זה של הדף.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}הגדרות דף כניסה{2} מאפשרות לך לשנות את כותרת ותמונת ברירת המחדל שיוצגו ב{1}דף הגישה לפורטל שלך {2}.{0}הזן את השם הרצוי בשדה ה{1}כותרת{2}. כדי להחליף את הגרפיקה של הלוגו לחץ על קישור{1}שנה לוגו{2} ובחר תמונה להעלאה מתוך המחשב שלך.{0}אנא זכור שניתן להעלות תמונות עד גודל של {1}250 על 100 פיקסלים{2}, אחרת יתתרחש התאמת גושל אוטומטית. גודל קובץ מקסימלי להעלאה הוא {1}1 מגה-בייט{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>{0}הקישור להזמנה{1} משמש לצורך הזמנת חברים/עובדים להצטרפות לפורטל שלך. העתק את הקישור המופיע להלן והדבק אותו בהודעת מייל שתשלח לאנשים אותם תרצה להזמין. אחרי שהם יקליקו על הקישור ויבצעו את ההרשמה - הכרוכה במילוי פרטי מייל, שם פרטי ומשפחה ובחירת סיסמה - הם יתווספו אוטומטית לפורטל שלך ויוכלו להתחיל לעבוד איתך.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}הגדרות שפה ואזור זמן{2} מאפשרות שינוי של שפת הממשק של הפורטמל כולו, עבור כל משתמשי הפורטל וגם כדי להגדיר את אזור הזמן שלך, כדי שכל האירועים בתוך הפורטל יוצגו בתאריך ובשעה הנכונים.{0}פתח את הרשימות הנגללות כדי לבצע את ההתאמות הנדרשות.{0} כדי לשמור שינויים לחץ על כפתור {1}שמור {2} המופיע בתחתית חלק זה של הדף.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}הגדרות דומיין-דואר בטוח{2} מאפשרות לך להגדיר אילו שרתי מייל יכולים לשמש את המשתמשים בעת שהם נרשמים באופן עצמאי לפורטל.{0}באפשרותך לסמן את אפשרות {1}דומיינים בהתאמה אישית{2} ולהזין את שם שרת המייל הבטוח בשדה שלמטה, או לבחור באפשרות {1}כל הדומיינים{2}.{0} במקרה זה, כל מי שפעיל בחברה שלך ומחזיק בחשבון מייל תחת שרת מייל שצויין, יוכל לרשום את עצמו על-ידי הקלקה על קישור{1} הצטרף{2} שבתוך {1}דף ההרשמה{2} ובאמצעות הזנת כתובת המייל שלו, תחת אותו דומיין הבטוח שהוגדר.{0} כדי לבטל אפשרות זו, סמן את הסעיף המתאים.{0} כדי לשמור את השינויים שביצעת לחץ על כפתור {1}שמור{2} בתחתית חלק זה של הדף.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}הגדרות חוזק סיסמה{2} מאפשרות לך לקבוע את חוזק הסיסמאות - המשםיע על יעילות העמידה של סיסמאות בפני התקפות מבחוץ.{0}השתמש ב {1}סרגל של{2} {1}אורך סיסמה מינימלי{2} כדי לקבוע עד כמה ארוכה צריכה להיות הסיסמה כדי שתחשיב אותה לחזקה מספיק. סמן את האפשרויות המתאימות מתחת לסרגל כדי לקבוע אילו סדרות של תווים חייבים לבוא לידי שימוש בעת בחירת סיסמה.{0} כדי לשמור את השינויים לחץ על כפתור{1} שמור{2} המופיע בתחתית חלק זה של הדף.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}תבנית צוות{2} מאפשרות לך התאמות אישיות לצורך קביעת שם הארגון, או הקבוצה, שמות החברים והגדרות התפקידים והפעילויות שלהם.{0}פתח את רשימת ה {1}תבניות{2} כדי לבחור אחת מבין האפשרויות המוכנות או הזן את השמות בעצמך, מתוך אפשרות {1}התאמה אישית{2} שמופיעה ברשימה.{0} כדי לשמור את התבנית הרצויה לחץ על כפתור{1} שמור{2} המופיע בתחתית חלק זה של הדף.</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>הזן את שם חשבון ה-AIM שלך</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך בבלוגר</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>הזן את כתובת המייל שלך</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך בפייסבוק</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-Google Talk</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-Google buzz</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>הזן את פרטי חשבון גוגל שלך</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-ICQ</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב- Jabber</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-LiveJournal</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>הזן מספר טלפון נייד</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-MSN</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-MySpace</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>הזן מספר טלפון</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך בסקייפ</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ב-Twitter</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>הזן את פרטי ההתחברות שלך ביאהו</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>משתמש כבר קיים</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>מייל</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>לא התקבלו אנשי קשר כלשהם.{0}באפשרותך גם לייבא אנשי קשר מתוך פרופילים אחרים.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>הזן שם פרטי של המשתמש</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>הזן שם משפחה של המשתמש</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>הזן את כתובת המייל שלך</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>הזן את שמך הפרטי</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>שגיאת ייבוא</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>הזן שם משפחה</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>נא הזן את השם הפרטי, שם המשפחה וכתובת המייל של המשתמש אותו אתה מעוניין להוסיף לפורטל. לחץ על לחצן 'הוסף' כדי להוסיף את המשתמש לרשימה.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>שם פרטי</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>מקובץ</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>סוג הקובץ שבחרת לייבא אינו נתמך.{0}אנא בחר קובץ אחר וחזור על תהליך הייבוא מחדש.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>הוספת משתמשים לפורטל</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>אנא וודא שכל שדות המשתמש הוזנו כראוי - כולל שם פרטי, שם משפחה וכתובת מייל</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>שם משפחה</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>לא חוקיים שם משתמש או סיסמה.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>על-מנת להתחיל לעבוד בפורטל, עליך לבדוק שאכן {0}שמך הפרטי{1} וגם {0}שם המשפחה שלך{1} מאוייתים נכון בטופס המופיע כאן בצד, ובנוסף עליך להגדיר {0}סיסמה אישית{1} כדי שתוכל להתחבר.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>קישור הזמנה</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>קיבלת את הקישור לפורטל הזה ממישהו שמכיר אותך - חבר, מכר או קולגה שלך</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>צורפת פורטל זה על-ידי מישהו שמכיר אותך - חבר, מכר או קולגה שלך</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>אתם מוזמנים להצטרף פורטל זה!</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>שפה</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>שם משפחה</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>למד עוד...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>טוען...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>מיקום</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>כניסה</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>הצטרפות</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>או היכנס באמצעות:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>לא הצלחנו למצוא חשבון משויך של צד שלישי</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>גבר</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>אנא אשר את עצמך</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>הוראות ההפעלה למייל נשלחו לכתובת: {0}</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>הוראות לשינוי מייל נשלחו לכתובת: {0}</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>המייל שלך הופעל בהצלחה</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>שלח הוראות הזמנה לכתובת המייל {0}
+</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>שלח הוראות הפעלה של המייל, לכתובת: {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>שלח הוראות שינוי מייל לכתובת {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>שלח הוראות שינוי סיסמה לכתובת המייל {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>אנא הזן את כתובת המייל בה השתמשת בעת הרישום לפורטל. הוראות שחזור סיסמה יישלחו למייל הזה.</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>טלפון נייד ראשי</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>שינוי מספר טלפון</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>הוראות אלה, שמטרתן שינוי מספר הטלפון שלך, יישלחו אל כתובת המייל שלך</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>נשלח</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>שינוי טלפון נייד</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>הטלפון של המשתמש יימחק והנחיות לשינוי את מספר הטלפון הנייד של המשתמש יישלחו לכתובת המייל</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>הפרופיל שלי</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>תבנית</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>תבנית צוות</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>לא זמינים</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>שינוי סיסמה</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>אורך סיסמה מינימלי</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>שחזור סיסמה</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>תווים</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>השתמש בספרות</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>השתמש בתווים מיוחדים</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>השתמש באותיות גדולות באנגלית</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>צור סיסמה חדשה</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>היסטוריה תשלומים</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>ממתין</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>אנשים</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>אנא המתן...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>יציאה</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>בעלים של הפורטל</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>פרופיל</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>הפרופיל הוסר</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>הפעל מחדש</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>החשבון שלך הוחזר למצב פעיל. {0}תוך 10 שניות תועבר אוטומטית {1}לדף הזה{2}</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>תאריך רישום</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>זכור</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>ההזמנה תישלח לכתובת המייל שהוזנה</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>שלח שוב</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>האם ברצונך לשלוח הזמנות שוב?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>שלח שוב הזמנה</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>שחזר הגדרות ברירת מחדל</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>אנא וודא שכל המילים אויתו כהלכה. נסה להשתמש במילות מפתח שונות.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>שום דבר לא נמצא.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>תוצאות חיפוש</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>שלח</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>לשלוח שוב את ההזמנה</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>שלח הזמנה</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>לחץ כאן כדי להצטרף</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>רוצה להצטרף לפורטל כמשתמש?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>נא הזן את כתובת המייל אליה תרצה לשלוח את ההזמנה:</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>תוכנת השרת נתקלה בשגיאה בעת עיבוד הבקשה שלך. אנא המתן זמן-מה ונסה שוב. אם השגיאה ממשיכה, ייתכן שיהיה עליך לפנות למנהל האתר.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>שגיאת שרת</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>זו כבר הגירסה העדכנית</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>גירסת פורטל לא חוקית</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>מין</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>הצג הכל</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>הצג את כל התוצאות</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>רישום אפשרי למשתמשים בעלי חשבון מייל כלשהו. 
+כדי להירשם, הזן את המייל שלך ולחץ על "שלח הזמנה". הודעת מייל עם קישור להפעלת חשבון ONLYOFFICE™ שלך תישלח למייל שצויין.</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>הפתעה</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>פצצה</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>משוגע</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>בוכה</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>ריקוד</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>שותה</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>כועס</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>קריצה</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>ירוק</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>חיוך הוליוודי</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>עצוב</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>מוסיקה</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>חיוך</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>מגחך</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>מצטער</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>הצילו</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>ממושקף</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>לשון</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>הידד</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>בעזרת אפשרות זו תוכל להפעיל/לכבות את מנגנון האימות הדו-שלבי, שמחייב שימוש חד-פעמי בהודעת ס.מ.ס. עבור כל משתמשי הפורטל</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>קוד שגוי</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>הקוד שלך לכניסה לפורטל: {0}</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>אימות דו-שלבי</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>הגדרות דואר יוצא SMTP</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>סטטיסטיקה</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>הגדרות דומיין-דואר בטוח</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>הגדרות עוצמת הסיסמה</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>הגדרות אזור הזמן והשפה</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>גירסת הפורטל</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>רשום אותי כמנוי לעדכונים</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>מינויים לעדכונים</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>הגדרות ברכה נשמרו בהצלחה</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>ההגדרות עודכנו בהצלחה</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>הוראות כיצד למחוק את הפרופיל שלך נשלחו לכתובת המייל שלך</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>הזמנות-מחדש נשלחו בהצלחה</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>תוספות</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>שטח אחסון בשימוש</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>סה"כ משתמשים</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>אזור זמן</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>מייל</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>פייסבוק</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>Google Buzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>Google Talk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>טלפון נייד</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>מספר טלפון</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>סקייפ</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>טוויטר</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>יאהו</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>10 הראשונים</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>סה"כ נמצאו</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>עד</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>שמות דומיין מותאמים אישית</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>רישום אפשרי למשתמשים בעלי חשבון מייל ב-{0}. 
+כדי להירשם, הזן את המייל שלך ולחץ על "שלח הזמנה". הודעת מייל עם קישור להפעלת חשבון ONLYOFFICE™ שלך תישלח למייל שצויין.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>אירעה שגיאה לא ידועה</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>בטל מינוי</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>העלה</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>משתמש</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>משתמשים</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>תפקיד/כותרת</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>כניסות Hits</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>מארחים</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>גרף שימוש</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>ביקורים</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>תודה שבחרת להשתמש ב-ONLYOFFICE™! מטעמי אבטחה חובה לבצע תהליך הגדרת סיסמה</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>ברוכים הבאים לפורטל ONLYOFFICE™ שלכם</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>מה חדש</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>הגדרות אזור הזמן והשפה</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>הגדרות הפורטל - עבור על השלבים הפשוטים הבאים כדי להפעיל את המשרד האינטרנטי שלך בקלות</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

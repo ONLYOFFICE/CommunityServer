@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Diskussionen im Unternehmensforum</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Foren</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Neues Forum eröffnen</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Neues Forum erstellen</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Möchten Sie wirklich diese Aktion durchführen?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Noch keine Foren wurden eröffnet</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Erstes Forum erstellen</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Erstellen Sie eigene Foren, nehmen Sie an Diskussionen teil, veröffentlichen Sie interessante Informationen, organisieren Sie Umfragen, was Ihre Foren noch attraktiver macht. </value>
+  </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>Besuchen Sie Foren, nehmen Sie an Diskussionen teil, kommentieren Sie interessante Inhalte.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Themen nicht gefunden</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Erstellen Sie eigene Foren, nehmen Sie an Diskussionen teil, veröffentlichen Sie interessante Informationen, organisieren Sie Umfragen, was Ihre Foren noch attraktiver macht. </value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Keine Themen wurden erstellt</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Erstes Thema erstellen</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Erstellen Sie eigene Foren, nehmen Sie an Diskussionen teil, veröffentlichen Sie interessante Informationen, organisieren Sie Umfragen, was Ihre Foren noch attraktiver macht. </value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Keine Berechtigung zum Durchführen dieser Aktion</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Geben Sie einen Kategoriennamen ein</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Ein unbekannter Fehler ist beim Erstellen einer Kategorie aufgetreten</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>Ein Fehler ist beim Bearbeiten der Kategorie aufgetreten</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Geben Sie einen Namen ein</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Ein Fehler ist beim Abmelden bzw. Anmelden aufgetreten</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Geben Sie einen Forumsnamen ein</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Thema im Forum "{0}"</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Alle Foren</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderatoren</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Geben Sie einen Namen ein</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Neue Umfrage erstellen</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Neuen Beitrag hinzufügen</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Neues Thema eröffnen</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Neue Forenthemen</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Beiträge</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Letzte Aktualisierung</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Suche in Foren</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Beiträge</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Für neue Themen anmelden</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Für neue Beiträge im Forum anmelden</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Für neue Beiträge zu diesem Thema anmelden</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Das Forum wurde erfolgreich eröffnet</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Kategorienbearbeitung</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Beschreibung des Forums</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Forenbearbeitung</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Name des Forums</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Foren</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Themen</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Neue Beiträge zu Themen</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Neue Kategorie erstellen</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Von neuen Themen abmelden</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Von diesem Forum abmelden</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Von diesem Thema abmelden</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Gelesen</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Liste der sichtbaren Benutzer</value>
+  </data>
+</root>

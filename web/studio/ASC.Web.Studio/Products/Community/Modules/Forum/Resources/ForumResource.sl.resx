@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Razprava poslovnega foruma</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Forumi</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Ustvari nov forum</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Ustvari nov forum</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Vse</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izvesti to dejanje?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Noben forum še ni bil začet</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Ustvari prvi forum</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Ustvari lastne forume, sodeluj v razpravah, deli nekaj koristnih informacij, organiziraj ankete, ki forum naredijo bolj interaktiven.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Tem ni bilo mogoče najti</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Ustvari lastne forume, sodeluj v razpravah, deli nekaj koristnih informacij, organiziraj ankete, ki forum naredijo bolj interaktiven.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Nobena tema še ni bila ustvarjena</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Ustvari prvo temo</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Ustvari lastne teme, sodeluj v razpravah, deli nekaj zanimivih informacij, organiziraj ankete, ki forum naredijo bolj interaktiven.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Ni dovoljenj za izvajanje tega dejanja</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Vnesi ime kategorije</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Neznana napaka med ustvarjanjem kategorije</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>Prišlo je do napake med urejanjem te kategorije</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Vnesi ime</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Prišlo je do napake med naročanjem/odjavljanjem</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Vnesi ime foruma</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Tema "{0}" forumu</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Vsi forumi</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Spremeni</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderatorji</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Vnesi ime</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Ustvari novo anketo</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Dodaj novo objavo</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Ustvari novo temo</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Nove teme foruma</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Objave</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Zadnja posodobitev</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Iskanje foruma</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Objave</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Naroči na nove teme</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Naroči na ta forum</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Naroči na to temo</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Forum je bil uspešno ustvarjen</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Urejevalnik kategorij</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>opis foruma</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Urejevalec foruma</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>ime foruma</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Forumi</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>teme</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Nove objave teme</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Ustvari novo kategorijo</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Odjavi se od novih tem</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Odjavi se s tega foruma</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Odjavi se s te teme</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Ogledi</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Vidni seznam</value>
+  </data>
+</root>

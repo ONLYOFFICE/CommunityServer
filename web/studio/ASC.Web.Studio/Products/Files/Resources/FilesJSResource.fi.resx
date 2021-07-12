@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Vain luku</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Täydet oikeudet</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Estä käyttö</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Arvioi</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Vaihtelee</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arkistoidut</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Kansiot</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Kuvat</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Esitykset</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Laskentataulukot</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Näytä enemmän {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Lisätään...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Näytä enemmän {0} {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Koko</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kohteen {0} 'Asiakirjat' -moduulista? Tämä ei vaikuta {1} tiliisi millään tavalla.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Haluatko varmasti tyhjentää Roskakorin?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistua tältä sivulta? Asiakirjojen lataus keskeytyy.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa asiakirjan?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kansion?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa nämä?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Olet siirtämässä kohteita {1} hakemistosta. Tässä tapauksessa ne poistetaan tililtäsi {1} ja ne eivät ole enää muiden käyttäjien saatavilla, jos kohteet ovat olleet aikaisemmin jaettu. {0}Haluatko varmasti siirtää kohteet?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Yhteiset tiedostot</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Mukautettu tiedostomuoto</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Ryhmät</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Tietojen arkistointi</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Tietojen muuttaminen</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Versiota jäädytetään</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Luominen</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Allekirjoita DocuSign toiminnon kautta</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Ladataan versioita...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Merkitään luetuksi</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Siirretään</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Poistetaan...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Nimeä uudelleen</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Päivitetään versio</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Allekirjoita asiakirja ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Valitse vähintään yksi kansio tai asiakirja ladattavaksi</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Kirjoita kommentti</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Ei voida lisätä tyhjää tiedostoa tai kansiota. </value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Muunnosvirhe. </value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Kaikki kentät ovat pakollisia täyttää. Pakko on paras motivaattori.</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Tiedoston enimmäiskoko ylitetty</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Sinun täytyy kirjautua palveluun</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Tätä tiedostomuotoa ei tueta. Ei sitten niin mitenkään.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Odota edellinen lataus loppuun tai peruuta se</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Oikeutesi eivät riitä toiminnon suorittamiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Toiminto ei ole sallittu tässä kansiossa. Tiukka meininki.</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Otsikko ei voi sisältää seuraavia merkkejä: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Tila loppui. Et voi ladata {0} suurempaa tiedostoa.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Tiedosto nimellä {0} on jo kansiossa {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Muunnettu</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Muunnos</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} asiakirjaa samalla nimellä on jo kansiossa {1}. Haluatko korvata tiedostot?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>lisätty</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Lisätään tiedostoa</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box hakemisto</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign tili</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox-kansio</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Googlen hakemisto</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint hakemisto</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive hakemisto</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV hakemisto</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex hakemisto</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Nyt '{0}' on omistaja: '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Nyt '{0}' on omistaja {1} nimikkeelle</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' muutettiin</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} kopioitua osaa</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>{0} kopioitu</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Uusi tiedosto '{0}' luotu</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Uusi tiedosto '{0}' on luotu kohteeseen '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Uusi kansio {0} luotu</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Kansiota ei voi kopioida sen alikansioon. Vähän niin kuin yrittäisi syödä oman päänsä.</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Kansiota ei voi siirtää sen alikansioon. Menisi nuppi sekaisin.</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Ihmisoikeutesi eivät riitä siirtämään tiedostoa.</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} siirrettyä tiedostoa/kansiota</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>{0} siirretty</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Tiedosto '{0}' poistettu</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Kansio {0} poistettu</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Onnistuneesti poistettu {0} {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Ulkoinen palvelu '{0}' poistetaan</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Asiakirjan '{0}' uusi nimi on '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Kansion '{0}' uusi nimi on nyt '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' lisättiin kohteeseen '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} asiakirjaa lisätty onnistuneesti</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Omat Asiakirjat</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Alkuperäinen tiedostomuoto</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Muu</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Esitykset</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Asiakirjan {0} esikatselu ei onnistunut</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektin asiakirjat</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>korjattuja versioita: {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Laskentataulukot</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Tietojen arkistointi</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopioidaan</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Poistetaan</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Merkitään luetuksi</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} toimintoa</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Siirrä</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Muuta kohteen {0} yhteysasetuksia</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Sitä muokataan parhaillaan</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Sitä muokkaa parhaillaan {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Lukittu</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Lukittu: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Lisää toiminnallisuuksia</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Uusi esitys</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Uusi laskentataulukko</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Uusi asiakirja</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Uusi kansio</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Apua</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Liitä tilejä</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Tuntematon virhe... ihan tuli puun takaa.</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Lisäys valmis</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Lisätään...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Lisätään {0} tiedostoa ({1}% valmis)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0}/{1} käytetty</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Käyttäjät</value>
+  </data>
+</root>

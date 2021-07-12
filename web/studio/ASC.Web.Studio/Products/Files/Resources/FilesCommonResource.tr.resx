@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Erişim</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Giden Portali</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Salt Okunur</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Tam Erişim</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Erişimi Reddet</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Yönetici</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Dosyayla çalışmak için dosyaya erişim vermelisiniz</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>DEVAM ET</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Bu dosyayı ONLYOFFICE™'te açmak bu dosyanın Office Open XML formatında yeni bir kopyasını Google Drive'ınızda oluşturacak. Bu yolla orjinal dosya değiştirilmeyecek. Dosyayı ONLYOFFICE™'te düzenlemek için yeni kopyayı açmanız gerekecektir.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Bunu bir daha gösterme</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Dosya ismi girin</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Dosya türü seçiniz</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Yayıncı</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Ben</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Çevir &amp; Aç</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>İndir</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Yorum</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Otomatik Kaydedildi</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Sahibi Degisti</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>...dan cevrilmistir.</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Kopyalandi</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Olusturuldu</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>DocuSign tarafindan olusturuldu</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Degistirildi</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Kaydedildi</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Üstüne yazılmış</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Revize edilmeden onceki hali yuklenmistir</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Dokuman degisimden oncesine geri yuklenmistir</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Yüklendi</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Bağlantı url'si</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Şuna çevir:</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Belge Adı</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Reddedildi</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Gonderme operasyonu sirasinda bir hata olustu</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Dokuman Gonderme DocuSign tarafindan Engellendi</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokuman imzaya gonderildi</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Bosaltilan</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Yorum girin</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Hatalı istek.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Bu kullaniciyi secemezsiniz</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Cevirme islemi uzun suruyor</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Dökümanlar Servisinde Hata oluştu</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Dosya degistirilmek uzere acik durumda, ortak calisma icin bu dosya formati desteklenmiyor</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Dosya mobil bir uygulama taraindan degistirilmek icin acik durumda</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Boş dosya</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Gerekli dosya bulunamadı</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>{0}'dan büyük dosya çevrilmeyecektir</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Dosya buyuk oldugu icin kopyalanamadi</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Dosya buyuk oldugu icin degistirilemedi</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Dosya buyuk oldugundan dolayi yeri degistirilemedi</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Klasörü kopyalayamazsınız</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Gerekli klasör bulunamadı</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Gecersiz Baslik</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Dosya başka bir kullanıcı tarafından kilitlenmiş</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Mesaj gonderecek gecerli hesap bulunmuyor, mail kismindaki mail kutusunu kontrol edin.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Mail Mesaji Gonderilemedi. Hata nedeni icin, lutfen Mail Modulune Gidip, kontrol ediniz</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Çok fazla indirme</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Üzgünüm, bu dosya biçimi desteklenmiyor</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Kaydetmenin yayıncısı bilinmiyor</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Dosya kaydetmeye çalıştığınızda bozuldu</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Kaydedilecek dosyayı alma başarısız oldu</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Bu işlemi gerçekleştirmek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>{0} sunulan ehliyetle yetkilendirilemiyor</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Oluşturma için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Düzenleme için açılmış olduğundan dosya silinemiyor</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Dosyalardan biri düzenleme için açılmış olduğundan klasör silinemiyor</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Bu dosyayı silmek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Klasörü silmek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Bu dosyayı düzenlemek için yeterli izinlere sahip değilsiniz</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Dosya başka bir sekmede sizin tarafınızdan düzenleniyor</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Dosyayı görüntülemek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Klasör içeriğini görüntülemek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Dosyayı yeniden adlandırmak için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Klasörü yeniden adlandırmak için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Düzenleme için açılan dosya nedeniyle güncelleme yapılamaz</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Klasör içeriğini görüntülemek için yeterli izniniz yok</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Ucuncu parti icerik klasorune ulasilamiyor, hesabiniza tekrar baglanmayi deneyin</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Dosya düzenleme başlangıç hatası</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Düzenleme için açılan bir dosyayı güncellemenize izin verilmiyor</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Kullanıcı bulunamadı</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Çöp kutusu öğelerini önizlenize izin verilmiyor</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Herkes</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Klasör</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Klasör adı</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonim</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>yeni</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Geri yükle</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>"{0}" klasöründe dosya oluşturuldu</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Kullanıcı olarak aynısını yap|Dropbox,Box ve diğer hesapları "Ortak Dökümanlar" bölümünden bağlantılayın|Dökümanlara ve klasörlere erişim haklarını "Ortak Dökümanlar" bölümünden düzenleyin</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Yarat, düzenle, kaydet ve paylaş. Gerçek zamanlı olarak işbirliği yapın. MS Office formatları ile %100 uyum garantisi verilir.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Yarat, düzenle, kaydet ve paylaş. Gerçek zamanlı olarak işbirliği yapın. MS Office formatları ile %100 uyum garantisi verilir.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Belgeler</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Uygun erişim haklarıyla ortak dökümanları yaratıp düzenlediğiniz gibi kendi dosyalarınızı yaratın ve düzenleyin|Dökümanlara ve klasörlere diğer kullanıcılara okuma/düzenleme hakkı verin|Dropbox, Box ve diğer hesapların bağlantılarını "Belgelerim" bölümünden yapın</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} kaldırıldı</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Okundu olarak işaretle</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Klasör paylaşıldığında bildir</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Sürümleri Göster</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Patron Imzaladiginda Beni Uyar</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Dokuman Devtek Klasorunde Degistiginde Beni Uyar</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Paylaşıldığında bilgilendir</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Mail gonderme tamamlandiginda beni uyar</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Değiştirmek için doldurun</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Klasör Başlığı</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Tekrar bağlan</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Paylaşılır yap ve 'Ortak Dökümanlar' klasörüne koy</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Oluşturan</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>{!user} {0} Belgeleri</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Belgeler</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Güncellendi</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dosyalar</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>İzin Ayarları</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Dosya eylemlerini göster</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Klasör eylemlerini göster</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Alt klasörler</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Yüklendi</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Versiyon olarak işaretle</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Değişiklik olarak işaretle</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versiyon geçmişi:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Dosyanın kilidi kaldırıldı</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>sür.</value>
+  </data>
+</root>

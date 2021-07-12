@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Datei löschen?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Seite löschen?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Gewählte Versionen vergleichen</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Veröffentlichen</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Rückgängig machen</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Keine Kategorien sind noch erstellt</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Alle Kategorien der Wiki-Seiten sind hier aufgelistet. Sobald eine Kategorie auf einer Seite erstellt ist, wird sie zur Liste mit den Kategorien hinzugefügt.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>In dieser Sektion gibt es keine Dateien zum Anzeigen</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>In dieser Sektion werden alle Dateien aufbewahrt, die für die Wiki-Seiten von allen Wiki-Verfassern hochgeladen sind. Diese Dateien können den Seiten mithilfe der Wiki- oder HTML-Auszeichnung zugewiesen werden.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>In dieser Sektion gibt es keine Seiten zum Anzeigen</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Die Index-Seite enthält alle Seiten, die von den Wiki-Verfassern erstellt wurden, in alphabetischer Reihenfolge. Sobald eine Seite erstellt ist, wird sie automatisch zur Index-Seite hinzugefügt.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>In dieser Sektion gibt es keine Seiten zum Anzeigen</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Alle zuletzt erstellten oder bearbeiteten Seiten werden mit der Angabe der Verfasser hier aufgezählt. Sie werden zur Liste automatisch hinzugefügt und nach dem Erstellungs- oder Bearbeitungsdatum sortiert.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>In dieser Sektion gibt es keine Seiten zum Anzeigen</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Alle zuletzt bearbeiteten Seiten werden mit der Angabe der Verfasser hier aufgezählt. Sie werden zur Liste automatisch hinzugefügt und nach dem Bearbeitungsdatum sortiert.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Neue Datei</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Neue Seite</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Hauptseite</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Datei bearbeiten</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Seite bearbeiten</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Die Datei ist nicht vorhanden. Eine Datei mit diesem Namen {0erstellen} [[ oder die {1Suchergebnisse} sehen]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Die angefragte Seite ist nicht vorhanden. &lt;/div&gt;Möchten Sie sie {0erstellen} [[ oder die {1Suchergebnisse} sehen]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Datei hochladen</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Neue Seite erstellen</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Seite löschen</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Seite bearbeiten</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kategorie: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Seite drucken</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Historie anzeigen</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Unternehmensinternes Wiki</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Keine Datei zum Hochladen ist gewählt.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich an den Administrator.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Fehler in der Seitenauszeichnung</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Es gibt keine Änderungen.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Diese Seite wurde von einem anderen Benutzer bearbeitet. Bitte aktualisieren Sie diese Seite, um die letzte Version zu sehen.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Das Feld "Seitentitel" ist leer.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Die Seite hat einen falschen Namen. Geben Sie einen anderen Namen ein.</value>
+  </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>Das Feld "Text" ist leer.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Eine Seite mit diesem Titel ist bereits vorhanden.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Die Änderungen wurden gespeichert.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Seite zur Kategorie hinzufügen</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Seitenänderung/Kommentare</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Neue Seiten</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Für diese Seite anmelden</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Suche in Wiki</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Von Seite abmelden</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>Kommentar hinzugefügt</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>Kommentar gelöscht</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>Kommentar bearbeitet</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>Datei hinzugefügt</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>Datei gelöscht</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>Seite hinzugefügt</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>Seite bearbeitet</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>Vorherige Seitenversion wiederhergestellt</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Vergleichen der Ver.{0} mit der Ver.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Datei hochladen</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Letzte Änderungen von {0} auf {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Möchten Sie die vorherige Version wiederherstellen?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Ver.</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>De contactenlijst wordt automatisch geüpdatet wanneer mensen worden toegevoegd aan/verwijderd van de lijst van medewerkers, zodat u deze niet handmatig hoeft te controleren.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Notificatie in een browser</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chatroom</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Chattabs</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Contactenlijst met instellingen</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Standaard worden alle notificaties worden verzonden zowel naar uw e-mailadres en naar Talk. U kunt ze aanpassen in de</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Verstuurde bestanden verwijderen</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Lijst van contacten die in groepen meedoen</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>hier</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Offline contacten verbergen</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Mailing</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Meer informatie over notificatie is beschikbaar {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Notificatie Installatie</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk is een IM systeem voor bedrijven om in real time instant tekstberichten uit te wisselen tussen de medewerkers.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk biedt alle traditionele kenmerken die u verwacht van een Messenger - keuze van status, geschiedenis bewaren, bestanden uitwisselen, multi-user chatondersteuning, en meer.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Talk Overzicht</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Start onze web client op om direct te beginnen met het gebruiken van Talk zonder voorafgaande instellingen.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profielpagina</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Stuur berichten met Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>De instellingen van het invoerveld</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Web Client Opstarten</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Geen extra instellingen! Klik op web client op te starten en nu te beginnen met praten</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Abonnementsdeel van de {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Stemmen van gebeurtenissen</value>
+  </data>
+</root>

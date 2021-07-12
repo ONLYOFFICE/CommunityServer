@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>新建待办事项</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>创建新任务</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>已结束的待办事项</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>相关联系人</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>创建第一个待办事项</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>创建待办事项</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>自定义时间段</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>其他用户</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>删除任务</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>编辑任务</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>任务是创建事项提醒的简单方法。 例如，您可以使用任务提醒约会或电话。您可以创建{0}不同类别{1}的任务，将其与联系人、机会或案例相关联，或为您自己创建一个简单提醒。</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>暂无符合此筛选条件的待办事项。您可以：① 尝试新的筛选条件；② 点击“清除筛选”以查看全部待办事项。您还可以尝试浏览列于联系人、商机或商业活动名下的待办事项。</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>暂无符合此筛选条件的待办事项</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>暂无待办事项</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>应在计算机硬盘上选择正确格式的CSV文件。它必须包含由选择的分隔符分隔的字段或列，将用于导入任务。包含超过{0}行的文件应分为较小的部分，以正确导入。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>选择要上传的CSV文件</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>将您的文件列与相应的ONLYOFFICE™CRM字段相匹配。请注意，若想正确导入任务，您需要至少具有与ONLYOFFICE™CRM字段匹配的文件列：“任务标题”，“责任”，“到期日”。包含日期的字段必须按以下格式：{0}。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>请验证字段</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>回到待办事项列表</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>导入可能需要几分钟的时间，具体耗时取决于您导入的数据量。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>导入待办事项</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>我的待办事项</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>从不</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>已结束</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>已逾期</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15分钟</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5分钟</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>半小时</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>1小时</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>1天</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2小时</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>负责</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>正在保存待办事项</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>开始导入</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>待办事项</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>任务类别</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>待办事项分类</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>电话联系</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>商机</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>演示</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>电邮联系</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>活动执行</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>饭局</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>正式会面</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>备忘</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>寄件</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>社交网交流</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>表达谢意</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>任务描述</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>委派给</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>待办事项</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>按状态查看</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>已结束</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>即将来临</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3天内</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>您可以通过类别设置来对手头上的待办事项进行目标性的区分。系统默认的待办事项有：电话联系、商机、演示、电邮联系、传真、活动执行、饭局、正式会面、备忘、寄件、社交网交流、表达谢意。工作站管理员可按自己的企业/团队所需对类别设置进行修改。</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>所有任务</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>本周</value>
+  </data>
+</root>

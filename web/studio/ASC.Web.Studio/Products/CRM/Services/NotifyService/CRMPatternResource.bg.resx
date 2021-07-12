@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. Новото събитие е добавено към "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+$__DateTime "$__AuthorName":"$__AuthorUrl" е добавил ново събитие в "$EntityTitle":"${__VirtualRootPath}/${ EntityRelativeURL} ":
+          $AdditionalData.get_item ("EventContent")
+
+          #foreach($fileInfo в $AdditionalData.get_item ("Files").Keys)
+
+          #beforeall
+
+          ----------------------------------------
+
+          #each
+
+          "$fileInfo":"$AdditionalData.get_item("Files").get_item ($fileInfo)"
+
+          #end
+
+          ^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. Нов контакт, създаден с помощта на формуляра за връзка с уебсайта "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+$__DateTime Създаден е нов контакт с помощта на формуляра за връзка с уебсайта." $EntityTitle":" ${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+Информация за контакт:
+
+#foreach($contactInfo в $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item ($contactInfo)
+
+#end
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Износът на данни е завършен успешно 
+
+Моля, следвайте този линк, за да изтеглите архива: "exportdata.zip":"${EntityRelativeURL}" 
+
+*Забележка*: тази връзка е валидна само за 24 часа. 
+
+Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Най-добри пожелания, 
+Екип за поддръжка на ONLYOFFICE™ 
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. CRM. Импортирането на данни е успешно завършено 
+
+Отидете в списъка "Контакти":"$__VirtualRootPath/Products/CRM/". 
+
+Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Най-добри пожелания, 
+Екип за поддръжка на ONLYOFFICE™ 
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Вие сте назначени отговорни за възможността: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви е определило отговорно за възможност: $EntityTitle.
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Описание на възможността:
+$AdditionalData.get_item("OpportunityDescription")
+
+#end
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Задача възложена на вас: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви е определило отговорността за задачата: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+Категория задачи: $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+Връзка с контакт: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+Връзка с случай: "$AdditionalData.get_item("CaseTitle"))":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl "))
+Връзка с възможност: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Описание задачи:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Крайний срок: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Перейти к списку "задач":"${__VirtualRootPath}/Products/CRM/Tasks.aspx".
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Достъп, предоставен на "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}" $__DateTime "$__AuthorName":"$__AuthorUrl" ви дава достъп до "$EntityTitle": {EntityRelativeURL} ". ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за предоставения достъп до CRM елементите, моля, управлявайте своите "настройки за абонамент":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Напомняне за задачата: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+Категория задачи: $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+Връзка с контакт: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+Връзка с случай: "$ДопълнителнаData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+Връзка с възможност: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+Описание на задачата: $AdditionalData.get_item("TaskDescription")
+#end
+
+Дата: $AdditionalData.get_item("DueDate")
+
+Отидете в списъка "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx".
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. Новото събитие е добавено към $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. Нов контакт, създаден с "Формуляр за връзка с уебсайт"</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Износът на данни е завършен успешно</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Импортирането на данни бе успешно завършено</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Вие сте назначени като отговорно лице за възможността: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Задача, която ви е възложена: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. Достъпът е предоставен на $EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Напомняне за задачата: $EntityTitle</value>
+  </data>
+</root>

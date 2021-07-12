@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>المهام النشطة</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>إنشاء تقرير من هذا النوع تلقائياً</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>الفترة الزمنية</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>انقر فوق فرز حسب هذا العمود</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>إنشاء قالب</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>الموعد النهائي</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>تحتاج إلى تعيين اسم للقالب</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>كل يوم</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>كل شهر</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>كل أسبوع</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>إنشاء تقرير</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>مدة زمنية غير صحيحه</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>الشهر السابق</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>الأسبوع السابق</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>السنة السابقة</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>هذا المشروع لايتضمن خارطة طريق ومهام</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>أعضاء</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>تقرير المهام المغلقة</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} بدون مهام نشطة</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>عبء العمل</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>مراحل متأخرة</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>المهام المتأخرة</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>تقرير المهام المفتوحة</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>تقرير «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>قائمة المشاريع</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>مشاريع بدون مراحل مفتوحة</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>مشاريع بدون مهام نشطة</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>مهام المشروع</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>متابعه الوقت</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>المرحلة القادمة</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>نشاط المستخدم</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>مهام المستخدم</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>عرض المهام</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>قوالب</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>عنوان القالب</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>الشهر الحالي</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>الأسبوع الحالي</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>السنة الحالية</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>المستخدم</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>عرض بواسطة {! مجموعة}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>عرض حسب المشروع</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>عرض بواسطة المستخدم</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>عرض بمهام المستخدم</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>عرض المشاريع المغلقة</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>الأسبوع</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>الأسبوع</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>الأمس</value>
+  </data>
+</root>

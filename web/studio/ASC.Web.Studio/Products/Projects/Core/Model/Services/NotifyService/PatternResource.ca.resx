@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Comentari editat per a debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha editat un comentari en el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Llegir més":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Has rebut aquest missatge perquè ets un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per a canviar el tipus de notificació, si us plau, modifica els "ajustaments de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Editat el comentari de la tasca: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha editat un comentari de la tasca: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData
+
+"Llegir més":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Has rebut aquest missatge perquè ets un usuari registrat en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no vols rebre més notificacions de la tasca, si us plau "donar-se de baixa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.S'ha editat el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha editat el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Més informació a":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^Rebeu aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificacions, si us plau, modifiqueu la configuració de la vostra subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projectes. Importació de les dades de Basecamp
+
+Les noves dades s’han importat amb èxit.
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"$ {__VirtualRootPath}". Per canviar el tipus de notificació, gestioneu la vostra "configuració de subscripció":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Notificació de fita sobrepassada: "$EntityTitle":"${__ VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending"
+
+El "$EntityTitle":"$ {__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" fita del projecte "$ProjectTitle":"$ {__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ ProjectID"s'ha endarrerit.
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificació, gestioneu la vostra "configuració de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.S'ha eliminat el debat: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" ha eliminat el debat "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID" del projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Rebeu aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificacions, si us plau, modifiqueu la configuració de la vostra subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Fita tancada: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" s'ha tancat la fita "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" en el projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+ ^Has rebut aquest correu electrònic perquè estàs registrat en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per a canviar el tipus de notificació, si us plau, modifica "configuració de la subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Fita creada: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha afegit una nova fita: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" en el projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Has rebut aquest correu electrònic perquè estàs registrat en el portal "${__VirtualRootPath}":"${__VirtualRootPath}" . Per a canviar el tipus de notificació, si us plau, modifica la "Configuració de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Notificació de la data de venciment de la fita: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Queden menys de 48 hores fins a la data de venciment de la fita  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" del projecte  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Has rebut aquest correu electrònic perquè estàs registrat com usuari en el portal  "${__VirtualRootPath}":"${__VirtualRootPath}". Per a canviar el tipus de notificació, si us plau, modifica la teva "configuració de la subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Fita suprimida: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha suprimit la fita "$EntityTitle" en el projecte  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Has rebut aquest correu electrònic perquè estàs registrat com usuari en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per a canviar el tipus de notificació, si us plau, modifica la teva "configuració de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Fita editada: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha editat la fita "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" del projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Has rebut aquest correu electrònic perquè estàs registrat com usuari en el portal 
+ "${__VirtualRootPath}":"${__VirtualRootPath}" Per a canviar el tipus de notificació, si us plau, modifica la teva "configuració de la subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.S'ha reprès la fita:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha reprès la fita  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" del projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData
+
+ ^Has rebut aquest correu electrònic perquè estàs registrat com usuari en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per a canviar el tipus de notificació, si us plau, modifica la teva "configuració de la subscripció"
+:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Nou comentari en el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha afegit un nou comentari en el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Llegir més":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Has rebut aquest correu electrònic perquè estàs registrat com usuari en el portal "${__VirtualRootPath}":"${__VirtualRootPath}".  Per a canviar el tipus de notificació, si us plau, modifica la teva "configuració de la subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Comentari nou en la tasca: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha afegit un nou comentari en la tasca  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" : 
+
+$AdditionalData
+
+"Llegir més":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Has rebut aquest correu electrònic per què estas registrat com usuari en el portal  "${__VirtualRootPath}":"${__VirtualRootPath}". Si no vols rebre més notificacions d'aquesta tasca, si us plau  "donar-se de baixa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Afegit nou arxiu en el debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha afegit un nou arxiu en el debat  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" : 
+
+$AdditionalData
+
+^Has rebut aquest correu electrònic per què estàs registrat en el portal  "${__VirtualRootPath}":"${__VirtualRootPath}". Si no vols rebre notificacions d'aquest debat, si us plau "donar-se de baixa":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Nou arxiu afegit a la tasca: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha afegit un nou arxiu a la tasca  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Has rebut aquest correu electrònic per què estàs registrat en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no vols rebre notificacions d'aquesta tasca, si us plau "donar-se de baixa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Creat el nou debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ha iniciat un nou debat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Llegir més":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Has rebut aquest correu electrònic per què estàs registrat com usuari en el portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificació, si us plau, modifica la teva "configuració de la subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projecte suprimit: "$EntityTitle"
+
+$__DateTime"$__AuthorName":"$__AuthorUrl" ha suprimit el projecte "$EntityTitle"
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificació, gestioneu la vostra "configuració de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Recordatori sobre la tasca:"$EntityTitle":"$ {__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__ DateTime"$__ AuthorName":"$ __AuthorUrl" us recorda la tasca:"$EntityTitle":"${__ VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID":$AdditionalData.get_item"Descripció de tasques")
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificació, gestioneu la vostra "configuració de subscripció":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Recordatori sobre la tasca:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Avui és el termini màxim per a la tasca:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID":$AdditionalData.get_item("TaskDescription")
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per canviar el tipus de notificació, gestioneu la vostra "configuració de subscripció": "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Us ha estat assignada una fita: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" us ha afegit com a responsable de la fita: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" al projecte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Rebeu aquest correu electrónic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Per a modificar el tipus de notificació, si us plau, gestioneu els vostres "ajustos de subscripció":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Subtasca assignada:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime"$__AuthorName":"$__AuthorUrl" us ha designat responsable de la subtasca:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" afegit al "$EntityTitle":tasca"$ {__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription")
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal"${__VirtualRootPath}":"${__VirtualRootPath}".Si no voleu rebre les notificacions sobre aquesta tasca, "cancel·leu la subscripció":"${__ VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Subtasca tancada:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime"$__AuthorName":"$__AuthorUrl" ha tancat la tasca secundària afegida a "$EntityTitle":"$ {__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Rep aquest correu electrònic perquè un usuari es registra del portal "${__ VirtualRootPath}":"$__VirtualRootPath}". Si no voleu rebre les notificacions sobre aquesta tasca, "cancel·leu la subscripció":"${__VirtualRootPath} /Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Subtask created: "$SubEntityTitle":"${__ VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__ DateTime"$__ AuthorName":"$ __AuthorUrl" ha afegit una subtarea nova:"$SubEntityTitle":"${__VirtualRootPath} /Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"a"$EntityTitle":Tasca"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+La subtasca està assignada a "$Responsible".
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"$ {__VirtualRootPath}". Si no voleu rebre les notificacions sobre aquesta tasca, "cancel·leu la subscripció":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Sub-tasca suprimida: "$SubEntityTitle"
+
+$__DateTime"$__AuthorName":"$__AuthorUrl" ha suprimit la subtasca:"$ SubEntityTitle"del"$EntityTitle":"$ {__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID.
+
+^Rep aquest correu electrònic perquè sou un usuari registrat del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no voleu rebre les notificacions sobre aquesta tasca, "cancel·leu la subscripció":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Debat modificat: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Importació de dades de Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Heu estat afegit a l'equip del projecte</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Notificació de fita caducada: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Debat eliminat: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Fita tancada: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Fita creada: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Notificació sobre la data límit de la fita: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Fita eliminada: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Fita modificada: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. La fita s'ha reemprès: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projectes [$ProjectTitle].Nou comentari en el debat: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Nou comentari a la tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Nou fitxer al debat: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Nou fitxer adjunt a la tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Nou debat: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projectes. Projecte eliminat: $EntityTitle</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>La discussió ha estat borrada</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Una nova fita s'ha creat</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Un nou debat ha estat creat</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Una nova subtasca s'ha creat</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Una tasca nova s'ha creat</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Recordatori sobre la tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Recordatori sobre la tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Heu estat eliminat de l'equip del projecte</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Ja no teniu assignada la tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Us ha estat assignada una fita: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Heu estat designat responsable del projecte</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Us ha estat assignada una subtasca: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Us ha estat assignada una tasca: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Subtasca tancada: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Subtasca creada: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Subtasca eliminada: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Subtasca reempresa: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Tasca finalitzada: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Tasca tancada: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Tasca modificada: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projectes [$ProjectTitle]. Tasca reempresa: $EntityTitle</value>
+  </data>
+</root>

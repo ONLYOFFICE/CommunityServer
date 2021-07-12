@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Ρυθμίσεις λογαριασμού</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Λογαριασμοί</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Ενέργειες</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Όλα</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Πότε</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Που</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Ποιος</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Αλλαγή ρυθμίσεων λογαριασμού</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Επιλέξτε ετικέτα</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Κοινές ρυθμίσεις</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Εταιρία</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Προσθήκη ετικέτας</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>Επιλογές για προχωρημένους</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Επιλέξτε</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Εταιρίες</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Χθες</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Με ετικέτα</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού αλληλογραφίας</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Δοκιμάστε ξανά</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Με ετικέτες</value>
+  </data>
+</root>

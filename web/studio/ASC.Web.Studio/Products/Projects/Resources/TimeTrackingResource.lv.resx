@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Pabeigts</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>Dzēst time spending</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>Vai tiešām vēlaties izdzēst laika izmaksas?</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>Nav taimerus, kas atbilst filtram.</value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>Attīrīt visus</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>Uz augšu</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>Izvēlēties visu</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>stundas</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>Jums nav uzdevumu. Lūdzu, vispirms izveidot uzdevumu un pēc tam startēt taimeri.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minūtes</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>Nav taimeri</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>Atzīmējiet laiku, ko jūs tērējat ar uzdevumu savā projektā vēl efektīvākai laika vadībai. Startējiet taimeri uzdevuma sākumā un apstāties, kad uzdevums ir pabeigts. Pievienojiet aprēķināto laiku pie atlasītā uzdevuma.</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>Vēl nav uzsākto taimeru</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>Atvērts</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Apmaksāts</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Nav apmaksāts</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Neapmaksājamais</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>Startēt taimeri</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>Kopējais laiks uzdevumam:</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>samaksāts:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>kopīgs:</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>Kopējais laiks darbībām kas atbilst filtram:</value>
+  </data>
+</root>
