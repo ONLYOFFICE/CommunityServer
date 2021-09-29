@@ -1149,9 +1149,10 @@
         for (var i = 0; i < itemsDisplay.length; i++) {
             var item = itemsDisplay[i];
             var title = typeof item.title === "string" ? Encoder.htmlDecode(item.title) : item.title;
+            var email = typeof item.email === "string" ? Encoder.htmlDecode(item.email) : item.email;
             var li = li1.cloneNode(false);
             var className = "";
-            li.title = title;
+            li.title = email;
 
             var dataId = document.createAttribute("data-id");
             dataId.value = item.id;
