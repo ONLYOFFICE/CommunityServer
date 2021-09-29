@@ -92,6 +92,7 @@
                 var newObj = {
                     title: dataItem.displayName,
                     id: dataItem.id,
+                    email: dataItem.email,
                     isVisitor: dataItem.isVisitor,
                     status: dataItem.isPending || dataItem.isActivated === false ? ASC.Resources.Master.ResourceJS.UserPending : "",
                     groups: window.GroupManager.getGroups(dataItem.groups)
