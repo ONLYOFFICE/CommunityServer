@@ -174,7 +174,7 @@
         &lt;/tr&gt;
         &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
           &lt;td colspan="3" style="margin: 0; padding: 0; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"&gt;
-            &lt;div style="width: 600px; height: 340px; background: url('https://d2nlctn12v279m.cloudfront.net/media/newsletters/images/personal-wellcome-bg.png') 0 0 no-repeat; margin: 0; padding: 0;  border: 0 none;"&gt;&lt;/div&gt;
+            &lt;div style="width: 600px; height: 340px; background: url('%IMAGEPATH%/personal-wellcome-bg.png') 0 0 no-repeat; margin: 0; padding: 0;  border: 0 none;"&gt;&lt;/div&gt;
 &lt;div style="font-family: Arial; font-size: 14px; color: #333; margin: 0; padding: 15px 30px 15px; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;"&gt;
               %CONTENT%
             &lt;/div&gt;

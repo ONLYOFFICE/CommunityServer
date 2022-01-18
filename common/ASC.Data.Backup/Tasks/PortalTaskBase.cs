@@ -222,7 +222,7 @@ namespace ASC.Data.Backup.Tasks
 
         protected async Task RunMysqlFile(Stream stream, string delimiter = ";")
         {
-            using (var dbManager = new DbManager("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext("default", 100000))
             using (var tr = dbManager.BeginTransaction())
             {
                 if (stream == null) return;
@@ -275,7 +275,7 @@ namespace ASC.Data.Backup.Tasks
         }
         protected async Task RunMysqlProcedure(Stream stream)
         {
-            using (var dbManager = new DbManager("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext("default", 100000))
             {
                 if (stream == null) return;
 

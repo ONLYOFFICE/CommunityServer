@@ -461,7 +461,7 @@ window.ASC.Files.Converter = (function () {
             ASC.Files.Converter.showToConvert();
         });
 
-        jq("#filesMainContent").on("click", ".pencil.file-edit, .can-coauthoring .pencil.file-editing, .pencil.convert-action", function () {
+        jq("#filesMainContent").on("click", ".pencil.file-edit, .can-coauthoring .pencil.file-editing, .pencil.convert-action, .pencil.fillform-action", function () {
             ASC.Files.Actions.hideAllActionPanels();
             var fileData = ASC.Files.UI.getObjectData(this);
             var fileId = fileData.entryId;

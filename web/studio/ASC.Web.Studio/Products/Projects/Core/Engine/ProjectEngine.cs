@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -155,7 +154,7 @@ namespace ASC.Projects.Engine
             return project;
         }
 
-        public IEnumerable<Project> GetByID(ICollection projectIDs, bool checkSecurity = true)
+        public IEnumerable<Project> GetByID(List<int> projectIDs, bool checkSecurity = true)
         {
             var projects = DaoFactory.ProjectDao.GetById(projectIDs);
             if (checkSecurity)
@@ -270,7 +269,7 @@ namespace ASC.Projects.Engine
             }
             else
             {
-                var oldProject = DaoFactory.ProjectDao.GetById(new[] { project.ID }).FirstOrDefault();
+                var oldProject = DaoFactory.ProjectDao.GetById(new List<int>{project.ID }).FirstOrDefault();
                 ProjectSecurity.DemandEdit(oldProject);
 
                 DaoFactory.ProjectDao.Update(project);

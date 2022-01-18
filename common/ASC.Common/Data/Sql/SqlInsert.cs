@@ -106,7 +106,7 @@ namespace ASC.Common.Data.Sql
             return sql.ToString();
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             if (query != null)
             {
@@ -121,7 +121,7 @@ namespace ASC.Common.Data.Sql
             {
                 copy.Add(copy[identityPosition]);
             }
-            return copy.ToArray();
+            return copy;
         }
 
 

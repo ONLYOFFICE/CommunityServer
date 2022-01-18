@@ -76,6 +76,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                     ActivateMail(User);
                     const string successParam = "email_change=success";
+                    CookiesManager.ResetUserCookie();
                     if (User.IsVisitor())
                     {
                         Response.Redirect(CommonLinkUtility.ToAbsolute("~/My.aspx?" + successParam), true);

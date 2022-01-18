@@ -57,6 +57,11 @@ namespace ASC.Web.Files.Utils
                 file = dao.SaveFile(file, data);
             }
 
+            using (var linkDao = Global.GetLinkDao())
+            {
+                linkDao.DeleteAllLink(file.ID);
+            }
+
             FileMarker.MarkAsNew(file);
 
             if (FileConverter.EnableAsUploaded && FileConverter.MustConvert(file))
@@ -239,6 +244,11 @@ namespace ASC.Web.Files.Utils
 
             if (uploadSession.BytesUploaded == uploadSession.BytesTotal)
             {
+                using (var linkDao = Global.GetLinkDao())
+                {
+                    linkDao.DeleteAllLink(uploadSession.File.ID);
+                }
+
                 FileMarker.MarkAsNew(uploadSession.File);
                 ChunkedUploadSessionHolder.RemoveSession(uploadSession);
             }

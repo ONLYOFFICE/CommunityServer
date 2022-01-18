@@ -447,7 +447,7 @@ window.ASC.Files.Folders = (function () {
         });
     };
 
-    var createNewDoc = function (fileData, defaultName) {
+    var createNewDoc = function (fileData, defaultName, createFileMethod) {
         if (ASC.Files.MediaPlayer && ASC.Files.MediaPlayer.isView) {
             return;
         }
@@ -467,6 +467,12 @@ window.ASC.Files.Folders = (function () {
                 templateId: templateId,
                 winEditor: winEditor,
             };
+
+            if (typeof createFileMethod == "function") {
+                createFileMethod(params);
+                return;
+            }
+
             ASC.Files.ServiceManager.createNewFile(ASC.Files.ServiceManager.events.CreateNewFile, params);
         };
 
@@ -496,6 +502,9 @@ window.ASC.Files.Folders = (function () {
                     break;
                 case "presentation":
                     titleNewDoc = ASC.Files.FilesJSResource.TitleNewFilePresentation + ASC.Files.Utility.Resource.InternalFormats.Presentation;
+                    break;
+                case "masterform":
+                    titleNewDoc = ASC.Files.FilesJSResource.TitleNewFileFormTemplate + ASC.Files.Utility.Resource.MasterFormExtension;
                     break;
                 default:
                     return;
@@ -623,6 +632,33 @@ window.ASC.Files.Folders = (function () {
                     break;
             }
         });
+    };
+
+    var createNewForm = function (fileData) {
+        var title = fileData.title;
+        var ext = ASC.Files.Utility.GetFileExtension(title);
+        var newTitle = title.substring(0, title.length - ext.length) + ASC.Files.Utility.FileExtensionLibrary.OformExts[0];
+
+        Teamlab.copyDocFileAs(null, fileData.id,
+            {
+                destFolderId: fileData.folder_id,
+                destTitle: newTitle
+            },
+            {
+                success: function (_, data) {
+                    ASC.Files.ServiceManager.getFile(ASC.Files.ServiceManager.events.CreateNewFile,
+                        {
+                            fileId: data.id,
+                            show: true,
+                            isStringXml: false,
+                            folderID: fileData.folder_id,
+                            winEditor: false
+                        });
+                },
+                error: function (_, error) {
+                    ASC.Files.UI.displayInfoPanel(error[0], true);
+                }
+            });
     };
 
     var replaceFileStream = function (fileId, fileTitle, file, encrypted, winEditor, forcesave) {
@@ -1415,6 +1451,7 @@ window.ASC.Files.Folders = (function () {
         showMore: showMore,
 
         createNewDoc: createNewDoc,
+        createNewForm: createNewForm,
         typeNewDoc: typeNewDoc,
         replaceFileStream: replaceFileStream,
 

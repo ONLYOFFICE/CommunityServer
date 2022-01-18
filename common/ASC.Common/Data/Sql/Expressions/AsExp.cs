@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class AsExp : Exp
@@ -39,7 +41,7 @@ namespace ASC.Common.Data.Sql.Expressions
                                  string.IsNullOrEmpty(alias) ? string.Empty : " as " + alias);
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return subQuery.GetParameters();
         }

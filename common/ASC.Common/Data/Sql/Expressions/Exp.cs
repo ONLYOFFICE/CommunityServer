@@ -15,7 +15,7 @@
 */
 
 
-using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ASC.Common.Data.Sql.Expressions
@@ -41,7 +41,7 @@ namespace ASC.Common.Data.Sql.Expressions
 
         public abstract string ToString(ISqlDialect dialect);
 
-        public virtual object[] GetParameters()
+        public virtual IEnumerable<object> GetParameters()
         {
             return new object[0];
         }
@@ -90,19 +90,16 @@ namespace ASC.Common.Data.Sql.Expressions
             return new LikeExp(column, value, like);
         }
 
-        public static Exp In(string column, ICollection values)
+
+        public static Exp In<T>(string column, IEnumerable<T> values)
         {
-            return new InExp(column, new ArrayList(values).ToArray());
+            return new InExp<T>(column, values);
         }
 
-        public static Exp In(string column, object[] values)
-        {
-            return new InExp(column, values);
-        }
 
         public static Exp In(string column, SqlQuery subQuery)
         {
-            return new InExp(column, subQuery);
+            return new InExp<object>(column, subQuery);
         }
 
         public static Exp Between(string column, object minValue, object maxValue)

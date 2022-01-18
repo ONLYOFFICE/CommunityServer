@@ -985,7 +985,7 @@ namespace ASC.ElasticSearch
 
             AddJoins(Wrapper, dataQuery, Alias);
 
-            using (var db = new DbManager("default", 1800000))
+            using (var db = DbManager.FromHttpContext("default", 1800000))
             {
                 db.ExecuteNonQuery("SET SESSION group_concat_max_len = 4294967295;");
                 data = db.ExecuteList(dataQuery);
@@ -999,7 +999,7 @@ namespace ASC.ElasticSearch
         {
             var idColumn = Wrapper.GetColumnName(ColumnTypeEnum.Id, Alias);
 
-            using (var db = new DbManager("default", 1800000))
+            using (var db = DbManager.FromHttpContext("default", 1800000))
             {
                 var dataQuery = GetBaseQuery(lastIndexed)
                     .Select(idColumn)
@@ -1029,7 +1029,7 @@ namespace ASC.ElasticSearch
             var idColumn = Wrapper.GetColumnName(ColumnTypeEnum.Id, Alias);
             long start = 0;
             var result = new List<long>();
-            using (var db = new DbManager("default", 1800000))
+            using (var db = DbManager.FromHttpContext("default", 1800000))
             {
                 while(true)
                 {

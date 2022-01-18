@@ -246,7 +246,7 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
                 node.ParentNode.RemoveChild(node);
             }
 
-            nodes = doc.DocumentNode.SelectNodes("//script|//meta|//style");
+            nodes = doc.DocumentNode.SelectNodes("//script|//noscript|//meta|//style");
 
             if (nodes == null || nodes.Count == 0)
                 return;

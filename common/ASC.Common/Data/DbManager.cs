@@ -34,7 +34,6 @@ namespace ASC.Common.Data
     {
         private readonly ILog logger = LogManager.GetLogger("ASC.SQL");
         private readonly ProxyContext proxyContext;
-        private readonly bool shared;
 
         private DbCommand command;
         private ISqlDialect dialect;
@@ -78,16 +77,10 @@ namespace ASC.Common.Data
         }
 
 
-        public DbManager(string databaseId, int? commandTimeout = null)
-            : this(databaseId, true, commandTimeout)
-        {
-        }
-
-        public DbManager(string databaseId, bool shared, int? commandTimeout = null)
-        {
+        private DbManager(string databaseId, int? commandTimeout = null)
+        { 
             if (databaseId == null) throw new ArgumentNullException("databaseId");
             DatabaseId = databaseId;
-            this.shared = shared;
 
             if (logger.IsDebugEnabled)
             {
@@ -119,21 +112,21 @@ namespace ASC.Common.Data
 
         #endregion
 
-        public static IDbManager FromHttpContext(string databaseId)
+        public static IDbManager FromHttpContext(string databaseId, int? commandTimeout = null)
         {
             if (HttpContext.Current != null)
             {
                 var dbManager = DisposableHttpContext.Current[databaseId] as DbManager;
                 if (dbManager == null || dbManager.disposed)
                 {
-                    var localDbManager = new DbManager(databaseId);
+                    var localDbManager = new DbManager(databaseId, commandTimeout);
                     var dbManagerAdapter = new DbManagerProxy(localDbManager);
                     DisposableHttpContext.Current[databaseId] = localDbManager;
                     return dbManagerAdapter;
                 }
                 return new DbManagerProxy(dbManager);
             }
-            return new DbManager(databaseId);
+            return new DbManager(databaseId, commandTimeout);
         }
 
         private DbConnection OpenConnection()
@@ -146,40 +139,11 @@ namespace ASC.Common.Data
         private DbConnection GetConnection()
         {
             CheckDispose();
-            DbConnection connection = null;
-            string key = null;
-            if (shared && HttpContext.Current != null)
-            {
-                key = string.Format("Connection {0}|{1}", GetDialect(), DbRegistry.GetConnectionString(DatabaseId));
-                connection = DisposableHttpContext.Current[key] as DbConnection;
-                if (connection != null)
-                {
-                    var state = ConnectionState.Closed;
-                    var disposed = false;
-                    try
-                    {
-                        state = connection.State;
-                    }
-                    catch (ObjectDisposedException)
-                    {
-                        disposed = true;
-                    }
-                    if (!disposed && (state == ConnectionState.Closed || state == ConnectionState.Broken))
-                    {
-                        if (string.IsNullOrEmpty(connection.ConnectionString))
-                        {
-                            connection.ConnectionString = DbRegistry.GetConnectionString(DatabaseId).ConnectionString;
-                        }
-                        return connection;
-                    }
-                }
-            }
-            connection = DbRegistry.CreateDbConnection(DatabaseId);
+            var connection = DbRegistry.CreateDbConnection(DatabaseId);
             if (proxyContext != null)
             {
                 connection = new DbConnectionProxy(connection, proxyContext);
             }
-            if (shared && HttpContext.Current != null) DisposableHttpContext.Current[key] = connection;
             return connection;
         }
 
@@ -300,7 +264,8 @@ namespace ASC.Common.Data
             logger.DebugWithProps(a.SqlMethod,
                 new KeyValuePair<string, object>("duration", a.Duration.TotalMilliseconds),
                 new KeyValuePair<string, object>("sql", RemoveWhiteSpaces(a.Sql)),
-                new KeyValuePair<string, object>("sqlParams", RemoveWhiteSpaces(a.SqlParameters))
+                new KeyValuePair<string, object>("sqlParams", RemoveWhiteSpaces(a.SqlParameters)),
+                new KeyValuePair<string, object>("sqlThread", a.SqlThread)
                 );
         }
 
@@ -391,6 +356,11 @@ namespace ASC.Common.Data
         public int ExecuteBatch(IEnumerable<ISqlInstruction> batch)
         {
             return dbManager.ExecuteBatch(batch);
+        }
+
+        public Task<int> ExecuteNonQueryAsync(string sql, params object[] parameters)
+        {
+            return dbManager.ExecuteNonQueryAsync(sql, parameters);
         }
     }
 }

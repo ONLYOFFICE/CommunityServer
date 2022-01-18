@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class SqlExp : Exp
@@ -39,7 +41,7 @@ namespace ASC.Common.Data.Sql.Expressions
             return ins != null ? ins.ToString(dialect) : sql;
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return ins != null ? ins.GetParameters() : (parameters ?? new object[0]);
         }

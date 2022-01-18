@@ -96,7 +96,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .Where(Exp.Between("pp.created", filter.Time.From, filter.Time.To) &
                        !Exp.Between("TIMESTAMPDIFF(MINUTE,p.create_on, pp.created)", -filterTimeInterval, filterTimeInterval));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var participants = db.ExecuteList(q).ConvertAll(ToParticipant);
                 return participants.Select(p => new Tuple<Feed, object>(ToFeed(p), p));

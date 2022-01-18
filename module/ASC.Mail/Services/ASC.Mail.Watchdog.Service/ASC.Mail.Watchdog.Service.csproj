@@ -134,7 +134,7 @@
       <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.23</Version>
+      <Version>8.0.25</Version>
     </PackageReference>
     <PackageReference Include="Ubiety.Dns.Core">
       <Version>2.4.1</Version>

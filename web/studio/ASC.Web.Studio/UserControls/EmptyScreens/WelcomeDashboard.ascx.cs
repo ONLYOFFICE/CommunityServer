@@ -19,7 +19,9 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Core;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.EmptyScreens
 {
@@ -37,6 +39,15 @@ namespace ASC.Web.Studio.UserControls.EmptyScreens
             var collaboratorPopupSettings = CollaboratorSettings.LoadForCurrentUser();
             collaboratorPopupSettings.FirstVisit = false;
             collaboratorPopupSettings.SaveForCurrentUser();
+
+            var quota = TenantExtra.GetTenantQuota();
+            var isAdministrator = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID);
+            var showDemonstration = !CoreContext.Configuration.Personal && !CoreContext.Configuration.CustomMode && !CoreContext.Configuration.Standalone && quota.Trial;
+
+            ProductDemo = !string.IsNullOrEmpty(SetupInfo.DemoOrder) && isAdministrator && showDemonstration;
         }
+
+        protected bool ProductDemo;
+
     }
 }

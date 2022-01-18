@@ -40,7 +40,7 @@ apply_connection_string(){
 		if [ -d /var/www/{{package_sysname}}/ ]; then
 			for i in "${!binDirs[@]}";
 			do
-				find "/var/www/{{package_sysname}}/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;						
+				find "/var/www/{{package_sysname}}/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=true;Connection Timeout=30;Maximum Pool Size=300;\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;						
 			done
 		fi
 		
@@ -264,7 +264,7 @@ END
 		
 		python3 -m pip install --upgrade pip
 		python3 -m pip install --upgrade requests
-		python3 -m pip install --upgrade radicale
+		python3 -m pip install --upgrade radicale==3.0.5
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 		python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
@@ -304,6 +304,12 @@ END
 		
 		if grep -q "HeapDumpOnOutOfMemoryError" /etc/elasticsearch/jvm.options; then
 			sed "/-XX:+HeapDumpOnOutOfMemoryError/d" -i /etc/elasticsearch/jvm.options
+		fi
+		
+		if ! grep -q "Dlog4j2.formatMsgNoLookups" /etc/elasticsearch/jvm.options; then
+			echo "-Dlog4j2.formatMsgNoLookups=true" >> /etc/elasticsearch/jvm.options
+		else
+			sed -i "s/Dlog4j2.formatMsgNoLookups.*/Dlog4j2.formatMsgNoLookups=true/" /etc/elasticsearch/jvm.options
 		fi
 
 		TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);
@@ -415,6 +421,11 @@ EOF
 		# setup xmppserver
 		if dpkg -l | grep -q "{{package_sysname}}-xmppserver"; then
 			sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config			
+		fi
+
+		if [ -f /etc/god/conf.d/{{package_sysname}}.god ]; then
+			rm -rf /etc/god/conf.d/{{package_sysname}}.god
+			service god restart >/dev/null 2>&1
 		fi
 		# end
 

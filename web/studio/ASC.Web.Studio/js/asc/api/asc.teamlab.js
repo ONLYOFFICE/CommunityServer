@@ -3022,6 +3022,21 @@ window.Teamlab = (function () {
         return true;
     };
 
+    var createFile = function (params, folderId, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/' + folderId + '/file.json',
+            {
+                title: data.fileTitle,
+                templateId: data.templateId
+            },
+            options
+        );
+        return true;
+    };
+
     var filesDownloadTarGz = function (set, options) {
         return addRequest(
             null,
@@ -3031,6 +3046,17 @@ window.Teamlab = (function () {
             {
                 set: set
             },
+            options
+        );
+    };
+
+    var copyDocFileAs = function (params, id, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'files/file/' + id + '/copyas.json',
+            data,
             options
         );
     };
@@ -8523,8 +8549,9 @@ window.Teamlab = (function () {
         addFilesTemplates: addFilesTemplates,
         removeFilesTemplates: removeFilesTemplates,
         createThumbnails: createThumbnails,
+        createFile: createFile,
         filesDownloadTarGz: filesDownloadTarGz,
-        
+        copyDocFileAs: copyDocFileAs,
 
         createCrmUploadFile: createCrmUploadFile,
 

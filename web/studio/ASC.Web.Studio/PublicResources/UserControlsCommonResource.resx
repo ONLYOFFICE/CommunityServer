@@ -983,6 +983,15 @@
   <data name="WelcomeDashboardСonfigureNow" xml:space="preserve">
     <value>Сonfigure now</value>
   </data>
+  <data name="WelcomeDashboardСreatingBusinessСloud" xml:space="preserve">
+    <value>Book a demo</value>
+  </data>
+  <data name="WelcomeDashboardСreatingBusinessСloudFirstLine" xml:space="preserve">
+    <value>Our team is ready to guide you through the major features and modules.</value>
+  </data>
+  <data name="WelcomeDashboardСreatingBusinessСloudSecondLine" xml:space="preserve">
+    <value>Request a free presentation via Zoom</value>
+  </data>
   <data name="WhatsNew" xml:space="preserve">
     <value>What's New</value>
   </data>

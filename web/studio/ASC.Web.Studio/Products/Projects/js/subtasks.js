@@ -379,11 +379,9 @@ ASC.Projects.SubtasksManager = (function () {
         
         jq.tmpl("projects_fieldForAddSubtask", data).insertAfter($subtask);
         setTeamForResponsibleSelect(data.projectid);
-        $subtask.find(".taskName").hide();
+        $subtask.addClass("edited");
 
         var editField = jq("#quickAddSubTaskField");
-        editField.addClass("absolute");
-        editField.css("top", $subtask.position().top + "px");
         editField.removeClass("display-none");
 
         $subtaskNameInput = jq('.subtask-name-input');
@@ -397,7 +395,7 @@ ASC.Projects.SubtasksManager = (function () {
             jq(".task:not(.closed)").next().find(".quickAddSubTaskLink").show();
             jq("#subtaskContainer .quickAddSubTaskLink").show();
         }
-        jq(".subtask .taskName").show();
+        jq(".subtask.edited").removeClass("edited");
         editFlag = false;
     };
 

@@ -114,6 +114,24 @@ namespace ASC.Mail.Core.Engine
             return await dataStore.IsFileAsync(string.Empty, key) ? await dataStore.GetReadStreamAsync(string.Empty, key, 0) : null;
         }
 
+        public long GetMessageLength(string stream)
+        {
+            var dataStore = MailDataStore.GetDataStore(Tenant);
+
+            var key = MailStoragePathCombiner.GetBodyKey(User, stream);
+
+            return dataStore.IsFile(string.Empty, key) ? dataStore.GetFileSize(string.Empty, key) : 0;
+        }
+
+        public async Task<long> GetMessageLengthAsync(string stream)
+        {
+            var dataStore = MailDataStore.GetDataStore(Tenant);
+
+            var key = MailStoragePathCombiner.GetBodyKey(User, stream);
+
+            return await dataStore.IsFileAsync(string.Empty, key) ? await dataStore.GetFileSizeAsync(string.Empty, key) : 0;
+        }
+
         public Tuple<int, int> GetRangeMessages(IMessagesExp exp)
         {
             using (var daoFactory = new DaoFactory())

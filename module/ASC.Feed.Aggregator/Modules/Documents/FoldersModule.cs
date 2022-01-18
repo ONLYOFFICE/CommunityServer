@@ -117,7 +117,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                 .GroupBy(1)
                 .Having(Exp.Gt("count(*)", 0));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 return db.ExecuteList(q1)
                          .ConvertAll(r => Convert.ToInt32(r[0]))
@@ -154,7 +154,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                 );
 
             List<Tuple<Folder, SmallShareRecord>> folders;
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 folders = db.ExecuteList(q1.UnionAll(q2))
                     .ConvertAll(ToFolder)
@@ -162,7 +162,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     .ToList();
             }
 
-            var parentFolderIDs = folders.Select(r => r.Item1.ParentFolderID).ToArray();
+            var parentFolderIDs = folders.Select(r => r.Item1.ParentFolderID).ToList();
             var parentFolders = new FolderDao(Tenant, DbId).GetFolders(parentFolderIDs, checkShare: false);
 
             return folders.Select(f => new Tuple<Feed, object>(ToFeed(f, parentFolders.FirstOrDefault(r => r.ID.Equals(f.Item1.ParentFolderID))), f));

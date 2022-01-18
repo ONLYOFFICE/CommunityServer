@@ -42,6 +42,11 @@ namespace ASC.Web.Files
             get { return Location + string.Format("?{0}={{{0}}}&{1}={{{1}}}", FilesLinkUtility.FileTitle, FilesLinkUtility.FileUri); }
         }
 
+        public static string GetUrlToFolder(object folderId)
+        {
+            return string.Format("{0}&{1}={2}", GetUrl, FilesLinkUtility.FolderId, folderId);
+        }
+
         public string RequestFileTitle
         {
             get { return Global.ReplaceInvalidCharsAndTruncate(Request[FilesLinkUtility.FileTitle]); }
@@ -79,8 +84,9 @@ namespace ASC.Web.Files
             }
 
             var script = new StringBuilder();
-            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\");",
-                                originForPost);
+            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", \"{1}\");",
+                                originForPost,
+                                (Request[FilesLinkUtility.FolderId] ?? "").Replace("\"", "\\\""));
             Page.RegisterInlineScript(script.ToString());
         }
 

@@ -242,6 +242,9 @@
   <data name="CreateUserFolderLabel" xml:space="preserve">
     <value>Create folder</value>
   </data>
+  <data name="CustomFilter" xml:space="preserve">
+    <value>Custom Filter</value>
+  </data>
   <data name="DashboardCollectAllEmailsInOnePlace" xml:space="preserve">
     <value>Collect all emails in one place</value>
   </data>

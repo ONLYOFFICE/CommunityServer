@@ -78,6 +78,9 @@ server {
 server {
 	listen 0.0.0.0:443 ssl http2;
 	listen [::]:443 ssl http2 default_server;
+	
+	charset utf-8;
+	
 	server_tokens off;
 
 	## Increase this if you want to upload large attachments

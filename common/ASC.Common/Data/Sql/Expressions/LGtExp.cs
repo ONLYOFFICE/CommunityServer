@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class LGExp : Exp
@@ -37,7 +39,7 @@ namespace ASC.Common.Data.Sql.Expressions
                        : string.Format("{0} <{1} ?", column.ToString(dialect), equal ? "=" : string.Empty);
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return new[] { value };
         }

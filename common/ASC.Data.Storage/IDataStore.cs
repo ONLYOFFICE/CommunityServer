@@ -267,6 +267,7 @@ namespace ASC.Data.Storage
         void DeleteDirectory(string domain, string path);
 
         long GetFileSize(string domain, string path);
+        Task<long> GetFileSizeAsync(string domain, string path);
 
         long GetDirectorySize(string domain, string path);
 

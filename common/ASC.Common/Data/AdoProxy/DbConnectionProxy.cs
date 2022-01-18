@@ -19,13 +19,17 @@ using System;
 using System.Data;
 using System.Data.Common;
 
+using MySql.Data.MySqlClient;
+
 namespace ASC.Common.Data.AdoProxy
 {
     class DbConnectionProxy : DbConnection
     {
         private readonly DbConnection connection;
+        private DbCommandProxy dbCommandProxy;
         private readonly ProxyContext context;
         private bool disposed;
+        private int threadId;
 
 
         public DbConnectionProxy(DbConnection connection, ProxyContext ctx)
@@ -35,13 +39,14 @@ namespace ASC.Common.Data.AdoProxy
 
             this.connection = connection;
             context = ctx;
+            threadId = GetThreadId();
         }
 
         protected override System.Data.Common.DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "BeginTransaction", dur)))
+            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent("BeginTransaction", dur, GetThreadId())))
             {
-                return new DbTransactionProxy(connection.BeginTransaction(), context);
+                return new DbTransactionProxy(connection.BeginTransaction(), context, GetThreadId());
             }
         }
 
@@ -68,7 +73,13 @@ namespace ASC.Common.Data.AdoProxy
 
         protected override DbCommand CreateDbCommand()
         {
-            return new DbCommandProxy(connection.CreateCommand(), context);
+            if (dbCommandProxy != null)
+            {
+                dbCommandProxy.Parameters.Clear();
+                return dbCommandProxy;
+            }
+            dbCommandProxy = new DbCommandProxy(connection.CreateCommand(), context, this);
+            return dbCommandProxy;
         }
 
         public override string Database
@@ -83,7 +94,7 @@ namespace ASC.Common.Data.AdoProxy
 
         public override void Open()
         {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Open", dur)))
+            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent("Open", dur, GetThreadId())))
             {
                 connection.Open();
             }
@@ -99,14 +110,32 @@ namespace ASC.Common.Data.AdoProxy
             get { return connection.State; }
         }
 
+        internal int GetThreadId()
+        {
+            if (threadId != 0) return threadId;
+
+            if (connection is MySqlConnection mySqlConnection &&
+                connection.State > ConnectionState.Closed)
+            {
+                threadId = mySqlConnection.ServerThread;
+            }
+
+            return threadId;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (!disposed)
             {
                 if (disposing)
                 {
-                    using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Dispose", dur)))
+                    var threadId = GetThreadId();
+                    using (ExecuteHelper.Begin(dur => context.FireExecuteEvent("Dispose", dur, threadId)))
                     {
+                        if (dbCommandProxy != null)
+                        {
+                            dbCommandProxy.Dispose();
+                        }
                         connection.Dispose();
                     }
                 }

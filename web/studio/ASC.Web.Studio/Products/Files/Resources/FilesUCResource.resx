@@ -151,6 +151,9 @@
   <data name="ButtonCreateDocument2" xml:space="preserve">
     <value>Create Document</value>
   </data>
+  <data name="ButtonCreateFormTemplate" xml:space="preserve">
+    <value>Form template</value>
+  </data>
   <data name="ButtonCreateFolder" xml:space="preserve">
     <value>Folder</value>
   </data>
@@ -189,6 +192,9 @@
   </data>
   <data name="ButtonEmptyTrash" xml:space="preserve">
     <value>Empty Trash</value>
+  </data>
+  <data name="ButtonFillForm" xml:space="preserve">
+    <value>Fill in the form</value>
   </data>
   <data name="ButtonFilterArchive" xml:space="preserve">
     <value>Archives</value>
@@ -879,5 +885,17 @@
   </data>
   <data name="UpgradeYourPlan" xml:space="preserve">
     <value>Upgrade your plan</value>
+  </data>
+  <data name="ButtonCreateMasterFormFromBlank" xml:space="preserve">
+    <value>Blank</value>
+  </data>
+  <data name="ButtonCreateMasterFormFromFile" xml:space="preserve">
+    <value>From text document</value>
+  </data>
+  <data name="CreateFormTemplateFromFile" xml:space="preserve">
+    <value>Create Form Template from file</value>
+  </data>
+  <data name="ButtonMakeForm" xml:space="preserve">
+    <value>Save as oform</value>
   </data>
 </root>

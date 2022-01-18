@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
+using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Studio.Utility;
@@ -97,20 +98,20 @@ namespace ASC.Api.Documents
             if (!string.IsNullOrEmpty(o.Result) && OperationType != FileOperationType.Delete)
             {
                 var arr = o.Result.Split(':');
-                var folders = arr.Where(s => s.StartsWith("folder_")).Select(s => s.Substring(7));
+                var folders = arr.Where(s => s.StartsWith("folder_")).Select(s => s.Substring(7)).ToList();
                 if (folders.Any())
                 {
                     using (var folderDao = Global.DaoFactory.GetFolderDao())
                     {
-                        Folders = folderDao.GetFolders(folders.ToArray()).Select(r => new FolderWrapper(r)).ToList();
+                        Folders = folderDao.GetFolders(folders).Select(r => new FolderWrapper(r)).ToList();
                     }
                 }
-                var files = arr.Where(s => s.StartsWith("file_")).Select(s => s.Substring(5));
+                var files = arr.Where(s => s.StartsWith("file_")).Select(s => s.Substring(5)).ToList();
                 if (files.Any())
                 {
                     using (var fileDao = Global.DaoFactory.GetFileDao())
                     {
-                        Files = fileDao.GetFiles(files.ToArray()).Select(r => new FileWrapper(r)).ToList();
+                        Files = fileDao.GetFiles(files).Select(r => new FileWrapper((File)r)).ToList();
                     }
                 }
 

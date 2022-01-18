@@ -58,12 +58,12 @@ namespace ASC.Web.Core.Mail
             return string.IsNullOrEmpty(value) ? "onlyoffice_mailserver" : value;
         }
 
-        private static DbManager GetDb()
+        private static IDbManager GetDb()
         {
-            return new DbManager("webstudio");
+            return DbManager.FromHttpContext("webstudio");
         }
 
-        private static DbManager GetDb(string dbid, string connectionString)
+        private static IDbManager GetDb(string dbid, string connectionString)
         {
             var connectionSettings = new ConnectionStringSettings(dbid, connectionString, "MySql.Data.MySqlClient");
 
@@ -74,7 +74,7 @@ namespace ASC.Web.Core.Mail
 
             DbRegistry.RegisterDatabase(connectionSettings.Name, connectionSettings);
 
-            return new DbManager(connectionSettings.Name);
+            return DbManager.FromHttpContext(connectionSettings.Name);
         }
 
         private static void DemandPermission()

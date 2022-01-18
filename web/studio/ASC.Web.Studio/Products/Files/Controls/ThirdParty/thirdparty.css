@@ -319,15 +319,37 @@ only screen and (                min-resolution: 2dppx)
     float: left;
     margin-left: 10px;
     width: 300px;
+    position: relative;
 }
 .account-field-body .textEdit {
     width: 300px;
+    padding: 1px 2px;
+}
+.account-field-body .textEdit.account-input-pass {
+    padding-right: 32px;
+    width: 270px;
 }
 .account-field-body label {
     font-size: 11px;
     display: block;
     margin-top: 7px;
     white-space: nowrap;
+}
+.account-field-body label.pass-visibility {
+    background: url("../../../../UserControls/Users/UserProfile/css/images/read-only.svg");
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    display: block;
+    margin: 0;
+    top: 2px;
+    right: 0;
+    cursor: pointer;
+    user-select: none;
+}
+.account-field-body label.pass-visibility.visible {
+    background: url("../../../../UserControls/Users/UserProfile/css/images/access-deny.svg");
 }
 .edit-account-button span {
     /*background-position: 0 -80px;*/

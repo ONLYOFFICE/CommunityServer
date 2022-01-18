@@ -273,7 +273,7 @@ namespace ASC.MessagingSystem.DbSender
 
             do
             {
-                using (var dbManager = new DbManager(MessagesDbId, 180000))
+                using (var dbManager = DbManager.FromHttpContext(MessagesDbId, 180000))
                 {
                     ids = dbManager.ExecuteList(query).ConvertAll(r => Convert.ToInt32(r[0]));
 

@@ -103,9 +103,9 @@ namespace ASC.Feed.Data
         }
 
 
-        private static DbManager GetDb()
+        private static IDbManager GetDb()
         {
-            return new DbManager(dbId);
+            return DbManager.FromHttpContext(dbId);
         }
 
         private static int GetTenant()

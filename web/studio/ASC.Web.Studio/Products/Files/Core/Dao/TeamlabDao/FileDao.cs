@@ -106,18 +106,18 @@ namespace ASC.Files.Core.Data
             return files;
         }
 
-        public List<File> GetFiles(object[] fileIds)
+        public List<File> GetFiles(IEnumerable<object> fileIds)
         {
-            if (fileIds == null || fileIds.Length == 0) return new List<File>();
+            if (fileIds == null || !fileIds.Any()) return new List<File>();
 
             return dbManager
                 .ExecuteList(GetFileQuery(Exp.In("id", fileIds) & Exp.Eq("current_version", true)))
                 .ConvertAll(ToFile);
         }
 
-        public List<File> GetFilesFiltered(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
+            if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var q = GetFileQuery(Exp.In("id", fileIds) & Exp.Eq("current_version", true), false);
 
@@ -126,7 +126,7 @@ namespace ASC.Files.Core.Data
                 List<int> searchIds;
                 var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, false);
 
-                if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s).In(r => r.Id, fileIds), out searchIds))
+                if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s).In(r => r.Id, fileIds.ToArray()), out searchIds))
                 {
                     q.Where(Exp.In("id", searchIds));
                 }
@@ -566,11 +566,12 @@ namespace ASC.Files.Core.Data
                 dbManager.ExecuteNonQuery(Delete("files_file").Where("id", fileId));
                 dbManager.ExecuteNonQuery(Delete("files_tag_link").Where("entry_id", fileId.ToString()).Where("entry_type", (int)FileEntryType.File));
                 var tagsToRemove = dbManager.ExecuteList(
-                    Query("files_tag")
-                        .Select("id")
-                        .Where(Exp.EqColumns("0",
-                            Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
-                    .ConvertAll(r => Convert.ToInt32(r[0]));
+             Query("files_tag tbl_ft ")
+                 .Select("tbl_ft.id")
+                 .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                          Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                 .Where("tbl_ftl.tag_id  is null"))
+             .ConvertAll(r => Convert.ToInt32(r[0]));
 
                 dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
 
@@ -853,7 +854,7 @@ namespace ASC.Files.Core.Data
 
         #region Only in TMFileDao
 
-        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        public void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId)
         {
             dbManager.ExecuteNonQuery(
                 Update("files_file")
@@ -862,9 +863,9 @@ namespace ASC.Files.Core.Data
                     .Where("current_version", true));
         }
 
-        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
-        {
-            if (parentIds == null || parentIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+{
+            if (parentIds == null || !parentIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.In("fft.parent_id", parentIds))
                         .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
@@ -1087,6 +1088,7 @@ namespace ASC.Files.Core.Data
                 Encrypted = Convert.ToBoolean(r[14]),
                 Forcesave = ParseForcesaveType(r[15]),
                 ThumbnailStatus = (Thumbnail)Enum.Parse(typeof(Thumbnail), r[16].ToString()),
+                IsFillFormDraft = Convert.ToBoolean(r[17])
             };
 
             return result;

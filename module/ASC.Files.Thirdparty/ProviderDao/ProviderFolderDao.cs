@@ -101,7 +101,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(IEnumerable<object> folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             var result = Enumerable.Empty<Folder>();
 
@@ -118,7 +118,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                     using (var folderDao = selectorLocal.GetFolderDao(matchedId.FirstOrDefault()))
                                                     {
                                                         return folderDao
-                                                            .GetFolders(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                            .GetFolders(matchedId.Select(selectorLocal.ConvertId).ToList(),
                                                                 filterType, subjectGroup, subjectID, searchText, searchSubfolders, checkShare);
                                                     }
                                                 })
@@ -303,7 +303,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region Only for TMFolderDao
 
-        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
+        public void ReassignFolders(IEnumerable<object> folderIds, Guid newOwnerId)
         {
             foreach (var selector in GetSelectors())
             {
@@ -316,7 +316,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 {
                     using (var folderDao = selectorLocal.GetFolderDao(matchedId.FirstOrDefault()))
                     {
-                        folderDao.ReassignFolders(matchedId.Select(selectorLocal.ConvertId).ToArray(), newOwnerId);
+                        folderDao.ReassignFolders(matchedId.Select(selectorLocal.ConvertId).ToList(), newOwnerId);
                     }
                 }
             }
@@ -403,7 +403,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return null;
         }
 
-        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
+        public Dictionary<string, string> GetBunchObjectIDs(IEnumerable<object> folderIDs)
         {
             foreach (var selector in GetSelectors())
             {

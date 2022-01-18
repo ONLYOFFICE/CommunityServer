@@ -79,7 +79,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
                 .Where(Exp.EqColumns("p.create_date", "t.create_date"))
                 .Where(Exp.Between("p.create_date", filter.Time.From, filter.Time.To));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var posts = db.ExecuteList(query).ConvertAll(ToPost);
                 return posts.Select(c => new Tuple<Feed, object>(ToFeed(c), c));

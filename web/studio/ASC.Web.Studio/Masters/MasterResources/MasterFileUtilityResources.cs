@@ -64,6 +64,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             FileUtility.ExtsPresentation,
                             FileUtility.ExtsDocument,
                             InternalFormats = FileUtility.InternalExtension,
+                            FileUtility.MasterFormExtension,
                             ParamVersion = FilesLinkUtility.Version,
                             ParamOutType = FilesLinkUtility.OutType,
                             FilesLinkUtility.FileDownloadUrlString,

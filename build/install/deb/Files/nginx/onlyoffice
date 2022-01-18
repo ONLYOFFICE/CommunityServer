@@ -43,6 +43,8 @@ map $request_uri $header_x_frame_options {
 server {
 	listen 80;
 
+	charset utf-8;
+
     add_header Access-Control-Allow-Origin $header_access_control_allow_origin;
     add_header X-Frame-Options $header_x_frame_options;
 

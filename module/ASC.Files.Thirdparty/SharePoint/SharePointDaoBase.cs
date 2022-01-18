@@ -105,7 +105,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         protected object MappingID(object id, bool saveIfNotExist)
         {
-            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 if (id == null) return null;
                 int n;
@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             if (oldValue.Equals(newValue)) return;
 
-            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 using (var tx = dbManager.BeginTransaction())
                 {

@@ -87,7 +87,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 )
                 .Select(ContactColumns().Select(c => "c." + c).ToArray());
 
-            using (var db = new DbManager(Constants.CrmDbId))
+            using (var db = DbManager.FromHttpContext(Constants.CrmDbId))
             {
                 var deals = db.ExecuteList(query).ConvertAll(ToDeal);
                 return deals.Select(d => new Tuple<Feed, object>(ToFeed(d), d));

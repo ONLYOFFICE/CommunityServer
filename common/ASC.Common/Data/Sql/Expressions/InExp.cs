@@ -15,18 +15,19 @@
 */
 
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace ASC.Common.Data.Sql.Expressions
 {
-    public class InExp : Exp
+    public class InExp<T> : Exp
     {
         private readonly string column;
         private readonly SqlQuery subQuery;
-        private readonly object[] values;
+        private readonly IEnumerable<T> values;
 
-        public InExp(string column, object[] values)
+        public InExp(string column, IEnumerable<T> values)
         {
             this.column = column;
             this.values = values;
@@ -61,9 +62,9 @@ namespace ASC.Common.Data.Sql.Expressions
             return sql.Append(")").ToString();
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
-            if (values != null) return values;
+            if (values != null) return values.Cast<object>().ToList();
             if (subQuery != null) return subQuery.GetParameters();
             return new object[0];
         }

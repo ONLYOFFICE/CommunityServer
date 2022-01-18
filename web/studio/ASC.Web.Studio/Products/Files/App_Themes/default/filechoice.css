@@ -47,3 +47,8 @@ body.only-folder .mainPageLayout {
 .folder-row .checkbox {
     visibility: hidden;
 }
+
+body.desktop main {
+    height: calc(100vh - 24px);
+    height: calc(var(--vh, 1vh) * 100 - 24px);
+}

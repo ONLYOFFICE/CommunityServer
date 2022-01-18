@@ -96,6 +96,11 @@ namespace ASC.Core.Caching
             return service.GetUser(tenant, email);
         }
 
+        public UserInfo GetUserByUserName(int tenant, string userName)
+        {
+            return service.GetUserByUserName(tenant, userName);
+        }
+
         /// <summary>
         /// For Personal only
         /// </summary>
@@ -125,6 +130,11 @@ namespace ASC.Core.Caching
         public UserInfo GetUserByPasswordHash(int tenant, string login, string passwordHash)
         {
             return service.GetUserByPasswordHash(tenant, login, passwordHash);
+        }
+
+        public IEnumerable<UserInfo> GetUsersAllTenants(IEnumerable<string> userIds)
+        {
+            return service.GetUsersAllTenants(userIds);
         }
 
         public UserInfo SaveUser(int tenant, UserInfo user)
@@ -204,6 +214,11 @@ namespace ASC.Core.Caching
 
         public IDictionary<string, UserGroupRef> GetUserGroupRefs(int tenant, DateTime from)
         {
+            if (CoreContext.Configuration.Personal)
+            {
+                return new Dictionary<string, UserGroupRef>();
+            }
+
             GetChangesFromDb();
 
             var key = GetRefCacheKey(tenant);

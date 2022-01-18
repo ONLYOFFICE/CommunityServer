@@ -487,6 +487,9 @@
   <data name="TitleMoreFeaturs" xml:space="preserve">
     <value>More Features</value>
   </data>
+  <data name="TitleNewFileFormTemplate" xml:space="preserve">
+    <value>New Form template</value>
+  </data>
   <data name="TitleNewFilePresentation" xml:space="preserve">
     <value>New Presentation</value>
   </data>

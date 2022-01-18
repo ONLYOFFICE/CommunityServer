@@ -99,7 +99,7 @@ namespace ASC.Files.ThumbnailBuilder
                 )
                 .GroupBy("t.tenant");
 
-            using (var db = new DbManager(config.ConnectionStringName))
+            using (var db = DbManager.FromHttpContext(config.ConnectionStringName))
             {
                 result = db.ExecuteList(search)
                     .Where(row => Convert.ToBoolean(row[1]))
@@ -130,7 +130,7 @@ namespace ASC.Files.ThumbnailBuilder
                 search.Where(where);
             }
 
-            using (var db = new DbManager(config.ConnectionStringName))
+            using (var db = DbManager.FromHttpContext(config.ConnectionStringName))
             {
                 return db.ExecuteList(search).Select(row => new FileData(
                     Convert.ToInt32(row[0]),

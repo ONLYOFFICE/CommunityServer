@@ -225,11 +225,11 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             using (var fileDao = GetFileDao())
             {
-                var folders = folderDao.GetFolders(foldersId.ToArray()).Cast<FileEntry>();
+                var folders = folderDao.GetFolders(foldersId);
                 folders = FileSecurity.FilterRead(folders);
                 entries = entries.Concat(folders);
 
-                var files = fileDao.GetFiles(filesId.ToArray()).Cast<FileEntry>();
+                var files = fileDao.GetFiles(filesId);
                 files = FileSecurity.FilterRead(files);
                 entries = entries.Concat(files);
 
@@ -385,19 +385,19 @@ namespace ASC.Web.Files.Services.WCFService
                     orderBy.SortedBy = SortedByType.New;
                 }
 
-                var entries = Enumerable.Empty<FileEntry>();
+                var entries = new List<FileEntry>();
 
                 if (!FileSecurity.CanRead(parent))
                 {
                     file.FolderID = Global.FolderShare;
-                    entries = entries.Concat(new[] { file });
+                    entries.Add(file);
                 }
                 else
                 {
                     try
                     {
                         int total;
-                        entries = EntryManager.GetEntries(folderDao, fileDao, parent, 0, 0, filter, subjectGroup, subjectId, search, searchInContent, withSubfolders, orderBy, out total);
+                        entries = EntryManager.GetEntries(folderDao, fileDao, parent, 0, 0, filter, subjectGroup, subjectId, search, searchInContent, withSubfolders, orderBy, out total).ToList();
                     }
                     catch (Exception e)
                     {
@@ -452,11 +452,19 @@ namespace ASC.Web.Files.Services.WCFService
                     title = UserControlsCommonResource.NewDocument + ".docx";
                 }
 
-                var fileExt = FileUtility.GetInternalExtension(title);
-                if (!FileUtility.InternalExtension.Values.Contains(fileExt))
+                var fileExt = FileUtility.GetFileExtension(title);
+                if (fileExt != FileUtility.MasterFormExtension)
                 {
-                    fileExt = FileUtility.InternalExtension[FileType.Document];
-                    file.Title = title + fileExt;
+                    fileExt = FileUtility.GetInternalExtension(title);
+                    if (!FileUtility.InternalExtension.Values.Contains(fileExt))
+                    {
+                        fileExt = FileUtility.InternalExtension[FileType.Document];
+                        file.Title = title + fileExt;
+                    }
+                    else
+                    {
+                        file.Title = FileUtility.ReplaceFileExtension(title, fileExt);
+                    }
                 }
                 else
                 {
@@ -576,7 +584,7 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var fileDao = GetFileDao())
             {
-                var ids = filesId.Where(FileTracker.IsEditing).Select(id => (object)id).ToArray();
+                var ids = filesId.Where(FileTracker.IsEditing).Select(id => (object)id).ToList();
 
                 foreach (var file in fileDao.GetFiles(ids))
                 {
@@ -605,7 +613,7 @@ namespace ASC.Web.Files.Services.WCFService
                     FileTracker.Remove(fileId);
                 }
 
-                var file = EntryManager.SaveEditing(fileId, fileExtension, fileuri, stream, doc, forcesave: forcesave ? ForcesaveType.User : ForcesaveType.None);
+                var file = EntryManager.SaveEditing(fileId, fileExtension, fileuri, stream, doc, forcesave: forcesave ? ForcesaveType.User : ForcesaveType.None, keepLink: true);
 
                 if (file != null)
                     FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdated, file.Title);
@@ -619,7 +627,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        public File UpdateFileStream(String fileId, Stream stream, bool encrypted, bool forcesave)
+        public File UpdateFileStream(String fileId, Stream stream, String fileExtension, bool encrypted, bool forcesave)
         {
             try
             {
@@ -629,7 +637,7 @@ namespace ASC.Web.Files.Services.WCFService
                 }
 
                 var file = EntryManager.SaveEditing(fileId,
-                    null,
+                    fileExtension,
                     null,
                     stream,
                     null,
@@ -1336,7 +1344,7 @@ namespace ASC.Web.Files.Services.WCFService
                     }
                 }
 
-                var folders = folderDao.GetFolders(foldersId.ToArray());
+                var folders = folderDao.GetFolders(foldersId);
                 var foldersProject = folders.Where(folder => folder.FolderType == FolderType.BUNCH).ToList();
                 if (foldersProject.Any())
                 {
@@ -1559,6 +1567,7 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var folderDao = GetFolderDao())
             using (var fileDao = GetFileDao())
+            using (var linkDao = GetLinkDao())
             {
                 //delete all markAsNew
                 var rootFoldersId = new List<object>
@@ -1574,7 +1583,7 @@ namespace ASC.Web.Files.Services.WCFService
                     rootFoldersId.Add(folderIdFromMy);
                 }
 
-                var rootFolders = folderDao.GetFolders(rootFoldersId.ToArray());
+                var rootFolders = folderDao.GetFolders(rootFoldersId);
                 foreach (var rootFolder in rootFolders)
                 {
                     FileMarker.RemoveMarkAsNew(rootFolder, userId);
@@ -1583,7 +1592,7 @@ namespace ASC.Web.Files.Services.WCFService
                 //delete all from My
                 if (!Equals(folderIdFromMy, 0))
                 {
-                    EntryManager.DeleteSubitems(folderIdFromMy, folderDao, fileDao);
+                    EntryManager.DeleteSubitems(folderIdFromMy, folderDao, fileDao, linkDao);
 
                     //delete My userFrom folder
                     folderDao.DeleteFolder(folderIdFromMy);
@@ -1594,7 +1603,7 @@ namespace ASC.Web.Files.Services.WCFService
                 var folderIdFromTrash = folderDao.GetFolderIDTrash(false, userId);
                 if (!Equals(folderIdFromTrash, 0))
                 {
-                    EntryManager.DeleteSubitems(folderIdFromTrash, folderDao, fileDao);
+                    EntryManager.DeleteSubitems(folderIdFromTrash, folderDao, fileDao, linkDao);
                     folderDao.DeleteFolder(folderIdFromTrash);
                     Global.FolderTrash = userId;
                 }
@@ -1612,16 +1621,16 @@ namespace ASC.Web.Files.Services.WCFService
         {
             if (favorite)
             {
-                AddToFavorites(new ItemList<string> { }, new ItemList<string> { fileId });
+                AddToFavorites(new ItemList<object> { }, new ItemList<object> { fileId });
             }
             else
             {
-                DeleteFavorites(new ItemList<string> { }, new ItemList<string> { fileId });
+                DeleteFavorites(new ItemList<object> { }, new ItemList<object> { fileId });
             }
             return favorite;
         }
 
-        public ItemList<FileEntry> AddToFavorites(ItemList<String> foldersId, ItemList<String> filesId)
+        public ItemList<FileEntry> AddToFavorites(ItemList<object> foldersId, ItemList<object> filesId)
         {
             if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
 
@@ -1629,14 +1638,14 @@ namespace ASC.Web.Files.Services.WCFService
             using (var fileDao = GetFileDao())
             using (var folderDao = GetFolderDao())
             {
-                var entries = Enumerable.Empty<FileEntry>();
+                var entries = new List<FileEntry>();
 
-                var files = fileDao.GetFiles(filesId.ToArray())
+                var files = fileDao.GetFiles(filesId)
                     .Where(file => !file.Encrypted);
-                entries = entries.Concat(files);
+                entries.AddRange(files);
 
-                var folders = folderDao.GetFolders(foldersId.ToArray());
-                entries = entries.Concat(folders);
+                var folders = folderDao.GetFolders(foldersId);
+                entries.AddRange(folders);
 
                 entries = FileSecurity.FilterRead(entries);
 
@@ -1648,19 +1657,19 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        public ItemList<FileEntry> DeleteFavorites(ItemList<String> foldersId, ItemList<String> filesId)
+        public ItemList<FileEntry> DeleteFavorites(ItemList<object> foldersId, ItemList<object> filesId)
         {
             using (var tagDao = GetTagDao())
             using (var fileDao = GetFileDao())
             using (var folderDao = GetFolderDao())
             {
-                var entries = Enumerable.Empty<FileEntry>();
+                var entries = new List<FileEntry>();
 
-                var files = fileDao.GetFiles(filesId.ToArray());
-                entries = entries.Concat(files);
+                var files = fileDao.GetFiles(filesId);
+                entries.AddRange(files);
 
-                var folders = folderDao.GetFolders(foldersId.ToArray());
-                entries = entries.Concat(folders);
+                var folders = folderDao.GetFolders(foldersId);
+                entries.AddRange(folders);
 
                 entries = FileSecurity.FilterRead(entries);
 
@@ -1676,14 +1685,14 @@ namespace ASC.Web.Files.Services.WCFService
 
         #region Templates Manager
 
-        public ItemList<FileEntry> AddToTemplates(ItemList<String> filesId)
+        public ItemList<FileEntry> AddToTemplates(ItemList<object> filesId)
         {
             if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
 
             using (var tagDao = GetTagDao())
             using (var fileDao = GetFileDao())
             {
-                var files = fileDao.GetFiles(filesId.ToArray());
+                var files = fileDao.GetFiles(filesId);
 
                 files = FileSecurity.FilterRead(files)
                     .Where(file => FileUtility.ExtsWebTemplate.Contains(FileUtility.GetFileExtension(file.Title), StringComparer.CurrentCultureIgnoreCase))
@@ -1697,14 +1706,14 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        public ItemList<FileEntry> DeleteTemplates(ItemList<String> filesId)
+        public ItemList<FileEntry> DeleteTemplates(ItemList<object> filesId)
         {
             using (var tagDao = GetTagDao())
             using (var fileDao = GetFileDao())
             {
-                var files = fileDao.GetFiles(filesId.ToArray());
+                var files = fileDao.GetFiles(filesId);
 
-                files = FileSecurity.FilterRead(files).ToList();
+                files = FileSecurity.FilterRead(files);
 
                 var tags = files.Select(file => Tag.Template(SecurityContext.CurrentAccount.ID, file));
 
@@ -1767,7 +1776,7 @@ namespace ASC.Web.Files.Services.WCFService
                     var entryId = objectId.Substring((entryType == FileEntryType.File ? "file_" : "folder_").Length);
 
                     var entry = entryType == FileEntryType.File
-                                    ? (FileEntry)fileDao.GetFile(entryId)
+                                    ? fileDao.GetFile(entryId)
                                     : (FileEntry)folderDao.GetFolder(entryId);
 
                     IEnumerable<AceWrapper> acesForObject;
@@ -1887,7 +1896,7 @@ namespace ASC.Web.Files.Services.WCFService
                     var entryType = objectId.StartsWith("file_") ? FileEntryType.File : FileEntryType.Folder;
                     var entryId = objectId.Substring((entryType == FileEntryType.File ? "file_" : "folder_").Length);
                     var entry = entryType == FileEntryType.File
-                                    ? (FileEntry)fileDao.GetFile(entryId)
+                                    ? fileDao.GetFile(entryId)
                                     : (FileEntry)folderDao.GetFolder(entryId);
 
                     try
@@ -2194,7 +2203,7 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var folderDao = GetFolderDao())
             {
-                var folders = folderDao.GetFolders(foldersId.ToArray());
+                var folders = folderDao.GetFolders(foldersId);
 
                 foreach (var folder in folders)
                 {
@@ -2208,7 +2217,7 @@ namespace ASC.Web.Files.Services.WCFService
                         var folderAccess = folder.Access;
 
                         newFolder.CreateBy = userInfo.ID;
-                        var newFolderID = folderDao.SaveFolder((Folder)newFolder);
+                        var newFolderID = folderDao.SaveFolder(newFolder);
 
                         newFolder = folderDao.GetFolder(newFolderID);
                         newFolder.Access = folderAccess;
@@ -2221,7 +2230,7 @@ namespace ASC.Web.Files.Services.WCFService
 
             using (var fileDao = GetFileDao())
             {
-                var files = fileDao.GetFiles(filesId.ToArray());
+                var files = fileDao.GetFiles(filesId);
 
                 foreach (var file in files)
                 {
@@ -2396,6 +2405,11 @@ namespace ASC.Web.Files.Services.WCFService
         private static ITagDao GetTagDao()
         {
             return Global.DaoFactory.GetTagDao();
+        }
+
+        private static ILinkDao GetLinkDao()
+        {
+            return Global.GetLinkDao();
         }
 
         private static IDataStore GetStoreTemplate()

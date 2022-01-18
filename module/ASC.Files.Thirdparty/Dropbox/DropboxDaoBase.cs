@@ -57,9 +57,9 @@ namespace ASC.Files.Thirdparty.Dropbox
             DropboxProviderInfo.Dispose();
         }
 
-        protected DbManager GetDb()
+        protected IDbManager GetDb()
         {
-            return new DbManager(FileConstant.DatabaseId);
+            return DbManager.FromHttpContext(FileConstant.DatabaseId);
         }
 
         protected object MappingID(object id, bool saveIfNotExist = false)

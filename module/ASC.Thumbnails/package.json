@@ -10,18 +10,18 @@
   "dependencies": {
     "co": "^4.6.0",
     "cookie-parser": "~1.4.5",
-    "express": "^4.17.1",
-    "filenamify-url": "^2.1.1",
-    "moment": "^2.26.0",
-    "nconf": "^0.10.0",
-    "node-cache": "^5.1.0",
-    "request": "^2.88.2",
-    "winston": "^3.2.1",
-    "winston-daily-rotate-file": "^4.4.2",
-    "graceful-fs": "~4.2.4",
     "cross-spawn": "^7.0.3",
+    "express": "^4.17.1",
+    "filenamify-url": "^2.1.2",
+    "graceful-fs": "~4.2.4",
+    "moment": "^2.26.0",
+    "nconf": "^0.11.0",
+    "node-cache": "^5.1.0",
+    "phantomjs-prebuilt": "^2.1.16",
+    "request": "^2.88.2",
     "tmp": "~0.2.1",
-    "phantomjs-prebuilt": "^2.1.16"
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.4.2"
   },
   "devDependencies": {},
   "scripts": {

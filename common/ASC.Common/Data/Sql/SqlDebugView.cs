@@ -16,6 +16,8 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ASC.Common.Data.Sql
@@ -30,7 +32,7 @@ namespace ASC.Common.Data.Sql
             get { return GetSqlWithParameters(); }
         }
 
-        public object[] Parameters
+        public IEnumerable<object> Parameters
         {
             get { return instruction.GetParameters(); }
         }
@@ -47,12 +49,14 @@ namespace ASC.Common.Data.Sql
             var parameters = instruction.GetParameters();
             var sb = new StringBuilder();
             var i = 0;
-            foreach (var part in sql.Split('?'))
+            var sqlParts = sql.Split('?');
+            var pCount = parameters.Count();
+
+            foreach (var p in parameters)
             {
-                sb.Append(part);
-                if (i < parameters.Length)
+                sb.Append(sqlParts[i]);
+                if (i < pCount)
                 {
-                    var p = parameters[i];
                     if (p == null)
                     {
                         sb.Append("null");

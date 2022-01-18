@@ -70,7 +70,7 @@ namespace ASC.Mail.Server.Core
 
         public int SaveDomain(Domain domain)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 var domainDao = new DomainDao(db);
 
@@ -80,7 +80,7 @@ namespace ASC.Mail.Server.Core
 
         public int SaveDkim(Dkim dkim)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 var dkimDao = new DkimDao(db);
 
@@ -90,7 +90,7 @@ namespace ASC.Mail.Server.Core
 
         public int SaveAlias(Alias alias)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 var aliasDao = new AliasDao(db);
 
@@ -100,7 +100,7 @@ namespace ASC.Mail.Server.Core
 
         public int RemoveAlias(string alias)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 var aliasDao = new AliasDao(db);
 
@@ -110,7 +110,7 @@ namespace ASC.Mail.Server.Core
 
         public void ChangePassword(string username, string newPassword)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 var mailboxDao = new MailboxDao(db);
 
@@ -123,7 +123,7 @@ namespace ASC.Mail.Server.Core
 
         public void SaveMailbox(Mailbox mailbox, Alias address, bool deliver = true)
         {
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
@@ -146,7 +146,7 @@ namespace ASC.Mail.Server.Core
 
             ClearMailboxStorageSpace(mailAddress.User, mailAddress.Host);
 
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
@@ -168,7 +168,7 @@ namespace ASC.Mail.Server.Core
             if (withStorageClean)
                 ClearDomainStorageSpace(domain);
 
-            using (var db = new DbManager(_csName))
+            using (var db = DbManager.FromHttpContext(_csName))
             {
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {

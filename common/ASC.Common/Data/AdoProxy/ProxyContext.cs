@@ -17,7 +17,6 @@
 
 using System;
 using System.Data;
-using System.Data.Common;
 
 namespace ASC.Common.Data.AdoProxy
 {
@@ -36,19 +35,19 @@ namespace ASC.Common.Data.AdoProxy
         }
 
 
-        public void FireExecuteEvent(DbCommand cmd, string method, TimeSpan duration)
+        public void FireExecuteEvent(DbCommandProxy cmd, string method, TimeSpan duration, int sqlThread)
         {
-            executedEvent(new ExecutedEventArgs("Command." + method, duration, cmd));
+            executedEvent(new ExecutedEventArgs("Command." + method, duration, cmd, sqlThread));
         }
 
-        public void FireExecuteEvent(IDbConnection conn, string method, TimeSpan duration)
+        public void FireExecuteEvent(string method, TimeSpan duration, int sqlThread)
         {
-            executedEvent(new ExecutedEventArgs("Connection." + method, duration));
+            executedEvent(new ExecutedEventArgs("Connection." + method, duration, sqlThread));
         }
 
-        public void FireExecuteEvent(IDbTransaction tx, string method, TimeSpan duration)
+        public void FireExecuteEvent(IDbTransaction tx, string method, TimeSpan duration, int sqlThread)
         {
-            executedEvent(new ExecutedEventArgs("Transaction." + method, duration));
+            executedEvent(new ExecutedEventArgs("Transaction." + method, duration, sqlThread));
         }
     }
 }

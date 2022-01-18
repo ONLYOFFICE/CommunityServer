@@ -86,7 +86,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         File SaveEditing(String fileId, string fileExtension, string fileuri, Stream stream, String doc, bool forcesave);
 
-        File UpdateFileStream(String fileId, Stream stream, bool encrypted, bool forcesave);
+        File UpdateFileStream(String fileId, Stream stream, String fileExtension, bool encrypted, bool forcesave);
 
         string StartEdit(String fileId, bool editingAlone, String doc);
 
@@ -108,17 +108,17 @@ namespace ASC.Web.Files.Services.WCFService
 
         bool ToggleFileFavorite(String fileId, bool favorite);
 
-        ItemList<FileEntry> AddToFavorites(ItemList<String> foldersId, ItemList<String> filesId);
+        ItemList<FileEntry> AddToFavorites(ItemList<object> foldersId, ItemList<object> filesId);
 
-        ItemList<FileEntry> DeleteFavorites(ItemList<String> foldersId, ItemList<String> filesId);
+        ItemList<FileEntry> DeleteFavorites(ItemList<object> foldersId, ItemList<object> filesId);
 
         #endregion
 
         #region Templates Manager
 
-        ItemList<FileEntry> AddToTemplates(ItemList<String> filesId);
+        ItemList<FileEntry> AddToTemplates(ItemList<object> filesId);
 
-        ItemList<FileEntry> DeleteTemplates(ItemList<String> filesId);
+        ItemList<FileEntry> DeleteTemplates(ItemList<object> filesId);
 
         object GetTemplates(FilterType filter, int from, int count, bool subjectGroup, String ssubject, String searchText, bool searchInContent);
 

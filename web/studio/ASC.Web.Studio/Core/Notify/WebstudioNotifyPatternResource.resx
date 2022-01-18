@@ -567,7 +567,7 @@ Here’s what you can do to make your web-office even more secure:
 
 *Use own SMPT server* and close all the unnecessary ports.
 
-Make your ONLYOFFICE more secure now.
+Make your online office more secure now.
 
 $GreenButton</value>
   </data>
@@ -963,7 +963,7 @@ h3.In case you collaborate with a team or manage a project, we suggest you try O
 
 Create a single collaborative workspace for you and your teammates.
 
-Register a trial "in the cloud":"https://www.onlyoffice.com/registration.aspx" or "on your server":"https://www.onlyoffice.com/download-commercial.aspx?from=enterprise-edition" without any functional restrictions for 30 days and see how your workflow would immediately improve! 
+Register a trial "in the cloud":"https://www.onlyoffice.com/registration.aspx" or "on your server":"https://www.onlyoffice.com/download-workspace.aspx?from=enterprise-edition" without any functional restrictions for 30 days and see how your workflow would immediately improve! 
 
 Sincerely,
 ONLYOFFICE team</value>
@@ -1499,7 +1499,7 @@ ONLYOFFICE Team
 
 Get free ONLYOFFICE apps to work on documents and projects from any of your devices.
 
-# To work on documents offline on Windows, Linux and macOS, download "ONLYOFFICE Desktop Editors":"https://www.onlyoffice.com/apps.aspx". You can connect the app to your cloud and "get access to pro features":"https://helpcenter.onlyoffice.com/installation/desktop-pro-features.aspx" (content controls, sheet views, document comparison).
+# To work on documents offline on Windows, Linux and macOS, download "ONLYOFFICE Desktop Editors":"https://www.onlyoffice.com/apps.aspx".
 # To edit documents on mobile devices, ONLYOFFICE Documents app for "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" or "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents".
 # To manage your team performance on the go, get ONLYOFFICE Projects for "iOS":"https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".
 
@@ -1545,10 +1545,10 @@ ONLYOFFICE Team
     <value>*Choose co-editing mode*</value>
   </data>
   <data name="pattern_saas_admin_user_docs_tips_v115_item_contentcontrols" xml:space="preserve">
-    <value>Use Content Controls to create customizable forms.</value>
+    <value>Create fillable forms, share and fill out them.</value>
   </data>
   <data name="pattern_saas_admin_user_docs_tips_v115_item_contentcontrols_hdr" xml:space="preserve">
-    <value>*Use Content Controls*</value>
+    <value>*Create fillable forms*</value>
   </data>
   <data name="pattern_saas_admin_user_docs_tips_v115_item_differences" xml:space="preserve">
     <value>Quickly find differences in two versions of the same document with the Compare documents feature.</value>
@@ -1583,7 +1583,7 @@ ONLYOFFICE Team
   <data name="pattern_saas_admin_welcome_v115" xml:space="preserve">
     <value>Hello, $UserName!
 
-Test ONLYOFFFICE Business cloud for 30 days for free:
+Test ONLYOFFICE Business cloud for 30 days for free:
 
 # *Add up to 30 users* with 100 Gb per each. After purchasing the subscription, you will be able to add any number of users.
 # *Customize your online office* style to match your branding.

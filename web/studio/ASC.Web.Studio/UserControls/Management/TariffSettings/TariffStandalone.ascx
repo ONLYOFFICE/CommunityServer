@@ -41,7 +41,7 @@
     <tbody>
         <tr>
             <td>
-                <div class="license-item license-item-pro"><%= UserControlsCommonResource.LicenseModulesProV11.HtmlEncode() %></div>
+                <%--<div class="license-item license-item-pro"><%= UserControlsCommonResource.LicenseModulesProV11.HtmlEncode() %></div>--%>
                 <% if (false && !CoreContext.Configuration.CustomMode) { %>
                 <div class="license-item license-item-private"><%= UserControlsCommonResource.LicenseModulesPrivateV11.HtmlEncode() %></div>
                 <% } %>

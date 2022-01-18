@@ -30,6 +30,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 
 using ASC.Core;
+using ASC.Core.Billing;
 
 using JWT;
 
@@ -225,15 +226,14 @@ namespace ASC.Web.Core.Files
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="version">server version</param>
         /// <returns>Response</returns>
-        public static CommandResultTypes CommandRequest(
+        public static CommandResponse CommandRequest(
             string documentTrackerUrl,
             CommandMethod method,
             string documentRevisionId,
             string callbackUrl,
             string[] users,
             MetaData meta,
-            string signatureSecret,
-            out string version)
+            string signatureSecret)
         {
             var request = (HttpWebRequest)WebRequest.Create(documentTrackerUrl);
             request.Method = "POST";
@@ -292,18 +292,19 @@ namespace ASC.Web.Core.Files
                 }
             }
 
-            var jResponse = JObject.Parse(dataResponse);
-
             try
             {
-                version = jResponse.Value<string>("version");
+                var commandResponse = JsonConvert.DeserializeObject<CommandResponse>(dataResponse);
+                return commandResponse;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                version = "0";
+                return new CommandResponse
+                {
+                    Error = CommandResponse.ErrorTypes.ParseError,
+                    ErrorString = ex.Message
+                };
             }
-
-            return (CommandResultTypes)jResponse.Value<int>("error");
         }
 
         public static string DocbuilderRequest(
@@ -428,18 +429,112 @@ namespace ASC.Web.Core.Files
             Version,
             ForceSave, //not used
             Meta,
+            License,
         }
 
-        public enum CommandResultTypes
+        [Serializable]
+        [DataContract(Name = "CommandResponse", Namespace = "")]
+        [DebuggerDisplay("{Key}")]
+        public class CommandResponse
         {
-            NoError = 0,
-            DocumentIdError = 1,
-            ParseError = 2,
-            UnknownError = 3,
-            NotModify = 4,
-            UnknownCommand = 5,
-            Token = 6,
-            TokenExpire = 7,
+            [DataMember(Name = "error")]
+            public ErrorTypes Error;
+
+            [DataMember(Name = "errorString")]
+            public string ErrorString;
+
+            [DataMember(Name = "key")]
+            public string Key;
+
+            [DataMember(Name = "license")]
+            public License License;
+
+            [DataMember(Name = "server")]
+            public ServerInfo Server;
+
+            [DataMember(Name = "quota")]
+            public QuotaInfo Quota;
+
+            [DataMember(Name = "version")]
+            public string Version;
+
+            public enum ErrorTypes
+            {
+                NoError = 0,
+                DocumentIdError = 1,
+                ParseError = 2,
+                UnknownError = 3,
+                NotModify = 4,
+                UnknownCommand = 5,
+                Token = 6,
+                TokenExpire = 7,
+            }
+
+            [Serializable]
+            [DataContract(Name = "Server", Namespace = "")]
+            [DebuggerDisplay("{BuildVersion}")]
+            public class ServerInfo
+            {
+                [DataMember(Name = "buildDate")]
+                public DateTime BuildDate;
+
+                [DataMember(Name = "buildNumber")]
+                public int buildNumber;
+
+                [DataMember(Name = "buildVersion")]
+                public string BuildVersion;
+
+                [DataMember(Name = "packageType")]
+                public PackageTypes PackageType;
+
+                [DataMember(Name = "resultType")]
+                public ResultTypes ResultType;
+
+                [DataMember(Name = "workersCount")]
+                public int WorkersCount;
+
+                public enum PackageTypes
+                {
+                    OpenSource = 0,
+                    IntegrationEdition = 1,
+                    DeveloperEdition = 2
+                }
+
+                public enum ResultTypes
+                {
+                    Error = 1,
+                    Expired = 2,
+                    Success = 3,
+                    UnknownUser = 4,
+                    Connections = 5,
+                    ExpiredTrial = 6,
+                    SuccessLimit = 7,
+                    UsersCount = 8,
+                    ConnectionsOS = 9,
+                    UsersCountOS = 10,
+                    ExpiredLimited = 11
+                }
+            }
+
+            [Serializable]
+            [DataContract(Name = "Quota", Namespace = "")]
+            public class QuotaInfo
+            {
+                [DataMember(Name = "users")]
+                public List<User> Users;
+
+                [Serializable]
+                [DataContract(Name = "User", Namespace = "")]
+                [DebuggerDisplay("{UserId} ({Expire})")]
+                public class User
+                {
+                    [DataMember(Name = "userid")]
+                    public string UserId;
+
+                    [DataMember(Name = "expire")]
+                    public DateTime Expire;
+                }
+            }
         }
 
         [Serializable]
@@ -526,40 +621,40 @@ namespace ASC.Web.Core.Files
             public bool GridLines;
 
             [DataMember(Name = "margins")]
-            public Margins Margins;
+            public LayoutMargins Margins;
 
             [DataMember(Name = "pageSize")]
-            public PageSize PageSize;
-        }
+            public LayoutPageSize PageSize;
 
-        [Serializable]
-        [DataContract(Name = "margins", Namespace = "")]
-        [DebuggerDisplay("Margins {Top} {Right} {Bottom} {Left}")]
-        public class Margins
-        {
-            [DataMember(Name = "left")]
-            public string Left;
+            [Serializable]
+            [DataContract(Name = "margins", Namespace = "")]
+            [DebuggerDisplay("Margins {Top} {Right} {Bottom} {Left}")]
+            public class LayoutMargins
+            {
+                [DataMember(Name = "left")]
+                public string Left;
 
-            [DataMember(Name = "right")]
-            public string Right;
+                [DataMember(Name = "right")]
+                public string Right;
 
-            [DataMember(Name = "top")]
-            public string Top;
+                [DataMember(Name = "top")]
+                public string Top;
 
-            [DataMember(Name = "bottom")]
-            public string Bottom;
-        }
+                [DataMember(Name = "bottom")]
+                public string Bottom;
+            }
 
-        [Serializable]
-        [DataContract(Name = "pageSize", Namespace = "")]
-        [DebuggerDisplay("PageSize {Width} {Height}")]
-        public class PageSize
-        {
-            [DataMember(Name = "height")]
-            public string Height;
+            [Serializable]
+            [DataContract(Name = "pageSize", Namespace = "")]
+            [DebuggerDisplay("PageSize {Width} {Height}")]
+            public class LayoutPageSize
+            {
+                [DataMember(Name = "height")]
+                public string Height;
 
-            [DataMember(Name = "width")]
-            public string Width;
+                [DataMember(Name = "width")]
+                public string Width;
+            }
         }
 
         [Serializable]

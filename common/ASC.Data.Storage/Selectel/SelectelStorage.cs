@@ -555,6 +555,17 @@ namespace ASC.Data.Storage.Selectel
             return fileInfos.Single().Bytes;
         }
 
+        public override async Task<long> GetFileSizeAsync(string domain, string path)
+        {
+            var client = await GetClient();
+
+            var fileInfos = await client.GetContainerFilesAsync(_private_container, 1, null, MakePath(domain, path), null, null);
+
+            if (!fileInfos.Any()) throw new FileNotFoundException();
+
+            return fileInfos.Single().Bytes;
+        }
+
         public override long GetDirectorySize(string domain, string path)
         {
             var client = GetClient().Result;

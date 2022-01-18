@@ -106,6 +106,16 @@ namespace ASC.Web.Core.WhiteLabel
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
         }
 
+        public static string GetLogoDocsEditorEmbed(bool general)
+        {
+            if (WhiteLabelEnabled)
+            {
+                var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
+                return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, general);
+            }
+            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbed, general);
+        }
+
         public static string GetLogoText()
         {
             if (WhiteLabelEnabled)

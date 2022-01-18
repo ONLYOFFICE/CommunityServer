@@ -14,7 +14,9 @@
                     <div class="title"><%= FilesCommonResource.DashboardWorkWithOfficeDocs %></div>
                     <p><%= FilesCommonResource.DashboardWorkWithOfficeDocsFirstLine %></p>
                     <p><%= FilesCommonResource.DashboardWorkWithOfficeDocsSecondLine %></p>
+                    <% if (!ASC.Core.CoreContext.Configuration.CustomMode) { %>
                     <p><%= FilesCommonResource.DashboardWorkWithOfficeDocsThirdLine %></p>
+                    <% } %>
                 </div>
             </div>
             <div class="module-block slick-carousel-item clearFix">

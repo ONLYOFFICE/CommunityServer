@@ -158,12 +158,12 @@ namespace ASC.Core
 
         public IDbManager GetRegionDb(string region)
         {
-            return new DbManager(GetRegionService(region).DbId);
+            return DbManager.FromHttpContext(GetRegionService(region).DbId);
         }
 
         public IDbManager GetMultiRegionDb()
         {
-            return new MultiRegionalDbManager(GetRegions().Select(r => new DbManager(GetRegionService(r).DbId)));
+            return new MultiRegionalDbManager(GetRegions().Select(r => DbManager.FromHttpContext(GetRegionService(r).DbId)));
         }
 
         public ConnectionStringSettings GetRegionConnectionString(string region)
@@ -241,7 +241,7 @@ namespace ASC.Core
                                 {
                                     try
                                     {
-                                        using (var db = new DbManager(connectionString.Name))
+                                        using (var db = DbManager.FromHttpContext(connectionString.Name))
                                         {
                                             var q = new SqlQuery("regions")
                                                 .Select("region")

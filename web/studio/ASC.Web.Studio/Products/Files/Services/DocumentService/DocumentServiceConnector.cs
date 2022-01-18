@@ -31,7 +31,7 @@ using ASC.Web.Studio.Utility;
 
 using Newtonsoft.Json;
 
-using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
+using static ASC.Web.Core.Files.DocumentService;
 
 namespace ASC.Web.Files.Services.DocumentService
 {
@@ -47,8 +47,8 @@ namespace ASC.Web.Files.Services.DocumentService
                                           string toExtension,
                                           string documentRevisionId,
                                           string password,
-                                          Web.Core.Files.DocumentService.ThumbnailData thumbnail,
-                                          Web.Core.Files.DocumentService.SpreadsheetLayout spreadsheetLayout,
+                                          ThumbnailData thumbnail,
+                                          SpreadsheetLayout spreadsheetLayout,
                                           bool isAsync,
                                           out string convertedDocumentUri)
         {
@@ -79,28 +79,26 @@ namespace ASC.Web.Files.Services.DocumentService
                                    object fileId = null,
                                    string callbackUrl = null,
                                    string[] users = null,
-                                   Web.Core.Files.DocumentService.MetaData meta = null)
+                                   MetaData meta = null)
         {
             Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' users '{4}' meta '{5}'", method, fileId, docKeyForTrack, callbackUrl, users != null ? string.Join(", ", users) : null, JsonConvert.SerializeObject(meta));
             try
             {
-                string version;
-                var result = Web.Core.Files.DocumentService.CommandRequest(
+                var commandResponse = CommandRequest(
                     FilesLinkUtility.DocServiceCommandUrl,
                     method,
                     GenerateRevisionId(docKeyForTrack),
                     callbackUrl,
                     users,
                     meta,
-                    FileUtility.SignatureSecret,
-                    out version);
+                    FileUtility.SignatureSecret);
 
-                if (result == Web.Core.Files.DocumentService.CommandResultTypes.NoError)
+                if (commandResponse.Error == CommandResponse.ErrorTypes.NoError)
                 {
                     return true;
                 }
 
-                Global.Logger.ErrorFormat("DocService command response: '{0}'", result);
+                Global.Logger.ErrorFormat("DocService command response: '{0}' {1}", commandResponse.Error, commandResponse.ErrorString);
             }
             catch (Exception e)
             {
@@ -151,23 +149,27 @@ namespace ASC.Web.Files.Services.DocumentService
             Global.Logger.DebugFormat("DocService request version");
             try
             {
-                string version;
-                var result = Web.Core.Files.DocumentService.CommandRequest(
+                var commandResponse = CommandRequest(
                     FilesLinkUtility.DocServiceCommandUrl,
                     CommandMethod.Version,
                     GenerateRevisionId(null),
                     null,
                     null,
                     null,
-                    FileUtility.SignatureSecret,
-                    out version);
+                    FileUtility.SignatureSecret);
 
-                if (result == Web.Core.Files.DocumentService.CommandResultTypes.NoError)
+                var version = commandResponse.Version;
+                if (string.IsNullOrEmpty(version))
+                {
+                    version = "0";
+                }
+
+                if (commandResponse.Error == CommandResponse.ErrorTypes.NoError)
                 {
                     return version;
                 }
 
-                Global.Logger.ErrorFormat("DocService command response: '{0}'", result);
+                Global.Logger.ErrorFormat("DocService command response: '{0}' {1}", commandResponse.Error, commandResponse.ErrorString);
             }
             catch (Exception e)
             {
@@ -182,7 +184,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 try
                 {
-                    if (!Web.Core.Files.DocumentService.HealthcheckRequest(FilesLinkUtility.DocServiceHealthcheckUrl))
+                    if (!HealthcheckRequest(FilesLinkUtility.DocServiceHealthcheckUrl))
                     {
                         throw new Exception("bad status");
                     }
@@ -237,8 +239,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 try
                 {
                     var key = GenerateRevisionId(Guid.NewGuid().ToString());
-                    string version;
-                    Web.Core.Files.DocumentService.CommandRequest(FilesLinkUtility.DocServiceCommandUrl, CommandMethod.Version, key, null, null, null, FileUtility.SignatureSecret, out version);
+                    CommandRequest(FilesLinkUtility.DocServiceCommandUrl, CommandMethod.Version, key, null, null, null, FileUtility.SignatureSecret);
                 }
                 catch (Exception ex)
                 {

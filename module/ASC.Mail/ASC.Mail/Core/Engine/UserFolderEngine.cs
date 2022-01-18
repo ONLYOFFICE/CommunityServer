@@ -265,7 +265,7 @@ namespace ASC.Mail.Core.Engine
         {
             var affectedIds = new List<int>();
 
-            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RecalculateFoldersTimeout))
+            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RecalculateFoldersTimeout))
             {
                 var daoFactory = new DaoFactory(db);
 

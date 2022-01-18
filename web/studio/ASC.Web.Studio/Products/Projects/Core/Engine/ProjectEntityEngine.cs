@@ -144,8 +144,12 @@ namespace ASC.Projects.Engine
             using (var tagdao = FilesIntegration.GetTagDao())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                var ids = tagdao.GetTags(entity.GetType().Name + entity.ID, TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
-                var files = 0 < ids.Length ? filedao.GetFiles(ids) : new List<File>();
+                var ids = tagdao.GetTags(entity.GetType().Name + entity.ID, TagType.System)
+                    .Where(t => t.EntryType == FileEntryType.File)
+                    .Select(t => t.EntryId)
+                    .ToList();
+
+                var files = 0 < ids.Count ? filedao.GetFiles(ids) : new List<File>();
 
                 var rootId = FileEngine.GetRoot(entity.Project.ID);
 

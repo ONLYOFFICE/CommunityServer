@@ -67,6 +67,15 @@ namespace ASC.Core.Billing
         [DataMember(Name = "discencryption")]
         public bool? DiscEncryption { get; set; }
 
+        [DataMember(Name = "users_count")]
+        public int DSUsersCount { get; set; }
+
+        [DataMember(Name = "users_expire")]
+        public int DSUsersExpire { get; set; }
+
+        [DataMember(Name = "connections")]
+        public int DSConnections { get; set; }
+
 
         public static License Parse(string licenseString)
         {

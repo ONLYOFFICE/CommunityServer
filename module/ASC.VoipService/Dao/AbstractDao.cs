@@ -32,9 +32,9 @@ namespace ASC.VoipService.Dao
             TenantID = tenantID;
         }
 
-        protected DbManager GetDb()
+        protected IDbManager GetDb()
         {
-            return new DbManager(dbid);
+            return DbManager.FromHttpContext(dbid);
         }
 
         protected int TenantID

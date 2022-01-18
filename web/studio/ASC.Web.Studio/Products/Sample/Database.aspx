@@ -33,7 +33,7 @@
 
     private static DbManager GetDb()
     {
-        return new DbManager(DbId);
+        return DbManager.FromHttpContext(DbId);
     }
 
     public static SampleClass Create(string value)

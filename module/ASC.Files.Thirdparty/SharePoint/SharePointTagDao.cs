@@ -65,7 +65,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch)
         {
-            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var folderId = SharePointDaoSelector.ConvertId(parentFolder.ID);
 

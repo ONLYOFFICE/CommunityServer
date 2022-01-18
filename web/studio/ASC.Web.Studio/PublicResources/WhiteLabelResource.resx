@@ -82,6 +82,9 @@
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo for the editors header</value>
   </data>
+  <data name="LogoDocsEditorEmbed" xml:space="preserve">
+    <value>Logo for the editors header - embedded mode</value>
+  </data>
   <data name="LogoFavicon" xml:space="preserve">
     <value>Favicon</value>
   </data>

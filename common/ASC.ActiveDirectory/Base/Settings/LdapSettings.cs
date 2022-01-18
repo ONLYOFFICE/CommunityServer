@@ -20,14 +20,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Web.Core;
-
 namespace ASC.ActiveDirectory.Base.Settings
 {
     [Serializable]
-    [DataContract]
+[DataContract]
     public class LdapSettings : BaseSettings<LdapSettings>, ICloneable
     {
         public override Guid ID
@@ -80,6 +82,21 @@ namespace ASC.ActiveDirectory.Base.Settings
             { AccessRight.People, WebItemManager.PeopleProductID },
             { AccessRight.Mail, WebItemManager.MailProductID }
         };
+
+        public List<int> GetTenants()
+        {
+            var query = new SqlQuery("webstudio_settings t1")
+                .Select("tt.id")
+                .InnerJoin("tenants_tenants tt", Exp.EqColumns("tt.id", "t1.TenantID"))
+                .Where("t1.id", ID)
+                .Where("IFNULL(JSON_EXTRACT(`Data`, '$.EnableLdapAuthentication'), 'false')", "true")
+                .Distinct();
+
+            using (var dbManager = DbManager.FromHttpContext("default", 180000))
+            {
+                return dbManager.ExecuteList(query).ConvertAll(r => Convert.ToInt32(r[0]));
+            }
+        }
 
         public override ISettings GetDefault()
         {

@@ -106,14 +106,21 @@ namespace ASC.Api.Documents
         public IEnumerable<FolderContentWrapper> GetRootFolders(Guid userIdOrGroupId, FilterType filterType, bool withsubfolders, bool withoutTrash, bool withoutAdditionalFolder)
         {
             var IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
+            var IsOutsider = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOutsider();
             var result = new SortedSet<object>();
+
+            if (IsOutsider)
+            {
+                withoutTrash = true;
+                withoutAdditionalFolder = true;
+            }
 
             if (!IsVisitor)
             {
                 result.Add(Global.FolderMy);
             }
 
-            if (!CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOutsider())
+            if (!CoreContext.Configuration.Personal && !IsOutsider)
             {
                 result.Add(Global.FolderShare);
             }
@@ -141,6 +148,11 @@ namespace ASC.Api.Documents
                 result.Add(Global.FolderCommon);
             }
 
+            if(Global.FolderProjects != null)
+            {
+                result.Add(Global.FolderProjects);
+            }
+
             if (!IsVisitor
                && !withoutAdditionalFolder
                && FileUtility.ExtsWebTemplate.Any()
@@ -149,8 +161,7 @@ namespace ASC.Api.Documents
                 result.Add(Global.FolderTemplates);
             }
 
-            if (!IsVisitor
-               && !withoutTrash)
+            if (!withoutTrash)
             {
                 result.Add((int)Global.FolderTrash);
             }
@@ -493,14 +504,15 @@ namespace ASC.Api.Documents
         /// <category>Files</category>
         /// <param name="file">Stream of file</param>
         /// <param name="fileId">File ID</param>
+        /// <param name="fileExtension">File extension</param>
         /// <param name="encrypted" visible="false"></param>
         /// <param name="forcesave" visible="false"></param>
         [Update("{fileId}/update")]
-        public FileWrapper UpdateFileStream(Stream file, string fileId, bool encrypted = false, bool forcesave = false)
+        public FileWrapper UpdateFileStream(Stream file, string fileId, string fileExtension, bool encrypted = false, bool forcesave = false)
         {
             try
             {
-                var resultFile = _fileStorageService.UpdateFileStream(fileId, file, encrypted, forcesave);
+                var resultFile = _fileStorageService.UpdateFileStream(fileId, file, fileExtension, encrypted, forcesave);
                 return new FileWrapper(resultFile);
             }
             catch (FileNotFoundException e)
@@ -892,6 +904,33 @@ namespace ASC.Api.Documents
         {
             var file = _fileStorageService.GetFile(fileId, version).NotFoundIfNull("File not found");
             return new FileWrapper(file);
+        }
+
+        /// <summary>
+        ///   Copies (and converts, if possible) an existing file to a new file.
+        /// </summary>
+        /// <short>Copy file</short>
+        /// <category>Files</category>
+        /// <param name="fileId">File ID</param>
+        /// <param name="destFolderId">Destination folder ID</param>
+        /// <param name="destTitle">Destination file Title</param>
+        /// <returns></returns>
+        [Create("file/{fileId}/copyas")]
+        public FileWrapper CopyFileAs(string fileId, string destFolderId, string destTitle)
+        {
+            var file = _fileStorageService.GetFile(fileId, -1);
+            var ext = FileUtility.GetFileExtension(file.Title);
+            var destExt = FileUtility.GetFileExtension(destTitle);
+
+            if (ext == destExt)
+            {
+                return CreateFile(destFolderId, destTitle, fileId);
+            }
+
+            using (var fileStream = FileConverter.Exec(file, destExt))
+            {
+                return InsertFile(destFolderId, fileStream, destTitle, true);
+            }
         }
 
         /// <summary>
@@ -1512,7 +1551,7 @@ namespace ASC.Api.Documents
         [Create("favorites")]
         public bool AddFavorites(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
-            var list = _fileStorageService.AddToFavorites(new FilesNS.ItemList<string>(folderIds), new FilesNS.ItemList<string>(fileIds));
+            var list = _fileStorageService.AddToFavorites(new FilesNS.ItemList<object>(folderIds), new FilesNS.ItemList<object>(fileIds));
             return true;
         }
 
@@ -1527,7 +1566,7 @@ namespace ASC.Api.Documents
         [Delete("favorites")]
         public bool DeleteFavorites(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
-            var list = _fileStorageService.DeleteFavorites(new FilesNS.ItemList<string>(folderIds), new FilesNS.ItemList<string>(fileIds));
+            var list = _fileStorageService.DeleteFavorites(new FilesNS.ItemList<object>(folderIds), new FilesNS.ItemList<object>(fileIds));
             return true;
         }
 
@@ -1541,7 +1580,7 @@ namespace ASC.Api.Documents
         [Create("templates")]
         public bool AddTemplates(IEnumerable<String> fileIds)
         {
-            var list = _fileStorageService.AddToTemplates(new FilesNS.ItemList<string>(fileIds));
+            var list = _fileStorageService.AddToTemplates(new FilesNS.ItemList<object>(fileIds));
             return true;
         }
 
@@ -1555,7 +1594,7 @@ namespace ASC.Api.Documents
         [Delete("templates")]
         public bool DeleteTemplates(IEnumerable<String> fileIds)
         {
-            var list = _fileStorageService.DeleteTemplates(new FilesNS.ItemList<string>(fileIds));
+            var list = _fileStorageService.DeleteTemplates(new FilesNS.ItemList<object>(fileIds));
             return true;
         }
 

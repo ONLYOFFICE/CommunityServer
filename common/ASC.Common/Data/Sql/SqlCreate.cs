@@ -38,7 +38,7 @@ namespace ASC.Common.Data.Sql
 
         public abstract string ToString(ISqlDialect dialect);
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             return new object[0];
         }

@@ -87,7 +87,7 @@ namespace ASC.Feed.Aggregator.Modules
                 .GroupBy(1)
                 .Having(Exp.Gt("count(*)", 0));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 return db
                     .ExecuteList(q)

@@ -386,7 +386,7 @@ namespace ASC.Api.CRM
             if (fileId != null)
             {
                 var fileIds = fileId.ToList();
-                var files = FilesDaoFactory.GetFileDao().GetFiles(fileIds.Cast<object>().ToArray());
+                var files = FilesDaoFactory.GetFileDao().GetFiles(fileIds.Cast<object>().ToList());
 
                 if (needNotify)
                 {
@@ -446,7 +446,7 @@ namespace ASC.Api.CRM
         {
             if (entityid <= 0 || fileids == null) throw new ArgumentException();
 
-            var files = FilesDaoFactory.GetFileDao().GetFiles(fileids.Cast<object>().ToArray());
+            var files = FilesDaoFactory.GetFileDao().GetFiles(fileids.Cast<object>().ToList());
 
             var folderid = GetRootFolderID();
 

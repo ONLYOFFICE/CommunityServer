@@ -38,7 +38,7 @@ namespace ASC.Feed.Data
                 .Select("last_date")
                 .Where("last_key", key);
 
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 var value = db.ExecuteScalar<DateTime>(q);
                 return value != default(DateTime) ? value.AddSeconds(1) : value;
@@ -47,7 +47,7 @@ namespace ASC.Feed.Data
 
         public static void SaveFeeds(IEnumerable<FeedRow> feeds, string key, DateTime value)
         {
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 db.ExecuteNonQuery(new SqlInsert("feed_last", true).InColumnValue("last_key", key).InColumnValue("last_date", value));
             }
@@ -72,7 +72,7 @@ namespace ASC.Feed.Data
 
         private static void SaveFeedsPortion(IEnumerable<FeedRow> feeds, DateTime aggregatedDate)
         {
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             using (var tx = db.BeginTransaction())
             {
                 var i = new SqlInsert("feed_aggregate", true)
@@ -116,7 +116,7 @@ namespace ASC.Feed.Data
 
         public static void RemoveFeedAggregate(DateTime fromTime)
         {
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             using (var command = db.Connection.CreateCommand())
             using (var tx = db.Connection.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
@@ -215,7 +215,7 @@ namespace ASC.Feed.Data
                 query.Where(exp);
             }
 
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 var news = db
                     .ExecuteList(query)
@@ -247,7 +247,7 @@ namespace ASC.Feed.Data
                 q.Where(Exp.Ge("a.aggregated_date", lastReadedTime));
             }
 
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 return db.ExecuteList(q).Count();
             }
@@ -255,7 +255,7 @@ namespace ASC.Feed.Data
 
         public IEnumerable<int> GetTenants(TimeInterval interval)
         {
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 var q = new SqlQuery("feed_aggregate")
                     .Select("tenant")
@@ -271,7 +271,7 @@ namespace ASC.Feed.Data
                 .Select("a.json, a.module, a.author, a.modified_by, a.group_id, a.created_date, a.modified_date, a.aggregated_date")
                 .Where("a.id", id);
 
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             {
                 var news = db
                     .ExecuteList(query)
@@ -291,7 +291,7 @@ namespace ASC.Feed.Data
 
         public static void RemoveFeedItem(string id)
         {
-            using (var db = new DbManager(Constants.FeedDbId))
+            using (var db = DbManager.FromHttpContext(Constants.FeedDbId))
             using (var command = db.Connection.CreateCommand())
             using (var tx = db.Connection.BeginTransaction(IsolationLevel.ReadUncommitted))
             {

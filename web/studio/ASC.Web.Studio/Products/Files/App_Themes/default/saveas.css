@@ -28,6 +28,10 @@ label .checkbox {
     min-width: 0;
 }
 
+.mainPageContent.page-content {
+    overflow: visible;
+}
+
 body #fileSelectorTree {
     height: 450px;
 }

@@ -464,9 +464,8 @@ namespace ASC.Specific.AuthorizationApi
         {
             get
             {
-                if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                    (CoreContext.Configuration.Standalone &&
-                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                if ((!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
+                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
                 {
                     return false;
                 }

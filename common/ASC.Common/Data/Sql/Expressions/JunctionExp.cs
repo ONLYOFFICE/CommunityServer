@@ -43,12 +43,12 @@ namespace ASC.Common.Data.Sql.Expressions
                        : string.Format(format, exp1.ToString(dialect), and ? "and" : "or", exp2.ToString(dialect));
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             var parameters = new List<object>();
             parameters.AddRange(exp1.GetParameters());
             parameters.AddRange(exp2.GetParameters());
-            return parameters.ToArray();
+            return parameters;
         }
     }
 }

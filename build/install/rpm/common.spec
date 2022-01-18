@@ -152,7 +152,7 @@ DIR="/var/www/%{package_sysname}"
 
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade requests
-python3 -m pip install --upgrade radicale
+python3 -m pip install --upgrade radicale==3.0.5
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
@@ -227,7 +227,7 @@ EOF
 fi
 
 
-for SVC in monoserve onlyofficeThumb onlyofficeThumbnailBuilder
+for SVC in monoserve %{package_sysname}Thumb %{package_sysname}ThumbnailBuilder
 do
 	if systemctl is-active $SVC | grep -q "active"; then
 		systemctl restart $SVC
@@ -276,7 +276,7 @@ if [ $1 -ge 2 ]; then
 		CONN_STR=$(grep -oP "Server=[^\"]*(?=\")" $DIR/WebStudio/web.connections.config | head -1)
 		
 		if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
-			CORE_MACHINEKEY="$(sudo sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
+			CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
 		fi		
 
 		binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
@@ -310,13 +310,18 @@ if [ $1 -ge 2 ]; then
 		fi
 		
 		if [ ! -d "$APP_INDEX_DIR" ]; then		
-			systemctl stop god onlyofficeIndex elasticsearch
+			systemctl daemon-reload	
+			systemctl stop god %{package_sysname}Index elasticsearch
 			mysql --silent -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} -D "$MYSQL_SERVER_DB_NAME" -e "TRUNCATE webstudio_index";
 		fi
 				
 		for i in $(ls $DIR/Sql/%{package_sysname}.upgrade*); do
 				mysql --silent -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} -D "$MYSQL_SERVER_DB_NAME" < ${i};
 		done
+
+		if [ -f /etc/god/conf.d/%{package_sysname}.god ]; then
+			rm -rf /etc/god/conf.d/%{package_sysname}.god
+		fi
 	fi
 fi
 
@@ -363,6 +368,12 @@ fi
 
 if grep -q "HeapDumpOnOutOfMemoryError" ${ELASTIC_SEARCH_JAVA_CONF_PATH}; then
 	sed "/-XX:+HeapDumpOnOutOfMemoryError/d" -i ${ELASTIC_SEARCH_JAVA_CONF_PATH}
+fi
+
+if ! grep -q "Dlog4j2.formatMsgNoLookups" ${ELASTIC_SEARCH_JAVA_CONF_PATH}; then
+	echo "-Dlog4j2.formatMsgNoLookups=true" >> ${ELASTIC_SEARCH_JAVA_CONF_PATH} 
+else
+	sed -i "s/Dlog4j2.formatMsgNoLookups.*/Dlog4j2.formatMsgNoLookups=true/" ${ELASTIC_SEARCH_JAVA_CONF_PATH} 
 fi
 
 TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);
@@ -425,12 +436,14 @@ if %{getenforce} >/dev/null 2>&1; then
 fi
 
 systemctl daemon-reload
-for SVC in %{package_services}; do
-	if [ -e /usr/lib/systemd/system/$SVC.service ]; then
-		systemctl enable $SVC
-		systemctl restart $SVC
-	fi
-done
+if [ $1 -ge 2 ]; then
+	for SVC in %{package_services}; do
+		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
+			systemctl enable $SVC
+			systemctl restart $SVC
+		fi
+	done
+fi
 
 if systemctl is-active monoserve | grep -q "active"; then
 	curl --silent --output /dev/null http://127.0.0.1/api/2.0/warmup/restart.json || true

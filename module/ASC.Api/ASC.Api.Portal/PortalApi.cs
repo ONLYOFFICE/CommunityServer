@@ -44,6 +44,7 @@ using ASC.Geolocation;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
@@ -189,7 +190,7 @@ namespace ASC.Api.Portal
         [Read("userscount")]
         public long GetUsersCount()
         {
-            return CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
+            return CoreContext.Configuration.Personal ? 1 : CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
         }
 
         ///<visible>false</visible>
@@ -337,7 +338,9 @@ namespace ASC.Api.Portal
                 enableTariffPage = //TenantExtra.EnableTariffSettings - think about hide-settings for opensource
                     (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(LicenseReader.LicensePath))
                     && string.IsNullOrEmpty(SetupInfo.AmiMetaUrl)
-                    && !CoreContext.Configuration.CustomMode
+                    && !CoreContext.Configuration.CustomMode,
+                DocServerUserQuota = DocumentServiceLicense.GetLicenseQuota(),
+                DocServerLicense = DocumentServiceLicense.GetLicense()
             };
         }
 

@@ -36,7 +36,7 @@ namespace ASC.Web.Mail.Configuration
 
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var mail_db = new DbManager(MailDatabaseId))
+            using (var mail_db = DbManager.FromHttpContext(MailDatabaseId))
             {
                 var query = new SqlQuery("mail_attachment a")
                     .InnerJoin("mail_mail m", Exp.EqColumns("a.id_mail", "m.id"))
@@ -68,7 +68,7 @@ namespace ASC.Web.Mail.Configuration
 
         public long GetUserSpaceUsage(Guid userId)
         {
-            using (var mail_db = new DbManager(MailDatabaseId))
+            using (var mail_db = DbManager.FromHttpContext(MailDatabaseId))
             {
                 var query = new SqlQuery("mail_attachment a")
                     .InnerJoin("mail_mail m", Exp.EqColumns("a.id_mail", "m.id"))

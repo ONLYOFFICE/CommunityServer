@@ -58,7 +58,7 @@ namespace ASC.Mail.Data.Contracts
         public int TcpTimeout { get; set; }
         public string ProtocolLogPath { get; set; }
         public bool CollectStatistics { get; set; }
-
+        public uint? MaxMessageSizeLimit { get; set; }
         public bool UseDump { get; set; }
 
         public static readonly TasksConfig Default = new TasksConfig
@@ -91,7 +91,8 @@ namespace ASC.Mail.Data.Contracts
             TcpTimeout = 30000,
             ProtocolLogPath = "",
             CollectStatistics = true,
-            UseDump = false
+            UseDump = false,
+            MaxMessageSizeLimit = 67108864,
         };
 
         public static TasksConfig FromConfig
@@ -116,7 +117,7 @@ namespace ASC.Mail.Data.Contracts
                 if (ConfigurationManagerExtension.AppSettings["mail.one-user-mode"] != null &&
                     Guid.TryParse(ConfigurationManagerExtension.AppSettings["mail.one-user-mode"], out userId))
                 {
-                    config.WorkOnUsersOnly.Add(ConfigurationManagerExtension.AppSettings["mail.one-user-mode"]);
+                    config.WorkOnUsersOnly.Add(userId.ToString());
                 }
 
                 if (ConfigurationManagerExtension.AppSettings["mail.aggregate-mode"] != null)
@@ -238,17 +239,40 @@ namespace ASC.Mail.Data.Contracts
 
                 if (ConfigurationManagerExtension.AppSettings["mail.protocol-log-path"] != null)
                 {
-                    config.ProtocolLogPath = ConfigurationManagerExtension.AppSettings["mail.protocol-log-path"] ?? "";
+                    config.ProtocolLogPath = ConfigurationManagerExtension.AppSettings["mail.protocol-log-path"];
                 }
 
-                if (ConfigurationManagerExtension.AppSettings["mail.collect-statistics"] != null)
+                bool collectStat;
+                if (ConfigurationManagerExtension.AppSettings["mail.collect-statistics"] != null
+                    && bool.TryParse(ConfigurationManagerExtension.AppSettings["mail.collect-statistics"], out collectStat))
                 {
-                    config.CollectStatistics = Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.collect-statistics"] ?? "true");
+                    config.CollectStatistics = collectStat;
+                }
+                else
+                {
+                    config.CollectStatistics = Default.CollectStatistics;
                 }
 
-                if (ConfigurationManagerExtension.AppSettings["mail.use-damp"] != null)
+                bool useDump;
+                if (ConfigurationManagerExtension.AppSettings["mail.use-damp"] != null
+                    && bool.TryParse(ConfigurationManagerExtension.AppSettings["mail.use-damp"], out useDump))
                 {
-                    config.UseDump = Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.use-damp"] ?? "false");
+                    config.UseDump = useDump;
+                }
+                else
+                {
+                    config.UseDump = Default.UseDump;
+                }
+
+                uint limit;
+                if (ConfigurationManagerExtension.AppSettings["mail.max-message-size-limit"] != null
+                    && uint.TryParse(ConfigurationManagerExtension.AppSettings["mail.max-message-size-limit"], out limit))
+                {
+                    config.MaxMessageSizeLimit = limit;
+                }
+                else
+                {
+                    config.MaxMessageSizeLimit = Default.MaxMessageSizeLimit;
                 }
 
                 return config;

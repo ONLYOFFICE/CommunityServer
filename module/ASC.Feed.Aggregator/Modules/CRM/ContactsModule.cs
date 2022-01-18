@@ -83,7 +83,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 .Where("tenant_id", filter.Tenant)
                 .Where(Exp.Between("create_on", filter.Time.From, filter.Time.To));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var contacts = db.ExecuteList(query).ConvertAll(ToContact);
                 return contacts.Select(c => new Tuple<Feed, object>(ToFeed(c), c));

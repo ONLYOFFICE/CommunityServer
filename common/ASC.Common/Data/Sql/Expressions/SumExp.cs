@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class SumExp : Exp
@@ -36,7 +38,7 @@ namespace ASC.Common.Data.Sql.Expressions
             return string.Format("sum({0})", _exp.ToString(dialect));
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return _exp.GetParameters();
         }

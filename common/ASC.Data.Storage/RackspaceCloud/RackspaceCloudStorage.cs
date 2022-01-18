@@ -558,13 +558,17 @@ namespace ASC.Data.Storage.RackspaceCloud
         {
             var client = GetClient();
 
-            var obj = client
-                          .ListObjects(_private_container, null, null, null, MakePath(domain, path));
+            var obj = client.ListObjects(_private_container, null, null, null, MakePath(domain, path));
 
             if (obj.Any())
                 return obj.Single().Bytes;
 
             return 0;
+        }
+
+        public override Task<long> GetFileSizeAsync(string domain, string path)
+        {
+            return Task.FromResult(GetFileSize(domain, path));
         }
 
         public override long GetDirectorySize(string domain, string path)

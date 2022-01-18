@@ -95,6 +95,7 @@
                       </xsl:attribute>
                     </xsl:if>
                   </input>
+                  <label class="pass-visibility" />
                 </div>
               </div>
             </div>

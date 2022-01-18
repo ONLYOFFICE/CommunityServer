@@ -87,7 +87,7 @@
       <Version>2.11.1</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.23</Version>
+      <Version>8.0.25</Version>
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.0</Version>

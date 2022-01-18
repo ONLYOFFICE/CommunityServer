@@ -47,11 +47,18 @@ namespace ASC.Core.Data
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
         }
 
-
         public UserInfo GetUser(int tenant, string email)
         {
             var q = GetUserQuery(tenant, default(DateTime))
                 .Where("email", email)
+                .Where("removed", false);
+            return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
+        }
+
+        public UserInfo GetUserByUserName(int tenant, string userName)
+        {
+            var q = GetUserQuery(tenant, default(DateTime))
+                .Where("userName", userName)
                 .Where("removed", false);
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
         }
@@ -115,6 +122,14 @@ namespace ASC.Core.Data
 
                 return result;
             }
+        }
+
+        public IEnumerable<UserInfo> GetUsersAllTenants(IEnumerable<string> userIds)
+        {
+            var q = GetUserQuery()
+                .Where(Exp.In("id", userIds.ToArray()))
+                .Where("removed", false);
+            return ExecList(q).ConvertAll(ToUser);
         }
 
         //todo: remove

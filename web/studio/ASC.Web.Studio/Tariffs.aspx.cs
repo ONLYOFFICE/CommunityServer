@@ -22,7 +22,6 @@ using System.Web;
 using ASC.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.PublicResources;
-using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -98,8 +97,6 @@ namespace ASC.Web.Studio
                     pageContainer.Controls.Add(tariffHistory);
                 }
             }
-
-            pageContainer.Controls.Add(LoadControl(SupportChat.Location));
         }
     }
 }

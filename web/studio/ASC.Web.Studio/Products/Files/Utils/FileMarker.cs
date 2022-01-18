@@ -438,7 +438,7 @@ namespace ASC.Web.Files.Utils
                                     }
                                     else if ((fromCache) > 0)
                                     {
-                                        news.Add(rootId, (int)fromCache);
+                                        news.Add(rootId, fromCache);
                                     }
                                 });
 
@@ -449,7 +449,7 @@ namespace ASC.Web.Files.Utils
                 using (var folderDao = Global.DaoFactory.GetFolderDao())
                 {
 
-                    requestTags = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderDao.GetFolders(requestIds.ToArray()));
+                    requestTags = tagDao.GetNewTags(SecurityContext.CurrentAccount.ID, folderDao.GetFolders(requestIds));
                 }
 
                 requestIds.ForEach(requestId =>
@@ -502,7 +502,7 @@ namespace ASC.Web.Files.Utils
                 foreach (var tag in tags)
                 {
                     var entry = tag.EntryType == FileEntryType.File
-                                    ? (FileEntry)fileDao.GetFile(tag.EntryId)
+                                    ? fileDao.GetFile(tag.EntryId)
                                     : (FileEntry)folderDao.GetFolder(tag.EntryId);
                     if (entry != null
                         && (!entry.ProviderEntry || FilesSettings.EnableThirdParty))

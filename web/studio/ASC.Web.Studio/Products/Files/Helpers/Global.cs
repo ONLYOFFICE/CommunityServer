@@ -470,6 +470,11 @@ namespace ASC.Web.Files.Classes
             return new FileSecurity(DaoFactory);
         }
 
+        public static ILinkDao GetLinkDao()
+        {
+            return new LinkDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId);
+        }
+
         public static string ReplaceInvalidCharsAndTruncate(string title)
         {
             if (String.IsNullOrEmpty(title)) return title;

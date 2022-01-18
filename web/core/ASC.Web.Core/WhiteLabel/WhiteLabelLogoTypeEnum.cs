@@ -22,6 +22,7 @@ namespace ASC.Web.Core.WhiteLabel
         LightSmall = 1,
         Dark = 2,
         Favicon = 3,
-        DocsEditor = 4
+        DocsEditor = 4,
+        DocsEditorEmbed = 5
     }
 }

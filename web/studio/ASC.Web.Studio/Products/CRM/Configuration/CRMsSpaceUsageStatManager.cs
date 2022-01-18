@@ -33,7 +33,7 @@ namespace ASC.Web.CRM.Configuration
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var filedb = new DbManager(FileConstant.DatabaseId))
+            using (var filedb = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var q = new SqlQuery("files_file f")
                     .Select("b.right_node")

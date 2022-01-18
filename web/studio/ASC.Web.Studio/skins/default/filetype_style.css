@@ -66,6 +66,7 @@
 .ft_Docm{background-image:url('images/filetype/file_docm.png');}
 .ft_Doct{background-image:url('images/filetype/file_doct.png');}
 .ft_Docx{background-image:url('images/filetype/file_docx.png');}
+.ft_Docxf{background-image:url('images/filetype/file_docxf.png');}
 .ft_Dot{background-image:url('images/filetype/file_dot.png');}
 .ft_Dotm{background-image:url('images/filetype/file_dotm.png');}
 .ft_Dotx{background-image:url('images/filetype/file_dotx.png');}
@@ -95,6 +96,7 @@
 .ft_Odp{background-image:url('images/filetype/file_odp.png');}
 .ft_Ods{background-image:url('images/filetype/file_ods.png');}
 .ft_Odt{background-image:url('images/filetype/file_odt.png');}
+.ft_Oform{background-image:url('images/filetype/file_oform.png');}
 .ft_Otp{background-image:url('images/filetype/file_otp.png');}
 .ft_Ots{background-image:url('images/filetype/file_ots.png');}
 .ft_Ott{background-image:url('images/filetype/file_ott.png');}
@@ -154,6 +156,7 @@
 .thumbnails .thumb-img.ft_Docm{background-image:url('images/filetype/thumb/file_docm.png');}
 .thumbnails .thumb-img.ft_Doct{background-image:url('images/filetype/thumb/file_doct.png');}
 .thumbnails .thumb-img.ft_Docx{background-image:url('images/filetype/thumb/file_docx.png');}
+.thumbnails .thumb-img.ft_Docxf{background-image:url('images/filetype/thumb/file_docxf.png');}
 .thumbnails .thumb-img.ft_Dot{background-image:url('images/filetype/thumb/file_dot.png');}
 .thumbnails .thumb-img.ft_Dotm{background-image:url('images/filetype/thumb/file_dotm.png');}
 .thumbnails .thumb-img.ft_Dotx{background-image:url('images/filetype/thumb/file_dotx.png');}
@@ -182,6 +185,7 @@
 .thumbnails .thumb-img.ft_Odp{background-image:url('images/filetype/thumb/file_odp.png');}
 .thumbnails .thumb-img.ft_Ods{background-image:url('images/filetype/thumb/file_ods.png');}
 .thumbnails .thumb-img.ft_Odt{background-image:url('images/filetype/thumb/file_odt.png');}
+.thumbnails .thumb-img.ft_Oform{background-image:url('images/filetype/thumb/file_oform.png');}
 .thumbnails .thumb-img.ft_Otp{background-image:url('images/filetype/thumb/file_otp.png');}
 .thumbnails .thumb-img.ft_Ots{background-image:url('images/filetype/thumb/file_ots.png');}
 .thumbnails .thumb-img.ft_Ott{background-image:url('images/filetype/thumb/file_ott.png');}
@@ -236,6 +240,7 @@ only screen and (                min-resolution: 2dppx)
 .ft_Docm{background-image:url('images/filetype/retina/file_docm.png');}
 .ft_Doct{background-image:url('images/filetype/retina/file_doct.png');}
 .ft_Docx{background-image:url('images/filetype/retina/file_docx.png');}
+.ft_Docxf{background-image:url('images/filetype/retina/file_docxf.png');}
 .ft_Dot{background-image:url('images/filetype/retina/file_dot.png');}
 .ft_Dotm{background-image:url('images/filetype/retina/file_dotm.png');}
 .ft_Dotx{background-image:url('images/filetype/retina/file_dotx.png');}
@@ -264,6 +269,7 @@ only screen and (                min-resolution: 2dppx)
 .ft_Odp{background-image:url('images/filetype/retina/file_odp.png');}
 .ft_Ods{background-image:url('images/filetype/retina/file_ods.png');}
 .ft_Odt{background-image:url('images/filetype/retina/file_odt.png');}
+.ft_Oform{background-image:url('images/filetype/retina/file_oform.png');}
 .ft_Otp{background-image:url('images/filetype/retina/file_otp.png');}
 .ft_Ots{background-image:url('images/filetype/retina/file_ots.png');}
 .ft_Ott{background-image:url('images/filetype/retina/file_ott.png');}

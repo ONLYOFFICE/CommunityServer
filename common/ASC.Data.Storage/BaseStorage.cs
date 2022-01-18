@@ -204,6 +204,7 @@ namespace ASC.Data.Storage
         public abstract bool IsDirectory(string domain, string path);
         public abstract void DeleteDirectory(string domain, string path);
         public abstract long GetFileSize(string domain, string path);
+        public abstract Task<long> GetFileSizeAsync(string domain, string path);
         public abstract long GetDirectorySize(string domain, string path);
         public abstract long ResetQuota(string domain);
         public abstract long GetUsedQuota(string domain);

@@ -75,15 +75,15 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return new List<File> { GetFile(fileId) };
         }
 
-        public List<File> GetFiles(object[] fileIds)
+        public List<File> GetFiles(IEnumerable<object> fileIds)
         {
-            if (fileIds == null || fileIds.Length == 0) return new List<File>();
+            if (fileIds == null || !fileIds.Any()) return new List<File>();
             return fileIds.Select(GetDriveEntry).Select(ToFile).ToList();
         }
 
-        public List<File> GetFilesFiltered(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
+            if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var files = GetFiles(fileIds).AsEnumerable();
 
@@ -123,7 +123,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    {
+                        searchText = searchText.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                    }
                     break;
             }
 
@@ -181,7 +184,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    {
+                        searchText = searchText.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                    }
                     break;
             }
 
@@ -288,9 +294,19 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                                 .ConvertAll(x => x[0]);
 
                 db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
-                db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
                 db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
                 db.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
+
+                var tagsToRemove = db.ExecuteList(
+                            Query("files_tag tbl_ft ")
+                                .Select("tbl_ft.id")
+                                .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                                         Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                                .Where("tbl_ftl.tag_id is null"))
+                            .ConvertAll(r => Convert.ToInt32(r[0]));
+
+                db.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
+
 
                 tx.Commit();
             }
@@ -507,11 +523,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         #region Only in TMFileDao
 
-        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        public void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId)
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }

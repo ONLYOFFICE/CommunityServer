@@ -591,6 +591,12 @@ namespace ASC.Web.Files.Utils
                 }
 
                 FilesMessageService.Send(newFile, MessageInitiator.DocsService, MessageAction.FileConverted, newFile.Title);
+
+                using (var linkDao = Global.GetLinkDao())
+                {
+                    linkDao.DeleteAllLink(file.ID);
+                }
+
                 FileMarker.MarkAsNew(newFile);
 
                 using (var tagDao = Global.DaoFactory.GetTagDao())

@@ -92,7 +92,7 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 .Where(Exp.Between("c.create_on", filter.Time.From, filter.Time.To))
                 .GroupBy("c.id");
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             using (var scope = DIHelper.Resolve())
             {
                 var dao = scope.Resolve<DaoFactory>().ContactDao;

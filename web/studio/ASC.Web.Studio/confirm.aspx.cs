@@ -352,6 +352,8 @@ namespace ASC.Web.Studio
                     }
 
                     MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserActivated, user.DisplayUserName(false));
+
+                    SecurityContext.AuthenticateMe(user.ID);
                 }
                 finally
                 {

@@ -959,38 +959,47 @@ namespace ASC.Api.Calendar
                         var currentTenantId = TenantProvider.CurrentTenantID;
                         var caldavHost = myUri.Host;
 
-                        var replaceSharingEventThread = new Thread(() =>
+                        var replaceSharingEventTask = new Task(() =>
                         {
-                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-
-                            foreach (var sharingOption in oldSharingList)
+                            try
                             {
-                                if (!sharingOption.IsGroup)
+                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+
+                                foreach (var sharingOption in oldSharingList)
                                 {
-                                    var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
-                                    if (CheckUserEmail(user))
+                                    if (!sharingOption.IsGroup)
                                     {
-                                        var currentUserName = user.Email.ToLower() + "@" + caldavHost;
-                                        var userEmail = user.Email;
-                                        RemoveCaldavCalendar(currentUserName, userEmail, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
-                                    }
-                                }
-                                else
-                                {
-                                    var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
-                                    foreach (var user in users)
-                                    {
+                                        var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                                         if (CheckUserEmail(user))
                                         {
+                                            var currentUserName = user.Email.ToLower() + "@" + caldavHost;
                                             var userEmail = user.Email;
-                                            var currentUserName = userEmail.ToLower() + "@" + caldavHost;
                                             RemoveCaldavCalendar(currentUserName, userEmail, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
+                                        foreach (var user in users)
+                                        {
+                                            if (CheckUserEmail(user))
+                                            {
+                                                var userEmail = user.Email;
+                                                var currentUserName = userEmail.ToLower() + "@" + caldavHost;
+                                                RemoveCaldavCalendar(currentUserName, userEmail, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
+                                            }
                                         }
                                     }
                                 }
                             }
-                        });
-                        replaceSharingEventThread.Start();
+                            catch (Exception ex)
+                            {
+                                LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                            }
+
+                        }, TaskCreationOptions.LongRunning);
+                        replaceSharingEventTask.ConfigureAwait(false);
+                        replaceSharingEventTask.Start();
                     }
 
                     if (cal != null)
@@ -1089,9 +1098,18 @@ namespace ASC.Api.Calendar
                 {
                     var caldavTask = new Task(() =>
                     {
-                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                        RemoveCaldavCalendar(currentUserName, currentUserEmail, caldavGuid.ToString(), myUri);
-                    });
+                        try
+                        {
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                            RemoveCaldavCalendar(currentUserName, currentUserEmail, caldavGuid.ToString(), myUri);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                        }
+
+                    }, TaskCreationOptions.LongRunning);
+                    caldavTask.ConfigureAwait(false);
                     caldavTask.Start();
                 }
             }
@@ -1110,80 +1128,88 @@ namespace ASC.Api.Calendar
             }
 
 
-            var replaceSharingEventThread = new Thread(() =>
+            var replaceSharingEventTask = new Task(() =>
             {
-                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-
-                foreach (var sharingOption in sharingList)
+                try
                 {
-                    if (!sharingOption.IsGroup)
+                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+
+                    foreach (var sharingOption in sharingList)
                     {
-                        var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
-                        if (CheckUserEmail(user))
+                        if (!sharingOption.IsGroup)
                         {
-                            RemoveCaldavCalendar(user.Email + "@" + caldavHost, user.Email, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
-                        }
-                    }
-                    else
-                    {
-                        var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
-                        foreach (var user in users)
-                        {
+                            var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                             if (CheckUserEmail(user))
                             {
                                 RemoveCaldavCalendar(user.Email + "@" + caldavHost, user.Email, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
                             }
                         }
-                    }
-                }
-                foreach (var evt in events)
-                {
-                    if (evt.SharingOptions.PublicItems.Count > 0)
-                    {
-                        var permissions = PublicItemCollection.GetForEvent(evt);
-                        var so = permissions.Items
-                            .Where(x => x.SharingOption.Id != AccessOption.OwnerOption.Id)
-                            .Select(x => new SharingParam
-                            {
-                                Id = x.Id,
-                                actionId = x.SharingOption.Id,
-                                isGroup = x.IsGroup
-                            }).ToList();
-                        var uid = evt.Uid;
-                        string[] split = uid.Split(new Char[] { '@' });
-                        foreach (var sharingOption in so)
+                        else
                         {
-                            var fullAccess = sharingOption.actionId == AccessOption.FullAccessOption.Id;
-
-                            if (!sharingOption.IsGroup)
+                            var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
+                            foreach (var user in users)
                             {
-                                var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                                 if (CheckUserEmail(user))
                                 {
-                                    deleteEvent(fullAccess ? split[0] + "_write" : split[0], SharedEventsCalendar.CalendarId, user.Email, myUri, user.ID != evt.OwnerId);
+                                    RemoveCaldavCalendar(user.Email + "@" + caldavHost, user.Email, cal.calDavGuid, myUri, user.ID != cal.OwnerId);
                                 }
                             }
-                            else
-                            {
-                                var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
-                                foreach (var user in users)
+                        }
+                    }
+                    foreach (var evt in events)
+                    {
+                        if (evt.SharingOptions.PublicItems.Count > 0)
+                        {
+                            var permissions = PublicItemCollection.GetForEvent(evt);
+                            var so = permissions.Items
+                                .Where(x => x.SharingOption.Id != AccessOption.OwnerOption.Id)
+                                .Select(x => new SharingParam
                                 {
+                                    Id = x.Id,
+                                    actionId = x.SharingOption.Id,
+                                    isGroup = x.IsGroup
+                                }).ToList();
+                            var uid = evt.Uid;
+                            string[] split = uid.Split(new Char[] { '@' });
+                            foreach (var sharingOption in so)
+                            {
+                                var fullAccess = sharingOption.actionId == AccessOption.FullAccessOption.Id;
+
+                                if (!sharingOption.IsGroup)
+                                {
+                                    var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                                     if (CheckUserEmail(user))
                                     {
-                                        var eventUid = user.ID == evt.OwnerId
-                                                       ? split[0]
-                                                       : fullAccess ? split[0] + "_write" : split[0];
+                                        deleteEvent(fullAccess ? split[0] + "_write" : split[0], SharedEventsCalendar.CalendarId, user.Email, myUri, user.ID != evt.OwnerId);
+                                    }
+                                }
+                                else
+                                {
+                                    var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
+                                    foreach (var user in users)
+                                    {
+                                        if (CheckUserEmail(user))
+                                        {
+                                            var eventUid = user.ID == evt.OwnerId
+                                                           ? split[0]
+                                                           : fullAccess ? split[0] + "_write" : split[0];
 
-                                        deleteEvent(eventUid, SharedEventsCalendar.CalendarId, user.Email, myUri, true);
+                                            deleteEvent(eventUid, SharedEventsCalendar.CalendarId, user.Email, myUri, true);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                }
 
-            });
-            replaceSharingEventThread.Start();
+            }, TaskCreationOptions.LongRunning);
+            replaceSharingEventTask.ConfigureAwait(false);
+            replaceSharingEventTask.Start();
 
         }
 
@@ -1264,7 +1290,7 @@ namespace ASC.Api.Calendar
 
                     if (todoCal != null)
                     {
-                        using (var db = new DbManager("calendar"))
+                        using (var db = DbManager.FromHttpContext("calendar"))
                         {
                             using (var tr = db.BeginTransaction())
                             {
@@ -2343,12 +2369,21 @@ namespace ASC.Api.Calendar
                             var currentUserEmail = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower();
 
                             var currentTenantId = TenantProvider.CurrentTenantID;
-                            var updateCaldavThread = new Thread(() =>
+                            var updateCaldavTask = new Task(() =>
                             {
-                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                                updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, tmpCalendar.TimeZones[0], existCalendarTimeZone);
-                            });
-                            updateCaldavThread.Start();
+                                try
+                                {
+                                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                    updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, tmpCalendar.TimeZones[0], existCalendarTimeZone);
+                                }
+                                catch(Exception ex)
+                                {
+                                    LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                                }
+                                
+                            }, TaskCreationOptions.LongRunning);
+                            updateCaldavTask.ConfigureAwait(false);
+                            updateCaldavTask.Start();
                         }
                         catch (Exception e)
                         {
@@ -2431,13 +2466,20 @@ namespace ASC.Api.Calendar
                             if (currentUserEmail != null)
                             {
                                 var currentTenantId = TenantProvider.CurrentTenantID;
-                                var updateCaldavThread = new Thread(() =>
+                                var updateCaldavTask = new Task(() =>
                                 {
-                                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                                    updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, tmpCalendar.TimeZones[0], existCalendarTimeZone);
-
-                                });
-                                updateCaldavThread.Start();
+                                    try
+                                    {
+                                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                        updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, tmpCalendar.TimeZones[0], existCalendarTimeZone);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                                    }
+                                }, TaskCreationOptions.LongRunning);
+                                updateCaldavTask.ConfigureAwait(false);
+                                updateCaldavTask.Start();
                             }
                         }
                         catch (Exception e)
@@ -2771,7 +2813,7 @@ namespace ASC.Api.Calendar
 
             var utcStartDate = todoObj.Start != null ? DDayICalParser.ToUtc(todoObj.Start) : DateTime.MinValue;
 
-            todoUid = todoUid == null ? null : string.Format("{0}@onlyoffice.com", todoUid);
+            todoUid = todoUid == null ? null : string.Format("{0}@{1}", todoUid, DataProvider.EventUidDomain);
 
 
             var result = CreateTodo(calendarId,
@@ -2804,12 +2846,20 @@ namespace ASC.Api.Calendar
                 if (currentUserEmail != null)
                 {
                     var currentTenantId = TenantProvider.CurrentTenantID;
-                    var updateCaldavThread = new Thread(() =>
+                    var updateCaldavTask = new Task(() =>
                     {
-                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                        updateCaldavEvent(old_ics, split[0], true, calDavGuid, myUri, currentUserEmail);
-                    });
-                    updateCaldavThread.Start();
+                        try
+                        {
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                            updateCaldavEvent(old_ics, split[0], true, calDavGuid, myUri, currentUserEmail);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                        }
+                    }, TaskCreationOptions.LongRunning);
+                    updateCaldavTask.ConfigureAwait(false);
+                    updateCaldavTask.Start();
                 }
             }
             catch (Exception e)
@@ -2893,12 +2943,20 @@ namespace ASC.Api.Calendar
                     if (currentUserEmail != null)
                     {
                         var currentTenantId = TenantProvider.CurrentTenantID;
-                        var updateCaldavThread = new Thread(() =>
+                        var updateCaldavTask = new Task(() =>
                         {
-                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                            updateCaldavEvent(old_ics, split[0], true, calDavGuid, myUri, currentUserEmail);
-                        });
-                        updateCaldavThread.Start();
+                            try
+                            {
+                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                updateCaldavEvent(old_ics, split[0], true, calDavGuid, myUri, currentUserEmail);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                            }
+                        }, TaskCreationOptions.LongRunning);
+                        updateCaldavTask.ConfigureAwait(false);
+                        updateCaldavTask.Start();
                     }
                 }
                 catch (Exception e)
@@ -3064,27 +3122,35 @@ namespace ASC.Api.Calendar
                 var caldavHost = myUri.Host;
 
                 var currentTenantId = TenantProvider.CurrentTenantID;
-                var deleteCaldavCalendar = new Thread(() =>
+                var deleteCaldavCalendarTask = new Task(() =>
                 {
-                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                    foreach (var teamMember in team)
+                    try
                     {
-                        var currentUser = CoreContext.UserManager.GetUsers(Guid.Parse(teamMember));
-
-                        if (CheckUserEmail(currentUser))
+                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                        foreach (var teamMember in team)
                         {
-                            var currentUserName = currentUser.Email.ToLower() + "@" + caldavHost;
+                            var currentUser = CoreContext.UserManager.GetUsers(Guid.Parse(teamMember));
 
-                            RemoveCaldavCalendar(
-                                currentUserName,
-                                currentUser.Email,
-                                calendarId,
-                                myUri,
-                                true);
+                            if (CheckUserEmail(currentUser))
+                            {
+                                var currentUserName = currentUser.Email.ToLower() + "@" + caldavHost;
+
+                                RemoveCaldavCalendar(
+                                    currentUserName,
+                                    currentUser.Email,
+                                    calendarId,
+                                    myUri,
+                                    true);
+                            }
                         }
                     }
-                });
-                deleteCaldavCalendar.Start();
+                    catch (Exception ex)
+                    {
+                        LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                    }
+                }, TaskCreationOptions.LongRunning);
+                deleteCaldavCalendarTask.ConfigureAwait(false);
+                deleteCaldavCalendarTask.Start();
             }
             catch (Exception ex)
             {
@@ -3116,26 +3182,34 @@ namespace ASC.Api.Calendar
                 else if (responsibles.Count > 0)
                 {
                     var currentTenantId = TenantProvider.CurrentTenantID;
-                    var deleteCaldavEvent = new Thread(() =>
+                    var deleteCaldavEventTask = new Task(() =>
                     {
-                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                        foreach (var responsibleSid in responsibles)
+                        try
                         {
-                            var currentUser = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
-                            if (CheckUserEmail(currentUser))
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                            foreach (var responsibleSid in responsibles)
                             {
-                                deleteEvent(
-                                    uid,
-                                    calendarId,
-                                    currentUser.Email,
-                                    myUri,
-                                    true
-                                );
+                                var currentUser = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
+                                if (CheckUserEmail(currentUser))
+                                {
+                                    deleteEvent(
+                                        uid,
+                                        calendarId,
+                                        currentUser.Email,
+                                        myUri,
+                                        true
+                                    );
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                        }
 
-                    });
-                    deleteCaldavEvent.Start();
+                    }, TaskCreationOptions.LongRunning);
+                    deleteCaldavEventTask.ConfigureAwait(false);
+                    deleteCaldavEventTask.Start();
                 }
             }
             catch (Exception ex)
@@ -3212,7 +3286,7 @@ namespace ASC.Api.Calendar
                 {
                     var myUri = HttpContext.Current.Request.GetUrlRewriter();
                     var currentTenantId = TenantProvider.CurrentTenantID;
-                    var sharedCalendar = GetCalendarById(calendarId);
+
 
                     var currentUserId = Guid.Empty;
                     if (SecurityContext.IsAuthenticated)
@@ -3229,6 +3303,7 @@ namespace ASC.Api.Calendar
                             var calendarIcs = GetCalendariCalString(_dataProvider, calendarId, true);
                             var parseCalendar = DDayICalParser.DeserializeCalendar(calendarIcs);
                             var calendar = parseCalendar.FirstOrDefault();
+                            var sharedCalendar = GetCalendarById(calendarId);
 
                             if (calendar != null)
                             {
@@ -3240,35 +3315,39 @@ namespace ASC.Api.Calendar
                                     string[] split = eventUid.Split(new Char[] { '@' });
                                     if (uid == split[0])
                                     {
-                                        if (sharedCalendar == null)
-                                        {
-                                            sharedCalendar = GetCalendarById(calendarId);
-                                        }
                                         if (sharedCalendar != null)
                                             ddayCalendar = getEventIcs(alert, sharedCalendar, evt, calendarId);
                                     }
                                 }
                                 var serializeIcs = DDayICalParser.SerializeCalendar(ddayCalendar);
-                                var updateEvent = new Thread(() =>
+                                var updateEventTask = new Task(() =>
                                 {
-                                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                                    var user = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
-                                    if (CheckUserEmail(user))
+                                    try
                                     {
-                                        updateCaldavEvent(
-                                            serializeIcs,
-                                            uid,
-                                            true,
-                                            calendarId,
-                                            myUri,
-                                            user.Email,
-                                            DateTime.Now,
-                                            ddayCalendar.TimeZones[0],
-                                            sharedCalendar.UserCalendar.TimeZone, false, true
-                                        );
+                                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                        var user = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
+                                        if (CheckUserEmail(user) && sharedCalendar != null)
+                                        {
+                                            updateCaldavEvent(
+                                                serializeIcs,
+                                                uid,
+                                                true,
+                                                calendarId,
+                                                myUri,
+                                                user.Email,
+                                                DateTime.Now,
+                                                ddayCalendar.TimeZones[0],
+                                                sharedCalendar.UserCalendar.TimeZone, false, true
+                                            );
+                                        }
                                     }
-                                });
-                                updateEvent.Start();
+                                    catch (Exception ex)
+                                    {
+                                        Logger.Error(String.Format("Error: {0}", ex.Message));
+                                    }
+                                }, TaskCreationOptions.LongRunning);
+                                updateEventTask.ConfigureAwait(false);
+                                updateEventTask.Start();
                                 SecurityContext.Logout();
                             }
                         }
@@ -3357,7 +3436,7 @@ namespace ASC.Api.Calendar
             if (eventObj.IsAllDay && utcStartDate.Date < utcEndDate.Date)
                 utcEndDate = utcEndDate.AddDays(-1);
 
-            eventUid = eventUid == null ? null : string.Format("{0}@onlyoffice.com", eventUid);
+            eventUid = eventUid == null ? null : string.Format("{0}@{1}", eventUid, DataProvider.EventUidDomain);
 
             var result = CreateEvent(calendarId,
                                      eventObj.Summary,
@@ -3418,13 +3497,15 @@ namespace ASC.Api.Calendar
                 {
                     currentEventUid = currentEventUid + "_write";
                 }
-                var updateCaldavThread = new Thread(() =>
+                var updateCaldavTask = new Task(() =>
+                {
+                    try
                     {
                         CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
 
                         updateCaldavEvent(old_ics, currentEventUid, true, calDavGuid, myUri,
-                                          currentUserEmail, DateTime.Now,
-                                          targetCalendar.TimeZones[0], calendarObjTimeZone, false, userId != calendarObj.OwnerId);
+                                            currentUserEmail, DateTime.Now,
+                                            targetCalendar.TimeZones[0], calendarObjTimeZone, false, userId != calendarObj.OwnerId);
 
                         //calendar sharing list
                         foreach (var sharingOption in sharingList)
@@ -3437,12 +3518,12 @@ namespace ASC.Api.Calendar
                                 if (CheckUserEmail(user))
                                 {
                                     var sharedEventUid = user.ID == calendarObj.OwnerId
-                                                         ? split[0]
-                                                         : fullAccess ? split[0] + "_write" : split[0];
+                                                            ? split[0]
+                                                            : fullAccess ? split[0] + "_write" : split[0];
 
                                     updateCaldavEvent(old_ics, sharedEventUid, true, calDavGuid, myUri,
-                                                      user.Email, DateTime.Now, targetCalendar.TimeZones[0],
-                                                      calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
+                                                        user.Email, DateTime.Now, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
                                 }
                             }
                             else
@@ -3454,11 +3535,11 @@ namespace ASC.Api.Calendar
                                     if (CheckUserEmail(user))
                                     {
                                         var sharedEventUid = user.ID == calendarObj.OwnerId
-                                                         ? split[0]
-                                                         : fullAccess ? split[0] + "_write" : split[0];
+                                                            ? split[0]
+                                                            : fullAccess ? split[0] + "_write" : split[0];
                                         updateCaldavEvent(old_ics, sharedEventUid, true, calDavGuid, myUri,
-                                                      user.Email, DateTime.Now, targetCalendar.TimeZones[0],
-                                                      calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
+                                                        user.Email, DateTime.Now, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
                                     }
                                 }
                             }
@@ -3474,12 +3555,12 @@ namespace ASC.Api.Calendar
                                 if (CheckUserEmail(user))
                                 {
                                     var sharedEventUid = user.ID == calendarObj.OwnerId
-                                                         ? split[0]
-                                                         : fullAccess ? split[0] + "_write" : split[0];
+                                                            ? split[0]
+                                                            : fullAccess ? split[0] + "_write" : split[0];
 
                                     updateCaldavEvent(old_ics, sharedEventUid, true, SharedEventsCalendar.CalendarId, myUri,
-                                                      user.Email, DateTime.Now, targetCalendar.TimeZones[0],
-                                                      calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
+                                                        user.Email, DateTime.Now, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
                                 }
 
                             }
@@ -3492,19 +3573,25 @@ namespace ASC.Api.Calendar
                                     if (CheckUserEmail(user))
                                     {
                                         var sharedEventUid = user.ID == calendarObj.OwnerId
-                                                         ? split[0]
-                                                         : fullAccess ? split[0] + "_write" : split[0];
+                                                            ? split[0]
+                                                            : fullAccess ? split[0] + "_write" : split[0];
 
                                         updateCaldavEvent(old_ics, sharedEventUid, true, SharedEventsCalendar.CalendarId, myUri,
-                                                      user.Email, DateTime.Now, targetCalendar.TimeZones[0],
-                                                      calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
+                                                        user.Email, DateTime.Now, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone, false, user.ID != calendarObj.OwnerId);
                                     }
                                 }
                             }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                    }
 
-                    });
-                updateCaldavThread.Start();
+                }, TaskCreationOptions.LongRunning);
+                updateCaldavTask.ConfigureAwait(false);
+                updateCaldavTask.Start();
             }
             catch (Exception e)
             {
@@ -3683,77 +3770,85 @@ namespace ASC.Api.Calendar
                                                      });
                     }
 
-                    var sharingEventThread = new Thread(() =>
+                    var sharingEventTask = new Task(() =>
                     {
-                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                        //event sharing ptions
-                        foreach (var sharingOption in sharingOptions)
+                        try
                         {
-                            if (!sharingOption.IsGroup)
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                            //event sharing ptions
+                            foreach (var sharingOption in sharingOptions)
                             {
-                                var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
-                                if (CheckUserEmail(user))
+                                if (!sharingOption.IsGroup)
                                 {
-                                    ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
-                                                        calendarId, createDate, targetCalendar.TimeZones[0],
-                                                        calendarObj.TimeZone);
-                                }
-                            }
-                            else
-                            {
-                                var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
-                                foreach (var user in users)
-                                {
+                                    var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                                     if (CheckUserEmail(user))
                                     {
                                         ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
-                                                    calendarId, createDate, targetCalendar.TimeZones[0],
-                                                    calendarObjTimeZone);
+                                                            calendarId, createDate, targetCalendar.TimeZones[0],
+                                                            calendarObj.TimeZone);
+                                    }
+                                }
+                                else
+                                {
+                                    var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
+                                    foreach (var user in users)
+                                    {
+                                        if (CheckUserEmail(user))
+                                        {
+                                            ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
+                                                        calendarId, createDate, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone);
+                                        }
                                     }
                                 }
                             }
-                        }
-                        //calendar sharing options
-                        foreach (var sharingOption in calendarCharingList)
-                        {
-                            if (!sharingOption.IsGroup)
+                            //calendar sharing options
+                            foreach (var sharingOption in calendarCharingList)
                             {
-                                var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
-                                if (CheckUserEmail(user))
+                                if (!sharingOption.IsGroup)
                                 {
-                                    ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
-                                                        calendarId, createDate, targetCalendar.TimeZones[0],
-                                                        calendarObj.TimeZone, cal.calDavGuid);
-                                }
-                            }
-                            else
-                            {
-                                var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
-                                foreach (var user in users)
-                                {
+                                    var user = CoreContext.UserManager.GetUsers(sharingOption.itemId);
                                     if (CheckUserEmail(user))
                                     {
                                         ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
-                                                    calendarId, createDate, targetCalendar.TimeZones[0],
-                                                    calendarObjTimeZone, cal.calDavGuid);
+                                                            calendarId, createDate, targetCalendar.TimeZones[0],
+                                                            calendarObj.TimeZone, cal.calDavGuid);
+                                    }
+                                }
+                                else
+                                {
+                                    var users = CoreContext.UserManager.GetUsersByGroup(sharingOption.itemId);
+                                    foreach (var user in users)
+                                    {
+                                        if (CheckUserEmail(user))
+                                        {
+                                            ReplaceSharingEvent(user, sharingOption.actionId, uidData[0], myUri, old_ics,
+                                                        calendarId, createDate, targetCalendar.TimeZones[0],
+                                                        calendarObjTimeZone, cal.calDavGuid);
+                                        }
                                     }
                                 }
                             }
-                        }
-                        if (!isShared)
-                        {
-                            updateCaldavEvent(old_ics, eventUid, true, calDavGuid, myUri, currentUserEmail, createDate, targetCalendar.TimeZones[0], calendarObjTimeZone, false, isShared);
-                        }
-                        else
-                        {
-                            var owner = CoreContext.UserManager.GetUsers(calendarObj.OwnerId);
-                            if (CheckUserEmail(owner))
+                            if (!isShared)
                             {
-                                updateCaldavEvent(old_ics, uidData[0], true, calendarObj.calDavGuid, myUri, owner.Email, createDate, targetCalendar.TimeZones[0], calendarObjTimeZone);
+                                updateCaldavEvent(old_ics, eventUid, true, calDavGuid, myUri, currentUserEmail, createDate, targetCalendar.TimeZones[0], calendarObjTimeZone, false, isShared);
+                            }
+                            else
+                            {
+                                var owner = CoreContext.UserManager.GetUsers(calendarObj.OwnerId);
+                                if (CheckUserEmail(owner))
+                                {
+                                    updateCaldavEvent(old_ics, uidData[0], true, calendarObj.calDavGuid, myUri, owner.Email, createDate, targetCalendar.TimeZones[0], calendarObjTimeZone);
+                                }
                             }
                         }
-                    });
-                    sharingEventThread.Start();
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                        }
+                    }, TaskCreationOptions.LongRunning);
+                    sharingEventTask.ConfigureAwait(false);
+                    sharingEventTask.Start();
 
                 }
                 catch (Exception e)
@@ -4078,7 +4173,7 @@ namespace ASC.Api.Calendar
         }
         private static void updateEvent(string ics, string uid, string calendarId, bool sendToRadicale, DateTime updateDate = default(DateTime), Ical.Net.CalendarComponents.VTimeZone calendarVTimeZone = null, TimeZoneInfo calendarTimeZone = null)
         {
-            using (var db = new DbManager("calendar"))
+            using (var db = DbManager.FromHttpContext("calendar"))
             {
                 using (var tr = db.BeginTransaction())
                 {
@@ -4274,7 +4369,9 @@ namespace ASC.Api.Calendar
             var calendarId = evt.CalendarId;
             var myUri = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter() : uri != null ? uri : new Uri("http://localhost");
             var currentUserId = SecurityContext.CurrentAccount.ID;
-            var removeEventThread = new Thread(() =>
+            var removeEventTask = new Task(() =>
+            {
+                try
                 {
                     CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
                     //calendar sharing list
@@ -4298,8 +4395,8 @@ namespace ASC.Api.Calendar
                                 if (CheckUserEmail(user))
                                 {
                                     var eventUid = user.ID == evt.OwnerId
-                                                   ? split[0]
-                                                   : fullAccess ? split[0] + "_write" : split[0];
+                                                    ? split[0]
+                                                    : fullAccess ? split[0] + "_write" : split[0];
                                     deleteEvent(eventUid, calendarId, user.Email, myUri, true);
                                 }
 
@@ -4323,8 +4420,8 @@ namespace ASC.Api.Calendar
                             foreach (var user in users)
                             {
                                 var eventUid = user.ID == evt.OwnerId
-                                                   ? split[0]
-                                                   : fullAccess ? split[0] + "_write" : split[0];
+                                                    ? split[0]
+                                                    : fullAccess ? split[0] + "_write" : split[0];
 
                                 deleteEvent(eventUid, SharedEventsCalendar.CalendarId, user.Email, myUri, true);
                             }
@@ -4336,9 +4433,9 @@ namespace ASC.Api.Calendar
                         deleteEvent(split[0], evt.CalendarId, owner.Email, myUri);
                     }
                     if (calendarId != BirthdayReminderCalendar.CalendarId &&
-                           calendarId != SharedEventsCalendar.CalendarId &&
-                           calendarId != "crm_calendar" &&
-                           !calendarId.Contains("Project_"))
+                            calendarId != SharedEventsCalendar.CalendarId &&
+                            calendarId != "crm_calendar" &&
+                            !calendarId.Contains("Project_"))
                     {
                         if (currentUserId == cal.OwnerId)
                         {
@@ -4347,7 +4444,13 @@ namespace ASC.Api.Calendar
                             deleteEvent(split[0], evt.CalendarId, owner.Email, myUri);
                         }
                     }
-                });
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                }
+            }, TaskCreationOptions.LongRunning);
+            removeEventTask.ConfigureAwait(false);
 
 
             if (evt.OwnerId.Equals(SecurityContext.CurrentAccount.ID) || CheckPermissions(evt, CalendarAccessRights.FullAccessAction, true) || CheckPermissions(cal, CalendarAccessRights.FullAccessAction, true))
@@ -4359,7 +4462,7 @@ namespace ASC.Api.Calendar
                     var ownerId = SecurityContext.CurrentAccount.ID != cal.OwnerId ? cal.OwnerId : SecurityContext.CurrentAccount.ID;
                     var email = CoreContext.UserManager.GetUsers(ownerId).Email;
                     deleteEvent(split[0], evt.CalendarId, email, myUri);
-                    removeEventThread.Start();
+                    removeEventTask.Start();
 
                     return events;
                 }
@@ -4409,18 +4512,27 @@ namespace ASC.Api.Calendar
 
                         targetCalendar.Events.Clear();
 
-                        var convertedEvent = DDayICalParser.ConvertEvent(evt as BaseEvent, eventTimeZone);
+                        var convertedEvent = DDayICalParser.ConvertEvent(evt, eventTimeZone);
 
                         targetCalendar.Events.Add(convertedEvent);
 
                         var ics = DDayICalParser.SerializeCalendar(targetCalendar);
 
-                        var updateCaldavThread = new Thread(() =>
+                        var updateCaldavTask = new Task(() =>
                         {
-                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                            updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, targetCalendar.TimeZones[0], calTz, true);
-                        });
-                        updateCaldavThread.Start();
+                            try
+                            {
+                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                updateCaldavEvent(ics, split[0], true, calDavGuid, myUri, currentUserEmail, DateTime.Now, targetCalendar.TimeZones[0], calTz, true);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogManager.GetLogger("ASC.Calendar").Error(ex.Message);
+                            }
+
+                        }, TaskCreationOptions.LongRunning);
+                        updateCaldavTask.ConfigureAwait(false);
+                        updateCaldavTask.Start();
                     }
                     catch (Exception e)
                     {
@@ -4475,7 +4587,7 @@ namespace ASC.Api.Calendar
 
         private static void deleteEvent(string uid, string calendarId, string email, Uri myUri, bool isShared = false)
         {
-            using (var db = new DbManager("calendar"))
+            using (var db = DbManager.FromHttpContext("calendar"))
             {
                 using (var tr = db.BeginTransaction())
                 {

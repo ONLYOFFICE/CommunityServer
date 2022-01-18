@@ -4,7 +4,7 @@
 <hr />
 <p align="center">
   <a href="https://www.onlyoffice.com/">Website</a> |
-  <a href="https://www.onlyoffice.com/workspace.aspx">ONLYOFFICE Workspace</a> |
+  <a href="https://www.onlyoffice.com/server-solutions.aspx">Products</a> |
   <a href="https://helpcenter.onlyoffice.com/">Documentation</a> |
   <a href="https://api.onlyoffice.com/">API</a> |
   <a href="https://www.onlyoffice.com/about.aspx">About</a>
@@ -17,10 +17,10 @@
 </p>
 <p align="center">
   <a href="http://www.apache.org/licenses/LICENSE-2.0"><img alt="http://www.apache.org/licenses/LICENSE-2.0" src="https://img.shields.io/badge/License-Apache%20v2.0-green.svg?style=flat"></a>
-  <a href="https://github.com/ONLYOFFICE/CommunityServer/releases"><img alt="https://github.com/ONLYOFFICE/CommunityServer/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
+  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
 </p>
 
-# Overview
+## Overview
 
 ONLYOFFICE Community Server is a free open-source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
 
@@ -54,7 +54,7 @@ Control Panel for administrating **ONLYOFFICE Workspace** can be found in [this 
 
 ## Compiling
 
-To compile source, follow this [instruction](https://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
+To compile the source code, follow this [instruction](https://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
 
 ## Connecting your own modules
 

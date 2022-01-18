@@ -79,7 +79,7 @@ namespace ASC.AuditTrail
                 q.SetMaxResults(limit.Value);
             }
 
-            using (var db = new DbManager(dbid))
+            using (var db = DbManager.FromHttpContext(dbid))
             {
                 return db.ExecuteList(q)
                     .Select(ToAuditEvent)
@@ -100,7 +100,7 @@ namespace ASC.AuditTrail
                 q.Where(Exp.Between("a.date", from.Value, to.Value));
             }
 
-            using (var db = new DbManager(dbid))
+            using (var db = DbManager.FromHttpContext(dbid))
             {
                 return db.ExecuteScalar<int>(q);
             }

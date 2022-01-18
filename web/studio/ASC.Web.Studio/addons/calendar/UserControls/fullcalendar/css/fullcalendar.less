@@ -1118,6 +1118,11 @@ table.fc-border-separate {
 	height: auto;
 }
 
+.fc-event-popup .fc-event-hori {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .fc-grid th {
 	padding-left: .5em;
 	font-weight: normal;
@@ -2529,6 +2534,10 @@ div.fc-todo-list {
             word-wrap: break-word;
             width: 30em;
             white-space: normal;
+            max-height: 150px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
 
         .user {

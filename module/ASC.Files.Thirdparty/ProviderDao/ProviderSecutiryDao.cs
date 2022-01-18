@@ -178,7 +178,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 if (parentFolders == null || !parentFolders.Any()) continue;
 
                 parentFolders.Reverse();
-                var pureShareRecords = GetPureShareRecords(parentFolders.Cast<FileEntry>().ToArray());
+                var pureShareRecords = GetPureShareRecords(parentFolders);
                 if (pureShareRecords == null) continue;
 
                 foreach (var pureShareRecord in pureShareRecords)

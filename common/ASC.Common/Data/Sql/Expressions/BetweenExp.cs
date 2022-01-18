@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class BetweenExp : Exp
@@ -35,7 +37,7 @@ namespace ASC.Common.Data.Sql.Expressions
             return string.Format("{0} {1}between ? and ?", column, Not ? "not " : string.Empty);
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return new[] { minValue, maxValue };
         }

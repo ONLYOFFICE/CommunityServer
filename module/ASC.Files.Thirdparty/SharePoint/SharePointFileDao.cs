@@ -71,14 +71,14 @@ namespace ASC.Files.Thirdparty.SharePoint
             return new List<File> { GetFile(fileId) };
         }
 
-        public List<File> GetFiles(object[] fileIds)
+        public List<File> GetFiles(IEnumerable<object> fileIds)
         {
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
         }
 
-        public List<File> GetFilesFiltered(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
-            if (fileIds == null || fileIds.Length == 0 || filterType == FilterType.FoldersOnly) return new List<File>();
+            if (fileIds == null || !fileIds.Any() || filterType == FilterType.FoldersOnly) return new List<File>();
 
             var files = GetFiles(fileIds).AsEnumerable();
 
@@ -118,7 +118,10 @@ namespace ASC.Files.Thirdparty.SharePoint
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    {
+                        searchText = searchText.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                    }
                     break;
             }
 
@@ -176,7 +179,10 @@ namespace ASC.Files.Thirdparty.SharePoint
                     break;
                 case FilterType.ByExtension:
                     if (!string.IsNullOrEmpty(searchText))
-                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    {
+                        searchText = searchText.Trim().ToLower();
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Equals(searchText));
+                    }
                     break;
             }
 
@@ -360,11 +366,11 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         #region Only in TMFileDao
 
-        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        public void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId)
         {
         }
 
-        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             return new List<File>();
         }

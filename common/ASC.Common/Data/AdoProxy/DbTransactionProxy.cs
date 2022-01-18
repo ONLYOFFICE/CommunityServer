@@ -25,21 +25,23 @@ namespace ASC.Common.Data.AdoProxy
     {
         private bool disposed;
         private readonly ProxyContext context;
+        private readonly int threadId;
         public readonly System.Data.Common.DbTransaction Transaction;
 
-        public DbTransactionProxy(System.Data.Common.DbTransaction transaction, ProxyContext ctx)
+        public DbTransactionProxy(System.Data.Common.DbTransaction transaction, ProxyContext ctx, int threadId)
         {
             if (transaction == null) throw new ArgumentNullException("transaction");
             if (ctx == null) throw new ArgumentNullException("ctx");
 
             Transaction = transaction;
             context = ctx;
+            this.threadId = threadId;
         }
 
 
         public override void Commit()
         {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Commit", dur)))
+            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Commit", dur, threadId)))
             {
                 Transaction.Commit();
             }
@@ -47,7 +49,7 @@ namespace ASC.Common.Data.AdoProxy
 
         protected override DbConnection DbConnection
         {
-            get { return (DbConnection)Transaction.Connection; }
+            get { return Transaction.Connection; }
         }
 
         public override IsolationLevel IsolationLevel
@@ -57,7 +59,7 @@ namespace ASC.Common.Data.AdoProxy
 
         public override void Rollback()
         {
-            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Rollback", dur)))
+            using (ExecuteHelper.Begin(dur => context.FireExecuteEvent(this, "Rollback", dur, threadId)))
             {
                 Transaction.Rollback();
             }

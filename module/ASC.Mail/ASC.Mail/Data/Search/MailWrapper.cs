@@ -110,6 +110,10 @@ namespace ASC.Mail.Data.Search
         {
             var factory = new EngineFactory(TenantId, UserId.ToString());
             var messageEngine = factory.MessageEngine;
+
+            var lenght = messageEngine.GetMessageLength(Stream);
+            if (lenght > MaxFileSize || lenght == 0) return null;
+
             return messageEngine.GetMessageStream(Stream);
         }
 
@@ -117,7 +121,11 @@ namespace ASC.Mail.Data.Search
         {
             var factory = new EngineFactory(TenantId, UserId.ToString());
             var messageEngine = factory.MessageEngine;
-            return await  messageEngine.GetMessageStreamAsync(Stream);
+
+            var lenght = await messageEngine.GetMessageLengthAsync(Stream);
+            if (lenght > MaxFileSize || lenght == 0) return null;
+
+            return await messageEngine.GetMessageStreamAsync(Stream);
         }
 
         protected override string GetDocumentData()

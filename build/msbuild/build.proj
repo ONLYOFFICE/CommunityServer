@@ -25,7 +25,7 @@
   
   <Target Name="ReplaceResources">
 	<CallTarget Targets="BuildTask" />
-    <ReplaceResources BaseFolder="$(ASCDir)" ResourceFile="$(ASCDir)build\sql\r7.resources.json" />
+    <ReplaceResources BaseFolder="$(ASCDir)" ResourceFile="$(ASCDir)build\sql\custom.resources.json" />
   </Target>
   
   

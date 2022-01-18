@@ -96,6 +96,7 @@
     <Compile Include="Client\Bundling\ClientScriptReference.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
     <Compile Include="Extensions\TimeZoneExtension.cs" />
+    <Compile Include="Files\DocumentServiceLicense.cs" />
     <Compile Include="Files\ThumbnailBuilderServiceClient.cs" />
     <Compile Include="Files\IThumbnailBuilderService.cs" />
     <Compile Include="Helpers\ApiSystemHelper.cs" />

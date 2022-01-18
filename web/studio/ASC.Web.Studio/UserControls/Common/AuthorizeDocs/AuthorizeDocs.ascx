@@ -29,7 +29,7 @@
             <!--Registration form-->
             <div class="auth-form-with_form_w">
                 <div class="auth-form-with_form clearFix">
-                    <h4 class="auth-form-with_form_title"><%= PersonalResource.CreatePersonalButton %></h4>
+                    <h2 class="auth-form-with_form_title"><%= PersonalResource.CreatePersonalButton %></h2>
                     <div class="auth-input-row">
                         <div class="auth-input-wrapper">
                             <input id="confirmEmail" class="auth-form-with_field_email" type="email" placeholder="<%= PersonalResource.AuthDocsEmailHint %>" />
@@ -84,19 +84,19 @@
         <div class="carousel-container">
             <div class="create-carousel">
                 <div class="create-carousel-item">
-                    <h2 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulTexts %></h2>
+                    <h3 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulTexts %></h3>
                     <p class="create-doc-text-content"><%= PersonalResource.AuthDocsPowerfulTextSub %></p>
                 </div>
                 <div class="create-carousel-item">
-                    <h2 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulSheets %></h2>
+                    <h3 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulSheets %></h3>
                     <p class="create-doc-text-content"><%= PersonalResource.AuthDocsPowerfulSheetsSub %></p>
                 </div>
                 <div class="create-carousel-item">
-                    <h2 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulSlides %></h2>
+                    <h3 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulSlides %></h3>
                     <p class="create-doc-text-content"><%= PersonalResource.AuthDocsPowerfulSlidesSub %></p>
                 </div>
                 <div class="create-carousel-item">
-                    <h2 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulCollaboration %></h2>
+                    <h3 class="create-doc-text-title"><%= PersonalResource.AuthDocsPowerfulCollaboration %></h3>
                     <p class="create-doc-text-content"><%= PersonalResource.AuthDocsPowerfulCollaborationSub %></p>
                 </div>
             </div>
@@ -109,7 +109,7 @@
         </div>
     </div>
     <div class="auth-form-with auth-form-extend">
-        <h2><%= PersonalResource.AuthDocsConnect %></h2>
+        <h3><%= PersonalResource.AuthDocsConnect %></h3>
         <div class="third-party-container">
             <div>
                 <div class="third-party google"></div>
@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="auth-downloads-block">
-        <h2><%= PersonalResource.AuthDocsOnlineDesktopMobile %></h2>
+        <h3><%= PersonalResource.AuthDocsOnlineDesktopMobile %></h3>
         <div class="auth-download-block d-chrome-extension">
             <div class="auth-download-txt">
                 <b><%= PersonalResource.AuthDocsAccessQuickly %></b> <%= PersonalResource.AuthDocsUsingChrome %>

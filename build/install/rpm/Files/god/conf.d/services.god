@@ -2,7 +2,7 @@ dictionary = { "teamlabNotify" => 9811, "teamlabBackup" => 9812, "teamlabIndex" 
 
 %w{Notify Backup Index StorageMigrate Telegram StorageEncryption ThumbnailBuilder MailCleaner MailWatchdog Feed}.each do |serviceName|
     God.watch do |w|
-      w.name = serviceName
+      w.name = "onlyoffice#{serviceName}"
       w.group = "onlyoffice"
       w.grace = 15.seconds
       w.start = "systemctl start onlyoffice#{serviceName}"

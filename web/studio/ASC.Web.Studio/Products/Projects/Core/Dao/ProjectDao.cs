@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -343,7 +342,7 @@ namespace ASC.Projects.Data.DAO
                 .SingleOrDefault();
         }
 
-        public List<Project> GetById(ICollection projectIDs)
+        public List<Project> GetById(List<int> projectIDs)
         {
             return Db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where(Exp.In("id", projectIDs)))
                 .ConvertAll(converter);
@@ -401,7 +400,7 @@ namespace ASC.Projects.Data.DAO
 
         public void AddProjectContact(int projectID, int contactID)
         {
-            using (var crmDb = new DbManager("crm"))
+            using (var crmDb = DbManager.FromHttpContext("crm"))
             {
                 crmDb.ExecuteNonQuery(Insert("crm_projects").InColumnValue("project_id", projectID).InColumnValue("contact_id", contactID));
             }
@@ -409,7 +408,7 @@ namespace ASC.Projects.Data.DAO
 
         public void DeleteProjectContact(int projectID, int contactID)
         {
-            using (var crmDb = new DbManager("crm"))
+            using (var crmDb = DbManager.FromHttpContext("crm"))
             {
                 crmDb.ExecuteNonQuery(Delete("crm_projects").Where("project_id", projectID).Where("contact_id", contactID));
             }

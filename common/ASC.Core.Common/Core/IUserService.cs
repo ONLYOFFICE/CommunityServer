@@ -30,6 +30,8 @@ namespace ASC.Core
 
         UserInfo GetUser(int tenant, string email);
 
+        UserInfo GetUserByUserName(int tenant, string userName);
+
         UserInfo GetUserByPasswordHash(int tenant, string login, string passwordHash);
 
         UserInfo SaveUser(int tenant, UserInfo user);
@@ -59,5 +61,7 @@ namespace ASC.Core
         UserGroupRef SaveUserGroupRef(int tenant, UserGroupRef r);
 
         void RemoveUserGroupRef(int tenant, Guid userId, Guid groupId, UserGroupRefType refType);
+
+        IEnumerable<UserInfo> GetUsersAllTenants(IEnumerable<string> userIds);
     }
 }

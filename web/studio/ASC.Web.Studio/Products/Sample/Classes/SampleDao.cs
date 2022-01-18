@@ -31,9 +31,9 @@ namespace ASC.Web.Sample.Classes
         private const string Table = "sample_table";
         private static bool _tableExist;
 
-        private static DbManager GetDb()
+        private static IDbManager GetDb()
         {
-            return new DbManager(DbId);
+            return DbManager.FromHttpContext(DbId);
         }
 
 

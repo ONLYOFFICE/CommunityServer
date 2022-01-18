@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class EqColumnsExp : Exp
@@ -42,7 +44,7 @@ namespace ASC.Common.Data.Sql.Expressions
                                  column2.ToString(dialect));
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return column2.GetParameters();
         }

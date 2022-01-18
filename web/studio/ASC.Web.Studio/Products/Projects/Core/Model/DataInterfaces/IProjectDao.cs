@@ -18,7 +18,6 @@
 #region Usings
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 using ASC.Common.Data.Sql.Expressions;
@@ -47,7 +46,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         Project GetById(int projectId);
 
-        List<Project> GetById(ICollection projectIDs);
+        List<Project> GetById(List<int> projectIDs);
 
         bool IsExists(int projectId);
 

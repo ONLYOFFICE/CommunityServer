@@ -389,7 +389,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
                 return item.id === task.customTaskStatus;
             }
 
-            return item.statusType === task.status;
+            return item.statusType === task.status && item.isDefault;
         });
         var descriptionTab = ASC.Projects.DescriptionTab;
         

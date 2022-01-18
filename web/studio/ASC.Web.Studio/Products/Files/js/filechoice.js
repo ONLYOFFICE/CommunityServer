@@ -34,6 +34,7 @@ window.ASC.Files.FileChoice = (function () {
             }
 
             jq("#fileSelectorTree").css("visibility", "visible");
+            jq("#mainContent").addClass("webkit-scrollbar");
 
             var callback = function () {
                 ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);

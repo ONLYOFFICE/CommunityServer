@@ -108,9 +108,16 @@
             <%= FilesUCResource.ButtonCreateByTemplate %></a></li>
         <li id="filesEdit"><a class="dropdown-item with-icon edit first-section">
             <%= FilesUCResource.ButtonEdit %></a></li>
+        <li id="filesFillForm"><a class="dropdown-item with-icon fill-form first-section">
+            <%= FilesUCResource.ButtonFillForm %></a></li>
         <% } %>
         <li id="filesOpen"><a class="dropdown-item with-icon preview first-section">
             <%= FilesUCResource.OpenFile %></a></li>
+        <% if (!Global.IsOutsider)
+           { %>
+        <li id="filesCreateForm"><a class="dropdown-item with-icon create-form first-section">
+            <%= FilesUCResource.ButtonMakeForm %></a></li>
+        <% } %>
         <li class="dropdown-item-seporator first-section"></li>
         <% if (!Global.IsOutsider)
            { %>

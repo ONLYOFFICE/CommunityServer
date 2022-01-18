@@ -63,6 +63,11 @@ namespace ASC.Core
             return tenantService.GetTenants(default(DateTime), active).ToList();
         }
 
+        public List<Tenant> GetTenants(List<int> ids)
+        {
+            return tenantService.GetTenants(ids).ToList();
+        }
+
         public Tenant GetTenant(int tenantId)
         {
             return tenantService.GetTenant(tenantId);

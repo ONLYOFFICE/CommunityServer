@@ -994,6 +994,20 @@ namespace ASC.Data.Storage.S3
             }
         }
 
+        public override async Task<long> GetFileSizeAsync(string domain, string path)
+        {
+            using (var client = GetClient())
+            {
+                var request = new ListObjectsRequest { BucketName = _bucket, Prefix = (MakePath(domain, path)) };
+                var response = await client.ListObjectsAsync(request);
+                if (response.S3Objects.Count > 0)
+                {
+                    return response.S3Objects[0].Size;
+                }
+                throw new FileNotFoundException("file not found", path);
+            }
+        }
+
         public override long GetDirectorySize(string domain, string path)
         {
             if (!IsDirectory(domain, path))

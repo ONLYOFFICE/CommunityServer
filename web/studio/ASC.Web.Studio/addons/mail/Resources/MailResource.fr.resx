@@ -242,6 +242,9 @@
   <data name="CreateUserFolderLabel" xml:space="preserve">
     <value>Créer un dossier</value>
   </data>
+  <data name="CustomFilter" xml:space="preserve">
+    <value>Filtre personnalisé</value>
+  </data>
   <data name="DashboardCollectAllEmailsInOnePlace" xml:space="preserve">
     <value>Rassemblez tous vos courriels en un seul endroit</value>
   </data>

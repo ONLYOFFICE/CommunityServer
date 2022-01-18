@@ -208,6 +208,9 @@
   <data name="CreateUserFolderLabel" xml:space="preserve">
     <value>フォルダー作成</value>
   </data>
+  <data name="CustomFilter" xml:space="preserve">
+    <value>ユーザー設定フィルター</value>
+  </data>
   <data name="DeactivateAccountAttention" xml:space="preserve">
     <value>アカウントの非アクティブ化した後は、もはやそれからのメールを受信しません。</value>
   </data>

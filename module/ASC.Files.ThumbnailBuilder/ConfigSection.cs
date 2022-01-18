@@ -47,7 +47,7 @@ namespace ASC.Files.ThumbnailBuilder
             get { return (string)this["connectionStringName"]; }
         }
 
-        [ConfigurationProperty("formats", DefaultValue = ".pptx|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.gslides|.xlsx|.xlsm|.xls|.xltx|.xltm|.xlt|.ods|.fods|.ots|.gsheet|.csv|.docx|.docm|.doc|.dotx|.dotm|.dot|.odt|.fodt|.ott|.gdoc|.txt|.rtf|.mht|.html|.htm|.fb2|.epub|.pdf|.djvu|.xps|.bmp|.jpeg|.jpg|.png|.gif|.tiff|.tif|.ico")]
+        [ConfigurationProperty("formats", DefaultValue = ".pptx|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.gslides|.xlsx|.xlsm|.xls|.xltx|.xltm|.xlt|.ods|.fods|.ots|.gsheet|.csv|.docx|.docxf|.oform|.docm|.doc|.dotx|.dotm|.dot|.odt|.fodt|.ott|.gdoc|.txt|.rtf|.mht|.html|.htm|.fb2|.epub|.pdf|.djvu|.xps|.bmp|.jpeg|.jpg|.png|.gif|.tiff|.tif|.ico")]
         public string Formats
         {
             get { return (string)this["formats"]; }

@@ -659,7 +659,7 @@ namespace ASC.Mail.Core.Engine
 
             long freedQuotaSize;
 
-            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
+            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
             {
                 var daoFactory = new DaoFactory(db);
                 using (var tx = daoFactory.DbManager.BeginTransaction())
@@ -709,7 +709,7 @@ namespace ASC.Mail.Core.Engine
         {
             long freedQuotaSize;
 
-            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
+            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RemoveMailboxTimeout))
             {
                 var daoFactory = new DaoFactory(db);
                 using (var tx = daoFactory.DbManager.BeginTransaction())

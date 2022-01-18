@@ -262,7 +262,9 @@ namespace ASC.Api.Projects
         {
             ChechDocBuilder();
 
-            var fileIds = EngineFactory.ReportEngine.Get().Select(r => r.FileId).ToArray();
+            var fileIds = EngineFactory.ReportEngine.Get()
+                .Select(r => r.FileId)
+                .ToList();
 
             return EngineFactory.FileEngine.GetFiles(fileIds).Select(r => new FileWrapper(r)).OrderByDescending(r => r.Id).ToList();
         }

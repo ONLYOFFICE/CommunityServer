@@ -81,7 +81,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         public static void SaveToken(Token token)
         {
-            using (var db = new DbManager(FileConstant.DatabaseId))
+            using (var db = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var queryInsert = new SqlInsert(TableTitle, true)
                     .InColumnValue("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
@@ -100,7 +100,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         public static Token GetToken(string app, string userId)
         {
-            using (var db = new DbManager(FileConstant.DatabaseId))
+            using (var db = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var querySelect = new SqlQuery(TableTitle)
                     .Select("token")
@@ -117,7 +117,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         public static void DeleteToken(string app, Guid? userId = null)
         {
-            using (var db = new DbManager(FileConstant.DatabaseId))
+            using (var db = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 db.ExecuteNonQuery(new SqlDelete(TableTitle)
                                        .Where("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)

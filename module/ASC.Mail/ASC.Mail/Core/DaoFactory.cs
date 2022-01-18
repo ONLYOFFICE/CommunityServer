@@ -27,7 +27,7 @@ namespace ASC.Mail.Core
 
         public DaoFactory()
         {
-            DbManager = new DbManager(Defines.CONNECTION_STRING_NAME);
+            DbManager = Common.Data.DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME);
         }
 
         public DaoFactory(IDbManager dbManager)

@@ -146,6 +146,6 @@
     <master:BodyScripts ID="BodyScripts" runat="server" />
     <rbc:ResourceScriptBundleControl ID="StaticScript" runat="server" />
     <ucc:InlineScript ID="InlineScript" runat="server" />
-
+    <asp:ContentPlaceHolder ID="LiveChatHolder" runat="server" />
 </body>
 </html>

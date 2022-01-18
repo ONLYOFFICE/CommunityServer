@@ -569,7 +569,9 @@ Aqui está o que você pode fazer para tornar seu web-office ainda mais seguro:
 
 *Utilizar o próprio servidor SMPT* e fechar todas as portas desnecessárias.
 
-Torne seu ONLYOFFICE mais seguro agora.</value>
+Torne seu escritório on-line mais seguro agora.
+
+$GreenButton</value>
   </data>
   <data name="pattern_enterprise_whitelabel_guest_activation_v10" xml:space="preserve">
     <value>Olá, $UserName!
@@ -959,7 +961,7 @@ h3.caso você colabore com uma equipe ou gerencie um projeto, sugerimos que voc�
 
 Crie um único espaço de trabalho colaborativo para você e seus colegas de equipe.
 
-Registre um teste "na nuvem": "https://www.onlyoffice.com/registration.aspx" ou "em seu servidor": "https://www.onlyoffice.com/download-commercial.aspx?from=enterprise-edition" sem nenhuma restrição funcional por 30 dias e veja como seu fluxo de trabalho iria melhorar imediatamente! 
+Registre um teste "na nuvem": "https://www.onlyoffice.com/registration.aspx" ou "em seu servidor": "https://www.onlyoffice.com/download-workspace.aspx?from=enterprise-edition" sem nenhuma restrição funcional por 30 dias e veja como seu fluxo de trabalho iria melhorar imediatamente! 
 
 Atenciosamente,
 Equipe ONLYOFFICE</value>
@@ -1495,7 +1497,7 @@ Equipe ONLYOFFICE
 
 Obtenha gratuitamente aplicativos ONLYOFFICE para trabalhar em documentos e projetos de qualquer um de seus dispositivos.
 
-# Para trabalhar em documentos offline em Windows, Linux e macOS, baixe "ONLYOFFICE Desktop Editors": "https://www.onlyoffice.com/apps.aspx". Você pode conectar o aplicativo à sua nuvem e "obter acesso aos recursos profissionais": "https://helpcenter.onlyoffice.com/installation/desktop-pro-features.aspx" (controles de conteúdo, visualizações de folhas, comparação de documentos).
+# Para trabalhar em documentos offline em Windows, Linux e macOS, baixe "ONLYOFFICE Desktop Editors": "https://www.onlyoffice.com/apps.aspx".
 # Para editar documentos em dispositivos móveis, aplicativo de documentos ONLYOFFICE para "iOS": "https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" ou "Android": "https://play.google.com/store/apps/details?id=com.onlyoffice.documents".
 # Para gerenciar o desempenho de sua equipe em movimento, obtenha Projetos ONLYOFFICE para "iOS": "https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".
 
@@ -1579,7 +1581,7 @@ Equipe ONLYOFFICE
   <data name="pattern_saas_admin_welcome_v115" xml:space="preserve">
     <value>Olá, $UserName!
 
-Teste ONLYOFFFICE Nuvem de negócios por 30 dias de graça:
+Teste ONLYOFFICE Nuvem de negócios por 30 dias de graça:
 
 *Adicionar até 30 usuários* com 100 Gb por cada um. Após adquirir a assinatura, você poderá adicionar qualquer número de usuários.
 *Personalize seu estilo de escritório online* para combinar com sua marca.

@@ -144,6 +144,31 @@
                 </div>
             </div>
 
+            <div class="clearFix logo-setting-block">
+                <div class="header-base-small logo-header">
+                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LogoDocsEditorEmbed, TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width, TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height) %>
+                </div>
+                <div>
+                    <div class="logo-img-container">
+                        <img class="borderBase logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed %>"
+                            src="<%= String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed, (!IsRetina).ToString().ToLower())%>" />
+                        <canvas id="canvas_logo_<%= (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed %>" class="borderBase" width="172" height="40"
+                            data-fontsize="22"
+                            data-fontcolor="#333">
+                            <%= WhiteLabelResource.BrowserNoCanvasSupport %>
+                        </canvas>
+                    </div>
+                    <% if (WhiteLabelEnabledForPaid) { %>
+                        <input type="hidden" id="logoPath_<%= (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed %>" value="" />
+                        <div class="logo-change-container">
+                            <a id="logoUploader_<%= (int)WhiteLabelLogoTypeEnum.DocsEditorEmbed %>" class="link dotline small">
+                                <%= Resource.ChangeLogoButton %>
+                            </a>
+                        </div>
+                     <% } %>
+                </div>
+            </div>
+
             <div class="middle-button-container">
                 <a id="saveWhiteLabelSettingsBtn" class="button blue <%= WhiteLabelEnabledForPaid ? "" : "disable" %>"><%= Resource.SaveButton %></a>
                 <span class="splitter-buttons"></span>

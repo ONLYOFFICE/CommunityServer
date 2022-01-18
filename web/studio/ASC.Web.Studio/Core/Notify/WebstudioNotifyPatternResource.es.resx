@@ -563,7 +563,7 @@ Lea aquí lo que puede realizar para hacer su oficina web aún más segura:
 
 *Use propio servidor SMPT* y cierre todos los puertos innecesarios.
 
-Haga su ONLYOFFICE más seguro ahora.
+Haga su oficina en línea más seguro ahora.
 
 $GreenButton</value>
   </data>
@@ -949,7 +949,7 @@ h3.En caso de que colabore con un equipo o administre un proyecto, le sugerimos 
 
 Cree un único espacio de trabajo colaborativo para usted y sus compañeros de equipo.
 
-Registre una versión de prueba "en la nube": "https://www.onlyoffice.com/registration.aspx" o "en su servidor":"https://www.onlyoffice.com/download-commercial.aspx?from=enterprise-edition" sin restricciones funcionales durante 30 días y vea cómo su flujo de trabajo mejora de inmediato.
+Registre una versión de prueba "en la nube": "https://www.onlyoffice.com/registration.aspx" o "en su servidor":"https://www.onlyoffice.com/download-workspace.aspx?from=enterprise-edition" sin restricciones funcionales durante 30 días y vea cómo su flujo de trabajo mejora de inmediato.
 
 Sinceramente,
 Equipo ONLYOFFICE</value>
@@ -1463,7 +1463,7 @@ Equipo de ONLYOFFICE
 
 Obtenga las aplicaciones gratuitas de ONLYOFFICE para trabajar en documentos y proyectos desde cualquiera de sus dispositivos.
 
-# Para trabajar en documentos sin conexión en Windows, Linux y macOS, descárguese "ONLYOFFICE Desktop Editors":"https://www.onlyoffice.com/es/desktop.aspx". Usted puede conectar la aplicación a su nube y "obtener acceso a las características pro":"https://helpcenter.onlyoffice.com/installation/desktop-pro-features.aspx" (controles de contenido, vistas de hoja, comparación de documentos).
+# Para trabajar en documentos sin conexión en Windows, Linux y macOS, descárguese "ONLYOFFICE Desktop Editors":"https://www.onlyoffice.com/es/desktop.aspx".
 # Para editar documentos en dispositivos móviles, obtenga la aplicación ONLYOFFICE Documents para "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" o "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents".
 # Para gestionar el progreso de su equipo sobre la marcha, obtenga ONLYOFFICE Projects para "iOS":"https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".
 
@@ -1547,7 +1547,7 @@ Equipo de ONLYOFFICE
   <data name="pattern_saas_admin_welcome_v115" xml:space="preserve">
     <value>¡Hola, $UserName!
 
-Pruebe ONLYOFFFICE Business cloud durante 30 días gratuitamente:
+Pruebe ONLYOFFICE Business cloud durante 30 días gratuitamente:
 
 # *Añada hasta 30 usuarios* con 100 Gb por cada uno. Después de comprar la suscripción, podrá añadir cualquier número de usuarios.
 # *Personalice el estilo de su oficina en línea* para que coincida con su marca.

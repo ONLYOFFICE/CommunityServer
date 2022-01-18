@@ -51,6 +51,8 @@ namespace ASC.Common.Data
 
         int ExecuteNonQuery(string sql, params object[] parameters);
 
+        Task<int> ExecuteNonQueryAsync(string sql, params object[] parameters);
+
         int ExecuteNonQuery(ISqlInstruction sql);
 
         int ExecuteBatch(IEnumerable<ISqlInstruction> batch);

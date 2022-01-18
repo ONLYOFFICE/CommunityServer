@@ -4044,6 +4044,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email support.
+        /// </summary>
+        public static string EmailSupport {
+            get {
+                return ResourceManager.GetString("EmailSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All {!Groups}.
         /// </summary>
         public static string EmployeeAllDepartments {
@@ -6991,6 +7000,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Chat.
+        /// </summary>
+        public static string LiveChat {
+            get {
+                return ResourceManager.GetString("LiveChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading, please wait.
         /// </summary>
         public static string LoadingMsg {
@@ -8512,6 +8530,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Demo.
+        /// </summary>
+        public static string ProductDemo {
+            get {
+                return ResourceManager.GetString("ProductDemo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modules &amp; Tools.
         /// </summary>
         public static string ProductsAndInstruments {
@@ -8724,6 +8751,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string RequestNewButton {
             get {
                 return ResourceManager.GetString("RequestNewButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request training.
+        /// </summary>
+        public static string RequestTraining {
+            get {
+                return ResourceManager.GetString("RequestTraining", resourceCulture);
             }
         }
         

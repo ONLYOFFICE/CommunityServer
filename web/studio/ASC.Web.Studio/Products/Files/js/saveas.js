@@ -18,7 +18,7 @@
 window.ASC.Files.FileChoice = (function () {
     var isInit = false;
 
-    var init = function (originForPost) {
+    var init = function (originForPost, folderId) {
         if (isInit === false) {
             isInit = true;
 
@@ -82,7 +82,7 @@ window.ASC.Files.FileChoice = (function () {
                 finishSubmit({});
             };
 
-            ASC.Files.FileSelector.openDialog(null, true);
+            ASC.Files.FileSelector.openDialog(folderId || null, true);
 
             ASC.Files.UI.checkCharacter(jq("#saveAsTitle"));
         }

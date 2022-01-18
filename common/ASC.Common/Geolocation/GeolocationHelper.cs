@@ -44,7 +44,7 @@ namespace ASC.Geolocation
             try
             {
                 var ipformatted = FormatIP(ip);
-                using (var db = new DbManager(dbid))
+                using (var db = DbManager.FromHttpContext(dbid))
                 {
                     var q = new SqlQuery("dbip_location")
                         .Select("ip_start", "ip_end", "country", "city", "timezone_offset", "timezone_name")

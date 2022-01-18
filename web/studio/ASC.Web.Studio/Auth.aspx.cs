@@ -145,8 +145,12 @@ namespace ASC.Web.Studio
         public static void ProcessLogout()
         {
             //logout
+            if (SecurityContext.IsAuthenticated)
+                CookiesManager.ResetUserCookie(SecurityContext.CurrentAccount.ID);
+            
             CookiesManager.ClearCookies(CookiesType.AuthKey);
             CookiesManager.ClearCookies(CookiesType.SocketIO);
+            
             SecurityContext.Logout();
         }
 

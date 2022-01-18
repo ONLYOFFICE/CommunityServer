@@ -538,6 +538,10 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
             font-size: 12px;
         }
     }
+
+    &.edited {
+        display: none;
+    }
 }
 
 .quickAddSubTaskLink {
@@ -554,18 +558,12 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
 
 /*---subtasks---*/
 .add-subtask-field-wrapper {
-    position: relative;
     clear: both;
     background-color: #fff;
     clear: both;
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
-
-    &.absolute {
-        position: absolute;
-        top: 2px;
-    }
 
     td {
         padding: 4px 2px;
@@ -624,7 +622,6 @@ body.media-width-0-1200 .subtask-responsible-selector
 }
 
 .subtasks { 
-  position: relative;
   margin:8px 0;
 }
 

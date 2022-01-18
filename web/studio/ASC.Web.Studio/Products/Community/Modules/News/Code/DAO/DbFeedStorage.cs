@@ -41,7 +41,7 @@ namespace ASC.Web.Community.News.Code.DAO
 {
     internal class DbFeedStorage : IFeedStorage
     {
-        private readonly DbManager dbManager = new DbManager(FeedStorageFactory.Id);
+        private readonly IDbManager dbManager = DbManager.FromHttpContext(FeedStorageFactory.Id);
 
         private readonly int tenant;
 

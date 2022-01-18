@@ -26,13 +26,13 @@ namespace ASC.Web.UserControls.Wiki.Data
     {
         private const string TenantColumn = "tenant";
 
-        protected readonly DbManager db;
+        protected readonly IDbManager db;
         protected readonly int tenant;
 
 
         public BaseDao(string dbid, int tenant)
         {
-            this.db = new DbManager(dbid);
+            this.db = DbManager.FromHttpContext(dbid);
             this.tenant = tenant;
         }
 

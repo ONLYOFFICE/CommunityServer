@@ -265,7 +265,7 @@ window.ASC.Files.Share = (function () {
         jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.ReadWrite + "]").attr("disabled", !ASC.Files.Utility.CanWebEdit(objectTitle) || ASC.Files.Utility.MustConvert(objectTitle));
         jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.CustomFilter + "]").attr("disabled", !ASC.Files.Utility.CanWebCustomFilterEditing(objectTitle));
         jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.Review + "]").attr("disabled", !ASC.Files.Utility.CanWebReview(objectTitle));
-        jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.FillForms + "]").attr("disabled", !ASC.Files.Utility.CanWebRestrictedEditing(objectTitle));
+        jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.FillForms + "]").attr("disabled", true);
         jq("#sharingLinkAce select [value=" + ASC.Files.Constants.AceStatusEnum.Comment + "]").attr("disabled", !ASC.Files.Utility.CanWebComment(objectTitle));
         jq("#sharingLinkAce select").tlcombobox();
     };
@@ -443,6 +443,10 @@ window.ASC.Files.Share = (function () {
             canWebCustomFilterEditing = ASC.Files.Utility.CanWebCustomFilterEditing(objectTitle);
             canWebReview = ASC.Files.Utility.CanWebReview(objectTitle);
             canWebRestrictedEditing = ASC.Files.Utility.CanWebRestrictedEditing(objectTitle);
+            if (ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty() && ASC.Files.ThirdParty.isThirdParty(entryData)
+                || encrypted) {
+                canWebRestrictedEditing = false;
+            }
             canWebComment = ASC.Files.Utility.CanWebComment(objectTitle);
         } else if (typeof objTitle == "object") {
             canWebCustomFilterEditing = true;
@@ -468,6 +472,11 @@ window.ASC.Files.Share = (function () {
                 }
                 return canWebCustomFilterEditing || canWebReview || canWebRestrictedEditing || canWebComment;
             });
+
+            if (ASC.Files.ThirdParty.isThirdParty() && ASC.Files.ThirdParty.isThirdParty(entryData)
+                || ASC.Files.Folders.folderContainer == "privacy") {
+                canWebRestrictedEditing = false;
+            }
         }
 
         var data = {

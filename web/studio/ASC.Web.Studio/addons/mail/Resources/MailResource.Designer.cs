@@ -611,6 +611,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Filter.
+        /// </summary>
+        public static string CustomFilter {
+            get {
+                return ResourceManager.GetString("CustomFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collect all emails in one place.
         /// </summary>
         public static string DashboardCollectAllEmailsInOnePlace {

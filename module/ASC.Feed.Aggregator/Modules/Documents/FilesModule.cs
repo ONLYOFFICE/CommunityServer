@@ -153,7 +153,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                 .GroupBy(1)
                 .Having(Exp.Gt("count(*)", 0));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 return db.ExecuteList(q1)
                          .ConvertAll(r => Convert.ToInt32(r[0]))
@@ -187,7 +187,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                        Exp.Between("s.timestamp", filter.Time.From, filter.Time.To));
 
             List<Tuple<File, SmallShareRecord>> files;
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 files = db.ExecuteList(q1.UnionAll(q2))
                     .ConvertAll(ToFile)
@@ -195,7 +195,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     .ToList();
             }
 
-            var folderIDs = files.Select(r => r.Item1.FolderID).ToArray();
+            var folderIDs = files.Select(r => r.Item1.FolderID).ToList();
             var folders = new FolderDao(Tenant, DbId).GetFolders(folderIDs, checkShare: false);
 
             return files.Select(f => new Tuple<Feed, object>(ToFeed(f, folders.FirstOrDefault(r => r.ID.Equals(f.Item1.FolderID))), f));

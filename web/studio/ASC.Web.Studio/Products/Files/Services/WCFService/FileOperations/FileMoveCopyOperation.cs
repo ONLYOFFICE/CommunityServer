@@ -338,6 +338,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         FileDao.SaveThumbnail(newFile, null);
                                     }
 
+                                    if (newFile.ProviderEntry)
+                                    {
+                                        LinkDao.DeleteAllLink(file.ID);
+                                    }
+
                                     if (Equals(toFolderId.ToString(), _toFolderId))
                                     {
                                         _needToMark.Add(newFile);
@@ -393,6 +398,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         newFile.ThumbnailStatus = Thumbnail.Created;
                                     }
 
+                                    LinkDao.DeleteAllLink(newFile.ID);
+
                                     _needToMark.Add(newFile);
 
                                     if (copy)
@@ -422,6 +429,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                             else
                                             {
                                                 FileDao.DeleteFile(file.ID);
+
+                                                LinkDao.DeleteAllLink(file.ID);
 
                                                 FilesMessageService.Send(file.RootFolderType != FolderType.USER ? file : newFile, toFolder, _headers, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
 

@@ -72,7 +72,7 @@ namespace ASC.Common.Data.Sql
             return sql.ToString();
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             var parameters = new List<object>();
             foreach (var join in joins)
@@ -93,7 +93,7 @@ namespace ASC.Common.Data.Sql
                 }
             }
             if (where != Exp.Empty) parameters.AddRange(where.GetParameters());
-            return parameters.ToArray();
+            return parameters;
         }
 
         #endregion

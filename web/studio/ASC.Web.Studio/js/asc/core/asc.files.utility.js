@@ -37,6 +37,7 @@ ASC.Files.Utility.FileExtensionLibrary = {
     DocmExts: [".docm"],
     DoctExts: [".doct"],
     DocxExts: [".docx"],
+    DocxfExts: [".docxf"],
     DotExts: [".dot"],
     DotmExts: [".dotm"],
     DotxExts: [".dotx"],
@@ -65,6 +66,7 @@ ASC.Files.Utility.FileExtensionLibrary = {
     OdpExts: [".odp"],
     OdsExts: [".ods"],
     OdtExts: [".odt"],
+    OformExts: [".oform"],
     OtpExts: [".otp"],
     OtsExts: [".ots"],
     OttExts: [".ott"],
@@ -125,6 +127,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Doct";
     else if (checkInArray(fileExtensionLibrary.DocxExts))
         ext = "Docx";
+    else if (checkInArray(fileExtensionLibrary.DocxfExts))
+        ext = "Docxf";
     else if (checkInArray(fileExtensionLibrary.DotExts))
         ext = "Dot";
     else if (checkInArray(fileExtensionLibrary.DotmExts))
@@ -181,6 +185,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Ods";
     else if (checkInArray(fileExtensionLibrary.OdtExts))
         ext = "Odt";
+    else if (checkInArray(fileExtensionLibrary.OformExts))
+        ext = "Oform";
     else if (checkInArray(fileExtensionLibrary.OtpExts))
         ext = "Otp";
     else if (checkInArray(fileExtensionLibrary.OtsExts))
@@ -351,6 +357,10 @@ ASC.Files.Utility.FileIsPresentation = function (fileTitle) {
 
 ASC.Files.Utility.FileIsDocument = function (fileTitle) {
     return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsDocument) != -1;
+};
+
+ASC.Files.Utility.FileIsMasterForm = function (fileTitle) {
+    return ASC.Files.Utility.GetFileExtension(fileTitle) === ASC.Files.Utility.Resource.MasterFormExtension;
 };
 
 ASC.Files.Utility.GetFileDownloadUrl = function (fileId, fileVersion, convertToExtension) {

@@ -100,7 +100,7 @@ namespace ASC.Web.Community.Birthdays
             {
                 scheduleDate = scheduleDate.AddDays(1);
                 List<Tenant> tenants;
-                using (var db = new DbManager("core"))
+                using (var db = DbManager.FromHttpContext("core"))
                 using (var command = db.Connection.CreateCommand())
                 {
                     command.CommandTimeout = 30 * 10;

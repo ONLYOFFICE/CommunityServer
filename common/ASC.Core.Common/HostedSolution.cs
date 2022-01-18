@@ -220,6 +220,10 @@ namespace ASC.Core
             tariffService.SaveButton(tariffId, partnerId, buttonUrl);
         }
 
+        public IEnumerable<UserInfo> FindUsers(IEnumerable<string> userIds)
+        {
+            return userService.GetUsersAllTenants(userIds);
+        }
 
         private Tenant AddRegion(Tenant tenant)
         {

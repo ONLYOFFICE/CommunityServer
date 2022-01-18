@@ -350,7 +350,8 @@
     float: left;
     margin: 2px 0 0 8px;
 }
-.pencil.convert-action {
+.pencil.convert-action,
+.pencil.fillform-action {
     display: none;
 }
 .row-hover:hover .pencil,
@@ -359,6 +360,10 @@
 }
 .row-hover:hover .pencil.convert-action {
     background: url('../../../../skins/default/images/svg/documents/rotateblue.svg');
+}
+.on-edit .pencil.fillform-action,
+.row-hover:hover .pencil.fillform-action {
+    background: url('../../../../skins/default/images/svg/documents/fillformsblue.svg');
 }
 .file-row.can-coauthoring .pencil.file-editing {
     background: url('../../../../skins/default/images/svg/documents/pencil_add.svg');

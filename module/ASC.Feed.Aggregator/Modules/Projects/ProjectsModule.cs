@@ -89,7 +89,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .Where("tenant_id", filter.Tenant)
                 .Where(Exp.Between("create_on", filter.Time.From, filter.Time.To));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var projects = db.ExecuteList(query).ConvertAll(ToProject);
                 return projects.Select(p => new Tuple<Feed, object>(ToFeed(p), p));

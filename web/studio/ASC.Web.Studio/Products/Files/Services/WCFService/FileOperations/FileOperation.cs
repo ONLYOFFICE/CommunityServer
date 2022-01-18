@@ -73,6 +73,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         protected ITagDao TagDao { get; private set; }
 
+        protected ILinkDao LinkDao { get; private set; }
+
         protected IProviderDao ProviderDao { get; private set; }
 
         protected ILog Logger { get; private set; }
@@ -118,6 +120,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 TagDao = Global.DaoFactory.GetTagDao();
                 ProviderDao = Global.DaoFactory.GetProviderDao();
                 FilesSecurity = new FileSecurity(Global.DaoFactory);
+                LinkDao = Global.GetLinkDao();
 
                 Logger = Global.Logger;
 
@@ -151,6 +154,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     FolderDao.Dispose();
                     FileDao.Dispose();
                     TagDao.Dispose();
+                    LinkDao.Dispose();
 
                     if (ProviderDao != null)
                         ProviderDao.Dispose();

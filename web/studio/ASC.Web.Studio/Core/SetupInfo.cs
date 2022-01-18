@@ -54,6 +54,24 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
+        public static string DemoOrder
+        {
+            get;
+            private set;
+        }
+
+        public static string RequestTraining
+        {
+            get;
+            private set;
+        }
+
+        public static string ZendeskKey
+        {
+            get;
+            private set;
+        }
+
         public static string UserVoiceURL
         {
             get;
@@ -369,6 +387,9 @@ namespace ASC.Web.Studio.Core
             MetaImageURL = GetAppSettings("web.meta-image-url", "https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg");
             StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
             UserVoiceURL = GetAppSettings("web.uservoice", string.Empty);
+            DemoOrder = GetAppSettings("web.demo-order", string.Empty);
+            ZendeskKey = GetAppSettings("web.zendesk-key", string.Empty);
+            RequestTraining = GetAppSettings("web.request-training", string.Empty);
             MainLogoURL = GetAppSettings("web.logo.main", string.Empty);
             MainLogoMailTmplURL = GetAppSettings("web.logo.mail.tmpl", string.Empty);
             DownloadForDesktopUrl = GetAppSettings("web.download.for.desktop.url", "https://www.onlyoffice.com/desktop.aspx");

@@ -182,7 +182,7 @@ namespace ASC.Files.Core.Data
                 .ConvertAll(ToFolder);
         }
 
-        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(IEnumerable<object> folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
                 || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
@@ -204,7 +204,7 @@ namespace ASC.Files.Core.Data
                 if (FactoryIndexer<FoldersWrapper>.TrySelectIds(s =>
                                                                 searchSubfolders
                                                                     ? s.MatchAll(searchText)
-                                                                    : s.MatchAll(searchText).In(r => r.Id, folderIds),
+                                                                    : s.MatchAll(searchText).In(r => r.Id, folderIds.ToArray()),
                                                                 out searchIds))
                 {
                     q.Where(Exp.In("id", searchIds));
@@ -344,10 +344,13 @@ namespace ASC.Files.Core.Data
                 dbManager.ExecuteNonQuery(new SqlDelete("files_folder_tree").Where(Exp.In("folder_id", subfolders)));
                 dbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", subfolders.Select(subfolder => subfolder.ToString()).ToArray())).Where("entry_type", (int)FileEntryType.Folder));
 
+
                 var tagsToRemove = dbManager.ExecuteList(
-                    Query("files_tag")
-                    .Select("id")
-                    .Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
+                    Query("files_tag tbl_ft ")
+                        .Select("tbl_ft.id")
+                        .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                                 Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                        .Where("tbl_ftl.tag_id is null"))
                     .ConvertAll(r => Convert.ToInt32(r[0]));
 
                 dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
@@ -389,8 +392,8 @@ namespace ASC.Files.Core.Data
                     .ToDictionary(r => Convert.ToInt32(r[0]), r => Convert.ToInt32(r[1]));
 
                 dbManager.ExecuteNonQuery(
-                    new SqlDelete("files_folder_tree").Where(Exp.In("folder_id", subfolders.Keys) &
-                                                                !Exp.In("parent_id", subfolders.Keys)));
+                    new SqlDelete("files_folder_tree").Where(Exp.In("folder_id", subfolders.Keys.ToList()) &
+                                                                !Exp.In("parent_id", subfolders.Keys.ToList())));
 
                 foreach (var subfolder in subfolders)
                 {
@@ -549,7 +552,7 @@ namespace ASC.Files.Core.Data
 
         #region Only for TMFolderDao
 
-        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
+        public void ReassignFolders(IEnumerable<object> folderIds, Guid newOwnerId)
         {
             dbManager.ExecuteNonQuery(
                 Update("files_folder")
@@ -811,7 +814,7 @@ namespace ASC.Files.Core.Data
                     .Where(Exp.Eq("left_node", (folderID ?? string.Empty).ToString())));
         }
 
-        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
+        public Dictionary<string, string> GetBunchObjectIDs(IEnumerable<object> folderIDs)
         {
             return dbManager.ExecuteList(
                 Query("files_bunch_objects")

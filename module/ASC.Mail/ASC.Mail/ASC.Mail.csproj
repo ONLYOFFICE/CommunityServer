@@ -390,6 +390,7 @@
     <Compile Include="Exceptions\ApiHelperException.cs" />
     <Compile Include="Exceptions\AttachmentsException.cs" />
     <Compile Include="Exceptions\AlreadyExistsFolderException.cs" />
+    <Compile Include="Exceptions\LimitMessageException.cs" />
     <Compile Include="Exceptions\NotFoundFilterDataException.cs" />
     <Compile Include="Exceptions\MoveFolderException.cs" />
     <Compile Include="Exceptions\DraftException.cs" />
@@ -565,7 +566,7 @@
       <Version>4.0.20505</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.23</Version>
+      <Version>8.0.25</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>

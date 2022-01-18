@@ -159,10 +159,9 @@
             font-weight: bold;
             color: #333;
             text-decoration: none;
-            display: inline-block;
+            display: block;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 340px;
 
             &.without-title {
                 margin-top: 6px;
@@ -207,7 +206,7 @@
             float: left;
 
             span {
-                max-width: 350px;
+                text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
             }

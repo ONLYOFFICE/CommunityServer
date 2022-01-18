@@ -2834,6 +2834,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Book a demo.
+        /// </summary>
+        public static string WelcomeDashboardСreatingBusinessСloud {
+            get {
+                return ResourceManager.GetString("WelcomeDashboardСreatingBusinessСloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our team is ready to guide you through the major features and modules..
+        /// </summary>
+        public static string WelcomeDashboardСreatingBusinessСloudFirstLine {
+            get {
+                return ResourceManager.GetString("WelcomeDashboardСreatingBusinessСloudFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a free presentation via Zoom.
+        /// </summary>
+        public static string WelcomeDashboardСreatingBusinessСloudSecondLine {
+            get {
+                return ResourceManager.GetString("WelcomeDashboardСreatingBusinessСloudSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What&apos;s New.
         /// </summary>
         public static string WhatsNew {

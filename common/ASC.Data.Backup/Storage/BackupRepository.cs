@@ -220,7 +220,7 @@ namespace ASC.Data.Backup.Storage
 
         private IDbManager GetDbManager()
         {
-            return new DbManager(connectionStringName);
+            return DbManager.FromHttpContext(connectionStringName);
         }
     }
 }

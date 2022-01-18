@@ -283,7 +283,7 @@ namespace ASC.ElasticSearch
 
                 if (arr != null)
                 {
-                    subQuery.Where(Exp.In(con.Key, arr));
+                    subQuery.Where(Exp.In(con.Key, new ArrayList(arr).ToArray()));
                 }
                 else
                 {

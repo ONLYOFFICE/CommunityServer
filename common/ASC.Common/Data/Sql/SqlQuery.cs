@@ -135,7 +135,7 @@ namespace ASC.Common.Data.Sql
             return sql.ToString();
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             var parameters = new List<object>();
             columns.ForEach(column => parameters.AddRange(column.GetParameters()));
@@ -148,7 +148,7 @@ namespace ASC.Common.Data.Sql
             if (where != Exp.Empty) parameters.AddRange(where.GetParameters());
             if (having != Exp.Empty) parameters.AddRange(having.GetParameters());
             unions.ForEach(u => parameters.AddRange(u.Query.GetParameters()));
-            return parameters.ToArray();
+            return parameters;
         }
 
         #endregion

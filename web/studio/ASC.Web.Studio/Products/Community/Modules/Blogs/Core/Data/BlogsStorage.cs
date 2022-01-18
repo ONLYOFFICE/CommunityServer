@@ -23,14 +23,14 @@ namespace ASC.Blogs.Core.Data
 {
     public class BlogsStorage : IDisposable
     {
-        readonly DbManager _db;
+        readonly IDbManager _db;
         readonly int _tenant;
         readonly IPostDao _postDao;
 
 
         public BlogsStorage(string dbId, int tenant)
         {
-            _db = new DbManager(dbId);
+            _db = DbManager.FromHttpContext(dbId);
             _tenant = tenant;
             _postDao = new DbPostDao(_db, _tenant);
         }

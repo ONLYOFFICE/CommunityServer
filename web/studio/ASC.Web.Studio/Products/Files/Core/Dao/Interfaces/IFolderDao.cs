@@ -82,7 +82,7 @@ namespace ASC.Files.Core
         /// <param name="searchSubfolders"></param>
         /// <param name="checkShare"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true);
+        List<Folder> GetFolders(IEnumerable<object> folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true);
 
         /// <summary>
         ///     Get folder, contains folder with id
@@ -190,7 +190,7 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="folderIds"></param>
         /// <param name="newOwnerId"></param>
-        void ReassignFolders(object[] folderIds, Guid newOwnerId);
+        void ReassignFolders(IEnumerable<object> folderIds, Guid newOwnerId);
 
         /// <summary>
         /// Search the list of folders containing text in title
@@ -303,7 +303,7 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="folderIDs"></param>
         /// <returns></returns>
-        Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs);
+        Dictionary<string, string> GetBunchObjectIDs(IEnumerable<object> folderIDs);
 
         #endregion
     }

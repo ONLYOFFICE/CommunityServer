@@ -37,12 +37,12 @@ namespace ASC.Common.Data.Sql.Expressions
             return string.Format("if({0}, ?, ?)", _condition.ToString(dialect));
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             var parameters = new List<object>();
             parameters.AddRange(_condition.GetParameters());
             parameters.AddRange(new[] { _trueValue, _falseValue });
-            return parameters.ToArray();
+            return parameters;
         }
     }
 }

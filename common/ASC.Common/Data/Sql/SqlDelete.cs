@@ -17,6 +17,7 @@
 
 #region usings
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
@@ -47,7 +48,7 @@ namespace ASC.Common.Data.Sql
             return sql.ToString();
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             return where != Exp.Empty ? where.GetParameters() : new object[0];
         }

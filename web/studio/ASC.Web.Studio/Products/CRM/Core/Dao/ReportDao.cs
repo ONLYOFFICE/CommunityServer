@@ -267,8 +267,8 @@ namespace ASC.CRM.Core.Dao
 
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                var fileIds = Db.ExecuteList(query).ConvertAll(row => row[0]).ToArray();
-                return fileIds.Length > 0 ? filedao.GetFiles(fileIds) : new List<Files.Core.File>();
+                var fileIds = Db.ExecuteList(query).ConvertAll(row => row[0]).ToList();
+                return fileIds.Count > 0 ? filedao.GetFiles(fileIds) : new List<Files.Core.File>();
             }
         }
 

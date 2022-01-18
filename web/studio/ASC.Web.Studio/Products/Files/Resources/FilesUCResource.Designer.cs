@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesUCResource {
@@ -349,6 +349,33 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Form template.
+        /// </summary>
+        public static string ButtonCreateFormTemplate {
+            get {
+                return ResourceManager.GetString("ButtonCreateFormTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blank.
+        /// </summary>
+        public static string ButtonCreateMasterFormFromBlank {
+            get {
+                return ResourceManager.GetString("ButtonCreateMasterFormFromBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From text document.
+        /// </summary>
+        public static string ButtonCreateMasterFormFromFile {
+            get {
+                return ResourceManager.GetString("ButtonCreateMasterFormFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Presentation.
         /// </summary>
         public static string ButtonCreatePresentation {
@@ -457,6 +484,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill in the form.
+        /// </summary>
+        public static string ButtonFillForm {
+            get {
+                return ResourceManager.GetString("ButtonFillForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archives.
         /// </summary>
         public static string ButtonFilterArchive {
@@ -561,6 +597,15 @@ namespace ASC.Web.Files.Resources {
         public static string ButtonLock {
             get {
                 return ResourceManager.GetString("ButtonLock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save as oform.
+        /// </summary>
+        public static string ButtonMakeForm {
+            get {
+                return ResourceManager.GetString("ButtonMakeForm", resourceCulture);
             }
         }
         
@@ -1164,6 +1209,15 @@ namespace ASC.Web.Files.Resources {
         public static string CorporateFiles {
             get {
                 return ResourceManager.GetString("CorporateFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Form Template from file.
+        /// </summary>
+        public static string CreateFormTemplateFromFile {
+            get {
+                return ResourceManager.GetString("CreateFormTemplateFromFile", resourceCulture);
             }
         }
         

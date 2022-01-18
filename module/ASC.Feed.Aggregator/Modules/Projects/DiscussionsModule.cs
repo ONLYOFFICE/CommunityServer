@@ -90,7 +90,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .GroupBy(1)
                 .Having(Exp.Gt("count(*)", 0));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 return db.ExecuteList(q1)
                          .ConvertAll(r => Convert.ToInt32(r[0]))
@@ -130,7 +130,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                     .Where("d.tenant_id", filter.Tenant)
                     .Where(Exp.Between("c.create_on", filter.Time.From, filter.Time.To));
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var comments = db.ExecuteList(q1.Union(q2)).ConvertAll(ToComment);
                 var groupedDiscussions = comments.GroupBy(c => c.Discussion.ID);

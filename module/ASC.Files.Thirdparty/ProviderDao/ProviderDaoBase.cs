@@ -75,7 +75,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
         {
             using (var securityDao = TryGetSecurityDao())
             {
-                securityDao.GetPureShareRecords(entries.ToArray())
+                securityDao.GetPureShareRecords(entries)
                     //.Where(x => x.Owner == SecurityContext.CurrentAccount.ID)
                     .Select(x => x.EntryId).Distinct().ToList()
                     .ForEach(id =>

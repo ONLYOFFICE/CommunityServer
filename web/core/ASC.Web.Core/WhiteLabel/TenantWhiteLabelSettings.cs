@@ -63,6 +63,10 @@ namespace ASC.Web.Core.WhiteLabel
         [DataMember(Name = "DefaultLogoDocsEditor")]
         private bool _isDefaultLogoDocsEditor { get; set; }
 
+        [DataMember(Name = "LogoDocsEditorEmbedExt")]
+        private string _logoDocsEditorEmbedExt;
+        [DataMember(Name = "DefaultLogoDocsEditorEmbed")]
+        private bool _isDefaultLogoDocsEditorEmbed { get; set; }
 
         [DataMember(Name = "LogoText")]
         public string _logoText { get; set; }
@@ -90,6 +94,7 @@ namespace ASC.Web.Core.WhiteLabel
         public static readonly Size logoDarkSize = new Size(432, 70);
         public static readonly Size logoFaviconSize = new Size(32, 32);
         public static readonly Size logoDocsEditorSize = new Size(172, 40);
+        public static readonly Size logoDocsEditorEmbedSize = new Size(172, 40);
 
         #endregion
 
@@ -103,11 +108,13 @@ namespace ASC.Web.Core.WhiteLabel
                 _logoDarkExt = null,
                 _logoFaviconExt = null,
                 _logoDocsEditorExt = null,
+                _logoDocsEditorEmbedExt = null,
 
                 _isDefaultLogoLightSmall = true,
                 _isDefaultLogoDark = true,
                 _isDefaultLogoFavicon = true,
                 _isDefaultLogoDocsEditor = true,
+                _isDefaultLogoDocsEditorEmbed = true,
 
                 LogoText = null
             };
@@ -128,11 +135,13 @@ namespace ASC.Web.Core.WhiteLabel
                        _logoDarkExt == defaultSettings._logoDarkExt &&
                        _logoFaviconExt == defaultSettings._logoFaviconExt &&
                        _logoDocsEditorExt == defaultSettings._logoDocsEditorExt &&
+                       _logoDocsEditorEmbedExt == defaultSettings._logoDocsEditorEmbedExt &&
 
                        _isDefaultLogoLightSmall == defaultSettings._isDefaultLogoLightSmall &&
                        _isDefaultLogoDark == defaultSettings._isDefaultLogoDark &&
                        _isDefaultLogoFavicon == defaultSettings._isDefaultLogoFavicon &&
                        _isDefaultLogoDocsEditor == defaultSettings._isDefaultLogoDocsEditor &&
+                       _isDefaultLogoDocsEditorEmbed == defaultSettings._isDefaultLogoDocsEditorEmbed &&
 
                        LogoText == defaultSettings.LogoText;
             }
@@ -144,11 +153,13 @@ namespace ASC.Web.Core.WhiteLabel
             _logoDarkExt = null;
             _logoFaviconExt = null;
             _logoDocsEditorExt = null;
+            _logoDocsEditorEmbedExt = null;
 
             _isDefaultLogoLightSmall = true;
             _isDefaultLogoDark = true;
             _isDefaultLogoFavicon = true;
             _isDefaultLogoDocsEditor = true;
+            _isDefaultLogoDocsEditorEmbed = true;
 
             LogoText = null;
 
@@ -298,6 +309,8 @@ namespace ASC.Web.Core.WhiteLabel
                     return _isDefaultLogoFavicon;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return _isDefaultLogoDocsEditor;
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    return _isDefaultLogoDocsEditorEmbed;
             }
             return true;
         }
@@ -318,6 +331,9 @@ namespace ASC.Web.Core.WhiteLabel
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     _isDefaultLogoDocsEditor = value;
                     break;
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    _isDefaultLogoDocsEditorEmbed = value;
+                    break;
             }
         }
 
@@ -333,6 +349,8 @@ namespace ASC.Web.Core.WhiteLabel
                     return _logoFaviconExt;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return _logoDocsEditorExt;
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    return _logoDocsEditorEmbedExt;
             }
             return "";
         }
@@ -352,6 +370,9 @@ namespace ASC.Web.Core.WhiteLabel
                     break;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     _logoDocsEditorExt = fileExt;
+                    break;
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    _logoDocsEditorEmbedExt = fileExt;
                     break;
             }
         }
@@ -396,6 +417,8 @@ namespace ASC.Web.Core.WhiteLabel
                     return general ? WebImageSupplier.GetAbsoluteWebPath("logo/dark_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/dark.png");
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo.png");
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_embed_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_embed.png");
                 case WhiteLabelLogoTypeEnum.Favicon:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("logo/favicon_general.ico") : WebImageSupplier.GetAbsoluteWebPath("logo/favicon.ico");
             }
@@ -485,6 +508,10 @@ namespace ASC.Web.Core.WhiteLabel
                     return new Size(
                         general ? TenantWhiteLabelSettings.logoDocsEditorSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Width,
                         general ? TenantWhiteLabelSettings.logoDocsEditorSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Height);
+                case WhiteLabelLogoTypeEnum.DocsEditorEmbed:
+                    return new Size(
+                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Width,
+                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbedSize.Height);
             }
             return new Size(0, 0);
         }

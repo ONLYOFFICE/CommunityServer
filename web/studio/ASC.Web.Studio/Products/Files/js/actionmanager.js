@@ -390,6 +390,8 @@ window.ASC.Files.Actions = (function () {
             jq("#filesOpen,\
                 #filesGotoParent,\
                 #filesEdit,\
+                #filesFillForm,\
+                #filesCreateForm,\
                 #filesByTemplate,\
                 #filesConvert,\
                 #filesDownload,\
@@ -432,7 +434,8 @@ window.ASC.Files.Actions = (function () {
 
             if (!ASC.Files.ThirdParty || !ASC.Files.ThirdParty.thirdpartyAvailable()
                 || jq.inArray(ASC.Files.Utility.GetFileExtension(entryTitle), ASC.Files.Constants.DocuSignFormats) == -1
-                || entryData.encrypted) {
+                || entryData.encrypted
+                || (jq("#thirdpartyToDocuSign").length + jq("#thirdpartyToDocuSignHelper").length == 0)) {
                 jq("#filesDocuSign").hide();
             }
 
@@ -487,11 +490,22 @@ window.ASC.Files.Actions = (function () {
             if (!ASC.Files.UI.editableFile(entryData)
                 || editingFile && (!ASC.Files.Utility.CanCoAuhtoring(entryTitle) || entryObj.hasClass("on-edit-alone"))
                 || lockedForMe) {
-                jq("#filesEdit").hide().addClass("display-none");
+                jq("#filesEdit,\
+                    #filesFillForm,\
+                    #filesCreateForm").hide().addClass("display-none");
+            } else if (ASC.Files.Utility.CanWebRestrictedEditing(entryTitle) && !entryData.encrypted) {
+                jq("#filesEdit, #filesCreateForm").hide().addClass("display-none");
+            } else {
+                jq("#filesFillForm").hide().addClass("display-none");
+                if (!ASC.Files.Utility.FileIsMasterForm(entryTitle)) {
+                    jq("#filesCreateForm").hide().addClass("display-none");
+                }
             }
 
             if (entryData.encrypted) {
                 jq("#filesEdit,\
+                    #filesFillForm,\
+                    #filesCreateForm,\
                     #filesOpen,\
                     #filesGetLink,\
                     #filesGetExternalLink,\
@@ -516,6 +530,8 @@ window.ASC.Files.Actions = (function () {
                 jq("#filesOpen,\
                     #filesGotoParent,\
                     #filesEdit,\
+                    #filesFillForm,\
+                    #filesCreateForm,\
                     #filesByTemplate,\
                     #filesGetLink,\
                     #filesShareAccess,\
@@ -598,6 +614,7 @@ window.ASC.Files.Actions = (function () {
 
             if (!ASC.Files.UI.accessEdit()) {
                 jq("#filesCopy").hide().addClass("display-none");
+                jq("#filesCreateForm").hide().addClass("display-none");
             }
 
             if (ASC.Files.Folders.folderContainer != "favorites"
@@ -1076,9 +1093,14 @@ window.ASC.Files.Actions = (function () {
             ASC.Files.Folders.showVersions(ASC.Files.Actions.currentEntryData.entryObject, ASC.Files.Actions.currentEntryData.id);
         });
 
-        jq("#filesEdit").click(function () {
+        jq("#filesEdit, #filesFillForm").click(function () {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, true);
+        });
+
+        jq("#filesCreateForm").click(function () {
+            ASC.Files.Actions.hideAllActionPanels();
+            ASC.Files.Folders.createNewForm(ASC.Files.Actions.currentEntryData);
         });
 
         jq("#filesByTemplate").click(function () {

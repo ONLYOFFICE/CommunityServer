@@ -2090,8 +2090,9 @@ namespace ASC.Web.Studio.Core.Notify {
         ///
         ///Get free ONLYOFFICE apps to work on documents and projects from any of your devices.
         ///
-        ///# To work on documents offline on Windows, Linux and macOS, download &quot;ONLYOFFICE Desktop Editors&quot;:&quot;https://www.onlyoffice.com/apps.aspx&quot;. You can connect the app to your cloud and &quot;get access to pro features&quot;:&quot;https://helpcenter.onlyoffice.com/installation/desktop-pro-features.aspx&quot; (content controls, sheet views, document comparison).
-        ///# To edit documents on mobile devices, ONLYOFFICE Documents app  [rest of string was truncated]&quot;;.
+        ///# To work on documents offline on Windows, Linux and macOS, download &quot;ONLYOFFICE Desktop Editors&quot;:&quot;https://www.onlyoffice.com/apps.aspx&quot;.
+        ///# To edit documents on mobile devices, ONLYOFFICE Documents app for &quot;iOS&quot;:&quot;https://itunes.apple.com/us/app/onlyoffice-documents/id944896972&quot; or &quot;Android&quot;:&quot;https://play.google.com/store/apps/details?id=com.onlyoffice.documents&quot;.
+        ///# To manage your team performance o [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_user_apps_tips_v115 {
             get {
@@ -2191,7 +2192,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Content Controls to create customizable forms..
+        ///   Looks up a localized string similar to Create fillable forms, share and fill out them..
         /// </summary>
         public static string pattern_saas_admin_user_docs_tips_v115_item_contentcontrols {
             get {
@@ -2200,7 +2201,7 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *Use Content Controls*.
+        ///   Looks up a localized string similar to *Create fillable forms*.
         /// </summary>
         public static string pattern_saas_admin_user_docs_tips_v115_item_contentcontrols_hdr {
             get {
@@ -2301,13 +2302,13 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to Hello, $UserName!
         ///
-        ///Test ONLYOFFFICE Business cloud for 30 days for free:
+        ///Test ONLYOFFICE Business cloud for 30 days for free:
         ///
         ///# *Add up to 30 users* with 100 Gb per each. After purchasing the subscription, you will be able to add any number of users.
         ///# *Customize your online office* style to match your branding.
         ///# *Edit unlimited number of docs*, sheets, and slides simultaneously.
         ///# *Ensure security:* enable 2FA, configure automatic backups, track user actions.
-        ///# *Integrate with your infrastructure:* use LDAP, SSO, and your domain name for portal add [rest of string was truncated]&quot;;.
+        ///# *Integrate with your infrastructure:* use LDAP, SSO, and your domain name for portal addr [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_saas_admin_welcome_v115 {
             get {

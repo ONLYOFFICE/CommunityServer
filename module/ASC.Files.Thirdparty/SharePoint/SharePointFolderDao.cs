@@ -118,7 +118,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
+        public List<Folder> GetFolders(IEnumerable<object> folderIds, FilterType filterType = FilterType.None, bool subjectGroup = false, Guid? subjectID = null, string searchText = "", bool searchSubfolders = false, bool checkShare = true)
         {
             if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension
                 || filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly
@@ -189,7 +189,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             var folder = ProviderInfo.GetFolderById(folderId);
 
-            using (var dbManager = new DbManager(FileConstant.DatabaseId))
+            using (var dbManager = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 using (var tx = dbManager.BeginTransaction())
                 {
@@ -281,7 +281,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         #region Only for TMFolderDao
 
-        public void ReassignFolders(object[] folderIds, Guid newOwnerId)
+        public void ReassignFolders(IEnumerable<object> folderIds, Guid newOwnerId)
         {
         }
 
@@ -357,7 +357,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public Dictionary<string, string> GetBunchObjectIDs(List<object> folderIDs)
+        public Dictionary<string, string> GetBunchObjectIDs(IEnumerable<object> folderIDs)
         {
             return null;
         }

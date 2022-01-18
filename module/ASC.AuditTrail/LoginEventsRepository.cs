@@ -60,7 +60,7 @@ namespace ASC.AuditTrail.Data
                 .OrderBy("au.date", false)
                 .SetMaxResults(chunk);
 
-            using (var db = new DbManager(auditDbId))
+            using (var db = DbManager.FromHttpContext(auditDbId))
             {
                 return db.ExecuteList(q).Select(ToLoginEvent).Where(x => x != null);
             }
@@ -76,7 +76,7 @@ namespace ASC.AuditTrail.Data
                 .Where(Exp.Between("au.date", from, to))
                 .OrderBy("au.date", false);
 
-            using (var db = new DbManager(auditDbId))
+            using (var db = DbManager.FromHttpContext(auditDbId))
             {
                 return db.ExecuteList(q).Select(ToLoginEvent).Where(x => x != null);
             }
@@ -93,7 +93,7 @@ namespace ASC.AuditTrail.Data
                 q.Where(Exp.Between("date", from.Value, to.Value));
             }
 
-            using (var db = new DbManager(auditDbId))
+            using (var db = DbManager.FromHttpContext(auditDbId))
             {
                 return db.ExecuteScalar<int>(q);
             }

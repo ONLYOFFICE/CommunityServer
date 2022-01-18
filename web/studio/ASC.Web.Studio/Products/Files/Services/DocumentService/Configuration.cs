@@ -738,6 +738,13 @@ namespace ASC.Web.Files.Services.DocumentService
                                     return null;
                                 }
 
+                                if(_configuration.Document.Info.File.Encrypted
+                                    && _configuration.Document.Info.File.RootFolderType == FolderType.Privacy
+                                    && !fileSecurity.CanRead(parent))
+                                {
+                                    parent = folderDao.GetFolder(Global.FolderPrivacy);
+                                }
+
                                 return new GobackConfig
                                 {
                                     Url = PathProvider.GetFolderUrl(parent),
@@ -838,10 +845,23 @@ namespace ASC.Web.Files.Services.DocumentService
                         set { }
                         get
                         {
+                            var fillingForm = FileUtility.CanWebRestrictedEditing(_configuration.Document.Title);
+
                             return
                                 _configuration.Type == EditorType.Embedded
-                                    ? null
+                                || fillingForm
+                                    ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbed, !_configuration.EditorConfig.Customization.IsRetina))
                                     : CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditor, !_configuration.EditorConfig.Customization.IsRetina));
+                        }
+                    }
+
+                    [DataMember(Name = "imageDark")]
+                    public string ImageDark
+                    {
+                        set { }
+                        get
+                        {
+                            return CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditor, !_configuration.EditorConfig.Customization.IsRetina));
                         }
                     }
 
@@ -854,7 +874,7 @@ namespace ASC.Web.Files.Services.DocumentService
                             return
                                 _configuration.Type != EditorType.Embedded
                                     ? null
-                                    : CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark, !_configuration.EditorConfig.Customization.IsRetina));
+                                    : CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbed, !_configuration.EditorConfig.Customization.IsRetina));
                         }
                     }
 

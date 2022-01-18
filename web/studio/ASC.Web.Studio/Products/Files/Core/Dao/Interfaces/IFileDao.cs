@@ -77,7 +77,7 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="fileIds">id file</param>
         /// <returns></returns>
-        List<File> GetFiles(object[] fileIds);
+        List<File> GetFiles(IEnumerable<object> fileIds);
 
         /// <summary>
         ///     Gets the file (s) by ID (s) for share
@@ -89,7 +89,7 @@ namespace ASC.Files.Core
         /// <param name="searchText"></param>
         /// <param name="searchInContent"></param>
         /// <returns></returns>
-        List<File> GetFilesFiltered(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
+        List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
 
         /// <summary>
         /// 
@@ -252,7 +252,7 @@ namespace ASC.Files.Core
         /// </summary>
         /// <param name="fileIds"></param>
         /// <param name="newOwnerId"></param>
-        void ReassignFiles(object[] fileIds, Guid newOwnerId);
+        void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId);
 
         /// <summary>
         /// Search files in SharedWithMe & Projects
@@ -264,7 +264,7 @@ namespace ASC.Files.Core
         /// <param name="searchText"></param>
         /// <param name="searchInContent"></param>
         /// <returns></returns>
-        List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
+        List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent);
 
         /// <summary>
         /// Search the list of files containing text

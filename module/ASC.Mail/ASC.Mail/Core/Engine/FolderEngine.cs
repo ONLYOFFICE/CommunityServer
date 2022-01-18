@@ -189,7 +189,7 @@ namespace ASC.Mail.Core.Engine
 
         public void RecalculateFolders(Action<MailOperationRecalculateMailboxProgress> callback = null)
         {
-            using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RecalculateFoldersTimeout))
+            using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RecalculateFoldersTimeout))
             {
                 var daoFactory = new DaoFactory(db);
 

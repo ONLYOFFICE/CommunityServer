@@ -22,7 +22,6 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 using ASC.Common.Data.Sql;
 
@@ -52,11 +51,7 @@ namespace ASC.Common.Data
             DatabaseId = dbId;
             databases = ConfigurationManager.ConnectionStrings.OfType<ConnectionStringSettings>()
                                             .Where(c => c.Name.Equals(dbId, cmp) || c.Name.StartsWith(dbId + ".", cmp))
-                                            .Select(
-                                                c =>
-                                                HttpContext.Current != null
-                                                    ? DbManager.FromHttpContext(c.Name)
-                                                    : new DbManager(c.Name))
+                                            .Select(c => DbManager.FromHttpContext(c.Name))
                                             .ToList();
             localDb = databases.SingleOrDefault(db => db.DatabaseId.Equals(dbId, cmp));
         }
@@ -166,6 +161,11 @@ namespace ASC.Common.Data
         public IDbTransaction BeginTransaction()
         {
             return localDb.BeginTransaction();
+        }
+
+        public Task<int> ExecuteNonQueryAsync(string sql, params object[] parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

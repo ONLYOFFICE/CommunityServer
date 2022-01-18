@@ -562,7 +562,7 @@ Si vous voulez rendre votre bureau digital encore plus sécurisé :
 
 *Utilisez votre propre serveur SMPT* et fermez tous les ports qui ne sont pas nécessaires.
 
-Améliorez la sécurité de votre ONLYOFFICE maintenant.
+Améliorez la sécurité de votre office en ligne maintenant.
 
 $GreenButton</value>
   </data>
@@ -945,7 +945,7 @@ h3.Si vous collaborez avec une équipe ou gérez un projet, nous vous suggérons
 
 Créez un espace de travail collaboratif unique pour vous et vos coéquipiers.
 
-Démarrez un essai "dans le cloud": "https://www.onlyoffice.com/registration.aspx" ou "sur votre serveur": "https://www.onlyoffice.com/download-commercial.aspx?from=enterprise-edition" sans aucune restriction fonctionnelle pendant 30 jours et voyez comment votre flux de travail s'améliore immédiatement!
+Démarrez un essai "dans le cloud": "https://www.onlyoffice.com/registration.aspx" ou "sur votre serveur": "https://www.onlyoffice.com/download-workspace.aspx?from=enterprise-edition" sans aucune restriction fonctionnelle pendant 30 jours et voyez comment votre flux de travail s'améliore immédiatement!
 
 Cordialement,
 L'équipe ONLYOFFICE</value>
@@ -1476,7 +1476,7 @@ Equipe ONLYOFFICE
 
 Procurez-vous les applications gratuites ONLYOFFICE pour travailler sur les documents et les projets depuis tous vos appareils.
 
-# Pour travailler sur les documents en mode déconnecté sur Windows, Linux et macOS, téléchargez les "applications de bureau ONLYOFFICE":"https://www.onlyoffice.com/apps.aspx". Connectez-les à votre cloud pour "accéder aux fonctionnalités avancées":"https://helpcenter.onlyoffice.com/installation/desktop-pro-features.aspx" (contrôles de contenu, affichage tableau, comparaison des documents).
+# Pour travailler sur les documents en mode déconnecté sur Windows, Linux et macOS, téléchargez les "applications de bureau ONLYOFFICE":"https://www.onlyoffice.com/apps.aspx".
 # Pour éditer les documents sur vos appareils mobiles, téléchargez les applis ONLYOFFICE Documents pour "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" ou "Android":"https://play.google.com/store/apps/details?id=com.onlyoffice.documents".
 # Pour gérer la performance de votre équipe partout et à tout moment, téléchargez ONLYOFFICE Projects pour "iOS":"https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".
 
@@ -1560,7 +1560,7 @@ Equipe ONLYOFFICE
   <data name="pattern_saas_admin_welcome_v115" xml:space="preserve">
     <value>Bonjour $UserName !
 
-Essayez le forfait Business du service cloud ONLYOFFFICE  gratuitement pendant 30 jours :
+Essayez le forfait Business du service cloud ONLYOFFICE  gratuitement pendant 30 jours :
 
 # *Ajoutez jusqu'à 30 utilisateurs* avec 100 Go d'espace par personne. Après avoir acheté un abonnement vous serez en mesure d'ajouter un nombre illimité des utilisateurs. 
 # *Personnalisez votre bureau en ligne* conformément au style de votre marque.

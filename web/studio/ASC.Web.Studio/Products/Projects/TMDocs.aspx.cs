@@ -54,6 +54,7 @@ namespace ASC.Web.Projects
                                "Controls/ConvertFile/convertfile.css",
                                "Controls/ConvertFile/confirmconvert.css",
                                "Controls/EmptyFolder/emptyfolder.css",
+                               "Controls/FileChoisePopup/filechoisepopup.css",
                                "Controls/ChunkUploadDialog/chunkuploaddialog.css",
                                "Controls/Tree/treebuilder.css",
                                "Controls/Tree/tree.css"
@@ -84,6 +85,7 @@ namespace ASC.Web.Projects
                                      "Controls/ConvertFile/convertfile.js",
                                      "Controls/ConvertFile/confirmconvert.js",
                                      "Controls/EmptyFolder/emptyfolder.js",
+                                     "Controls/FileChoisePopup/filechoisepopup.js",
                                      "Controls/ChunkUploadDialog/chunkuploadmanager.js",
                                      "Controls/Tree/treebuilder.js",
                                      "Controls/Tree/tree.js"

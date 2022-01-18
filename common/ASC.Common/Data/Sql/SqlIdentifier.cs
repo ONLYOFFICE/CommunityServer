@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql
 {
     class SqlIdentifier : ISqlInstruction
@@ -36,7 +38,7 @@ namespace ASC.Common.Data.Sql
             return Identifier;
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             return new object[0];
         }

@@ -31,6 +31,7 @@
 }
 .upload-info-container {
     margin-top: 8px;
+    min-height: 8px;
 }
 #chunkUploadDialog .info-content {
     margin-bottom: 8px;

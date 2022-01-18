@@ -33,8 +33,8 @@ namespace ASC.Web.Projects.Configuration
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var filedb = new DbManager(FileConstant.DatabaseId))
-            using (var projdb = new DbManager(Global.DbID))
+            using (var filedb = DbManager.FromHttpContext(FileConstant.DatabaseId))
+            using (var projdb = DbManager.FromHttpContext(Global.DbID))
             {
                 var q = new SqlQuery("files_file f")
                     .Select("b.right_node")
@@ -53,7 +53,7 @@ namespace ASC.Web.Projects.Configuration
                 q = new SqlQuery("projects_projects")
                     .Select("id", "title")
                     .Where("tenant_id", TenantProvider.CurrentTenantID)
-                    .Where(Exp.In("id", sizes.Keys));
+                    .Where(Exp.In("id", sizes.Keys.ToList()));
 
                 return projdb.ExecuteList(q)
                     .Select(r => new UsageSpaceStatItem

@@ -90,9 +90,9 @@ namespace ASC.Core.Common.Notify.Telegram
             }
         }
 
-        private DbManager GetDbManager()
+        private IDbManager GetDbManager()
         {
-            return new DbManager(_databaseID);
+            return DbManager.FromHttpContext(_databaseID);
         }
     }
 }

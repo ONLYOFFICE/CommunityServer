@@ -440,6 +440,11 @@ namespace ASC.Data.Storage.DiscStorage
             throw new FileNotFoundException("file not found " + target);
         }
 
+        public override Task<long> GetFileSizeAsync(string domain, string path)
+        {
+            return Task.FromResult(GetFileSize(domain, path));
+        }
+
         public override long GetDirectorySize(string domain, string path)
         {
             var target = GetTarget(domain, path);
@@ -555,7 +560,7 @@ namespace ASC.Data.Storage.DiscStorage
             var result = File.Exists(target);
             return result;
         }
-        
+
         public override Task<bool> IsFileAsync(string domain, string path)
         {
             return Task.FromResult(IsFile(domain, path));

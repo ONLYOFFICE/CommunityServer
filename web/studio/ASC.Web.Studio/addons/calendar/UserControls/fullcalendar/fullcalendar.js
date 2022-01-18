@@ -4282,7 +4282,7 @@ function ManageSubscriptionsDialog(calendar) {
 	}
 
 	function _updateScrollArea() {
-		_dialog.find(".groups .scroll-area").data("jsp").reinitialise();
+		//_dialog.find(".groups .scroll-area").data("jsp").reinitialise();
 	}
 
 	function _close(changed) {
@@ -15150,14 +15150,16 @@ function AgendaView(element, calendar, viewName) {
     function getCellBounds(row, col) {
         var isWeekView = dayBodyCells.length > 1;
         var allDayContainer = $(".fc-agenda-allday .fc-day-content:visible")[0];
-        var cellContainer = isWeekView ? dayBodyCells[col] : allDayContainer;
+        var cellContainer = isWeekView ? dayBodyCells[col] : allDayContainer.parentElement;
 
         if (allDayContainer && cellContainer) {
             return {
                 left: cellContainer.offsetLeft,
                 top: allDayContainer.offsetTop,
-                right: cellContainer.offsetLeft + cellContainer.offsetWidth - (isWeekView ? 0 : 325),
-                bottom: allDayContainer.offsetTop + allDayContainer.offsetHeight
+                right: cellContainer.offsetLeft + cellContainer.offsetWidth,
+                bottom: allDayContainer.offsetTop + allDayContainer.offsetHeight,
+                hratio: isWeekView ? 1.4 : 1,
+                wratio: isWeekView ? 1.4 : 1
             };
         }
         return {top:0, right:0, bottom:0, left:0};
@@ -16879,14 +16881,21 @@ function DayEventRenderer() {
 
 				styles += "display: none;";
 
-				var cellId = "cell_" + seg.row + "_" + seg.startCol;
+				var currentCol = seg.startCol;
+				while (currentCol < seg.endCol) {
+					var cellId = "cell_" + seg.row + "_" + currentCol;
 
-				if (!infoBoxes[cellId])
-					infoBoxes[cellId] = { seg: seg, text: "" };
+					if (!infoBoxes[cellId])
+						infoBoxes[cellId] = { seg: seg, text: "" };
 
-				var s = infoBoxes[cellId].text.match(/(\d+)/);
-				var cnt = parseInt((s ? s[1] : 0), 10) || 0;
-				infoBoxes[cellId].text = t.calendar.options.moreEventsLabel.replace("%d", cnt + 1);
+					infoBoxes[cellId].width = colContentRight(currentCol) - colContentLeft(currentCol);
+					infoBoxes[cellId].left = colContentLeft(currentCol);
+
+					var s = infoBoxes[cellId].text.match(/(\d+)/);
+					var cnt = parseInt((s ? s[1] : 0), 10) || 0;
+					infoBoxes[cellId].text = t.calendar.options.moreEventsLabel.replace("%d", cnt + 1);
+					currentCol++;
+				}
 			}
 
 			html +=
@@ -16929,7 +16938,8 @@ function DayEventRenderer() {
 
 		for (var name in infoBoxes) {
 			var item = infoBoxes[name];
-			html += "<div id='" + name + "' style='width:" + item.seg.outerWidth + "px;top:" + item.seg.top + "px;left:" + item.seg.left + "px;height:" + item.seg.outerHeight + "px;line-height:" + item.seg.outerHeight + "px;' class='fc-event-info'>" + item.text + "</div>";
+			html += "<div id='" + name + "' style='width:" + item.width + "px;top:" + item.seg.top + "px;left:" + item.left + "px;height:" + item.seg.outerHeight + "px;line-height:" + item.seg.outerHeight + "px;' class='fc-event-info'>" + item.text + "</div>";
+
 		}
 
 		if (t.name == "agendaWeek" || t.name == "agendaDay") {
@@ -17013,8 +17023,8 @@ function DayEventRenderer() {
 		var cb = getCellBounds(evData.data.row, evData.data.col);
 		var cw = cb.right - cb.left;
 		var ch = cb.bottom - cb.top;
-		var wratio = 1.4;
-		var hratio = 1.4;
+		var wratio = cb.wratio || 1.4;
+		var hratio = cb.hratio || 1.4;
 		
 		popup.width(Math.floor(cw * wratio));
 		popup.height("auto");
@@ -17031,7 +17041,7 @@ function DayEventRenderer() {
 
 		for (var i = 0; i < evData.data.segs.length; ++i) {
 			var seg = evData.data.segs[i];
-			if (seg.row == evData.data.row && seg.startCol == evData.data.col) {
+			if (seg.row == evData.data.row && (seg.startCol <= evData.data.col && evData.data.col < seg.endCol)) {
 				var el = seg.element.clone();
 				el.css("display", "block")
 					.css("left", "")

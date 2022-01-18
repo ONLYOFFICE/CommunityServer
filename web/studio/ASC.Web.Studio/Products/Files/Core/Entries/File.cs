@@ -45,7 +45,9 @@ namespace ASC.Files.Core
 
         [EnumMember] IsFavorite = 0x20,
 
-        [EnumMember] IsTemplate = 0x40
+        [EnumMember] IsTemplate = 0x40,
+
+        [EnumMember] IsFillFormDraft = 0x80
     }
 
     [Serializable]
@@ -190,6 +192,18 @@ namespace ASC.Files.Core
                     _status |= FileStatus.IsTemplate;
                 else
                     _status &= ~FileStatus.IsTemplate;
+            }
+        }
+
+        public bool IsFillFormDraft
+        {
+            get { return (_status & FileStatus.IsFillFormDraft) == FileStatus.IsFillFormDraft; }
+            set
+            {
+                if (value)
+                    _status |= FileStatus.IsFillFormDraft;
+                else
+                    _status &= ~FileStatus.IsFillFormDraft;
             }
         }
 

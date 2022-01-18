@@ -278,12 +278,15 @@ namespace ASC.Common.Data
 
             var sqlParts = sqlStr.Split('?');
             var sqlBuilder = new StringBuilder();
-            for (var i = 0; i < sqlParts.Length - 1; i++)
+            var i = 0;
+            foreach(var p in parameters)
             {
-                var name = "p" + i;
-                command.AddParameter(name, parameters[i]);
+                var name = $"p{i}";
+                command.AddParameter(name, p);
                 sqlBuilder.AppendFormat("{0}@{1}", sqlParts[i], name);
+                i++;
             }
+
             sqlBuilder.Append(sqlParts[sqlParts.Length - 1]);
             command.CommandText = sqlBuilder.ToString();
         }

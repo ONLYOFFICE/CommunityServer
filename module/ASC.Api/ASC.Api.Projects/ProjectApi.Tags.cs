@@ -74,7 +74,7 @@ namespace ASC.Api.Projects
         public IEnumerable<ProjectWrapper> GetProjectsByTags(string tag)
         {
             var projectsTagged = EngineFactory.TagEngine.GetTagProjects(tag);
-            return EngineFactory.ProjectEngine.GetByID(projectsTagged).Select(ProjectWrapperSelector).ToList();
+            return EngineFactory.ProjectEngine.GetByID(projectsTagged.ToList()).Select(ProjectWrapperSelector).ToList();
         }
 
 

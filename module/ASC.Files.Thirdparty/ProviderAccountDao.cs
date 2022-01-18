@@ -111,9 +111,9 @@ namespace ASC.Files.Thirdparty
         }
 
 
-        protected DbManager GetDb()
+        protected IDbManager GetDb()
         {
-            return new DbManager(storageKey);
+            return DbManager.FromHttpContext(storageKey);
         }
 
         private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT, string searchText = null)

@@ -1,4 +1,0 @@
-[submodule "web/studio/ASC.Web.Studio/Products/Files/DocStore"]
-	path = web/studio/ASC.Web.Studio/Products/Files/DocStore
-	url = https://github.com/ONLYOFFICE/document-templates
-	branch = main/community-server

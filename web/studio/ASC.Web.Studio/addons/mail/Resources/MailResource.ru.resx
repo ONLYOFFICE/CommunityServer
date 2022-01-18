@@ -241,6 +241,9 @@
   <data name="CreateUserFolderLabel" xml:space="preserve">
     <value>Создание папки</value>
   </data>
+  <data name="CustomFilter" xml:space="preserve">
+    <value>Пользовательский фильтр</value>
+  </data>
   <data name="DashboardCollectAllEmailsInOnePlace" xml:space="preserve">
     <value>Соберите всю почту в одном месте</value>
   </data>

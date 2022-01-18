@@ -8,15 +8,15 @@
         <p class="smtp-settings-text"><%: Resource.SmtpSettingsText %> </p>
         
         <div id="currentSettingsBox">
-            <input id="currentHost" type="hidden" value="<%= CurrentSmtpSettings.Host %>" />
-            <input id="currentPort" type="hidden" value="<%= CurrentSmtpSettings.Port %>" />
-            <input id="currentCredentialsUserName" type="hidden" value="<%= CurrentSmtpSettings.CredentialsUserName %>" />
+            <input id="currentHost" type="hidden" value="<%: CurrentSmtpSettings.Host %>" />
+            <input id="currentPort" type="hidden" value="<%: CurrentSmtpSettings.Port %>" />
+            <input id="currentCredentialsUserName" type="hidden" value="<%: CurrentSmtpSettings.CredentialsUserName %>" />
             <input id="currentCredentialsUserPassword" type="hidden" value="" />
-            <input id="currentSenderDisplayName" type="hidden" value="<%= CurrentSmtpSettings.SenderDisplayName %>" />
-            <input id="currentSenderAddress" type="hidden" value="<%= CurrentSmtpSettings.SenderAddress %>" />
-            <input id="currentEnableSsl" type="hidden" value="<%= CurrentSmtpSettings.EnableSSL %>" />
-            <input id="currentEnableAuth" type="hidden" value="<%= CurrentSmtpSettings.EnableAuth %>" />
-            <input id="currentIsDefault" type="hidden" value="<%= CoreContext.Configuration.SmtpSettings.IsDefaultSettings %>" />
+            <input id="currentSenderDisplayName" type="hidden" value="<%: CurrentSmtpSettings.SenderDisplayName %>" />
+            <input id="currentSenderAddress" type="hidden" value="<%: CurrentSmtpSettings.SenderAddress %>" />
+            <input id="currentEnableSsl" type="hidden" value="<%: CurrentSmtpSettings.EnableSSL %>" />
+            <input id="currentEnableAuth" type="hidden" value="<%: CurrentSmtpSettings.EnableAuth %>" />
+            <input id="currentIsDefault" type="hidden" value="<%: CoreContext.Configuration.SmtpSettings.IsDefaultSettings %>" />
         </div>
 
         <div id="settingsSwitch" class="settings-block display-none">

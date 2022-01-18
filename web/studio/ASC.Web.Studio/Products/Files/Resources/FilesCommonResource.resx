@@ -130,6 +130,9 @@
   <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="ButtonFillingForm" xml:space="preserve">
+    <value>Fill in the form</value>
+  </data>
   <data name="ButtonRemoveFavorite" xml:space="preserve">
     <value>Remove from favorite</value>
   </data>
@@ -153,6 +156,9 @@
   </data>
   <data name="CommentCreate" xml:space="preserve">
     <value>Created</value>
+  </data>
+  <data name="CommentCreateFillFormDraft" xml:space="preserve">
+    <value>Created to fill in the form</value>
   </data>
   <data name="CommentCreateByDocuSign" xml:space="preserve">
     <value>Created by DocuSign</value>
@@ -438,6 +444,15 @@
   </data>
   <data name="MessageFileCreated" xml:space="preserve">
     <value>File created in folder "{0}"</value>
+  </data>
+  <data name="MessageFileCreatedForm" xml:space="preserve">
+    <value>The fillable OFORM document is ready. It is saved in the {0}</value>
+  </data>
+  <data name="MessageFillFormDraftCreated" xml:space="preserve">
+    <value>The oform copy is created in the {0} folder. Please fill out the form and download the result as a PDF or DOCX file.</value>
+  </data>
+  <data name="MessageFillFormDraftDiscard" xml:space="preserve">
+    <value>The file is no longer a draft to fill in the form.</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Preview</value>

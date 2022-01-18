@@ -215,14 +215,14 @@ namespace ASC.Files.ThumbnailBuilder
                 FitToWidth = 1,
                 Headings = false,
                 GridLines = false,
-                Margins = new DocumentService.Margins
+                Margins = new DocumentService.SpreadsheetLayout.LayoutMargins
                 {
                     Top = "0mm",
                     Right = "0mm",
                     Bottom = "0mm",
                     Left = "0mm"
                 },
-                PageSize = new DocumentService.PageSize
+                PageSize = new DocumentService.SpreadsheetLayout.LayoutPageSize
                 {
                     Width = (config.ThumbnaillWidth * 1.5) + "mm", // 192 * 1.5 = "288mm",
                     Height = (config.ThumbnaillHeight * 1.5) + "mm" // 128 * 1.5 = "192mm"

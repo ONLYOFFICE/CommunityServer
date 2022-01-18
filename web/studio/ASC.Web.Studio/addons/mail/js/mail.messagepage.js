@@ -754,6 +754,8 @@ window.messagePage = (function ($) {
 
             if (needShowShareDlg) {
                 window.popup.addBig(MailScriptResource.SharingSettingForFiles, $.tmpl('sharingSettingForFileLinksTmpl'));
+
+                prepareLinksAccessSelector(fileLinks);
                 $("#shareFileLinksAccessSelector").tlcombobox({ align: "left" });
 
                 TMMail.disableButton($('#editMessagePageHeader .btnSend'), false);
@@ -784,6 +786,29 @@ window.messagePage = (function ($) {
         });
 
         return fileLinks;
+    }
+
+    function prepareLinksAccessSelector(links) {
+        var $selector = jq("#shareFileLinksAccessSelector");
+        var $customFilterOption = $selector.find("option[value=" + ASC.Files.Constants.AceStatusEnum.CustomFilter + "]");
+        var $reviewOption = $selector.find("option[value=" + ASC.Files.Constants.AceStatusEnum.Review + "]");
+        var $fillFormsOption = $selector.find("option[value=" + ASC.Files.Constants.AceStatusEnum.FillForms + "]");
+        var $commentOption = $selector.find("option[value=" + ASC.Files.Constants.AceStatusEnum.Comment + "]");
+
+        $.each(links, function (index, link) {
+            if (!ASC.Files.Utility.CanWebCustomFilterEditing(link.title)) {
+                $customFilterOption.prop("disabled", true);
+            }
+            if (!ASC.Files.Utility.CanWebReview(link.title)) {
+                $reviewOption.prop("disabled", true);
+            }
+            //if (!ASC.Files.Utility.CanWebRestrictedEditing(link.title)) {
+                $fillFormsOption.prop("disabled", true);
+            //}
+            if (!ASC.Files.Utility.CanWebComment(link.title)) {
+                $commentOption.prop("disabled", true);
+            }
+        });
     }
 
     /* redraw item`s custom labels */

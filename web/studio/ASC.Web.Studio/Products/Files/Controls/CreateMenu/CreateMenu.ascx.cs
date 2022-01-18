@@ -37,6 +37,8 @@ namespace ASC.Web.Files.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             EnableCreateFile = FileUtility.ExtsWebEdited.Count != 0;
+
+            FileChoisePopupHolder.Controls.Add(LoadControl(FileChoisePopup.Location));
         }
     }
 }

@@ -507,7 +507,9 @@ window.ASC.Files.EventHandler = (function () {
                 });
                 return;
             } else {
-                ASC.Files.Actions.checkEditFile(fileId, winEditor);
+                if (winEditor !== false) {
+                    ASC.Files.Actions.checkEditFile(fileId, winEditor);
+                }
             }
         } else {
             fileObj = jq(htmlXML);
@@ -515,7 +517,9 @@ window.ASC.Files.EventHandler = (function () {
             fileTitle = fileData.title;
             fileId = fileData.entryId;
 
-            ASC.Files.Actions.checkEditFile(fileId, winEditor);
+            if (winEditor !== false) {
+                ASC.Files.Actions.checkEditFile(fileId, winEditor);
+            }
         }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoCrateFile.format(fileTitle));

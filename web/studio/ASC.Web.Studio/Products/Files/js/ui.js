@@ -363,7 +363,7 @@ window.ASC.Files.UI = (function () {
 
     var trackShowMore = function(wideScreen) {
         if (typeof(wideScreen) == "undefined") {
-            wideScreen = jq(window).width() >= 1200;
+            wideScreen = jq(window).width() >= 1200 || ASC.Desktop;
         }
         if (wideScreen) {
             if (jq(".files-content-panel").height() - jq(".mainPageContent").height() <= jq(".mainPageContent").scrollTop() + 350) {
@@ -536,6 +536,9 @@ window.ASC.Files.UI = (function () {
                         } else {
                             entryObj.find(".convert-action").show();
                         }
+                    } else if (ASC.Files.Utility.CanWebRestrictedEditing(entryTitle) && !entryData.encrypted) {
+                        entryObj.find(".pencil:not(.fillform-action)").remove();
+                        entryObj.find(".fillform-action").show();
                     } else {
                         if (entryData.encrypted) {
                             entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
@@ -549,7 +552,7 @@ window.ASC.Files.UI = (function () {
                                 && ASC.Files.Utility.CanWebEncrypt(entryTitle)
                                 && ASC.Desktop && ASC.Desktop.encryptionSupport())) {
                             ASC.Files.UI.lockEditFile(entryObj, ASC.Files.UI.editingFile(entryObj));
-                            entryObj.find(".convert-action").remove();
+                            entryObj.find(".convert-action, .fillform-action").remove();
                             if (ASC.Files.Utility.CanCoAuhtoring(entryTitle) && !entryObj.hasClass("on-edit-alone")) {
                                 entryObj.addClass("can-coauthoring");
                             }

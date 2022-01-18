@@ -94,7 +94,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 .Select("p.id", "p.title", "p.description", "p.status", "p.status_changed", "p.responsible_id")
                 .Select("p.private", "p.create_by", "p.create_on", "p.last_modified_by", "p.last_modified_on");
 
-            using (var db = new DbManager(DbId))
+            using (var db = DbManager.FromHttpContext(DbId))
             {
                 var milestones = db.ExecuteList(q).ConvertAll(ToMilestone);
                 return milestones.Select(m => new Tuple<Feed, object>(ToFeed(m), m));

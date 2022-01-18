@@ -66,6 +66,11 @@ namespace ASC.Core.Data
                 );
         }
 
+        public IEnumerable<Tenant> GetTenants(List<int> ids)
+        {
+            return GetTenants(Exp.And(Exp.In("t.id", ids), Exp.Eq("t.status", (int)TenantStatus.Active)));
+        }
+
         public IEnumerable<Tenant> GetTenants(string login, string passwordHash)
         {
             if (string.IsNullOrEmpty(login)) throw new ArgumentNullException("login");
@@ -301,7 +306,7 @@ namespace ASC.Core.Data
         public void SetTenantSettings(int tenant, string key, byte[] data)
         {
             var i = data == null || data.Length == 0 ?
-                (ISqlInstruction)new SqlDelete("core_settings").Where("tenant", tenant).Where("id", key) :
+                new SqlDelete("core_settings").Where("tenant", tenant).Where("id", key) :
                 (ISqlInstruction)new SqlInsert("core_settings", true).InColumns("tenant", "id", "value").Values(tenant, key, data);
             ExecNonQuery(i);
         }

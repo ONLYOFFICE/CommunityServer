@@ -104,7 +104,7 @@ namespace ASC.Data.Backup.Tasks
             List<string> tables;
             var files = new List<BackupFileInfo>();
 
-            using (var dbManager = new DbManager("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext("default", 100000))
             {
                 tables = dbManager.ExecuteList("show tables;").Select(r => Convert.ToString(r[0])).ToList();
             }
@@ -181,7 +181,7 @@ namespace ASC.Data.Backup.Tasks
             var files = GetFilesToProcess(tenantId).ToList();
             var exclude = new List<string>();
 
-            using (var db = new DbManager("default"))
+            using (var db = DbManager.FromHttpContext("default"))
             {
                 var query = new SqlQuery("backup_backup")
                     .Select("storage_path")
@@ -201,7 +201,7 @@ namespace ASC.Data.Backup.Tasks
             try
             {
                 Logger.DebugFormat("dump table scheme start {0}", t);
-                using (var dbManager = new DbManager("default", 100000))
+                using (var dbManager = DbManager.FromHttpContext("default", 100000))
                 {
                     var createScheme = dbManager.ExecuteList(string.Format("SHOW CREATE TABLE `{0}`", t));
                     var creates = new StringBuilder();
@@ -236,7 +236,7 @@ namespace ASC.Data.Backup.Tasks
         {
             try
             {
-                using (var dbManager = new DbManager("default", 100000))
+                using (var dbManager = DbManager.FromHttpContext("default", 100000))
                 {
                     dbManager.ExecuteNonQuery("analyze table " + t);
                     return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t).Where("TABLE_SCHEMA", dbManager.Connection.Database));
@@ -268,7 +268,7 @@ namespace ASC.Data.Backup.Tasks
                 int primaryIndexStart = 0;
 
                 List<string> columns;
-                using (var dbManager = new DbManager("default", 100000))
+                using (var dbManager = DbManager.FromHttpContext("default", 100000))
                 {
                     var columnsData = dbManager.ExecuteList(string.Format("SHOW COLUMNS FROM `{0}`;", t));
                     columns = columnsData
@@ -351,7 +351,7 @@ namespace ASC.Data.Backup.Tasks
 
         private List<object[]> GetData(string t, List<string> columns, int offset)
         {
-            using (var dbManager = new DbManager("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext("default", 100000))
             {
                 var query = new SqlQuery(t)
                     .Select(columns.ToArray())
@@ -362,7 +362,7 @@ namespace ASC.Data.Backup.Tasks
         }
         private List<object[]> GetDataWithPrimary(string t, List<string> columns, string primary, int start, int step)
         {
-            using (var dbManager = new DbManager("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext("default", 100000))
             {
                 var query = new SqlQuery(t)
                     .Select(columns.ToArray())

@@ -31,6 +31,7 @@ using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Web.Core.Calendars;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Api.Calendar.BusinessObjects
 {
@@ -44,6 +45,21 @@ namespace ASC.Api.Calendar.BusinessObjects
         private const string _eventTable = "calendar_events evt";
         private const string _todoTable = "calendar_todos td";
         private const string _eventItemTable = "calendar_event_item evt_itm";
+
+        private static string eventUidDomain;
+
+        public static string EventUidDomain
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(eventUidDomain))
+                    return eventUidDomain;
+
+                eventUidDomain = CompanyWhiteLabelSettings.Instance.Email.Split('@').Last();
+
+                return eventUidDomain;
+            }
+        }
 
         public DataProvider()
         {
@@ -591,7 +607,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
                     try
                     {
-                        using (var db = new DbManager(DBId))
+                        using (var db = DbManager.FromHttpContext(DBId))
                         {
                             using (var tr = db.BeginTransaction())
                             {
@@ -652,7 +668,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                         CoreContext.TenantManager.SetCurrentTenant(tenant);
                         try
                         {
-                            using (var db = new DbManager(DBId))
+                            using (var db = DbManager.FromHttpContext(DBId))
                             {
                                 using (var tr = db.BeginTransaction())
                                 {
@@ -1436,7 +1452,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             if (!string.IsNullOrEmpty(uid))
                 return uid;
 
-            return string.Format("{0}@onlyoffice.com", string.IsNullOrEmpty(id) ? Guid.NewGuid().ToString() : id);
+            return string.Format("{0}@{1}", string.IsNullOrEmpty(id) ? Guid.NewGuid().ToString() : id, EventUidDomain);
 
         }
 

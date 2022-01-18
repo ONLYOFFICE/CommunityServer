@@ -45,17 +45,7 @@ namespace ASC.Web.Core.WhiteLabel
         public string Phone { get; set; }
 
         [DataMember(Name = "IsLicensor")]
-        public bool IsLicensorSetting { get; set; }
-
-        public bool IsLicensor
-        {
-            get
-            {
-                return IsLicensorSetting
-                    && (IsDefault || CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId).Branding);
-            }
-            set { IsLicensorSetting = value; }
-        }
+        public bool IsLicensor { get; set; }
 
         public bool IsDefault
         {
@@ -70,7 +60,7 @@ namespace ASC.Web.Core.WhiteLabel
                        Email == defaultSettings.Email &&
                        Address == defaultSettings.Address &&
                        Phone == defaultSettings.Phone &&
-                       IsLicensorSetting == defaultSettings.IsLicensorSetting;
+                       IsLicensor == defaultSettings.IsLicensor;
             }
         }
 

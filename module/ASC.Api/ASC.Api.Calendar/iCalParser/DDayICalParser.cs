@@ -326,7 +326,7 @@ namespace ASC.Api.Calendar.iCalParser
             if (!string.IsNullOrEmpty(rrule))
             {
                 var eventTz = eventObj.TimeZone ?? eventTimeZoneInfo;
-                var eventTzId = TimeZoneConverter.WindowsTzId2OlsonTzId(eventObj.TimeZone.Id);
+                var eventTzId = TimeZoneConverter.WindowsTzId2OlsonTzId(eventTz.Id);
 
                 if (!eventObj.AllDayLong && eventObj.TimeZone != TimeZoneInfo.Utc)
                 {

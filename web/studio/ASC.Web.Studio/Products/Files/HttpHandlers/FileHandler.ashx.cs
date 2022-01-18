@@ -962,7 +962,11 @@ namespace ASC.Web.Files
 
             if (responseMessage)
             {
-                context.Response.Write("ok: " + string.Format(FilesCommonResource.MessageFileCreated, folder.Title));
+                var message = string.Format(FilesCommonResource.MessageFileCreated, folder.Title);
+                if (FileUtility.CanWebRestrictedEditing(file.Title))
+                    message = string.Format(FilesCommonResource.MessageFileCreatedForm, folder.Title);
+
+                context.Response.Write("ok: " + message);
                 return;
             }
 

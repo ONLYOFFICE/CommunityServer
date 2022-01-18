@@ -151,7 +151,7 @@ namespace System.Web
         public static bool SailfishApp(this HttpRequest request)
         {
             return request != null
-                   && (!string.IsNullOrEmpty(request["sailfish"])
+                   && (!string.IsNullOrEmpty(request.QueryString["sailfish"])
                        || !string.IsNullOrEmpty(request.UserAgent) && request.UserAgent.Contains("SailfishOS"));
         }
 

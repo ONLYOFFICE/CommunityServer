@@ -150,6 +150,8 @@ namespace ASC.Common.Web
             AddMimeMapping(".docm", "application/vnd.ms-word.document.macroEnabled.12");
             AddMimeMapping(".doct", "application/doct");
             AddMimeMapping(".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            AddMimeMapping(".docxf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            AddMimeMapping(".docxf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document.docxf");
             AddMimeMapping(".dot", "application/msword");
             AddMimeMapping(".dotm", "application/vnd.ms-word.template.macroEnabled.12");
             AddMimeMapping(".dotx", "application/vnd.openxmlformats-officedocument.wordprocessingml.template");
@@ -421,6 +423,8 @@ namespace ASC.Common.Web
             AddMimeMapping(".odp", "application/vnd.oasis.opendocument.presentation");
             AddMimeMapping(".ods", "application/vnd.oasis.opendocument.spreadsheet");
             AddMimeMapping(".odt", "application/vnd.oasis.opendocument.text");
+            AddMimeMapping(".oform", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            AddMimeMapping(".oform", "application/vnd.openxmlformats-officedocument.wordprocessingml.document.oform");
             AddMimeMapping(".oga", "audio/ogg");
             AddMimeMapping(".ogg", "video/ogg");
             AddMimeMapping(".ogg", "audio/ogg");
@@ -702,6 +706,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".wmlc", "application/vnd.wap.wmlc");
             AddMimeMapping(".wmls", "text/vnd.wap.wmlscript");
             AddMimeMapping(".wmlsc", "application/vnd.wap.wmlscriptc");
+            AddMimeMapping(".woff2", "application/font-woff2");
             AddMimeMapping(".word", "application/msword");
             AddMimeMapping(".wp", "application/wordperfect");
             AddMimeMapping(".wp5", "application/wordperfect");

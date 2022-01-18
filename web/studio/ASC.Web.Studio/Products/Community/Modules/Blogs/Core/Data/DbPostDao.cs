@@ -29,7 +29,7 @@ namespace ASC.Blogs.Core.Data
 {
     public class DbPostDao : DbDao, IPostDao
     {
-        public DbPostDao(DbManager db, int tenant) : base(db, tenant) { }
+        public DbPostDao(IDbManager db, int tenant) : base(db, tenant) { }
 
         #region IPostDao
 

@@ -483,7 +483,7 @@ window.ASC.Files.ServiceManager = (function () {
         RestoreVersion: "restoreversion",
 
         GetMails: "getmails",
-        StartMailMerge: "startmailmerge",
+        StartMailMerge: "startmailmerge"
     };
 
     var createFolder = function (eventType, params) {

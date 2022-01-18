@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="WelcomeDashboard.ascx.cs" Inherits="ASC.Web.Studio.UserControls.EmptyScreens.WelcomeDashboard" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="System.Globalization" %>
 
 <div id="dashboardBackdrop" class="backdrop display-none" blank-page=""></div>
 
@@ -8,6 +10,17 @@
     <a class="close">&times;</a>
     <div class="content">
         <div class="slick-carousel">
+            <% if (ProductDemo) { %>
+                <div class="module-block slick-carousel-item clearFix">
+                    <h1><%= UserControlsCommonResource.WelcomeDashboardHeader %></h1>
+                    <div class="img creating-business-cloud"></div>
+                    <div class="text">
+                        <div class="title"><%= UserControlsCommonResource.WelcomeDashboardСreatingBusinessСloud %></div>
+                        <p><%= UserControlsCommonResource.WelcomeDashboardСreatingBusinessСloudFirstLine %></p>
+                        <p><a target="_blank" href="<%= CommonLinkUtility.GetRegionalUrl(SetupInfo.DemoOrder, CultureInfo.CurrentCulture.TwoLetterISOLanguageName) %>"><%= UserControlsCommonResource.WelcomeDashboardСreatingBusinessСloudSecondLine %></a></p>
+                    </div>
+                </div>
+            <% } %>
             <div class="module-block slick-carousel-item clearFix">
                 <h1><%= UserControlsCommonResource.WelcomeDashboardHeader %></h1>
                 <div class="img tailored-cloud"></div>
@@ -19,7 +32,7 @@
                 </div>
             </div>
             <div class="module-block slick-carousel-item clearFix">
-                <h1>&nbsp;</h1>
+                <h1><%= UserControlsCommonResource.WelcomeDashboardHeader %></h1>
                 <div class="img ultimate-security"></div>
                 <div class="text">
                     <div class="title"><%= UserControlsCommonResource.WelcomeDashboardUltimateSecurity %></div>
@@ -29,7 +42,7 @@
                 </div>
             </div>
             <div class="module-block slick-carousel-item clearFix">
-                <h1>&nbsp;</h1>
+                <h1><%= UserControlsCommonResource.WelcomeDashboardHeader %></h1>
                 <div class="img integration-with-infrastructure"></div>
                 <div class="text">
                     <div class="title"><%= UserControlsCommonResource.WelcomeDashboardIntegration %></div>
@@ -39,7 +52,7 @@
                 </div>
             </div>
             <div class="module-block slick-carousel-item clearFix">
-                <h1>&nbsp;</h1>
+                <h1><%= UserControlsCommonResource.WelcomeDashboardHeader %></h1>
                 <div class="img apps-you-need"></div>
                 <div class="text">
                     <div class="title"><%= UserControlsCommonResource.WelcomeDashboardApps %></div>

@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     enum AgregateType
@@ -47,7 +49,7 @@ namespace ASC.Common.Data.Sql.Expressions
             return string.Format("{0}({1})", agregateType, column == null ? "*" : column);
         }
 
-        public object[] GetParameters()
+        public IEnumerable<object> GetParameters()
         {
             return new object[0];
         }

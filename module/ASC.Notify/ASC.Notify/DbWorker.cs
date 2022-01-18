@@ -92,7 +92,7 @@ namespace ASC.Notify
                                 AutoSubmitted = (string)r[11]
                             });
 
-                    var u = new SqlUpdate("notify_info").Set("state", MailSendingState.Sending).Where(Exp.In("notify_id", messages.Keys));
+                    var u = new SqlUpdate("notify_info").Set("state", MailSendingState.Sending).Where(Exp.In("notify_id", messages.Keys.ToList()));
                     db.ExecuteNonQuery(u);
                     tx.Commit();
 
@@ -144,9 +144,9 @@ namespace ASC.Notify
         }
 
 
-        private DbManager GetDb()
+        private IDbManager GetDb()
         {
-            return new DbManager(dbid);
+            return DbManager.FromHttpContext(dbid);
         }
     }
 }

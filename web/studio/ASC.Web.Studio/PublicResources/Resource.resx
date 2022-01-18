@@ -3971,4 +3971,16 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
     <value>You decided to join this portal.</value>
   </data>
+  <data name="ProductDemo" xml:space="preserve">
+    <value>Product Demo</value>
+  </data>
+  <data name="EmailSupport" xml:space="preserve">
+    <value>Email support</value>
+  </data>
+  <data name="LiveChat" xml:space="preserve">
+    <value>Live Chat</value>
+  </data>
+  <data name="RequestTraining" xml:space="preserve">
+    <value>Request training</value>
+  </data>
 </root>

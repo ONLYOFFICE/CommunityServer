@@ -22,6 +22,7 @@ using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Core;
 
@@ -97,7 +98,18 @@ namespace ASC.Files.Core.Data
                 .Select("f.encrypted")
                 .Select("f.forcesave")
                 .Select("f.thumb")
+                .Select(GetIsLinked())
                 .Where(where);
+        }
+
+        protected SqlQuery GetIsLinked()
+        {
+            return new SqlQuery("files_link l")
+                .Select("1")
+                .Where(Exp.EqColumns("l.tenant_id", "f.tenant_id")
+                    & Exp.EqColumns("l.linked_id", "f.id")
+                    & Exp.Eq("l.linked_for", SecurityContext.CurrentAccount.ID.ToString()))
+                .SetMaxResults(1);
         }
 
         protected SqlQuery GetRootFolderType(string parentFolderColumnName)

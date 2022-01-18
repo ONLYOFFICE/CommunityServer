@@ -98,6 +98,12 @@ namespace ASC.Core
 
         public UserInfo GetUserByUserName(string username)
         {
+            if (CoreContext.Configuration.Personal)
+            {
+                var u = userService.GetUserByUserName(CoreContext.TenantManager.GetCurrentTenant().TenantId, username);
+                return u ?? Constants.LostUser;
+            }
+
             return GetUsersInternal()
                 .FirstOrDefault(u => string.Compare(u.UserName, username, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }

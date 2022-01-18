@@ -277,6 +277,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill in the form.
+        /// </summary>
+        public static string ButtonFillingForm {
+            get {
+                return ResourceManager.GetString("ButtonFillingForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from favorite.
         /// </summary>
         public static string ButtonRemoveFavorite {
@@ -354,6 +363,15 @@ namespace ASC.Web.Files.Resources {
         public static string CommentCreateByDocuSign {
             get {
                 return ResourceManager.GetString("CommentCreateByDocuSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created to fill in the form.
+        /// </summary>
+        public static string CommentCreateFillFormDraft {
+            get {
+                return ResourceManager.GetString("CommentCreateFillFormDraft", resourceCulture);
             }
         }
         
@@ -1200,6 +1218,33 @@ namespace ASC.Web.Files.Resources {
         public static string MessageFileCreated {
             get {
                 return ResourceManager.GetString("MessageFileCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The fillable OFORM document is ready. It is saved in the {0}.
+        /// </summary>
+        public static string MessageFileCreatedForm {
+            get {
+                return ResourceManager.GetString("MessageFileCreatedForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The oform copy is created in the {0} folder. Please fill out the form and download the result as a PDF or DOCX file..
+        /// </summary>
+        public static string MessageFillFormDraftCreated {
+            get {
+                return ResourceManager.GetString("MessageFillFormDraftCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file is no longer a draft to fill in the form..
+        /// </summary>
+        public static string MessageFillFormDraftDiscard {
+            get {
+                return ResourceManager.GetString("MessageFillFormDraftDiscard", resourceCulture);
             }
         }
         

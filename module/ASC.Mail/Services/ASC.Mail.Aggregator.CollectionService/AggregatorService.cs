@@ -481,12 +481,21 @@ namespace ASC.Mail.Aggregator.CollectionService
                 var commonCancelToken =
                     CancellationTokenSource.CreateLinkedTokenSource(cancelToken, timeoutCancel.Token).Token;
 
-                var taskLogger = LogManager.GetLogger(string.Format("Mbox_{0}", mailbox.MailBoxId));
+                var taskLogger = LogManager.GetLogger(string.Format("ASC.Mail Mbox_{0}", mailbox.MailBoxId));
+
+                taskLogger.InfoFormat("CreateMailClient(Tenant = {0} MailboxId = {1}, Address = '{2}')",
+                               mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
 
                 var client = CreateMailClient(mailbox, taskLogger, commonCancelToken);
 
-                if (client == null)
+                if (client == null || !client.IsConnected || !client.IsAuthenticated)
                 {
+                    if (client != null)
+                        taskLogger.InfoFormat("Client -> Could not connect: {0} | Not authenticated: {1}.",
+                        !client.IsConnected ? "Yes" : "No",
+                        !client.IsAuthenticated ? "Yes" : "No");
+                    else taskLogger.InfoFormat("Client was null");
+
                     taskLogger.InfoFormat("ReleaseMailbox(Tenant = {0} MailboxId = {1}, Address = '{2}')",
                                mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail);
                     ReleaseMailbox(mailbox);
@@ -570,6 +579,14 @@ namespace ASC.Mail.Aggregator.CollectionService
                 log.ErrorFormat(
                     "CreateTasks->client.LoginImapPop(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, webEx.ToString());
+
+                connectError = true;
+                stopClient = true;
+            }
+            catch (ImapProtocolException protocolEx)
+            {
+                log.ErrorFormat(
+                    $"CreateTasks() -> MailClient.LoginImap(Tenant = {mailbox.TenantId}, MailboxId = {mailbox.MailBoxId}, Address = \"{mailbox.EMail}\")\r\nThe box will be disabled.\r\nImap Protocol Exception: {protocolEx}\r\n");
 
                 connectError = true;
                 stopClient = true;
@@ -661,7 +678,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             var failed = false;
 
-            var taskLogger = LogManager.GetLogger(string.Format("ASC.Mail Mbox_{0} Task_{1}", mailbox.MailBoxId, Task.CurrentId));
+            var taskLogger = LogManager.GetLogger(string.Format("ASC.Mail Mbox_{0}", mailbox.MailBoxId));
 
             taskLogger.InfoFormat(
                 "ProcessMailbox(Tenant = {0}, MailboxId = {1} Address = '{2}') Is {3}",

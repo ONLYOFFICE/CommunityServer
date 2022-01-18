@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2021
  * 
@@ -701,4 +701,43 @@ only screen and (                min-resolution: 2dppx) {
 		//background: url("@{imagesBaseUrl}icons_nav_panel_retina.png") no-repeat 0 0;
 		background-size: 32px 1416px;
     }
+}
+
+/*******************************************************************************
+    Switcher for Support
+*******************************************************************************/
+.switch-btn {
+    display: inline-block;
+    width: 22px;
+    height: 13px;
+    line-height: normal;
+    border-radius: 7px;
+    background: #CCCCCC;
+    z-index: 0;
+    margin: 2px 0 0 12px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition-duration: 300ms;
+}
+
+.switch-btn::after {
+    content: "";
+    height: 9px;
+    width: 9px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    top: 2px;
+    left: 2px;
+    position: absolute;
+    z-index: 1;
+}
+
+.switch-on {
+    background: #3b72a7;
+}
+
+.switch-on::after {
+    left: 11px;
 }

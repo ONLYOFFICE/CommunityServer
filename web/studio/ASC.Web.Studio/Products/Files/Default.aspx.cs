@@ -89,6 +89,7 @@ namespace ASC.Web.Files
                                   "Controls/ConvertFile/confirmconvert.js",
                                   "Controls/CreateMenu/createmenu.js",
                                   "Controls/EmptyFolder/emptyfolder.js",
+                                  "Controls/FileChoisePopup/filechoisepopup.js",
                                   "Controls/ThirdParty/thirdparty.js",
                                   "Controls/Tree/treebuilder.js",
                                   "Controls/Tree/tree.js"
@@ -108,6 +109,7 @@ namespace ASC.Web.Files
                                   "Controls/ConvertFile/convertfile.css",
                                   "Controls/ConvertFile/confirmconvert.css",
                                   "Controls/EmptyFolder/emptyfolder.css",
+                                  "Controls/FileChoisePopup/filechoisepopup.css",
                                   "Controls/MainContent/maincontent.css",
                                   "Controls/MoreFeatures/css/morefeatures.css",
                                   "Controls/ThirdParty/thirdparty.css",

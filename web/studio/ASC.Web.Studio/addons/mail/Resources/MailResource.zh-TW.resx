@@ -242,6 +242,9 @@
   <data name="CreateUserFolderLabel" xml:space="preserve">
     <value>創建文件夾</value>
   </data>
+  <data name="CustomFilter" xml:space="preserve">
+    <value>自訂篩選</value>
+  </data>
   <data name="DashboardCollectAllEmailsInOnePlace" xml:space="preserve">
     <value>將所有電子郵件收集在一個地方</value>
   </data>

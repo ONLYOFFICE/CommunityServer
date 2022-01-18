@@ -1205,6 +1205,17 @@ window.ASC.Files.ThirdParty = (function () {
             }
         });
 
+        jq("#thirdPartyAccountList").on("click", ".pass-visibility", function () {
+            var $icon = jq(this);
+            var $input = $icon.prev(".account-input-pass");
+            $icon.toggleClass("visible");
+            if ($input.attr("type") == "password") {
+                $input.attr("type", "text");
+            } else {
+                $input.attr("type", "password");
+            }
+        });
+
         ASC.Files.ThirdParty.init();
     });
 })(jQuery);

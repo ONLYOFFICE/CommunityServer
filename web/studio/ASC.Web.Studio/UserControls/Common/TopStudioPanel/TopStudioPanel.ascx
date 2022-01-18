@@ -410,7 +410,7 @@
             <div class="hdr"><%= Resource.PresentUserHdr %></div>
             <% } %>
             <div class="gift-list">
-                <div class="gift-item gift-item-pro"><%= Resource.PresentItemPro %></div>
+                <%--<div class="gift-item gift-item-pro"><%= Resource.PresentItemPro %></div>--%>
                 <% if (false && !CoreContext.Configuration.CustomMode) { %>
                 <div class="gift-item gift-item-private"><%= Resource.PresentItemPrivate %></div>
                 <% } %>

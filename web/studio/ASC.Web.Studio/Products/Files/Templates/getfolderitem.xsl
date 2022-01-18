@@ -308,6 +308,11 @@
               <resource name="FilesCommonResource.ButtonConvertOpen" />
             </xsl:attribute>
           </div>
+          <div class="fillform-action pencil">
+            <xsl:attribute name="title">
+              <resource name="FilesCommonResource.ButtonFillingForm" />
+            </xsl:attribute>
+          </div>
           <div class="template-action">
             <xsl:attribute name="title">
               <resource name="FilesCommonResource.ButtonCreateByTemplate" />

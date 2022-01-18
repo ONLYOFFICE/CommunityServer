@@ -558,6 +558,18 @@ namespace ASC.Data.Storage.GoogleCloud
             return 0;
         }
 
+        public override async Task<long> GetFileSizeAsync(string domain, string path)
+        {
+            var storage = GetStorage();
+
+            var obj = await storage.GetObjectAsync(_bucket, MakePath(domain, path));
+
+            if (obj.Size.HasValue)
+                return Convert.ToInt64(obj.Size.Value);
+
+            return 0;
+        }
+
         public override long GetDirectorySize(string domain, string path)
         {
             var storage = GetStorage();

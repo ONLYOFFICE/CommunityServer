@@ -122,7 +122,7 @@ ASC.RestoreManager = (function () {
         });
         $box.find(".textEdit").val(selectedConsumer.title).trigger("change");
         $box.off("input.textbox").on("input.textbox", ".textBox", function () {
-            $(this).removeClass(withErrorClass);
+            jq(this).removeClass(withErrorClass);
         });
     }
 
@@ -308,7 +308,7 @@ ASC.RestoreManager = (function () {
                 source.params.push({ key: "module", value: selectedConsumer });
                 var settingsLength = $settings.length;
                 for (var i = 0; i < settingsLength; i++) {
-                    var $item = $($settings[i]);
+                    var $item = jq($settings[i]);
                     if (!$item.val()) {
                         $item.addClass(withErrorClass);
                         isError = true;

@@ -81,6 +81,11 @@ namespace ASC.Core.Caching
             return service.GetTenants(from, active);
         }
 
+        public IEnumerable<Tenant> GetTenants(List<int> ids)
+        {
+            return service.GetTenants(ids);
+        }
+
         public Tenant GetTenant(int id)
         {
             var tenants = GetTenantStore();

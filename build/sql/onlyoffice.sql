@@ -1007,6 +1007,15 @@ CREATE TABLE IF NOT EXISTS `files_folder_tree` (
   KEY `folder_id` (`folder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `files_link` (
+  `source_id` varchar(32) NOT NULL,
+  `linked_id` varchar(32) NOT NULL,
+  `linked_for` char(38) NOT NULL,
+  `tenant_id` int(10) NOT NULL,
+  PRIMARY KEY (`tenant_id`, `source_id`, `linked_id`),
+  KEY `linked_for` (`tenant_id`, `source_id`, `linked_id`, `linked_for`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `files_security` (
   `tenant_id` int(10) NOT NULL,
   `entry_id` varchar(50) NOT NULL,

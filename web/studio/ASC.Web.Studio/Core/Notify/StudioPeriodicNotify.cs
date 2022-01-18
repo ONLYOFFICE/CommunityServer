@@ -249,7 +249,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                         #region 5 days before SAAS TRIAL ends to admins
 
-                        else if (dueDateIsNotMax && dueDate.AddDays(-5) == nowDate)
+                        else if (!CoreContext.Configuration.CustomMode && dueDateIsNotMax && dueDate.AddDays(-5) == nowDate)
                         {
                             toadmins = true;
                             action = Actions.SaasAdminTrialWarningBefore5V115;
@@ -585,7 +585,7 @@ namespace ASC.Web.Studio.Core.Notify
                                 .Where(Exp.Le("created_date", nowDate.AddDays(-1)))
                                 .GroupBy("short_date");
 
-                            using (var db = new DbManager(dbid))
+                            using (var db = DbManager.FromHttpContext(dbid))
                             {
                                 datesWithActivity = db
                                     .ExecuteList(query)
@@ -953,7 +953,7 @@ namespace ASC.Web.Studio.Core.Notify
                                 case 28:
                                     action = Actions.PersonalAfterRegistration28;
                                     greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
-                                    greenButtonUrl = "https://www.onlyoffice.com/download-commercial.aspx";
+                                    greenButtonUrl = "https://www.onlyoffice.com/download-workspace.aspx";
                                     break;
                                 default:
                                     continue;

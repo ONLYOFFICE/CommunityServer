@@ -110,7 +110,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public List<File> GetFiles(object[] fileIds)
+        public List<File> GetFiles(IEnumerable<object> fileIds)
         {
             var result = Enumerable.Empty<File>();
 
@@ -126,7 +126,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                 {
                                                     using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                                     {
-                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToArray());
+                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToList());
                                                     }
                                                 }
                     )
@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result.ToList();
         }
 
-        public List<File> GetFilesFiltered(object[] fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFilesFiltered(IEnumerable<object> fileIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             var result = Enumerable.Empty<File>();
 
@@ -152,7 +152,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                         {
                                             using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                             {
-                                                return fileDao.GetFilesFiltered(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                return fileDao.GetFilesFiltered(matchedId.Select(selectorLocal.ConvertId).ToList(),
                                                     filterType, subjectGroup, subjectID, searchText, searchInContent);
                                             }
                                         })
@@ -456,7 +456,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region Only in TMFileDao
 
-        public void ReassignFiles(object[] fileIds, Guid newOwnerId)
+        public void ReassignFiles(IEnumerable<object> fileIds, Guid newOwnerId)
         {
             foreach (var selector in GetSelectors())
             {
@@ -469,13 +469,13 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 {
                     using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                     {
-                        fileDao.ReassignFiles(matchedId.Select(selectorLocal.ConvertId).ToArray(), newOwnerId);
+                        fileDao.ReassignFiles(matchedId.Select(selectorLocal.ConvertId).ToList(), newOwnerId);
                     }
                 }
             }
         }
 
-        public List<File> GetFiles(object[] parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
+        public List<File> GetFiles(IEnumerable<object> parentIds, FilterType filterType, bool subjectGroup, Guid subjectID, string searchText, bool searchInContent)
         {
             var result = Enumerable.Empty<File>();
 
@@ -491,7 +491,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                 {
                                                     using (var fileDao = selectorLocal.GetFileDao(matchedId.FirstOrDefault()))
                                                     {
-                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToArray(),
+                                                        return fileDao.GetFiles(matchedId.Select(selectorLocal.ConvertId).ToList(),
                                                             filterType, subjectGroup, subjectID, searchText, searchInContent);
                                                     }
                                                 }));

@@ -57,7 +57,7 @@ namespace ASC.Projects.Engine
             }
         }
 
-        public IEnumerable<File> GetFiles(object[] id)
+        public IEnumerable<File> GetFiles(IEnumerable<object> id)
         {
             using (var dao = FilesIntegration.GetFileDao())
             {

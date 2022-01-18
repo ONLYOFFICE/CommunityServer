@@ -91,3 +91,7 @@
     height: 400px;
     min-height: 400px;
 }
+
+#fileSelectorDialog #emptyContainer .emptyScrCtrl > table {
+    margin: 0 auto;
+}

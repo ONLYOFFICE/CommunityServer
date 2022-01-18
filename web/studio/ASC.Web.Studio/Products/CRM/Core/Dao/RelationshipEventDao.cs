@@ -145,10 +145,10 @@ namespace ASC.CRM.Core.Dao
 
         public int GetFilesCount(int[] contactID, EntityType entityType, int entityID)
         {
-            return GetFilesIDs(contactID, entityType, entityID).Length;
+            return GetFilesIDs(contactID, entityType, entityID).Count;
         }
 
-        private object[] GetFilesIDs(int[] contactID, EntityType entityType, int entityID)
+        private List<object> GetFilesIDs(int[] contactID, EntityType entityType, int entityID)
         {
             if (entityID > 0 && entityType != EntityType.Opportunity && entityType != EntityType.Case)
                 throw new ArgumentException();
@@ -167,7 +167,10 @@ namespace ASC.CRM.Core.Dao
             var tagNames = Db.ExecuteList(sqlQuery).ConvertAll(row => String.Format("RelationshipEvent_{0}", row[0]));
             using (var tagdao = FilesIntegration.GetTagDao())
             {
-                return tagdao.GetTags(tagNames.ToArray(), TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
+                return tagdao.GetTags(tagNames.ToArray(), TagType.System)
+                    .Where(t => t.EntryType == FileEntryType.File)
+                    .Select(t => t.EntryId)
+                    .ToList();
             }
         }
 
@@ -176,7 +179,7 @@ namespace ASC.CRM.Core.Dao
             using (var filedao = FilesIntegration.GetFileDao())
             {
                 var ids = GetFilesIDs(contactID, entityType, entityID);
-                var files = 0 < ids.Length ? filedao.GetFiles(ids) : new List<File>();
+                var files = 0 < ids.Count ? filedao.GetFiles(ids) : new List<File>();
 
                 files.ForEach(CRMSecurity.SetAccessTo);
 
@@ -198,9 +201,9 @@ namespace ASC.CRM.Core.Dao
                 var findedTags = tagdao.GetTags(eventID.Select(item => String.Concat("RelationshipEvent_", item)).ToArray(),
                     TagType.System).Where(t => t.EntryType == FileEntryType.File);
 
-                var filesID = findedTags.Select(t => t.EntryId).ToArray();
+                var filesID = findedTags.Select(t => t.EntryId).ToList();
 
-                var files = 0 < filesID.Length ? filedao.GetFiles(filesID) : new List<File>();
+                var files = 0 < filesID.Count ? filedao.GetFiles(filesID) : new List<File>();
 
                 var filesTemp = new Dictionary<object, File>();
 
@@ -227,8 +230,12 @@ namespace ASC.CRM.Core.Dao
             using (var tagdao = FilesIntegration.GetTagDao())
             using (var filedao = FilesIntegration.GetFileDao())
             {
-                var ids = tagdao.GetTags(String.Concat("RelationshipEvent_", eventID), TagType.System).Where(t => t.EntryType == FileEntryType.File).Select(t => t.EntryId).ToArray();
-                var files = 0 < ids.Length ? filedao.GetFiles(ids) : new List<File>();
+                var ids = tagdao.GetTags(String.Concat("RelationshipEvent_", eventID), TagType.System)
+                    .Where(t => t.EntryType == FileEntryType.File)
+                    .Select(t => t.EntryId)
+                    .ToList();
+
+                var files = 0 < ids.Count ? filedao.GetFiles(ids) : new List<File>();
 
                 files.ForEach(CRMSecurity.SetAccessTo);
 

@@ -36,7 +36,7 @@ namespace ASC.Web.Files
     {
         public override List<UsageSpaceStatItem> GetStatData()
         {
-            using (var db = new DbManager(FileConstant.DatabaseId))
+            using (var db = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var myFiles = new SqlQuery("files_file f")
                     .Select("f.create_by")
@@ -85,7 +85,7 @@ namespace ASC.Web.Files
 
         public long GetUserSpaceUsage(Guid userId)
         {
-            using (var db = new DbManager(FileConstant.DatabaseId))
+            using (var db = DbManager.FromHttpContext(FileConstant.DatabaseId))
             {
                 var query = new SqlQuery("files_file f")
                     .Select("sum(f.content_length) as size")

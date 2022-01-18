@@ -97,36 +97,45 @@ namespace ASC.Web.Files.Configuration
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
                 var result = SearchFiles(text)
-                    .Select(r => new SearchResultItem
+                    .Select(r =>
                     {
-                        Name = r.Title ?? string.Empty,
-                        Description = string.Empty,
-                        URL = FilesLinkUtility.GetFileWebPreviewUrl(r.Title, r.ID),
-                        Date = r.ModifiedOn,
-                        Additional = new Dictionary<string, object>
-                                {
-                                    { "Author", r.CreateByString.HtmlEncode() },
-                                    { "Path", FolderPathBuilder(EntryManager.GetBreadCrumbs(r.FolderID, folderDao)) },
-                                    { "Size", FileSizeComment.FilesSizeToString(r.ContentLength) }
-                                }
-                    }
-                    );
+                        var folders = EntryManager.GetBreadCrumbs(r.FolderID, folderDao);
+                        return new SearchResultItem
+                        {
+                            Name = r.Title ?? string.Empty,
+                            Description = string.Empty,
+                            URL = FilesLinkUtility.GetFileWebPreviewUrl(r.Title, r.ID),
+                            Date = r.ModifiedOn,
+                            Additional = new Dictionary<string, object>
+                            {
+                                { "Author", r.CreateByString.HtmlEncode() },
+                                { "Path", FolderPathBuilder(folders) },
+                                { "FullPath", FolderFullPathBuilder(folders) },
+                                { "FolderUrl", PathProvider.GetFolderUrl(r.FolderID) },
+                                { "Size", FileSizeComment.FilesSizeToString(r.ContentLength) }
+                            }
+                        };
+                    });
 
                 var resultFolder = SearchFolders(text)
                     .Select(f =>
-                            new SearchResultItem
+                    {
+                        var folders = EntryManager.GetBreadCrumbs(f.ID, folderDao);
+                        return new SearchResultItem
+                        {
+                            Name = f.Title ?? string.Empty,
+                            Description = String.Empty,
+                            URL = PathProvider.GetFolderUrl(f),
+                            Date = f.ModifiedOn,
+                            Additional = new Dictionary<string, object>
                             {
-                                Name = f.Title ?? string.Empty,
-                                Description = String.Empty,
-                                URL = PathProvider.GetFolderUrl(f),
-                                Date = f.ModifiedOn,
-                                Additional = new Dictionary<string, object>
-                                        {
-                                            { "Author", f.CreateByString.HtmlEncode() },
-                                            { "Path", FolderPathBuilder(EntryManager.GetBreadCrumbs(f.ID, folderDao)) },
-                                            { "IsFolder", true }
-                                        }
-                            });
+                                { "Author", f.CreateByString.HtmlEncode() },
+                                { "Path", FolderPathBuilder(folders) },
+                                { "FullPath", FolderFullPathBuilder(folders) },
+                                { "IsFolder", true }
+                            }
+                        };
+                    });
 
                 return result.Concat(resultFolder).ToArray();
             }
@@ -144,6 +153,13 @@ namespace ASC.Web.Files.Configuration
             return 4 < titles.Count
                        ? string.Join(separator, new[] { titles.First(), "...", titles.ElementAt(titles.Count - 2), titles.Last() })
                        : string.Join(separator, titles.ToArray());
+        }
+
+        private static String FolderFullPathBuilder(IEnumerable<Folder> folders)
+        {
+            var titles = folders.Select(f => f.Title).ToList();
+            const string separator = " \\ ";
+            return string.Join(separator, titles.ToArray());
         }
     }
 
@@ -166,7 +182,8 @@ namespace ASC.Web.Files.Configuration
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "borderBase left-column gray-text");
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
 
-                var typeTitle = srGroup.Additional.ContainsKey("IsFolder") && srGroup.Additional["IsFolder"].Equals(true) ? FilesCommonResource.Folder : FilesCommonResource.File;
+                var isFolder = srGroup.Additional.ContainsKey("IsFolder") && srGroup.Additional["IsFolder"].Equals(true);
+                var typeTitle = isFolder ? FilesCommonResource.Folder : FilesCommonResource.File;
 
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, typeTitle);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -214,7 +231,11 @@ namespace ASC.Web.Files.Configuration
 
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "borderBase right-column gray-text");
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+                writer.AddAttribute(HtmlTextWriterAttribute.Href, isFolder ? srGroup.URL : srGroup.Additional["FolderUrl"].ToString());
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, srGroup.Additional["FullPath"].ToString());
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "link gray-text");
+                writer.RenderBeginTag(HtmlTextWriterTag.A);
                 writer.Write(srGroup.Additional["Path"]);
                 writer.RenderEndTag();
                 writer.RenderEndTag();

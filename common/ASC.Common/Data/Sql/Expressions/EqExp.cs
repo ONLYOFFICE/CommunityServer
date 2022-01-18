@@ -15,6 +15,8 @@
 */
 
 
+using System.Collections.Generic;
+
 namespace ASC.Common.Data.Sql.Expressions
 {
     public class EqExp : Exp
@@ -35,7 +37,7 @@ namespace ASC.Common.Data.Sql.Expressions
                                  value != null ? (Not ? "<> ?" : "= ?") : (Not ? "is not null" : "is null"));
         }
 
-        public override object[] GetParameters()
+        public override IEnumerable<object> GetParameters()
         {
             return value == null ? new object[0] : new[] { value };
         }

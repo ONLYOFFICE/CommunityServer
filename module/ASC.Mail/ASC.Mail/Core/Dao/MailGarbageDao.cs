@@ -219,12 +219,10 @@ namespace ASC.Mail.Core.Dao
             }
         }
 
-        private DbManager GetDb()
+        private IDbManager GetDb()
         {
-            return new DbManager(Defines.CONNECTION_STRING_NAME);
+            return DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME);
         }
 
     }
-
-
 }

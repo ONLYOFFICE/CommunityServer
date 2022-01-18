@@ -265,6 +265,45 @@ namespace ASC.Web.Files
                 return;
             }
 
+            var fileSecurity = Global.GetFilesSecurity();
+            if (_configuration.EditorConfig.ModeWrite
+                && FileUtility.CanWebRestrictedEditing(file.Title)
+                && fileSecurity.CanFillForms(file)
+                && !fileSecurity.CanEdit(file))
+            {
+                if (!file.IsFillFormDraft)
+                {
+                    FileMarker.RemoveMarkAsNew(file);
+
+                    Folder folderIfNew;
+                    try
+                    {
+                        file = EntryManager.GetFillFormDraft(file, out folderIfNew);
+                    }
+                    catch (Exception ex)
+                    {
+                        _configuration = null;
+                        Global.Logger.Error("DocEditor", ex);
+                        ErrorMessage = ex.Message;
+                        return;
+                    }
+
+                    var comment = folderIfNew == null
+                        ? string.Empty
+                        : "#message/" + HttpUtility.UrlEncode(string.Format(FilesCommonResource.MessageFillFormDraftCreated, folderIfNew.Title));
+
+                    Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
+                    return;
+                }
+                else if (!EntryManager.CheckFillFormDraft(file))
+                {
+                    var comment = "#message/" + HttpUtility.UrlEncode(FilesCommonResource.MessageFillFormDraftDiscard);
+
+                    Response.Redirect(FilesLinkUtility.GetFileWebEditorUrl(file.ID) + comment);
+                    return;
+                }
+            }
+
             Title = file.Title + GetPageTitlePostfix();
 
             if (_configuration.EditorConfig.Customization.Goback == null || string.IsNullOrEmpty(_configuration.EditorConfig.Customization.Goback.Url))
@@ -331,7 +370,17 @@ namespace ASC.Web.Files
 
             if (SecurityContext.IsAuthenticated)
             {
-                _configuration.EditorConfig.SaveAsUrl = CommonLinkUtility.GetFullAbsolutePath(SaveAs.GetUrl);
+                var saveAsUrl = SaveAs.GetUrl;
+                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                {
+                    var folder = folderDao.GetFolder(file.FolderID);
+                    if (folder != null && Global.GetFilesSecurity().CanCreate(folder))
+                    {
+                        saveAsUrl = SaveAs.GetUrlToFolder(file.FolderID);
+                    }
+                }
+
+                _configuration.EditorConfig.SaveAsUrl = CommonLinkUtility.GetFullAbsolutePath(saveAsUrl);
             }
 
             if (_configuration.EditorConfig.ModeWrite)

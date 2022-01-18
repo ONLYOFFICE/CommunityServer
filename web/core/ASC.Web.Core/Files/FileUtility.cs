@@ -158,7 +158,7 @@ namespace ASC.Web.Core.Files
                     const string databaseId = "files";
                     const string tableTitle = "files_converts";
 
-                    using (var dbManager = new DbManager(databaseId))
+                    using (var dbManager = DbManager.FromHttpContext(databaseId))
                     {
                         var sqlQuery = new SqlQuery(tableTitle).Select("input", "output");
 
@@ -337,7 +337,8 @@ namespace ASC.Web.Core.Files
                 ".html", ".htm", ".mht",
                 ".pdf", ".djvu", ".fb2", ".epub", ".xps",
                 ".doct", ".docy",
-                ".gdoc"
+                ".gdoc",
+                ".docxf", ".oform"
             };
 
         public static readonly List<string> ExtsTemplate = new List<string>
@@ -354,6 +355,8 @@ namespace ASC.Web.Core.Files
                 { FileType.Spreadsheet, ConfigurationManagerExtension.AppSettings["files.docservice.internal-xls"] ?? ".xlsx" },
                 { FileType.Presentation, ConfigurationManagerExtension.AppSettings["files.docservice.internal-ppt"] ?? ".pptx" }
             };
+
+        public static readonly string MasterFormExtension = ConfigurationManagerExtension.AppSettings["files.docservice.internal-form"] ?? ".docxf";
 
         public enum CsvDelimiter
         {

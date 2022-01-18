@@ -115,8 +115,8 @@ namespace ASC.Mail.Core.Dao
             }
 
             var query = new SqlDelete(UserFolderTreeTable.TABLE_NAME)
-                .Where(Exp.In(UserFolderTreeTable.Columns.FolderId, subFolders.Keys) &
-                       !Exp.In(UserFolderTreeTable.Columns.ParentId, subFolders.Keys));
+                .Where(Exp.In(UserFolderTreeTable.Columns.FolderId, subFolders.Keys.ToList()) &
+                       !Exp.In(UserFolderTreeTable.Columns.ParentId, subFolders.Keys.ToList()));
 
             // ReSharper disable once NotAccessedVariable
             var result = Db.ExecuteNonQuery(query);

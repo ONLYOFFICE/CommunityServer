@@ -203,7 +203,7 @@ namespace ASC.Mail.Core.Engine
         {
             try
             {
-                using (var db = new DbManager(Defines.CONNECTION_STRING_NAME, Defines.RemoveDomainTimeout))
+                using (var db = DbManager.FromHttpContext(Defines.CONNECTION_STRING_NAME, Defines.RemoveDomainTimeout))
                 {
                     var daoFactory = new DaoFactory(db);
 

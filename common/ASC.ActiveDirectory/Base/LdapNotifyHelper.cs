@@ -75,7 +75,7 @@ namespace ASC.ActiveDirectory.Base
         {
             var task = new Task(() =>
             {
-                var tenants = CoreContext.TenantManager.GetTenants();
+                var tenants = CoreContext.TenantManager.GetTenants(new LdapSettings().GetTenants());
                 foreach (var t in tenants)
                 {
                     var tId = t.TenantId;

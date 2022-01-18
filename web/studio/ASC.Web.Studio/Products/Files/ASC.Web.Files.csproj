@@ -69,6 +69,13 @@
     <Compile Include="Controls\ConvertFile\ConfirmConvert.ascx.designer.cs">
       <DependentUpon>ConfirmConvert.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FileChoisePopup\FileChoisePopup.ascx.cs">
+      <DependentUpon>FileChoisePopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\FileChoisePopup\FileChoisePopup.ascx.designer.cs">
+      <DependentUpon>FileChoisePopup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MainContent\MainContentFilter.ascx.cs">
       <DependentUpon>MainContentFilter.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,6 +129,8 @@
     <Compile Include="Core\Compress\CompressToTarGz.cs" />
     <Compile Include="Core\Compress\CompressToZip.cs" />
     <Compile Include="Core\Compress\ICompress.cs" />
+    <Compile Include="Core\Dao\Interfaces\ILinkDao.cs" />
+    <Compile Include="Core\Dao\TeamlabDao\LinkDao.cs" />
     <Compile Include="Core\Entries\EncryptionKeyPair.cs" />
     <Compile Include="Core\Entries\ForcesaveType.cs" />
     <Compile Include="Core\Entries\Thumbnail.cs" />
@@ -262,6 +271,9 @@
     <Content Include="Controls\ConvertFile\ConfirmConvert.ascx" />
     <Content Include="Controls\ConvertFile\confirmconvert.js" />
     <Content Include="Controls\ConvertFile\confirmconvert.css" />
+    <Content Include="Controls\FileChoisePopup\filechoisepopup.js" />
+    <Content Include="Controls\FileChoisePopup\filechoisepopup.css" />
+    <Content Include="Controls\FileChoisePopup\FileChoisePopup.ascx" />
     <Content Include="Controls\EmptyFolder\images\privacy.svg" />
     <Content Include="Controls\MainContent\MainContentFilter.ascx" />
     <Content Include="Controls\MainMenu\MainButton.ascx" />

@@ -29,10 +29,10 @@ namespace ASC.Blogs.Core.Data
 {
     public class DbDao
     {
-        private readonly DbManager db;
+        private readonly IDbManager db;
 
 
-        protected DbDao(DbManager db, int tenant)
+        protected DbDao(IDbManager db, int tenant)
         {
             if (db == null) throw new ArgumentNullException("db");
 
@@ -42,7 +42,7 @@ namespace ASC.Blogs.Core.Data
 
         public int Tenant { get; private set; }
 
-        public DbManager Db { get { return db; } }
+        public IDbManager Db { get { return db; } }
 
         public IDbConnection OpenConnection()
         {

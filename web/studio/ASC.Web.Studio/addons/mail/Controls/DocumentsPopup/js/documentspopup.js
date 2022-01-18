@@ -21,6 +21,7 @@ window.DocumentsPopup = (function ($) {
         attachFilesAsLinks,
         $attachFilesAsLinksSelector,
         loader,
+        frameUrl,
         supportedCustomEvents = {SelectFiles: "on_documents_selected"},
         eventsHandler = jq({});
 
@@ -29,12 +30,12 @@ window.DocumentsPopup = (function ($) {
         attachFilesAsLinks = el.find("#attachFilesAsLinks");
         $attachFilesAsLinksSelector = el.find("#attachFilesAsLinksSelector");
         loader = el.find(".loader-page");
+        frameUrl = jq("#attachFrame").data("frame");
 
-        var frameUrl = jq("#attachFrame").data("frame");
         jq("<iframe/>",
             {
                 "frameborder": 0,
-                "height": "535px",
+                "height": "532px",
                 "id": "fileChoiceFrame",
                 "scrolling": "no",
                 "src": frameUrl,
@@ -102,6 +103,10 @@ window.DocumentsPopup = (function ($) {
     function bindEvents () {
         window.addEventListener("message",
             function (message) {
+                if (frameUrl.indexOf(message.source.location.pathname) === -1) {
+                    return;
+                }
+
                 try {
                     var data = jq.parseJSON(message.data);
                 } catch (e) {

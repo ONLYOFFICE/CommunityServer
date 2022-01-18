@@ -19,6 +19,7 @@ using System;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -34,6 +35,7 @@ using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
+using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -140,6 +142,14 @@ namespace ASC.Web.Studio.Masters
                     AddBodyScripts(ResolveUrl, "~/js/asc/core/collaborators.js");
                 }
             }
+
+            var matches = Regex.Match(HttpContext.Current.Request.Url.AbsolutePath, "(products|addons)/(\\w+)/(share\\.aspx|saveas\\.aspx|filechoice\\.aspx|ganttchart\\.aspx|jabberclient\\.aspx|timer\\.aspx|generatedreport\\.aspx).*", RegexOptions.IgnoreCase);
+
+            if (SecurityContext.IsAuthenticated && !matches.Success)
+            {
+                LiveChatHolder.Controls.Add(LoadControl(SupportChat.Location));
+                AddBodyScripts(ResolveUrl, "~/UserControls/Common/Support/livechat.js");
+            }
         }
 
         protected string RenderStatRequest()
@@ -198,11 +208,16 @@ namespace ASC.Web.Studio.Masters
 
         private void InitProductSettingsInlineScript()
         {
-            var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
+            var isAdmin = false;
 
-            if (!isAdmin)
+            if (!CoreContext.Configuration.Personal)
             {
-                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
+                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
+
+                if (!isAdmin)
+                {
+                    isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
+                }
             }
 
             RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);
