@@ -4,45 +4,68 @@ This document provides the roadmap of the planned ONLYOFFICE Community Server ch
 
 This is an updated and corrected version of the roadmap. We also reserve the right to change it when necessary.
 
-## Version 11.0
+## Version 12.0
 
 ### General
 
-* Portal notifications via Telegram
-* Ability to make an addon (Mail, Chat, Calendar) a default portal page
-* Two scrolling areas on the page: navingation and content
-* New version of Elasticsearch - v.7.4
-* New mechanics for displaying messages on authorization page
-* Update to Mono v6.10
-
-### Security
-
-* File encryption at rest
-* ONLYOFFICE Private Rooms support
-* Updates for password security (min length = 8 characters, complexity check on client-side, hashing when transmitting to server)
+* Authorization via AppleId and Microsoft
+* New keys for authorization via Twilio
+* New keys for authorization via bitly
+* Portal name in logs
+* Update to CKEditor v4.16.1, new styles for TextCut and Magicline
+* Feed and Mail drop-down lists redesign
+* textarea redesign
+* New page with UserVisits information
+* Disabling Community module by default for new portals
+* Telegram notifications and Zendesk chat fixes
+* Disabling asp.net sessions in the project
 
 ### Documents
 
-* Favorites folder, ability to add files to favorites
-* Recent folder
-* Custom Filter access rights for spreadsheets
-* Connecting kDrive via WebDav
-* Support for .webp images
-* New MailMerge API for the editors 
-* Separate section for quick access to admin settings on the left panel 
+* New page when opening documents in the Private Room
+* New settings to automatically clean up the Trash folder
+* Support of fb2 files for viewing
+* Ability to download xml files with conversion / open for viewing
+* Ability to download text files with conversion to epub, fb2, html, dotx, ott
+* Ability to download spreadsheets with conversion to xltx, ots
+* Ability to download presentations with conversion to potx, otp
+* Ability to download oxps files with conversion to pdf / open for viewing
+* Ability to download oxps files with conversion to pdf / open for viewing
+* Sharing settings window redesign
+* New feature in the Sharing settings window - Can't print, download and copy file (for Read Only and Comment)
+* New feature in the Sharing settings window - Can't change sharing settings (for Full Access)
+* New feature in Common settings - Default access rights in sharing settings
+* WebDAV server
 
-### CRM
+### Calendar
 
-* `Make a VoIP call` action in the contact context menu
-* Bug fixes
+* WYSIWYG CKEditor in the Description field of the Event
+* New config for the Toolbar
+* Description column redesign for the List page
+* DOMPurify sanitizer to prevent possible XSS
+
+### Projects
+
+* Ability to drag-and-drop subtasks
+* Rework reports: User Activity, Project List, add a time interval
+
+### People
+
+* Telegram in Contact information
+* Move Birthdays from Community to People
+* Feed with Birthdays and New employees
+* Connection list in the profile with the ability to log out
+* Ability for administrators to log out all connections of the certain user
+* Ability to create CardDAV address books
+
+### Mail
+
+* IMAP synchronization for Mail Server
+* Mail Server database backup and restore
 
 ### Control Panel
 
-* Control Panel is available in Community Edition
-* Advanced rebranding settings
-* Reindexing full-text search via Elasticsearch
-* Private Rooms enabling page
-* New Encryption block in the Storage section 
+* Bug fixes
 
 ## Project information
 
