@@ -70,6 +70,9 @@ namespace ASC.Feed.Aggregator
         [DataMember]
         public string Module { get; set; }
 
+        [DataMember(EmitDefaultValue = false)]
+        public bool? IsAllDayEvent { get; set; }
+
         [DataMember]
         public string ExtraLocation { get; set; }
 

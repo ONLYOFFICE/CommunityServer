@@ -38,5 +38,6 @@ namespace ASC.Mail.Core.Entities
         public int ServerMailGroupId { get; set; }
         public string ServerMailGroupAddress { get; set; }
         public int ServerDomainTenant { get; set; }
+        public DateTime? DateCreated { get; set; }
     }
 }

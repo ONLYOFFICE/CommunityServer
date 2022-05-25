@@ -334,8 +334,8 @@ namespace ASC.Web.Core.Files
                 ".doc", ".docx", ".docm",
                 ".dot", ".dotx", ".dotm",
                 ".odt", ".fodt", ".ott", ".rtf", ".txt",
-                ".html", ".htm", ".mht",
-                ".pdf", ".djvu", ".fb2", ".epub", ".xps",
+                ".html", ".htm", ".mht", ".xml",
+                ".pdf", ".djvu", ".fb2", ".epub", ".xps", ".oxps",
                 ".doct", ".docy",
                 ".gdoc",
                 ".docxf", ".oform"

@@ -148,7 +148,7 @@ namespace ASC.Web.Studio.UserControls.Management
             UserInfo user;
             try
             {
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                 user = CoreContext.UserManager.GetUserByEmail(email);
                 var usr = CoreContext.UserManager.GetUsers(uid);
@@ -282,7 +282,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var userID = Guid.Empty;
             try
             {
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                 if (_type == ConfirmType.EmpInvite || _type == ConfirmType.LinkInvite)
                 {
                     if (!CoreContext.Configuration.Personal && TenantStatisticsProvider.GetUsersCount() >= TenantExtra.GetTenantQuota().ActiveUsers && _employeeType == EmployeeType.User)
@@ -373,9 +373,8 @@ namespace ASC.Web.Studio.UserControls.Management
             user = CoreContext.UserManager.GetUsers(userID);
             try
             {
-                var cookiesKey = SecurityContext.AuthenticateMe(user.Email, passwordHash);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
+                CookiesManager.AuthenticateMeAndSetCookies(user.Email, passwordHash, MessageAction.LoginSuccess);
+
                 StudioNotifyService.Instance.UserHasJoin();
 
                 if (mustChangePassword)
@@ -455,7 +454,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 userInfo.CultureName = CoreContext.Configuration.CustomMode ? "ru-RU" : Thread.CurrentThread.CurrentUICulture.Name;
             }
 
-            return UserManagerWrapper.AddUser(userInfo, passwordHash, true, true, isVisitor, fromInviteLink);
+            return UserManagerWrapper.AddUser(userInfo, passwordHash, true, true, isVisitor, fromInviteLink, true, true);
         }
     }
 }

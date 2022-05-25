@@ -26,8 +26,6 @@ using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 
-using Microsoft.Ajax.Utilities;
-
 namespace ASC.Web.Studio.Masters.MasterResources
 {
     public class MasterLocalizationResources : ClientScriptLocalization
@@ -104,7 +102,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             Resource.In,
                             Yet2 = DateTimeExtension.Yet(2),
                             Yet3 = DateTimeExtension.Yet(3),
-                            AllRightsReservedText = (CoreContext.Configuration.CustomMode ? CustomModeResource.AllRightsReservedCustomMode : Resource.AllRightsReservedText).FormatInvariant(DateTime.UtcNow.Year),
+                            AllRightsReservedText = string.Format(CultureInfo.InvariantCulture, CoreContext.Configuration.CustomMode ? CustomModeResource.AllRightsReservedCustomMode : Resource.AllRightsReservedText, DateTime.UtcNow.Year),
                             Resource.LdapUsersListLockTitle,
                             Resource.LdapUserEditCanOnlyAdminTitle,
                             Resource.LdapSettingsSuccess,

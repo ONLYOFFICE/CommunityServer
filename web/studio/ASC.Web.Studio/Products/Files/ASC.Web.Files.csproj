@@ -18,8 +18,10 @@
     <RootNamespace>ASC.Web.Files</RootNamespace>
     <AssemblyName>ASC.Web.Files</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
@@ -48,6 +50,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Configuration\FilesSettings.cs" />
+    <Compile Include="Controls\AccessRights\FormFilling.ascx.cs">
+      <DependentUpon>FormFilling.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AccessRights\FormFilling.ascx.designer.cs">
+      <DependentUpon>FormFilling.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AppBanner\AppBanner.ascx.cs">
       <DependentUpon>AppBanner.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -90,6 +99,13 @@
     <Compile Include="Controls\MainMenu\MainButton.ascx.designer.cs">
       <DependentUpon>MainButton.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PrivateRoomOpenFile\PrivateRoomOpenFile.ascx.cs">
+      <DependentUpon>PrivateRoomOpenFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PrivateRoomOpenFile\PrivateRoomOpenFile.ascx.designer.cs">
+      <DependentUpon>PrivateRoomOpenFile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Sailfish\Sailfish.ascx.cs">
       <DependentUpon>Sailfish.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,12 +141,27 @@
     <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UnsubscribeDialog\UnsubscribeDialog.ascx.cs">
+      <DependentUpon>UnsubscribeDialog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\UnsubscribeDialog\UnsubscribeDialog.ascx.designer.cs">
+      <DependentUpon>UnsubscribeDialog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SharingDialog\SharingDialog.ascx.cs">
+      <DependentUpon>SharingDialog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SharingDialog\SharingDialog.ascx.designer.cs">
+      <DependentUpon>SharingDialog.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Core\Compress\CompressToArchive.cs" />
     <Compile Include="Core\Compress\CompressToTarGz.cs" />
     <Compile Include="Core\Compress\CompressToZip.cs" />
     <Compile Include="Core\Compress\ICompress.cs" />
     <Compile Include="Core\Dao\Interfaces\ILinkDao.cs" />
     <Compile Include="Core\Dao\TeamlabDao\LinkDao.cs" />
+    <Compile Include="Core\Entries\AutoCleanUpData.cs" />
     <Compile Include="Core\Entries\EncryptionKeyPair.cs" />
     <Compile Include="Core\Entries\ForcesaveType.cs" />
     <Compile Include="Core\Entries\Thumbnail.cs" />
@@ -140,6 +171,13 @@
     <Compile Include="Core\Search\FoldersWrapper.cs" />
     <Compile Include="HttpHandlers\docusignhandler.ashx.cs">
       <DependentUpon>docusignhandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="OpenPrivate.aspx.cs">
+      <DependentUpon>OpenPrivate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OpenPrivate.aspx.designer.cs">
+      <DependentUpon>OpenPrivate.aspx</DependentUpon>
     </Compile>
     <Compile Include="SaveAs.aspx.cs">
       <DependentUpon>SaveAs.aspx</DependentUpon>
@@ -165,6 +203,7 @@
     <Compile Include="Services\WCFService\FileOperations\FileOperationsManager.cs" />
     <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
     <Compile Include="Services\WCFService\Wrappers\MentionWrapper.cs" />
+    <Compile Include="Core\Entries\EntryProperties.cs" />
     <Compile Include="ThirdPartyApp\BoxApp.cs" />
     <Compile Include="ThirdPartyApp\IThirdPartyApp.cs" />
     <Compile Include="ThirdPartyApp\GoogleDriveApp.cs" />
@@ -248,6 +287,10 @@
     <Content Include="App_Themes\default\images\file_xlsx.png" />
     <Content Include="App_Themes\default\images\personal_convert.png" />
     <Content Include="App_Themes\default\saveas.css" />
+    <Content Include="Controls\AccessRights\formfilling.js" />
+    <Content Include="Controls\AccessRights\formfilling.css" />
+    <Content Include="Controls\AccessRights\FormFilling.ascx" />
+    <Content Include="Controls\AccessRights\images\fillformsgray.svg" />
     <Content Include="Controls\AppBanner\AppBanner.ascx" />
     <Content Include="Controls\AppBanner\appbanner.css" />
     <Content Include="Controls\AppBanner\images\android.svg" />
@@ -277,6 +320,9 @@
     <Content Include="Controls\EmptyFolder\images\privacy.svg" />
     <Content Include="Controls\MainContent\MainContentFilter.ascx" />
     <Content Include="Controls\MainMenu\MainButton.ascx" />
+    <Content Include="Controls\PrivateRoomOpenFile\privateroomopenfile.css" />
+    <Content Include="Controls\PrivateRoomOpenFile\privateroomopenfile.js" />
+    <Content Include="Controls\PrivateRoomOpenFile\PrivateRoomOpenFile.ascx" />
     <Content Include="Controls\Sailfish\Sailfish.ascx" />
     <Content Include="Controls\Sailfish\sailfish.js" />
     <Content Include="Controls\Sailfish\sailfish.css" />
@@ -284,6 +330,15 @@
     <Content Include="Controls\Desktop\desktop.css" />
     <Content Include="Controls\Desktop\desktop.js" />
     <Content Include="Controls\Desktop\images\logo.png" />
+    <Content Include="Controls\SharingDialog\images\link.svg" />
+    <Content Include="Controls\SharingDialog\images\link_via.png" />
+    <Content Include="Controls\SharingDialog\images\settings.svg" />
+    <Content Include="Controls\SharingDialog\images\user.svg" />
+    <Content Include="Controls\UnsubscribeDialog\unsubscribedialog.js" />
+    <Content Include="Controls\UnsubscribeDialog\UnsubscribeDialog.ascx" />
+    <Content Include="Controls\SharingDialog\sharingdialog.css" />
+    <Content Include="Controls\SharingDialog\sharingdialog.js" />
+    <Content Include="Controls\SharingDialog\SharingDialog.ascx" />
     <Content Include="Controls\ThirdParty\images\retina\thirdparty_boxnet.png" />
     <Content Include="Controls\ThirdParty\images\thirdparty_docusign.png" />
     <Content Include="Controls\ThirdParty\images\thirdparty_nextcloud.png" />
@@ -299,6 +354,7 @@
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
     <Content Include="js\saveas.js" />
     <Content Include="loader.html" />
+    <Content Include="OpenPrivate.aspx" />
     <Content Include="SaveAs.aspx" />
     <Content Include="FileChoice.aspx" />
     <Content Include="js\filechoice.js" />
@@ -1128,30 +1184,31 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>5.1.2</Version>
+      <Version>6.2.0</Version>
     </PackageReference>
     <PackageReference Include="DocuSign.eSign.dll">
       <Version>2.1.8.1</Version>
     </PackageReference>
     <PackageReference Include="JWT">
-      <Version>1.3.4</Version>
+      <Version>8.2.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost">
       <Version>4.0.20505</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="RestSharp">
-      <Version>106.1.0</Version>
+      <Version>106.12.0</Version>
     </PackageReference>
     <PackageReference Include="SharpZipLib">
-      <Version>1.3.1</Version>
+      <Version>1.3.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Services" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -117,7 +117,7 @@ ASC.Projects.SubtasksManager = (function () {
 
         jq(document).on(clickEventName, "#quickAddSubTaskField", function (event) {
             $subtaskNameInput = jq('.subtask-name-input');
-            $subtaskNameInput.focus();
+            $subtaskNameInput.trigger("focus");
         });
 
         teamlab.bind(teamlab.events.updatePrjTeam, function(params, team) {
@@ -197,9 +197,9 @@ ASC.Projects.SubtasksManager = (function () {
         jq(".subtask-loader").remove();
 
         $subtaskNameInput = jq('.subtask-name-input');
-        $subtaskNameInput.removeAttr('disabled');
+        $subtaskNameInput.prop("disabled", false);
         $subtaskNameInput.val('');
-        $subtaskNameInput.focus();
+        $subtaskNameInput.trigger("focus");
     };
 
     function onUpdateSubtask(params, subtask) {
@@ -213,7 +213,7 @@ ASC.Projects.SubtasksManager = (function () {
         setTimeout(function () { $subtask.yellowFade(); }, 0);
 
         var data = {
-            title:jq.trim( $subtask.find(".taskName span").text()),
+            title: $subtask.find(".taskName span").text().trim(),
             responsible: currentUserId,
             status: 'closed'
         };
@@ -285,6 +285,7 @@ ASC.Projects.SubtasksManager = (function () {
         }
 
         $responsibleSelector.advancedSelector({
+            height: 30 * 9, //magic: itemsCount*itemHeight
             showSearch: false,
             onechosen: true,
             itemsChoose: validTeamMembers.map(mapTeamMember),
@@ -294,7 +295,7 @@ ASC.Projects.SubtasksManager = (function () {
         }).on("showList", function (event, item) {
             $responsibleSelector.attr("data-id", item.id).html(item.title).attr("title", item.title);
             $subtaskNameInput = jq('.subtask-name-input');
-            $subtaskNameInput.focus();
+            $subtaskNameInput.trigger("focus");
         });
 
         $responsibleSelector.advancedSelector("selectBeforeShow", mapTeamMember(choose));
@@ -312,7 +313,7 @@ ASC.Projects.SubtasksManager = (function () {
             if (!editFlag) {
                 hideSubtaskFields();
             } else {
-                $subtaskNameInput.focus();
+                $subtaskNameInput.trigger("focus");
             }
             return false;
         }
@@ -353,7 +354,7 @@ ASC.Projects.SubtasksManager = (function () {
         jq("#quickAddSubTaskField").removeClass("display-none");
 
         $subtaskNameInput = jq('.subtask-name-input');
-        $subtaskNameInput.focus();
+        $subtaskNameInput.trigger("focus");
     };
 
     function editSubtask(subtaskid) {
@@ -385,8 +386,8 @@ ASC.Projects.SubtasksManager = (function () {
         editField.removeClass("display-none");
 
         $subtaskNameInput = jq('.subtask-name-input');
-        $subtaskNameInput.removeAttr('disabled');
-        $subtaskNameInput.focus();
+        $subtaskNameInput.prop("disabled", false);
+        $subtaskNameInput.trigger("focus");
     };
 
     function hideSubtaskFields() {
@@ -438,11 +439,94 @@ ASC.Projects.SubtasksManager = (function () {
         return jq(".subtasks div[id=" + subtaskId + "]:visible");
     }
 
+
+    function initDragDrop() {
+
+        if (jq.browser.mobile || 'ontouchstart' in window) {
+            return;
+        }
+
+        function onDragStart(event) {
+            jq(event.currentTarget).addClass("move-target");
+            $taskContainer.find(".task.canedit:not(.closed)").addClass("can-move");
+        }
+
+        function onDragEnd(event) {
+            jq(event.currentTarget).removeClass("move-target");
+            $taskContainer.find(".task.can-move").removeClass("can-move");
+            $taskContainer.find(".task.move-dest").removeClass("move-dest");
+        }
+
+        function onDrop() {
+            var $target = $taskContainer.find(".move-target");
+            var $destination = $taskContainer.find(".move-dest");
+
+            if ($target.length && $destination.length) {
+                var subtaskId = $target.attr("id");
+                var fromTaskId = $target.closest(".subtasks").attr("taskid")
+                var taskId = $destination.attr("taskid");
+
+                if (fromTaskId == taskId) {
+                    return;
+                }
+
+                teamlab.movePrjSubtask({ fromTaskId: parseInt(fromTaskId) }, taskId, subtaskId, {
+                    success: function (params, subtask) {
+                        $target.remove();
+                        jq.tmpl("projects_subtaskTemplate", subtask).prependTo($destination.next(".subtasks"));
+                    },
+                    error: function (params, error) {
+                        common.displayInfoPanel(error[0], true);
+                    },
+                    before: function () {
+                        LoadingBanner.displayLoading();
+                    },
+                    after: function () {
+                        LoadingBanner.hideLoading();
+                    }
+                });
+            }
+        }
+
+        function onDragOver(event) {
+            event.preventDefault();
+
+            $taskContainer.find(".move-dest").removeClass("move-dest");
+
+            var $target = jq(event.target);
+            var $taskParent = $target.closest(".can-move");
+            if ($taskParent.length) {
+                $taskParent.addClass("move-dest");
+                return;
+            }
+
+            var $subtaskParent = $target.closest(".subtasks");
+            if ($subtaskParent.length) {
+                $taskParent = $subtaskParent.prev(".can-move");
+                if ($taskParent.length) {
+                    $taskParent.addClass("move-dest");
+                    return;
+                }
+            }
+        }
+
+        var $taskContainer = jq("#CommonListContainer .taskList");
+
+        $taskContainer.on("dragover", onDragOver);
+
+        $taskContainer.on("drop", onDrop);
+
+        $taskContainer.on("dragstart", ".subtask", onDragStart);
+
+        $taskContainer.on("dragend", ".subtask", onDragEnd);
+    }
+
     return {
         init: init,
         hideSubtaskFields: hideSubtaskFields,
         addFirstSubtask: showNewSubtaskField,
         setTasks: setTasks,
-        showEntityMenu: showEntityMenu
+        showEntityMenu: showEntityMenu,
+        initDragDrop: initDragDrop
     };
 })(jQuery);

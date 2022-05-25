@@ -103,7 +103,7 @@
 
         if (!setResizeCallback) {
             setResizeCallback = true;
-            $window.unbind("resize", onWindowResize).bind("resize", onWindowResize);
+            $window.off("resize", onWindowResize).on("resize", onWindowResize);
         }
 
         return this.each(function () {

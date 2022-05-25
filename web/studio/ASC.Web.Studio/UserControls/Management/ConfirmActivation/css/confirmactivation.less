@@ -56,6 +56,24 @@
     }
 }
 
+.eye-label {
+    position: absolute;
+    top: 13px;
+    right: 22px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.eye-label.hide-label {
+    background: url("../../../Users/UserProfile/css/images/access-deny.svg");
+}
+
+.eye-label.show-label {
+    background: url("../../../Users/UserProfile/css/images/read-only.svg");
+}
+
+
 .body-personal-confirm {
     background-color: transparent;
     background-image: url(images/first_screen_bg.svg);
@@ -77,6 +95,49 @@
     }
 }
 
+.confirm-block-page:not(.confirm-personal) {
+
+    .confirm-block-text {
+        margin-bottom: 6px;
+    }
+
+    .confirm-block-field {
+        position: relative;
+        margin-bottom: 0px;
+    }
+
+    #studio_confirm_pwd {
+        margin-bottom: 12px;
+    }
+
+    #studio_confirm_pwd_match {
+        margin-bottom: 6px;
+    }
+
+    .red-border {
+        border-color: #DF1B1B;
+    }
+
+    .pwdLoginTextbox {
+        padding-right: 40px;
+    }
+
+    .confirm-block-password-text {
+        font-size: 12px;
+        margin-top: 0px;
+        display: none;
+        height: 16px;
+    }
+
+    #password-match-text {
+        color: #3A9900;
+    }
+
+    #password-do-not-match-text {
+        color: #D30000;
+    }
+}
+
 .confirm-block-page.confirm-personal {
     .confirm-block-header {
         display: none;
@@ -85,7 +146,7 @@
     .confirm-block-cnt {
         margin: 0 auto;
         padding: 48px 0;
-        text-align: center;
+        text-align: left;
         width: 544px;
     }
 
@@ -104,6 +165,11 @@
         margin-bottom: 32px;
         position: relative;
         width: 100%;
+
+        .eye-label {
+            top: 20px;
+            right: 22px;
+        }
 
         &.focus, &.error, &.valid {
             &.input-hint-top {
@@ -217,6 +283,11 @@
                 border-color: #c44747;
             }
         }
+
+        #studio_confirm_pwd, #studio_confirm_pwd_match {
+            width: 100%;
+            padding-right: 40px;
+        }
     }
 
     .default-personal-popup_label {
@@ -232,6 +303,21 @@
         transition: transform 100ms ease;
         transform: translateY(0);
         position: absolute;
+    }
+
+    .confirm-block-password-text {
+        font-size: 12px;
+        margin-top: 0px;
+        display: none;
+        height: 16px;
+    }
+
+    #password-match-text {
+        color: #3A9900;
+    }
+
+    #password-do-not-match-text {
+        color: #D30000;
     }
 
     .button.blue {
@@ -280,6 +366,10 @@
         .confirm-block-field {
             height: 48px;
             margin-bottom: 24px;
+
+            .eye-label {
+                top: 16px;
+            }
 
             &.focus, &.error, &.valid {
                 &.input-hint-top {

@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}門戶徽標設置{1}功能僅適用於付費門戶。</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>關於/登入頁面的商標</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>編輯器標題的徽標</value>
   </data>

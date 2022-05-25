@@ -41,6 +41,8 @@ namespace ASC.Web.Talk
     [AjaxNamespace("JabberClient")]
     public partial class JabberClient : MainPage
     {
+        private new ILog Log = LogManager.GetLogger("ASC.Talk");
+
         private static string JabberResource
         {
             get { return "TMTalk"; }
@@ -170,7 +172,7 @@ namespace ASC.Web.Talk
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Talk").Error(ex);
+                Log.Error(ex);
                 return String.Empty;
             }
         }
@@ -185,7 +187,7 @@ namespace ASC.Web.Talk
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Talk").Error(ex);
+                Log.Error(ex);
                 return String.Empty;
             }
         }
@@ -200,7 +202,7 @@ namespace ASC.Web.Talk
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Talk").Error(ex);
+                Log.Error(ex);
                 return String.Empty;
             }
         }

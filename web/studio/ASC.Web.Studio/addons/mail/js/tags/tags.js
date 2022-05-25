@@ -250,11 +250,11 @@ window.tagsManager = (function($) {
     }
 
     function bind(eventName, fn) {
-        eventsHandler.bind(eventName, fn);
+        eventsHandler.on(eventName, fn);
     }
 
     function unbind(eventName) {
-        eventsHandler.unbind(eventName);
+        eventsHandler.off(eventName);
     }
 
     return {

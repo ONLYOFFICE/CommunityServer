@@ -111,13 +111,13 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///*Note*: this link is valid for 24 hours only.
         ///
-        ///If you have any questions or need assistance please feel free to contact us at &quot;support.onlyoffice.com&quot;:&quot;http://support.onlyoffice.com&quot;
+        ///If you have any questions or need assistance please feel free to contact us at &quot;support.onlyoffice.com&quot;:&quot;https://support.onlyoffice.com&quot;
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
+        ///&quot;www.onlyoffice.com&quot;:&quot;https://onlyoffice.com/&quot;
         ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPa [rest of string was truncated]&quot;;.
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRoot [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_ExportCompleted {
             get {
@@ -130,13 +130,13 @@ namespace ASC.Web.CRM.Services.NotifyService {
         ///
         ///Go to the &quot;Contacts&quot;:&quot;$__VirtualRootPath/Products/CRM/&quot; list.
         ///
-        ///If you have any questions or need assistance please feel free to contact us at &quot;support.onlyoffice.com&quot;:&quot;http://support.onlyoffice.com&quot;
+        ///If you have any questions or need assistance please feel free to contact us at &quot;support.onlyoffice.com&quot;:&quot;https://support.onlyoffice.com&quot;
         ///
         ///Best regards,
         ///ONLYOFFICE™ Support Team
-        ///&quot;www.onlyoffice.com&quot;:&quot;http://onlyoffice.com/&quot;
+        ///&quot;www.onlyoffice.com&quot;:&quot;https://onlyoffice.com/&quot;
         ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscript [rest of string was truncated]&quot;;.
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. To change the notification type, please manage your &quot;subscri [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_ImportCompleted {
             get {

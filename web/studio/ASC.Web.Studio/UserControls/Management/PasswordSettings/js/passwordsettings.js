@@ -16,7 +16,7 @@
 
 
 jq(function () {
-    jq('#savePasswordSettingsBtn').click(PasswordSettingsManager.SaveSettings);
+    jq('#savePasswordSettingsBtn').on("click", PasswordSettingsManager.SaveSettings);
 });
 
 jq(document).ready(function () {

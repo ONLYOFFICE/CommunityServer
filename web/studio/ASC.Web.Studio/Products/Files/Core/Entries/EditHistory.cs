@@ -71,7 +71,7 @@ namespace ASC.Files.Core
                                                   Date = jChange.Value<string>("created"),
                                                   Author = new EditHistoryAuthor
                                                   {
-                                                      Id = new Guid(jUser.Value<string>("id") ?? Guid.Empty.ToString()),
+                                                      Id = jUser.Value<string>("id") ?? "",
                                                       Name = jUser.Value<string>("name"),
                                                   },
                                               };
@@ -105,7 +105,7 @@ namespace ASC.Files.Core
     [DebuggerDisplay("{Id} {Name}")]
     public class EditHistoryAuthor
     {
-        [DataMember(Name = "id")] public Guid Id;
+        [DataMember(Name = "id")] public string Id;
 
         private string _name;
 
@@ -114,11 +114,15 @@ namespace ASC.Files.Core
         {
             get
             {
+                var idInternal = Guid.Empty;
+                if (!Guid.TryParse(Id, out idInternal))
+                    return _name;
+
                 UserInfo user;
                 return
-                    Id.Equals(Guid.Empty)
-                    || Id.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                    || (user = CoreContext.UserManager.GetUsers(Id)).Equals(Constants.LostUser)
+                    idInternal.Equals(Guid.Empty)
+                    || idInternal.Equals(ASC.Core.Configuration.Constants.Guest.ID)
+                    || (user = CoreContext.UserManager.GetUsers(idInternal)).Equals(Constants.LostUser)
                         ? string.IsNullOrEmpty(_name)
                               ? FilesCommonResource.Guest
                               : _name
@@ -156,6 +160,8 @@ namespace ASC.Files.Core
     {
         [DataMember(Name = "changesUrl", EmitDefaultValue = false)] public string ChangesUrl;
 
+        [DataMember(Name = "fileType")] public string FileType;
+
         [DataMember(Name = "key")] public string Key;
 
         [DataMember(Name = "previous", EmitDefaultValue = false)] public EditHistoryUrl Previous;
@@ -171,6 +177,8 @@ namespace ASC.Files.Core
     [DebuggerDisplay("{Key} - {Url}")]
     public class EditHistoryUrl
     {
+        [DataMember(Name = "fileType")] public string FileType;
+
         [DataMember(Name = "key")] public string Key;
 
         [DataMember(Name = "url")] public string Url;

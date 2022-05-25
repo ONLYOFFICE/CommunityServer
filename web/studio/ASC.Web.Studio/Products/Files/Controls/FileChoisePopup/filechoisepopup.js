@@ -50,10 +50,14 @@ window.FileChoisePopup = (function () {
 
         window.addEventListener("message",
             function (message) {
+                if (!message || typeof message.data != "string") {
+                    return;
+                }
+
                 var file = null;
 
                 try {
-                    file = jq.parseJSON(message.data);
+                    file = JSON.parse(message.data);
                 } catch (e) {
                     console.error(e);
                     return;
@@ -79,7 +83,7 @@ window.FileChoisePopup = (function () {
         $frame.attr("src", $frameContainer.data("frame") + "&folderid=" + ASC.Files.Folders.currentFolder.id);
 
         ASC.Files.Actions.hideAllActionPanels();
-        PopupKeyUpActionProvider.EnableEsc = false;
+
         StudioBlockUIManager.blockUI($dialod, 1000, { bindEvents: false });
 
         $loader.show();
@@ -134,16 +138,6 @@ window.FileChoisePopup = (function () {
     };
 
     var frameOnLoad = function() {
-        if ($frame.attr("src")) {
-            var frameObj = $frame.get(0);
-            var frameDocument = frameObj.contentDocument || frameObj.contentWindow.document;
-            var selector = ASC.Files.UI.getSelectorId(ASC.Files.Constants.FOLDER_ID_PRIVACY);
-            var treeNode = frameDocument.querySelector(".tree-node" + selector);
-            if (treeNode != null) {
-                treeNode.classList.add("privacy-node");
-            }
-        }
-
         $loader.hide();
     }
 

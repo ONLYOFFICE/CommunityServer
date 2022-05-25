@@ -34,7 +34,7 @@ namespace ASC.Web.Community.Forum
         {
             if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
-                Response.Redirect(ForumManager.Instance.PreviousPage.Url);
+                Response.Redirect(ForumManager.Instance.PreviousPage);
                 return;
             }
 

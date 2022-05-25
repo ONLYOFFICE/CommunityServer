@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesJSResource {
@@ -394,6 +394,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are about to delete this file? Please note, that if you have shared it with someone, it will become unavailable. File will be deleted permanently in {0}..
+        /// </summary>
+        public static string ConfirmRemoveFilePermanently {
+            get {
+                return ResourceManager.GetString("ConfirmRemoveFilePermanently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to delete this folder? Please note, that if you have shared it with someone, it will become unavailable. Are you sure you want to continue?.
         /// </summary>
         public static string ConfirmRemoveFolder {
@@ -403,11 +412,29 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are about to delete this folder? Please note, that if you have shared it with someone, it will become unavailable. Folder will be deleted permanently in {0}..
+        /// </summary>
+        public static string ConfirmRemoveFolderPermanently {
+            get {
+                return ResourceManager.GetString("ConfirmRemoveFolderPermanently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to delete these elements? Please note, that if you have shared these files/folders with someone, they will become unavailable. Are you sure you want to continue?.
         /// </summary>
         public static string ConfirmRemoveList {
             get {
                 return ResourceManager.GetString("ConfirmRemoveList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are about to delete these elements? Please note, that if you have shared these files/folders with someone, they will become unavailable. Files/folders will be deleted permanently in {0}..
+        /// </summary>
+        public static string ConfirmRemoveListPermanently {
+            get {
+                return ResourceManager.GetString("ConfirmRemoveListPermanently", resourceCulture);
             }
         }
         
@@ -435,6 +462,51 @@ namespace ASC.Web.Files.Resources {
         public static string CustomFormat {
             get {
                 return ResourceManager.GetString("CustomFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 month.
+        /// </summary>
+        public static string DateOneMonth {
+            get {
+                return ResourceManager.GetString("DateOneMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 week.
+        /// </summary>
+        public static string DateOneWeek {
+            get {
+                return ResourceManager.GetString("DateOneWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3 months.
+        /// </summary>
+        public static string DateThreeMonths {
+            get {
+                return ResourceManager.GetString("DateThreeMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 months.
+        /// </summary>
+        public static string DateTwoMonths {
+            get {
+                return ResourceManager.GetString("DateTwoMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 weeks.
+        /// </summary>
+        public static string DateTwoWeeks {
+            get {
+                return ResourceManager.GetString("DateTwoWeeks", resourceCulture);
             }
         }
         
@@ -727,6 +799,24 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External link.
+        /// </summary>
+        public static string ExternalLink {
+            get {
+                return ResourceManager.GetString("ExternalLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string ExternalLinkDisabled {
+            get {
+                return ResourceManager.GetString("ExternalLinkDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file with the name {0} already exists in the folder {1}..
         /// </summary>
         public static string FileAlreadyExist {
@@ -858,6 +948,15 @@ namespace ASC.Web.Files.Resources {
         public static string FolderTitleYandex {
             get {
                 return ResourceManager.GetString("FolderTitleYandex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Individual rights.
+        /// </summary>
+        public static string IndividualRights {
+            get {
+                return ResourceManager.GetString("IndividualRights", resourceCulture);
             }
         }
         
@@ -1006,7 +1105,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The document &apos;{0}&apos; is deleted.
+        ///   Looks up a localized string similar to The document &apos;{0}&apos; is deleted..
         /// </summary>
         public static string InfoRemoveFile {
             get {
@@ -1015,7 +1114,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is deleted.
+        ///   Looks up a localized string similar to The folder &apos;{0}&apos; is deleted..
         /// </summary>
         public static string InfoRemoveFolder {
             get {
@@ -1024,7 +1123,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It was successfully deleted {0} from {1}.
+        ///   Looks up a localized string similar to It was successfully deleted {0} from {1}..
         /// </summary>
         public static string InfoRemoveGroup {
             get {
@@ -1209,6 +1308,15 @@ namespace ASC.Web.Files.Resources {
         public static string SharingSettingsHeader {
             get {
                 return ResourceManager.GetString("SharingSettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortened.
+        /// </summary>
+        public static string Shortened {
+            get {
+                return ResourceManager.GetString("Shortened", resourceCulture);
             }
         }
         

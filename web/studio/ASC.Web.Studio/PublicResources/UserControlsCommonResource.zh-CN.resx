@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>活跃用户是具有“禁用”状态之外的门户成员、客人和用户</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>添加投票选项</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>从“项目文件”模块中选择</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>使用Bitly缩短共享文档的门户网站邀请链接和链接</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>使用您的社交账户登录门户并搜索联系人</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>连接您最喜欢的云存储服务，并将所有文件存储在一个位置</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -430,9 +418,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>源代码位于{0} GitHub {1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>基本价格</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>有关货币的完整列表，请参阅Avangate</value>
   </data>
@@ -445,15 +430,9 @@
   <data name="TariffFree" xml:space="preserve">
     <value>免费</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>打开完整的价格列表</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>想选择一个新的定价计划吗？
 </value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>限时优惠</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>是，更新计划</value>
@@ -463,9 +442,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1年{2}{1}订阅</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3年{1}订阅</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>您正在使用非营利组织的计划。</value>
@@ -491,17 +467,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3年</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>该优惠仅适用于年度订阅者</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>最热门订阅</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>添加新门户网站将超过当前定价计划允许的最大门户数量。</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>保存{0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} 每位用户/月</value>

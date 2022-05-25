@@ -57,7 +57,7 @@ jq(function () {
     if (jq("#NotFoundLanguage").length) {
         jq("#studio_lng").on('focus', function () {
             previous = this.value;
-        }).change(function () {
+        }).on("change", function () {
             if (!this.value) {
                 setTimeout(function() {
                     jq(".langTimeZoneBlock .HelpCenterSwitcher").helper({ BlockHelperID: 'NotFoundLanguage' });

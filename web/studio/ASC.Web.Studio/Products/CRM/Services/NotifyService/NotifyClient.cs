@@ -295,13 +295,13 @@ namespace ASC.Web.CRM.Services.NotifyService
                     try
                     {
                         CoreContext.TenantManager.SetCurrentTenant(tenant);
-                        SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                        SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                         var user = CoreContext.UserManager.GetUsers(responsibleID);
 
                         if (!(!Constants.LostUser.Equals(user) && user.Status == EmployeeStatus.Active)) continue;
 
-                        SecurityContext.AuthenticateMe(user.ID);
+                        SecurityContext.CurrentUser = user.ID;
 
                         Thread.CurrentThread.CurrentCulture = user.GetCulture();
                         Thread.CurrentThread.CurrentUICulture = user.GetCulture();
@@ -355,13 +355,11 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         public void SendTaskReminder(Task task, String taskCategoryTitle, Contact taskContact, ASC.CRM.Core.Entities.Cases taskCase, ASC.CRM.Core.Entities.Deal taskDeal)
         {
-            var recipient = ToRecipient(task.ResponsibleID);
+            var recipient = CoreContext.UserManager.GetUsers(task.ResponsibleID);
 
-            if (recipient == null) return;
+            if (recipient.ID == Constants.LostUser.ID) return;
 
-            var deadLineString = task.DeadLine.Hour == 0 && task.DeadLine.Minute == 0
-                ? task.DeadLine.ToShortDateString()
-                : task.DeadLine.ToString(CultureInfo.InvariantCulture);
+            var deadLineString = DateToStringInUserCulture(task.DeadLine, recipient);
 
             string taskContactRelativeUrl = null;
             string taskContactTitle = null;
@@ -418,15 +416,13 @@ namespace ASC.Web.CRM.Services.NotifyService
 
         public void SendAboutResponsibleByTask(Task task, String taskCategoryTitle, Contact taskContact, ASC.CRM.Core.Entities.Cases taskCase, ASC.CRM.Core.Entities.Deal taskDeal, Hashtable fileListInfoHashtable)
         {
-            var recipient = ToRecipient(task.ResponsibleID);
+            var recipient = CoreContext.UserManager.GetUsers(task.ResponsibleID);
 
-            if (recipient == null) return;
+            if (recipient.ID == Constants.LostUser.ID) return;
 
             task.DeadLine = TenantUtil.DateTimeFromUtc(task.DeadLine);
-            var deadLineString = task.DeadLine.Hour == 0 && task.DeadLine.Minute == 0
-                ? task.DeadLine.ToShortDateString()
-                : task.DeadLine.ToString();
 
+            var deadLineString = DateToStringInUserCulture(task.DeadLine, recipient);
 
             string taskContactRelativeUrl = null;
             string taskContactTitle = null;
@@ -504,6 +500,20 @@ namespace ASC.Web.CRM.Services.NotifyService
         private IRecipient ToRecipient(Guid userID)
         {
             return source.GetRecipientsProvider().GetRecipient(userID.ToString());
+        }
+
+        private string DateToStringInUserCulture(DateTime date, UserInfo user)
+        {
+            var culture = string.IsNullOrEmpty(user.CultureName) ? CoreContext.TenantManager.GetCurrentTenant().GetCulture() : user.GetCulture();
+
+            var format = culture.DateTimeFormat.ShortDatePattern;
+
+            if (date.Hour != 0 || date.Minute != 0)
+            {
+                format += " " + culture.DateTimeFormat.ShortTimePattern;
+            }
+
+            return date.ToString(format, CultureInfo.InvariantCulture);
         }
 
         public INotifyClient Client

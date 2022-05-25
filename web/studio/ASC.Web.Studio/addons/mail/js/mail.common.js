@@ -97,7 +97,7 @@
                 }
             };
 
-            $(o).keydown(function() {
+            $(o).on("keydown", function() {
                 setImmediate((function(obj) { return function() { updateAreaHeight(obj); }; })(this));
             });
         }

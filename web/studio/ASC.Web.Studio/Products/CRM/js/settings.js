@@ -85,7 +85,7 @@ ASC.CRM.SettingsPage = (function() {
 
         _resetManageFieldPanel();
         RemoveRequiredErrorClass(jq("#manageField dl input:first"));
-        jq('#manageField .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+        jq('#manageField .middle-button-container a.button.blue.middle').off('click').on("click", function () {
             if (jq(this).hasClass("disable"))
                 return;
 
@@ -96,7 +96,7 @@ ASC.CRM.SettingsPage = (function() {
     };
 
     var _initOtherActionMenu = function() {
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     var _initNumericFieldsLimitation = function() {
@@ -111,22 +111,22 @@ ASC.CRM.SettingsPage = (function() {
             positiveOnly: true
         });
 
-        jq("#text_field_size").focusout(function (e) {
-            var fieldSize = jq.trim(jq("#text_field_size").val());
+        jq("#text_field_size").on("focusout", function (e) {
+            var fieldSize = jq("#text_field_size").val().trim();
             if (fieldSize != "" && fieldSize * 1 > maxCountSize) {
                 jq("#text_field_size").val(maxCountSize);
             }
         });
 
-        jq("#textarea_field_rows").focusout(function(e) {
-            var fieldSize = jq.trim(jq("#textarea_field_rows").val());
+        jq("#textarea_field_rows").on("focusout", function(e) {
+            var fieldSize = jq("#textarea_field_rows").val().trim();
             if (fieldSize != "" && fieldSize * 1 > maxCountRows) {
                 jq("#textarea_field_rows").val(maxCountRows);
             }
         });
 
-        jq("#textarea_field_cols").focusout(function(e) {
-            var fieldSize = jq.trim(jq("#textarea_field_cols").val());
+        jq("#textarea_field_cols").on("focusout", function(e) {
+            var fieldSize = jq("#textarea_field_cols").val().trim();
             if (fieldSize != "" && fieldSize * 1 > maxCountCols) {
                 jq("#textarea_field_cols").val(maxCountCols);
             }
@@ -149,7 +149,7 @@ ASC.CRM.SettingsPage = (function() {
         $p.find("select").prop('value', '0');
         $p.find("dl .field_mask").hide();
         $p.find("dl .text_field").show();
-        jq("#manageField input, #manageField select, #manageField textarea").removeAttr("readonly").removeAttr("disabled").removeClass('disabled');
+        jq("#manageField input, #manageField select, #manageField textarea").prop("readonly", false).prop("disabled", false).removeClass('disabled');
         jq("#addOptionButton.display-none").removeClass("display-none");
         $p.find(".select_options .deleteBtn.display-none").removeClass("display-none");
 
@@ -160,7 +160,7 @@ ASC.CRM.SettingsPage = (function() {
 
 
     var _fieldFactory = function(field) {
-        if (jQuery.trim(field.mask) == "") {
+        if (field.mask.trim() == "") {
             field.maskObj = "";
         } else {
             field.maskObj = jq.evalJSON(field.mask);
@@ -621,7 +621,7 @@ ASC.CRM.SettingsPage = (function() {
                         jq("#manageField dd.select_options ul li:last input").val(field.maskObj[i])
                     }
                     jq("#manageField .select_options .deleteBtn:first").removeClass("display-none");
-                    jq("#manageField .select_options input:first").removeAttr("readonly").removeAttr("disabled", "disabled").removeClass('disabled');
+                    jq("#manageField .select_options input:first").prop("readonly", false).prop("disabled", false).removeClass('disabled');
                     jq("#manageField dl .select_options").show();
                     break;
                 default:
@@ -629,7 +629,7 @@ ASC.CRM.SettingsPage = (function() {
             }
 
             RemoveRequiredErrorClass(jq("#manageField dl input:first"));
-            jq('#manageField .middle-button-container a.button.blue.middle').unbind('click').click(function() {
+            jq('#manageField .middle-button-container a.button.blue.middle').off('click').on("click", function() {
                 _editField(liObj, field, index);
             });
             PopupKeyUpActionProvider.EnableEsc = false;
@@ -658,7 +658,7 @@ ASC.CRM.SettingsPage = (function() {
             var ulObj = jq(buttonObj).prev();
             var optionObj = ulObj.children(":first").clone().show();
             optionObj.appendTo(ulObj);
-            optionObj.find("input.textEdit").focus();
+            optionObj.find("input.textEdit").trigger("focus");
         },
 
         toggleCollapceExpand: function(elem) {
@@ -843,7 +843,7 @@ ASC.CRM.ListItemView = (function() {
     };
 
     var _initOtherActionMenu = function() {
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     var _findIndexOfItemByID = function(id) {
@@ -886,7 +886,7 @@ ASC.CRM.ListItemView = (function() {
 
         _resetManageItemPanel();
 
-        jq('#manageItem .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+        jq('#manageItem .middle-button-container a.button.blue.middle').off('click').on("click", function () {
             if (jq(this).hasClass("disable"))
                 return;
             
@@ -987,7 +987,7 @@ ASC.CRM.ListItemView = (function() {
         item.relativeItemsString = ASC.CRM.Common.getRelativeItemsLinkString(item.relativeItemsCount, jq.getURLParam("type"), null);
         if (ASC.CRM.ListItemView.CurrentType === 2 || ASC.CRM.ListItemView.CurrentType === 3) {
             if (item.hasOwnProperty("imagePath") && item.imagePath != "") {
-                item.cssClass = jq.trim(item.imagePath.split('/')[item.imagePath.split('/').length - 1].split('.')[0]);
+                item.cssClass = item.imagePath.split('/')[item.imagePath.split('/').length - 1].split('.')[0].trim();
                 var $icon = _getIconByCssClass(item.cssClass);
 
                 if ($icon != null) {
@@ -1265,7 +1265,7 @@ ASC.CRM.ListItemView = (function() {
             _initOtherActionMenu();
 
             if (jq("#cbx_ChangeContactStatusWithoutAsking").length == 1) {
-                jq("#cbx_ChangeContactStatusWithoutAsking").bind("change", function () {
+                jq("#cbx_ChangeContactStatusWithoutAsking").on("change", function () {
                     var changeContactStatusWithoutAsking = jq(this).is(":checked") ? true : null;
                     Teamlab.updateCRMContactStatusSettings({}, changeContactStatusWithoutAsking,
                         function () {
@@ -1273,7 +1273,7 @@ ASC.CRM.ListItemView = (function() {
                 });
             }
 
-            jq("#createNewItem").bind("click", function() { _showAddItemPanel(); });
+            jq("#createNewItem").on("click", function() { _showAddItemPanel(); });
 
             ASC.CRM.ListItemView.IsDropdownToggleRegistered = false;
             if (ASC.CRM.ListItemView.CurrentType === 2 || ASC.CRM.ListItemView.CurrentType === 3) {
@@ -1354,7 +1354,7 @@ ASC.CRM.ListItemView = (function() {
                 jq("#manageItem .selectedColor").css("background-color", currentColor);
             }
 
-            jq('#manageItem .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+            jq('#manageItem .middle-button-container a.button.blue.middle').off('click').on("click", function () {
                 _editItem(liObj, item.id, index);
             });
             RemoveRequiredErrorClass(jq("#manageItem input:first"));
@@ -1401,25 +1401,25 @@ ASC.CRM.ListItemView = (function() {
             if (jq("#listView li").length == 1) {
                 if (ASC.CRM.ListItemView.CurrentType == 1) {
                     toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactStage,
-                        jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
+                        jq(liObj).find(".item_title").text().trim()) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 2) {
                     toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastTaskCategory,
-                        jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
+                        jq(liObj).find(".item_title").text().trim()) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 3) {//HistoryCategory
                     toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastHistoryCategory,
-                        jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
+                        jq(liObj).find(".item_title").text().trim()) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 4) {
                     toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactType,
-                        jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
+                        jq(liObj).find(".item_title").text().trim()) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
@@ -1495,13 +1495,13 @@ ASC.CRM.ListItemView = (function() {
         },
 
         showColorsPanel: function(switcherUI) {
-            jq("#colorsPanel > span").unbind("click").click(function() {
+            jq("#colorsPanel > span").off("click").on("click", function() {
                 _changeColor(switcherUI, jq(switcherUI).parents("li").get(0).id.replace("list_item_id_", "") * 1, ASC.CRM.Common.getHexRGBColor(jq(this).css("background-color")));
             });
         },
 
         showColorsPanelToSelect: function() {
-            jq("#popup_colorsPanel > span").unbind("click").click(function() {
+            jq("#popup_colorsPanel > span").off("click").on("click", function() {
                 jq("#manageItem .selectedColor").css("background", ASC.CRM.Common.getHexRGBColor(jq(this).css("background-color")));
                 jq("#popup_colorsPanel").hide();
             });
@@ -1510,7 +1510,7 @@ ASC.CRM.ListItemView = (function() {
         showIconsPanel: function(switcherUI) {
             var $iconsPanel = jq("#iconsPanel_" + ASC.CRM.ListItemView.CurrentType);
             if ($iconsPanel.length != 1) return;
-            $iconsPanel.children("label").unbind("click").click(function() {
+            $iconsPanel.children("label").off("click").on("click", function() {
                 _changeIcon(switcherUI, jq(switcherUI).parents("li").get(0).id.replace("list_item_id_", "") * 1, jq(this));
             });
         },
@@ -1518,7 +1518,7 @@ ASC.CRM.ListItemView = (function() {
         showIconsPanelToSelect: function() {
             var $popup_iconsPanel = jq("#popup_iconsPanel_" + ASC.CRM.ListItemView.CurrentType);
             if ($popup_iconsPanel.length != 1) return;
-            $popup_iconsPanel.children("label").unbind("click").click(function() {
+            $popup_iconsPanel.children("label").off("click").on("click", function() {
                 var $selectedIcinObj = jq("#manageItem label.selectedIcon"),
                     cssClass = jq(this).attr('data-imgName').split('.')[0];
 
@@ -1586,7 +1586,7 @@ ASC.CRM.DealMilestoneView = (function() {
     };
 
     var _initOtherActionMenu = function() {
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     var _resetManageItemPanel = function() {
@@ -1606,7 +1606,7 @@ ASC.CRM.DealMilestoneView = (function() {
         LoadingBanner.strLoading = ASC.CRM.Resources.CRMSettingResource.CreateDealMilestoneInProgressing;
         _resetManageItemPanel();
 
-        jq('#manageDealMilestone .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+        jq('#manageDealMilestone .middle-button-container a.button.blue.middle').off('click').on("click", function () {
             if (jq(this).hasClass("disable"))
                 return;
 
@@ -1870,7 +1870,7 @@ ASC.CRM.DealMilestoneView = (function() {
             _initManagePanel();
             _initDealMilestonesActionMenu();
             _initOtherActionMenu();
-            jq("#createNewDealMilestone").bind("click", function() { _showAddDealMilestonePanel(); });
+            jq("#createNewDealMilestone").on("click", function() { _showAddDealMilestonePanel(); });
 
             ASC.CRM.DealMilestoneView.IsDropdownToggleRegistered = false;
             jq.dropdownToggle({
@@ -1913,7 +1913,7 @@ ASC.CRM.DealMilestoneView = (function() {
             jq('#manageDealMilestone .probability').val(dealMilestone.successProbability);
             jq("#manageDealMilestone [name=deal_milestone_status][value=" + dealMilestone.stageType + "]").prop("checked", true);
 
-            jq('#manageDealMilestone .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+            jq('#manageDealMilestone .middle-button-container a.button.blue.middle').off('click').on("click", function () {
                 _editDealMilestone(liObj, dealMilestone.id);
             });
             jq("#manageDealMilestone .selectedColor").css("background-color", dealMilestone.color);
@@ -1960,13 +1960,13 @@ ASC.CRM.DealMilestoneView = (function() {
         },
 
         showColorsPanel: function(switcherUI) {
-            jq("#colorsPanel > span").unbind("click").click(function() {
+            jq("#colorsPanel > span").off("click").on("click", function() {
                 _changeColor(switcherUI, jq(switcherUI).parents('li').get(0).id.replace("deal_milestone_id_", "") * 1, ASC.CRM.Common.getHexRGBColor(jq(this).css("background-color")));
             });
         },
 
         showColorsPanelToSelect: function() {
-            jq("#popup_colorsPanel > span").unbind("click").click(function() {
+            jq("#popup_colorsPanel > span").off("click").on("click", function() {
                 jq("#manageDealMilestone .selectedColor").css("background", ASC.CRM.Common.getHexRGBColor(jq(this).css("background-color")));
                 jq("#popup_colorsPanel").hide();
             });
@@ -1980,10 +1980,10 @@ ASC.CRM.TagSettingsView = (function() {
     var _initOtherActionMenu = function() {
         if (jq("#otherActions").length == 1) {
             jq.tmpl("deleteUnusedTagsButtonTmpl").appendTo("#otherActions ul.dropdown-content");
-            jq("#deleteUnusedTagsButton").bind("click", function() { _deleteUnusedTags(); });
+            jq("#deleteUnusedTagsButton").on("click", function() { _deleteUnusedTags(); });
         }
 
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     var _showAddTagPanel = function() {
@@ -2260,7 +2260,7 @@ ASC.CRM.TagSettingsView = (function() {
             ASC.CRM.TagSettingsView.initData(type);
 
             if (jq("#cbx_AddTagWithoutAsking").length == 1) {
-                jq("#cbx_AddTagWithoutAsking").bind("change", function () {
+                jq("#cbx_AddTagWithoutAsking").on("change", function () {
                     var addTagWithoutAsking = jq(this).is(":checked") ? true : null;
                     Teamlab.updateCRMContactTagSettings({}, addTagWithoutAsking,
                         function () {
@@ -2270,7 +2270,7 @@ ASC.CRM.TagSettingsView = (function() {
         },
 
         createTag: function () {
-            var tagTitle = jq.trim(jq("#tagTitle").val());
+            var tagTitle = jq("#tagTitle").val().trim();
             RemoveRequiredErrorClass(jq("#tagTitle"));
 
             if (tagTitle == "") {
@@ -2321,7 +2321,7 @@ ASC.CRM.TagSettingsView = (function() {
 ASC.CRM.SettingsPage.WebToLeadFormView = (function() {
     var _initOtherActionMenu = function() {
 
-        jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     function _renderTable(container) {
@@ -2470,14 +2470,14 @@ ASC.CRM.SettingsPage.WebToLeadFormView = (function() {
 
             for (var i = 0, n = ASC.CRM.Data.columnSelectorDataCompany.length; i < n; i++) {
                 var field = ASC.CRM.Data.columnSelectorDataCompany[i];
-                if (jq.trim(field.mask) != "") {
-                    field.mask = jq.parseJSON(field.mask);
+                if (field.mask.trim() != "") {
+                    field.mask = JSON.parse(field.mask);
                 }
             }
             for (var i = 0, n = ASC.CRM.Data.columnSelectorDataPerson.length; i < n; i++) {
                 var field = ASC.CRM.Data.columnSelectorDataPerson[i];
-                if (jq.trim(field.mask) != "") {
-                    field.mask = jq.parseJSON(field.mask);
+                if (field.mask.trim() != "") {
+                    field.mask = JSON.parse(field.mask);
                 }
             }
             _renderTable(jq("#tblFieldList tbody"));
@@ -2583,7 +2583,7 @@ ASC.CRM.SettingsPage.WebToLeadFormView = (function() {
 ASC.CRM.TaskTemplateView = (function() {
 
     var _initOtherActionMenu = function() {
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     var _getCurEntityType = function () {
@@ -2655,7 +2655,7 @@ ASC.CRM.TaskTemplateView = (function() {
 
 
             if (typeof (window.templateConatainerList) != "undefined") {
-                window.templateConatainerList = jq.parseJSON(jQuery.base64.decode(window.templateConatainerList)).response;
+                window.templateConatainerList = JSON.parse(jQuery.base64.decode(window.templateConatainerList)).response;
             } else {
                 window.templateConatainerList = [];
             }
@@ -2783,7 +2783,7 @@ ASC.CRM.TaskTemplateView = (function() {
                         .text(ASC.CRM.TaskTemplateView.ConatainerPanel_AddHeaderText);
                 jq("#templateConatainerPanel div.action_block a.button.blue")
                         .text(ASC.CRM.TaskTemplateView.ConatainerPanel_AddButtonText)
-                        .unbind("click").click(function() {
+                        .off("click").on("click", function() {
                             ASC.CRM.TaskTemplateView.createTemplateConatainer();
                         });
             } else {
@@ -2793,7 +2793,7 @@ ASC.CRM.TaskTemplateView = (function() {
                         .text(jq.format(ASC.CRM.TaskTemplateView.ConatainerPanel_EditHeaderText, container.title));
                 jq("#templateConatainerPanel div.action_block a.button.blue")
                         .text(ASC.CRM.Resources.CRMJSResource.SaveChanges)
-                        .unbind("click").click(function() {
+                        .off("click").on("click", function() {
                             ASC.CRM.TaskTemplateView.editTemplateConatainer(container.id);
                         });
             }
@@ -2945,13 +2945,13 @@ ASC.CRM.TaskTemplateView = (function() {
                         .text(ASC.CRM.TaskTemplateView.TemplatePanel_AddHeaderText);
                 jq("#templatePanel div.action_block a.button.blue")
                         .text(ASC.CRM.TaskTemplateView.TemplatePanel_AddButtonText)
-                        .unbind("click").click(function() {
+                        .off("click").on("click", function() {
                             ASC.CRM.TaskTemplateView.createTemplate(containerid);
                         });
                 jq("#tbxTemplateTitle").val("");
                 jq("#tbxTemplateDescribe").val("");
                 ASC.CRM.TaskTemplateView.setTemplateDeadlineFromTicks();
-                jq("#notifyResponsible").removeAttr("checked");
+                jq("#notifyResponsible").prop("checked", false);
                 window.taskTemplateResponsibleSelector.ClearFilter();
                 window.taskTemplateResponsibleSelector.ChangeDepartment(window.taskTemplateResponsibleSelector.Groups[0].ID);
                 var obj = window.taskTemplateCategorySelector.getRowByContactID(0);
@@ -2961,7 +2961,7 @@ ASC.CRM.TaskTemplateView = (function() {
                 jq("#templatePanel div.containerHeaderBlock td:first")
                         .text(jq.format(ASC.CRM.TaskTemplateView.TemplatePanel_EditHeaderText, template.title));
                 jq("#templatePanel div.action_block a.button.blue")
-                        .text(ASC.CRM.Resources.CRMJSResource.SaveChanges).unbind("click").click(function() {
+                        .text(ASC.CRM.Resources.CRMJSResource.SaveChanges).off("click").on("click", function() {
                             ASC.CRM.TaskTemplateView.editTemplate(containerid, template.id);
                         });
                 jq("#tbxTemplateTitle").val(template.title);
@@ -3052,17 +3052,17 @@ ASC.CRM.TaskTemplateView = (function() {
 ASC.CRM.CurrencySettingsView = (function () {
     
     function initOtherActionMenu () {
-        jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     }
 
     function setBindings() {
-        jq("#defaultCurrency").bind("change", changeDefaultCurrency);
-        jq("#currencySelector").bind("change", changeCurrency);
-        jq("#addCurrencyRate").bind("click", addCurrencyRate);
+        jq("#defaultCurrency").on("change", changeDefaultCurrency);
+        jq("#currencySelector").on("change", changeCurrency);
+        jq("#addCurrencyRate").on("click", addCurrencyRate);
         jq("#currencyRateList").on("click", ".crm-deleteLink", deleteCurrencyRate);
         jq("#currencyRateList").on("change", ".textEdit", changeCurrencyRate);
-        jq("#saveCurrencySettings").bind("click", saveCurrencySettings);
-        jq("#cancelCurrencySettings").bind("click", cancelCurrencySettings);
+        jq("#saveCurrencySettings").on("click", saveCurrencySettings);
+        jq("#cancelCurrencySettings").on("click", cancelCurrencySettings);
     }
 
     function renderCurrencyRateList(items, clear) {
@@ -3104,13 +3104,13 @@ ASC.CRM.CurrencySettingsView = (function () {
                 });
             });
             
-            jq("#currencySelector").change();
+            jq("#currencySelector").trigger("change");
         }
     }
 
     function changeDefaultCurrency() {
         renderCurrencyRateList(jq(this).val() == window.defaultCurrency ? window.currencyRates : [], true);
-        jq("#currencySelector").change();
+        jq("#currencySelector").trigger("change");
     }
 
     function changeCurrency() {
@@ -3142,12 +3142,12 @@ ASC.CRM.CurrencySettingsView = (function () {
         }];
 
         renderCurrencyRateList(data, false);
-        jq("#currencySelector").change();
+        jq("#currencySelector").trigger("change");
     }
 
     function deleteCurrencyRate() {
         jq(this).parent().remove();
-        jq("#currencySelector").change();
+        jq("#currencySelector").trigger("change");
     }
 
     function changeCurrencyRate() {
@@ -3198,7 +3198,7 @@ ASC.CRM.CurrencySettingsView = (function () {
     function cancelCurrencySettings() {
         jq("#defaultCurrency").val(window.defaultCurrency);
         renderCurrencyRateList(window.currencyRates, true);
-        jq("#currencySelector").change();
+        jq("#currencySelector").trigger("change");
     }
 
     return {

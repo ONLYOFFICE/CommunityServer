@@ -33,6 +33,11 @@ module.exports = (app, config, logger) => {
           })
         : [];
 
+
+	if(req.originalUrl =="/isLife"){
+		res.sendStatus(200);
+		return;
+	}
     if (!foundRoutes.length) {
       logger.error(`invalid route ${req.originalUrl}`);
       return res.redirect(urlResolver.getPortal404Url(req));

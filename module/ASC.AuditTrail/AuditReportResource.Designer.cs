@@ -19,7 +19,7 @@ namespace ASC.AuditTrail {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AuditReportResource {
@@ -1294,6 +1294,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External share Settings Updated.
+        /// </summary>
+        public static string DocumentsExternalShareSettingsUpdated {
+            get {
+                return ResourceManager.GetString("DocumentsExternalShareSettingsUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forcesave settings Updated.
         /// </summary>
         public static string DocumentsForcesave {
@@ -1474,6 +1483,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File {0}. External Link Access Updated: {1}.
+        /// </summary>
+        public static string FileExternalLinkAccessUpdated {
+            get {
+                return ResourceManager.GetString("FileExternalLinkAccessUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folders [{0}]. File Imported: {1}. Provider: {2}.
         /// </summary>
         public static string FileImported {
@@ -1488,6 +1506,24 @@ namespace ASC.AuditTrail {
         public static string FileLocked {
             get {
                 return ResourceManager.GetString("FileLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Marked As Favorite: {0}.
+        /// </summary>
+        public static string FileMarkedAsFavorite {
+            get {
+                return ResourceManager.GetString("FileMarkedAsFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File {0}: Marked As Read.
+        /// </summary>
+        public static string FileMarkedAsRead {
+            get {
+                return ResourceManager.GetString("FileMarkedAsRead", resourceCulture);
             }
         }
         
@@ -1519,6 +1555,42 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File {0}: Opened For Change.
+        /// </summary>
+        public static string FileOpenedForChange {
+            get {
+                return ResourceManager.GetString("FileOpenedForChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File {0}: Readed.
+        /// </summary>
+        public static string FileReaded {
+            get {
+                return ResourceManager.GetString("FileReaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Removed From Favorite: {0}.
+        /// </summary>
+        public static string FileRemovedFromFavorite {
+            get {
+                return ResourceManager.GetString("FileRemovedFromFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Removed From List: {0}.
+        /// </summary>
+        public static string FileRemovedFromList {
+            get {
+                return ResourceManager.GetString("FileRemovedFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File Renamed: {0}.
         /// </summary>
         public static string FileRenamed {
@@ -1533,6 +1605,15 @@ namespace ASC.AuditTrail {
         public static string FileRestoreVersion {
             get {
                 return ResourceManager.GetString("FileRestoreVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File {0}. Revision {1} Downloaded.
+        /// </summary>
+        public static string FileRevisionDownloaded {
+            get {
+                return ResourceManager.GetString("FileRevisionDownloaded", resourceCulture);
             }
         }
         
@@ -1600,6 +1681,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File {0}. Access Updated for {1}: {2}.
+        /// </summary>
+        public static string FileUpdatedAccessFor {
+            get {
+                return ResourceManager.GetString("FileUpdatedAccessFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Files [{0}]. Revision {1}. Comment Updated .
         /// </summary>
         public static string FileUpdatedRevisionComment {
@@ -1654,11 +1744,47 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder Downloaded: {0}.
+        /// </summary>
+        public static string FolderDownloaded {
+            get {
+                return ResourceManager.GetString("FolderDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Marked As Favorite: {0}.
+        /// </summary>
+        public static string FolderMarkedAsFavorite {
+            get {
+                return ResourceManager.GetString("FolderMarkedAsFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder {0}: Marked As Read.
+        /// </summary>
+        public static string FolderMarkedAsRead {
+            get {
+                return ResourceManager.GetString("FolderMarkedAsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folders [{0}]. Moved To Folder: {1}.
         /// </summary>
         public static string FolderMoved {
             get {
                 return ResourceManager.GetString("FolderMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folders [{0}]. Moved From Folder &quot;{1}&quot; To Folder: &quot;{2}&quot;.
+        /// </summary>
+        public static string FolderMovedFrom {
+            get {
+                return ResourceManager.GetString("FolderMovedFrom", resourceCulture);
             }
         }
         
@@ -1677,6 +1803,24 @@ namespace ASC.AuditTrail {
         public static string FolderMovedWithOverwriting {
             get {
                 return ResourceManager.GetString("FolderMovedWithOverwriting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Removed From Favorite: {0}.
+        /// </summary>
+        public static string FolderRemovedFromFavorite {
+            get {
+                return ResourceManager.GetString("FolderRemovedFromFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder Removed From List: {0}.
+        /// </summary>
+        public static string FolderRemovedFromList {
+            get {
+                return ResourceManager.GetString("FolderRemovedFromList", resourceCulture);
             }
         }
         
@@ -1704,6 +1848,15 @@ namespace ASC.AuditTrail {
         public static string FolderUpdatedAccess {
             get {
                 return ResourceManager.GetString("FolderUpdatedAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder {0}. Access Updated for {1}: {2}.
+        /// </summary>
+        public static string FolderUpdatedAccessFor {
+            get {
+                return ResourceManager.GetString("FolderUpdatedAccessFor", resourceCulture);
             }
         }
         
@@ -2379,6 +2532,15 @@ namespace ASC.AuditTrail {
         public static string MoveActionType {
             get {
                 return ResourceManager.GetString("MoveActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string OpenActionType {
+            get {
+                return ResourceManager.GetString("OpenActionType", resourceCulture);
             }
         }
         
@@ -3490,6 +3652,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projects [{0}]. Tasks [{1}]. Subtask Moved: {2}.
+        /// </summary>
+        public static string SubtaskMoved {
+            get {
+                return ResourceManager.GetString("SubtaskMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects [{0}]. Tasks [{1}]. Subtask Updated: {2}.
         /// </summary>
         public static string SubtaskUpdated {
@@ -3760,6 +3931,15 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trash Emptied.
+        /// </summary>
+        public static string TrashEmptied {
+            get {
+                return ResourceManager.GetString("TrashEmptied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trusted mail domain settings updated.
         /// </summary>
         public static string TrustedMailDomainSettingsUpdated {
@@ -3963,6 +4143,33 @@ namespace ASC.AuditTrail {
         public static string UserLinkedSocialAccount {
             get {
                 return ResourceManager.GetString("UserLinkedSocialAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} has logged out active connection.
+        /// </summary>
+        public static string UserLogoutActiveConnection {
+            get {
+                return ResourceManager.GetString("UserLogoutActiveConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} has logged out their active connections.
+        /// </summary>
+        public static string UserLogoutActiveConnections {
+            get {
+                return ResourceManager.GetString("UserLogoutActiveConnections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged out active connections for user: {0} .
+        /// </summary>
+        public static string UserLogoutActiveConnectionsForUser {
+            get {
+                return ResourceManager.GetString("UserLogoutActiveConnectionsForUser", resourceCulture);
             }
         }
         

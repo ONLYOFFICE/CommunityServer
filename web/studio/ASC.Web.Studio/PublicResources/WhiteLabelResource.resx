@@ -76,8 +76,8 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Portal Logo Settings{1} feature is available for paid portals only.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo for the About/Login page</value>
+  <data name="LogoDark2" xml:space="preserve">
+    <value>Logo for the Login page</value>
   </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo for the editors header</value>

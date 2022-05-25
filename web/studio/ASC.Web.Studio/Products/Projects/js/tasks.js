@@ -210,6 +210,7 @@ ASC.Projects.TasksManager = (function () {
                 eventConstructor(events.addSubtask, onAddSubtask),
                 eventConstructor(events.removeSubtask, onRemoveSubtask),
                 eventConstructor(events.updateSubtask, onUpdateSubtaskStatus),
+                eventConstructor(events.moveSubtask, onMoveSubtask),
                 eventConstructor(events.getPrjProject, function (params, project) { currentProject = project; })
             ],
             {
@@ -221,6 +222,7 @@ ASC.Projects.TasksManager = (function () {
             });
 
         subtaskManager.init();
+        subtaskManager.initDragDrop();
 
         // waiting data from api
         filter.createAdvansedFilterForTasks(self, master.customStatuses);
@@ -355,7 +357,7 @@ ASC.Projects.TasksManager = (function () {
 
     function taAcceptHandler(task) {
         var data = {
-            title: jq.trim(task.title),
+            title: task.title.trim(),
             priority: task.priority,
             responsibles: [currentUserId]
         };
@@ -750,7 +752,7 @@ ASC.Projects.TasksManager = (function () {
         }));
 
         StudioBlockUIManager.blockUI($moveTaskPanel, 550);
-        PopupKeyUpActionProvider.EnterAction = "$moveTaskPanel.find('.blue').click();";
+        PopupKeyUpActionProvider.EnterAction = "$moveTaskPanel.find('.blue').trigger('click');";
     };
 
     function showActionsPanel() {
@@ -792,7 +794,7 @@ ASC.Projects.TasksManager = (function () {
         if (!isInit) return;
 
         self.unbindEvents();
-        $taskListContainer.unbind();
+        $taskListContainer.off();
     };
 
     function updateCaldavEvent(task, action) {
@@ -925,7 +927,17 @@ ASC.Projects.TasksManager = (function () {
         updateFilteredTaskSubtasks(task, subtask);
         changeCountTaskSubtasks(task);
     };
-    
+
+    function onMoveSubtask(params, subtask) {
+        var toTaskId = subtask.taskid;
+
+        subtask.taskid = params.fromTaskId;
+        onRemoveSubtask(params, subtask);
+
+        subtask.taskid = toTaskId;
+        onAddSubtask(params, subtask);
+    };
+
     function onUpdateTaskStatus(params, task) {
         var oldTask = getFilteredTaskById(task.id);
         if (oldTask.status !== task.status) {

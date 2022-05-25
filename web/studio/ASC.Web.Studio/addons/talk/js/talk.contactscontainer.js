@@ -429,7 +429,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     lastFilterValue = '';
   };
 
-  $('#talkFilterContainer').keypress(function (evt) {
+  $('#talkFilterContainer').on("keypress", function (evt) {
       if ($('#talkFilterContainer div.helper input#filterValue').is(':focus')) {
           if (ASC.TMTalk.properties.item('enblfltr') === '0') {
               ASC.TMTalk.properties.item('enblfltr', '1');
@@ -763,17 +763,17 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       case 'enblfltr' :
         if (value === '1') {
           $('#talkSidebarContainer').addClass('enable-filter');
-          $(window).resize();
+          $(window).trigger("resize");
 
-          $('#filterValue').bind('keyup', ASC.TMTalk.contactsContainer.filteringContactlist);
+          $('#filterValue').on('keyup', ASC.TMTalk.contactsContainer.filteringContactlist);
           ASC.TMTalk.contactsContainer.filteringContactlist();
 
           filterField.focus();
         } else {
           $('#talkSidebarContainer').removeClass('enable-filter');
-          $(window).resize();
+          $(window).trigger("resize");
 
-          $('#filterValue').unbind('keyup', ASC.TMTalk.contactsContainer.filteringContactlist);
+          $('#filterValue').off('keyup', ASC.TMTalk.contactsContainer.filteringContactlist);
           ASC.TMTalk.contactsContainer.resetContactlist();
 
           window.focus();
@@ -1583,10 +1583,10 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
   };
 
   var onClientConnected = function () {
-    $('#button-create-conference').bind('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'pointer');
+    $('#button-create-conference').on('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'pointer');
     $('#button-create-conference').css('opacity', '1');
-    $('#button-clear-files').bind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');
-    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').bind('click', ASC.TMTalk.meseditorContainer.searchMessages);
+    $('#button-clear-files').on('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');
+    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').on('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkStatusMenu').removeClass('processing');
     $('#talkContactsContainer').removeClass('processing');
       
@@ -1608,10 +1608,10 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
   };
 
   var onClientDisconnected = function () {
-    $('#button-create-conference').unbind('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'default');
+    $('#button-create-conference').off('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'default');
     $('#button-create-conference').css('opacity','.4');
-    $('#button-clear-files').unbind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
-    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').unbind('click', ASC.TMTalk.meseditorContainer.searchMessages);
+    $('#button-clear-files').off('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
+    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').off('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkRoomsContainer').removeClass('searchmessage');
     //$('#talkStatusMenu').removeClass('processing');
     //$('#talkContactsContainer').removeClass('processing');
@@ -1625,10 +1625,10 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
   };
 
   var onClientConnectingFailed = function () {
-    $('#button-create-conference').unbind('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'default');
+    $('#button-create-conference').off('click', ASC.TMTalk.meseditorContainer.openCreatingConferenceDialog).css('cursor', 'default');
     $('#button-create-conference').css('opacity', '.4');
-    $('#button-clear-files').unbind('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
-    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').unbind('click', ASC.TMTalk.meseditorContainer.searchMessages);
+    $('#button-clear-files').off('click', ASC.TMTalk.meseditorContainer.openClearFilesDialog).css('cursor', 'pointer');;
+    $('#talkMeseditorToolbarContainer div.button-talk.searchmessage:first').off('click', ASC.TMTalk.meseditorContainer.searchMessages);
     $('#talkRoomsContainer').removeClass('searchmessage');
     //$('#talkStatusMenu').removeClass('processing');
     //$('#talkContactsContainer').removeClass('processing');
@@ -2778,21 +2778,21 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     ASC.TMTalk.contactsContainer.nodes();
     var isOnlineTimerId, fromOffline = false;
     if ($.browser.safari) {
-      $('#talkContactToolbarContainer div.unread-messages:first div.button-container').mousedown(function () {
+      $('#talkContactToolbarContainer div.unread-messages:first div.button-container').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
         return false;
       });
 
-      $('#talkContactToolbarContainer div.toolbar:first div.button-container').mousedown(function () {
+      $('#talkContactToolbarContainer div.toolbar:first div.button-container').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
         return false;
       });
 
-      $('#talkStatusContainer').mousedown(function () {
+      $('#talkStatusContainer').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
@@ -2877,7 +2877,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     ASC.TMTalk.properties.item('enblfltr', '0');
    
 
-    $("#button_settings").click(function () {
+    $("#button_settings").on("click", function () {
 
         jq.dropdownToggle({
             switcherSelector: "#button_settings",
@@ -2899,7 +2899,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     //});
     
 
-  /*  $('#button_settings').click(function () {
+  /*  $('#button_settings').on("click", function () {
         var $container = null;
 
         if (($container = $('#talkMeseditorToolbarContainer div.button-container.emotions:first div.container:first')).is(':hidden')) {
@@ -2914,26 +2914,26 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         }
     });
     */
-    $('#button-offlineusers').click(function () {
+    $('#button-offlineusers').on("click", function () {
         ASC.TMTalk.properties.item('shwoffusrs', $('#talkSidebarContainer').toggleClass('hide-offlineusers').hasClass('hide-offlineusers') ? '0' : '1', true);
         $('#button-offlineusers').toggleClass('on off');
         
     });
-    $('#button-event-signal').click(function () {
+    $('#button-event-signal').on("click", function () {
         //ASC.TMTalk.properties.item('enblsnds', $('#talkContactToolbarContainer div.button-container.toggle-sounds:first').toggleClass('disabled').hasClass('disabled') ? '0' : '1', true);
         ASC.TMTalk.properties.item('enblsnds', $('#talkSidebarContainer').toggleClass('eventsignal').hasClass('eventsignal') ? '0' : '1', true);
         $('#button-event-signal').toggleClass('on off');
     });
-    $('#button-list-contacts-groups').click(function () {
+    $('#button-list-contacts-groups').on("click", function () {
         ASC.TMTalk.properties.item('shwgrps', $('#talkSidebarContainer').toggleClass('grouplist').hasClass('grouplist') ? '1' : '0', true);
         $('#button-list-contacts-groups').toggleClass('on off');
     });
     
-    $('#button-send-ctrl-enter').click(function () {
+    $('#button-send-ctrl-enter').on("click", function () {
         ASC.TMTalk.properties.item('sndbyctrlentr', $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').toggleClass('send-by-ctrlenter').hasClass('send-by-ctrlenter') ? '1' : '0', true);
         $('#button-send-ctrl-enter').toggleClass('on off');
     });
-    $('#button-browser-notification').click(function () {
+    $('#button-browser-notification').on("click", function () {
         $('#button-browser-notification').toggleClass('on off');
         if ($('#button-browser-notification').hasClass('on')) {
             if (!jQuery.browser.msie) ASC.TMTalk.notifications.enable();
@@ -2941,23 +2941,23 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
             if (!jQuery.browser.msie) ASC.TMTalk.notifications.disable();
         }
     });
-   // $('#button-create-conference').click(function () {
+   // $('#button-create-conference').on("click", function () {
    //     ASC.TMTalk.showDialog('create-room', null, { roomname: '', temproomchecked: true });       
    // });
-    $('#talkContactToolbarContainer div.button-talk.toggle-offlineusers:first').click(function() {
+    $('#talkContactToolbarContainer div.button-talk.toggle-offlineusers:first').on("click", function() {
       ASC.TMTalk.properties.item('shwoffusrs', $('#talkSidebarContainer').toggleClass('hide-offlineusers').hasClass('hide-offlineusers') ? '0' : '1', true);
     });
 
-    $('#talkContactToolbarContainer div.button-talk.toggle-group:first').click(function () {
+    $('#talkContactToolbarContainer div.button-talk.toggle-group:first').on("click", function () {
       ASC.TMTalk.properties.item('shwgrps', $('#talkSidebarContainer').toggleClass('grouplist').hasClass('grouplist') ? '1' : '0', true);
     });
 
-    $('#talkContactToolbarContainer div.button-talk.toggle-sounds:first').click(function () {
+    $('#talkContactToolbarContainer div.button-talk.toggle-sounds:first').on("click", function () {
         //ASC.TMTalk.properties.item('enblsnds', $('#talkContactToolbarContainer div.button-container.toggle-sounds:first').toggleClass('disabled').hasClass('disabled') ? '0' : '1', true);
         ASC.TMTalk.properties.item('enblsnds', $('#talkSidebarContainer').toggleClass('eventsignal').hasClass('eventsignal') ? '0' : '1', true);
     });
 
-    $('#talkContactToolbarContainer div.button-talk.toggle-notifications:first').click(function () {
+    $('#talkContactToolbarContainer div.button-talk.toggle-notifications:first').on("click", function () {
       if ($('#talkContactToolbarContainer div.button-container.toggle-notifications:first').hasClass('disabled')) {
         ASC.TMTalk.notifications.enable();
       } else {
@@ -2965,21 +2965,21 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       }
     });
 
-    /*$('#talkContactToolbarContainer div.button-talk.toggle-filter:first').click(function() {
+    /*$('#talkContactToolbarContainer div.button-talk.toggle-filter:first').on("click", function() {
       ASC.TMTalk.properties.item('enblfltr', $('#talkSidebarContainer').toggleClass('enable-filter').hasClass('enable-filter') ? '1' : '0');
     });*/
-    $('#talkContactToolbarContainer div.button-talk.clear-filter:first').click(function () {
+    $('#talkContactToolbarContainer div.button-talk.clear-filter:first').on("click", function () {
         $('#filterValue').val('');
         ASC.TMTalk.properties.item('enblfltr', '0');
         $('#talkContactToolbarContainer div.button-talk.clear-filter:first').addClass('hidden');
     });
 
-    $('#talkContactToolbarContainer div.unread-messages:first').click(function () {
+    $('#talkContactToolbarContainer div.unread-messages:first').on("click", function () {
       ASC.TMTalk.contactsContainer.showFirstUnreadMessage();
     });
 
     $('#filterValue')
-      .keydown(function (evt) {
+      .on("keydown", function (evt) {
         if (evt.target.tagName.toLowerCase() === 'input') {
           evt.originalEvent.stopPropagation ? evt.originalEvent.stopPropagation() : evt.originalEvent.cancelBubble = true;
         }
@@ -2994,7 +2994,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
             window.__touchInputs = { INPUT: 1, TEXTAREA: 1, SELECT: 1, OPTION: 1, 'input': 1, 'textarea': 1, 'select': 1, 'option': 1 };
         }
 
-        $(oo).bind('touchstart touchmove touchend', function (ev) {
+        $(oo).on('touchstart touchmove touchend', function (ev) {
             
             if (ismousemove) {
                 var bSame = (ev.target == this);
@@ -3089,7 +3089,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#talkContactsContainer').on('touchstart', touchstart);
     $('#talkContactsContainer').on('touchend', touchend);
     $('#talkContactsContainer')
-      .mousedown(function (evt) {
+      .on("mousedown", function (evt) {
         var element = evt.target;
         if (!element || typeof element !== 'object') {
           return undefined;
@@ -3189,7 +3189,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         }
         return false;
       })
-      .click(function (evt) {
+      .on("click", function (evt) {
         var element = evt.target;
         if (!element || typeof element !== 'object') {
           return undefined;
@@ -3258,7 +3258,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         }
       });
 
-    $('#talkStatusMenu').click(function (evt) {
+    $('#talkStatusMenu').on("click", function (evt) {
       var
         $target = $(evt.target),
         $container = null,

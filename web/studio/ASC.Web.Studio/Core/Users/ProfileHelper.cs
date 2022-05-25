@@ -197,6 +197,7 @@ namespace ASC.Web.Studio.Core.Users
                     case "extskype":
                     case "msn":
                     case "aim":
+                    case "telegram":
                     case "icq":
                     case "gtalk":
                         messengers.Add(contacts[i]);
@@ -230,6 +231,7 @@ namespace ASC.Web.Studio.Core.Users
                     case "extskype":
                     case "msn":
                     case "aim":
+                    case "telegram":
                     case "icq":
                     case "gtalk":
                         continue;

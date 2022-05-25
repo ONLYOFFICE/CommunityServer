@@ -54,6 +54,10 @@ cp ../../Files/nginx/includes/* "$RPM_BUILD_ROOT/etc/nginx/includes/"
 mkdir -p "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
 cp -r ../../Files/hyperfastcgi/* "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
 
+#install mail config
+mkdir -p "$RPM_BUILD_ROOT/etc/%{package_sysname}/communityserver/"
+cp -r ../../Files/mail-config/* "$RPM_BUILD_ROOT/etc/%{package_sysname}/communityserver/"
+
 # rename
 find "$RPM_BUILD_ROOT/usr/bin/" \
 	 "$RPM_BUILD_ROOT/etc/hyperfastcgi/" \
@@ -62,6 +66,7 @@ find "$RPM_BUILD_ROOT/usr/bin/" \
 	 "$RPM_BUILD_ROOT%{nginx_conf_d}/" \
 	 "$RPM_BUILD_ROOT/etc/nginx/includes/" \
 	 "$RPM_BUILD_ROOT/var/www/%{package_sysname}/Tools/" \
+	 "$RPM_BUILD_ROOT/etc/%{package_sysname}/communityserver/" \
 -depth -type f \
 -exec sed -i 's/onlyoffice/%{package_sysname}/g' {} \; \
 -exec sed -i 's/ONLYOFFICE/%{package_sysname}/g' {} \; \
@@ -85,7 +90,7 @@ for FILE in `find "$RPM_BUILD_ROOT/var/www/%{package_sysname}/"`; do
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config(noreplace) \"$RELFILE\"" >>onlyoffice.list
 			;;
 
-			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.config | */ASC.Mail.StorageCleaner.exe.config | */ASC.Mail.Aggregator.CollectionService.exe.config | */ASC.Mail.Watchdog.Service.exe.config | */ASC.Mail.EmlDownloader.exe.config )
+			*/WebStudio/[Ww]eb*.config | */ApiSystem/[Ww]eb*.config | */TeamLabSvc.exe.config | */ASC.Mail.EmlDownloader.exe.config )
 				echo "%%attr(-, %{package_sysname}, %{package_sysname}) %%config \"$RELFILE\"" >>onlyoffice.list
 			;;
 
@@ -108,6 +113,7 @@ rm -rf "$RPM_BUILD_ROOT"
 %attr(-, root, root) /etc/nginx/includes/%{package_sysname}-communityserver-*
 %attr(-, root, root) /etc/hyperfastcgi/*
 %attr(-, root, root) /etc/god/
+%attr(-, %{package_sysname}, %{package_sysname}) %config /etc/%{package_sysname}/communityserver/*
 
 %pre
 getent group %{package_sysname} >/dev/null || groupadd -r %{package_sysname}
@@ -156,6 +162,8 @@ python3 -m pip install --upgrade radicale==3.0.5
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_auth_plugin/.
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_store_plugin/.
 python3 -m pip install --upgrade $DIR/Tools/radicale/plugins/app_rights_plugin/.
+
+systemctl restart %{package_sysname}Radicale
 
 %triggerin -- %{package_sysname}-xmppserver
 
@@ -243,6 +251,17 @@ APP_DATA_DIR="${DIR}/Data"
 
 mkdir -p "$APP_DATA_DIR"
 
+#Mail configs changes
+if [ -f $DIR/WebStudio/web.appsettings.config.rpmsave ]; then
+	MAIL_IMAPSYNC_START_DATE="$(sed -n '/"mail.imap-sync-start-date"/s_.*value\s*=\s*"\([^"]*\)".*_\1_p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";	
+fi
+MAIL_IMAPSYNC_START_DATE="${MAIL_IMAPSYNC_START_DATE:-$(date '+%Y-%m-%dT%H:%M:%''S')}";
+sed 's_\(\"ImapSyncStartDate":\).*,_\1 "'${MAIL_IMAPSYNC_START_DATE}'",_' -i /etc/%{package_sysname}/communityserver/mail.production.json
+sed "/mail\.imap-sync-start-date/s/value=\"\S*\"/value=\"${MAIL_IMAPSYNC_START_DATE}\"/g" -i ${DIR}/WebStudio/web.appsettings.config
+
+sed "s!\"value\":.*!\"value\":\ \"${APP_DATA_DIR}\"!" -i /etc/%{package_sysname}/communityserver/storage.production.json
+sed "s!\"folder\":.*,!\"folder\":\ \"${SERVICES_DIR}\",!" -i /etc/%{package_sysname}/communityserver/appsettings.production.json
+
 if [ "$(ls -alhd ${APP_DATA_DIR} | awk '{ print $3 }')" != "%{package_sysname}" ]; then
 	  chown %{package_sysname}:%{package_sysname} ${APP_DATA_DIR}
 fi
@@ -279,14 +298,16 @@ if [ $1 -ge 2 ]; then
 			CORE_MACHINEKEY="$(sed -n '/"core.machinekey"/s!.*value\s*=\s*"\([^"]*\)".*!\1!p' ${DIR}/WebStudio/web.appsettings.config.rpmsave)";
 		fi		
 
-		binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
+		binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc")
 
 		for i in "${!binDirs[@]}";
 		do
 			find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"$CONN_STR\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+			sed -i "s/Server=.*/$CONN_STR\",/g" /etc/%{package_sysname}/communityserver/appsettings.production.json
 
 			if [ ! -z "$CORE_MACHINEKEY" ]; then
 				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "/core.machinekey/s!value=\".*\"!value=\"${CORE_MACHINEKEY}\"!g" {} \;			
+				sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/%{package_sysname}/communityserver/appsettings.production.json		
 			fi				
 		done				
 
@@ -399,7 +420,7 @@ fi
 
 if systemctl is-active elasticsearch | grep -q "active"; then
 	#Checking that the elastic is not currently being updated
-	if [[ $(find /usr/share/elasticsearch/lib/ -name "elasticsearch-[0-99].[0-99].*" | wc -l) -eq 1 ]]; then
+	if [[ $(find /usr/share/elasticsearch/lib/ -name "elasticsearch-[0-9]*.jar" | wc -l) -eq 1 ]]; then
 		systemctl restart elasticsearch.service
 	fi
 fi

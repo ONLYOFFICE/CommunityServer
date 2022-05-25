@@ -58,10 +58,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Bütün imzalayanlar tərəfindən $DocumentTitle tamamlandı
+
+Bu e-poçt bildirişi bütün imzalayanların "$DocumentTitle":"$DocumentURL"sənədini tamamladığını bildirmək üçün göndərilib.
+
+^Bu e-məktubu "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün alırsınız.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+DocuSign hesabınıza daxil olmaqla ətraflı məlumat əldə edə bilərsiniz.
+
+^Bu e-məktubu, "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün alırsınız.^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" sənəd şərhində sizi qeyd etdi
+
+Bu, "$DocumentTitle":"$DocumentURL" sənədinin şərhində "$__AuthorName":"$__AuthorUrl" tərəfindən qeyd olunduğunuzu bildirən poçt mesajıdır:
+
+$Message
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. E-poçt göndərişi tamamlandı
+
+Bu e-poçt bildirişi $MailsCount mesajlarını poçtla göndərmək istəyiniz barədə sizə məlumat vermək üçün göndərilib və proses başa çatıb. $Message
+
+Uğurla göndərilmiş e-poçt mesajlarına E-poçt modulunda "Göndərilmiş":"$__VirtualRootPath/addons/mail/#sent" qovluğundan daxil ola bilərsiniz.
+
+^Bu e-məktubu "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün alırsınız.^</value>
+  </data>
   <data name="pattern_ShareDocument" xml:space="preserve">
     <value>h1.$__DateTime, "$__AuthorName":"$__AuthorUrl" istifadəçisi "$DocumentTitle":"$DocumentURL" sənədinə girişinizə bu giriş hüquqları ilə: "$AccessRights" icazə verdi.
 
 $Message</value>
+  </data>
+  <data name="pattern_ShareEncryptedDocument" xml:space="preserve">
+    <value>h1. Şifrələnmiş sənədə giriş icazəsi verildi:
+
+h1. $Image "$DocumentTitle":"$DocumentURL"
+
+Bu fayl şifrələnib və yalnız "ONLYOFFICE Desktop Redaktorları" vasitəsilə açıla bilər:"https://www.onlyoffice.com/desktop.aspx". Daha ətraflı məlumat üçün "bu təlimata" müraciət edə bilərsiniz: "https://helpcenter.onlyoffice.com/installation/desktop-private-room.aspx".</value>
   </data>
   <data name="pattern_ShareFolder" xml:space="preserve">
     <value>h1.$__DateTime, "$__AuthorName":"$__AuthorUrl" istifadəçisi
@@ -69,10 +108,40 @@ $Message</value>
 
 $Message</value>
   </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Sənədlər. Bütün imzalayanlar tərəfindən $DocumentTitle tamamlandı</value>
+  </data>
+  <data name="subject_DocuSignComplete_tg" xml:space="preserve">
+    <value>Sənədlər. Bütün imzalayanlar tərəfindən [$DocumentTitle]($DocumentURL) tamamlandı</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Sənədlər. İmza statusu dəyişdi</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Sənədlər. Sənəddə qeyd edildi</value>
+  </data>
+  <data name="subject_EditorMentions_tg" xml:space="preserve">
+    <value>Sənədlər. Sənəddə qeyd edildi:[$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Sənədlər. E-poçt göndərilməsi tamamlandı.</value>
+  </data>
   <data name="subject_ShareDocument" xml:space="preserve">
     <value>Sənədlər. $DocumentTitle 'a Giriş Verildi</value>
   </data>
+  <data name="subject_ShareDocument_tg" xml:space="preserve">
+    <value>Sənədlər. Sənədə giriş icazəsi verildi: [$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument" xml:space="preserve">
+    <value>Sənədlər. Şifrələnmiş sənədə giriş icazəsi verildi:$DocumentTitle</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument_tg" xml:space="preserve">
+    <value>Sənədlər.Şifrələnmiş sənədə giriş icazəsi verildi:[$DocumentTitle]($DocumentURL)</value>
+  </data>
   <data name="subject_ShareFolder" xml:space="preserve">
     <value>Sənədlər. $DocumentTitle 'a Giriş Verildi</value>
+  </data>
+  <data name="subject_ShareFolder_tg" xml:space="preserve">
+    <value>Sənədlər. Qovluğa girişicazəsi verildi:[$DocumentTitle]($DocumentURL)</value>
   </data>
 </root>

@@ -619,9 +619,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>새 암호가 올바르지 않습니다. 이 포함되어야합니다</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>이 포함되어야합니다</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>숫자</value>
   </data>
@@ -1263,9 +1260,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>초대장이 성공적으로 다시 보냈습니다</value>
   </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>필요한 매개 변수를 줄이거 나 현재 가격 계획을 보존 할 수 있습니다.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>지금 구입</value>
   </data>
@@ -1277,18 +1271,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>가장 귀하의 요구에 맞는 계획을 선택하십시오. 권장 계획은 아래의 강조 표시됩니다.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>내리 받이</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>저장 공간 크기가 허용 : {0}. 현재 저장 공간 : {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>허용 포털 사용자의 수 : {0}. 사용자의 현재 수 : {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>당신은 사용자 공간 / 번호가 선택한 요금제의 한계를 초과하는 스토리지로 다운 그레이드 계정 수 없습니다</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>할부가 있습니다</value>

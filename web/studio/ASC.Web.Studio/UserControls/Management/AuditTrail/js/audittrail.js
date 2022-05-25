@@ -55,7 +55,7 @@ var AuditTrailView = function() {
             $events.appendTo($eventsTable.find('tbody'));
             $eventsBox.show();
             $eventsTableCount.text(events.length);
-            $downloadReportBtn.click(createReport);
+            $downloadReportBtn.on("click", createReport);
         } else {
             $emptyScreen.show();
         }
@@ -107,7 +107,7 @@ var AuditTrailView = function() {
             $input.val($input.val().replace(/[^\d]+/g, ''));
         });
         
-        $saveSettingsBtn.click(saveSettings);
+        $saveSettingsBtn.on("click", saveSettings);
     }
 
     function saveSettings() {

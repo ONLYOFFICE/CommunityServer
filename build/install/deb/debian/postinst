@@ -34,7 +34,7 @@ DB_PWD=""
 DB_NAME=""
 
 apply_connection_string(){
-	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
+	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc")
 
 	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "{{package_sysname}}" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
 		if [ -d /var/www/{{package_sysname}}/ ]; then
@@ -50,10 +50,11 @@ apply_connection_string(){
 		sed "s!\"database\":.*!\"database\":\"${DB_NAME}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
 
 	fi
+	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" /etc/onlyoffice/communityserver/appsettings.production.json
 }
 
 apply_core_machinekey(){
-	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc" "Services/MailAggregator" "Services/MailCleaner" "Services/MailWatchdog")
+	binDirs=("WebStudio" "ApiSystem" "Services/TeamLabSvc")
 
 	if [ -d /var/www/{{package_sysname}}/ ]; then
 		for i in "${!binDirs[@]}";
@@ -66,6 +67,7 @@ apply_core_machinekey(){
 	
 	if [ ! -z $CORE_MACHINEKEY ]; then
 		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+		sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/onlyoffice/communityserver/appsettings.production.json		
 	fi			
 }
 
@@ -417,6 +419,34 @@ EOF
 			sed '/web\.controlpanel\.url/s/\(value\s*=\s*\"\)[^\"]*\"/\1\/controlpanel\/\"/' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config;
 		fi
 		# end
+
+		# setup mail services
+		db_get {{package_sysname}}-communityserver/imapsync-start-date || true
+		MAIL_IMAPSYNC_START_DATE="${RET:-$(date +"%Y-%m-%dT%H:%M:%S")}";
+		[ -z "$RET" ] && db_set {{package_sysname}}-communityserver/imapsync-start-date ${MAIL_IMAPSYNC_START_DATE} || true
+		sed 's_\(\"ImapSyncStartDate":\).*,_\1 "'${MAIL_IMAPSYNC_START_DATE}'",_' -i /etc/{{package_sysname}}/communityserver/mail.production.json
+		sed "/mail\.imap-sync-start-date/s/value=\"\S*\"/value=\"${MAIL_IMAPSYNC_START_DATE}\"/g" -i ${APP_ROOT_DIR}/web.appsettings.config
+
+		sed "s!\"value\":.*!\"value\":\ \"${APP_DATA_DIR}\"!" -i /etc/{{package_sysname}}/communityserver/storage.production.json
+		sed "s!\"folder\":.*,!\"folder\":\ \"${APP_SERVICES_DIR}\",!" -i /etc/{{package_sysname}}/communityserver/appsettings.production.json
+		
+		if [ ! -f /etc/{{package_sysname}}/communityserver/openssl.cnf ] ; then
+			cp /etc/ssl/openssl.cnf \
+				/etc/{{package_sysname}}/communityserver/openssl.cnf;
+			sed '/new_oids$/a openssl_conf = default_conf' -i /etc/{{package_sysname}}/communityserver/openssl.cnf
+    		cat >> /etc/{{package_sysname}}/communityserver/openssl.cnf <<EOF
+[default_conf]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+MinProtocol = TLSv1.2
+CipherString = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+Ciphersuites = TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_AES_128_CCM_SHA256
+EOF
+		fi
 
 		# setup xmppserver
 		if dpkg -l | grep -q "{{package_sysname}}-xmppserver"; then

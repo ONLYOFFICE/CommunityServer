@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>公告</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>生日</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>博客</value>
   </data>

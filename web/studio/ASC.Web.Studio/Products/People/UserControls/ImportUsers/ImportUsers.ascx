@@ -116,7 +116,7 @@
         <div class="popup_helper" id="answerForHelpInviteGuests1">
             <p>
                 <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator").HtmlEncode(), "<b>","</b>")%>
-                <% if (TenantExtra.EnableTariffSettings && TenantExtra.GetTenantQuota().ActiveUsers != LicenseReader.MaxUserCount)
+                <% if (TenantExtra.EnableTariffSettings && TenantExtra.GetTenantQuota().ActiveUsers != Constants.MaxEveryoneCount)
                    { %>
                 <%= Resource.NotePriceCollaborator %>
                 <% } %>
@@ -208,5 +208,4 @@
 </sc:Container>
 <div class="blockUpload display-none" id="blockProcess"></div>
 
-    <asp:PlaceHolder ID="Tariff" runat="server"></asp:PlaceHolder>
 </div>

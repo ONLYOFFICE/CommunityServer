@@ -36,12 +36,13 @@ namespace ASC.Api.Settings
     public partial class SettingsApi
     {
         /// <summary>
-        /// Returns current portal SSO settings
+        /// Returns the current portal SSO settings.
         /// </summary>
         /// <short>
-        /// Get SSO settings
+        /// Get the SSO settings
         /// </short>
-        /// <returns>SsoSettingsV2 object</returns>
+        /// <category>SSO</category>
+        /// <returns>SSO settings</returns>
         [Read("ssov2")]
         public SsoSettingsV2 GetSsoSettingsV2()
         {
@@ -56,12 +57,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns default portal SSO settings
+        /// Returns the default portal SSO settings.
         /// </summary>
         /// <short>
-        /// Get default SSO settings
+        /// Get the default SSO settings
         /// </short>
-        /// <returns>SsoSettingsV2 object</returns>
+        /// <category>SSO</category>
+        /// <returns>Default SSO settings</returns>
         [Read("ssov2/default")]
         public SsoSettingsV2 GetDefaultSsoSettingsV2()
         {
@@ -71,12 +73,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns SSO settings constants
+        /// Returns the constants of the SSO settings.
         /// </summary>
         /// <short>
-        /// Get SSO settings constants
+        /// Get the constants of the SSO settings
         /// </short>
-        /// <returns>object</returns>
+        /// <category>SSO</category>
+        /// <returns>Constants of the SSO settings</returns>
         [Read("ssov2/constants")]
         public object GetSsoSettingsV2Constants()
         {
@@ -92,13 +95,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Save SSO settings for current portal
+        /// Saves the SSO settings for the current portal.
         /// </summary>
         /// <short>
-        /// Save SSO settings
+        /// Save the SSO settings
         /// </short>
-        /// <param name="serializeSettings">serialized SsoSettingsV2 object</param>
-        /// <returns>SsoSettingsV2 object</returns>
+        /// <category>SSO</category>
+        /// <param name="serializeSettings">Serialized SSO settings</param>
+        /// <returns>SSO settings</returns>
         [Create("ssov2")]
         public SsoSettingsV2 SaveSsoSettingsV2(string serializeSettings)
         {
@@ -151,12 +155,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Reset SSO settings for current portal
+        /// Resets the SSO settings of the current portal.
         /// </summary>
         /// <short>
-        /// Reset SSO settings
+        /// Reset the SSO settings
         /// </short>
-        /// <returns>SsoSettingsV2 object</returns>
+        /// <category>SSO</category>
+        /// <returns>Default SSO settings</returns>
         [Delete("ssov2")]
         public SsoSettingsV2 ResetSsoSettingsV2()
         {
@@ -203,8 +208,9 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if ((!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
-                !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
+            if (!CoreContext.Configuration.Standalone
+                && (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString())
+                    || !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Sso");
             }

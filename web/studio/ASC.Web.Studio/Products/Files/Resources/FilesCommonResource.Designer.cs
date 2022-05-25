@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesCommonResource {
@@ -102,6 +102,15 @@ namespace ASC.Web.Files.Resources {
         public static string AceStatusEnum_FillForms {
             get {
                 return ResourceManager.GetString("AceStatusEnum_FillForms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string AceStatusEnum_None {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_None", resourceCulture);
             }
         }
         
@@ -435,6 +444,15 @@ namespace ASC.Web.Files.Resources {
         public static string CommentRevertChanges {
             get {
                 return ResourceManager.GetString("CommentRevertChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitted form.
+        /// </summary>
+        public static string CommentSubmitFillForm {
+            get {
+                return ResourceManager.GetString("CommentSubmitFillForm", resourceCulture);
             }
         }
         
@@ -1331,6 +1349,69 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don’t have ONLYOFFICE Desktop Editors?.
+        /// </summary>
+        public static string PvDesktopEditorsNotInstalledTextBlock {
+            get {
+                return ResourceManager.GetString("PvDesktopEditorsNotInstalledTextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install now.
+        /// </summary>
+        public static string PvDownloadNowButton {
+            get {
+                return ResourceManager.GetString("PvDownloadNowButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have ONLYOFFICE Desktop Editors installed but can&apos;t open it from this page, your browser might be blocking it.{0}You can open this file from the desktop app&apos;s interface once your cloud is connected..
+        /// </summary>
+        public static string PvFileBlockingFileOpeningTextBlock {
+            get {
+                return ResourceManager.GetString("PvFileBlockingFileOpeningTextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open ONLYOFFICE Desktop Editors.
+        /// </summary>
+        public static string PvOpenAppButton {
+            get {
+                return ResourceManager.GetString("PvOpenAppButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don’t see a dialog, click the button below..
+        /// </summary>
+        public static string PvOpenAppTextBlock {
+            get {
+                return ResourceManager.GetString("PvOpenAppTextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click Open {0}ONLYOFFICE Desktop{1} in the browser dialog to work {2}with the encrypted documents..
+        /// </summary>
+        public static string PvOpenDocumentTextBlock {
+            get {
+                return ResourceManager.GetString("PvOpenDocumentTextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This document is encrypted.
+        /// </summary>
+        public static string PvOpenDocumentTitle {
+            get {
+                return ResourceManager.GetString("PvOpenDocumentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark as Read.
         /// </summary>
         public static string RemoveIsNew {
@@ -1430,6 +1511,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t log in with your current password?.
+        /// </summary>
+        public static string ThirdPartyFaqLinkText {
+            get {
+                return ResourceManager.GetString("ThirdPartyFaqLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder title.
         /// </summary>
         public static string ThirdPartyFolderTitle {
@@ -1516,6 +1606,15 @@ namespace ASC.Web.Files.Resources {
         public static string TitleRemoved {
             get {
                 return ResourceManager.GetString("TitleRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will be permanently deleted on.
+        /// </summary>
+        public static string TitleRemovePermanently {
+            get {
+                return ResourceManager.GetString("TitleRemovePermanently", resourceCulture);
             }
         }
         

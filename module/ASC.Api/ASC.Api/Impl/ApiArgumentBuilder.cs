@@ -240,7 +240,6 @@ namespace ASC.Api.Impl
                             FillCollectionFromXElement(element.Elements(), prefix + "." + element.Name.LocalName, collection);
                         }
                     }
-
                 }
                 else
                 {
@@ -275,7 +274,17 @@ namespace ASC.Api.Impl
                 var additional = string.Empty;
                 if (prefixes.Length > 1)
                 {
-                    additional = string.Join("", prefix.Skip(1).Select(x => "[" + x + "]").ToArray());
+                    additional = string.Join("", prefixes.Skip(1)
+                        .Select(subprefix =>
+                        {
+                            var indexPos = subprefix.IndexOf('[');
+                            if (indexPos < 0)
+                                return "[" + subprefix + "]";
+
+                            //"param[0]" => "[param][0]"
+                            return "[" + subprefix.Substring(0, indexPos) + "]" + subprefix.Substring(indexPos);
+                        })
+                        .ToArray());
                 }
                 collection.Add(prefixes[0] + additional + "[" + element.Name.LocalName + "]", element.Value);
             }

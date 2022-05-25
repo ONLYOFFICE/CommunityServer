@@ -61,7 +61,7 @@ window.tagsPanel = (function($) {
 
         var $html = $(html);
 
-        $html.click(function(e) {
+        $html.on("click", function(e) {
             if (e.isPropagationStopped()) {
                 return;
             }

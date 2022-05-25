@@ -32,7 +32,7 @@
  * MS	06-09-24	use QuoteString instead of Serialize
  * MS	06-09-26	improved performance using StringBuilder
  * MS	07-04-24	added renderJsonCompliant serialization
- * 
+ * MS	21-11-29	added check for custom type deserialization
  * 
  */
 using System;
@@ -86,8 +86,15 @@ namespace AjaxPro
 				for (int i = 0; i < a.Count; i++)
 				{
 					aa = (JavaScriptArray)a[i];
-					key = JavaScriptDeserializer.Deserialize((IJavaScriptObject)aa[0], Type.GetType(((JavaScriptString)aa[2]).ToString()));
-					value = JavaScriptDeserializer.Deserialize((IJavaScriptObject)aa[1], Type.GetType(((JavaScriptString)aa[3]).ToString()));
+
+					Type keyType = Type.GetType(((JavaScriptString)aa[2]).ToString());
+					Type valueType = Type.GetType(((JavaScriptString)aa[3]).ToString());
+
+					JavaScriptDeserializer.ThrowExceptionIfNotCustomTypeDeserializationAllowed(keyType);
+					JavaScriptDeserializer.ThrowExceptionIfNotCustomTypeDeserializationAllowed(valueType);
+
+					key = JavaScriptDeserializer.Deserialize((IJavaScriptObject)aa[0], keyType);
+					value = JavaScriptDeserializer.Deserialize((IJavaScriptObject)aa[1], valueType);
 
 					d.Add(key, value);
 				}

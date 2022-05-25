@@ -35,8 +35,8 @@ window.ASC.Files.Filter = (function () {
             ASC.Files.Filter.advansedFilter =
                 jq(".files-filter div")
                     .advansedFilter(filterOptions)
-                    .bind("setfilter", ASC.Files.Filter.setFilter)
-                    .bind("resetfilter", ASC.Files.Filter.setFilter);
+                    .on("setfilter", ASC.Files.Filter.setFilter)
+                    .on("resetfilter", ASC.Files.Filter.setFilter);
         }
     };
 
@@ -426,12 +426,12 @@ window.ASC.Files.Filter = (function () {
     $(function () {
         ASC.Files.Filter.init();
 
-        jq(".files-clear-filter").click(function () {
+        jq(".files-clear-filter").on("click", function () {
             ASC.Files.Filter.clearFilter();
             return false;
         });
 
-        jq("#filesWithoutSubfolders").click(function () {
+        jq("#filesWithoutSubfolders").on("click", function () {
             ASC.Files.Filter.setWithoutSubfolders();
             return false;
         });

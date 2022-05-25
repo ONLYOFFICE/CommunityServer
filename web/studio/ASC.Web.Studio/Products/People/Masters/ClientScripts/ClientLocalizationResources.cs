@@ -85,11 +85,6 @@ namespace ASC.Web.People.Masters.ClientScripts
                 importFromList.Add(new ImportDataSource(ImportFromWhatEnum.Google, PeopleResource.ImportFromGoogle));
             }
 
-            if (Studio.ThirdParty.ImportContacts.Yahoo.Enable)
-            {
-                importFromList.Add(new ImportDataSource(ImportFromWhatEnum.Yahoo, PeopleResource.ImportFromYahoo));
-            }
-
             return importFromList;
         }
 

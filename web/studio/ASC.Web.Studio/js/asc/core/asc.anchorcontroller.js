@@ -75,7 +75,7 @@ if (typeof window.ASC.Controls.AnchorController === 'undefined') {
 
         var getLabelObject = function(label) {
             var labelObj = {};
-            if (jq.trim(label).length == 0) {
+            if (label.trim().length == 0) {
                 return labelObj;
             }
             var pairs = label.split('&');

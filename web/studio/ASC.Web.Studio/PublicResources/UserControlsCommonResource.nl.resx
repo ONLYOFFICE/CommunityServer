@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>De actieve gebruikers zijn de portaalleden, met uitzondering van gasten en gebruikers met de status "uitgeschakeld"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Voeg enquete keuze toe</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Bijlage toevoegen van een project</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Verkort uitnodigingslinks voor het portaal en links voor gedeelde document met Bitly </value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Log in op het portaal met uw social media accounts en zoek naar contacten</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Verbind uw favoriete cloudopslagdiensten en beheer al uw bestanden op een plaats</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Broncode is beschikbaar op {0}GitHub{1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Basisprijs</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Zie Avangate voor de volledige lijst van valuta</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Gratis</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Volledige prijslijst openen</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Wilt u een nieuw abonnement kiezen?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Aanbieding beperkte tijd geldig</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Ja, abonnement upgraden</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 jaar{2}{1} abonnement</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 jaar{1} abonnement</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>U gebruikt een abonnement voor een non-profit organisatie.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 jaar</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Het aanbod is alleen beschikbaar voor jaarlijkse abonnees.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Meest Populaire Abonnement</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Het toevoegen van een portaal zal</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Opslaan {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per gebr./mnd</value>

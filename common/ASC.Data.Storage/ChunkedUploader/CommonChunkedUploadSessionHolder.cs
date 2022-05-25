@@ -68,11 +68,11 @@ namespace ASC.Core.ChunkedUploader
             DataStore.Delete(Domain, GetPathWithId(s.Id));
         }
 
-        public CommonChunkedUploadSession Get(string sessionId)
+        public T Get<T>(string sessionId)
         {
             using (var stream = DataStore.GetReadStream(Domain, GetPathWithId(sessionId)))
             {
-                return CommonChunkedUploadSession.Deserialize(stream);
+                return CommonChunkedUploadSession.Deserialize<T>(stream);
             }
         }
 
@@ -126,11 +126,14 @@ namespace ASC.Core.ChunkedUploader
         {
             var tempPath = uploadSession.TempPath;
             var uploadId = uploadSession.UploadId;
-            var chunkNumber = uploadSession.GetItemOrDefault<int>("ChunksUploaded") + 1;
+
+            int chunkNumber;
+            int.TryParse(uploadSession.GetItemOrDefault<string>("ChunksUploaded"), out chunkNumber);
+            chunkNumber++;
 
             var eTag = DataStore.UploadChunk(Domain, tempPath, uploadId, stream, MaxChunkUploadSize, chunkNumber, length);
 
-            uploadSession.Items["ChunksUploaded"] = chunkNumber;
+            uploadSession.Items["ChunksUploaded"] = chunkNumber.ToString();
             uploadSession.BytesUploaded += length;
 
             var eTags = uploadSession.GetItemOrDefault<List<string>>("ETag") ?? new List<string>();

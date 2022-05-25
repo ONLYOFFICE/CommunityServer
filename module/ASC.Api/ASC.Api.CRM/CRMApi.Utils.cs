@@ -35,12 +35,12 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///     Returns the list of all currencies currently available on the portal
+        /// Returns a list of all the currencies currently available on the portal.
         /// </summary>
-        /// <short>Get currency list</short> 
+        /// <short>Get available currencies</short> 
         /// <category>Common</category>
         /// <returns>
-        ///    List of available currencies
+        /// List of available currencies
         /// </returns>
         [Read(@"settings/currency")]
         public IEnumerable<CurrencyInfoWrapper> GetAvaliableCurrency()
@@ -49,15 +49,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Returns the result of convertation from one currency to another
+        /// Returns a result of converting one currency into another.
         /// </summary>
         /// <param name="amount">Amount to convert</param>
-        /// <param name="fromcurrency">Old currency key</param>
-        /// <param name="tocurrency">New currency key</param>
-        /// <short>Get the result of convertation</short> 
+        /// <param name="fromcurrency">Currency to be converted</param>
+        /// <param name="tocurrency">Currency into which the original currency will be converted</param>
+        /// <short>Convert a currency</short> 
         /// <category>Common</category>
         /// <returns>
-        ///    Decimal result of convertation
+        /// Decimal result of converting
         /// </returns>
         [Read(@"settings/currency/convert")]
         public Decimal ConvertAmount(Decimal amount, String fromcurrency, String tocurrency)
@@ -66,13 +66,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Returns the summary table with rates for selected currency
+        /// Returns a summary table with the rates for the currency specified in the request.
         /// </summary>
-        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (Abbreviation)</param>
-        /// <short>Get the summary table</short> 
+        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (abbreviation)</param>
+        /// <short>Get currency rates</short> 
         /// <category>Common</category>
         /// <returns>
-        ///    Dictionary of currencies and rates
+        /// Dictionary of currency rates
         /// </returns>
         /// <exception cref="ArgumentException"></exception>
         [Read(@"settings/currency/summarytable")]
@@ -94,13 +94,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     
+        /// Updates the contact status setting with the parameter specified in the request.  
         /// </summary>
-        /// <param name="changeContactStatusGroupAuto" remark="true, false or null">Change contact status group auto</param>
-        /// <short></short> 
+        /// <param name="changeContactStatusGroupAuto" remark="true, false or null">Defines if the contact status setting is changed automatically or not</param>
+        /// <short>Update the contact status setting</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    ChangeContactStatusGroupAuto setting value (true, false or null)
+        /// Updated contact status setting value (true, false or null)
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"contact/status/settings")]
@@ -116,13 +116,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     
+        /// Updates the setting for writing mails to the history with the parameter specified in the request.   
         /// </summary>
-        /// <param name="writeMailToHistoryAuto" remark="true or false">Write mail to history auto</param>
-        /// <short></short> 
+        /// <param name="writeMailToHistoryAuto" remark="true or false">Defines if the mails are written to the history automatically or not</param>
+        /// <short>Update the setting for writing mails to the history</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    WriteMailToHistoryAuto setting value (true or false)
+        /// Updated setting for writing mails to the history (true or false)
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"contact/mailtohistory/settings")]
@@ -137,13 +137,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     
+        /// Updates the setting for adding tags to the contact with the parameter specified in the request.    
         /// </summary>
-        /// <param name="addTagToContactGroupAuto" remark="true, false or null">add tag to contact group auto</param>
-        /// <short></short> 
+        /// <param name="addTagToContactGroupAuto" remark="true, false or null">Defines if a tag is added to the contact automatically or not</param>
+        /// <short>Update the setting for adding tags to the contact</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    AddTagToContactGroupAuto setting value (true, false or null)
+        /// Setting for adding tags to contact (true, false or null)
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"contact/tag/settings")]
@@ -160,12 +160,14 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        ///    Set IsConfiguredPortal tenant setting and website contact form key specified in the request
+        /// Sets the tenant setting for portal configuration and website contact form key specified in the request.
         /// </summary>
-        /// <short>Set tenant settings</short> 
+        /// <param name="configured">Defines if the tenant setting for portal configuration is set or not</param>
+        /// <param name="webFormKey">Website contact form key</param>
+        /// <short>Set the tenant setting</short> 
         /// <category>Common</category>
         /// <returns>
-        ///    IsConfiguredPortal setting value (true or false)
+        /// Tenant setting for portal configuration value (true or false)
         /// </returns>
         [Update(@"settings")]
         public Boolean SetIsPortalConfigured(Boolean? configured, Guid? webFormKey)
@@ -179,12 +181,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Save organisation company name
+        ///  Updates a company name with the one specified in the request.
         /// </summary>
-        /// <param name="companyName">Organisation company name</param>
-        /// <short>Save organisation company name</short>
+        /// <param name="companyName">New company name</param>
+        /// <short>Update a company name</short>
         /// <category>Organisation</category>
-        /// <returns>Organisation company name</returns>
+        /// <returns>Updated company name</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"settings/organisation/base")]
         public String UpdateOrganisationSettingsCompanyName(String companyName)
@@ -205,16 +207,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Save organisation company address
+        ///  Updates the company address with the one specified in the request.
         /// </summary>
-        /// <param name="street">Organisation company street/building/apartment address</param>
-        /// <param name="city">City</param>
-        /// <param name="state">State</param>
-        /// <param name="zip">Zip</param>
-        /// <param name="country">Country</param>
-        /// <short>Save organisation company address</short>
+        /// <param name="street">New company street/building/apartment</param>
+        /// <param name="city">New company city</param>
+        /// <param name="state">New company state</param>
+        /// <param name="zip">New company zip</param>
+        /// <param name="country">New company country</param>
+        /// <short>Update the company address</short>
         /// <category>Organisation</category>
-        /// <returns>Returns a JSON object with the organization company address details</returns>
+        /// <returns>Updated company address</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"settings/organisation/address")]
         public String UpdateOrganisationSettingsCompanyAddress(String street, String city, String state, String zip, String country)
@@ -248,10 +250,10 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Save organisation logo
+        ///  Updates the organisation logo setting with the parameter specified in the request.
         /// </summary>
-        /// <param name="reset">Reset organisation logo</param>
-        /// <short>Save organisation logo</short>
+        /// <param name="reset">Resets organisation logo or not</param>
+        /// <short>Update the organisation logo setting</short>
         /// <category>Organisation</category>
         /// <returns>Organisation logo ID</returns>
         /// <exception cref="SecurityException"></exception>
@@ -288,12 +290,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Get organisation logo in base64 format  (if 'id' is 0 then take current logo)
+        ///  Returns an organisation logo with the ID specified in the request in the base64 format.
         /// </summary>
-        /// <param name="id">organisation logo id</param>
-        /// <short>Get organisation logo</short>
+        /// <param name="id" remark="If this parameter is equal to 0, then the current logo is taken">Organisation logo ID</param>
+        /// <short>Get an organisation logo</short>
         /// <category>Organisation</category>
-        /// <returns>Organisation logo content in base64</returns>
+        /// <returns>Organisation logo in the base64 format</returns>
         /// <exception cref="Exception"></exception>
         [Read(@"settings/organisation/logo")]
         public String GetOrganisationSettingsLogo(int id)
@@ -315,11 +317,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Change Website Contact Form key
+        ///  Updates the website contact form key.
         /// </summary>
-        /// <short>Change web form key</short>
+        /// <short>Update web form key</short>
         /// <category>Common</category>
-        /// <returns>Web form key</returns>
+        /// <returns>Updated web form key</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"settings/webformkey/change")]
         public string ChangeWebToLeadFormKey()
@@ -336,12 +338,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Change default CRM currency
+        /// Updates the default CRM currency with the currency specified in the request.
         /// </summary>
-        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (Abbreviation)</param>
-        /// <short>Change currency</short>
+        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Currency (abbreviation)</param>
+        /// <short>Update a currency</short>
         /// <category>Common</category>
-        /// <returns>currency</returns>
+        /// <returns>Updated currency</returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         [Update(@"settings/currency")]
@@ -363,6 +365,14 @@ namespace ASC.Api.CRM
             return ToCurrencyInfoWrapper(cur);
         }
 
+        /// <summary>
+        /// Starts the import from the csv file specified in the request.
+        /// </summary>
+        /// <param name="entityType" remark="Allowed values: contact, task, opportunity, case">Entity type</param>
+        /// <param name="csvFileURI">URI to the csv file</param>
+        /// <param name="jsonSettings">JSON settings in the string format</param>
+        /// <short>Start import from csv file</short>
+        /// <category>Common</category>
         /// <visible>false</visible>
         [Create(@"{entityType:(contact|opportunity|case|task)}/import/start")]
         public string StartImportFromCSV(string entityType, string csvFileURI, string jsonSettings)
@@ -392,6 +402,13 @@ namespace ASC.Api.CRM
             return "";
         }
 
+        /// <summary>
+        /// Returns a status of import from the csv file.
+        /// </summary>
+        /// <param name="entityType" remark="Allowed values: contact, task, opportunity, case">Entity type</param>
+        /// <short>Get import status</short>
+        /// <category>Common</category>
+        /// <returns>Import status</returns>
         /// <visible>false</visible>
         [Read(@"{entityType:(contact|opportunity|case|task)}/import/status")]
         public IProgressItem GetImportFromCSVStatus(string entityType)
@@ -420,6 +437,15 @@ namespace ASC.Api.CRM
             return ImportFromCSV.GetStatus(entityTypeObj);
         }
 
+        /// <summary>
+        /// Returns a sample row from the imported csv file specified in the request.
+        /// </summary>
+        /// <param name="csvFileURI">URI to the csv file</param>
+        /// <param name="indexRow">Sample row index</param>
+        /// <param name="jsonSettings">JSON settings in the string format</param>
+        /// <short>Get a sample row</short>
+        /// <category>Common</category>
+        /// <returns>Sample row</returns>
         /// <visible>false</visible>
         [Read(@"import/samplerow")]
         public String GetImportFromCSVSampleRow(string csvFileURI, int indexRow, string jsonSettings)
@@ -433,6 +459,14 @@ namespace ASC.Api.CRM
             return ImportFromCSV.GetRow(CSVFileStream, indexRow, jsonSettings);
         }
 
+        /// <summary>
+        /// Processes the fake upload of the csv file specified in the request.
+        /// </summary>
+        /// <param name="csvFileURI">URI to the csv file</param>
+        /// <param name="jsonSettings">JSON settings in the string format</param>
+        /// <short>Process fake upload</short>
+        /// <category>Common</category>
+        /// <returns>Uploaded file</returns>
         /// <visible>false</visible>
         [Create(@"import/uploadfake")]
         public FileUploadResult ProcessUploadFake(string csvFileURI, string jsonSettings)
@@ -440,6 +474,12 @@ namespace ASC.Api.CRM
             return new ImportFromCSVManager().ProcessUploadFake(csvFileURI, jsonSettings);
         }
 
+        /// <summary>
+        /// Returns a status of export to the csv file.
+        /// </summary>
+        /// <short>Get export status</short>
+        /// <category>Common</category>
+        /// <returns>Export status</returns>
         /// <visible>false</visible>
         [Read(@"export/status")]
         public IProgressItem GetExportStatus()
@@ -448,6 +488,12 @@ namespace ASC.Api.CRM
             return ExportToCsv.GetStatus(false);
         }
 
+        /// <summary>
+        /// Cancels the export to the csv file.
+        /// </summary>
+        /// <short>Cancel export to csv file</short>
+        /// <category>Common</category>
+        /// <returns>Export status</returns>
         /// <visible>false</visible>
         [Update(@"export/cancel")]
         public IProgressItem CancelExport()
@@ -457,6 +503,12 @@ namespace ASC.Api.CRM
             return ExportToCsv.GetStatus(false);
         }
 
+        /// <summary>
+        /// Starts the export to the csv file.
+        /// </summary>
+        /// <short>Start export to csv file</short>
+        /// <category>Common</category>
+        /// <returns>Export data operation</returns>
         /// <visible>false</visible>
         [Create(@"export/start")]
         public IProgressItem StartExport()
@@ -468,6 +520,12 @@ namespace ASC.Api.CRM
             return ExportToCsv.Start(null, string.Format("{0}_{1}.zip", CRMSettingResource.Export, DateTime.UtcNow.Ticks));
         }
 
+        /// <summary>
+        /// Returns a status of partial export to the csv file.
+        /// </summary>
+        /// <short>Get status of partial export</short>
+        /// <category>Common</category>
+        /// <returns>Partial export status</returns>
         /// <visible>false</visible>
         [Read(@"export/partial/status")]
         public IProgressItem GetPartialExportStatus()
@@ -475,6 +533,12 @@ namespace ASC.Api.CRM
             return ExportToCsv.GetStatus(true);
         }
 
+        /// <summary>
+        /// Cancels the partial export to the csv file.
+        /// </summary>
+        /// <short>Cancel partial export to csv file</short>
+        /// <category>Common</category>
+        /// <returns>Partial export status</returns>
         /// <visible>false</visible>
         [Update(@"export/partial/cancel")]
         public IProgressItem CancelPartialExport()
@@ -483,6 +547,14 @@ namespace ASC.Api.CRM
             return ExportToCsv.GetStatus(true);
         }
 
+        /// <summary>
+        /// Starts the partial export to the csv file.
+        /// </summary>
+        /// <param name="entityType" remark="Allowed values: contact, task, opportunity, case, invoiceitem">Entity type</param>
+        /// <param name="base64FilterString">Filter string in the base64 format</param>
+        /// <short>Start partial export to csv file</short>
+        /// <category>Common</category>
+        /// <returns>Export data operation</returns>
         /// <visible>false</visible>
         [Create(@"export/partial/{entityType:(contact|opportunity|case|task|invoiceitem)}/start")]
         public IProgressItem StartPartialExport(string entityType, string base64FilterString)

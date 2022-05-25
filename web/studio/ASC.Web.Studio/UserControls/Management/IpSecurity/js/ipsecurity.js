@@ -169,7 +169,7 @@ window.IpSecurity = new function() {
                         showErrorMessage();
                     } else {
                         if (!enabled) {
-                            $ipsecurityOff.click();
+                            $ipsecurityOff.trigger("click");
                         }
                         LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
                     }

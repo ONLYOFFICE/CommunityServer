@@ -43,7 +43,6 @@ namespace ASC.Web.Community.Controls
         protected bool IsForumsAvailable { get; set; }
         protected bool IsBookmarksAvailable { get; set; }
         protected bool IsWikiAvailable { get; set; }
-        protected bool IsBirthdaysAvailable { get; set; }
 
         protected bool IsAdmin { get; set; }
         protected bool IsVisitor { get; set; }
@@ -102,9 +101,6 @@ namespace ASC.Web.Community.Controls
                         break;
                     case "community-wiki":
                         IsWikiAvailable = true;
-                        break;
-                    case "community-birthdays":
-                        IsBirthdaysAvailable = true;
                         break;
                 }
             }

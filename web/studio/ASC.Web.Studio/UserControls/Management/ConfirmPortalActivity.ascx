@@ -32,7 +32,7 @@
                     toastr.error(response.error.Message);
                     jq(".big-button-container .button.blue:first").removeClass("disable");
                 } else {
-                    var resp = jq.parseJSON(response.value);
+                    var resp = JSON.parse(response.value);
 
                     jq(".big-button-container").hide();
                     jq("#successMessagePortalRemove").html(resp.successMessage).show();

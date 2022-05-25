@@ -33,10 +33,11 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        /// Export all message's attachments to MyDocuments
+        /// Exports all the message attachments to the folder with documents.
         /// </summary>
-        /// <param name="id_message">Id of any message</param>
-        /// <param name="id_folder" optional="true">Id of Documents folder (if empty then @My)</param>
+        /// <short>Export message attachments</short>
+        /// <param name="id_message">Message ID</param>
+        /// <param name="id_folder" optional="true">Folder ID (if empty, the "My documents" folder is used)</param>
         /// <returns>Count of exported attachments</returns>
         /// <category>Messages</category>
         [Update(@"messages/attachments/export")]
@@ -56,11 +57,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Export attachment to MyDocuments
+        /// Exports an attachment with the ID specified in the request to the folder with documents.
         /// </summary>
-        /// <param name="id_attachment">Id of any attachment from the message</param>
-        /// <param name="id_folder" optional="true">Id of Documents folder (if empty then @My)</param>
-        /// <returns>Id document in My Documents</returns>
+        /// <short>Export an attachment</short>
+        /// <param name="id_attachment">Attachment ID</param>
+        /// <param name="id_folder" optional="true">Folder ID (if empty, the "My documents" folder is used)</param>
+        /// <returns>Document ID in the folder with documents</returns>
         /// <category>Messages</category>
         [Update(@"messages/attachment/export")]
         public object ExportAttachmentToDocuments(int id_attachment, string id_folder = null)
@@ -79,13 +81,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Add attachment to draft
+        /// Adds an attachment to the draft with the ID specified in the request.
         /// </summary>
-        /// <param name="id_message">Id of any message</param>
+        /// <short>Add an attachment</short>
+        /// <param name="id_message">Message ID</param>
         /// <param name="name">File name</param>
         /// <param name="file">File stream</param>
         /// <param name="content_type">File content type</param>
-        /// <returns>MailAttachment</returns>
+        /// <returns>Mail attachment</returns>
         /// <category>Messages</category>
         [Create(@"messages/attachment/add")]
         public MailAttachmentData AddAttachment(int id_message, string name, Stream file, string content_type)
@@ -97,11 +100,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Add attachment to draft
+        /// Adds an iCal body to the draft with the ID specified in the request.
         /// </summary>
-        /// <param name="id_message">Id of any message</param>
-        /// <param name="ical_body">File name</param>
-        /// <returns>MailAttachment</returns>
+        /// <short>Add a calendar</short>
+        /// <param name="id_message">Message ID</param>
+        /// <param name="ical_body">iCal body</param>
+        /// <returns>Mail attachment</returns>
         /// <category>Messages</category>
         [Create(@"messages/calendarbody/add")]
         public MailAttachmentData AddCalendarBody(int id_message, string ical_body)
@@ -132,13 +136,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Download all attachments from message
+        /// Downloads all the attachments from the message with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Download all attachments from message
+        /// Download attachments
         /// </short>
-        /// <param name="messageId">Id of message</param>
-        /// <returns>Attachment Archive</returns>
+        /// <category>Messages</category>
+        /// <param name="messageId">Message ID</param>
+        /// <returns>Attachment archive</returns>
         [Update(@"messages/attachment/downloadall/{messageId}")]
         public MailOperationStatus DownloadAllAttachments(int messageId)
         {

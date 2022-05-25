@@ -35,10 +35,10 @@ namespace ASC.Api.Projects
         #region milestone
 
         ///<summary>
-        ///Returns the list of all upcoming milestones within all portal projects
+        ///Returns a list of all the upcoming milestones within all the portal projects.
         ///</summary>
         ///<short>
-        ///Upcoming milestones
+        ///Get milestones
         ///</short>
         ///<category>Milestones</category>
         ///<returns>List of milestones</returns>
@@ -49,21 +49,21 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all milestones matching the filter with the parameters specified in the request
+        ///Returns a list of all the milestones matching the parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Milestones by filter
+        ///Get milestones by filter
         ///</short>
         ///<category>Milestones</category>
         ///<param name="projectid" optional="true">Project ID</param>
         ///<param name="tag" optional="true">Project tag</param>
-        ///<param name="status" optional="true">Milstone status/ Can be open or closed</param>
+        ///<param name="status" optional="true">Milestone status (Open or Closed)</param>
         ///<param name="deadlineStart" optional="true">Minimum value of task deadline</param>
         ///<param name="deadlineStop" optional="true">Maximum value of task deadline</param>
-        ///<param name="taskResponsible" optional="true">Responsible for the task in milestone GUID</param>
+        ///<param name="taskResponsible" optional="true">Task responsible GUID</param>
         ///<param name="lastId">Last milestone ID</param>
-        ///<param name="myProjects">Miletone in my Projects</param>
-        ///<param name="milestoneResponsible">Responsible for the milestone GUID</param>
+        ///<param name="myProjects">Returns milestones only from my projects</param>
+        ///<param name="milestoneResponsible">Milestone responsible GUID</param>
         ///<returns>List of milestones</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"milestone/filter")]
@@ -104,10 +104,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all overdue milestones in the portal projects
+        ///Returns a list of all the overdue milestones in the portal projects.
         ///</summary>
         ///<short>
-        ///Overdue milestones
+        ///Get overdue milestones
         ///</short>
         ///<category>Milestones</category>
         ///<returns>List of milestones</returns>
@@ -118,10 +118,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all milestones due on the date specified in the request
+        ///Returns a list of all the milestones with the deadline specified in the request.
         ///</summary>
         ///<short>
-        ///Milestones by full date
+        ///Get milestones by deadline
         ///</short>
         ///<category>Milestones</category>
         ///<param name="year">Deadline year</param>
@@ -136,10 +136,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all milestones due in the month specified in the request
+        ///Returns a list of all the milestones with the deadline month specified in the request.
         ///</summary>
         ///<short>
-        ///Milestones by month
+        ///Get milestones by deadline month
         ///</short>
         ///<category>Milestones</category>
         ///<param name="year">Deadline year</param>
@@ -153,10 +153,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list with the detailed information about the milestone with the ID specified in the request
+        ///Returns a list with the detailed information about a milestone with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Get milestone
+        ///Get a milestone
         ///</short>
         ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
@@ -171,14 +171,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all tasks within the milestone with the ID specified in the request
+        ///Returns a list of all the tasks within a milestone with the ID specified in the request.
         ///</summary>
         ///<short>
         ///Get milestone tasks 
         ///</short>
         ///<category>Milestones</category>
-        ///<param name="id">Milestone ID </param>
-        ///<returns>Tasks list</returns>
+        ///<param name="id">Milestone ID</param>
+        ///<returns>List of tasks</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"milestone/{id:[0-9]+}/task")]
         public IEnumerable<TaskWrapper> GetMilestoneTasks(int id)
@@ -188,22 +188,22 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the selected milestone changing the milestone parameters (title, deadline, status, etc.) specified in the request
+        ///Updates the selected milestone changing the milestone parameters (title, deadline, status, etc.) specified in the request.
         ///</summary>
         ///<short>
-        ///Update milestone
+        ///Update a milestone
         ///</short>
         ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="deadline">Deadline</param>
-        ///<param name="isKey">Is key or not</param>
-        ///<param name="status">Status</param>
-        ///<param name="isNotify">Remind me 48 hours before the due date</param>
-        ///<param name="description">Milestone description</param>
-        ///<param name="projectID">Project ID</param>
-        ///<param name="responsible">Milestone responsible</param>
-        ///<param name="notifyResponsible">Notify responsible</param>
+        ///<param name="title">New milestone title</param>
+        ///<param name="deadline">New milestone deadline</param>
+        ///<param name="isKey">Specifies if this is a key milestone or not</param>
+        ///<param name="status">New milestone status</param>
+        ///<param name="isNotify">Reminds me 48 hours before the milestone due date</param>
+        ///<param name="description">New milestone description</param>
+        ///<param name="projectID">New project ID</param>
+        ///<param name="responsible">New milestone responsible</param>
+        ///<param name="notifyResponsible">Notifies responsible about the milestone actions or not</param>
         ///<returns>Updated milestone</returns>
         ///<exception cref="ArgumentNullException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -251,14 +251,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the status of the milestone with the ID specified in the request
+        ///Updates a status of a milestone with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Update milestone status
+        ///Update a milestone status
         ///</short>
         ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
-        ///<param name="status">Status</param>
+        ///<param name="status">New milestone status (Open or Closed)</param>
         ///<returns>Updated milestone</returns>
         ///<exception cref="ArgumentNullException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -285,10 +285,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes the milestone with the ID specified in the request
+        ///Deletes a milestone with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Delete milestone
+        ///Delete a milestone
         ///</short>
         ///<category>Milestones</category>
         ///<param name="id">Milestone ID</param>
@@ -308,13 +308,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes milestones with the IDs specified in the request
+        ///Deletes the milestones with the IDs specified in the request.
         ///</summary>
         ///<short>
         ///Delete milestones
         ///</short>
         ///<category>Milestones</category>
-        ///<param name="ids">Milestones ID</param>
+        ///<param name="ids">Milestone IDs</param>
         ///<returns>Deleted milestones</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"milestone")]

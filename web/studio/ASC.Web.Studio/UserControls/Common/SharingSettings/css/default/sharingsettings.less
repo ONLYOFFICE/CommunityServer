@@ -18,42 +18,90 @@
 #studio_sharingSettingsDialog {
     display: none;
 }
-#sharingSettingsItems {
-    border-top: 1px solid #d1d1d1;
-    height: 318px;
-    min-height: 318px;
-    overflow: auto;
+
+#sharingSettingsDialogBody {
+
+    #sharingSettingsItems {
+        border-top: 1px solid #d1d1d1;
+        height: 318px;
+        min-height: 318px;
+        overflow: auto;
+
+        &.with-share-link {
+            height: 274px;
+            min-height: 274px;
+
+            &.with-message-panel {
+                height: 232px;
+                min-height: 232px;
+
+                &.with-formfilling-panel {
+                    height: 190px;
+                    min-height: 190px;
+                }
+            }
+
+            &.with-formfilling-panel {
+                height: 232px;
+                min-height: 232px;
+            }
+        }
+
+        &.with-message-panel {
+            height: 276px;
+            min-height: 276px;
+
+            &.with-formfilling-panel {
+                height: 234px;
+                min-height: 234px;
+            }
+        }
+
+        &.with-formfilling-panel {
+            height: 276px;
+            min-height: 276px;
+        }
+    }
+
+    .sharing-empty {
+        float: left;
+        margin-top: -150px;
+        text-align: center;
+        width: 100%;
+    }
+
+    &.with-message {
+        #sharingSettingsItems.with-message-panel {
+            height: 216px;
+            min-height: 216px;
+
+            &.with-share-link {
+                height: 172px;
+                min-height: 172px;
+
+                &.with-formfilling-panel {
+                    height: 130px;
+                    min-height: 130px;
+                }
+            }
+
+            &.with-formfilling-panel {
+                height: 174px;
+                min-height: 174px;
+            }
+        }
+
+        .sharing-empty {
+            margin-top: -90px;
+        }
+    }
 }
-#sharingSettingsItems.with-share-link {
-    height: 274px;
-    min-height: 274px;
-}
-#sharingSettingsItems.with-message-panel {
-    height: 276px;
-    min-height: 276px;
-}
-#sharingSettingsDialogBody.with-message #sharingSettingsItems {
-    height: 216px;
-    min-height: 216px;
-}
-#sharingSettingsItems.with-share-link.with-message-panel {
-    height: 232px;
-    min-height: 232px;
-}
-#sharingSettingsDialogBody.with-message #sharingSettingsItems.with-share-link {
-    height: 172px;
-    min-height: 172px;
-}
+
 body.mobile #sharingSettingsItems {
     height: auto !important;
     overflow: visible !important;
 }
-.sharing-empty {
-    float: left;
-    margin-top: -150px;
-    text-align: center;
-    width: 100%;
-}
+
 #studio_sharingSettingsDialog .sharingItem {
     border-top: none;
     border-right: none;
@@ -335,3 +383,6 @@ body.mobile #sharingSettingsItems {
     background-size: 16px;
     background-position: 50%;
 }
+/****************************************\
+    Share Message
+\****************************************/

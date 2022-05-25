@@ -49,6 +49,7 @@ namespace ASC.Web.Studio.Masters
                         "~/js/asc/plugins/jquery-emailadvansedselector.js",
                         "~/js/asc/plugins/jquery.tlblock.js",
                         "~/js/asc/plugins/popupbox.js",
+                        "~/js/asc/plugins/userselector.js",
                         "~/js/asc/core/asc.files.utility.js",
                         "~/js/asc/core/basetemplate.master.init.js",
                         "~/UserControls/Common/HelpCenter/js/help-center.js",

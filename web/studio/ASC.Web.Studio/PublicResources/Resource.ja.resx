@@ -242,9 +242,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>管理者</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>アフィリエイトのステータス</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>任意のドメイン</value>
   </data>
@@ -523,12 +520,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>ログイン</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>ポータルの招待リンクと文書モジュール共有リンクをを短くするように、Bitlyサービスを接続します。</value>
@@ -1078,30 +1069,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>WordPressの秘密なキー</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>クライアントID </value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>クライアントの秘密鍵</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Yahoo連絡先インポートのアプリを接続します</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Yahooサービスアプリを追加すると、連絡先リストからONLYOFFICEポータルの新しいユーザーを追加できるようになります。</value>
-  </data>
-  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
-    <value>このアプリを有効にすると、Yahooの連絡先リストからのユーザをポータルに追加できます。{0}Yahoo!デベロッパーネットワークのアプリ作成というページでONLYOFFICE統合のために新しいアップリを作成してください。その後、データを以下に入力してください：</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>クライアントID </value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>クライアントの秘密鍵</value>
   </data>
   <data name="ConsumersYandex" xml:space="preserve">
     <value>Yandex</value>
@@ -1658,9 +1625,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>パスワードが含まれている必要な記号</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>パスワードが含まれている必要な記号</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>桁</value>
   </data>
@@ -2034,9 +1998,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Googleからのインポート</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahooからのインポート</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>別のソースを選択します</value>
   </data>
@@ -2099,9 +2060,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>ONLYOFFICE™メールも移動する（推奨されません）</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>アフィリエイトとなる</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>言語</value>
@@ -3264,15 +3222,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>招待状は、正常に再送信されている</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>メールを送信する</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>特別オファーについてはお問い合わせください</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>必要なパラメータを縮小したり、現在の料金プランを維持します。</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>すぐに購入</value>
   </data>
@@ -3284,18 +3233,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>最高のあなたのニーズに合ったプランを選択します。お勧めプランは、以下の強調表示されます。</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>ダウングレード</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>ストレージ·スペースのサイズが許可されました：{0}。現在のストレージ·スペース：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>許可されたポータルユーザー数：{0}。現在のユーザー数：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>あなたは、ユーザーのスペース/番号は、選択した料金プランの制限を超えるストレージとして格下げしてアカウントをすることはできません：</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>定期支払いがオンになっている</value>
@@ -3315,9 +3252,6 @@
   <data name="TariffPaymentDelay" xml:space="preserve">
     <value>サブスクリプションは期限切れです</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>作成されたポータルの数：{0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>料金プランは、支払われた年の終わりまで使用できません。</value>
   </data>
@@ -3329,9 +3263,6 @@
   </data>
   <data name="Tariffs" xml:space="preserve">
     <value>料金プラン</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>お客様の便宜のために、ルーブルで支払う場合は、１米ドル当たり０ルーブルの固定為替換算レートで米ドルからルーブルに換算されています。</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>支払い</value>

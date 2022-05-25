@@ -22,6 +22,8 @@ using System.Reflection;
 using System.Threading;
 
 using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
@@ -43,6 +45,7 @@ namespace ASC.Web.Studio
         public TenantAccessSettings TenantAccess { get; private set; }
         protected ManagementType CurrentModule { get; private set; }
         protected List<ManagementType> NavigationList { get; private set; }
+        protected bool DisableTariff { get; private set; }
 
         protected override void OnPreInit(EventArgs e)
         {
@@ -70,6 +73,7 @@ namespace ASC.Web.Studio
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
+
             CurrentModule = GetCurrentModule();
             NavigationList = GetNavigationList();
             Page.Title = HeaderStringHelper.GetPageTitle(GetNavigationTitle(CurrentModule));
@@ -84,6 +88,17 @@ namespace ASC.Web.Studio
             {
                 SettingsContainer.Controls.Add(LoadControl(control.Location));
             }
+
+            if  (!CoreContext.Configuration.CustomMode && CoreContext.Configuration.Standalone)
+            {
+                var adminhelperSettings = AdminHelperSettings.LoadForCurrentUser();
+                if (!adminhelperSettings.Viewed)
+                {
+                    AdminHelper.Controls.Add(LoadControl(UserControls.Management.AdminHelperSettings.AdminHelperSettings.Location));
+                }
+            }
+
+            DisableTariff = !TenantExtra.EnableTariffSettings || (CoreContext.Configuration.Standalone && TenantControlPanelSettings.Instance.LimitedAccess);
         }
 
         protected ManagementType GetCurrentModule()
@@ -204,27 +219,15 @@ namespace ASC.Web.Studio
                 case ManagementType.Migration:
                     return TransferPortal.TransferRegions.Count > 1;
                 case ManagementType.Backup:
-                    //only SaaS features
-                    return !CoreContext.Configuration.Standalone &&
-                        !TenantAccessSettings.Load().Anyone;
-                case ManagementType.AuditTrail:
-                case ManagementType.LoginHistory:
-                case ManagementType.LdapSettings:
-                case ManagementType.WhiteLabel:
-                case ManagementType.SingleSignOnSettings:
-                    //only SaaS features
-                    return !CoreContext.Configuration.Standalone;
+                    return !TenantAccessSettings.Load().Anyone;
                 case ManagementType.DeletionPortal:
                     //only SaaS or Server+ControlPanel
                     return !CoreContext.Configuration.Standalone || TenantExtra.Enterprise && CoreContext.TenantManager.GetTenants().Count() > 1;
                 case ManagementType.MailService:
                     //only if MailServer available
                     return SetupInfo.IsVisibleSettings("AdministrationPage");
-                case ManagementType.Storage:
-                    //only standalone feature
-                    return CoreContext.Configuration.Standalone;
                 case ManagementType.PrivacyRoom:
-                    return !CoreContext.Configuration.Standalone && PrivacyRoomSettings.Available;
+                    return PrivacyRoomSettings.Available;
             }
 
             return true;

@@ -280,7 +280,7 @@ namespace ASC.Files.Thirdparty.Dropbox
                 ContentLength = (long)dropboxFile.Size,
                 CreateBy = DropboxProviderInfo.Owner,
                 CreateOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),
-                FileStatus = FileStatus.None,
+                FileStatus = ASC.Files.Core.FileStatus.None,
                 FolderID = MakeId(GetParentFolderPath(dropboxFile)),
                 ModifiedBy = DropboxProviderInfo.Owner,
                 ModifiedOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),

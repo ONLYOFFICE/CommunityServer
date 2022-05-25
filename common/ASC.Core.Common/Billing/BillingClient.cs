@@ -83,9 +83,9 @@ namespace ASC.Core.Billing
             return payments;
         }
 
-        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null)
+        public IDictionary<string, Uri> GetPaymentUrls(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null)
         {
-            var urls = new Dictionary<string, Tuple<Uri, Uri>>();
+            var urls = new Dictionary<string, Uri>();
 
             var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", AvangatePaymentSystemId.ToString()) };
             if (!string.IsNullOrEmpty(affiliateId))
@@ -123,38 +123,57 @@ namespace ASC.Core.Billing
             var result = Request("GetPaymentUrl", portalId, parameters);
             var paymentUrls = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
 
-            var upgradeUrls = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(portalId)
-                //TODO: remove
-                && false)
-            {
-                try
-                {
-                    //max 100 products
-                    result = Request("GetPaymentUpgradeUrl", portalId, parameters);
-                    upgradeUrls = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
-                }
-                catch (BillingNotFoundException)
-                {
-                }
-            }
-
             foreach (var p in products)
             {
                 string url;
                 var paymentUrl = (Uri)null;
-                var upgradeUrl = (Uri)null;
                 if (paymentUrls.TryGetValue(p, out url) && !string.IsNullOrEmpty(url = ToUrl(url)))
                 {
                     paymentUrl = new Uri(url);
                 }
-                if (upgradeUrls.TryGetValue(p, out url) && !string.IsNullOrEmpty(url = ToUrl(url)))
-                {
-                    upgradeUrl = new Uri(url);
-                }
-                urls[p] = Tuple.Create(paymentUrl, upgradeUrl);
+                urls[p] = paymentUrl;
             }
             return urls;
+        }
+
+        public string GetPaymentUrl(string portalId, string[] products, string affiliateId = null, string campaign = null, string currency = null, string language = null, string customerId = null, string quantity = null)
+        {
+            var additionalParameters = new List<Tuple<string, string>>() { Tuple.Create("PaymentSystemId", AvangatePaymentSystemId.ToString()) };
+            if (!string.IsNullOrEmpty(affiliateId))
+            {
+                additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
+            }
+            if (!string.IsNullOrEmpty(campaign))
+            {
+                additionalParameters.Add(Tuple.Create("campaign", campaign));
+            }
+            if (!string.IsNullOrEmpty(currency))
+            {
+                additionalParameters.Add(Tuple.Create("Currency", currency));
+            }
+            if (!string.IsNullOrEmpty(language))
+            {
+                additionalParameters.Add(Tuple.Create("Language", language));
+            }
+            if (!string.IsNullOrEmpty(customerId))
+            {
+                additionalParameters.Add(Tuple.Create("CustomerID", customerId));
+            }
+            if (!string.IsNullOrEmpty(quantity))
+            {
+                additionalParameters.Add(Tuple.Create("Quantity", quantity));
+            }
+
+            var parameters = products
+                .Distinct()
+                .Select(p => Tuple.Create("ProductId", p))
+                .Concat(additionalParameters)
+                .ToArray();
+
+            var result = Request("GetSinglePaymentUrl", portalId, parameters);
+            var paymentUrl = JsonConvert.DeserializeObject<string>(result);
+
+            return paymentUrl;
         }
 
         public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(params string[] productIds)

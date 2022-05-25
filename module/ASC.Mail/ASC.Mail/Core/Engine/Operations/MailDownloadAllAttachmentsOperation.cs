@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 using ASC.Common;
@@ -37,8 +36,7 @@ using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.PublicResources;
 
-using ICSharpCode.SharpZipLib.GZip;
-using ICSharpCode.SharpZipLib.Tar;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace ASC.Mail.Core.Engine.Operations
 {
@@ -71,7 +69,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(CurrentUser);
+                    SecurityContext.CurrentAccount = CurrentUser;
                 }
                 catch
                 {
@@ -100,10 +98,12 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 using (var stream = TempStream.Create())
                 {
-                    using (var gzoStream = new GZipOutputStream(stream))
-                    using (var gzip = new TarOutputStream(gzoStream, Encoding.UTF8))
+                    using (var zip = new ZipOutputStream(stream))
                     {
-                        gzoStream.IsStreamOwner = false;
+                        zip.IsStreamOwner = false;
+                        zip.SetLevel(3);
+                        zip.UseZip64 = UseZip64.Dynamic;
+                        ZipStrings.UseUnicode = true;
 
                         var attachmentsCount = attachments.Count;
                         var progressMaxValue = (int)MailOperationDownloadAllAttachmentsProgress.ArchivePreparation;
@@ -141,7 +141,7 @@ namespace ASC.Mail.Core.Engine.Operations
                             {
                                 using (var file = attachment.ToAttachmentStream())
                                 {
-                                    ZipFile(gzip, filename, file.FileStream);
+                                    ZipFile(zip, filename, file.FileStream);
                                 }
                             }
                             catch (Exception ex)
@@ -153,7 +153,7 @@ namespace ASC.Mail.Core.Engine.Operations
                                 damagedAttachments++;
                                 using (var emptyStream = new MemoryStream())
                                 {
-                                    ZipFile(gzip, filename, emptyStream); // Zip empty file
+                                    ZipFile(zip, filename, emptyStream); // Zip empty file
                                 }
                             }
 
@@ -192,7 +192,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 var source = string.Format("{0}?{1}=bulk&{2}",
                     "/Products/Files/HttpHandlers/filehandler.ashx",
-                    FilesLinkUtility.Action, "ext=.tar.gz");
+                    FilesLinkUtility.Action, "ext=.zip");
 
                 if (damagedAttachments > 1)
                     Error = string.Format(MailCoreResource.FilesNotFound, damagedAttachments);
@@ -208,10 +208,10 @@ namespace ASC.Mail.Core.Engine.Operations
             }
         }
 
-        private static void ZipFile(TarOutputStream zip, string filename, Stream fileStream = null)
+        private static void ZipFile(ZipOutputStream zip, string filename, Stream fileStream = null)
         {
             filename = filename ?? "file";
-            var entry = TarEntry.CreateTarEntry(filename);
+            var entry = new ZipEntry(Path.GetFileName(filename));
             entry.Size = fileStream.Length;
             zip.PutNextEntry(entry);
             fileStream.CopyTo(zip);

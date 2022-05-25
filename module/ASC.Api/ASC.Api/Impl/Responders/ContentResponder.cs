@@ -21,7 +21,6 @@ using System.Web;
 
 using ASC.Api.Interfaces;
 using ASC.Api.Interfaces.ResponseTypes;
-using ASC.Api.Utils;
 
 namespace ASC.Api.Impl.Responders
 {
@@ -69,7 +68,11 @@ namespace ASC.Api.Impl.Responders
             {
                 context.Response.ContentEncoding = contentResponce.ContentEncoding;
             }
-            context.Response.WriteStreamToResponce(contentResponce.ContentStream);
+
+            contentResponce.ContentStream.CopyTo(context.Response.OutputStream);
+
+            contentResponce.ContentStream.Close();
+            contentResponce.ContentStream.Dispose();
         }
 
         #endregion

@@ -96,7 +96,7 @@ ASC.Files.Utility.FileExtensionLibrary = {
     XltmExts: [".xltm"],
     XltxExts: [".xltx"],
     XmlExts: [".xml"],
-    XpsExts: [".xps"]
+    XpsExts: [".xps", ".oxps"]
 };
 
 ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
@@ -374,6 +374,17 @@ ASC.Files.Utility.GetFileDownloadUrl = function (fileId, fileVersion, convertToE
     return url;
 };
 
+ASC.Files.Utility.GetFileViewUrl = function (fileId, fileVersion, convertToExtension) {
+    var url = ASC.Files.Utility.Resource.FileViewUrlString.format(encodeURIComponent(fileId));
+    if (fileVersion) {
+        return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
+    }
+    if (convertToExtension) {
+        return url + "&" + ASC.Files.Utility.Resource.ParamOutType + "=" + convertToExtension;
+    }
+    return url;
+};
+
 ASC.Files.Utility.GetFileRedirectPreviewUrl = function (fileId, orFolderId) {
     return ASC.Files.Utility.Resource.FileRedirectPreviewUrlString + (!!orFolderId ? ("&folderid=" + encodeURIComponent(orFolderId)) : ("&fileid=" + encodeURIComponent(fileId)));
 };
@@ -392,6 +403,14 @@ ASC.Files.Utility.GetFileWebViewerExternalUrl = function (fileUri, fileTitle, re
 
 ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
     return ASC.Files.Utility.Resource.FileWebEditorUrlString.format(encodeURIComponent(fileId));
+};
+
+ASC.Files.Utility.GetFileCustomProtocolEditorUrl = function (fileId) {
+    return ASC.Files.Utility.Resource.FileCustomProtocolEditorUrlString.format(encodeURIComponent(fileId));
+};
+
+ASC.Files.Utility.GetOpenPrivate = function (fileId) {
+    return ASC.Files.Utility.Resource.OpenPrivateString.format(encodeURIComponent(fileId));
 };
 
 ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle, folderId) {

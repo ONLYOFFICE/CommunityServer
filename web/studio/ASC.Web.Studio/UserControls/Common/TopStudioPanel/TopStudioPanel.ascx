@@ -223,7 +223,7 @@
                                         <div class="apps-list">
                                         <% foreach (var service in AuthServiceList) { %>
                                             <span>
-                                                <img src="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" />
+                                                <img src="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLowerInvariant() + ".svg") %>" alt="<%= service.Title %>" />
                                             </span>
                                         <% } %>
                                         </div>
@@ -306,32 +306,32 @@
                         <% } %>
 
                         <% if (!String.IsNullOrEmpty(Settings.CompanyName)) { %>
-                        <div class="confirmation-popup_name"><%= Settings.CompanyName %></div>
+                        <div class="confirmation-popup_name"><%: Settings.CompanyName %></div>
                         <% } %>
 
                         <ul class="confirmation-popup_info">
                             <% if (!String.IsNullOrEmpty(Settings.Address)) { %>
                             <li>
                                 <span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
-                                </span><%= Settings.Address %>
+                                </span><%: Settings.Address %>
                             </li>
                             <% } %>
                             <% if (!String.IsNullOrEmpty(Settings.Email)) { %>
                             <li>
                                 <span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                </span><a href="mailto:<%= Settings.Email %>" class="link"><%= Settings.Email %></a>
+                                </span><a href="mailto:<%: Settings.Email %>" class="link"><%: Settings.Email %></a>
                             </li>
                             <% } %>
                             <% if (!String.IsNullOrEmpty(Settings.Phone)) { %>
                             <li>
                                 <span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
-                                </span><%= Settings.Phone %>
+                                </span><%: Settings.Phone %>
                             </li>
                             <% } %>
                             <% if (!String.IsNullOrEmpty(Settings.Site)) { %>
                             <li>
-                                <a href="<%= Settings.Site %>" target="_blank" class="link">
-                                    <%= Settings.Site.Replace(Uri.UriSchemeHttp + Uri.SchemeDelimiter, String.Empty).Replace(Uri.UriSchemeHttps + Uri.SchemeDelimiter, String.Empty) %>
+                                <a href="<%: Settings.Site %>" target="_blank" class="link">
+                                    <%: Settings.Site.Replace(Uri.UriSchemeHttp + Uri.SchemeDelimiter, String.Empty).Replace(Uri.UriSchemeHttps + Uri.SchemeDelimiter, String.Empty) %>
                                 </a>
                             </li>
                             <% } %>
@@ -403,7 +403,7 @@
     <% if (!DisableGift)
        { %>
     <div id="studio_dropGiftPopupPanel" class="studio-action-panel">
-        <div id="drop-gift-box" class="drop-list-box">
+        <div id="drop-gift-box" class="drop-list-box drop-list-box-add">
             <% if (IsAdministrator) { %>
             <div class="hdr"><%= Resource.PresentAdminHdr %></div>
             <% } else { %>
@@ -418,13 +418,13 @@
             </div>
             <% if (IsAdministrator) { %>
             <div class="btn-box">
-                <span class="left-btn" data-url="<%= SetupInfo.ControlPanelUrl.TrimEnd('/') + "/gift" %>"><%= Resource.PresentAdminOkBtn %></span>
-                <span class="right-btn"><%= Resource.PresentAdminHideBtn %></span>
+                <span class="btn-item left-btn" data-url="<%= SetupInfo.ControlPanelUrl.TrimEnd('/') + "/gift" %>"><%= Resource.PresentAdminOkBtn %></span>
+                <span class="btn-item right-btn"><%= Resource.PresentAdminHideBtn %></span>
             </div>
             <% } else { %>
             <div class="btn-box">
-                <span class="left-btn"><%= Resource.PresentUserOkBtn %></span>
-                <span class="right-btn"><%= Resource.PresentUserHideBtn %></span>
+                <span class="btn-item left-btn"><%= Resource.PresentUserOkBtn %></span>
+                <span class="btn-item right-btn"><%= Resource.PresentUserHideBtn %></span>
             </div>
              <% } %>
         </div>

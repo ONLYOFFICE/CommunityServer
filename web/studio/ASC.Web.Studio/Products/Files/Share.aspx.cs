@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -28,12 +29,16 @@ using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
 
+using Newtonsoft.Json;
+
 using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files
 {
     public partial class Share : MainPage, IStaticBundle
     {
+        private bool shareDialogV115 = Global.EnableShareDialogV115;
+
         public static string Location
         {
             get { return FilesLinkUtility.FilesBaseAbsolutePath + "Share.aspx"; }
@@ -59,9 +64,15 @@ namespace ASC.Web.Files
                   .AddStaticStyles(GetStaticStyleSheet())
                   .AddStaticBodyScripts(GetStaticJavaScript());
 
-            var accessRights = (AccessRights)LoadControl(AccessRights.Location);
-            accessRights.IsPopup = false;
-            CommonContainerHolder.Controls.Add(accessRights);
+            if (shareDialogV115) {
+                var accessRights = (AccessRights)LoadControl(AccessRights.Location);
+                accessRights.IsPopup = false;
+                CommonContainerHolder.Controls.Add(accessRights);
+            } else {
+                var sharingDialog = (SharingDialog)LoadControl(SharingDialog.Location);
+                sharingDialog.IsPopup = false;
+                CommonContainerHolder.Controls.Add(sharingDialog);
+            }
 
             InitScript();
         }
@@ -104,11 +115,15 @@ namespace ASC.Web.Files
             }
 
             var script = new StringBuilder();
-            script.AppendFormat("ASC.Files.Share.getSharedInfo(\"file_{0}\", \"{1}\", true, {2} === true, \"{3}\");",
+            script.AppendFormat("ASC.Files.Share.getSharedInfo(\"file_{0}\", \"{1}\", true, {2}, \"{3}\", {4}, {5}, {6}, {7});",
                                 file.ID,
                                 file.Title,
                                 (file.RootFolderType == FolderType.COMMON).ToString().ToLower(),
-                                originForPost);
+                                originForPost,
+                                file.DenyDownload.ToString().ToLower(),
+                                file.DenySharing.ToString().ToLower(),
+                                file.ProviderEntry.ToString().ToLower(),
+                                JsonConvert.SerializeObject(FilesSettings.DefaultSharingAccessRights));
 
             //todo: change hardcode url
             script.AppendFormat("\r\nASC.Controls.JabberClient.pathWebTalk = \"{0}\";",
@@ -119,6 +134,10 @@ namespace ASC.Web.Files
 
         public ScriptBundleData GetStaticJavaScript()
         {
+            var src = shareDialogV115
+                ? new List<string> { "Controls/AccessRights/accessrights.js", "Controls/AccessRights/formfilling.js" }
+                : new List<string> { "Controls/SharingDialog/sharingdialog.js" };
+
             return (ScriptBundleData)
                    new ScriptBundleData("filesshare", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath,
@@ -131,19 +150,19 @@ namespace ASC.Web.Files
                                   "~/js/third-party/clipboard.js",
                                   "~/Products/Files/Controls/Desktop/desktop.js"
                        )
-                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/AccessRights/accessrights.js"
-                       );
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
         }
 
         public StyleBundleData GetStaticStyleSheet()
         {
+            var src = shareDialogV115
+                ? new List<string> { "Controls/AccessRights/accessrights.css", "Controls/AccessRights/formfilling.css" }
+                : new List<string> { "Controls/SharingDialog/sharingdialog.css" };
+
             return (StyleBundleData)
                    new StyleBundleData("filesshare", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
-                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/AccessRights/accessrights.css"
-                       );
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
         }
     }
 }

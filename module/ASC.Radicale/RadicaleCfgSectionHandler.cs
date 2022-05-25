@@ -26,5 +26,11 @@ namespace ASC.Radicale
         {
             get { return (string)base["path"]; }
         }
+
+        [ConfigurationProperty("port", DefaultValue = "5232")]
+        public string Port
+        {
+            get { return (string)base["port"]; }
+        }
     }
 }

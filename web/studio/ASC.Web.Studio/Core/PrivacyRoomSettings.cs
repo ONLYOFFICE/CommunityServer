@@ -64,8 +64,7 @@ namespace ASC.Web.Studio.Core
         {
             get
             {
-                return SetupInfo.IsVisibleSettings(ManagementType.PrivacyRoom.ToString())
-                    && CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).PrivacyRoom;
+                return SetupInfo.IsVisibleSettings(ManagementType.PrivacyRoom.ToString());
             }
         }
     }

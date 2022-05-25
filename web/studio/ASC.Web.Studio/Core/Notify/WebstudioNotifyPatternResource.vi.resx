@@ -157,26 +157,6 @@ Trân trọng,
 ONLYOFFICE™ Support Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Người dùng mới được thêm vào cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-"$__AuthorName":"$__AuthorUrl" đã tham gia cổng thông tin của bạn tại "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-
-^Bạn nhận được email này vì bạn là quản trị viên của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về người dùng mới, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^
-
-h1.Yêu cầu thay đổi mật khẩu cho cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Đã có yêu cầu thay đổi mật khẩu bạn sử dụng để đăng nhập cổng "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Vui lòng truy cập liên kết dưới đây để thay đổi mật khẩu của bạn:
-
-$GreenButton
-
-*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình thay đổi mật khẩu trong khoảng thời gian đó.
-
-Nếu bạn không muốn thay đổi mật khẩu của mình hoặc nhận được địa chỉ email này do nhầm lẫn, hãy bỏ qua nó hoặc liên hệ với quản trị viên cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}" để biết chi tiết.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Yêu cầu thay đổi điện thoại di động
 
@@ -451,9 +431,6 @@ Trân trọng,
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. ${__VirtualRootPath} đã tạo bản sao lưu của cổng</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} trợ giúp mật khẩu</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Yêu cầu thay đổi điện thoại di động</value>

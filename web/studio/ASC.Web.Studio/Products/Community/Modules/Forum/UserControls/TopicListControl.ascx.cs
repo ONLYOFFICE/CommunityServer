@@ -123,7 +123,7 @@ namespace ASC.Web.UserControls.Forum
         private void InitScripts()
         {
             var jsResource = new StringBuilder();
-            jsResource.Append("jq('#tableForNavigation select').val(" + PageSize + ").change(function(evt) {changeCountOfRows(this.value);}).tlCombobox();");
+            jsResource.Append("jq('#tableForNavigation select').val(" + PageSize + ").on('change', function(evt) {changeCountOfRows(this.value);}).tlCombobox();");
             Page.RegisterInlineScript(jsResource.ToString(), true);
         }
     }

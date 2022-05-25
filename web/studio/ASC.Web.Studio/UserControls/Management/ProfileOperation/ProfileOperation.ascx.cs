@@ -51,7 +51,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             try
             {
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                 var user = CoreContext.UserManager.GetUsers(UserId);
                 user.Status = EmployeeStatus.Terminated;

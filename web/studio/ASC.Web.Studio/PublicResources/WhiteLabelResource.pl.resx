@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0} Funkcja ustawień portalu {1} jest dostępna tylko w przypadku płatnych portali.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo strony About / Login page</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo dla nagłówków edytorów</value>
   </data>

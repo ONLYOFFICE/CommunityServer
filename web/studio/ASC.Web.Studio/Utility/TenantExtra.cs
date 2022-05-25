@@ -71,7 +71,7 @@ namespace ASC.Web.Studio.Utility
             get
             {
                 return CoreContext.Configuration.Standalone && !String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
-                  && GetTenantQuota().ControlPanel && GetCurrentTariff().State < TariffState.NotPaid
+                  && GetCurrentTariff().State < TariffState.NotPaid
                   && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             }
         }
@@ -153,17 +153,6 @@ namespace ASC.Web.Studio.Utility
         public static int GetRemainingCountUsers()
         {
             return GetTenantQuota().ActiveUsers - TenantStatisticsProvider.GetUsersCount();
-        }
-
-        public static bool UpdatedWithoutLicense
-        {
-            get
-            {
-                DateTime licenseDay;
-                return CoreContext.Configuration.Standalone
-                       && (licenseDay = GetCurrentTariff().LicenseDate.Date) < DateTime.Today
-                       && licenseDay < LicenseReader.VersionReleaseDate;
-            }
         }
 
         public static void DemandControlPanelPermission()

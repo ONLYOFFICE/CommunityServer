@@ -188,8 +188,6 @@ namespace AjaxPro
 			}
 		}
 
-	    private MethodInfo m_MethodInfo = null;
-
         /// <summary>
         /// Gets the ajax method.
         /// </summary>
@@ -198,23 +196,15 @@ namespace AjaxPro
 		{
 			get
 			{
-                if (m_MethodInfo!=null)
-                {
-                    return m_MethodInfo;
-                }
-
 				string m = context.Request.Headers["X-" + Constant.AjaxID + "-Method"];
 
-				if (string.IsNullOrEmpty(m))
+				if (m == null || m.Length == 0)
 					m = context.Request["X-" + Constant.AjaxID + "-Method"];
 
-                if (!string.IsNullOrEmpty(m))
-                {
-                    m_MethodInfo = GetMethodInfo(m);
-                    return m_MethodInfo;
-                }
+				if(m != null && m.Length > 0)
+					return this.GetMethodInfo(m);
 
-			    return null;
+				return null;
 			}
 		}
 

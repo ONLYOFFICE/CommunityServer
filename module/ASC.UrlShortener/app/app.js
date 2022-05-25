@@ -87,7 +87,12 @@ function make(req, res) {
     }).catch((err) => processError(err, res));
 }
 
+function isLife(req, res) {
+    res.sendStatus(200); 
+}
+
 module.exports = {
     redirect: redirect,
-    make: make
+    make: make,
+    isLife: isLife
 };

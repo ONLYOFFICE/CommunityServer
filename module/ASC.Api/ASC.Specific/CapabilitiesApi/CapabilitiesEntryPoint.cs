@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -26,6 +27,7 @@ using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Common.Logging;
 using ASC.Core;
+using ASC.FederatedLogin;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
@@ -35,12 +37,15 @@ using ASC.Web.Studio.Utility;
 namespace ASC.Specific.CapabilitiesApi
 {
     /// <summary>
-    /// Capabilities for api
+    /// Portal capabilities for api.
     /// </summary>
     public class CapabilitiesEntryPoint : IApiEntryPoint
     {
+
+        private ILog Log = LogManager.GetLogger("ASC");
+
         /// <summary>
-        /// Entry point name
+        /// Entry point name.
         /// </summary>
         public string Name
         {
@@ -56,28 +61,29 @@ namespace ASC.Specific.CapabilitiesApi
         }
 
         ///<summary>
-        ///Returns the information about portal capabilities
+        ///Returns the information about portal capabilities.
         ///</summary>
         ///<short>
         ///Get portal capabilities
         ///</short>
-        ///<returns>CapabilitiesData</returns>
-        [Read("", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        ///<returns>Portal capabilities</returns>
+        [Read("", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public CapabilitiesData GetPortalCapabilities()
         {
             var result = new CapabilitiesData
             {
                 LdapEnabled = false,
-                Providers = null,
+                OauthEnabled = CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth,
+                Providers = new List<string>(0),
                 SsoLabel = string.Empty,
                 SsoUrl = string.Empty
             };
 
             try
             {
-                if (SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString())
-                    && (!CoreContext.Configuration.Standalone
-                        || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                if (CoreContext.Configuration.Standalone
+                    || SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString())
+                        && CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
                 {
                     var settings = LdapSettings.Load();
 
@@ -86,28 +92,37 @@ namespace ASC.Specific.CapabilitiesApi
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error(ex.Message);
+                Log.Error(ex.Message);
             }
 
             try
             {
-                result.Providers = AccountLinkControl.AuthProviders
-                                                     .Where(loginProvider =>
-                                                         {
-                                                             var provider = ProviderManager.GetLoginProvider(loginProvider);
-                                                             return provider != null && provider.IsEnabled;
-                                                         })
-                                                     .ToList();
+                if (result.OauthEnabled)
+                {
+                    result.Providers = AccountLinkControl.AuthProviders
+                                                         .Where(loginProvider =>
+                                                             {
+                                                                 if ((loginProvider == ProviderConstants.Facebook || loginProvider == ProviderConstants.AppleId)
+                                                                    && CoreContext.Configuration.Standalone && HttpContext.Current.Request.MobileApp())
+                                                                 {
+                                                                     return false;
+                                                                 }
+                                                                 var provider = ProviderManager.GetLoginProvider(loginProvider);
+                                                                 return provider != null && provider.IsEnabled;
+                                                             })
+                                                         .ToList();
+                }
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error(ex.Message);
+                Log.Error(ex.Message);
             }
 
             try
             {
-                if (SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString())
-                    && CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
+                if (CoreContext.Configuration.Standalone
+                    || SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString())
+                        && CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
                 {
                     var settings = SsoSettingsV2.Load();
 
@@ -126,7 +141,7 @@ namespace ASC.Specific.CapabilitiesApi
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error(ex.Message);
+                Log.Error(ex.Message);
             }
 
             return result;

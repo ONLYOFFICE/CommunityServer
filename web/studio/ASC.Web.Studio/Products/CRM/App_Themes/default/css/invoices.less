@@ -460,6 +460,25 @@ ListActionView.ascx
         text-align: right;
         padding-right: 28px;
     }
+
+    .price-error-text {
+        color: #CC0000;
+        display: none;
+        font-size: 11px;
+        position: absolute;
+        left: 16px;
+        bottom: 0;
+    }
+
+    .tbl-body-row.price-error {
+        .price-error-text {
+            display: block;
+        }
+
+        .price input {
+            border-color: #CC0000;
+        }
+    }
 }
 
 /*change number format dialog*/
@@ -508,6 +527,10 @@ ListActionView.ascx
             bottom: 10px;
             position: absolute;
         }
+    }
+
+    #priceTip {
+        display: none;
     }
 
     .right-side {

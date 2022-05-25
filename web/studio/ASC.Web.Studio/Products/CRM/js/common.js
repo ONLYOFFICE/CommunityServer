@@ -213,8 +213,8 @@ ASC.CRM.Common = (function() {
 
 
             jq(target_items).each(function () {
-                var id = jq.trim(jq(this).attr('id')).split('_')[1],
-                    title = jq.trim(jq(this).attr('title')),
+                var id = jq(this).attr('id').trim().split('_')[1],
+                    title = (jq(this).attr('title') || "").trim(),
                     params = ASC.CRM.Common.getTooltipParams(jq(this)),
                     my_tooltip = null;
                 if (title == "" && params == "") {
@@ -233,7 +233,7 @@ ASC.CRM.Common = (function() {
                 my_tooltip = jq("#" + name + id);
 
                 jq(this).removeAttr("title")
-                    .unbind("mouseenter").mouseenter(function () {
+                    .off("mouseenter").on("mouseenter", function () {
                         var $obj = jq(this),
                             top = $obj.offset().top + $obj.height() + 5,
                             left = $obj.offset().left + 5;
@@ -251,16 +251,16 @@ ASC.CRM.Common = (function() {
                         jq("div[id^='" + name + "']:not(div[id='" + name + id + "'])").hide();
                         my_tooltip.fadeIn(300);
                     })
-                    .unbind("mouseleave").mouseleave(function () {
+                    .off("mouseleave").on("mouseleave", function () {
                         jq(my_tooltip).data("overTaskDescrPanel", false);
                         hideDescrPanel(my_tooltip);
                     });
 
                 jq(my_tooltip)
-                    .mouseenter(function () {
+                    .on("mouseenter", function () {
                         jq(my_tooltip).data("overTaskDescrPanel", true);
                     })
-                    .mouseleave(function () {
+                    .on("mouseleave", function () {
                         jq(my_tooltip).data("overTaskDescrPanel", false);
                         hideDescrPanel(my_tooltip);
                     });
@@ -276,12 +276,12 @@ ASC.CRM.Common = (function() {
 
         getTooltipParams: function (obj) {
             var $o = jq(obj),
-                label = jq.trim($o.attr("ttl_label")),
-                value = jq.trim($o.attr("ttl_value")),
-                dscr_label = jq.trim($o.attr("dscr_label")),
-                dscr_value = jq.trim($o.attr("dscr_value")),
-                resp_label = jq.trim($o.attr("resp_label")),
-                resp_value = jq.trim($o.attr("resp_value"));
+                label = ($o.attr("ttl_label") || "").trim(),
+                value = ($o.attr("ttl_value") || "").trim(),
+                dscr_label = ($o.attr("dscr_label") || "").trim(),
+                dscr_value = ($o.attr("dscr_value") || "").trim(),
+                resp_label = ($o.attr("resp_label") || "").trim(),
+                resp_value = ($o.attr("resp_value") || "").trim();
 
             $o.removeAttr("ttl_label");
             $o.removeAttr("ttl_value");
@@ -321,7 +321,7 @@ ASC.CRM.Common = (function() {
                         ":</div></td>",
                         "<td></td>",
                         "<td><div class='value'>",
-                        jq.htmlEncodeLight(dscr_value).replace(/&#10;/g, "<br/>").replace(/  /g, " &nbsp;"),
+                        jq.linksParser(jq.htmlEncodeLight(dscr_value).replace(/&#10;/g, "<br/>").replace(/  /g, " &nbsp;")),
                         "</div></td></tr>"].join('');
             }
 
@@ -484,7 +484,7 @@ ASC.CRM.Common = (function() {
             if (addressObj.country)
                 items.push(addressObj.country);
 
-            return jq.trim(items.join(", ")).replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, ' ');
+            return items.join(", ").trim().replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, ' ');
         },
 
 
@@ -506,7 +506,7 @@ ASC.CRM.Common = (function() {
             for (var i = 0, n = customFieldList.length; i < n; i++) {
                 field = customFieldList[i];
 
-                if (jQuery.trim(field.mask) == "") {
+                if (field.mask.trim() == "") {
                     continue;
                 }
 
@@ -532,7 +532,7 @@ ASC.CRM.Common = (function() {
 
             for (var i = 0, n = customFieldList.length; i < n; i++) {
                 var field = customFieldList[i];
-                if (jQuery.trim(field.mask) != "") {
+                if (field.mask.trim() != "") {
                     field.mask = jq.evalJSON(field.mask);
                 }
                 if (field.fieldType == 4 || i == n - 1) {
@@ -570,7 +570,7 @@ ASC.CRM.Common = (function() {
                 value = "";
             for (var i = 0, n = $calendars.length; i < n; i++) {
                 $c = jq($calendars[i]);
-                value = jq.trim($c.val());
+                value = $c.val().trim();
                 $c.mask(ASC.Resources.Master.DatePatternJQ);
 
                 if (value == "") {
@@ -699,10 +699,6 @@ ASC.CRM.Common = (function() {
             return mass[0] + "addons/mail/";
         },
 
-        isArray: function (o) {
-            return o ? o.constructor.toString().indexOf("Array") != -1 : false;
-        },
-
         getAccessListHtml: function (userGuids) {
             if (typeof (userGuids) == "undefined" || userGuids.length == 0) { return ""; }
             var html = "";
@@ -727,8 +723,6 @@ ASC.CRM.Common = (function() {
                     symbols = [
                     ['&lt;', '<'],
                     ['&gt;', '>'],
-                    ['&and;', '\\^'],
-                    ['&sim;', '~'],
                     ['&amp;', '&']
                     ];
 
@@ -848,7 +842,7 @@ ASC.CRM.Common = (function() {
         },
 
         historyEventMsgObjFactory : function(eventItem) {
-            var content = jq.parseJSON(eventItem.content);
+            var content = JSON.parse(eventItem.content);
             eventItem.content = content.subject != null && content.subject != "" ? content.subject : ASC.CRM.Resources.CRMJSResource.NoSubject;
             eventItem.message = {
                 id : eventItem.id,
@@ -916,7 +910,7 @@ ASC.CRM.Common = (function() {
             if (typeUrl == null) { typeUrl = ""; }
             if (view == null) { view = ""; }
 
-            switch (jq.trim(typeUrl)) {
+            switch (typeUrl.trim()) {
                 case "deal_milestone":
                     oneElement = ASC.CRM.Resources.CRMJSResource.OneDeal;
                     manyElements = ASC.CRM.Resources.CRMJSResource.ManyDeals;
@@ -940,7 +934,7 @@ ASC.CRM.Common = (function() {
                     break;
                 case "custom_field":
                 case "tag":
-                    switch (jq.trim(view)) {
+                    switch (view.trim()) {
                         case "opportunity":
                             oneElement = ASC.CRM.Resources.CRMJSResource.OneDeal;
                             manyElements = ASC.CRM.Resources.CRMJSResource.ManyDeals;
@@ -1142,7 +1136,7 @@ ASC.CRM.HistoryView = (function () {
         }
         var _contactID, _entityType, _entityID,
             dataEvent = {
-                content: jq.trim(content),
+                content: content.trim(),
                 categoryId: eventCategorySelector.CategoryID
             };
         if (ASC.CRM.HistoryView.ContactID != 0) {
@@ -1157,7 +1151,7 @@ ASC.CRM.HistoryView = (function () {
             dataEvent.entityType = ASC.CRM.HistoryView.EntityType;
         }
 
-        if (jq.trim(jq("#historyBlock .textEditCalendar").val()) != "") {
+        if (jq("#historyBlock .textEditCalendar").val().trim() != "") {
             dataEvent.created = jq("#historyBlock .textEditCalendar").datepicker('getDate');
             var now = new Date();
             dataEvent.created.setHours(now.getHours(), now.getMinutes(), now.getSeconds());
@@ -1200,13 +1194,13 @@ ASC.CRM.HistoryView = (function () {
 
                     jq("#typeSwitcherSelect")
                      .val(-2)
-                     .change(function (evt) {
+                     .on("change", function (evt) {
                          switch (this.value) {
                              case "-2":
                                  ASC.CRM.HistoryView.changeType(-2, '');
                                  break;
                              case "-1":
-                                 jq(this).val(-2).change();
+                                 jq(this).val(-2).trigger("change");
                                  break;
                              default:
                                  for (var i = 0, n = ASC.CRM.Data.historyEntityTypes.length; i < n; i++) {
@@ -1223,7 +1217,7 @@ ASC.CRM.HistoryView = (function () {
                     jq("#dealsSwitcherSelect")
                         .show()
                         .val(-2)
-                        .change(function (evt) {
+                        .on("change", function (evt) {
                             _changeItem({ id: this.value });
                         })
                         .tlCombobox().tlCombobox("hide");
@@ -1231,7 +1225,7 @@ ASC.CRM.HistoryView = (function () {
                     jq("#casesSwitcherSelect")
                         .show()
                         .val(-2)
-                        .change(function (evt) {
+                        .on("change", function (evt) {
                             _changeItem({ id: this.value });
                         })
                         .tlCombobox().tlCombobox("hide");
@@ -1273,13 +1267,13 @@ ASC.CRM.HistoryView = (function () {
 
                 jq("#typeSwitcherSelect")
                      .val(-2)
-                     .change(function (evt) {
+                     .on("change", function (evt) {
                          switch (this.value) {
                              case "-2":
                                  ASC.CRM.HistoryView.changeType(-2, '');
                                  break;
                              case "-1":
-                                 jq(this).val(-2).change();
+                                 jq(this).val(-2).trigger("change");
                                  break;
                              default:
                                  for (var i = 0, n = ASC.CRM.Data.historyEntityTypes.length; i < n; i++) {
@@ -1295,14 +1289,14 @@ ASC.CRM.HistoryView = (function () {
 
                 jq("#contactSwitcherSelect")
                        .val(-2)
-                       .change(function (evt) {
+                       .on("change", function (evt) {
                            switch (this.value) {
                                case "-2":
                                    ASC.CRM.HistoryView.changeContact(-1);
                                    break;
                                case "-1":
                                    ASC.CRM.HistoryView.changeContact(-1);
-                                   jq(this).val(-2).change();
+                                   jq(this).val(-2).trigger("change");
                                    break;
                                default:
                                    ASC.CRM.HistoryView.changeContact(this.value);
@@ -1340,7 +1334,7 @@ ASC.CRM.HistoryView = (function () {
             busy = true;
             LoadingBanner.strLoading = ASC.CRM.Resources.CRMCommonResource.AddThisNoteProggress;
             LoadingBanner.showLoaderBtn("#historyBlock");
-            jq("#historyBlock textarea, #historyBlock input, #historyBlock select").attr("disabled", true);
+            jq("#historyBlock textarea, #historyBlock input, #historyBlock select").prop("disabled", true);
             jq(".attachLink").addClass("disabledLink");
         };
 
@@ -1355,7 +1349,7 @@ ASC.CRM.HistoryView = (function () {
                         busy = false;
                         LoadingBanner.hideLoaderBtn("#historyBlock");
                         jq("#historyBlock .middle-button-container a.button.blue.middle").addClass("disable");                        
-                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").attr("disabled", false);
+                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").prop("disabled", false);
                         jq(".attachLink").removeClass("disabledLink");
                     }
                 });
@@ -1491,8 +1485,8 @@ ASC.CRM.HistoryView = (function () {
                                 { id: "category", title: ASC.CRM.Resources.CRMCommonResource.Category, dsc: false, def: false }
                     ]
                 })
-                .bind("setfilter", ASC.CRM.HistoryView.setFilter)
-                .bind("resetfilter", ASC.CRM.HistoryView.resetFilter);
+                .on("setfilter", ASC.CRM.HistoryView.setFilter)
+                .on("resetfilter", ASC.CRM.HistoryView.resetFilter);
     };
 
     var _initUserSelectorForNotify = function () {
@@ -1613,11 +1607,11 @@ ASC.CRM.HistoryView = (function () {
                     ASC.CRM.HistoryView.historyCKEditor.focus();
                 } else {
                     jq("#historyBlock textarea").val("");
-                    jq("#historyBlock textarea").focus();
+                    jq("#historyBlock textarea").trigger("focus");
                 }
 
-                jq("#contactSwitcherSelect").val(-2).change();
-                jq("#typeSwitcherSelect").val(-2).change();
+                jq("#contactSwitcherSelect").val(-2).trigger("change");
+                jq("#typeSwitcherSelect").val(-2).trigger("change");
                 ASC.CRM.HistoryView.changeType(-1, '');
                 ASC.CRM.HistoryView.changeContact(-1);
 
@@ -1706,7 +1700,7 @@ ASC.CRM.HistoryView = (function () {
 
             _initUserSelectorForNotify();
 
-            jq("#showMoreEventsButtons .crm-showMoreLink").bind("click", function() {
+            jq("#showMoreEventsButtons .crm-showMoreLink").on("click", function() {
                 _addRecordsToContent();
             });
 
@@ -1732,7 +1726,7 @@ ASC.CRM.HistoryView = (function () {
                 var $input = jq("#historyBlock input.textEditCalendar");
                 var $message = jq("#historyBlock .lond-data-text");
                 var isValid = true;
-                var text = jq.trim(ASC.CRM.HistoryView.historyCKEditor ? ASC.CRM.HistoryView.historyCKEditor.getData() : jq("#historyCKEditor").val());
+                var text = (ASC.CRM.HistoryView.historyCKEditor ? ASC.CRM.HistoryView.historyCKEditor.getData() : jq("#historyCKEditor").val()).trim();
 
                 if (!text.length) {
                     $message.text("").addClass("display-none");
@@ -1829,13 +1823,13 @@ ASC.CRM.HistoryView = (function () {
                     default:
                         if (item.hasOwnProperty("apiparamname") && item.params.hasOwnProperty("value") && item.params.value != null) {
                             try {
-                                var apiparamnames = jq.parseJSON(item.apiparamname),
-                                    apiparamvalues = jq.parseJSON(item.params.value);
+                                var apiparamnames = JSON.parse(item.apiparamname),
+                                    apiparamvalues = JSON.parse(item.params.value);
                                 if (apiparamnames.length != apiparamvalues.length) {
                                     settings[item.apiparamname] = item.params.value;
                                 }
                                 for (var i = 0, len = apiparamnames.length; i < len; i++) {
-                                    if (jq.trim(apiparamvalues[i]).length != 0) {
+                                    if (apiparamvalues[i].trim().length != 0) {
                                         settings[apiparamnames[i]] = apiparamvalues[i];
                                     }
                                 }
@@ -1924,7 +1918,7 @@ ASC.CRM.HistoryView = (function () {
                 text = ASC.CRM.HistoryView.historyCKEditor.getData();
             }
 
-            text = jq.trim(text);
+            text = text.trim();
 
             if (!text.length || text.length > ASC.CRM.Data.MaxHistoryEventCharacters) return;
 
@@ -1939,13 +1933,13 @@ ASC.CRM.HistoryView = (function () {
                         busy = true;
                         LoadingBanner.strLoading = ASC.CRM.Resources.CRMCommonResource.AddThisNoteProggress;
                         LoadingBanner.showLoaderBtn("#historyBlock");
-                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").attr("disabled", true);
+                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").prop("disabled", true);
                     },
                     after: function (params) {
                         busy = false;
                         LoadingBanner.hideLoaderBtn("#historyBlock");
                         jq("#historyBlock .middle-button-container a.button.blue.middle").addClass("disable");
-                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").attr("disabled", false);
+                        jq("#historyBlock textarea, #historyBlock input, #historyBlock select").prop("disabled", false);
                     }
                 });
             }
@@ -1969,14 +1963,14 @@ ASC.CRM.HistoryView = (function () {
             switch (type) {
                 case 1: //opportunity
                     jq("#casesSwitcherSelect").tlcombobox('hide');
-                    jq("#casesSwitcherSelect").val(-2).change();
+                    jq("#casesSwitcherSelect").val(-2).trigger("change");
                     jq("#dealsSwitcherSelect").tlcombobox('show');
                     jq("#typeSwitcherSelect>option[value='-1'].hidden").removeClass("hidden");
                     jq("#typeSwitcherSelect").tlCombobox();
                     break;
                 case 7: //cases
                     jq("#dealsSwitcherSelect").tlcombobox('hide');
-                    jq("#dealsSwitcherSelect").val(-2).change();
+                    jq("#dealsSwitcherSelect").val(-2).trigger("change");
                     jq("#casesSwitcherSelect").tlcombobox('show');
                     jq("#typeSwitcherSelect>option[value='-1'].hidden").removeClass("hidden");
                     jq("#typeSwitcherSelect").tlCombobox();
@@ -1984,8 +1978,8 @@ ASC.CRM.HistoryView = (function () {
                 default:
                     jq("#dealsSwitcherSelect").tlcombobox('hide');
                     jq("#casesSwitcherSelect").tlcombobox('hide');
-                    jq("#dealsSwitcherSelect").val(-2).change();
-                    jq("#casesSwitcherSelect").val(-2).change();
+                    jq("#dealsSwitcherSelect").val(-2).trigger("change");
+                    jq("#casesSwitcherSelect").val(-2).trigger("change");
                     jq("#typeSwitcherSelect>option[value='-1']:not(.hidden)").addClass("hidden");
                     jq("#typeSwitcherSelect").tlCombobox();
                     break;
@@ -2069,8 +2063,8 @@ ASC.CRM.HistoryMailView = (function () {
         var $frame = jq('<iframe id="message_body_frame_' + message.id +
         '" scrolling="auto" frameborder="0" width="100%" style="height:100%;">An iframe capable browser is required to view this web site.</iframe>');
 
-        $frame.bind('load', function () {
-            $frame.unbind('load');
+        $frame.on('load', function () {
+            $frame.off('load');
             var $body = jq(this).contents().find('body');
 
             $body.css('cssText', 'height: 0;');
@@ -2099,7 +2093,7 @@ ASC.CRM.HistoryMailView = (function () {
 
                     var $btn_blockquote = $body.find('#controll-blockquote');
                     if ($btn_blockquote) {
-                        $btn_blockquote.click(function () {
+                        $btn_blockquote.on("click", function () {
                             $wrap_block_quote.toggle();
                             var iframe = jq('#message_body_frame_' + message.id);
                             iframe.attr('scrolling', 'no');
@@ -2119,7 +2113,7 @@ ASC.CRM.HistoryMailView = (function () {
                 }, 50);
 
                 $body.find('img').each(function () {
-                    jq(this).bind("load", function () {
+                    jq(this).on("load", function () {
                         if (--index == 0) {
                             clearTimeout(timerId);
                             _updateIframeSize(message.id, true);
@@ -2206,7 +2200,7 @@ ASC.CRM.HistoryMailView = (function () {
         init: function (event) {
             if (event == "" || event == null) return;
             try {
-                event = jq.parseJSON(jq.base64.decode(event));
+                event = JSON.parse(jq.base64.decode(event));
                 ASC.CRM.Common.historyEventMsgObjFactory(event);
             } catch (e) {
                 console.log(e);
@@ -2401,12 +2395,12 @@ ASC.CRM.ContactSelector = new function() {
         var $noMatchesList = jq("div[id^='noMatches_" + objName + "']"),
             $noMatches = {};
 
-        jq(input).bind("click", function (e) {
+        jq(input).on("click", function (e) {
             $noMatchesList.hide();
-            jq(this).autocomplete("search", jq.trim(jq(input).val()));
+            jq(this).autocomplete("search", jq(input).val().trim());
         });
 
-        jq(document).click(function (event) {
+        jq(document).on("click", function (event) {
             for (var i = 0, n = $noMatchesList.length; i < n; i++) {
                 $noMatches = jq($noMatchesList[i]);
 
@@ -2421,8 +2415,8 @@ ASC.CRM.ContactSelector = new function() {
     };
 
     var _initKeyUpEventHandler = function(input) {
-        jq(input).bind("keyup", function(e) {
-            if (jq.trim(jq(this).val()) == "") {
+        jq(input).on("keyup", function(e) {
+            if (jq(this).val().trim() == "") {
                 jq(this).parents("table:first").find("label.crossButton").hide();
             } else {
                 jq(this).parents("table:first").find("label.crossButton").show();
@@ -2511,7 +2505,7 @@ ASC.CRM.ContactSelector = new function() {
             if (typeof (params.presetSelectedContactsJson) == "object") {
                 this.presetSelectedContacts = params.presetSelectedContactsJson;
             } else {
-                this.presetSelectedContacts = jq.parseJSON(params.presetSelectedContactsJson);
+                this.presetSelectedContacts = JSON.parse(params.presetSelectedContactsJson);
             }
             if (this.presetSelectedContacts != null) {
                 for (var i = 0, n = this.presetSelectedContacts.length; i < n; i++) {
@@ -2596,7 +2590,7 @@ ASC.CRM.ContactSelector = new function() {
                 if (index != -1) {
                     CurrentItem.SelectedContacts.splice(index, 1);
                 }
-                jq("#contactTitle_" + objID).val("").blur();
+                jq("#contactTitle_" + objID).val("").trigger("blur");
                 jq("#contactID_" + objID).val(0);
                 jq("#noMatches_" + objID).hide();
             } else {
@@ -2647,7 +2641,7 @@ ASC.CRM.ContactSelector = new function() {
         this.showSelectorContent = function (obj) {
             var objID = jq(obj).attr('id').replace("contactTitle_", "");
 
-            if (jq.trim(jq(obj).val()) == "") {
+            if (jq(obj).val().trim() == "") {
                 jq(obj).parents("table:first").find("label.crossButton").hide();
             } else {
                 jq(obj).parents("table:first").find("label.crossButton").show();
@@ -2723,7 +2717,7 @@ ASC.CRM.ContactSelector = new function() {
         this.quickSearch = function (objID) {
             _hideAllAutocompleteBlocks();
             var $input = jq("#contactTitle_" + objID);
-            $input.autocomplete("search", jq.trim($input.val()));
+            $input.autocomplete("search", $input.val().trim());
         };
 
         this.showNewCompany = function(objID) {
@@ -2739,7 +2733,7 @@ ASC.CRM.ContactSelector = new function() {
             jq("#newContactContent_" + objID).show();
             jq("#newCompanyImg_" + objID).show();
 
-            jq("#newCompanyTitle_" + objID).unbind("keyup").bind("keyup", function (e) {
+            jq("#newCompanyTitle_" + objID).off("keyup").on("keyup", function (e) {
                 var code;
                 if (e.keyCode) {
                     code = e.keyCode;
@@ -2755,7 +2749,7 @@ ASC.CRM.ContactSelector = new function() {
             });
 
             var $input = jq("#contactTitle_" + objID);
-            jq("#newCompanyTitle_" + objID).val($input.val()).show().focus();
+            jq("#newCompanyTitle_" + objID).val($input.val()).show().trigger("focus");
         };
 
         this.showNewContact = function(objID) {
@@ -2770,7 +2764,7 @@ ASC.CRM.ContactSelector = new function() {
             jq("#newContactContent_" + objID).show();
             jq("#newContactImg_" + objID).show();
 
-            jq("#newContactFirstName_" + objID + ", #newContactLastName_" + objID).unbind("keyup").bind("keyup", function (e) {
+            jq("#newContactFirstName_" + objID + ", #newContactLastName_" + objID).off("keyup").on("keyup", function (e) {
                 var code;
                 if (e.keyCode) {
                     code = e.keyCode;
@@ -2787,7 +2781,7 @@ ASC.CRM.ContactSelector = new function() {
 
             var $input = jq("#contactTitle_" + objID);
             jq("#newContactLastName_" + objID).show();
-            jq("#newContactFirstName_" + objID).val($input.val()).show().focus();
+            jq("#newContactFirstName_" + objID).val($input.val()).show().trigger("focus");
         };
 
         this.acceptNewContact = function(objID) {
@@ -2798,9 +2792,9 @@ ASC.CRM.ContactSelector = new function() {
                 $newContactFirstNameInput = jq("#newContactFirstName_" + objID),
                 $newContactLastName = jq("#newContactLastName_" + objID),
 
-                compName = $newCompanyTitleInput.length == 1 ? jq.trim($newCompanyTitleInput.val()) : "",
-                firstName = $newContactFirstNameInput.length == 1 ? jq.trim($newContactFirstNameInput.val()) : "",
-                lastName = $newContactLastName.length == 1 ? jq.trim($newContactLastName.val()) : "",
+                compName = $newCompanyTitleInput.length == 1 ? $newCompanyTitleInput.val().trim() : "",
+                firstName = $newContactFirstNameInput.length == 1 ? $newContactFirstNameInput.val().trim() : "",
+                lastName = $newContactLastName.length == 1 ? $newContactLastName.val().trim() : "",
 
                 obj = this,
                 $input = jq("#contactTitle_" + objID);
@@ -2975,7 +2969,7 @@ ASC.CRM.CategorySelector = function (objName, currentCategory) {
             jq('input[id=' + this.ObjName + '_categoryID]', this.Me()).val(id);
             jq('input[id=' + this.ObjName + '_categoryTitle]', this.Me()).val(title);
         } else {
-            jq("option[id=" + this.ObjName + "_category_" + id + "]", this.Me()).attr("selected", true);
+            jq("option[id=" + this.ObjName + "_category_" + id + "]", this.Me()).prop("selected", true);
         }
     };
 
@@ -3100,11 +3094,11 @@ ASC.CRM.TagView = (function() {
                 simpleToggle: (typeof (params) != "undefined" && params.hasOwnProperty("simpleToggle")) ? params.simpleToggle : true
             });
 
-            jq("#addThisTag").click(function() {
-                ASC.CRM.TagView.addTagExtension({}, jq.trim(jq("#addTagDialog input:first").val()));
+            jq("#addThisTag").on("click", function() {
+                ASC.CRM.TagView.addTagExtension({}, jq("#addTagDialog input:first").val().trim());
             });
 
-            jq("#addTagDialog input").focus().unbind("keyup").keyup(function(e) {
+            jq("#addTagDialog input").trigger("focus").off("keyup").on("keyup", function(e) {
                 var code;
                 if (!e) {
                     e = event;
@@ -3116,7 +3110,7 @@ ASC.CRM.TagView = (function() {
                 }
 
                 if (code == 13) {
-                    var text = jq.trim(jq("#addTagDialog input:first").val());
+                    var text = jq("#addTagDialog input:first").val().trim();
                     if (text == "") {
                         return;
                     }
@@ -3168,7 +3162,7 @@ ASC.CRM.TagView = (function() {
             var tagData = {};
             tagData.tagListInfo = [];
             jq("#tagContainer .tag_item .tag_title").each(function() {
-                var tagValue = jq.trim(jq(this).text());
+                var tagValue = jq(this).text().trim();
                 if (tagValue) {
                     tagData.tagListInfo.push(tagValue);
                 }
@@ -3188,7 +3182,7 @@ ASC.CRM.ImportFromCSVView = (function() {
 
     var initOtherActionMenu = function() {
         ASC.CRM.Common.removeExportButtons();
-        jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
     return {
@@ -3272,7 +3266,7 @@ ASC.CRM.ImportEntities = (function ($) {
         _settingsBase = new Object();
 
     var _refreshSampleRowItems = function(data) {
-        var resultData = jq.parseJSON(data),
+        var resultData = JSON.parse(data),
             sampleRow = resultData.data,
             sampleRowColumnIndex = 0;
 
@@ -3342,7 +3336,7 @@ ASC.CRM.ImportEntities = (function ($) {
     };
 
     var _ajaxUploaderonCompleteCallback = function(file, response) {
-        var responseObj = jq.parseJSON(response);
+        var responseObj = JSON.parse(response);
         if (!responseObj.Success) {
             _showErrorPanel(responseObj.Error || responseObj.Message);
             jq("#uploadCSVFile").removeClass("edit_button").addClass("import_button");
@@ -3353,7 +3347,7 @@ ASC.CRM.ImportEntities = (function ($) {
             return false;
         }
 
-        var responseData = jq.parseJSON(jQuery.base64.decode(responseObj.Data));
+        var responseData = JSON.parse(jQuery.base64.decode(responseObj.Data));
         _CSVFileURI = responseData.assignedPath;
 
         if (responseData.isMaxIndex) {
@@ -3379,7 +3373,7 @@ ASC.CRM.ImportEntities = (function ($) {
         selectItems.each(function() {
             try {
                 var curSelect = jq(this),
-                    columnHeader = jq.trim(curSelect.parent().prev().text());
+                    columnHeader = curSelect.parent().prev().text().trim();
                 if (jq.browser.msie) {
                     var leftBracketColumnCount = jq(columnHeader.match(/\(/g)).length,
                         rightBracketColumnCount = jq(columnHeader.match(/\)/g)).length;
@@ -3388,10 +3382,10 @@ ASC.CRM.ImportEntities = (function ($) {
                 }
                 var findedItem = curSelect.find("option")
                                 .filter(function(){
-                                    return jq.trim(jq(this).text()).toLowerCase() == columnHeader.toLowerCase();
+                                    return jq(this).text().trim().toLowerCase() == columnHeader.toLowerCase();
                                 })
                                 .first();
-                findedItem.attr("selected", true);
+                findedItem.prop("selected", true);
             }
             catch (e) {
             }
@@ -3406,7 +3400,7 @@ ASC.CRM.ImportEntities = (function ($) {
             }
         });
 
-        selectItems.change();
+        selectItems.trigger("change");
 
         _nextStep(1);
         LoadingBanner.hideLoaderBtn("#importFromCSVSteps");
@@ -3505,7 +3499,7 @@ ASC.CRM.ImportEntities = (function ($) {
         getColumnMapping: function() {
             var result = {};
             jq("#columnMapping select").each(function() {
-                var name = jq.trim(jq(this).find("option:selected").attr("name"));
+                var name = jq(this).find("option:selected").attr("name").trim();
                 if (name == "" || name == -1) { return true; }
                 if (typeof result[name] == "undefined") {
                     result[name] = new Array();
@@ -3829,7 +3823,7 @@ ASC.CRM.UserSelectorListView = new function() {
         });
 
         if (window["SelectedUsers" + objId].IDs.length == 0) {
-            jq("#cbxNotify" + objId).removeAttr("checked");
+            jq("#cbxNotify" + objId).prop("checked", false);
             jq("#notifyPanel" + objId).hide();
         }
 
@@ -3881,15 +3875,15 @@ ASC.CRM.UserSelectorListView = new function() {
 
             jq("#selectedUsers" + objId).append(item);
 
-            jq("#selectedUser_" + uID + objId).unbind("mouseover").bind("mouseover", function () {
+            jq("#selectedUser_" + uID + objId).off("mouseover").on("mouseover", function () {
                 window[objName].SelectedItem_mouseOver(jq(this));
             });
 
-            jq("#selectedUser_" + uID + objId).unbind("mouseout").bind("mouseout", function () {
+            jq("#selectedUser_" + uID + objId).off("mouseout").on("mouseout", function () {
                 window[objName].SelectedItem_mouseOut(jq(this));
             });
 
-            jq("#deleteSelectedUserImg_" + uID + objId).unbind("click").bind("click", function () {
+            jq("#deleteSelectedUserImg_" + uID + objId).off("click").on("click", function () {
                 window[objName].SelectedUser_deleteItem(jq(this));
             });
 
@@ -3934,7 +3928,7 @@ ASC.CRM.UserSelectorListView = new function() {
             }
 
             if (windowSelectedUsersObj.IDs.length == 0) {
-                jq("#cbxNotify" + this.ObjId).removeAttr("checked");
+                jq("#cbxNotify" + this.ObjId).prop("checked", false);
                 jq("#notifyPanel" + this.ObjId).hide();
             }
 

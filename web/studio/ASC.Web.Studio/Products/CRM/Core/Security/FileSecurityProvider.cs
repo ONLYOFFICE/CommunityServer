@@ -130,6 +130,11 @@ namespace ASC.CRM.Core
         {
             throw new NotImplementedException();
         }
+
+        public bool CanDownload(FileEntry entry, Guid userId)
+        {
+            return CanRead(entry, userId);
+        }
     }
 
     public class FileSecurityProvider : IFileSecurityProvider

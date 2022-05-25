@@ -17,31 +17,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 using ASC.Core.Common.Configuration;
+using ASC.FederatedLogin.Helpers;
+
+using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
     public class BitlyLoginProvider : Consumer, IValidateKeysProvider
     {
-        private static string BitlyClientId
+        private static string BitlyToken
         {
-            get { return Instance["bitlyClientId"]; }
+            get { return Instance["bitlyToken"]; }
         }
 
-        private static string BitlyClientSecret
-        {
-            get { return Instance["bitlyClientSecret"]; }
-        }
-
-        private static string BitlyUrl
-        {
-            get { return Instance["bitlyUrl"]; }
-        }
+        private readonly static string BitlyUrl = "https://api-ssl.bitly.com/v4/shorten";
 
         private static BitlyLoginProvider Instance
         {
@@ -71,36 +62,26 @@ namespace ASC.FederatedLogin.LoginProviders
         {
             get
             {
-                return !String.IsNullOrEmpty(BitlyClientId) &&
-                       !String.IsNullOrEmpty(BitlyClientSecret) &&
-                       !String.IsNullOrEmpty(BitlyUrl);
+                return !String.IsNullOrEmpty(BitlyToken);
             }
         }
 
         public static String GetShortenLink(String shareLink)
         {
-            var uri = new Uri(shareLink);
-
-            var bitly = string.Format(BitlyUrl, BitlyClientId, BitlyClientSecret, Uri.EscapeDataString(uri.ToString()));
-            XDocument response;
-            try
+            var data = string.Format("{{\"long_url\":\"{0}\"}}", shareLink);
+            var headers = new Dictionary<string, string>
             {
-                response = XDocument.Load(bitly);
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
+                {"Authorization" ,"Bearer " + BitlyToken}
+            };
 
-            var status = response.XPathSelectElement("/response/status_code").Value;
-            if (status != ((int)HttpStatusCode.OK).ToString(CultureInfo.InvariantCulture))
-            {
-                throw new InvalidOperationException(status);
-            }
+            var response = RequestHelper.PerformRequest(BitlyUrl, "application/json", "POST", data, headers);
 
-            var data = response.XPathSelectElement("/response/data/url");
+            var parser = JObject.Parse(response);
+            if (parser == null) return null;
 
-            return data.Value;
+            var link = parser.Value<string>("link");
+
+            return link;
         }
     }
 }

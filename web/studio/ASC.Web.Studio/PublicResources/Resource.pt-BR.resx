@@ -244,9 +244,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Administradores</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Status Associado</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Todos os domínios</value>
   </data>
@@ -523,12 +520,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>login</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Conecte o serviço Bitly para encurtar os links compartilhados e os links de convite do portal no módulo Documentos.</value>
@@ -1018,30 +1009,6 @@
   </data>
   <data name="ConsumerswpClientId" xml:space="preserve">
     <value>Chave WordPress</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>ID de cliente</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Segredo de cliente</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Habilitar o aplicativo para a importação de contato do Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Ao adicionar o aplicativo de serviço Yahoo permitirá que você adicione novos usuários ao portal ONLYOFFICE a partir da lista de contato.</value>
-  </data>
-  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
-    <value>Habilite este aplicativo para adicionar novos usuários do portal a partir de sua lista de contatos do Yahoo. {0}Vá para a página Criar aplicativo na Rede de Desenvolvedores Yahoo e crie um novo aplicativo para integração ONLYOFFICE. Insira os dados que você recebeu abaixo:</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>ID de cliente</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Segredo de cliente</value>
   </data>
   <data name="ConsumersYandex" xml:space="preserve">
     <value>Yandex</value>
@@ -1624,9 +1591,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Senha deve conter</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>A senha deve conter</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>dígitos</value>
   </data>
@@ -1853,9 +1817,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Central de Ajuda</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>O objetivo do programa é divulgar legalmente o ONLYOFFICE™ para receber uma comissão de assinaturas adquiridos pelas pessoas referidas.</value>
-  </data>
   <data name="HelpPrivacyRoomSettings" xml:space="preserve">
     <value>Habilite esta opção para criar um ambiente seguro para a edição e co-autoria de documentos. Todos os documentos armazenados dentro da Sala Privada, bem como a transferência de dados durante a co-edição de documentos serão criptografados usando o algoritmo de criptografia AES-256 para impedir o acesso aos seus dados.{0} A Sala Privada está disponível através de {3}ONLYOFFICE Desktop Editors{4}. Para começar, os usuários devem entrar na nuvem ONLYOFFICE em sua seção Connect to cloud. Uma vez conectados, eles obtêm automaticamente um par de chaves de criptografia. Saiba como funciona {5} em nenhum lugar{6}.</value>
   </data>
@@ -2018,9 +1979,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Importar do Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importar do Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Selecione outra fonte</value>
   </data>
@@ -2098,9 +2056,6 @@ Você tem certeza de que deseja excluir {0} {!group}?</value>
   </data>
   <data name="IUnderstand" xml:space="preserve">
     <value>Eu entendo e quero prosseguir</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Participe do nosso Programa de Associados</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Você pode continuar adicionando os usuários como {!guests} ou alterar o plano de preço para um com um número maior de usuários.</value>
@@ -3688,15 +3643,6 @@ Limpar a lista{1}.</value>
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Convites reenviados com sucesso</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Enviar e-mail</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Entre em contato conosco para descobrir sobre as ofertas especiais</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Reduza o parâmetro desejado ou selecione outro plano de preços.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Comprar agora</value>
   </data>
@@ -3708,18 +3654,6 @@ Limpar a lista{1}.</value>
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Escolha um plano que atenda às suas necessidades. O plano recomendado está destacado abaixo.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Este plano não pode ser selecionado</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Tamanho do espaço de armazenamento permitido: {0}. Espaço de armazenamento atual: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Número de usuários do portal permitidos: {0}. Número atual de usuários: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Você não pode selecionar este plano, uma vez que o espaço de armazenamento ou número de usuários ultrapassa as limitações do plano de preços selecionado:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Pagamentos recorrentes estão no</value>
@@ -3751,9 +3685,6 @@ Limpar a lista{1}.</value>
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Seu portal ONLYOFFICE™ será bloqueado {2}. Por favor, {0}clique aqui{1} para prolongar o plano existente ou alterá-lo para um apropriado.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Número de portais que você criou: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>O plano de preço não está disponível até o final do ano pago.</value>
   </data>
@@ -3765,9 +3696,6 @@ Limpar a lista{1}.</value>
   </data>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Para cancelar pagamentos recorrentes, por favor, vá para a sua conta Avangate.</value>
-  </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Apenas até {0}.</value>
   </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Planos de Preços</value>

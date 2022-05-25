@@ -101,12 +101,7 @@ namespace ASC.ElasticSearch.Core
             var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
             if (!CanIndexByContent(t, tenantId)) return false;
 
-            if (CoreContext.Configuration.Standalone)
-            {
-                return true;
-            }
-
-            return CoreContext.TenantManager.GetTenantQuota(tenantId).ContentSearch;
+            return CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(tenantId).ContentSearch;
         }
 
         public static List<SearchSettingsItem> GetAllItems()

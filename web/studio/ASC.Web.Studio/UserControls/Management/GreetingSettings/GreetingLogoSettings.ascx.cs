@@ -109,7 +109,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 var tenantId = TenantProvider.CurrentTenantID;
 
                 _tenantInfoSettings = TenantInfoSettings.Load();
-                _tenantInfoSettings.RestoreDefault();
+                _tenantInfoSettings.RestoreDefaultLogo();
                 _tenantInfoSettings.Save();
 
                 if (TenantLogoManager.WhiteLabelEnabled)

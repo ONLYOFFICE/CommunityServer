@@ -64,8 +64,14 @@
   <data name="By" xml:space="preserve">
     <value>vasitəsi ilə</value>
   </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Şərhlər</value>
+  </data>
   <data name="ByCreateDate" xml:space="preserve">
     <value>Yaradılma tarixi</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>Yaradıcı</value>
   </data>
   <data name="ByDate" xml:space="preserve">
     <value>Tarix</value>
@@ -82,6 +88,9 @@
   <data name="ByNote" xml:space="preserve">
     <value>Açıqlama</value>
   </data>
+  <data name="ByOrder" xml:space="preserve">
+    <value>Sifariş</value>
+  </data>
   <data name="ByParticipant" xml:space="preserve">
     <value>İştirakçı</value>
   </data>
@@ -93,6 +102,9 @@
   </data>
   <data name="ByResponsible" xml:space="preserve">
     <value>Cavabdeh</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>Başlama tarixi</value>
   </data>
   <data name="ByStatus" xml:space="preserve">
     <value>Durum</value>
@@ -148,6 +160,9 @@
   <data name="OtherMilestones" xml:space="preserve">
     <value>Digər pillələr</value>
   </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>Digər iştirakçı</value>
+  </data>
   <data name="OtherProjects" xml:space="preserve">
     <value>Digər layihələr</value>
   </data>
@@ -156,6 +171,15 @@
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>Gecikmiş</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Fakturalı</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Fakturalı deyil</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Ödəniş edilə bilməz</value>
   </data>
   <data name="PreviousMonth" xml:space="preserve">
     <value>Keçən ay</value>
@@ -172,6 +196,15 @@
   <data name="Select" xml:space="preserve">
     <value>Seç</value>
   </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>Hamısı bağlıdır</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>Hamısı açıqdır</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Arxiv edilib</value>
+  </data>
   <data name="StatusClosedMilestone" xml:space="preserve">
     <value>Qapalı</value>
   </data>
@@ -180,6 +213,9 @@
   </data>
   <data name="StatusClosedTask" xml:space="preserve">
     <value>Qapalı</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Açıq</value>
   </data>
   <data name="StatusOpenMilestone" xml:space="preserve">
     <value>Açıq</value>
@@ -213,5 +249,8 @@
   </data>
   <data name="UpcomingMilestones" xml:space="preserve">
     <value>Yaxınlaşan</value>
+  </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>Etiketsiz</value>
   </data>
 </root>

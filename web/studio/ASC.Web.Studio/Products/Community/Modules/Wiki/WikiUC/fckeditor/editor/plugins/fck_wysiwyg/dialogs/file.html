@@ -23,9 +23,15 @@ document.write( '<script src="' + FCKConfig.BasePath + 'dialog/common/fck_dialog
 	<script type="text/javascript">
 
 // Get the selected file (if available).
-var oLink = dialog.Selection.GetSelection().MoveToAncestorNode( 'A' ) ;
-if ( oLink )
+var oLink;
+try {
+    oLink = dialog.Selection.GetSelection().MoveToAncestorNode('A');
+} catch (e) {
+    oLink = null;
+}
+if ( oLink ) {
 	FCK.Selection.SelectNode( oLink ) ;
+}
 
 window.onload = function()
 {
@@ -639,7 +645,7 @@ document.onkeydown = function(e)
 							<input type="hidden" id="hfTempFileLocation" name="hfTempFileLocation"/>
 							
 							<script type="text/javascript">
-								document.write( '<iframe name="UploadWindow" id="UploadWindow" onload="iFrameLoaded()" style="display: none" src="' + FCKTools.GetVoidUrl() + '"><\/iframe>' ) ;
+								document.write( '<iframe name="UploadWindow" id="UploadWindow" style="display: none" src="' + FCKTools.GetVoidUrl() + '"><\/iframe>' ) ;
 							</script>
 						</div>
 					</div>

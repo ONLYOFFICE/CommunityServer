@@ -25,7 +25,7 @@ using System.Web.UI;
 
 using ASC.Web.Studio.Utility;
 
-using Ionic.Zip;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -58,10 +58,20 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void CreateArchive(Stream outputStream)
         {
-            using (var zip = new ZipFile())
+            using (var zipOutputStream = new ZipOutputStream(outputStream))
             {
-                zip.AddFiles(EnumerateLogFiles(GetStartDate(), GetEndDate()), true, "");
-                zip.Save(outputStream);
+                zipOutputStream.IsStreamOwner = false;
+
+                var logFiles = EnumerateLogFiles(GetStartDate(), GetEndDate());
+                foreach (var file in logFiles)
+                {
+                    zipOutputStream.PutNextEntry(new ZipEntry(file));
+                    using (FileStream fs = File.OpenRead(file))
+                    {
+                        fs.CopyTo(zipOutputStream);
+                    }
+                }
+                zipOutputStream.Finish();
             }
         }
 

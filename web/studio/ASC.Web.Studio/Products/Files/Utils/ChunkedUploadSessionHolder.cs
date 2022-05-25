@@ -61,7 +61,7 @@ namespace ASC.Web.Files.Utils
 
         public static ChunkedUploadSession GetSession(string sessionId)
         {
-            return (ChunkedUploadSession)CommonSessionHolder(false).Get(sessionId);
+            return CommonSessionHolder(false).Get<ChunkedUploadSession>(sessionId);
         }
 
         public static ChunkedUploadSession CreateUploadSession(File file, long contentLength)

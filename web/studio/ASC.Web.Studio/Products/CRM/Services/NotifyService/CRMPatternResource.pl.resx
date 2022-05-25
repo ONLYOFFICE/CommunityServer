@@ -105,22 +105,22 @@ Adres Twojego portalu: "$__VirtualRootPath":"$__VirtualRootPath"
 
 "Ustawienia subskrypcji":"$RecipientSubscriptionConfigURL" 
 
-W razie pytań prosimy o kontakt na adres "support.onlyoffice.com":"http://support.onlyoffice.com" 
+W razie pytań prosimy o kontakt na adres "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 Z poważaniem, 
 Zespół ONLYOFFICE™ 
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+"www.onlyoffice.com":"https://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>h1. CRM. Import danych zakończony pomyślnie
 
 Przejść do listy kontaktów":"$__VirtualRootPath/Products/CRM/".
 
-Jeśli masz jakieś pytania, zawsze możesz skontaktować się z nami pod adresem "support.onlyoffice.com":"http://support.onlyoffice.com"
+Jeśli masz jakieś pytania, zawsze możesz skontaktować się z nami pod adresem "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Pozdrawiam,
 Wsparcie ONLYOFFICE™
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Otrzymujesz tę wiadomość, ponieważ jesteś zarejestrowany na portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Aby zmienić typ alertu, należy skonfigurować ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
   </data>

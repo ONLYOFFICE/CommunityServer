@@ -18,9 +18,16 @@
 window.ASC.Files.FileChoice = (function () {
     var isInit = false;
 
-    var init = function (originForPost, folderId) {
+    var init = function (originForPost, folderId, displayPrivacy) {
         if (isInit === false) {
             isInit = true;
+
+            if (!displayPrivacy && ASC.Files.FileSelector.fileSelectorTree) {
+                var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
+                if (privacyFolderData) {
+                    privacyFolderData.entryObject.addClass("privacy-node");
+                }
+            }
 
             if (ASC.Files.Utility.CanWebView(jq("#saveAsTitle").data("title"))) {
                 jq("#saveAsOpenTabPanel").insertBefore(".middle-button-container");
@@ -81,6 +88,12 @@ window.ASC.Files.FileChoice = (function () {
             ASC.Files.FileSelector.onCancel = function () {
                 finishSubmit({});
             };
+
+            jq(document).on("keyup", function (event) {
+                if (event.keyCode == 27) {
+                    ASC.Files.FileSelector.onCancel();
+                }
+            });
 
             ASC.Files.FileSelector.openDialog(folderId || null, true);
 

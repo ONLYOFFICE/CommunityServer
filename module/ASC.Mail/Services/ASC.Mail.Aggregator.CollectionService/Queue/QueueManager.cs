@@ -55,8 +55,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         private readonly object _locker = new object();
 
         private LiteDatabase _db;
-        private LiteCollection<MailboxData> _mailboxes;
-        private LiteCollection<TenantData> _tenants;
+        private ILiteCollection<MailboxData> _mailboxes;
+        private ILiteCollection<TenantData> _tenants;
 
         public ManualResetEvent CancelHandler { get; set; }
 
@@ -313,7 +313,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                     if (mailbox == null)
                         return;
 
-                    _mailboxes.Delete(Query.EQ("MailboxId", mailBoxId));
+                    _mailboxes.DeleteMany(Query.EQ("MailboxId", mailBoxId));
                 }
             }
             catch (Exception ex)
@@ -392,7 +392,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                     if (tenant == null)
                         return;
 
-                    _tenants.Delete(Query.EQ("Tenant", tenantId));
+                    _tenants.DeleteMany(Query.EQ("Tenant", tenantId));
                 }
             }
             catch (Exception ex)

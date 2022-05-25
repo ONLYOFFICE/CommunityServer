@@ -108,12 +108,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static decimal ExchangeRateRuble
-        {
-            get;
-            private set;
-        }
-
         public static long MaxImageUploadSize
         {
             get;
@@ -164,13 +158,13 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static bool ThirdPartyAuthEnabled
+        public static long ProviderMaxUploadSize
         {
             get;
             private set;
         }
 
-        public static bool ThirdPartyBannerEnabled
+        public static bool ThirdPartyAuthEnabled
         {
             get;
             private set;
@@ -382,7 +376,7 @@ namespace ASC.Web.Studio.Core
         }
 
         public static void Refresh()
-        { 
+        {
             EnableAppServer = GetAppSettings("appserver.enable", "false") == "true";
             MetaImageURL = GetAppSettings("web.meta-image-url", "https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg");
             StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
@@ -412,14 +406,13 @@ namespace ASC.Web.Studio.Core
 
             PersonalCultures = GetPersonalCultures();
 
-            ExchangeRateRuble = GetAppSettings("exchange-rate.ruble", 65);
             MaxImageUploadSize = GetAppSettings<long>("web.max-upload-size", 1024 * 1024);
             AvailableFileSize = GetAppSettings("web.available-file-size", 100L * 1024L * 1024L);
 
             TeamlabSiteRedirect = GetAppSettings("web.teamlab-site", string.Empty);
-            ChunkUploadSize = GetAppSettings("files.uploader.chunk-size", 5 * 1024 * 1024);
+            ChunkUploadSize = GetAppSettings("files.uploader.chunk-size", 10 * 1024 * 1024);
+            ProviderMaxUploadSize = GetAppSettings("files.provider.max-upload-size", 1024L * 1024L * 1024L);
             ThirdPartyAuthEnabled = string.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true");
-            ThirdPartyBannerEnabled = string.Equals(GetAppSettings("web.thirdparty-banner", "false"), "true");
             NoTenantRedirectURL = GetAppSettings("web.notenant-url", "");
 
             NotifyAddress = GetAppSettings("web.promo-url", string.Empty);

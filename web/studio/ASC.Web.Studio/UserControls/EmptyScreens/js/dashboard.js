@@ -33,7 +33,7 @@ jq(function () {
         }
     });
 
-    jq(document).keyup(function (event) {
+    jq(document).on("keyup", function (event) {
         var code;
 
         if (event.keyCode) {
@@ -43,7 +43,7 @@ jq(function () {
         }
 
         if (code == 27) {
-            jq("#dashboardContent .close").click();
+            jq("#dashboardContent .close").trigger("click");
         }
     });
 
@@ -56,6 +56,6 @@ jq(function () {
         centerMode: true
     });
 
-    jq("#dashboardContent .slick-next").focus();
+    jq("#dashboardContent .slick-next").trigger("focus");
 
 });

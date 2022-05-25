@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>멤버 추가</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>생일</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>사용 안 함</value>
   </data>
@@ -144,9 +147,6 @@
   </data>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>구글</value>
-  </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>야후</value>
   </data>
   <data name="ImportPeople" xml:space="preserve">
     <value>구성원 가져오기</value>

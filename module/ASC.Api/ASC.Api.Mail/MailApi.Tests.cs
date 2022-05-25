@@ -26,18 +26,19 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        /// Create sample message [Tests]
+        /// Creates a sample message with the parameters specified in the request. [Tests]
         /// </summary>
-        /// <param name="folderId"></param>
-        /// <param name="mailboxId"></param>
-        /// <param name="to"></param>
-        /// <param name="cc"></param>
-        /// <param name="bcc"></param>
-        /// <param name="importance"></param>
-        /// <param name="unread"></param>
-        /// <param name="subject"></param>
-        /// <param name="body"></param>
-        /// <returns>Id message</returns>
+        /// <short>Create a sample message</short>
+        /// <param name="folderId">Folder ID</param>
+        /// <param name="mailboxId">Mailbox ID</param>
+        /// <param name="to">List of mail addresses to which the letter came. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name<name@domain>]]></param>
+        /// <param name="importance">Important message or not: true - important, false - not important</param>
+        /// <param name="unread">Message status: unread (true), read (false) or all (null) messages</param>
+        /// <param name="subject">Message subject</param>
+        /// <param name="body">Message body as HTML string</param>
+        /// <returns>Message ID</returns>
         /// <category>Tests</category>
         /// <visible>false</visible>
         [Create(@"messages/sample/create")]
@@ -59,13 +60,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Append attachment to sample message [Tests]
+        /// Appends an attachment to the sample message with the ID specified in the request. [Tests]
         /// </summary>
-        /// <param name="messageId">Id of any message</param>
+        /// <short>Append attachments to a sample message</short>
+        /// <param name="messageId">Message ID</param>
         /// <param name="filename">File name</param>
         /// <param name="stream">File stream</param>
         /// <param name="contentType">File content type</param>
-        /// <returns>Id message</returns>
+        /// <returns>Message ID</returns>
         /// <category>Tests</category>
         /// <visible>false</visible>
         [Create(@"messages/sample/attachments/append")]
@@ -79,14 +81,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Load sample message from EML [Tests]
+        /// Loads a sample message with the parameters specified in the request from EML. [Tests]
         /// </summary>
-        /// <param name="folderId"></param>
-        /// <param name="userFolderId"></param>
-        /// <param name="mailboxId"></param>
-        /// <param name="unread"></param>
-        /// <param name="emlStream"></param>
-        /// <returns>Id message</returns>
+        /// <short>Load a sample message</short>
+        /// <param name="folderId">Folder ID</param>
+        /// <param name="userFolderId">User folder ID</param>
+        /// <param name="mailboxId">Mailbox ID</param>
+        /// <param name="unread">Message status: unread (true), read (false) or all (null) messages</param>
+        /// <param name="emlStream">EML stream</param>
+        /// <returns>Message ID</returns>
         /// <category>Tests</category>
         /// <visible>false</visible>
         [Create(@"messages/sample/eml/load")]

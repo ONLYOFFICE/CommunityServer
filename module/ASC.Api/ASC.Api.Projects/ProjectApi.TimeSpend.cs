@@ -33,24 +33,24 @@ namespace ASC.Api.Projects
     public partial class ProjectApi
     {
         ///<summary>
-        ///Returns the list with the detailed information about all the time spent matching the filter parameters specified in the request
+        ///Returns a list with the detailed information about all the task time spent matching the filter parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Get time spent by filter
+        ///Get task time by filter
         ///</short>
         ///<category>Time</category>
-        ///<param name="projectid" optional="true"> Project Id</param>
-        ///<param name="tag" optional="true">Project Tag</param>
+        ///<param name="projectid" optional="true"> Project ID</param>
+        ///<param name="myProjects">Returns task time only for my projects</param>
+        ///<param name="milestone" optional="true">Milestone ID</param>
+        ///<param name="myMilestones">Returns task time only for my milestones</param>
+        ///<param name="tag" optional="true">Project tag</param>
         ///<param name="departament" optional="true">Departament GUID</param>
         ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="createdStart" optional="true">Minimum value of create time</param>
-        ///<param name="createdStop" optional="true">Maximum value of create time</param>
-        ///<param name="lastId">Last time spent ID</param>
-        ///<param name="myProjects">Tasks time in My Projects</param>
-        ///<param name="myMilestones">Tasks time in My Milestones</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
+        ///<param name="createdStart" optional="true">Starting task creation</param>
+        ///<param name="createdStop" optional="true">Finishing task creation</param>
+        ///<param name="lastId">Last spent time ID</param>
         ///<param name="status" optional="true">Payment status</param>
-        ///<returns>List of time spent</returns>
+        ///<returns>List of spent time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"time/filter")]
         public IEnumerable<TimeWrapper> GetTaskTimeByFilter(
@@ -89,24 +89,24 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the total time spent matching the filter parameters specified in the request
+        ///Returns the total time spent matching the filter parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Get total time spent by tilter
+        ///Get total task time by filter
         ///</short>
         ///<category>Time</category>
         ///<param name="projectid" optional="true"> Project ID</param>
+        ///<param name="myProjects">Returns task time only for my projects</param>
+        ///<param name="milestone" optional="true">Milestone ID</param>
+        ///<param name="myMilestones">Returns task time only for my milestones</param>
         ///<param name="tag" optional="true">Project tag</param>
         ///<param name="departament" optional="true">Departament GUID</param>
         ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="createdStart" optional="true">Minimum value of create time</param>
-        ///<param name="createdStop" optional="true">Maximum value of create time</param>
-        ///<param name="lastId">Last time spent ID</param>
-        ///<param name="myProjects">Tasks time in My Projects</param>
-        ///<param name="myMilestones">Tasks time in My Milestones</param>
-        ///<param name="milestone" optional="true">Milestone ID</param>
+        ///<param name="createdStart" optional="true">Starting task creation</param>
+        ///<param name="createdStop" optional="true">Finishing task creation</param>
+        ///<param name="lastId">Last spent time ID</param>
         ///<param name="status" optional="true">Payment status</param>
-        ///<returns>Total time spent</returns>
+        ///<returns>Total spent time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"time/filter/total")]
         public float GetTotalTaskTimeByFilter(
@@ -147,14 +147,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the time spent on the task with the ID specified in the request
+        ///Returns the time spent on the task with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Get time spent
+        ///Get task time
         ///</short>
         ///<category>Time</category>
         ///<param name="taskid">Task ID</param>
-        ///<returns></returns>
+        ///<returns>Task time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"task/{taskid:[0-9]+}/time")]
         public IEnumerable<TimeWrapper> GetTaskTime(int taskid)
@@ -166,17 +166,17 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds the time to the selected task with the time parameters specified in the request
+        ///Adds the time to the selected task with the time parameters specified in the request.
         ///</summary>
         ///<short>
         ///Add task time
         ///</short>
         ///<category>Time</category>
         ///<param name="taskid">Task ID</param>
-        ///<param name="note">Note</param>
+        ///<param name="note">Time note</param>
         ///<param name="date">Date</param>
-        ///<param name="personId">Person that spends time</param>
-        ///<param name="hours">Hours spent</param>
+        ///<param name="personId">Person ID</param>
+        ///<param name="hours">Spent hours</param>
         ///<param name="projectId">Project ID</param>
         ///<returns>Created time</returns>
         ///<exception cref="ArgumentException"></exception>
@@ -210,18 +210,18 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the time for the selected task with the time parameters specified in the request
+        ///Updates the time for the selected task with the time parameters specified in the request.
         ///</summary>
         ///<short>
         ///Update task time
         ///</short>
         ///<category>Time</category>
-        ///<param name="timeid">ID of time spent</param>
-        ///<param name="note">Note</param>
-        ///<param name="date">Date</param>
-        ///<param name="personId">Person that spends time</param>
-        ///<param name="hours">Hours spent</param>
-        ///<returns>Created time</returns>
+        ///<param name="timeid">Time ID</param>
+        ///<param name="note">New time note</param>
+        ///<param name="date">New date</param>
+        ///<param name="personId">New person ID</param>
+        ///<param name="hours">New spent hours</param>
+        ///<returns>Updated time</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"time/{timeid:[0-9]+}")]
@@ -246,15 +246,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the time status of payment
+        ///Updates a time status of payment with the parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Updates the time status of payment
+        ///Update a time status of payment
         ///</short>
         ///<category>Time</category>
-        ///<param name="timeids">List IDs of time spent</param>
-        ///<param name="status">Status</param>
-        ///<returns>Created time</returns>
+        ///<param name="timeids">Spent time IDs</param>
+        ///<param name="status">New payment status</param>
+        ///<returns>Updated times</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"time/times/status")]
         public List<TimeWrapper> UpdateTimes(int[] timeids, PaymentStatus status)
@@ -275,14 +275,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes the times from the tasks with the ID specified in the request
+        ///Deletes time from the tasks with the IDs specified in the request.
         ///</summary>
         ///<short>
-        ///Delete time spents
+        ///Delete task time
         ///</short>
         ///<category>Time</category>
-        ///<param name="timeids">IDs of time spents</param>
-        ///<returns></returns>
+        ///<param name="timeids">Spent time IDs</param>
+        ///<returns>Deleted time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"time/times/remove")]
         public List<TimeWrapper> DeleteTaskTimes(int[] timeids)

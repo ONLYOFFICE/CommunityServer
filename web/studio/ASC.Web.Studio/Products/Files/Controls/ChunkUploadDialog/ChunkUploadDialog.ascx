@@ -41,6 +41,7 @@
                 <tbody></tbody>
             </table>
         </div>
+        <% var isVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(); %>
         <div class="upload-info-container">
             <% if (!CoreContext.Configuration.Standalone)
                { %>
@@ -51,7 +52,7 @@
                else
                { %>
             <span class="free-space gray-text"></span>
-            <% if (TenantExtra.EnableTariffSettings && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+            <% if (TenantExtra.EnableTariffSettings && !isVisitor)
                { %>
             <span class="splitter"></span>
             <a class="link underline gray" target="_blank" href="<%= TenantExtra.GetTariffPageLink() %>">
@@ -63,12 +64,15 @@
         </div>
         <div id="uploadSettingsPanel" class="studio-action-panel">
             <ul class="dropdown-content">
+                <% if (!isVisitor) %>
+                <% { %>
                 <li>
                     <label class="gray-text">
                         <input type="checkbox" class="update-if-exist checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %>>
                         <%= FilesUCResource.UpdateIfExist %>
                     </label>
                 </li>
+                <% } %>
                 <% if (FileConverter.EnableAsUploaded) %>
                 <% { %>
                 <li>

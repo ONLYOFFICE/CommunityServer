@@ -70,6 +70,12 @@
   <data name="CommonGroups" xml:space="preserve">
     <value>Qruplar</value>
   </data>
+  <data name="CommonGuest" xml:space="preserve">
+    <value>Qonaq</value>
+  </data>
+  <data name="CommonGuests" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
   <data name="CommonRegDate" xml:space="preserve">
     <value>Qeydiyyat tarixi</value>
   </data>
@@ -97,6 +103,12 @@
   <data name="DefaultGroups" xml:space="preserve">
     <value>Bölmələr</value>
   </data>
+  <data name="DefaultGuest" xml:space="preserve">
+    <value>Qonaq</value>
+  </data>
+  <data name="DefaultGuests" xml:space="preserve">
+    <value>Qonaqlar</value>
+  </data>
   <data name="DefaultRegDate" xml:space="preserve">
     <value>İşə qəbul tarixi</value>
   </data>
@@ -111,5 +123,38 @@
   </data>
   <data name="DefaultUserTitle" xml:space="preserve">
     <value>Vəzifə</value>
+  </data>
+  <data name="EducationAddUsers" xml:space="preserve">
+    <value>Müəllim/Tələbə əlavə edin</value>
+  </data>
+  <data name="EducationGroup" xml:space="preserve">
+    <value>Qrup</value>
+  </data>
+  <data name="EducationGroupHead" xml:space="preserve">
+    <value>Qrup Rəhbəri</value>
+  </data>
+  <data name="EducationGroups" xml:space="preserve">
+    <value>Qruplar</value>
+  </data>
+  <data name="EducationGuest" xml:space="preserve">
+    <value>Qonaq</value>
+  </data>
+  <data name="EducationGuests" xml:space="preserve">
+    <value>Qonaqlar</value>
+  </data>
+  <data name="EducationRegDate" xml:space="preserve">
+    <value>Qeydiyyat Tarixi</value>
+  </data>
+  <data name="EducationSchemaName" xml:space="preserve">
+    <value>Təhsil Müəssisəsi</value>
+  </data>
+  <data name="EducationUser" xml:space="preserve">
+    <value>Müəllim/Tələbə</value>
+  </data>
+  <data name="EducationUsers" xml:space="preserve">
+    <value>Müəllimlər/Tələbələr</value>
+  </data>
+  <data name="EducationUserTitle" xml:space="preserve">
+    <value>Başlıq</value>
   </data>
 </root>

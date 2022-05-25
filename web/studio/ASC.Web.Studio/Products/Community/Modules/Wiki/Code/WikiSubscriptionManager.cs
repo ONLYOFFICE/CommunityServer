@@ -50,6 +50,20 @@ namespace ASC.Web.UserControls.Wiki
                 NotifyClient.RemoveInterceptor(initatorInterceptor.Name);
             }
         }
+
+        public static void SendNoticeToAsync(string AuthorID, INotifyAction action, string objectID, IRecipient[] recipients, params ITagValue[] args)
+        {
+            InitiatorInterceptor initatorInterceptor = new InitiatorInterceptor(new DirectRecipient(AuthorID, ""));
+            try
+            {
+                NotifyClient.AddInterceptor(initatorInterceptor);
+                NotifyClient.SendNoticeToAsync(action, objectID, recipients, false, args);
+            }
+            finally
+            {
+                NotifyClient.RemoveInterceptor(initatorInterceptor.Name);
+            }
+        }
     }
 
 

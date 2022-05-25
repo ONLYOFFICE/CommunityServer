@@ -32,6 +32,8 @@ namespace ASC.Data.Backup.Tasks.Modules
 {
     internal class MailModuleSpecifics : ModuleSpecificsBase
     {
+        private ILog Log = LogManager.GetLogger("ASC");
+
         private readonly TableInfo[] _tables = new[]
             {
                 new TableInfo("mail_attachment", "tenant", "id"),
@@ -243,7 +245,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 }
                 catch (Exception err)
                 {
-                    LogManager.GetLogger("ASC").ErrorFormat("Can not prepare value {0}: {1}", value, err);
+                    Log.ErrorFormat("Can not prepare value {0}: {1}", value, err);
                     value = null;
                 }
                 return true;
@@ -270,7 +272,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC").ErrorFormat("Can not prepare data {0}: {1}", row[address] as string, ex);
+                        Log.ErrorFormat("Can not prepare data {0}: {1}", row[address] as string, ex);
                         data.Rows.Remove(row);
                         i--;
                     }

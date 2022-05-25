@@ -157,19 +157,6 @@ Pozdrawiam,
 zespół ONLYOFFICE™
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Password change request for "${__VirtualRootPath}":portal"${__VirtualRootPath}"
-
-Wysłano prośbę o zmianę hasła używanego do wejścia do portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Aby zmienić hasło, kliknij poniższy link:
-
-$GreenButton
-
-*Uwaga*: link ten jest ważny tylko przez 7 dni. W tym czasie zakończ proces zmiany hasła.
-
-Jeśli nie chcesz zmienić hasła lub otrzymywać tego e-maila pomyłkowo, zignoruj go lub skontaktuj się z administratorem portalu "${__VirtualRootPath}":"${__VirtualRootPath}", aby dowiedzieć się szczegółów.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Wniosek o zmianę numeru telefonu komórkowego
 
@@ -451,9 +438,6 @@ Użytkownik "$__AuthorName":"$__AuthorUrl" dołączył do portalu "${__VirtualRo
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. Utworzono utworzoną kopię zapasową portalu ${__VirtualRootPath}</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>Pomoc w hasłach ${LetterLogoText}</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Żądanie zmiany numeru telefonu</value>

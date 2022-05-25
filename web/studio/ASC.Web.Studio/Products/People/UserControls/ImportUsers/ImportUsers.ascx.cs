@@ -67,8 +67,7 @@ namespace ASC.Web.People.UserControls
             EnableGuests = Constants.CoefficientOfVisitors * TenantExtra.GetTenantQuota().ActiveUsers - TenantStatisticsProvider.GetVisitorsCount();
             EnableGuests = EnableGuests >= 0 ? EnableGuests : 0;
             IsStandalone = CoreContext.Configuration.Standalone;
-            var tariff = (Studio.UserControls.Management.TariffLimitExceed)LoadControl(Studio.UserControls.Management.TariffLimitExceed.Location);
-            Tariff.Controls.Add(tariff);
+
             var quota = TenantExtra.GetTenantQuota();
 
             PeopleLimit = Math.Min(quota.ActiveUsers - TenantStatisticsProvider.GetUsersCount(), 0);

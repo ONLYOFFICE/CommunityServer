@@ -18,7 +18,7 @@
 (function($) {
     window.dropdown = {
         unregHide: function(hide) {
-            $(window).unbind('.dropdown', hide);
+            $(window).off('.dropdown', hide);
             $('iframe').each(function() {
                 try {
                     if ($(this)[0].contentWindow.document) {
@@ -56,7 +56,7 @@
             event.preventDefault();
             event.stopPropagation();
             // initiate global event for other dropdowns close
-            $(window).click();
+            $(window).trigger("click");
         }
     };
 })(jQuery);

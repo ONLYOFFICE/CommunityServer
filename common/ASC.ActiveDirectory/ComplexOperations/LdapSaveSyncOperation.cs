@@ -178,7 +178,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
 
                         Logger.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", existingLDAPUser.GetUserInfoString());
 
-                        CoreContext.UserManager.SaveUserInfo(existingLDAPUser);
+                        CoreContext.UserManager.SaveUserInfo(existingLDAPUser, syncCardDav: true);
                         break;
                     case LdapOperationType.SaveTest:
                     case LdapOperationType.SyncTest:
@@ -852,7 +852,7 @@ namespace ASC.ActiveDirectory.ComplexOperations
 
                         Logger.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", removedUser.GetUserInfoString());
 
-                        CoreContext.UserManager.SaveUserInfo(removedUser);
+                        CoreContext.UserManager.SaveUserInfo(removedUser, syncCardDav: true);
                         break;
                     case LdapOperationType.SaveTest:
                     case LdapOperationType.SyncTest:

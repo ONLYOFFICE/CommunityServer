@@ -103,6 +103,10 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_ReadFolder;
                 }
+                else if (!FilesSecurity.CanDownload(folder))
+                {
+                    Error = FilesCommonResource.ErrorMassage_SecurityException;
+                }
                 else if (folder.RootFolderType == FolderType.Privacy
                     && (copy || toFolder.RootFolderType != FolderType.Privacy))
                 {
@@ -197,7 +201,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                                         newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId, CancellationToken);
                                         newFolder = FolderDao.GetFolder(newFolderId);
-                                        FilesMessageService.Send(folder.RootFolderType != FolderType.USER ? folder : newFolder, toFolder, _headers, MessageAction.FolderMovedWithOverwriting, folder.Title, toFolder.Title);
+                                        FilesMessageService.Send(folder, toFolder, _headers, MessageAction.FolderMovedWithOverwriting, folder.Title, toFolder.Title);
 
                                         if (isToFolder)
                                             _needToMark.Add(newFolder);
@@ -224,10 +228,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             else
                             {
                                 FileMarker.RemoveMarkAsNewForAll(folder);
+                                var parentFolder = FolderDao.GetFolder(folder.RootFolderId);
 
                                 var newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId, CancellationToken);
                                 newFolder = FolderDao.GetFolder(newFolderId);
-                                FilesMessageService.Send(folder.RootFolderType != FolderType.USER ? folder : newFolder, toFolder, _headers, MessageAction.FolderMoved, folder.Title, toFolder.Title);
+                                FilesMessageService.Send(folder, toFolder, _headers, MessageAction.FolderMovedFrom, folder.Title, parentFolder.Title, toFolder.Title);
 
                                 if (isToFolder)
                                     _needToMark.Add(newFolder);
@@ -267,6 +272,10 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 else if (!FilesSecurity.CanRead(file))
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_ReadFile;
+                }
+                else if (!FilesSecurity.CanDownload(file))
+                {
+                    Error = FilesCommonResource.ErrorMassage_SecurityException;
                 }
                 else if (file.RootFolderType == FolderType.Privacy
                     && (copy || toFolder.RootFolderType != FolderType.Privacy))
@@ -329,7 +338,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                                     var newFileId = FileDao.MoveFile(file.ID, toFolderId);
                                     newFile = FileDao.GetFile(newFileId);
-                                    FilesMessageService.Send(file.RootFolderType != FolderType.USER ? file : newFile, toFolder, _headers, MessageAction.FileMoved, file.Title, parentFolder.Title, toFolder.Title);
+                                    FilesMessageService.Send(file, toFolder, _headers, MessageAction.FileMoved, file.Title, parentFolder.Title, toFolder.Title);
 
                                     if (file.RootFolderType == FolderType.TRASH
                                         && newFile.ThumbnailStatus == Thumbnail.NotRequired)
@@ -432,7 +441,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                                                 LinkDao.DeleteAllLink(file.ID);
 
-                                                FilesMessageService.Send(file.RootFolderType != FolderType.USER ? file : newFile, toFolder, _headers, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
+                                                FilesMessageService.Send(file, toFolder, _headers, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
 
                                                 if (ProcessedFile(fileId))
                                                 {

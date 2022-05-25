@@ -16,10 +16,13 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
@@ -36,7 +39,13 @@ namespace ASC.Web.Files
 {
     public partial class _Default : MainPage, IStaticBundle
     {
+        private bool shareDialogV115 = Classes.Global.EnableShareDialogV115;
+
         protected UserInfo CurrentUser;
+
+        protected AutoCleanUpData CleanUpSettings;
+
+        protected List<FileShare> DefaultSharingAccessRightsSetting;
 
         protected bool Desktop
         {
@@ -51,6 +60,10 @@ namespace ASC.Web.Files
 
             CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
+            CleanUpSettings = FilesSettings.AutomaticallyCleanUp;
+
+            DefaultSharingAccessRightsSetting = FilesSettings.DefaultSharingAccessRights;
+
             LoadControls();
 
             if (CoreContext.Configuration.Personal)
@@ -61,6 +74,23 @@ namespace ASC.Web.Files
 
         public ScriptBundleData GetStaticJavaScript()
         {
+            var src = shareDialogV115
+                ? new List<string> { "Controls/AccessRights/accessrights.js", "Controls/AccessRights/formfilling.js" }
+                : new List<string> { "Controls/SharingDialog/sharingdialog.js", "Controls/UnsubscribeDialog/unsubscribedialog.js" };
+
+            src.AddRange(new string[]
+                {
+                    "Controls/ChunkUploadDialog/chunkuploadmanager.js",
+                    "Controls/ConvertFile/convertfile.js",
+                    "Controls/ConvertFile/confirmconvert.js",
+                    "Controls/CreateMenu/createmenu.js",
+                    "Controls/EmptyFolder/emptyfolder.js",
+                    "Controls/FileChoisePopup/filechoisepopup.js",
+                    "Controls/ThirdParty/thirdparty.js",
+                    "Controls/Tree/treebuilder.js",
+                    "Controls/Tree/tree.js"
+                });
+
             return (ScriptBundleData)
                    new ScriptBundleData("files", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath,
@@ -82,39 +112,35 @@ namespace ASC.Web.Files
                                   "~/js/third-party/jquery/jquery.mousewheel.js",
                                   "~/js/third-party/jquery/jquery.uri.js",
                                   "~/js/uploader/jquery.fileupload.js")
-                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/AccessRights/accessrights.js",
-                                  "Controls/ChunkUploadDialog/chunkuploadmanager.js",
-                                  "Controls/ConvertFile/convertfile.js",
-                                  "Controls/ConvertFile/confirmconvert.js",
-                                  "Controls/CreateMenu/createmenu.js",
-                                  "Controls/EmptyFolder/emptyfolder.js",
-                                  "Controls/FileChoisePopup/filechoisepopup.js",
-                                  "Controls/ThirdParty/thirdparty.js",
-                                  "Controls/Tree/treebuilder.js",
-                                  "Controls/Tree/tree.js"
-                       );
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
         }
 
         public StyleBundleData GetStaticStyleSheet()
         {
+            var src = shareDialogV115
+                ? new List<string> { "Controls/AccessRights/accessrights.css", "Controls/AccessRights/formfilling.css" }
+                : new List<string> { "Controls/SharingDialog/sharingdialog.css" };
+
+            src.AddRange(new string[]
+                {
+                    "Controls/AppBanner/appbanner.css",
+                    "Controls/ChunkUploadDialog/chunkuploaddialog.css",
+                    "Controls/ContentList/contentlist.css",
+                    "Controls/ConvertFile/convertfile.css",
+                    "Controls/ConvertFile/confirmconvert.css",
+                    "Controls/EmptyFolder/emptyfolder.css",
+                    "Controls/FileChoisePopup/filechoisepopup.css",
+                    "Controls/MainContent/maincontent.css",
+                    "Controls/MoreFeatures/css/morefeatures.css",
+                    "Controls/ThirdParty/thirdparty.css",
+                    "Controls/Tree/treebuilder.css",
+                    "Controls/Tree/tree.css"
+                });
+
             return (StyleBundleData)
                    new StyleBundleData("files", "files")
                        .AddSource(PathProvider.GetFileStaticRelativePath, "common.css")
-                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
-                                  "Controls/AccessRights/accessrights.css",
-                                  "Controls/AppBanner/appbanner.css",
-                                  "Controls/ChunkUploadDialog/chunkuploaddialog.css",
-                                  "Controls/ContentList/contentlist.css",
-                                  "Controls/ConvertFile/convertfile.css",
-                                  "Controls/ConvertFile/confirmconvert.css",
-                                  "Controls/EmptyFolder/emptyfolder.css",
-                                  "Controls/FileChoisePopup/filechoisepopup.css",
-                                  "Controls/MainContent/maincontent.css",
-                                  "Controls/MoreFeatures/css/morefeatures.css",
-                                  "Controls/ThirdParty/thirdparty.css",
-                                  "Controls/Tree/treebuilder.css",
-                                  "Controls/Tree/tree.css");
+                       .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r, src.ToArray());
         }
 
         private void LoadControls()
@@ -154,7 +180,18 @@ namespace ASC.Web.Files
                 && !Desktop)
                 CommonContainerHolder.Controls.Add(LoadControl(MoreFeatures.Location));
 
-            CommonContainerHolder.Controls.Add(LoadControl(AccessRights.Location));
+            if (shareDialogV115)
+            {
+                CommonContainerHolder.Controls.Add(LoadControl(AccessRights.Location));
+            }
+            else
+            {
+                CommonContainerHolder.Controls.Add(LoadControl(SharingDialog.Location));
+                if (!CoreContext.Configuration.Personal)
+                {
+                    CommonContainerHolder.Controls.Add(LoadControl(UnsubscribeDialog.Location));
+                }
+            }
 
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 
@@ -190,7 +227,7 @@ namespace ASC.Web.Files
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                     CurrentUser.ActivationStatus = EmployeeActivationStatus.Activated;
                     CoreContext.UserManager.SaveUserInfo(CurrentUser);
                 }
@@ -199,7 +236,7 @@ namespace ASC.Web.Files
                     SecurityContext.Logout();
                 }
 
-                SecurityContext.AuthenticateMe(CurrentUser.ID);
+                SecurityContext.CurrentUser = CurrentUser.ID;
 
                 PersonalSettings.IsNotActivated = false;
                 Classes.Global.Logger.InfoFormat("User {0} ActivationStatus - Activated", CurrentUser.ID);

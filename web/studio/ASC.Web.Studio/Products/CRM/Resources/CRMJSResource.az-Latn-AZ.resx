@@ -67,6 +67,9 @@
   <data name="AddNewEmail" xml:space="preserve">
     <value>Elektron poçt əlavə edin</value>
   </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Faktura əlavə edilir...</value>
+  </data>
   <data name="AddNewPhone" xml:space="preserve">
     <value>Telefon əlavə et</value>
   </data>
@@ -102,6 +105,12 @@
   </data>
   <data name="BidType_PerYear" xml:space="preserve">
     <value>illik</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Faktura ünvanı</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Gözdən keçirin</value>
   </data>
   <data name="Case" xml:space="preserve">
     <value>Tədbir</value>
@@ -143,6 +152,18 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="ContactTwitterDescription" xml:space="preserve">
     <value>Twitter hesabınızın adını daxil edin. Örnək olaraq, teamlabdotcom</value>
   </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Ölkə</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Cari ay</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Hazırki həftə</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Fərdi dövr</value>
+  </data>
   <data name="Deal" xml:space="preserve">
     <value>Saziş</value>
   </data>
@@ -170,10 +191,16 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="DeletePersonConfirmMessage" xml:space="preserve">
     <value>'{0}' şəxsi silmək istədiyiniə əminsiniz mi?</value>
   </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Çatdırılma ünvanı</value>
+  </data>
   <data name="EditEmail" xml:space="preserve">
     <value>Elektron poçtu redaktə et</value>
   </data>
   <data name="EditingDealProgress" xml:space="preserve">
+    <value>Dəyişikliklər qeyd edilir...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
     <value>Dəyişikliklər qeyd edilir...</value>
   </data>
   <data name="EditPhone" xml:space="preserve">
@@ -239,8 +266,14 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="ErrorTheLastContactStage" xml:space="preserve">
     <value>"{0}" tipi sonuncudur. Onun silinməsi mükün deyil.</value>
   </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>"{0}" növü sonuncudur. Onun silə bilməzsiniz.</value>
+  </data>
   <data name="ErrorTheLastDealMilestone" xml:space="preserve">
     <value>Bu yeganə saziş səhifəsidir. Silinə bilməz.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>"{0}" kateqoriyası sonuncudur. Onu silmək olmaz.</value>
   </data>
   <data name="ErrorTheLastTaskCategory" xml:space="preserve">
     <value>"{0}" kateqoriyası sonuncudur. Onun silinməsi mümkün deyil.</value>
@@ -263,6 +296,9 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="LoadingProcessing" xml:space="preserve">
     <value>Yüklənir...</value>
   </data>
+  <data name="MakeVoIPCall" xml:space="preserve">
+    <value>VoIP zəngi edin</value>
+  </data>
   <data name="ManyCases" xml:space="preserve">
     <value>Tədbirlər</value>
   </data>
@@ -284,6 +320,9 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="ManyTasks" xml:space="preserve">
     <value>tapşırıqlar</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Növbəti</value>
+  </data>
   <data name="NextPreview" xml:space="preserve">
     <value>Növbəti (öncədən bax)</value>
   </data>
@@ -304,6 +343,9 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   </data>
   <data name="NoEvents" xml:space="preserve">
     <value>Heç bir olay yoxdur</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Fayl seçilməyib</value>
   </data>
   <data name="NoPersons" xml:space="preserve">
     <value>Heç bir şəxs yoxdur</value>
@@ -353,8 +395,14 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>Lütfən, səhifəni yenidən yükləyin</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Gözləyin...</value>
+  </data>
   <data name="PossibleSocialMediaAccounts" xml:space="preserve">
     <value>{0} üçün mümkün profillər</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Əvvəlki</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>Əsas</value>
@@ -401,8 +449,56 @@ Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
   <data name="TemplateNotFixedDeadline" xml:space="preserve">
     <value>Öncəki tapşırıqdan {0} gün {1} saat {2} dəqiqə</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
   <data name="UnsuccessfullyClosed" xml:space="preserve">
     <value>Uğursuz şəkildə qapatıldı</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Vasitəçi</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Cavablanıb</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Zəng edən</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>kontakt silindi</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Xərc</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Müddət</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Buraxılıb</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Gedən</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Növ</value>
+  </data>
+  <data name="VoipSettingsLearnMore" xml:space="preserve">
+    <value>Ətraflı məlumat üçün {0} Yardım Mərkəzimizə {1} daxil olun</value>
+  </data>
+  <data name="VoipSettingsPanelAdminText" xml:space="preserve">
+    <value>Bunu etmək üçün portal parametrlərinə keçin və "İnteqrasiya" -&gt; Üçüncü tərəf xidmətləri bölməsini açın</value>
+  </data>
+  <data name="VoipSettingsPanelHeader" xml:space="preserve">
+    <value>VoIP Zəngləri</value>
+  </data>
+  <data name="VoipSettingsPanelText" xml:space="preserve">
+    <value>VoIP vasitəsilə zəng etmək və zəngləri qəbul etmək üçün siz Twilio xidmətinə qoşulmalısınız.</value>
+  </data>
+  <data name="VoipSettingsPanelUserText" xml:space="preserve">
+    <value>Bunu etmək üçün portal administratorunuzla əlaqə saxlayın.</value>
   </data>
   <data name="ZipCodeWatermark" xml:space="preserve">
     <value>İndeks</value>

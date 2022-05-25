@@ -5,7 +5,7 @@ Wants=nginx.service mysqld.service redis-server.service
 
 [Service]
 PermissionsStartOnly=true
-ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g {{NGINX_USER}} -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyofficeApiSystem.socket /var/www/onlyoffice/ApiSystem/mono_crash* /var/www/onlyoffice/ApiSystem/core.*;'
+ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g nginx -d /var/run/onlyoffice; rm -f /var/run/onlyoffice/onlyofficeApiSystem.socket /var/www/onlyoffice/ApiSystem/mono_crash* /var/www/onlyoffice/ApiSystem/core.*;'
 ExecStart=/usr/bin/hyperfastcgi4 /config=/etc/hyperfastcgi/onlyofficeApiSystem /logfile=/var/log/onlyoffice/onlyofficeApiSystem.log /loglevels=Error
 Environment=LD_LIBRARY_PATH=/usr/lib MONO_PATH=/var/www/onlyoffice/ApiSystem/bin/ MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_GC_PARAMS=nursery-size=128m,soft-heap-limit=512m,bridge-implementation=tarjan MONO_LOG_LEVEL=error MONO_THREADS_SUSPEND=preemptive
 

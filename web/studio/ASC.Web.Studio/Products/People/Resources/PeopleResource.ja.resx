@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>メンバーを追加する</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>誕生日</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>使用禁止</value>
   </data>
@@ -174,9 +177,6 @@
   </data>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Google</value>
-  </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahoo</value>
   </data>
   <data name="ImportPeople" xml:space="preserve">
     <value>ユーザーを輸入する</value>

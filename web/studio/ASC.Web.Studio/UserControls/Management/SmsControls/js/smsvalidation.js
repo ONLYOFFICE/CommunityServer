@@ -60,7 +60,7 @@ window.ASC.Controls.SmsValidationSettings = (function () {
     jq(function () {
         jq("#studio_smsValidationSettings").on("click", "#chk2FactorAuthSave:not(.disable)", ASC.Controls.SmsValidationSettings.SaveSmsValidationSettings);
 
-        jq("input[name=\"chk2FactorAuth\"]").change(function () {
+        jq("input[name=\"chk2FactorAuth\"]").on("change", function () {
             jq("#chk2FactorAuthSave").removeClass("disable");
         });
     });

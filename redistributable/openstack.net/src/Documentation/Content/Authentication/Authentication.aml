@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="92e2ae00-a53d-4efb-925f-2772495e9b6d" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <summary>
+      <para>
+        This section describes the various authentication methods which are supported by the
+        openstack.net SDK.
+      </para>
+    </summary>
+
+    <introduction>
+      <para>
+        The services provided by the openstack.net SDK require authentication with a cloud
+        services provider.
+      </para>
+    </introduction>
+
+    <section address="AuthenticationAPI">
+      <title>Authentication API</title>
+      <content>
+        <para>
+          The API for defining authentication providers within the SDK is built on the following.
+          Individual providers may extend this API to customize the authentication process.
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>:
+              This interface is defines the basic methods for authenticating a client against a service.
+              The interface follows an API similar to the <token>OpenStackIdentityService</token>.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityService</codeEntityReference>:
+              This interface provides asynchronous support for the key client authentication operations
+              defined in <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>.
+          </para>
+          </listItem>
+          <listItem>
+            <para>
+              <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>:
+              This class represents credentials which may be used to authenticate with a cloud services
+              provider. The class may be extended to include additional information required by specific
+              service providers; however, not all implementations of
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              are required to support any such extensions.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Core.Providers.IIdentityService</codeEntityReference>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

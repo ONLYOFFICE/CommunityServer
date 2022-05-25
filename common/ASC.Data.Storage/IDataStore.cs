@@ -309,7 +309,6 @@ namespace ASC.Data.Storage
         string GetUploadForm(string domain, string directoryPath, string redirectTo, long maxUploadSize,
                              string contentType, string contentDisposition, string submitLabel);
 
-        string GetUploadedUrl(string domain, string directoryPath);
         string GetUploadUrl();
 
         string GetPostParams(string domain, string directoryPath, long maxUploadSize, string contentType,

@@ -47,11 +47,13 @@ namespace ASC.Api.CRM
         #region Numbers 
 
         /// <summary>
-        ///  
+        ///  Returns all the available phone numbers matching the parameters specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberType">Number type</param>
+        /// <param name="isoCountryCode">ISO country code</param>
+        /// <short>Get available phone numbers</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone numbers</returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         [Read(@"voip/numbers/available")]
@@ -64,11 +66,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns a list of all the unlinked phone numbers.
         /// </summary>
-        /// <short></short>
+        /// <short>Get unlinked phone numbers</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>List of unlinked phone numbers</returns>
         /// <exception cref="SecurityException"></exception>
         [Read(@"voip/numbers/unlinked")]
         public IEnumerable<VoipPhone> GetUnlinkedPhoneNumbers()
@@ -82,11 +84,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        /// Returns all the existing phone numbers.
         /// </summary>
-        /// <short></short>
+        /// <short>Get all phone numbers</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Existing phone numbers</returns>
         /// <exception cref="SecurityException"></exception>
         [Read(@"voip/numbers/existing")]
         public IEnumerable<VoipPhone> GetExistingPhoneNumbers()
@@ -96,11 +98,12 @@ namespace ASC.Api.CRM
             return DaoFactory.VoipDao.GetNumbers();
         }
         /// <summary>
-        ///  
+        ///  Buys a phone number specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="number">Phone number</param>
+        /// <short>Buy a phone number</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number</returns>
         /// <exception cref="SecurityException"></exception>
         [Create(@"voip/numbers")]
         public VoipPhone BuyNumber(string number)
@@ -117,11 +120,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Links a new phone number with the ID specified in the request to the voip provider.
         /// </summary>
-        /// <short></short>
+        /// <param name="id">Phone number ID</param>
+        /// <short>Link a phone number</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number</returns>
         /// <exception cref="SecurityException"></exception>
         [Create(@"voip/numbers/link")]
         public VoipPhone LinkNumber(string id)
@@ -163,11 +167,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Deletes a phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <short>Delete a phone number</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number</returns>
         /// <exception cref="SecurityException"></exception>
         [Delete(@"voip/numbers/{numberId:\w+}")]
         public VoipPhone DeleteNumber(string numberId)
@@ -185,11 +190,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns a phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <short>Get a phone number</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number</returns>
         /// <exception cref="SecurityException"></exception>
         [Read(@"voip/numbers/{numberId:\w+}")]
         public VoipPhone GetNumber(string numberId)
@@ -198,11 +204,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns the current phone number.
         /// </summary>
-        /// <short></short>
+        /// <short>Get the current phone number</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Current phone number</returns>
         [Read(@"voip/numbers/current")]
         public VoipPhone GetCurrentNumber()
         {
@@ -210,11 +216,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns a token for the current phone number.
         /// </summary>
-        /// <short></short>
+        /// <short>Get a token</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Token</returns>
         [Read(@"voip/token")]
         public string GetToken()
         {
@@ -222,11 +228,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Updates the settings of the phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <param name="greeting">New phone number greeting audio</param>
+        /// <param name="holdUp">New phone number audio for holding up</param>
+        /// <param name="wait">New phone number waiting URL</param>
+        /// <param name="voiceMail">New phone number voice mail</param>
+        /// <param name="workingHours">New phone number working hours</param>
+        /// <param name="allowOutgoingCalls">Defines if a phone number allows making the outgoing calls or not</param>
+        /// <param name="record">Defines if the phone number allows recording the calls or not</param>
+        /// <param name="alias">New phone number alias</param>
+        /// <short>Update phone number settings</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Updated phone number settings</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"voip/numbers/{numberId:\w+}/settings")]
         public VoipPhone UpdateSettings(string numberId, string greeting, string holdUp, string wait, string voiceMail, WorkingHours workingHours, bool? allowOutgoingCalls, bool? record, string alias)
@@ -271,11 +286,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Updates the voip settings with the parameters specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="queue">Connection waiting queue</param>
+        /// <param name="pause">Defines if a phone number will be paused or not</param>
+        /// <short>Update voip settings</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Updated voip settings</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"voip/numbers/settings")]
         public object UpdateSettings(Queue queue, bool pause)
@@ -318,11 +335,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns the voip settings.
         /// </summary>
-        /// <short></short>
+        /// <short>Get voip settings</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Voip settings</returns>
         /// <exception cref="SecurityException"></exception>
 
         [Read(@"voip/numbers/settings")]
@@ -343,11 +360,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns the links to the voip uploaded files.
         /// </summary>
-        /// <short></short>
+        /// <short>Get the links to the uploaded files</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Links to the voip uploaded files</returns>
         /// <exception cref="SecurityException"></exception>
         [Read(@"voip/uploads")]
         public IEnumerable<VoipUpload> GetUploadedFilesUri()
@@ -390,11 +407,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Deletes an uploaded file with the name specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="audioType">Audio type</param>
+        /// <param name="fileName">Uploaded file name</param>
+        /// <short>Delete an uploaded file</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Uploaded file</returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         [Delete(@"voip/uploads")]
@@ -462,11 +481,12 @@ namespace ASC.Api.CRM
         #region Operators
 
         /// <summary>
-        ///  
+        ///  Returns the operators of the phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <short>Get operators</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number operators</returns>
         /// <exception cref="SecurityException"></exception>
         [Read(@"voip/numbers/{numberId:\w+}/oper")]
         public IEnumerable<Guid> GetOperators(string numberId)
@@ -475,11 +495,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Adds the operators to the phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <param name="operators">Phone number operators</param>
+        /// <short>Add operators</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Added phone number operators</returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         [Update(@"voip/numbers/{numberId:\w+}/oper")]
@@ -505,11 +527,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Deletes an operator from the phone number with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="numberId">Phone number ID</param>
+        /// <param name="oper">Phone number operator GUID</param>
+        /// <short>Delete an operator</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone number operator</returns>
         /// <exception cref="SecurityException"></exception>
         [Delete(@"voip/numbers/{numberId:\w+}/oper")]
         public Guid DeleteOperator(string numberId, Guid oper)
@@ -534,11 +558,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Updates a phone number operator with the parameters specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="operatorId">Phone number operator ID</param>
+        /// <param name="status">New operator status</param>
+        /// <param name="allowOutgoingCalls">Defines if an operator allows making the outgoing calls or not</param>
+        /// <param name="record">Defines if an operator allows recording calls or not</param>
+        /// <param name="answerType">New operator answer type</param>
+        /// <param name="redirectToNumber">New redirect phone number</param>
+        /// <short>Update an operator</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Updated operator</returns>
         /// <exception cref="SecurityException"></exception>
         [Update(@"voip/opers/{operatorId}")]
         public Agent UpdateOperator(Guid operatorId, AgentStatus? status, bool? allowOutgoingCalls, bool? record, AnswerType? answerType, string redirectToNumber)
@@ -590,11 +620,13 @@ namespace ASC.Api.CRM
         #region Calls
 
         /// <summary>
-        ///  
+        ///  Makes a call to the phone number specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="to">Phone number to call</param>
+        /// <param name="contactId">Contact ID</param>
+        /// <short>Make a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         /// <exception cref="SecurityException"></exception>
         [Create(@"voip/call")]
         public VoipCallWrapper MakeCall(string to, string contactId)
@@ -618,11 +650,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        /// Answers a phone call with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <short>Answer a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         [Create(@"voip/call/{callId:\w+}/answer")]
         public VoipCallWrapper AnswerCall(string callId)
         {
@@ -634,11 +667,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Rejects a phone call with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <short>Reject a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         [Create(@"voip/call/{callId:\w+}/reject")]
         public VoipCallWrapper RejectCall(string callId)
         {
@@ -650,11 +684,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Redirects a phone call with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <param name="to">Redirect phone number</param>
+        /// <short>Redirect a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         [Create(@"voip/call/{callId:\w+}/redirect")]
         public VoipCallWrapper ReditectCall(string callId, string to)
         {
@@ -679,11 +715,18 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        /// Saves a call with the parameters specified in the request. 
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <param name="from">Phone number that is calling</param>
+        /// <param name="to">Phone number to call</param>
+        /// <param name="answeredBy">Phone number ID that answered a call</param>
+        /// <param name="status">Phone call status</param>
+        /// <param name="contactId">Contact ID</param>
+        /// <param name="price">Phone call price</param>
+        /// <short>Save a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         [Create(@"voip/call/{callId:\w+}")]
         public VoipCallWrapper SaveCall(string callId, string from, string to, Guid answeredBy, VoipCallStatus? status, string contactId, decimal? price)
         {
@@ -752,11 +795,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Saves a price for the call with the ID specified in the request.
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <short>Save a call price</short>
         /// <category>Voip</category>
-        /// <returns></returns>
         [Create(@"voip/price/{callId:\w+}")]
         public void SavePrice(string callId)
         {
@@ -764,11 +807,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        /// Returns a list of the calls matching the parameters specified in the request. 
         /// </summary>
-        /// <short></short>
+        /// <param name="callType">Phone call type</param>
+        /// <param name="from">Phone number that is calling</param>
+        /// <param name="to">Phone number to call</param>
+        /// <param name="agent">Call agent</param>
+        /// <param name="client">Call client</param>
+        /// <param name="contactID">Contact ID</param>
+        /// <short>Get calls</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>List of calls</returns>
         [Read(@"voip/call")]
         public IEnumerable<VoipCallWrapper> GetCalls(string callType, ApiDateTime from, ApiDateTime to, Guid? agent, int? client, int? contactID)
         {
@@ -816,11 +865,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        ///  Returns a list of all the missed calls.
         /// </summary>
-        /// <short></short>
+        /// <short>Get missed calls</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>List of missed calls</returns>
         [Read(@"voip/call/missed")]
         public IEnumerable<VoipCallWrapper> GetMissedCalls()
         {
@@ -854,11 +903,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  
+        /// Returns the detailed information about a phone call with the ID specified in the request. 
         /// </summary>
-        /// <short></short>
+        /// <param name="callId">Phone call ID</param>
+        /// <short>Get a call</short>
         /// <category>Voip</category>
-        /// <returns></returns>
+        /// <returns>Phone call information</returns>
         [Read(@"voip/call/{callId:\w+}")]
         public VoipCallWrapper GetCall(string callId)
         {

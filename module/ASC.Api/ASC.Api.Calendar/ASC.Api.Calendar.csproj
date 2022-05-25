@@ -65,9 +65,13 @@
     <Compile Include="BusinessObjects\DataProvider.cs" />
     <Compile Include="BusinessObjects\Event.cs" />
     <Compile Include="CalendarApi.cs" />
+    <Compile Include="CalendarBootstrap.cs" />
     <Compile Include="ExternalCalendars\BirthdayReminderCalendar.cs" />
     <Compile Include="ExternalCalendars\SharedEventsCalendar.cs" />
     <Compile Include="BusinessObjects\EventHistory.cs" />
+    <Compile Include="Attachments\AttachmentEngine.cs" />
+    <Compile Include="Attachments\SecurityAdapter.cs" />
+    <Compile Include="Attachments\SecurityAdapterProvider.cs" />
     <Compile Include="iCalParser\DDayICalParser.cs" />
     <Compile Include="iCalParser\iCalendarCache.cs" />
     <Compile Include="iCalParser\Emitter.cs" />
@@ -318,6 +322,10 @@
       <Project>{E7BE6CE8-F6B0-4B9B-831B-BA0C85C8D130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
@@ -338,7 +346,7 @@
       <Version>4.1.11</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

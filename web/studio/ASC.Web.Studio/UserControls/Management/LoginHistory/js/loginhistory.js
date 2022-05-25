@@ -145,7 +145,7 @@ var LoginHistory = function() {
             $events.appendTo($eventsList.find('tbody'));
             $eventsBox.show();
             $eventsListCount.text(lastEvents.length);
-            $downloadReportBtn.show().click(createReport);
+            $downloadReportBtn.show().on("click", createReport);
         } else {
             $emptyScreen.show();
         }
@@ -158,7 +158,7 @@ var LoginHistory = function() {
             var $input = $(this);
             $input.val($input.val().replace(/[^\d]+/g, ''));
         });
-        $saveSettingsBtn.click(saveSettings);
+        $saveSettingsBtn.on("click", saveSettings);
     }
 
     function renderOnlineUsers(usersDictionary) {

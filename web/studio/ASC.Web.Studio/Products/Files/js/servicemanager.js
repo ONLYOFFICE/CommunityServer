@@ -261,12 +261,12 @@ window.ASC.Files.ServiceManager = (function () {
                         data = ASC.Files.TemplateManager.createXML(xmlHttpRequest.responseText);
                         break;
                     case "json":
-                        data = jq.parseJSON(xmlHttpRequest.responseText);
+                        data = JSON.parse(xmlHttpRequest.responseText);
                         break;
                     default:
                         if (xmlHttpRequest.responseXML.xml.indexOf(ignorResponse) != 0) {
                             data = ASC.Files.TemplateManager.createXML(xmlHttpRequest.responseXML.xml)
-                                || jq.parseJSON(xmlHttpRequest.responseText);
+                                || JSON.parse(xmlHttpRequest.responseText);
                         }
                 }
             } catch (e) {
@@ -422,6 +422,8 @@ window.ASC.Files.ServiceManager = (function () {
         UnSubscribeMe: "unsubscribeme",
         GetShortenLink: "getshortenlink",
         GetPresignedUri: "getpresigneduri",
+        ChangeExternalShareSettings: "changeexternalsharesettings",
+        ChangeExternalShareSocialMediaSettings: "changeexternalsharesocialmediasettings",
 
         GetUsers: "getusers",
         SendEditorNotify: "sendeditornotify",
@@ -474,7 +476,6 @@ window.ASC.Files.ServiceManager = (function () {
         ChunkUploadGetFileFromServer: "chunkuploadgetfilefromserver",
 
         TrackEditFile: "trackeditfile",
-        StartEdit: "startedit",
 
         LockFile: "lockfile",
 
@@ -584,16 +585,8 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "json", eventType, params, "tasks");
     };
 
-    var trackEditFile = function (eventType, params) {
-        request("get", "json", eventType, params, "trackeditfile?fileId=" + encodeURIComponent(params.fileID) + "&tabId=" + params.tabId + "&docKeyForTrack=" + params.docKeyForTrack + "&isFinish=" + (params.finish == true) + params.shareLinkParam);
-    };
-
     var checkEditing = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "checkediting");
-    };
-
-    var startEdit = function (eventType, params) {
-        request("get", "json", eventType, params, "startEdit?fileId=" + encodeURIComponent(params.fileID) + params.shareLinkParam);
     };
 
     var setAceLink = function (eventType, params) {
@@ -630,6 +623,14 @@ window.ASC.Files.ServiceManager = (function () {
 
     var sendEditorNotify = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "sendeditornotify?fileId=" + encodeURIComponent(params.fileId));
+    };
+
+    var changeExternalShareSettings = function (eventType, params) {
+        request("get", "json", eventType, params, "external?enable=" + (params.enable === true));
+    };
+
+    var changeExternalShareSocialMediaSettings = function (eventType, params) {
+        request("get", "json", eventType, params, "externalsocialmedia?enable=" + (params.enable === true));
     };
 
     var checkConversion = function (eventType, params, data) {
@@ -764,9 +765,7 @@ window.ASC.Files.ServiceManager = (function () {
         getTasksStatuses: getTasksStatuses,
         terminateTasks: terminateTasks,
 
-        trackEditFile: trackEditFile,
         checkEditing: checkEditing,
-        startEdit: startEdit,
 
         setAceLink: setAceLink,
         getSharedInfo: getSharedInfo,
@@ -775,6 +774,8 @@ window.ASC.Files.ServiceManager = (function () {
         unSubscribeMe: unSubscribeMe,
         getShortenLink: getShortenLink,
         getEncryptionAccess: getEncryptionAccess,
+        changeExternalShareSettings: changeExternalShareSettings,
+        changeExternalShareSocialMediaSettings: changeExternalShareSocialMediaSettings,
 
         getUsers: getUsers,
         sendEditorNotify: sendEditorNotify,

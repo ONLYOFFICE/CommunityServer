@@ -66,9 +66,7 @@ namespace ASC.Core.Notify.Senders
                     CoreContext.TenantManager.SetCurrentTenant(m.Tenant);
                     if (!CoreContext.Configuration.SmtpSettings.IsDefaultSettings)
                     {
-                        _useCoreSettings = true;
                         result = base.Send(m);
-                        _useCoreSettings = false;
                     }
                     else
                     {

@@ -618,15 +618,7 @@ namespace ASC.Data.Storage.S3
                 var response = client.ListObjects(request);
                 foreach (var s3Object in response.S3Objects)
                 {
-                    client.CopyObject(new CopyObjectRequest
-                    {
-                        SourceBucket = _bucket,
-                        SourceKey = s3Object.Key,
-                        DestinationBucket = _bucket,
-                        DestinationKey = s3Object.Key.Replace(srckey, dstkey),
-                        CannedACL = GetDomainACL(newdomain),
-                        ServerSideEncryptionMethod = _sse
-                    });
+                    CopyFile(s3Object.Key, s3Object.Key.Replace(srckey, dstkey), newdomain);
 
                     client.DeleteObject(new DeleteObjectRequest
                     {
@@ -639,31 +631,17 @@ namespace ASC.Data.Storage.S3
 
         public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
-            using (var client = GetClient())
-            {
-                var srcKey = MakePath(srcdomain, srcpath);
-                var dstKey = MakePath(newdomain, newpath);
-                var size = GetFileSize(srcdomain, srcpath);
+            var srcKey = MakePath(srcdomain, srcpath);
+            var dstKey = MakePath(newdomain, newpath);
+            var size = GetFileSize(srcdomain, srcpath);
 
-                var request = new CopyObjectRequest
-                {
-                    SourceBucket = _bucket,
-                    SourceKey = srcKey,
-                    DestinationBucket = _bucket,
-                    DestinationKey = dstKey,
-                    CannedACL = GetDomainACL(newdomain),
-                    MetadataDirective = S3MetadataDirective.REPLACE,
-                    ServerSideEncryptionMethod = _sse
-                };
+            CopyFile(srcKey, dstKey, newdomain, S3MetadataDirective.REPLACE);
+            Delete(srcdomain, srcpath);
 
-                client.CopyObject(request);
-                Delete(srcdomain, srcpath);
+            QuotaUsedDelete(srcdomain, size);
+            QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
 
-                QuotaUsedDelete(srcdomain, size);
-                QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
-
-                return GetUri(newdomain, newpath);
-            }
+            return GetUri(newdomain, newpath);
         }
 
         public override Uri SaveTemp(string domain, out string assignedPath, Stream stream)
@@ -866,50 +844,6 @@ namespace ASC.Data.Storage.S3
             return policyBase64;
         }
 
-        public override string GetUploadedUrl(string domain, string directoryPath)
-        {
-            if (HttpContext.Current != null)
-            {
-                var buket = HttpContext.Current.Request.QueryString["bucket"];
-                var key = HttpContext.Current.Request.QueryString["key"];
-                var etag = HttpContext.Current.Request.QueryString["etag"];
-                var destkey = MakePath(domain, directoryPath) + "/";
-
-                if (!string.IsNullOrEmpty(buket) && !string.IsNullOrEmpty(key) && string.Equals(buket, _bucket) &&
-                    key.StartsWith(destkey))
-                {
-                    var domainpath = key.Substring(MakePath(domain, string.Empty).Length);
-                    var skipQuota = false;
-                    if (HttpContext.Current.Session != null)
-                    {
-                        var isCounted = HttpContext.Current.Session[etag];
-                        skipQuota = isCounted != null;
-                    }
-                    //Add to quota controller
-                    if (QuotaController != null && !skipQuota)
-                    {
-                        try
-                        {
-                            var size = GetFileSize(domain, domainpath);
-                            QuotaUsedAdd(domain, size);
-
-                            if (HttpContext.Current.Session != null)
-                            {
-                                HttpContext.Current.Session.Add(etag, size);
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }
-                    return GetUriInternal(key).ToString();
-                }
-            }
-            return string.Empty;
-        }
-
-
         public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             return GetS3Objects(domain, path)
@@ -1044,18 +978,7 @@ namespace ASC.Data.Storage.S3
                 var dstKey = MakePath(newdomain, newpath);
                 var size = GetFileSize(srcdomain, srcpath);
 
-                var request = new CopyObjectRequest
-                {
-                    SourceBucket = _bucket,
-                    SourceKey = srcKey,
-                    DestinationBucket = _bucket,
-                    DestinationKey = dstKey,
-                    CannedACL = GetDomainACL(newdomain),
-                    MetadataDirective = S3MetadataDirective.REPLACE,
-                    ServerSideEncryptionMethod = _sse
-                };
-
-                client.CopyObject(request);
+                CopyFile(srcKey, dstKey, newdomain, S3MetadataDirective.REPLACE);
 
                 QuotaUsedAdd(newdomain, size);
 
@@ -1075,15 +998,7 @@ namespace ASC.Data.Storage.S3
                 var response = client.ListObjects(request);
                 foreach (var s3Object in response.S3Objects)
                 {
-                    client.CopyObject(new CopyObjectRequest
-                    {
-                        SourceBucket = _bucket,
-                        SourceKey = s3Object.Key,
-                        DestinationBucket = _bucket,
-                        DestinationKey = s3Object.Key.Replace(srckey, dstkey),
-                        CannedACL = GetDomainACL(newdomain),
-                        ServerSideEncryptionMethod = _sse
-                    });
+                    CopyFile(s3Object.Key, s3Object.Key.Replace(srckey, dstkey), newdomain);
 
                     QuotaUsedAdd(newdomain, s3Object.Size);
                 }
@@ -1248,20 +1163,98 @@ namespace ASC.Data.Storage.S3
         {
             if (string.IsNullOrEmpty(_recycleDir)) return;
 
-            var copyObjectRequest = new CopyObjectRequest
+            CopyFile(key, GetRecyclePath(key), domain, S3MetadataDirective.REPLACE, S3StorageClass.Glacier);
+        }
+
+        private void CopyFile(string sourceKey, string destinationKey, string newdomain, S3MetadataDirective metadataDirective = S3MetadataDirective.COPY, S3StorageClass storageClass = null)
+        {
+            using (var client = GetClient())
             {
-                SourceBucket = _bucket,
-                SourceKey = key,
-                DestinationBucket = _bucket,
-                DestinationKey = GetRecyclePath(key),
-                CannedACL = GetDomainACL(domain),
-                MetadataDirective = S3MetadataDirective.REPLACE,
-                ServerSideEncryptionMethod = _sse,
-                StorageClass = S3StorageClass.Glacier,
+                var metadataRequest = new GetObjectMetadataRequest
+                {
+                    BucketName = _bucket,
+                    Key = sourceKey
+                };
 
-            };
+                var metadataResponse = client.GetObjectMetadata(metadataRequest);
+                var objectSize = metadataResponse.ContentLength;
 
-            client.CopyObject(copyObjectRequest);
+                if (objectSize >= 100 * 1024 * 1024L) //100 megabytes
+                {
+                    var copyResponses = new List<CopyPartResponse>();
+
+                    var initiateRequest =
+                        new InitiateMultipartUploadRequest
+                        {
+                            BucketName = _bucket,
+                            Key = destinationKey,
+                            CannedACL = GetDomainACL(newdomain),
+                            ServerSideEncryptionMethod = _sse
+                        };
+
+                    if (storageClass != null)
+                    {
+                        initiateRequest.StorageClass = storageClass;
+                    }
+
+                    var initResponse = client.InitiateMultipartUpload(initiateRequest);
+
+                    var uploadId = initResponse.UploadId;
+
+                    var partSize = 5 * (long)Math.Pow(2, 20); // Part size is 5 MB.
+
+                    long bytePosition = 0;
+                    for (int i = 1; bytePosition < objectSize; i++)
+                    {
+                        var copyRequest = new CopyPartRequest
+                        {
+                            DestinationBucket = _bucket,
+                            DestinationKey = destinationKey,
+                            SourceBucket = _bucket,
+                            SourceKey = sourceKey,
+                            UploadId = uploadId,
+                            FirstByte = bytePosition,
+                            LastByte = bytePosition + partSize - 1 >= objectSize ? objectSize - 1 : bytePosition + partSize - 1,
+                            PartNumber = i
+                        };
+
+                        copyResponses.Add(client.CopyPart(copyRequest));
+
+                        bytePosition += partSize;
+                    }
+
+                    var completeRequest =
+                        new CompleteMultipartUploadRequest
+                        {
+                            BucketName = _bucket,
+                            Key = destinationKey,
+                            UploadId = initResponse.UploadId
+                        };
+                    completeRequest.AddPartETags(copyResponses);
+
+                    var completeUploadResponse = client.CompleteMultipartUpload(completeRequest);
+                }
+                else
+                {
+                    var request = new CopyObjectRequest
+                    {
+                        SourceBucket = _bucket,
+                        SourceKey = sourceKey,
+                        DestinationBucket = _bucket,
+                        DestinationKey = destinationKey,
+                        CannedACL = GetDomainACL(newdomain),
+                        ServerSideEncryptionMethod = _sse,
+                        MetadataDirective = metadataDirective,
+                    };
+
+                    if (storageClass != null)
+                    {
+                        request.StorageClass = storageClass;
+                    }
+
+                    client.CopyObject(request);
+                }
+            }
         }
 
         private IAmazonCloudFront GetCloudFrontClient()

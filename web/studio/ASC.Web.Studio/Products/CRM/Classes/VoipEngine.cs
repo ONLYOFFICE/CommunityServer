@@ -228,7 +228,7 @@ namespace ASC.Web.CRM.Classes
                         voipEngine.SaveOrUpdateCall(call);
                     }
 
-                    SecurityContext.AuthenticateMe(call.AnsweredBy);
+                    SecurityContext.CurrentUser = call.AnsweredBy;
                     AddHistoryToCallContact(call, daoFactory);
                 }
             }

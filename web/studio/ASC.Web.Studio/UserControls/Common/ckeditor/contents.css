@@ -1,8 +1,7 @@
 /*
-Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
-
 
 @font-face {
     font-family: 'Open Sans';
@@ -91,14 +90,13 @@ body
 	/* Text color */
 	color: #333;
 
-	/* Remove the background color to make it transparent */
+	/* Remove the background color to make it transparent. */
 	background-color: #fff;
-
 	margin: 8px;
 }
 
 p {
-    margin: 0;
+	margin: 0;
 }
 
 .cke_editable
@@ -140,7 +138,7 @@ ol,ul,dl
 {
 	/* IE7: reset rtl list margin. (#7334) */
 	*margin-right: 0px;
-	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	/* Preserved spaces for list items with text direction different than the list. (#6249,#8049)*/
 	padding: 0 40px;
 }
 
@@ -186,7 +184,7 @@ pre
 
 span[lang]
 {
-   font-style: italic;
+	font-style: italic;
 }
 
 figure
@@ -215,84 +213,157 @@ a > img {
 /* teamlab styles */
 .asccut
 {
-    background-color: #D2D2D2;
-    border: 1px dotted #333333;
+    background-color: #F3F3F3;
+    border: 1px dashed #B8B8B8;
     display: block;
 }
 .mainQuote
 {
-    padding: 0 24px 0 0;
+	padding: 0 24px 0 0;
 }
 .mainQuote .quoteCaption
 {
-    padding: 0 0 12px;
+	padding: 0 0 12px;
 }
 .mainQuote .bold
 {
-    font-weight: bold;
+	font-weight: bold;
 }
 .mainQuote .bord
 {
-    border: 1px solid #C7C7C7;
-    background: none repeat scroll 0 0 #FDFCE5;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+	border: 1px solid #C7C7C7;
+	background: none repeat scroll 0 0 #FDFCE5;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .mainQuote .reducer
 {
-    padding: 14px 25px;
+	padding: 14px 25px;
 }
 .tl-controll-blockquote {
-    width: 24px;
-    height: 18px;
-    line-height: 8px;
-    display: inline-block;
-    background-color: #F2F2F2;
-    border: 1px solid #D7D8DC;
-    cursor: pointer !important;
-    padding: 0 5px 6px 5px;
-    margin: 8px 0;
-    color:  #666;
-    font-weight: bold;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
+	width: 24px;
+	height: 18px;
+	line-height: 8px;
+	display: inline-block;
+	background-color: #F2F2F2;
+	border: 1px solid #D7D8DC;
+	cursor: pointer !important;
+	padding: 0 5px 6px 5px;
+	margin: 8px 0;
+	color: #666;
+	font-weight: bold;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
 }
 
 .tl-controll-blockquote:hover {
-    background-color: #D7D8DC;
-    border: 1px solid #666;
+	background-color: #D7D8DC;
+	border: 1px solid #666;
 }
 
-input::-moz-focus-inner 
-{ 
-    border: 0;
-    padding: 0;
+input::-moz-focus-inner
+{
+	border: 0;
+	padding: 0;
 }
 
 .mailmessage-filelink:hover {
-    background-color: #e5e5e5 !important;
+	background-color: #e5e5e5 !important;
 }
 
 .mailmessage-filelink:hover .mailmessage-filelink-link > * {
-    border-bottom: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
 .mailmessage-filelink .delete-btn {
-    margin: 6px 5px 0 0;
-    float: right;
-    width: 16px;
-    height: 16px;
-    background-image: url(../../../skins/default/imagescss/remove_16.png);
-    background-position: -16px 0;
-    cursor: pointer;
+	margin: 6px 5px 0 0;
+	float: right;
+	width: 16px;
+	height: 16px;
+	background-image: url(../../../skins/default/imagescss/remove_16.png);
+	background-position: -16px 0;
+	cursor: pointer;
 }
-        
+
 .mailmessage-filelink:hover .delete-btn {
-    background-position: 0 -16px;
+	background-position: 0 -16px;
+}
+
+/* Widget Styles */
+.code-featured
+{
+	border: 5px solid red;
+}
+
+.math-featured
+{
+	padding: 20px;
+	box-shadow: 0 0 2px rgba(200, 0, 0, 1);
+	background-color: rgba(255, 0, 0, 0.05);
+	margin: 10px;
+}
+
+.image-clean
+{
+	border: 0;
+	background: none;
+	padding: 0;
+}
+
+.image-clean > figcaption
+{
+	font-size: .9em;
+	text-align: right;
+}
+
+.image-grayscale
+{
+	background-color: white;
+	color: #666;
+}
+
+.image-grayscale img, img.image-grayscale
+{
+	filter: grayscale(100%);
+}
+
+.embed-240p
+{
+	max-width: 426px;
+	max-height: 240px;
+	margin:0 auto;
+}
+
+.embed-360p
+{
+	max-width: 640px;
+	max-height: 360px;
+	margin:0 auto;
+}
+
+.embed-480p
+{
+	max-width: 854px;
+	max-height: 480px;
+	margin:0 auto;
+}
+
+.embed-720p
+{
+	max-width: 1280px;
+	max-height: 720px;
+	margin:0 auto;
+}
+
+.embed-1080p
+{
+	max-width: 1920px;
+	max-height: 1080px;
+	margin:0 auto;
 }

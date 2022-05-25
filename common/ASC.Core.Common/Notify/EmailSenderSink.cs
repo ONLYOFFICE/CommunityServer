@@ -32,6 +32,7 @@ namespace ASC.Core.Notify
     {
         private static readonly string senderName = ASC.Core.Configuration.Constants.NotifyEMailSenderSysName;
         private readonly INotifySender sender;
+        private ILog Log = LogManager.GetLogger("ASC.Notify");
 
 
         public EmailSenderSink(INotifySender sender)
@@ -122,7 +123,7 @@ namespace ASC.Core.Notify
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC.Notify").Error("Error creating reply to tag for: " + replyTag.Value, e);
+                    Log.Error("Error creating reply to tag for: " + replyTag.Value, e);
                 }
             }
 
@@ -147,7 +148,7 @@ namespace ASC.Core.Notify
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC.Notify").Error("Error creating AutoSubmitted tag for: " + autoSubmittedTag.Value, e);
+                    Log.Error("Error creating AutoSubmitted tag for: " + autoSubmittedTag.Value, e);
                 }
             }
 

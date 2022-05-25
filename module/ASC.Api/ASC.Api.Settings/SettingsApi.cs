@@ -71,11 +71,12 @@ using StorageHelper = ASC.Web.Studio.UserControls.CustomNavigation.StorageHelper
 namespace ASC.Api.Settings
 {
     ///<summary>
-    /// Portal settings
+    /// Portal settings.
     ///</summary>
     public partial class SettingsApi : IApiEntryPoint
     {
         private const int ONE_THREAD = 1;
+        private ILog Log = LogManager.GetLogger("ASC");
         private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations");
         private static readonly DistributedTaskQueue quotaTasks = new DistributedTaskQueue("quotaOperations", ONE_THREAD);
         private static readonly DistributedTaskQueue smtpTasks = new DistributedTaskQueue("smtpOperations");
@@ -111,11 +112,12 @@ namespace ASC.Api.Settings
         }
 
         ///<summary>
-        /// Returns the list of all available portal settings with the current values for each one
+        /// Returns a list of all the available portal settings with the current values for each parameter.
         ///</summary>
         ///<short>
-        /// Portal settings
+        /// Get the portal settings
         ///</short>
+        ///<category>Common settings</category>
         ///<returns>Settings</returns>
         [Read("")]
         public SettingsWrapper GetSettings()
@@ -132,11 +134,12 @@ namespace ASC.Api.Settings
         }
 
         ///<summary>
-        /// Returns space usage quota for portal with the space usage of each module
+        /// Returns the space usage quota for the portal with the space usage of each module.
         ///</summary>
         ///<short>
-        /// Space usage
+        /// Get the space usage
         ///</short>
+        ///<category>Quota</category>
         ///<returns>Space usage and limits for upload</returns>
         [Read("quota")]
         public QuotaWrapper GetQuotaUsed()
@@ -145,12 +148,12 @@ namespace ASC.Api.Settings
         }
 
         ///<summary>
-        /// Start Recalculate Quota Task
+        /// Starts the process of recalculating quota.
         ///</summary>
         ///<short>
-        /// Recalculate Quota 
+        /// Recalculates quota 
         ///</short>
-        ///<returns></returns>
+        ///<category>Quota</category>
         [Read("recalculatequota")]
         public void RecalculateQuota()
         {
@@ -170,12 +173,13 @@ namespace ASC.Api.Settings
         }
 
         ///<summary>
-        /// Check Recalculate Quota Task
+        /// Checks the process of recalculating quota.
         ///</summary>
         ///<short>
-        /// Check Recalculate Quota Task
+        /// Check quota recalculating
         ///</short>
-        ///<returns>Check Recalculate Quota Task Status</returns>
+        ///<category>Quota</category>
+        ///<returns>Boolean value: True - quota recalculating process is enabled, False - quota recalculating process is disabled</returns>
         [Read("checkrecalculatequota")]
         public bool CheckRecalculateQuota()
         {
@@ -193,24 +197,27 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get build version
+        /// Returns the current build version.
         /// </summary>
+        /// <short>Get the current build version</short>
+        /// <category>Versions</category>
         /// <visible>false</visible>
         /// <returns>Current onlyoffice, editor, mailserver versions</returns>
-        [Read("version/build", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        [Read("version/build", false, false)] //NOTE: this method doesn't require auth!!!  //NOTE: this method doesn't check payment!!!
         public BuildVersion GetBuildVersions()
         {
             return BuildVersion.GetCurrentBuildVersion();
         }
 
         /// <summary>
-        /// Get list of availibe portal versions including current version
+        /// Returns a list of the availibe portal versions including the current version.
         /// </summary>
         /// <short>
-        /// Portal versions
+        /// Get the portal versions
         /// </short>
+        /// <category>Versions</category>
         /// <visible>false</visible>
-        /// <returns>List of availibe portal versions including current version</returns>
+        /// <returns>List of availibe portal versions including the current version</returns>
         [Read("version")]
         public TenantVersionWrapper GetVersions()
         {
@@ -218,14 +225,15 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Set current portal version to the one with the ID specified in the request
+        /// Sets the current portal version to the one with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Change portal version
+        /// Change the portal version
         /// </short>
+        /// <category>Versions</category>
         /// <param name="versionId">Version ID</param>
         /// <visible>false</visible>
-        /// <returns>List of availibe portal versions including current version</returns>
+        /// <returns>List of availibe portal versions including the current version</returns>
         [Update("version")]
         public TenantVersionWrapper SetVersion(int versionId)
         {
@@ -238,13 +246,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns security settings about product, module or addons
+        /// Returns the security settings for the product, module or add-ons specified in the request.
         /// </summary>
         /// <short>
-        /// Get security settings
+        /// Get the security settings
         /// </short>
-        /// <param name="ids">Module ID list</param>
-        /// <returns></returns>
+        /// <category>Security</category>
+        /// <param name="ids">List of module IDs</param>
+        /// <returns>Security settings</returns>
         [Read("security")]
         public IEnumerable<SecurityWrapper> GetWebItemSecurityInfo(IEnumerable<string> ids)
         {
@@ -266,6 +275,15 @@ namespace ASC.Api.Settings
                       }).ToList();
         }
 
+        /// <summary>
+        /// Returns the availability of the module with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get the module availability
+        /// </short>
+        /// <category>Security</category>
+        /// <param name="id">Module ID</param>
+        /// <returns>Boolean value: True - module is enabled, False - module is disabled</returns>
         [Read("security/{id}")]
         public bool GetWebItemSecurityInfo(Guid id)
         {
@@ -275,11 +293,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Return list of enabled modules
+        /// Returns a list of all the enabled modules.
         /// </summary>
         /// <short>
-        /// Enabled modules
+        /// Get the enabled modules
         /// </short>
+        /// <category>Security</category>
+        /// <returns>List of enabled modules</returns>
         /// <visible>false</visible>
         [Read("security/modules")]
         public object GetEnabledModules()
@@ -297,11 +317,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get portal password settings
+        /// Returns the portal password settings.
         /// </summary>
         /// <short>
-        /// Password settings
+        /// Get the password settings
         /// </short>
+        /// <category>Security</category>
+        /// <returns>Password settings</returns>
         [Read("security/password")]
         public object GetPasswordSettings()
         {
@@ -311,14 +333,16 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Set security settings for product, module or addons
+        /// Sets the security settings to the product, module or add-ons.
         /// </summary>
         /// <short>
-        /// Set security settings
+        /// Set the security settings
         /// </short>
+        /// <category>Security</category>
         /// <param name="id">Module ID</param>
-        /// <param name="enabled">Enabled</param>
-        /// <param name="subjects">User (Group) ID list</param>
+        /// <param name="enabled">Specifies if the module is enabled or not</param>
+        /// <param name="subjects">List of user/group IDs</param>
+        /// <returns>Security settings</returns>
         [Update("security")]
         public IEnumerable<SecurityWrapper> SetWebItemSecurity(string id, bool enabled, IEnumerable<Guid> subjects)
         {
@@ -354,12 +378,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Set access to products, modules or addons
+        /// Sets access to the products, modules or add-ons specified in the request.
         /// </summary>
         /// <short>
-        /// Set access
+        /// Set access to web items
         /// </short>
-        /// <param name="items"></param>
+        /// <category>Security</category>
+        /// <param name="items">Modules, products or add-ons with security information</param>
+        /// <returns>Security settings</returns>
         [Update("security/access")]
         public IEnumerable<SecurityWrapper> SetAccessToWebItems(IEnumerable<ItemKeyValuePair<String, Boolean>> items)
         {
@@ -408,6 +434,15 @@ namespace ASC.Api.Settings
             return GetWebItemSecurityInfo(itemList.Keys.ToList());
         }
 
+        /// <summary>
+        /// Returns a list of all the administrators of the product with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Get the product administrators
+        /// </short>
+        /// <category>Security</category>
+        /// <param name="productid">Product ID</param>
+        /// <returns>List of product administrators</returns>
         [Read("security/administrator/{productid}")]
         public IEnumerable<EmployeeWraper> GetProductAdministrators(Guid productid)
         {
@@ -416,6 +451,16 @@ namespace ASC.Api.Settings
                                   .ToList();
         }
 
+        /// <summary>
+        /// Checks if the selected user is an administrator of a product with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Check the product administrator
+        /// </short>
+        /// <category>Security</category>
+        /// <param name="productid">Product ID</param>
+        /// <param name="userid">User ID</param>
+        /// <returns>Object with user security information</returns>
         [Read("security/administrator")]
         public object IsProductAdministrator(Guid productid, Guid userid)
         {
@@ -423,10 +468,27 @@ namespace ASC.Api.Settings
             return new { ProductId = productid, UserId = userid, Administrator = result, };
         }
 
+        /// <summary>
+        /// Sets the selected user as an administrator of a product with the ID specified in the request.
+        /// </summary>
+        /// <short>
+        /// Set the product administrator
+        /// </short>
+        /// <category>Security</category>
+        /// <param name="productid">Product ID</param>
+        /// <param name="userid">User ID</param>
+        /// <param name="administrator">Specifies if the user will be added to the product as an administrator or deleted from it</param>
+        /// <returns>Object with user security information</returns>
         [Update("security/administrator")]
         public object SetProductAdministrator(Guid productid, Guid userid, bool administrator)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var isStartup = !CoreContext.Configuration.CustomMode && TenantExtra.Saas && TenantExtra.GetTenantQuota().Free;
+            if (isStartup)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "Administrator");
+            }
 
             WebItemSecurity.SetProductAdministrator(productid, userid, administrator);
 
@@ -447,11 +509,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get portal logo image URL
+        /// Returns the portal logo image URL.
         /// </summary>
         /// <short>
-        /// Portal logo
+        /// Get a portal logo
         /// </short>
+        /// <category>Common settings</category>
         /// <returns>Portal logo image URL</returns>
         [Read("logo")]
         public string GetLogo()
@@ -460,16 +523,23 @@ namespace ASC.Api.Settings
         }
 
 
+        /// <summary>
+        /// Saves the white label settings specified in the request.
+        /// </summary>
+        /// <short>
+        /// Save the white label settings
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param name="logoText">Logo text</param>
+        /// <param name="logo">Tenant IDs with their logos</param>
+        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
         ///<visible>false</visible>
         [Create("whitelabel/save")]
         public void SaveWhiteLabelSettings(string logoText, IEnumerable<ItemKeyValuePair<int, string>> logo, bool isDefault)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            DemandWhiteLabelPermission();
 
             if (isDefault)
             {
@@ -512,16 +582,22 @@ namespace ASC.Api.Settings
         }
 
 
+        /// <summary>
+        /// Saves the white label settings from files specified in the request.
+        /// </summary>
+        /// <short>
+        /// Save the white label settings from files
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param name="attachments">Files with white label settings</param>
+        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
         ///<visible>false</visible>
         [Create("whitelabel/savefromfiles")]
         public void SaveWhiteLabelSettingsFromFiles(IEnumerable<HttpPostedFileBase> attachments, bool isDefault)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            DemandWhiteLabelPermission();
 
             if (attachments == null || !attachments.Any())
             {
@@ -568,16 +644,21 @@ namespace ASC.Api.Settings
         }
 
 
+        /// <summary>
+        /// Returns the white label sizes.
+        /// </summary>
+        /// <short>
+        /// Get the white label sizes
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <returns>White label sizes</returns>
         ///<visible>false</visible>
         [Read("whitelabel/sizes")]
         public object GetWhiteLabelSizes()
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!TenantLogoManager.WhiteLabelEnabled)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            DemandWhiteLabelPermission();
 
             return
             new[]
@@ -592,16 +673,23 @@ namespace ASC.Api.Settings
 
 
 
+        /// <summary>
+        /// Returns the white label logos.
+        /// </summary>
+        /// <short>
+        /// Get the white label logos
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param name="retina">Specifies if the logos will be for the retina screens or not</param>
+        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <returns>White label logos</returns>
         ///<visible>false</visible>
         [Read("whitelabel/logos")]
         public Dictionary<int, string> GetWhiteLabelLogos(bool retina, bool isDefault)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!TenantLogoManager.WhiteLabelEnabled)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            DemandWhiteLabelPermission();
 
             var result = new Dictionary<int, string>();
 
@@ -627,14 +715,22 @@ namespace ASC.Api.Settings
             return result;
         }
 
+        /// <summary>
+        /// Returns the white label logo text.
+        /// </summary>
+        /// <short>
+        /// Get the white label logo text
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
+        /// <returns>Logo text</returns>
         ///<visible>false</visible>
         [Read("whitelabel/logotext")]
         public string GetWhiteLabelLogoText(bool isDefault)
         {
-            if (!TenantLogoManager.WhiteLabelEnabled)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            DemandWhiteLabelPermission();
 
             var settings = isDefault ? TenantWhiteLabelSettings.LoadForDefaultTenant() : TenantWhiteLabelSettings.Load();
 
@@ -642,16 +738,21 @@ namespace ASC.Api.Settings
         }
 
 
+        /// <summary>
+        /// Restores the white label options.
+        /// </summary>
+        /// <short>
+        /// Restore the white label options
+        /// </short>
+        /// <category>Rebranding</category>
+        /// <param name="isDefault">Specifies if the default settings will be saved or not</param>
         ///<visible>false</visible>
         [Update("whitelabel/restore")]
         public void RestoreWhiteLabelOptions(bool isDefault)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
+            DemandWhiteLabelPermission();
 
             if (isDefault)
             {
@@ -689,9 +790,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get portal ip restrictions
+        /// Returns the IP portal restrictions.
         /// </summary>
-        /// <returns></returns>
+        /// <short>Get the IP portal restrictions</short>
+        /// <category>IP restrictions</category>
+        /// <returns>IP restrictions</returns>
         [Read("/iprestrictions")]
         public IEnumerable<IPRestriction> GetIpRestrictions()
         {
@@ -700,10 +803,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// save new portal ip restrictions
+        /// Saves the new portal IP restrictions specified in the request.
         /// </summary>
-        /// <param name="ips">ip restrictions</param>
-        /// <returns></returns>
+        /// <short>Save the IP restrictions</short>
+        /// <category>IP restrictions</category>
+        /// <param name="ips">New IP restrictions</param>
+        /// <returns>New IP restrictions</returns>
         [Update("iprestrictions")]
         public IEnumerable<string> SaveIpRestrictions(IEnumerable<string> ips)
         {
@@ -712,10 +817,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// update ip restrictions settings
+        /// Updates the IP restriction settings with a parameter specified in the request.
         /// </summary>
-        /// <param name="enable">enable ip restrictions settings</param>
-        /// <returns></returns>
+        /// <short>Update the IP restriction settings</short>
+        /// <category>IP restrictions</category>
+        /// <param name="enable">Enables IP restrictions</param>
+        /// <returns>Updated IP restriction settings</returns>
         [Update("iprestrictions/settings")]
         public IPRestrictionsSettings UpdateIpRestrictionsSettings(bool enable)
         {
@@ -728,10 +835,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// update tips settings
+        /// Updates the tip settings with a parameter specified in the request.
         /// </summary>
-        /// <param name="show">show tips for user</param>
-        /// <returns></returns>
+        /// <short>Update the tip settings</short>
+        /// <category>Tips</category>
+        /// <param name="show">Shows tips for the user</param>
+        /// <returns>Updated tip settings</returns>
         [Update("tips")]
         public TipsSettings UpdateTipsSettings(bool show)
         {
@@ -753,7 +862,7 @@ namespace ASC.Api.Settings
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC").Error(e.Message, e);
+                    Log.Error(e.Message, e);
                 }
             }
 
@@ -761,9 +870,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// change tips&amp;tricks subscription
+        /// Updates the tip subscription.
         /// </summary>
-        /// <returns>subscription state</returns>
+        /// <short>Update the tip subscription</short>
+        /// <category>Tips</category>
+        /// <returns>Updated tip subscription</returns>
         [Update("tips/change/subscription")]
         public bool UpdateTipsSubscription()
         {
@@ -771,9 +882,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Complete Wizard
+        /// Completes the Wizard settings.
         /// </summary>
-        /// <returns>WizardSettings</returns>
+        /// <short>Complete the Wizard settings</short>
+        /// <category>Wizard</category>
+        /// <returns>Wizard settings</returns>
         /// <visible>false</visible>
         [Update("wizard/complete")]
         public WizardSettings CompleteWizard()
@@ -792,10 +905,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Update two-factor authentication settings
+        /// Updates the two-factor authentication settings with the type specified in the request.
         /// </summary>
-        /// <param name="type">sms, app or none</param>
-        /// <returns>true if success</returns>
+        /// <short>Update the TFA settings</short>
+        /// <category>TFA settings</category>
+        /// <param name="type">TFA type: sms, app or none</param>
+        /// <returns>True if an operation is successful</returns>
         [Update("tfaapp")]
         public bool TfaSettings(string type)
         {
@@ -807,7 +922,7 @@ namespace ASC.Api.Settings
             switch (type)
             {
                 case "sms":
-                    if (!StudioSmsNotificationSettings.IsVisibleSettings)
+                    if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings)
                         throw new Exception(Resource.SmsNotAvailable);
 
                     if (!SmsProviderManager.Enabled())
@@ -834,7 +949,7 @@ namespace ASC.Api.Settings
                     TfaAppAuthSettings.Enable = true;
                     action = MessageAction.TwoFactorAuthenticationEnabledByTfaApp;
 
-                    if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+                    if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
                     {
                         StudioSmsNotificationSettings.Enable = false;
                     }
@@ -849,7 +964,7 @@ namespace ASC.Api.Settings
                         TfaAppAuthSettings.Enable = false;
                     }
 
-                    if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+                    if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
                     {
                         StudioSmsNotificationSettings.Enable = false;
                     }
@@ -868,6 +983,12 @@ namespace ASC.Api.Settings
             return result;
         }
 
+        /// <summary>
+        /// Returns the two-factor authentication application codes.
+        /// </summary>
+        /// <short>Get the TFA codes</short>
+        /// <category>TFA settings</category>
+        /// <returns>List of TFA application codes</returns>
         ///<visible>false</visible>
         [Read("tfaappcodes")]
         public IEnumerable<object> TfaAppGetCodes()
@@ -884,8 +1005,10 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Requests new backup codes for two-factor application
+        /// Requests the new backup codes for the two-factor authentication application.
         /// </summary>
+        /// <short>Request the new TFA codes</short>
+        /// <category>TFA settings</category>
         /// <returns>New backup codes</returns>
         [Update("tfaappnewcodes")]
         public IEnumerable<object> TfaAppRequestNewCodes()
@@ -904,9 +1027,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Unlinks current two-factor auth application
+        /// Unlinks the current two-factor authentication application from the user account specified in the request.
         /// </summary>
-        /// <returns>Login url</returns>
+        /// <short>Unlink the TFA application</short>
+        /// <category>TFA settings</category>
+        /// <param name="id">User ID</param>
+        /// <returns>Login URL</returns>
         [Update("tfaappnewapp")]
         public string TfaAppNewApp(Guid id)
         {
@@ -934,11 +1060,14 @@ namespace ASC.Api.Settings
             return string.Empty;
         }
 
-        /// <visible>false</visible>
+
         /// <summary>
-        /// Gets a link that will connect TelegramBot to your account
+        /// Returns a link that will connect Telegram Bot to your account.
         /// </summary>
-        /// <returns>url</returns>
+        /// <short>Get the Telegram link</short>
+        /// <category>Telegram</category>
+        /// <returns>Telegram link</returns>
+        /// <visible>false</visible>
         [Read("telegramlink")]
         public string TelegramLink()
         {
@@ -955,9 +1084,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Checks if user has connected TelegramBot
+        /// Checks if the current user is connected to Telegram Bot or not.
         /// </summary>
-        /// <returns>0 - not connected, 1 - connected, 2 - awaiting confirmation</returns>
+        /// <short>Check the Telegram connection</short>
+        /// <category>Telegram</category>
+        /// <returns>Integer value: 0 - not connected, 1 - connected, 2 - awaiting confirmation</returns>
         [Read("telegramisconnected")]
         public int TelegramIsConnected()
         {
@@ -965,15 +1096,21 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Unlinks TelegramBot from your account
+        /// Unlinks Telegram Bot from your account.
         /// </summary>
+        /// <short>Unlink Telegram Bot</short>
+        /// <category>Telegram</category>
         [Delete("telegramdisconnect")]
         public void TelegramDisconnect()
         {
             TelegramHelper.Instance.Disconnect(CurrentUser, CurrentTenant);
         }
 
-        ///<visible>false</visible>
+        /// <summary>
+        /// Closes the welcome pop-up notification.
+        /// </summary>
+        /// <short>Close the welcome pop-up notification</short>
+        /// <category>Common settings</category>
         [Update("welcome/close")]
         public void CloseWelcomePopup()
         {
@@ -988,6 +1125,29 @@ namespace ASC.Api.Settings
             collaboratorPopupSettings.SaveForCurrentUser();
         }
 
+        ///<summary>
+        /// Close the admin helper notification.
+        /// </summary>
+        /// <short>Close the admin helper notification</short>
+        /// <category>Common settings</category>
+        [Update("closeadminhelper")]
+        public void CloseAdminHelper()
+        {
+            if(!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() || CoreContext.Configuration.CustomMode || !CoreContext.Configuration.Standalone)
+                throw new NotSupportedException("Not available.");
+
+            var adminHelperSettings = AdminHelperSettings.LoadForCurrentUser();
+            adminHelperSettings.Viewed = true;
+            adminHelperSettings.SaveForCurrentUser();
+        }
+
+
+        /// <summary>
+        /// Saves a portal color theme specified in the request.
+        /// </summary>
+        /// <short>Save a color theme</short>
+        /// <category>Common settings</category>
+        /// <param name="theme">Portal theme</param>
         ///<visible>false</visible>
         [Update("colortheme")]
         public void SaveColorTheme(string theme)
@@ -997,6 +1157,14 @@ namespace ASC.Api.Settings
             MessageService.Send(HttpContext.Current.Request, MessageAction.ColorThemeChanged);
         }
 
+        /// <summary>
+        /// Sets the portal time zone and language specified in the request.
+        /// </summary>
+        /// <short>Set time zone and language</short>
+        /// <category>Common settings</category>
+        /// <param name="lng">Language</param>
+        /// <param name="timeZoneID">Time zone ID</param>
+        /// <returns>Operation result</returns>
         ///<visible>false</visible>
         [Update("timeandlanguage")]
         public string TimaAndLanguage(string lng, string timeZoneID)
@@ -1041,6 +1209,13 @@ namespace ASC.Api.Settings
             return Resource.SuccessfullySaveSettingsMessage;
         }
 
+        /// <summary>
+        /// Sets the default product page.
+        /// </summary>
+        /// <short>Set the default product page</short>
+        /// <category>Common settings</category>
+        /// <param name="defaultProductID">Default product ID</param>
+        /// <returns>Operation result</returns>
         ///<visible>false</visible>
         [Update("defaultpage")]
         public string SaveDefaultPageSettings(string defaultProductID)
@@ -1062,8 +1237,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Refresh license
+        /// Refreshes the license.
         /// </summary>
+        /// <short>Refresh the license</short>
+        /// <category>Common settings</category>
+        /// <returns>Boolean value: True - an operation is successful, False - an operation is unsuccessful</returns>
         /// <visible>false</visible>
         [Read("license/refresh")]
         public bool RefreshLicense()
@@ -1075,9 +1253,11 @@ namespace ASC.Api.Settings
 
 
         /// <summary>
-        /// Get Custom Navigation Items
+        /// Returns a list of the custom navigation items.
         /// </summary>
-        /// <returns>CustomNavigationItem List</returns>
+        /// <short>Get the custom navigation items</short>
+        /// <category>Custom navigation</category>
+        /// <returns>List of the custom navigation items</returns>
         [Read("customnavigation/getall")]
         public List<CustomNavigationItem> GetCustomNavigationItems()
         {
@@ -1085,9 +1265,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Custom Navigation Items Sample
+        /// Returns a custom navigation item sample.
         /// </summary>
-        /// <returns>CustomNavigationItem Sample</returns>
+        /// <short>Get a custom navigation item sample</short>
+        /// <category>Custom navigation</category>
+        /// <returns>Custom navigation item</returns>
         [Read("customnavigation/getsample")]
         public CustomNavigationItem GetCustomNavigationItemSample()
         {
@@ -1095,10 +1277,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Custom Navigation Item by Id
+        /// Returns a custom navigation item by the ID specified in the request.
         /// </summary>
-        /// <param name="id">Item id</param>
-        /// <returns>CustomNavigationItem</returns>
+        /// <short>Get a custom navigation item by ID</short>
+        /// <category>Custom navigation</category>
+        /// <param name="id">Item ID</param>
+        /// <returns>Custom navigation item</returns>
         [Read("customnavigation/get/{id}")]
         public CustomNavigationItem GetCustomNavigationItem(Guid id)
         {
@@ -1106,10 +1290,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Add Custom Navigation Item
+        /// Adds a custom navigation item with the parameters specified in the request.
         /// </summary>
-        /// <param name="item">Item</param>
-        /// <returns>CustomNavigationItem</returns>
+        /// <short>Add a custom navigation item</short>
+        /// <category>Custom navigation</category>
+        /// <param name="item">Item parameters</param>
+        /// <returns>Custom navigation item</returns>
         [Create("customnavigation/create")]
         public CustomNavigationItem CreateCustomNavigationItem(CustomNavigationItem item)
         {
@@ -1161,9 +1347,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Delete Custom Navigation Item by Id
+        /// Deletes a custom navigation item by the ID specified in the request.
         /// </summary>
-        /// <param name="id">Item id</param>
+        /// <short>Delete a custom navigation item</short>
+        /// <category>Custom navigation</category>
+        /// <param name="id">Item ID</param>
         [Delete("customnavigation/delete/{id}")]
         public void DeleteCustomNavigationItem(Guid id)
         {
@@ -1185,10 +1373,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// update email activation settings
+        /// Updates the email activation settings.
         /// </summary>
-        /// <param name="show">show email activation panel for user</param>
-        /// <returns></returns>
+        /// <short>Update the email activation settings</short>
+        /// <category>Common settings</category>
+        /// <param name="show">Shows the email activation panel for the user</param>
+        /// <returns>Updated email activation settings</returns>
         [Update("emailactivation")]
         public EmailActivationSettings UpdateEmailActivationSettings(bool show)
         {
@@ -1199,6 +1389,12 @@ namespace ASC.Api.Settings
             return settings;
         }
 
+        /// <summary>
+        /// Returns the licensor data.
+        /// </summary>
+        /// <short>Get the licensor data</short>
+        /// <category>Common settings</category>
+        /// <returns>List of company white label settings</returns>
         ///<visible>false</visible>
         [Read("companywhitelabel")]
         public List<CompanyWhiteLabelSettings> GetLicensorData()
@@ -1218,10 +1414,12 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get WebItem Space Usage Statistics
+        /// Returns the space usage statistics of the web item with the ID specified in the request.
         /// </summary>
-        /// <param name="id">WebItem id</param>
-        /// <returns>UsageSpaceStatItemWrapper List</returns>
+        /// <category>Statistics</category>
+        /// <short>Get the space usage statistics</short>
+        /// <param name="id">Web item ID</param>
+        /// <returns>Space usage statistics of the web item</returns>
         [Read("statistics/spaceusage/{id}")]
         public List<UsageSpaceStatItemWrapper> GetSpaceUsageStatistics(Guid id)
         {
@@ -1248,11 +1446,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get User Visit Statistics
+        /// Returns the user visit statistics for the period specified in the request.
         /// </summary>
-        /// <param name="fromDate">From Date</param>
-        /// <param name="toDate">To Date</param>
-        /// <returns>ChartPointWrapper List</returns>
+        /// <category>Statistics</category>
+        /// <short>Get the visit statistics</short>
+        /// <param name="fromDate">Start period date</param>
+        /// <param name="toDate">End period date</param>
+        /// <returns>List of point charts</returns>
         [Read("statistics/visit")]
         public List<ChartPointWrapper> GetVisitStatistics(ApiDateTime fromDate, ApiDateTime toDate)
         {
@@ -1302,9 +1502,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Storage
+        /// Returns a list of all the portal storages.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Get storages</short>
+        /// <returns>List of storages</returns>
         [Read("storage")]
         public List<StorageWrapper> GetAllStorages()
         {
@@ -1318,9 +1520,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Storage
+        /// Returns the storage progress.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Get the storage progress</short>
+        /// <returns>Storage progress</returns>
         [Read("storage/progress", checkPayment: false)]
         public double GetStorageProgress()
         {
@@ -1335,16 +1539,20 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Storage
+        /// Updates a storage with the parameters specified in the request.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Update a storage</short>
+        /// <param name="module">Storage name</param>
+        /// <param name="props">New storage properties</param>
+        /// <returns>Updated storage</returns>
         [Update("storage")]
         public StorageSettings UpdateStorage(string module, IEnumerable<ItemKeyValuePair<string, string>> props)
         {
 
             try
             {
-                LogManager.GetLogger("ASC").Debug("UpdateStorage");
+                Log.Debug("UpdateStorage");
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
                 if (!CoreContext.Configuration.Standalone) return null;
 
@@ -1365,17 +1573,22 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error("UpdateStorage", e);
+                Log.Error("UpdateStorage", e);
                 throw;
             }
         }
 
+        /// <summary>
+        /// Resets the storage settings to the default parameters.
+        /// </summary>
+        /// <category>Storage</category>
+        /// <short>Reset the storage settings</short>
         [Delete("storage")]
         public void ResetStorageToDefault()
         {
             try
             {
-                LogManager.GetLogger("ASC").Debug("ResetStorageToDefault");
+                Log.Debug("ResetStorageToDefault");
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
                 if (!CoreContext.Configuration.Standalone) return;
 
@@ -1391,15 +1604,17 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error("ResetStorageToDefault", e);
+                Log.Error("ResetStorageToDefault", e);
                 throw;
             }
         }
 
         /// <summary>
-        /// Get Storage
+        /// Returns a list of all the CDN storages.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Get the CDN storages</short>
+        /// <returns>List of the CDN storages</returns>
         [Read("storage/cdn")]
         public List<StorageWrapper> GetAllCdnStorages()
         {
@@ -1414,9 +1629,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Storage
+        /// Updates the CDN storage with the parameters specified in the request.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Update the CDN storage</short>
+        /// <param name="module">CDN storage name</param>
+        /// <param name="props">New CDN storage properties</param>
+        /// <returns>Updated CDN storage</returns>
         [Update("storage/cdn")]
         public CdnStorageSettings UpdateCdn(string module, IEnumerable<ItemKeyValuePair<string, string>> props)
         {
@@ -1446,13 +1665,18 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error("UpdateCdn", e);
+                Log.Error("UpdateCdn", e);
                 throw;
             }
 
             return settings;
         }
 
+        /// <summary>
+        /// Resets the CDN storage settings to the default parameters.
+        /// </summary>
+        /// <category>Storage</category>
+        /// <short>Reset the CDN storage settings</short>
         [Delete("storage/cdn")]
         public void ResetCdnToDefault()
         {
@@ -1465,9 +1689,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get Storage
+        /// Returns a list of all the backup storages.
         /// </summary>
-        /// <returns>Consumer</returns>
+        /// <category>Storage</category>
+        /// <short>Get the backup storages</short>
+        /// <returns>List of the backup storages</returns>
         [Read("storage/backup")]
         public List<StorageWrapper> GetAllBackupStorages()
         {
@@ -1507,6 +1733,12 @@ namespace ASC.Api.Settings
         }
 
 
+        /// <summary>
+        /// Returns the socket settings.
+        /// </summary>
+        /// <category>Common settings</category>
+        /// <short>Get the socket settings</short>
+        /// <returns>Socket settings</returns>
         [Read("socket")]
         public object GetSocketSettings()
         {
@@ -1522,6 +1754,12 @@ namespace ASC.Api.Settings
             return new { Url = hubUrl };
         }
 
+        /// <summary>
+        /// Returns the tenant control panel settings.
+        /// </summary>
+        /// <category>Common settings</category>
+        /// <short>Get the tenant control panel settings</short>
+        /// <returns>Tenant control panel settings</returns>
         ///<visible>false</visible>
         [Read("controlpanel")]
         public TenantControlPanelSettings GetTenantControlPanelSettings()
@@ -1529,6 +1767,12 @@ namespace ASC.Api.Settings
             return TenantControlPanelSettings.Instance;
         }
 
+        /// <summary>
+        /// Saves the company white label settings specified in the request.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Save the white label settings</short>
+        /// <param name="settings">White label settings</param>
         ///<visible>false</visible>
         [Create("rebranding/company")]
         public void SaveCompanyWhiteLabelSettings(CompanyWhiteLabelSettings settings)
@@ -1542,6 +1786,12 @@ namespace ASC.Api.Settings
             settings.SaveForDefaultTenant();
         }
 
+        /// <summary>
+        /// Returns the company white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Get the white label settings</short>
+        /// <returns>Company white label settings</returns>
         ///<visible>false</visible>
         [Read("rebranding/company")]
         public CompanyWhiteLabelSettings GetCompanyWhiteLabelSettings()
@@ -1549,6 +1799,12 @@ namespace ASC.Api.Settings
             return CompanyWhiteLabelSettings.Instance;
         }
 
+        /// <summary>
+        /// Deletes the company white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Delete the white label settings</short>
+        /// <returns>Default company white label settings</returns>
         ///<visible>false</visible>
         [Delete("rebranding/company")]
         public CompanyWhiteLabelSettings DeleteCompanyWhiteLabelSettings()
@@ -1562,6 +1818,12 @@ namespace ASC.Api.Settings
             return defaultSettings;
         }
 
+        /// <summary>
+        /// Saves the additional white label settings specified in the request.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Save the additional white label settings</short>
+        /// <param name="settings">Additional white label settings</param>
         ///<visible>false</visible>
         [Create("rebranding/additional")]
         public void SaveAdditionalWhiteLabelSettings(AdditionalWhiteLabelSettings settings)
@@ -1573,6 +1835,12 @@ namespace ASC.Api.Settings
             settings.SaveForDefaultTenant();
         }
 
+        /// <summary>
+        /// Returns the additional white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Get the additional white label settings</short>
+        /// <returns>Additional white label settings</returns>
         ///<visible>false</visible>
         [Read("rebranding/additional")]
         public AdditionalWhiteLabelSettings GetAdditionalWhiteLabelSettings()
@@ -1580,6 +1848,12 @@ namespace ASC.Api.Settings
             return AdditionalWhiteLabelSettings.Instance;
         }
 
+        /// <summary>
+        /// Deletes the additional white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Delete the additional white label settings</short>
+        /// <returns>Default white label settings</returns>
         ///<visible>false</visible>
         [Delete("rebranding/additional")]
         public AdditionalWhiteLabelSettings DeleteAdditionalWhiteLabelSettings()
@@ -1593,6 +1867,12 @@ namespace ASC.Api.Settings
             return defaultSettings;
         }
 
+        /// <summary>
+        /// Saves the mail white label settings specified in the request.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Save the mail white label settings</short>
+        /// <param name="settings">Mail white label settings</param>
         ///<visible>false</visible>
         [Create("rebranding/mail")]
         public void SaveMailWhiteLabelSettings(MailWhiteLabelSettings settings)
@@ -1604,6 +1884,12 @@ namespace ASC.Api.Settings
             settings.SaveForDefaultTenant();
         }
 
+        /// <summary>
+        /// Updates the mail white label settings with a paramater specified in the request.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Update the mail white label settings</short>
+        /// <param name="footerEnabled">Specified if the footer will be enabled or not</param>
         ///<visible>false</visible>
         [Update("rebranding/mail")]
         public void UpdateMailWhiteLabelSettings(bool footerEnabled)
@@ -1617,6 +1903,12 @@ namespace ASC.Api.Settings
             settings.SaveForDefaultTenant();
         }
 
+        /// <summary>
+        /// Returns the mail white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Get the mail white label settings</short>
+        /// <returns>Mail white label settings</returns>
         ///<visible>false</visible>
         [Read("rebranding/mail")]
         public MailWhiteLabelSettings GetMailWhiteLabelSettings()
@@ -1624,6 +1916,12 @@ namespace ASC.Api.Settings
             return MailWhiteLabelSettings.Instance;
         }
 
+        /// <summary>
+        /// Deletes the mail white label settings.
+        /// </summary>
+        /// <category>Rebranding</category>
+        /// <short>Delete the mail white label settings</short>
+        /// <returns>Default mail white label settings</returns>
         ///<visible>false</visible>
         [Delete("rebranding/mail")]
         public MailWhiteLabelSettings DeleteMailWhiteLabelSettings()
@@ -1637,11 +1935,20 @@ namespace ASC.Api.Settings
             return defaultSettings;
         }
 
+        private static void DemandWhiteLabelPermission()
+        {
+            if (!CoreContext.Configuration.Standalone
+                && (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid))
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+        }
+
         private static void DemandRebrandingPermission()
         {
             TenantExtra.DemandControlPanelPermission();
 
-            if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).SSBranding)
+            if (!CoreContext.Configuration.Standalone)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "SSBranding");
             }
@@ -1653,9 +1960,11 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Get storage encryption settings
+        /// Returns the storage encryption settings.
         /// </summary>
-        /// <returns>EncryptionSettings</returns>
+        /// <short>Get the storage encryption settings</short>
+        /// <category>Encryption</category>
+        /// <returns>Storage encryption settings</returns>
         /// <visible>false</visible>
         [Read("encryption/settings")]
         public EncryptionSettings GetStorageEncryptionSettings()
@@ -1681,11 +1990,6 @@ namespace ASC.Api.Settings
 
                 TenantExtra.DemandControlPanelPermission();
 
-                if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).DiscEncryption)
-                {
-                    throw new BillingException(Resource.ErrorNotAllowedOption, "DiscEncryption");
-                }
-
                 var settings = EncryptionSettings.Load();
 
                 settings.Password = string.Empty; // Don't show password
@@ -1694,15 +1998,17 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error("GetStorageEncryptionSettings", e);
+                Log.Error("GetStorageEncryptionSettings", e);
                 return null;
             }
         }
 
         /// <summary>
-        /// Get storage encryption progress
+        /// Returns the storage encryption progress.
         /// </summary>
-        /// <returns>Progress</returns>
+        /// <short>Get the storage encryption progress</short>
+        /// <category>Encryption</category>
+        /// <returns>Storage encryption progress</returns>
         /// <visible>false</visible>
         [Read("encryption/progress", checkPayment: false)]
         public double GetStorageEncryptionProgress()
@@ -1722,11 +2028,6 @@ namespace ASC.Api.Settings
                 throw new NotSupportedException(Resource.ErrorServerEditionMethod);
             }
 
-            if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).DiscEncryption)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "DiscEncryption");
-            }
-
             using (var encryptionClient = new EncryptionServiceClient())
             {
                 return encryptionClient.GetProgress();
@@ -1736,9 +2037,11 @@ namespace ASC.Api.Settings
         public static readonly object Locker = new object();
 
         /// <summary>
-        /// Start storage encryption process
+        /// Starts the storage encryption process.
         /// </summary>
-        /// <returns></returns>
+        /// <short>Start the storage encryption process</short>
+        /// <category>Encryption</category>
+        /// <param name="notifyUsers">Specifies if the users will be notified about the encryption process or not</param>
         /// <visible>false</visible>
         [Create("encryption/start")]
         public void StartStorageEncryption(bool notifyUsers)
@@ -1774,11 +2077,6 @@ namespace ASC.Api.Settings
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
             TenantExtra.DemandControlPanelPermission();
-
-            if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).DiscEncryption)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "DiscEncryption");
-            }
 
             var storages = GetAllStorages();
 

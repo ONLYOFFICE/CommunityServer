@@ -58,6 +58,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Yeni fürsət əlavə edin</value>
+  </data>
   <data name="AddThisAndCreateDealButton" xml:space="preserve">
     <value>Qeyd et və yeni saziş yarat</value>
   </data>
@@ -117,6 +120,9 @@
   </data>
   <data name="Deal" xml:space="preserve">
     <value>Saziş</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Müəllifi olduğunuz imkanlar üçün icazələr təyin ediləcək</value>
   </data>
   <data name="DealAmount" xml:space="preserve">
     <value>Məbləğ</value>
@@ -253,6 +259,9 @@
   <data name="FilterByStageOrStageType" xml:space="preserve">
     <value>Mərhələ/Mərhələ növü</value>
   </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Başlığa görə imkanlar tapın</value>
+  </data>
   <data name="ImportDeals" xml:space="preserve">
     <value>Sazişlərin importu</value>
   </data>
@@ -276,6 +285,12 @@
   </data>
   <data name="ImportStartingPanelHeader" xml:space="preserve">
     <value>İmport başladı</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Mövcud imkanlardan seçin və ya yenisini əlavə edin</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Əlaqələndirin və ya fürsət yaradın</value>
   </data>
   <data name="MyDeals" xml:space="preserve">
     <value>Mənim sazişlərim</value>
@@ -303,6 +318,9 @@
   </data>
   <data name="ShowDealProfile" xml:space="preserve">
     <value>Profilə keç</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Yeni paneldə açın</value>
   </data>
   <data name="ShowTotalAmount" xml:space="preserve">
     <value>Ümumi məbləği göstər</value>

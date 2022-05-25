@@ -132,7 +132,7 @@ ASC.Projects.Common = (function () {
                 if (action) {
                     cPage = baseObject.DiscussionAction;
                     ckeditorConnector.load(function () {
-                        baseObject.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut,codemirror', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=projects_comments' }).editor;
+                        baseObject.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut,codemirror', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?esid=projects_comments' }).editor;
                         baseObject.Common.ckEditor.on("change", cPage.showHidePreview);
                     });
                 }
@@ -162,7 +162,7 @@ ASC.Projects.Common = (function () {
                 if (action === "edit") {
                     jq('.dottedHeader').removeClass('dottedHeader');
                     jq('#projectDescriptionContainer').show();
-                    jq('#notifyManagerCheckbox').attr('disabled', 'disabled');
+                    jq('#notifyManagerCheckbox').prop('disabled', true);
                     jq('#projectTagsContainer').show();
                 }
                 break;
@@ -326,7 +326,7 @@ ASC.Projects.Common = (function () {
             $emptyScreenContainer.remove();
         });
 
-        jq(document).keyup(function (event) {
+        jq(document).on("keyup", function (event) {
             var code;
 
             if (event.keyCode) {
@@ -349,7 +349,7 @@ ASC.Projects.Common = (function () {
             centerMode: true
         });
 
-        $emptyScreenContainer.find(".slick-next").focus();
+        $emptyScreenContainer.find(".slick-next").trigger("focus");
 
         emptyScreenShowed = true;
     }

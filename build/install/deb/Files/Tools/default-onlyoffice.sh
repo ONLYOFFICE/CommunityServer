@@ -1,13 +1,14 @@
 #!/bin/bash
 
 APP_SERVICES_ROOT_DIR="/var/www/onlyoffice/Services"
+APP_CONFIG_DIR="/etc/onlyoffice/communityserver"
 NGINX_ROOT_DIR="/etc/nginx";
 NGINX_CONF_DIR="/etc/nginx/sites-enabled";
 
 cp $NGINX_ROOT_DIR/includes/onlyoffice-communityserver-common.conf.template default-onlyoffice.conf;
 
 sed 's/{{APP_NIGNX_KEEPLIVE}}/64/g' -i default-onlyoffice.conf;
-sed '/mail\.default-api-scheme/s/\(value\s*=\s*\"\).*\"/\1http\"/' -i ${APP_SERVICES_ROOT_DIR}/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe.config;
+sed 's_\(\"DefaultApiSchema":\).*,_\1 "http",_' -i ${APP_CONFIG_DIR}/mail.production.json
 
 mv -f default-onlyoffice.conf ${NGINX_CONF_DIR}/onlyoffice
 

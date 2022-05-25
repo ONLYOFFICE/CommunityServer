@@ -58,6 +58,7 @@ namespace ASC.Web.CRM.Controls.Contacts
         protected List<ContactInfoType> ContactInfoTypes { get; set; }
 
         private const string ErrorCookieKey = "save_contact_error";
+        private ILog Log = LogManager.GetLogger("ASC.CRM");
 
         #endregion
 
@@ -390,7 +391,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                         }
                         catch (Exception ex)
                         {
-                            LogManager.GetLogger("ASC.CRM").Error(ex);
+                            Log.Error(ex);
                         }
 
                     }
@@ -568,7 +569,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC.CRM").Error(ex);
+                        Log.Error(ex);
                     }
                 }
 
@@ -587,7 +588,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.CRM").Error(ex);
+                Log.Error(ex);
                 var cookie = HttpContext.Current.Request.Cookies.Get(ErrorCookieKey);
                 if (cookie == null)
                 {

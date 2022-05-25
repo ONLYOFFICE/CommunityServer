@@ -160,7 +160,7 @@ ASC.Projects.TaskAction = (function () {
     function onDatePickerChange(e) {
         var obj = jq(e.target);
         var date = obj.datepicker("getDate");
-        obj.unmask().blur().mask(ASC.Resources.Master.DatePatternJQ);
+        obj.unmask().trigger("blur").mask(ASC.Resources.Master.DatePatternJQ);
         obj.datepicker("setDate", date);
     }
 
@@ -321,7 +321,7 @@ ASC.Projects.TaskAction = (function () {
 
     function getTaskData() {
         var data = {
-            title: jq.trim($taskTitle.val()),
+            title: $taskTitle.val().trim(),
             description: $taskDescription.val(),
             notify: $notifyCheckbox.is(':checked'),
             milestoneId: $taskMilestoneSelector.attr("data-id"),
@@ -521,9 +521,9 @@ ASC.Projects.TaskAction = (function () {
         var disabledAttr = "disabled";
         elements.forEach(function (item) {
             if (lock) {
-                item.attr(disabledAttr, disabledAttr);
+                item.prop(disabledAttr, true);
             } else {
-                item.removeAttr(disabledAttr);
+                item.prop(disabledAttr, false);
             }
         });
     }
@@ -539,7 +539,7 @@ ASC.Projects.TaskAction = (function () {
             currentTask = task;
             renderTaskForm(getEmptyTask());
             $taskPopup.find(".success-popup").show();
-            $taskTitle.focus();
+            $taskTitle.trigger("focus");
         }
 
         var project = common.getProjectById(task.projectOwner.id);
@@ -600,17 +600,23 @@ ASC.Projects.TaskAction = (function () {
         teamWithoutVisitors = common.removeBlockedUsersFromTeam(teamWithoutVisitors);
 
         resetResponsibles();
-        $taskResponsiblesSelector.advancedSelector("rewriteItemList", teamWithoutVisitors.map(
-            function (item) {
-                return { id: item.id, title: item.displayName };
-            }), []);
-
+        
+        if (currentTask && currentTask.responsibles.length && currentTask.projectId == selectedPrjId && teamWithoutVisitors) {
+            $taskResponsiblesSelector.advancedSelector("rewriteItemList", teamWithoutVisitors.map(
+                function (item) {
+                    return { id: item.id, title: item.displayName };
+                }), currentTask.responsibles.map(function (item) { return item.id; }))
+        } else {
+            $taskResponsiblesSelector.advancedSelector("rewriteItemList", teamWithoutVisitors.map(
+                function (item) {
+                    return { id: item.id, title: item.displayName };
+                }), []);
+        }
         updateTaskResponsibleSelector();
     };
 
     function updateTaskResponsibleSelector() {
         if (currentTask && currentTask.responsibles.length && currentTask.projectId == selectedPrjId && teamWithoutVisitors) {
-            $taskResponsiblesSelector.advancedSelector("select", currentTask.responsibles.map(function (item) { return item.id; }));
             $taskResponsiblesSelector.trigger("showList", [currentTask.responsibles.map(function(item){ return {id: item.id, title: item.displayName}})]);
         }
         if (currentTask && !currentTask.responsibles.length && updateTaskFlag !== updateTaskFlagEnum.add) {
@@ -681,7 +687,7 @@ ASC.Projects.TaskAction = (function () {
         var setDateAction = "setDate";
         if (task.deadline) {
             $taskDeadlineDate.datepicker(setDateAction, task.deadline);
-            $taskDeadlineDate.change();
+            $taskDeadlineDate.trigger("change");
         } else {
             if (updateTaskFlag !== updateTaskFlagEnum.add) {
                 $taskDeadlineDate.datepicker(setDateAction, null);

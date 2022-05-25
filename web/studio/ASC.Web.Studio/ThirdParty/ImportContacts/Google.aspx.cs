@@ -67,7 +67,7 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
         {
             var response = RequestContacts(token);
 
-            if (response != null)
+            if (response != null && response.Connections != null)
             {
                 foreach (var contact in response.Connections)
                 {

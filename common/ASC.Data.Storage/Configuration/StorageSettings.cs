@@ -44,10 +44,12 @@ namespace ASC.Data.Storage.Configuration
 
         static BaseStorageSettings()
         {
-            AscCache.Notify.Subscribe<Consumer>((i, a) =>
+            AscCache.Notify.Subscribe<ConsumerCacheItem>((i, a) =>
             {
                 if (a == CacheNotifyAction.Remove)
                 {
+                    CoreContext.TenantManager.SetCurrentTenant(i.TenantId);
+
                     var settings = StorageSettings.Load();
                     if (i.Name == settings.Module)
                     {

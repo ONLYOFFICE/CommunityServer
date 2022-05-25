@@ -54,14 +54,14 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
         {
             get
             {
-                return TenantExtra.GetTenantQuota().Sso;
+                return CoreContext.Configuration.Standalone || TenantExtra.GetTenantQuota().Sso;
             }
         }
         protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()))
+            if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()))
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
@@ -106,7 +106,7 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            var script = string.Format("SsoSettings.init({0},{1},{2},{3},{4})",
+            var script = string.Format("SsoSettings.init({0},{1},{2},{3},{4});",
                 JsonConvert.SerializeObject(Settings),
                 JsonConvert.SerializeObject(DefaultSettings),
                 JsonConvert.SerializeObject(Constants),

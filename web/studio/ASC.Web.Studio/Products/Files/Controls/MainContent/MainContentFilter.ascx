@@ -54,10 +54,10 @@
         <span><%= FilesUCResource.RemoveIsNewShort %></span>
     </li>
     <li id="mainRemoveFavorite" class="menuAction" title="<%= FilesUCResource.ButtonRemoveFavorite %>">
-        <span><%= FilesUCResource.ButtonRemoveFavoriteShort %></span>
+        <span><%= FilesUCResource.ButtonRemoveFavorite %></span>
     </li>
     <li id="mainRemoveTemplate" class="menuAction" title="<%= FilesUCResource.ButtonRemoveTemplate %>">
-        <span><%= FilesUCResource.ButtonRemoveTemplateShort %></span>
+        <span><%= FilesUCResource.ButtonRemoveTemplate %></span>
     </li>
     <li id="mainUnsubscribe" class="menuAction" title="<%= FilesUCResource.Unsubscribe %>">
         <span><%= FilesUCResource.Unsubscribe %></span>

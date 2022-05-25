@@ -58,8 +58,7 @@ namespace ASC.Web.Studio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js")
-                .RegisterBodyScripts("~/js/asc/core/my.js");
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
 
             Master.DisabledSidePanel = true;
 
@@ -96,6 +95,7 @@ namespace ASC.Web.Studio
             {
                 _phSubscriptionView.Controls.Add(LoadControl(UserSubscriptions.Location));
             }
+            _phConnectionsView.Controls.Add(LoadControl(UserConnections.Location));
         }
 
         private void InitEditControl()

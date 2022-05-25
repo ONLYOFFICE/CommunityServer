@@ -234,48 +234,6 @@ h3。為了快速入門，您可以在ONLYOFFICE中進行以下操作：
 
 ONLYOFFICE團隊</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>
-$ PersonalHeaderStart將您喜歡的雲存儲連接到ONLYOFFICE $ PersonalHeaderEnd
-
-自您創建雲辦公室以來已經過去了一周，所以我們認為是時候揭開您可能錯過的一些有益功能了。
-
-將* Dropbox *，* Google Drive *，* Box *，* OneDrive *，* Nextcloud *，* ownCloud *，* kDrive *或* Yandex.Disk *連接到ONLYOFFICE，並為所有文檔創建一個文檔管理空間。您將能夠在ONLYOFFICE中編輯外部文件並將其保存到保存文檔的存儲中。在“此處”中閱讀有關將文件存儲連接到ONLYOFFICE的詳細信息：“ $ {__ He​​lpLink} /tipstricks/add-resource.aspx”。
-
-您還可以使用我們的“連接器應用”：“ https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn”將ONLYOFFICE編輯器集成到Google雲端硬盤中。
-
-需要更多文件管理嗎？
-
-h3。嘗試“在雲中”進行業務的ONLYOFFICE：“ https://www.onlyoffice.com/cloud-office.aspx”或“在您的服務器上”：“ https://www.onlyoffice.com/server-solutions .aspx”免費使用30天，並查看擴展的文檔管理機會以及一個業務工具集：
-
--管理項目中的團隊文檔；
-
--將文檔與CRM和電子郵件集成；
-
--將文件共享給用戶組；
-
--使用團隊溝通工具優化您的工作流程。
-
-有興趣嗎了解有關“ ONLYOFFICE for business”的更多信息：“ http://www.onlyoffice.com/document-management.aspx”。
-
-
-ONLYFOFFICE團隊</value>
-  </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>
-有人要求更改用於輸入“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的密碼。
-
-請點擊以下連結更改密碼：
-
-$ GreenButton
-
-*注意*：此連結僅有效7天。請在此期間完成密碼更改過程。
-
-如果您不想更改密碼或誤收到此電子郵件，請忽略它。
-
-
-ONLYOFFICE 團隊</value>
-  </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>你好，
 
@@ -373,12 +331,6 @@ ONLYOFFICE 團隊</value>
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>歡迎來到ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>將您喜歡的雲存儲連接到ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>ONLYOFFICE個人密碼幫助</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE個人。請激活您的電子郵件地址</value>

@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -32,7 +31,6 @@ using ASC.Data.Storage;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Sms;
-using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
@@ -67,17 +65,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            SupportLink = GetFeedbackAndSupportUrl();
-        }
-
-        private static string GetFeedbackAndSupportUrl()
-        {
-            var settings = AdditionalWhiteLabelSettings.Instance;
-
-            if (!settings.FeedbackAndSupportEnabled || String.IsNullOrEmpty(settings.FeedbackAndSupportUrl))
-                return string.Empty;
-
-            return CommonLinkUtility.GetRegionalUrl(settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            SupportLink = CommonLinkUtility.GetFeedbackAndSupportLink();
         }
 
         private static IEnumerable<AuthService> GetAuthServices()

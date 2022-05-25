@@ -97,27 +97,12 @@ namespace ASC.Core.Data
                     .Where("u.id", userId)
                     .Where("u.status", EmployeeStatus.Active)
                     .Where("u.removed", false)
-                    .Where(Exp.Or(
-                            Exp.Eq("s.pwdhash", GetPasswordHash(userId, passwordHash)),
-                            Exp.Eq("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256)) //todo: remove old scheme
-                        ));
+                    .Where(Exp.Eq("s.pwdhash", GetPasswordHash(userId, passwordHash)));
 
                 return ExecList(q).ConvertAll(ToTenant);
             }
             else
             {
-                var q = TenantsQuery(Exp.Empty)
-                    .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
-                    .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
-                    .Where("t.status", (int)TenantStatus.Active)
-                    .Where(login.Contains('@') ? "u.email" : "u.id", login)
-                    .Where("u.status", EmployeeStatus.Active)
-                    .Where("u.removed", false)
-                    .Where("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256));
-
-                //old password
-                var result = ExecList(q).ConvertAll(ToTenant);
-
                 var usersQuery = new SqlQuery("core_user u")
                     .Select("u.id")
                     .Where("u.email", login)
@@ -128,16 +113,12 @@ namespace ASC.Core.Data
                         GetPasswordHash(new Guid((string)r[0]), passwordHash)
                     );
 
-                q = TenantsQuery(Exp.Empty)
+                var q = TenantsQuery(Exp.Empty)
                     .InnerJoin("core_usersecurity s", Exp.EqColumns("t.id", "s.tenant"))
                     .Where("t.status", (int)TenantStatus.Active)
                     .Where(Exp.In("s.pwdhash", passwordHashs));
 
-                //new password
-                result = result.Concat(ExecList(q).ConvertAll(ToTenant)).ToList();
-                result.Distinct();
-
-                return result;
+                return ExecList(q).ConvertAll(ToTenant);
             }
         }
 
@@ -450,7 +431,7 @@ namespace ASC.Core.Data
                 // cut number suffix
                 while (true)
                 {
-                    if (6 < domain.Length && char.IsNumber(domain, domain.Length - 1))
+                    if (TenantDomainValidator.MinLength < domain.Length && char.IsNumber(domain, domain.Length - 1))
                     {
                         domain = domain.Substring(0, domain.Length - 1);
                     }

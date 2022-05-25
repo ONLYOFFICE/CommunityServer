@@ -33,7 +33,7 @@ window.popup = (function($) {
 
         disableCancel(false);
 
-        $el.find('.containerBodyBlock .buttons .cancel').add(cancelButton).unbind('click').bind('click', function() {
+        $el.find('.containerBodyBlock .buttons .cancel').add(cancelButton).off('click').on('click', function() {
             if ($(this).hasClass('disable')) {
                 return false;
             }

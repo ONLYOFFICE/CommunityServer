@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>公告</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>生日</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>部落格</value>
   </data>
@@ -105,9 +102,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>在Talk中創建群聊或群發郵件。</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>配置有關共享文檔，截止日期和隊友生日的通知。</value>
   </data>
   <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
     <value>使用Firebase永遠不會再錯過任何消息。</value>

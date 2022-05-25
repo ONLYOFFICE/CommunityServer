@@ -118,7 +118,7 @@ ASC.Projects.MilestoneAction = (function() {
         }
 
         $milestoneDeadlineInputBox.on("change", function () {
-            if (jq.trim($milestoneDeadlineInputBox.val()) != '') {
+            if ($milestoneDeadlineInputBox.val().trim() != '') {
                 $milestoneDeadlineContainer.removeClass(requiredFieldErrorClass);
             }
             var date = getMilestoneDate();
@@ -137,13 +137,13 @@ ASC.Projects.MilestoneAction = (function() {
                 boldDeadlineLeft(-1);
             }
         });
-        $milestoneTitleInputBox.keyup(function () {
-            if (jq.trim($milestoneTitleInputBox.val()) != '') {
+        $milestoneTitleInputBox.on("keyup", function () {
+            if ($milestoneTitleInputBox.val().trim() != '') {
                 $milestoneTitleContainer.removeClass(requiredFieldErrorClass);
             }
         });
 
-        $milestoneDeadlineLeft.click(function () {
+        $milestoneDeadlineLeft.on("click", function () {
             var period = parseInt(jq(this).attr('data-value'));
             boldDeadlineLeft(period);
             var date = new Date();
@@ -168,7 +168,7 @@ ASC.Projects.MilestoneAction = (function() {
                 projectId: $milestoneProject.attr("data-id") || currentProjectId,
                 responsible: $milestoneResponsible.attr("data-id"),
                 notifyResponsible: $notifyResponsibleCheckbox.is(':checked'),
-                title: jq.trim($milestoneTitleInputBox.val()),
+                title: $milestoneTitleInputBox.val().trim(),
                 description: $milestoneDescriptionInputBox.val(),
                 isKey: $milestoneKeyCheckBox.is(':checked'),
                 isNotify: $milestoneNotifyManagerCheckBox.is(':checked')
@@ -212,7 +212,7 @@ ASC.Projects.MilestoneAction = (function() {
             }
             return false;
         });
-        jq('#milestoneActionCancelButton').click(function () {
+        jq('#milestoneActionCancelButton').on("click", function () {
             if (location.href.toLowerCase().indexOf(ganttChartPage) > 0) {
                 ASC.Projects.GantChartPage.enableChartEvents();
             }
@@ -349,7 +349,7 @@ ASC.Projects.MilestoneAction = (function() {
         
         if (item.id && item.id != myGuid) {
             $notifyResponsibleContainer.show();
-            $notifyResponsibleCheckbox.attr('checked', true);
+            $notifyResponsibleCheckbox.prop('checked', true);
         } else {
             $notifyResponsibleContainer.hide();
         }
@@ -381,26 +381,26 @@ ASC.Projects.MilestoneAction = (function() {
     };
 
     var lockMilestoneActionPage = function() {
-        $milestoneDeadlineInputBox.attr(disabledAttr, true);
-        $milestoneTitleInputBox.attr(disabledAttr, true);
-        $milestoneDescriptionInputBox.attr(disabledAttr, true);
-        $milestoneKeyCheckBox.attr(disabledAttr, true);
-        $milestoneNotifyManagerCheckBox.attr(disabledAttr, true);
+        $milestoneDeadlineInputBox.prop(disabledAttr, true);
+        $milestoneTitleInputBox.prop(disabledAttr, true);
+        $milestoneDescriptionInputBox.prop(disabledAttr, true);
+        $milestoneKeyCheckBox.prop(disabledAttr, true);
+        $milestoneNotifyManagerCheckBox.prop(disabledAttr, true);
     };
 
     var unlockMilestoneActionPage = function () {
         if (!isInitMilestoneForm) return;
-        $milestoneDeadlineInputBox.removeAttr(disabledAttr);
-        $milestoneTitleInputBox.removeAttr(disabledAttr).val('');
-        $milestoneDescriptionInputBox.removeAttr(disabledAttr).val('');
-        $milestoneKeyCheckBox.removeAttr(disabledAttr).removeAttr("checked");
-        $milestoneNotifyManagerCheckBox.removeAttr(disabledAttr);
+        $milestoneDeadlineInputBox.prop(disabledAttr, false);
+        $milestoneTitleInputBox.prop(disabledAttr, false).val('');
+        $milestoneDescriptionInputBox.prop(disabledAttr, false).val('');
+        $milestoneKeyCheckBox.prop(disabledAttr, false).prop("checked", false);
+        $milestoneNotifyManagerCheckBox.prop(disabledAttr, false);
         loadingBanner.hideLoaderBtn($milestoneActionPanel);
     };
 
     var clearPanel = function() {
         $milestoneActionPanel.removeAttr('type');
-        $notifyResponsibleCheckbox.attr('checked', true);
+        $notifyResponsibleCheckbox.prop('checked', true);
 
         if (!$milestoneProject.attr("data-id")) {
             $milestoneResponsibleContainer.hide();
@@ -432,9 +432,9 @@ ASC.Projects.MilestoneAction = (function() {
 
         $milestoneDescriptionInputBox.val('');
 
-        $milestoneKeyCheckBox.removeAttr('checked');
+        $milestoneKeyCheckBox.prop("checked", false);
 
-        $milestoneNotifyManagerCheckBox.removeAttr('checked');
+        $milestoneNotifyManagerCheckBox.prop("checked", false);
         loadingBanner.hideLoaderBtn($milestoneActionPanel);
     };
 
@@ -447,7 +447,7 @@ ASC.Projects.MilestoneAction = (function() {
     function onDatePickerChange(e) {
         var obj = jq(e.target);
         var date = obj.datepicker("getDate");
-        obj.unmask().blur().mask(ASC.Resources.Master.DatePatternJQ);
+        obj.unmask().trigger("blur").mask(ASC.Resources.Master.DatePatternJQ);
         obj.datepicker("setDate", date);
     }
 
@@ -490,11 +490,11 @@ ASC.Projects.MilestoneAction = (function() {
             errorBox.addClass(displayNoneClass);
             actionContainer.css('marginTop', '43px');
 
-            $milestoneDeadlineInputBox.removeAttr(disabledAttr);
-            $milestoneTitleInputBox.removeAttr(disabledAttr);
-            $milestoneDescriptionInputBox.removeAttr(disabledAttr);
-            $milestoneKeyCheckBox.removeAttr(disabledAttr);
-            $milestoneNotifyManagerCheckBox.removeAttr(disabledAttr);
+            $milestoneDeadlineInputBox.prop(disabledAttr, false);
+            $milestoneTitleInputBox.prop(disabledAttr, false);
+            $milestoneDescriptionInputBox.prop(disabledAttr, false);
+            $milestoneKeyCheckBox.prop(disabledAttr, false);
+            $milestoneNotifyManagerCheckBox.prop(disabledAttr, false);
         }, 3000);
         currentProjectId = jq.getURLParam('prjID');
         if (location.href.toLowerCase().indexOf("milestones.aspx") > 0 && (currentProjectId == params.projectId)) {
@@ -583,7 +583,7 @@ ASC.Projects.MilestoneAction = (function() {
 
         if (milestone.deadline) {
             $milestoneDeadlineInputBox.datepicker("setDate", milestone.deadline);
-            $milestoneDeadlineInputBox.change();
+            $milestoneDeadlineInputBox.trigger("change");
         }
 
         $milestoneTitleInputBox.val(milestone.title);
@@ -639,7 +639,7 @@ ASC.Projects.MilestoneAction = (function() {
 
     function showMilestoneActionPanel() {
         StudioBlockUIManager.blockUI($milestoneActionPanel, 550);
-        $milestoneTitleInputBox.focus();
+        $milestoneTitleInputBox.trigger("focus");
     };
 
     var filterProjectsByIdInCombobox = function(ids) {  // only for gantt chart

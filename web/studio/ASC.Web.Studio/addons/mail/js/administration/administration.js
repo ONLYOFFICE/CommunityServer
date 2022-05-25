@@ -34,8 +34,8 @@ window.administrationManager = (function($) {
             window.Teamlab.bind(window.Teamlab.events.addMailGroup, onAddMailGroup);
             window.Teamlab.bind(window.Teamlab.events.removeMailGroup, onRemoveMailGroup);
             window.Teamlab.bind(window.Teamlab.events.removeMailDomain, onRemoveMailDomain);
-            editMailboxModal.events.bind('onupdatemailbox', onUpdateMailbox);
-            editMailGroupModal.events.bind('onupdategroup', onUpdateMailgroup);
+            editMailboxModal.events.on('onupdatemailbox', onUpdateMailbox);
+            editMailGroupModal.events.on('onupdategroup', onUpdateMailgroup);
 
             administrationPage.init();
         }

@@ -2,6 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CalendarResources.ascx.cs" Inherits="ASC.Web.Calendar.UserControls.CalendarResources" %>
 
 <%@ Import Namespace="ASC.Web.Calendar.Resources" %>
+<%@ Import Namespace="ASC.Web.Calendar.Handlers" %>
 <script language="javascript" type="text/javascript">
 var g_fcOptions = {
         isPersonal: "<%= ASC.Core.CoreContext.Configuration.Personal %>" == "True",
@@ -331,6 +332,31 @@ var g_fcOptions = {
 			dayTitleFormat:   "<%=System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.LongDatePattern%>",
 			timeFormat:       "<%=System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.ShortTimePattern%>",
 			noEventsMessage:  "<%=CalendarJSResource.calendarListView_noEventsMessage%>"
+		},
+
+		attachments: {
+			bytes: "<%=CalendarJSResource.calendarEventAttachments_bytes%>",
+			kilobytes: "<%=CalendarJSResource.calendarEventAttachments_kilobytes%>",
+            megabytes: "<%=CalendarJSResource.calendarEventAttachments_megabytes%>",
+
+            maxFileSizeInMegaBytes: <%=FilesUploader.MaxFileSizeInMegabytes%>,
+
+            attachDeleteAllLabel: "<%=CalendarJSResource.calendarEventAttachments_attachDeleteAllLabel%>",
+            attachFilesFromDocuments: "<%=CalendarJSResource.calendarEventAttachments_attachFilesFromDocuments%>",
+            attachmentsLabelHelpInfo: "<%=CalendarJSResource.calendarEventAttachments_attachmentsLabelHelpInfo%>",
+            copyFileToMyDocumentsFolderErrorMsg: "<%=CalendarJSResource.calendarEventAttachments_copyFileToMyDocumentsFolderErrorMsg%>",
+            copyFilesToMyDocumentsBtn: "<%=CalendarJSResource.calendarEventAttachments_copyFilesToMyDocumentsBtn%>",
+            copyingToMyDocumentsLabel: "<%=CalendarJSResource.calendarEventAttachments_copyingToMyDocumentsLabel%>",
+            documentAccessDeniedError: "<%=CalendarJSResource.calendarEventAttachments_documentAccessDeniedError%>",
+            emptyFileNotSupportedError: "<%=CalendarJSResource.calendarEventAttachments_emptyFileNotSupportedError%>",
+            executableWarning: "<%=CalendarJSResource.calendarEventAttachments_executableWarning%>",
+            fileSizeError: "<%=CalendarJSResource.calendarEventAttachments_fileSizeError%>",
+            insertedViaLink: "<%=CalendarJSResource.calendarEventAttachments_insertedViaLink%>",
+            limitLabel: "<%=CalendarJSResource.calendarEventAttachments_limitLabel%>",
+            uploadFile: "<%=CalendarJSResource.calendarEventAttachments_uploadFile%>",
+            uploadedLabel: "<%=CalendarJSResource.calendarEventAttachments_uploadedLabel%>",
+            uploadingLabel: "<%=CalendarJSResource.calendarEventAttachments_uploadingLabel%>",
+            warningLabel: "<%=CalendarJSResource.calendarEventAttachments_warningLabel%>"
 		}
 
 };

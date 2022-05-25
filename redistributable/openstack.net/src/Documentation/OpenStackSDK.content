@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics>
+  <Topic id="611a098e-d337-496f-a1dd-9bf3203bc898" visible="False" isMSHVRoot="true" isSelected="true" title="openstack.net SDK">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="openstack.net SDK" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="362f6481-64dd-4f21-9e71-1d157b5dc745" visible="True" isDefault="true" title="Welcome">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="Welcome" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="8b286b82-7aaf-4e45-9ffc-adbd7dbcfaa6" visible="True" title="License Agreement">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="license agreement" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="9c4a6074-9d84-4488-9565-50ecb5049ffe" visible="True" title="Breaking Changes Policy" />
+  <Topic id="32cc6156-3b31-4450-b209-b55fcfc0a210" visible="True" title="Asynchronous Services" />
+  <Topic id="e11545c6-88c9-4ff1-b0cf-abffd4bd3ff7" visible="True" isExpanded="true" title="User Guide">
+    <Topic id="92e2ae00-a53d-4efb-925f-2772495e9b6d" visible="True" isExpanded="true" title="Authentication">
+      <Topic id="1bb35d97-0c79-4e98-a2ae-6c1eef098ba7" visible="True" title="OpenStack Authentication" />
+      <Topic id="182a1c50-9b73-4d72-abe3-b3578caedfa6" visible="True" title="HP Authentication" />
+      <Topic id="9135e7f8-b287-44ca-9faf-802a50dbad1a" visible="True" title="Rackspace Authentication" />
+    </Topic>
+  </Topic>
+</Topics>

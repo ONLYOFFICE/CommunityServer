@@ -57,7 +57,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings("Restore"))
+            if (!SetupInfo.IsVisibleSettings("Restore"))
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;

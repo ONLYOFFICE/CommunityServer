@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Активні користувачі - це учасники порталу, за винятком гостей та користувачів із статусом "вимкнено"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Додати вибір опитування</value>
   </data>
@@ -93,15 +90,6 @@
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Прикріпити файл з документів проекту
 </value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Скорочення посилань зпрошень до порталу та посилання для спільних документів за допомогою Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Увійдіть на портал, використовуючи свої аккаунти в соціальних мережах та шукайте контакти</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Підключіть свої улюблені служби зберігання на хмарі й зберігайте всі ваші файли в одному місці</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -401,9 +389,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Вихідний код доступний на {0} GitHub (1)</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Базова ціна</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Дивіться авангамат для повного переліку валют</value>
   </data>
@@ -417,15 +402,9 @@
     <value>Безкоштовно
 </value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Відкрити повний прайс-лист</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Вибрати новий тарифний план?
 </value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Обмежена пропозиція часу</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Так, оновити план
@@ -436,9 +415,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0} 1 рік (2) {1} передплата</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0} 3 роки (1) передплата</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Ви використовуєте план для некомерційної організації.</value>
@@ -464,17 +440,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 роки</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Пропозиція доступна лише для річних абонентів.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Найпопулярніша підписка</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Додавання нового порталу перевищить максимальну кількість порталів, дозволених вашим поточним планом ціноутворення.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Зберегти {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} для користувача / місяць</value>

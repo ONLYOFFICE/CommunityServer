@@ -22,6 +22,7 @@ body #fileSelectorTree {
 body #fileSelectorTree,
 body #mainContent {
     height: 450px;
+    scrollbar-width: thin;
 }
 
 body #mainContent {
@@ -48,7 +49,6 @@ body.only-folder .mainPageLayout {
     visibility: hidden;
 }
 
-body.desktop main {
-    height: calc(100vh - 24px);
-    height: calc(var(--vh, 1vh) * 100 - 24px);
+body.desktop main .layout-bottom-spacer {
+    padding: 0;
 }

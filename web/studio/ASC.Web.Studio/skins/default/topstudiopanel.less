@@ -66,7 +66,12 @@
             }
         }
     }
-    &:not(.try-welcome-top) .studio-top-logo .top-logo img { max-height: 23px; }
+
+    &:not(.try-welcome-top) .studio-top-logo .top-logo img {
+        max-height: 23px;
+        width: 142px;
+        height: 23px;
+    }
 
     body.custom-mode .studio-top-logo .top-logo img {
         max-height: 23px;
@@ -376,9 +381,9 @@ body.desktop .studio-top-panel {
 
 .studio-action-panel {
     .drop-list-box {
-        padding: 0 12px;
-        width: 405px;
-        max-width: 405px;
+        padding: 12px 12px 0px 12px;
+        width: 389px;
+        max-width: 409px;
         text-align: center;
 
         .list {
@@ -387,9 +392,17 @@ body.desktop .studio-top-panel {
             text-align: left;
         }
 
+        .scrollbar-popup-list {
+            padding-right: 4px;
+        }
+
         .item {
             border-bottom: 1px solid @borderColor;
             padding-top: 4px;
+
+            &:first-child {
+                padding-top: 0px;
+            }
 
             &:hover {
                 .content-box .title,
@@ -422,6 +435,18 @@ body.desktop .studio-top-panel {
                     cursor: pointer;
                     font-size: 12px;
                     text-decoration: none;
+                }
+
+                .title-all-day-event {
+                    .limitedSingleText(330px);
+                    color: #000;
+                    margin-left: 2px;
+                    font-size: 12px;
+                    text-decoration: none;
+                }
+
+                .title-all-day-event:hover {
+                    cursor: pointer;
                 }
             }
 
@@ -471,8 +496,8 @@ body.desktop .studio-top-panel {
             float: left;
             font-size: 12px;
             font-weight: bold;
-            margin-top: 13px;
-            margin-bottom: 7px;
+            margin-top: 14px;
+            margin-bottom: 14px;
             text-decoration: none;
 
             &:hover {
@@ -487,8 +512,8 @@ body.desktop .studio-top-panel {
             float: right;
             font-size: 12px;
             font-weight: bold;
-            margin-top: 13px;
-            margin-bottom: 7px;
+            margin-top: 14px;
+            margin-bottom: 14px;
             text-decoration: none;
 
             &:hover {
@@ -518,8 +543,31 @@ body.desktop .studio-top-panel {
             }
         }
     }
+
+    .drop-list-box-add {
+        padding: 0 12px;
+        width: 405px;
+        max-width: 405px;
+    }
+
+    .scrollbar-popup {
+        width: 409px;
+        padding: 12px 0px 0px 12px;
+    }
 }
-/*******************************************************************************
+
+@-moz-document url-prefix() {
+    .studio-action-panel .scrollbar-popup {
+        padding: 12px 4px 0px 12px;
+    }
+
+    .studio-action-panel .drop-list-box .scrollbar-popup-list {
+        padding-right: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #BFBFBF #F5F5F5;
+    }
+}
+    /*******************************************************************************
    For Retina
 *******************************************************************************/
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
@@ -529,157 +577,158 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx)
  {
-    //.product-menu .active-icon { background-image: url("imagescss/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
-	//.studio-action-panel.modules li .dropdown-item-icon { background-image: url("imagescss/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
-    /*.studio-action-panel.modules li .dropdown-item { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }*/
-}
-/*******************************************************************************
+        //.product-menu .active-icon { background-image: url("imagescss/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
+        //.studio-action-panel.modules li .dropdown-item-icon { background-image: url("imagescss/icons_nav_panel_retina.png"); background-size: 32px 1412px; }
+        /*.studio-action-panel.modules li .dropdown-item { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }*/
+    }
+    /*******************************************************************************
    About Compamy Popup
 *******************************************************************************/
 
-.confirmation-popup {
-    display: none;
+    .confirmation-popup {
+        display: none;
 
-    .containerBodyBlock {
-        text-align: center;
-    }
-}
-.confirmation-popup_logo {
-    margin-bottom: 10px;
-    display: inline-block;
-}
-.confirmation-popup_version {
-    font-size: 14px;
-    margin-bottom: 23px;
-}
-
-.confirmation-popup_licensor {
-    display: inline;
-    font-size: 14px;
-    text-transform: uppercase;
-
-    &:before {
-        background-color: #e1e1e1;
-        content: "";
-        height: 2px;        
-        margin-top: 9px;
-        width: 36%;
-        float: left;
+        .containerBodyBlock {
+            text-align: center;
+        }
     }
 
-    &:after {
-        background-color: #e1e1e1;
-        content: "";
-        height: 2px;       
-        margin-top: 9px;
-        width: 36%;
-        float: right;
+    .confirmation-popup_logo {
+        margin-bottom: 10px;
+        display: inline-block;
     }
-}
 
-.confirmation-popup_name {
-    font-size:16px;
-    font-weight: bold;
-    margin-bottom: 9px;
-    margin-top: 17px;
-}
-.confirmation-popup_info {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-        margin-bottom: 6px;
+    .confirmation-popup_version {
+        font-size: 14px;
+        margin-bottom: 23px;
     }
-}
-.confirmation-copyright {
-    font-size: 11px;
-    margin-top: 48px;
-}
 
-#appsPopupBody {
-    text-align: left;
+    .confirmation-popup_licensor {
+        display: inline;
+        font-size: 14px;
+        text-transform: uppercase;
 
-    .apps-list {
-        max-height: 300px;
-        overflow-y: auto;
-
-        span {
-            border: 1px solid #d1d1d1;
-            display: inline-block;
+        &:before {
+            background-color: #e1e1e1;
+            content: "";
+            height: 2px;
+            margin-top: 9px;
+            width: 36%;
             float: left;
-            height: 40px;
-            margin: 5px 5px 0 0;
-            width: 158px;
-            position: relative;
+        }
 
-            img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                margin: auto;
-                max-height: 40px;
-                max-width: 150px;
+        &:after {
+            background-color: #e1e1e1;
+            content: "";
+            height: 2px;
+            margin-top: 9px;
+            width: 36%;
+            float: right;
+        }
+    }
+
+    .confirmation-popup_name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 9px;
+        margin-top: 17px;
+    }
+
+    .confirmation-popup_info {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            margin-bottom: 6px;
+        }
+    }
+
+    .confirmation-copyright {
+        font-size: 11px;
+        margin-top: 48px;
+    }
+
+    #appsPopupBody {
+        text-align: left;
+
+        .apps-list {
+            max-height: 300px;
+            overflow-y: auto;
+
+            span {
+                border: 1px solid #d1d1d1;
+                display: inline-block;
+                float: left;
+                height: 40px;
+                margin: 5px 5px 0 0;
+                width: 158px;
+                position: relative;
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    margin: auto;
+                    max-height: 40px;
+                    max-width: 150px;
+                }
             }
         }
     }
-}
 
-#studio_dropGiftPopupPanel {
-    .drop-list-box {
-        text-align: left;
-        padding-top: 4px;
-    }
-
-    .hdr {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 19px;
-    }
-
-    .gift-list {
-        margin: 16px 0 16px 0;
-        padding: 0;
-    }
-
-    .gift-item {
-        font-size: 12px;
-        padding: 8px 0 0 32px;
-        min-height: 24px;
-
-        &.gift-item-pro {
-            background: url("images/svg/gift/pro.svg") no-repeat left 6px transparent;
+    #studio_dropGiftPopupPanel {
+        .drop-list-box {
+            text-align: left;
+            padding-top: 4px;
         }
 
-        &.gift-item-private {
-            background: url("images/svg/gift/private.svg") no-repeat left 6px transparent;
+        .hdr {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 19px;
         }
 
-        &.gift-item-mobile {
-            background: url("images/svg/gift/mobile.svg") no-repeat left 6px transparent;
+        .gift-list {
+            margin: 16px 0 16px 0;
+            padding: 0;
         }
-    }
 
-    .btn-box {
-        border-top: 0.5px solid #D1D1D1;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .left-btn {
-            font-weight: bold;
+        .gift-item {
             font-size: 12px;
-            cursor: pointer;
+            padding: 8px 0 0 32px;
+            min-height: 24px;
+
+            &.gift-item-pro {
+                background: url("images/svg/gift/pro.svg") no-repeat left 6px transparent;
+            }
+
+            &.gift-item-private {
+                background: url("images/svg/gift/private.svg") no-repeat left 6px transparent;
+            }
+
+            &.gift-item-mobile {
+                background: url("images/svg/gift/mobile.svg") no-repeat left 6px transparent;
+            }
         }
 
-        .right-btn {
-            font-weight: bold;
-            font-size: 12px;
-            color: #88888D;
-            cursor: pointer;
+        .btn-box {
+            border-top: 0.5px solid #D1D1D1;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .btn-item {
+                font-weight: bold;
+                font-size: 12px;
+                cursor: pointer;
+            }
+
+            .right-btn {
+                color: #88888D;
+            }
         }
     }
-}

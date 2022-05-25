@@ -28,6 +28,8 @@
                 <div id="sharingSettingsItems"></div>
                 <div class="sharing-empty describe-text"><%= string.Format(UserControlsCommonResource.SharingSettingsEmpty.HtmlEncode(), "<br />") %></div>
 
+                <asp:PlaceHolder ID="FormFillingHolder" runat="server"></asp:PlaceHolder>
+
                 <% if (EnableShareMessage)
                    { %>
                 <div id="shareMessagePanel">

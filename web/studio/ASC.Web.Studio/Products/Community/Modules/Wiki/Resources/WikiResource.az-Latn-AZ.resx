@@ -193,6 +193,9 @@
   <data name="msgPageNameIncorrect" xml:space="preserve">
     <value>Səhifənin adı düzgün deyil. Lütfən, alternativ ad daxil etməyə çalışın.</value>
   </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>Mətn sahəsi boşdur.</value>
+  </data>
   <data name="msgSamePageExists" xml:space="preserve">
     <value>Bu başlıqlı səhifə artıq mövcuddur.</value>
   </data>

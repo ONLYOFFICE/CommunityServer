@@ -263,7 +263,7 @@ namespace ASC.Projects.Data.DAO
                 .InColumnValue("is_notify", milestone.IsNotify)
                 .InColumnValue("is_key", milestone.IsKey)
                 .InColumnValue("description", milestone.Description)
-                .InColumnValue("status_changed", milestone.StatusChangedOn)
+                .InColumnValue("status_changed", TenantUtil.DateTimeToUtc(milestone.StatusChangedOn))
                 .InColumnValue("responsible_id", milestone.Responsible.ToString())
                 .Identity(1, 0, true);
             milestone.ID = Db.ExecuteScalar<int>(insert);

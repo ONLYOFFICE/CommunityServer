@@ -155,6 +155,11 @@ namespace System.Web
                        || !string.IsNullOrEmpty(request.UserAgent) && request.UserAgent.Contains("SailfishOS"));
         }
 
+        public static bool MobileApp(this HttpRequest request)
+        {
+            return !string.IsNullOrEmpty(request.UserAgent) && (request.UserAgent.Contains("iOS") || request.UserAgent.Contains("Android")); 
+        }
+
 
         private static Uri ParseRewriterUrl(string s)
         {

@@ -19,7 +19,6 @@ using System;
 using System.Configuration;
 
 using ASC.Core;
-using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.People.Resources;
@@ -60,7 +59,7 @@ namespace ASC.Web.People
             IsFreeTariff = quota.Free && !quota.Open;
             IsStandalone = CoreContext.Configuration.Standalone;
 
-            DisplayPayments = TenantExtra.EnableTariffSettings && (!CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount);
+            DisplayPayments = TenantExtra.EnableTariffSettings && (!CoreContext.Configuration.Standalone || quota.ActiveUsers != Constants.MaxEveryoneCount);
 
             if (DisplayPayments)
             {

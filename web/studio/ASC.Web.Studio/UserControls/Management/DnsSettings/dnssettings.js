@@ -19,14 +19,14 @@
 var DnsSettings = new function () {
 
     this.CheckEnableDns = function (isChecked) {
-        jq('#studio_dnsName').attr('disabled', !isChecked);
+        jq('#studio_dnsName').prop('disabled', !isChecked);
         jq('#studio_dnsName').removeClass('with-error');
     };
 
     this.SaveDnsSettings = function (bthObj) {
         if (jq(bthObj).hasClass("disable")) return;
         
-        var dnsName = jq.trim(jq('#studio_dnsName').val()),
+        var dnsName = jq('#studio_dnsName').val().trim(),
             enableDns = jq('#studio_enableDnsName').is(':checked');
         if (enableDns === true && dnsName === "") {
             jq("#studio_dnsName").addClass("with-error");

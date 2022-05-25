@@ -26,7 +26,6 @@ namespace ASC.HealthCheck.Models
         OnlyofficeFeed,
         OnlyofficeMailAggregator,
         OnlyofficeMailWatchdog,
-        OnlyofficeAutoreply,
         OnlyofficeIndex,
         EditorsFileConverter,
         EditorsCoAuthoring,

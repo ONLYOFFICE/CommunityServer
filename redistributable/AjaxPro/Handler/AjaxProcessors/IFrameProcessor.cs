@@ -42,6 +42,8 @@
  * MS	06-07-20	removed the fix above and put it to JavaScriptConverter
  * MS	06-10-03	fixed bug with CryptProvider
  * MS	07-03-24	fixed Ajax token bug
+ * MS	21-10-30	added contentSecurityPolicy to specify a nonce for all scripts
+ * 
  * 
  */
 using System;
@@ -144,7 +146,7 @@ namespace AjaxPro
 
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.Append("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head><body>\r\n<script type=\"text/javascript\" defer=\"defer\">\r\ndocument.body.res = \"");
+			sb.Append("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/></head><body>\r\n<script" + AjaxPro.Utility.Settings.AppendContentSecurityPolicyNonce() + " type=\"text/javascript\" defer=\"defer\">\r\ndocument.body.res = \"");
 			sb.Append(res.Replace("\\", "\\\\").Replace("\"", "\\\""));
 			sb.Append("\";\r\n</script>\r\n</body></html>");
 

@@ -5,6 +5,7 @@
 <%@ Import Namespace="ASC.FederatedLogin.LoginProviders" %>
 <%@ Import Namespace="ASC.Files.Core.Security" %>
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
+<%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -28,6 +29,7 @@
             </select>
         </div>
         <span id="shareLinkDescr" class="text-medium-describe"><%= FilesUCResource.SharingLinkDescr %></span>
+        <span id="shareLinkEnable" class="text-medium-describe" data-enable="<%= FilesSettings.ExternalShare.ToString().ToLower() %>" data-social="<%= FilesSettings.ExternalShareSocialMedia.ToString().ToLower() %>"><%= FilesUCResource.SharingLinkEnableDescr %></span>
     </div>
     <div id="shareLinkPanel">
         <div class="sharelink-around borderBase">

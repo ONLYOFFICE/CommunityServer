@@ -20,7 +20,7 @@ using System.Web.Optimization;
 
 using ASC.Web.Core.Client.HttpHandlers;
 
-using Microsoft.Ajax.Utilities;
+using NUglify;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -34,10 +34,10 @@ namespace ASC.Web.Core.Client.Bundling
             if (includedVirtualPath.EndsWith("html"))
             {
                 ClientScript.GetTemplateData(input, stringBuilder);
-                return new Minifier().MinifyJavaScript(stringBuilder.ToString());
+                return Uglify.Js(stringBuilder.ToString()).Code;
             }
 
-            return new Minifier().MinifyJavaScript(input);
+            return Uglify.Js(input).Code;
         }
 
         public void Process(BundleContext context, BundleResponse response)

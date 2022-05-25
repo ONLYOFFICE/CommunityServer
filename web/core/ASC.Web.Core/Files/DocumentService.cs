@@ -33,6 +33,8 @@ using ASC.Core;
 using ASC.Core.Billing;
 
 using JWT;
+using JWT.Algorithms;
+using JWT.Serializers;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -80,6 +82,7 @@ namespace ASC.Web.Core.Files
         /// <param name="toExtension">Extension to which to convert</param>
         /// <param name="documentRevisionId">Key for caching on service</param>
         /// <param name="password">Password</param>
+        /// <param name="region">Four letter language codes</param>
         /// <param name="thumbnail">Thumbnail settings</param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
@@ -98,6 +101,7 @@ namespace ASC.Web.Core.Files
             string toExtension,
             string documentRevisionId,
             string password,
+            string region,
             ThumbnailData thumbnail,
             SpreadsheetLayout spreadsheetLayout,
             bool isAsync,
@@ -132,6 +136,7 @@ namespace ASC.Web.Core.Files
                 Thumbnail = thumbnail,
                 SpreadsheetLayout = spreadsheetLayout,
                 Url = documentUri,
+                Region = region,
             };
 
             if (!string.IsNullOrEmpty(password))
@@ -145,12 +150,17 @@ namespace ASC.Web.Core.Files
                     {
                         { "payload", body }
                     };
-                JsonWebToken.JsonSerializer = new JwtSerializer();
-                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+
+                var encoder = new JwtEncoder(new HMACSHA256Algorithm(),
+                                             new JsonNetSerializer(),
+                                             new JwtBase64UrlEncoder());
+
+                var token = encoder.Encode(payload, signatureSecret);
+
                 //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
 
-                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                token = encoder.Encode(body, signatureSecret);
                 body.Token = token;
             }
 
@@ -256,12 +266,17 @@ namespace ASC.Web.Core.Files
                     {
                         { "payload", body }
                     };
-                JsonWebToken.JsonSerializer = new JwtSerializer();
-                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+
+                var encoder = new JwtEncoder(new HMACSHA256Algorithm(),
+                                                  new JsonNetSerializer(),
+                                                  new JwtBase64UrlEncoder());
+
+                var token = encoder.Encode(payload, signatureSecret);
+
                 //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
 
-                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                token = encoder.Encode(body, signatureSecret);
                 body.Token = token;
             }
 
@@ -340,12 +355,16 @@ namespace ASC.Web.Core.Files
                         { "payload", body }
                     };
 
-                JsonWebToken.JsonSerializer = new JwtSerializer();
-                var token = JsonWebToken.Encode(payload, signatureSecret, JwtHashAlgorithm.HS256);
+                var encoder = new JwtEncoder(new HMACSHA256Algorithm(),
+                                             new JsonNetSerializer(),
+                                             new JwtBase64UrlEncoder());
+
+                var token = encoder.Encode(payload, signatureSecret);
+
                 //todo: remove old scheme
                 request.Headers.Add(FileUtility.SignatureHeader, "Bearer " + token);
 
-                token = JsonWebToken.Encode(body, signatureSecret, JwtHashAlgorithm.HS256);
+                token = encoder.Encode(body, signatureSecret);
                 body.Token = token;
             }
 
@@ -688,6 +707,9 @@ namespace ASC.Web.Core.Files
 
             [DataMember(Name = "url", IsRequired = true)]
             public string Url { get; set; }
+
+            [DataMember(Name = "region", IsRequired = true)]
+            public string Region { get; set; }
 
             [DataMember(Name = "token", EmitDefaultValue = false)]
             public string Token { get; set; }

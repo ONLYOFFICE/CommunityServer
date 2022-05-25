@@ -25,6 +25,12 @@ namespace ASC.MessagingSystem.DbSender
     public class DbMessageSender : IMessageSender
     {
         private readonly ILog log = LogManager.GetLogger("ASC.Messaging");
+        private MessagesRepository messagesRepository;
+
+        public DbMessageSender()
+        {
+            messagesRepository = new MessagesRepository();
+        }
 
         private static bool MessagingEnabled
         {
@@ -36,19 +42,21 @@ namespace ASC.MessagingSystem.DbSender
         }
 
 
-        public void Send(EventMessage message)
+        public int Send(EventMessage message)
         {
             try
             {
-                if (!MessagingEnabled) return;
+                if (!MessagingEnabled) return 0;
 
-                if (message == null) return;
+                if (message == null) return 0;
 
-                MessagesRepository.Add(message);
+                var id = messagesRepository.Add(message);
+                return id;
             }
             catch (Exception ex)
             {
                 log.Error("Failed to send a message", ex);
+                return 0;
             }
         }
     }

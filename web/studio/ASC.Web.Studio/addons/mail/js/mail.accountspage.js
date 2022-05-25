@@ -260,7 +260,7 @@ window.accountsPage = (function($) {
                 ASC.Resources.Master.ResourceJS.LoadingProcessing);
         };
 
-        $('#filesFolderUnlinkButton').unbind('click').bind('click', { account: account }, unselectAttachmentsFolder);
+        $('#filesFolderUnlinkButton').off('click').on('click', { account: account }, unselectAttachmentsFolder);
 
         ASC.Files.FileSelector.fileSelectorTree.resetFolder();
         if (account.emailInFolder == null) {
@@ -296,7 +296,7 @@ window.accountsPage = (function($) {
             config = {
                 toolbar: 'MailSignature',
                 removePlugins: 'resize, magicline',
-                filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=mail',
+                filebrowserUploadUrl: 'fckuploader.ashx?esid=mail',
                 height: 200,
                 startupFocus: true
             };
@@ -314,7 +314,7 @@ window.accountsPage = (function($) {
             $mailAutoreplyToDate = $('.mail_autoreply_to_date'),
             $turnOnToDateFlag = $('#turnOnToDateFlag');
 
-        html.find('.buttons .ok').unbind('click').bind('click', function () {
+        html.find('.buttons .ok').off('click').on('click', function () {
             if ($('#ckMailAutoreplyEditor').val() == "") {
                 ShowRequiredError($('#MailAutoreplyWYSIWYGEditor'));
             } else {
@@ -336,19 +336,19 @@ window.accountsPage = (function($) {
             } else {
                 $autoreplyDueDate.datepicker('option', 'disabled', true);
                 $mailAutoreplyToDate.removeClass('requiredFieldError');
-                checkDate($.trim($autoreplyStartDate.val()), $mailAutoreplyFromDate);
+                checkDate($autoreplyStartDate.val().trim(), $mailAutoreplyFromDate);
             }
         });
 
         $autoreplyStartDate.mask(ASC.Resources.Master.DatePatternJQ);
         $autoreplyDueDate.mask(ASC.Resources.Master.DatePatternJQ);
         $autoreplyStartDate.off('change').on('change', function () {
-            var fromDateString = $.trim($(this).val()),
-                toDateString = $.trim($('#autoreplyDueDate').val()),
+            var fromDateString = $(this).val().trim(),
+                toDateString = $('#autoreplyDueDate').val().trim(),
                 fromDate = $autoreplyStartDate.datepicker('getDate'),
                 toDate = $autoreplyDueDate.datepicker('getDate');
 
-            checkDate($.trim($(this).val()), $mailAutoreplyFromDate);
+            checkDate($(this).val().trim(), $mailAutoreplyFromDate);
 
             if ($.isDateFormat(fromDateString) && $.isDateFormat(toDateString)) {
                 if (fromDate > toDate && $turnOnToDateFlag[0].checked) {
@@ -359,14 +359,14 @@ window.accountsPage = (function($) {
                 }
             }
         });
-        $autoreplyStartDate.keyup(function () {
-            checkDate($.trim($(this).val()), $mailAutoreplyFromDate);
+        $autoreplyStartDate.on("keyup", function () {
+            checkDate($(this).val().trim(), $mailAutoreplyFromDate);
         });
 
         $autoreplyDueDate.off('change').on('change', function () { changeAutoreplyDueDate($(this).val()); });
-        $autoreplyDueDate.keyup(function () {
-            var fromDateString = $.trim($('#autoreplyStartDate').val()),
-                toDateString = $.trim($(this).val());
+        $autoreplyDueDate.on("keyup", function () {
+            var fromDateString = $('#autoreplyStartDate').val().trim(),
+                toDateString = $(this).val().trim();
             if (toDateString != '') {
                 checkDate(toDateString, $mailAutoreplyToDate);
             } else {
@@ -381,7 +381,7 @@ window.accountsPage = (function($) {
 
         var fromDate, fromDateUtc;
 
-        if ($.trim(account.autoreply.toDate) != '' && $.trim(account.autoreply.fromDate) != '') {
+        if (account.autoreply.toDate.trim() != '' && account.autoreply.fromDate.trim() != '') {
             fromDate = new Date(account.autoreply.fromDate);
             fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
             var toDate = new Date(account.autoreply.toDate),
@@ -400,7 +400,7 @@ window.accountsPage = (function($) {
         if (!$turnOnToDateFlag[0].checked) {
             $autoreplyDueDate.datepicker("option", "disabled", true);
         }
-        if ($.trim(account.autoreply.fromDate) != '') {
+        if (account.autoreply.fromDate.trim() != '') {
             fromDate = new Date(account.autoreply.fromDate);
             fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
             if (fromDateUtc.getYear() === 1 && fromDateUtc.getMonth() === 0 && fromDateUtc.getDate() === 1) {
@@ -415,8 +415,8 @@ window.accountsPage = (function($) {
             $autoreplyDueDate = $('#autoreplyDueDate'),
             $mailAutoreplyFromDate = $('.mail_autoreply_from_date'),
             $mailAutoreplyToDate = $('.mail_autoreply_to_date'),
-            fromDateString = $.trim($autoreplyStartDate.val()),
-            toDateString = $.trim(toDateStr),
+            fromDateString = $autoreplyStartDate.val().trim(),
+            toDateString = toDateStr.trim(),
             fromDate = $autoreplyStartDate.datepicker('getDate'),
             toDate = $autoreplyDueDate.datepicker('getDate');
         if (toDateString != '') {
@@ -533,7 +533,7 @@ window.accountsPage = (function($) {
 
         if (!account.enabled) {
             function setDefailt() {
-                $('#id_accounts_page .accounts_list .row[data_id="' + accountName + '"] .set_as_default_account_icon').click();
+                $('#id_accounts_page .accounts_list .row[data_id="' + accountName + '"] .set_as_default_account_icon').trigger("click");
             }
 
             accountsModal.activateAccount(accountName, true, setDefailt);
@@ -583,12 +583,17 @@ window.accountsPage = (function($) {
             serverMailboxes = [],
             aliases = [],
             groups = [],
+            imapDate = "",
             index, length;
 
         clear();
 
+        imapDate = new Date(ASC.Mail.Constants.IMAP_SYNC_START_DATE);
+
         for (index = 0, length = accounts.length; index < length; index++) {
             var account = accounts[index];
+
+            account.imapOn = account.isTeamlabMailbox && new Date(account.dateCreated) > imapDate;
 
             if (accounts[index].isGroup) {
                 groups.push(account);

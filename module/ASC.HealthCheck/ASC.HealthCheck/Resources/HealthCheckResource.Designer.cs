@@ -115,15 +115,6 @@ namespace ASC.HealthCheck.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Autoreply.
-        /// </summary>
-        public static string AutoreplyServiceTitle {
-            get {
-                return ResourceManager.GetString("AutoreplyServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ONLYOFFICE Backup.
         /// </summary>
         public static string BackupServiceTitle {

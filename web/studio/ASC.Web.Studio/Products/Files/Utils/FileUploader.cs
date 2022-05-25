@@ -180,7 +180,41 @@ namespace ASC.Web.Files.Utils
             return file;
         }
 
-        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength, bool encrypted)
+        public static File VerifyChunkedUploadForEditing(object fileId, long fileSize)
+        {
+            using (var fileDao = Global.DaoFactory.GetFileDao())
+            {
+                var file = fileDao.GetFile(fileId);
+
+                if (file == null)
+                {
+                    throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
+                }
+
+                var maxUploadSize = GetMaxFileSize(file.FolderID, true);
+
+                if (fileSize > maxUploadSize)
+                {
+                    throw FileSizeComment.GetFileSizeException(maxUploadSize);
+                }
+
+                if (!CanEdit(file))
+                {
+                    throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_EditFile);
+                }
+
+                file.ConvertedType = null;
+                file.Comment = FilesCommonResource.CommentUpload;
+                file.Encrypted = false;
+                file.ThumbnailStatus = Thumbnail.Waiting;
+
+                file.ContentLength = fileSize;
+
+                return file;
+            }
+        }
+
+        public static ChunkedUploadSession InitiateUpload(string folderId, string fileId, string fileName, long contentLength, bool encrypted, bool keepVersion = false)
         {
             if (string.IsNullOrEmpty(folderId))
                 folderId = null;
@@ -207,6 +241,7 @@ namespace ASC.Web.Files.Utils
                 uploadSession.FolderId = folderId;
                 uploadSession.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
                 uploadSession.Encrypted = encrypted;
+                uploadSession.KeepVersion = keepVersion;
 
                 ChunkedUploadSessionHolder.StoreSession(uploadSession);
 

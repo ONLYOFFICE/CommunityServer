@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>活躍用戶是門戶網站成​​員，訪客和具有“禁用”狀態的用戶除外</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>添加投票選擇</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>附加項目文件中的文件</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>使用Bitly縮短門戶網站邀請連結和共享文檔的鏈連結</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>使用您的社交帳戶登錄門戶並蒐索聯繫人</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>連接您喜歡的雲端存儲服務並將所有文件存儲在一個地方</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>借助{0} ONLYOFFICE Twilio {1}集成，可以直接從CRM和您的客戶通話</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -484,9 +469,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>要解決技術問題，請使用{0}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>基本價格</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>有關貨幣的完整列表，請參閱Avangate。</value>
   </data>
@@ -499,14 +481,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>自由；免費</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>打開完整的價格表</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>您想選擇一個新的定價計劃嗎？</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>限時優惠</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>是的，升級計劃</value>
@@ -516,9 +492,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0} 1年{2} {1}訂閱</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0} 3年{1}訂閱</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>您正在使用非營利組織計劃。</value>
@@ -559,17 +532,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3年</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>此優惠僅適用於年度訂閱者。</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>最受歡迎訂閱</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>添加新門戶將超出您當前的定價計劃所允許的最大門戶數量。</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>儲存{0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>
@@ -595,9 +559,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>可用存儲空間不足</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>您正在使用ONLYOFFICE企業版。 {0}當前​​安裝已更新，沒有提供適當的許可證。{1} {2}請上載更新的許可證以繼續使用ONLYOFFICE Enterprise Edition。</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>選擇隊友人數</value>

@@ -118,6 +118,9 @@
   <data name="EmptyScreenText" xml:space="preserve">
     <value>Öz olaylarınızı yaradın, önəmli elanlarınızı dərc edin, həmkarlarınızın fikirlərini öyrənmək üçün son xəbərləri və sorğuları portalınızda paylaşın.</value>
   </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>Tədbirlərə, mühüm elanlara, son xəbərlərə və sorğulara baxın və portalınızda həmkarlarınızın fikirlərini öyrənin.</value>
+  </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>Giriş rədd edildi</value>
   </data>

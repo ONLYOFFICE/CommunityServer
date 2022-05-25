@@ -233,6 +233,15 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
+        [DataMember(Name = "hasAttachments", Order = 160)]
+        public bool HasAttachments
+        {
+            get
+            {
+                return _baseEvent.HasAttachments;
+            }
+        }
+
 
         public static object GetSample()
         {
@@ -252,7 +261,8 @@ namespace ASC.Api.Calendar.Wrappers
                 title = "Event Name",
                 objectId = "1",
                 sourceId = "calendarID",
-                status = (int)EventStatus.Tentative
+                status = (int)EventStatus.Tentative,
+                hasAttachments = false
             };
         }
     }

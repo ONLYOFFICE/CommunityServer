@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <TargetFrameworks>net6.0;net4.8</TargetFrameworks>
+    <FileUpgradeFlags />
+    <UpgradeBackupLocation />
+    <AssemblyTitle>AppLimit.CloudComputing.SharpBox</AssemblyTitle>
+    <Company>Ascensio System SIA</Company>
+    <Product>AppLimit.CloudComputing.SharpBox</Product>
+    <Copyright>(c) Ascensio System SIA. All rights reserved</Copyright>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <WarningsAsErrors></WarningsAsErrors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.2.0.1</Version>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <AssemblyVersion>1.2.0.1</AssemblyVersion>
+    <FileVersion>1.2.0.1</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory">
+      <Version>6.0.0-rc.2.21480.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net4.8'">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+</Project>

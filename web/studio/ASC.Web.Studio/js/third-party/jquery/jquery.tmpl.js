@@ -92,7 +92,7 @@
 		},
 
 		domManip: function( args, table, callback, options ) {
-			if ( args[0] && jQuery.isArray( args[0] )) {
+			if ( args[0] && Array.isArray( args[0] )) {
 				var dmArgs = jQuery.makeArray( arguments ), elems = args[0], elemsLength = elems.length, i = 0, tmplItem;
 				while ( i < elemsLength && !(tmplItem = jQuery.data( elems[i++], "tmplItem" ))) {}
 				if ( tmplItem && cloneIndex ) {
@@ -143,7 +143,7 @@
 			if ( options && options.wrapped ) {
 				updateWrapped( options, options.wrapped );
 			}
-			ret = jQuery.isArray( data ) ?
+			ret = Array.isArray( data ) ?
 				jQuery.map( data, function( dataItem ) {
 					return dataItem ? newTmplItem( options, parentItem, tmpl, dataItem ) : null;
 				}) :
@@ -322,7 +322,7 @@
 			"with($data){__.push('" +
 
 			// Convert the template into pure JavaScript
-			jQuery.trim(markup)
+			markup.trim()
 				.replace( /([\\'])/g, "\\$1" )
 				.replace( /[\r\t\n]/g, " " )
 				.replace( /\$\{([^\}]*)\}/g, "{{= $1}}" )
@@ -363,7 +363,7 @@
 		// Build the wrapped content.
 		options._wrap = build( options, true,
 			// Suport imperative scenario in which options.wrapped can be set to a selector or an HTML string.
-			jQuery.isArray( wrapped ) ? wrapped : [htmlExpr.test( wrapped ) ? wrapped : jQuery( wrapped ).html()]
+			Array.isArray( wrapped ) ? wrapped : [htmlExpr.test( wrapped ) ? wrapped : jQuery( wrapped ).html()]
 		).join("");
 	}
 
@@ -468,7 +468,7 @@
 	function tiHtml( filter, textOnly ) {
 		var wrapped = this._wrap;
 		return jQuery.map(
-			jQuery( jQuery.isArray( wrapped ) ? wrapped.join("") : wrapped ).filter( filter || "*" ),
+			jQuery( Array.isArray( wrapped ) ? wrapped.join("") : wrapped ).filter( filter || "*" ),
 			function(e) {
 				return textOnly ?
 					e.innerText || e.textContent :
@@ -495,4 +495,4 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  */
-(function (a) { var c = a.tmpl.complete, b = a.fn.domManip; a.tmpl.complete = function (d) { var b; c(d); for (b in d) { b = d[b]; b.addedTmplItems && a.inArray(b, b.addedTmplItems) === -1 && b.addedTmplItems.push(b) } for (b in d) { b = d[b]; b.rendered && b.rendered(b) } }; a.extend({ tmplCmd: function (f, b, c) { var e = [], d; function g(f, c) { for (var e = [], a, b, i = c.length, d, g = 0, h = f.length; g < h; ) { d = f[g++]; for (b = 0; b < i; ) { a = c[b++]; a.data === d && e.push(a) } } return e } b = a.isArray(b) ? b : [b]; switch (f) { case "find": return g(b, c); case "replace": b.reverse() } a.each(c ? g(b, c) : b, function (g, b) { coll = b.nodes; switch (f) { case "update": b.update(); break; case "remove": a(coll).remove(); c && c.splice(a.inArray(b, c), 1); break; case "replace": d = d ? a(coll).insertBefore(d)[0] : a(coll).appendTo(coll[0].parentNode)[0]; e.unshift(b) } }); return e } }); a.fn.extend({ domManip: function (c, i, f) { var e = c[1], g = c[0], d; if (c.length >= 2 && typeof e === "object" && !e.nodeType && !(e instanceof a)) { d = a.makeArray(arguments); d[0] = [a.tmpl(a.template(g), e, c[2], c[3])]; d[2] = function (b) { a.tmpl.afterManip(this, b, f) }; return b.apply(this, d) } return b.apply(this, arguments) } }) })(jQuery);
+(function (a) { var c = a.tmpl.complete, b = a.fn.domManip; a.tmpl.complete = function (d) { var b; c(d); for (b in d) { b = d[b]; b.addedTmplItems && a.inArray(b, b.addedTmplItems) === -1 && b.addedTmplItems.push(b) } for (b in d) { b = d[b]; b.rendered && b.rendered(b) } }; a.extend({ tmplCmd: function (f, b, c) { var e = [], d; function g(f, c) { for (var e = [], a, b, i = c.length, d, g = 0, h = f.length; g < h; ) { d = f[g++]; for (b = 0; b < i; ) { a = c[b++]; a.data === d && e.push(a) } } return e } b = Array.isArray(b) ? b : [b]; switch (f) { case "find": return g(b, c); case "replace": b.reverse() } a.each(c ? g(b, c) : b, function (g, b) { coll = b.nodes; switch (f) { case "update": b.update(); break; case "remove": a(coll).remove(); c && c.splice(a.inArray(b, c), 1); break; case "replace": d = d ? a(coll).insertBefore(d)[0] : a(coll).appendTo(coll[0].parentNode)[0]; e.unshift(b) } }); return e } }); a.fn.extend({ domManip: function (c, i, f) { var e = c[1], g = c[0], d; if (c.length >= 2 && typeof e === "object" && !e.nodeType && !(e instanceof a)) { d = a.makeArray(arguments); d[0] = [a.tmpl(a.template(g), e, c[2], c[3])]; d[2] = function (b) { a.tmpl.afterManip(this, b, f) }; return b.apply(this, d) } return b.apply(this, arguments) } }) })(jQuery);

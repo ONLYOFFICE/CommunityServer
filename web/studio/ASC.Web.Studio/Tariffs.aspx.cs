@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management;
@@ -43,9 +44,14 @@ namespace ASC.Web.Studio
             if (CoreContext.Configuration.Personal)
                 Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
 
-            if (!TenantExtra.EnableTariffSettings ||
-                (TariffSettings.HidePricingPage &&
-                 !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID)))
+            if (!TenantExtra.EnableTariffSettings)
+                Response.Redirect("~/", true);
+
+            var isAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID);
+            if (!isAdmin && (TariffSettings.HidePricingPage || CoreContext.Configuration.Standalone))
+                Response.Redirect("~/", true);
+
+            if (CoreContext.Configuration.Standalone && TenantControlPanelSettings.Instance.LimitedAccess)
                 Response.Redirect("~/", true);
 
             if (TenantExtra.EnableControlPanel && !CoreContext.Configuration.CustomMode)
@@ -84,7 +90,6 @@ namespace ASC.Web.Studio
                 else
                 {
                     pageContainer.Controls.Add(LoadControl(TariffSaas.Location));
-                    //pageContainer.Controls.Add(LoadControl(TariffUsage.Location));
                 }
 
                 var payments = CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).ToList();

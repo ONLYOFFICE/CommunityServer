@@ -67,6 +67,72 @@
   <data name="attendeesNoAccountText" xml:space="preserve">
     <value>to send invitations</value>
   </data>
+  <data name="calendarEventAttachments_attachDeleteAllLabel" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="calendarEventAttachments_attachFilesFromDocuments" xml:space="preserve">
+    <value>Attach files from Documents</value>
+  </data>
+  <data name="calendarEventAttachments_attachmentsLabelHelpInfo" xml:space="preserve">
+    <value>All documents will be with access rights 'Read only' for guests</value>
+  </data>
+  <data name="calendarEventAttachments_bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="calendarEventAttachments_copyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Error occured while copying file</value>
+  </data>
+  <data name="calendarEventAttachments_copyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Copy to 'My documents'</value>
+  </data>
+  <data name="calendarEventAttachments_copyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Copying to 'My documents' folder</value>
+  </data>
+  <data name="calendarEventAttachments_documentAccessDeniedError" xml:space="preserve">
+    <value>Access to the document is denied.</value>
+  </data>
+  <data name="calendarEventAttachments_emptyFileNotSupportedError" xml:space="preserve">
+    <value>Empty files are not supported.</value>
+  </data>
+  <data name="calendarEventAttachments_executableWarning" xml:space="preserve">
+    <value>executable files may be not allowed by some services (e.g. Gmail)</value>
+  </data>
+  <data name="calendarEventAttachments_filesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>You have "View Only" access rights for some attached file, thus you will not be able to share them with others. {0}{0} These files can be copied to the "My documents" folder and attached as links afterward. {0}{0} Alternatively you can ask document owners to give you "Full Access" permissions to the files you want to attach as links and repeat the operation once again.</value>
+  </data>
+  <data name="calendarEventAttachments_filesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Some files cannot be attached as links.</value>
+  </data>
+  <data name="calendarEventAttachments_fileSizeError" xml:space="preserve">
+    <value>Size of attachment exceeds limit.</value>
+  </data>
+  <data name="calendarEventAttachments_insertedViaLink" xml:space="preserve">
+    <value>Inserted via link</value>
+  </data>
+  <data name="calendarEventAttachments_kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="calendarEventAttachments_label" xml:space="preserve">
+    <value>Attachments:</value>
+  </data>
+  <data name="calendarEventAttachments_limitLabel" xml:space="preserve">
+    <value>Note: the file size must not exceed %1 MB.</value>
+  </data>
+  <data name="calendarEventAttachments_megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="calendarEventAttachments_uploadFile" xml:space="preserve">
+    <value>Upload file</value>
+  </data>
+  <data name="calendarEventAttachments_uploadedLabel" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="calendarEventAttachments_uploadingLabel" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
+  <data name="calendarEventAttachments_warningLabel" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="calendar_newCalendarTitle" xml:space="preserve">
     <value>Calendar</value>
   </data>

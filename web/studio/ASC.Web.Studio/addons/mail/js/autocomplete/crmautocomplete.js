@@ -182,7 +182,7 @@
                     return false;
                 },
                 create: function() {
-                    jq(window).resize(function () {
+                    jq(window).on("resize", function () {
                         self.closeSelector();
                     });
                 },

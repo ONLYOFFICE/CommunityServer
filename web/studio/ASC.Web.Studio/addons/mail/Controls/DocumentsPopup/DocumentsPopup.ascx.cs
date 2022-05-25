@@ -21,6 +21,7 @@ using System.Web.UI;
 
 using ASC.Files.Core;
 using ASC.Web.Files;
+using ASC.Web.Files.Classes;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
@@ -35,6 +36,8 @@ namespace ASC.Web.Mail.Controls
 
         protected string FrameUrl;
 
+        protected bool ExternalLinksAvailable;
+
         private void InitScripts()
         {
             Page.RegisterStyle("~/addons/mail/Controls/DocumentsPopup/css/documentspopup.less")
@@ -45,9 +48,12 @@ namespace ASC.Web.Mail.Controls
         {
             FrameUrl = FileChoice.GetUrl(filterType: FilterType.FilesOnly, multiple: true, successButton: UserControlsCommonResource.AttachFiles);
 
+            ExternalLinksAvailable = FilesSettings.ExternalShare;
+
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 
             _documentUploader.Options.IsPopup = true;
+
             InitScripts();
         }
     }

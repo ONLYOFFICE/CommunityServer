@@ -26,6 +26,7 @@ namespace ASC.Data.Backup.Service
         private ServiceHost host;
         private BackupCleanerService cleanerService;
         private BackupSchedulerService schedulerService;
+        private BackupCleanerTempFileService deleterTempService;
 
         public void Start()
         {
@@ -45,6 +46,8 @@ namespace ASC.Data.Backup.Service
                 schedulerService = new BackupSchedulerService { Period = config.Scheduler.Period };
                 schedulerService.Start();
             }
+            deleterTempService = new BackupCleanerTempFileService();
+            deleterTempService.Start();
         }
 
         public void Stop()
@@ -64,6 +67,11 @@ namespace ASC.Data.Backup.Service
             {
                 schedulerService.Stop();
                 schedulerService = null;
+            }
+            if (deleterTempService != null)
+            {
+                deleterTempService.Stop();
+                deleterTempService = null;
             }
         }
     }

@@ -1,14 +1,14 @@
 Object.extend(Function.prototype, {
-	getArguments: function() {
+	getArguments: function () {
 		var args = [];
-		for(var i=0; i<this.arguments.length; i++) {
+		for (var i = 0; i < this.arguments.length; i++) {
 			args.push(this.arguments[i]);
 		}
 		return args;
 	}
 }, false);
 
-var MS = {"Browser":{}};
+var MS = { "Browser": {} };
 
 Object.extend(MS.Browser, {
 	isIE: navigator.userAgent.indexOf('MSIE') != -1,
@@ -18,15 +18,15 @@ Object.extend(MS.Browser, {
 
 var AjaxPro = {};
 
-AjaxPro.IFrameXmlHttp = function() {};
+AjaxPro.IFrameXmlHttp = function () { };
 AjaxPro.IFrameXmlHttp.prototype = {
 	onreadystatechange: null, headers: [], method: "POST", url: null, async: true, iframe: null,
 	status: 0, readyState: 0, responseText: null,
-	abort: function() {
+	abort: function () {
 	},
-	readystatechanged: function() {
+	readystatechanged: function () {
 		var doc = this.iframe.contentDocument || this.iframe.document;
-		if(doc != null && doc.readyState == "complete" && doc.body != null && doc.body.res != null) {
+		if (doc != null && doc.readyState == "complete" && doc.body != null && doc.body.res != null) {
 			this.status = 200;
 			this.statusText = "OK";
 			this.readyState = 4;
@@ -36,16 +36,15 @@ AjaxPro.IFrameXmlHttp.prototype = {
 		}
 		setTimeout(this.readystatechanged.bind(this), 10);
 	},
-	open: function(method, url, async) {
-		if(async == false) {
+	open: function (method, url, async) {
+		if (async == false) {
 			alert("Synchronous call using IFrameXMLHttp is not supported.");
 			return;
 		}
-		if(this.iframe == null) {
+		if (this.iframe == null) {
 			var iframeID = "hans";
 			if (document.createElement && document.documentElement &&
-				(window.opera || navigator.userAgent.indexOf('MSIE 5.0') == -1))
-			{
+				(window.opera || navigator.userAgent.indexOf('MSIE 5.0') == -1)) {
 				var ifr = document.createElement('iframe');
 				ifr.setAttribute('id', iframeID);
 				ifr.style.visibility = 'hidden';
@@ -54,8 +53,7 @@ AjaxPro.IFrameXmlHttp.prototype = {
 
 				this.iframe = document.getElementsByTagName('body')[0].appendChild(ifr);
 			}
-			else if (document.body && document.body.insertAdjacentHTML)
-			{
+			else if (document.body && document.body.insertAdjacentHTML) {
 				document.body.insertAdjacentHTML('beforeEnd', '<iframe name="' + iframeID + '" id="' + iframeID + '" style="border:1px solid black;display:none"></iframe>');
 			}
 			if (window.frames && window.frames[iframeID]) {
@@ -63,35 +61,35 @@ AjaxPro.IFrameXmlHttp.prototype = {
 			}
 			this.iframe.name = iframeID;
 			this.iframe.document.open();
-			this.iframe.document.write("<"+"html><"+"body></"+"body></"+"html>");
+			this.iframe.document.write("<" + "html><" + "body></" + "body></" + "html>");
 			this.iframe.document.close();
 		}
 		this.method = method;
 		this.url = url;
 		this.async = async;
 	},
-	setRequestHeader: function(name, value) {
-		for(var i=0; i<this.headers.length; i++) {
-			if(this.headers[i].name == name) {
+	setRequestHeader: function (name, value) {
+		for (var i = 0; i < this.headers.length; i++) {
+			if (this.headers[i].name == name) {
 				this.headers[i].value = value;
 				return;
 			}
 		}
-		this.headers.push({"name":name,"value":value});
+		this.headers.push({ "name": name, "value": value });
 	},
-	getResponseHeader: function(name, value) {
+	getResponseHeader: function (name, value) {
 		return null;
 	},
-	addInput: function(doc, form, name, value) {
+	addInput: function (doc, form, name, value) {
 		var ele;
 		var tag = "input";
-		if(value.indexOf("\n") >= 0) {
+		if (value.indexOf("\n") >= 0) {
 			tag = "textarea";
 		}
-		
-		if(doc.all) {
+
+		if (doc.all) {
 			ele = doc.createElement("<" + tag + " name=\"" + name + "\" />");
-		}else{
+		} else {
 			ele = doc.createElement(tag);
 			ele.setAttribute("name", name);
 		}
@@ -99,21 +97,21 @@ AjaxPro.IFrameXmlHttp.prototype = {
 		form.appendChild(ele);
 		ele = null;
 	},
-	send: function(data) {
-		if(this.iframe == null) {
+	send: function (data) {
+		if (this.iframe == null) {
 			return;
 		}
 		var doc = this.iframe.contentDocument || this.iframe.document;
 		var form = doc.createElement("form");
-		
+
 		doc.body.appendChild(form);
-		
+
 		form.setAttribute("action", this.url);
 		form.setAttribute("method", this.method);
 		form.setAttribute("enctype", "application/x-www-form-urlencoded");
-		
-		for(var i=0; i<this.headers.length; i++) {
-			switch(this.headers[i].name.toLowerCase()) {
+
+		for (var i = 0; i < this.headers.length; i++) {
+			switch (this.headers[i].name.toLowerCase()) {
 				case "content-length":
 				case "accept-encoding":
 				case "content-type":
@@ -124,7 +122,7 @@ AjaxPro.IFrameXmlHttp.prototype = {
 		}
 		this.addInput(doc, form, "data", data);
 		form.submit();
-		
+
 		setTimeout(this.readystatechanged.bind(this), 0);
 	}
 };
@@ -132,27 +130,27 @@ AjaxPro.IFrameXmlHttp.prototype = {
 var progids = ["Msxml2.XMLHTTP.6.0", "Msxml2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"];
 var progid = null;
 
-if(typeof ActiveXObject != "undefined") {
+if (typeof ActiveXObject != "undefined") {
 	var ie7xmlhttp = false;
-	if(typeof XMLHttpRequest == "object") {
-		try{ var o = new XMLHttpRequest(); ie7xmlhttp = true; }catch(e){}
+	if (typeof XMLHttpRequest == "object") {
+		try { var o = new XMLHttpRequest(); ie7xmlhttp = true; } catch (e) { }
 	}
-	if(typeof XMLHttpRequest == "undefined" || !ie7xmlhttp) {
-		XMLHttpRequest = function() {
+	if (typeof XMLHttpRequest == "undefined" || !ie7xmlhttp) {
+		XMLHttpRequest = function () {
 			var xmlHttp = null;
-			if(!AjaxPro.noActiveX) {
-				if(progid != null) {
+			if (!AjaxPro.noActiveX) {
+				if (progid != null) {
 					return new ActiveXObject(progid);
 				}
-				for(var i=0; i<progids.length && xmlHttp == null; i++) {
+				for (var i = 0; i < progids.length && xmlHttp == null; i++) {
 					try {
 						xmlHttp = new ActiveXObject(progids[i]);
 						progid = progids[i];
 
-					}catch(e){}
+					} catch (e) { }
 				}
 			}
-			if(xmlHttp == null && MS.Browser.isIE) {
+			if (xmlHttp == null && MS.Browser.isIE) {
 				return new AjaxPro.IFrameXmlHttp();
 			}
 			return xmlHttp;
@@ -161,69 +159,77 @@ if(typeof ActiveXObject != "undefined") {
 }
 
 Object.extend(AjaxPro, {
-	noOperation: function() {},
-	onLoading: function() {},
-	onError: function() {},
-	onTimeout: function() { return true; },
-	onStateChanged: function() {},
+	noOperation: function () { },
+	onLoading: function () { },
+	onError: function () { },
+	onTimeout: function () { return true; },
+	onStateChanged: function () { },
 	cryptProvider: null,
 	queue: null,
 	token: "",
-	version: "9.2.17.1",
+	version: "{AssemblyVersion}",
 	ID: "AjaxPro",
 	noActiveX: false,
-	timeoutPeriod: 15*1000,
+	timeoutPeriod: 15 * 1000,
 	queue: null,
 	noUtcTime: false,
-	regExDate: function(str,p1, p2,offset,s) {
-        str = str.substring(1).replace('"','');
-        var date = str;
-        
-        if (str.substring(0,7) == "\\\/Date(") {
-            str = str.match(/Date\((.*?)\)/)[1];                        
-            date = "new Date(" +  parseInt(str) + ")";
-        }
-        else { // ISO Date 2007-12-31T23:59:59Z                                     
-            var matches = str.split( /[-,:,T,Z]/);        
-            matches[1] = (parseInt(matches[1],0)-1).toString();                     
-            date = "new Date(Date.UTC(" + matches.join(",") + "))";         
-       }                  
-        return date;
-    },
-    parse: function(text) {
-		// not yet possible as we still return new type() JSON
-//		if (!(!(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(
-//		text.replace(/"(\\.|[^"\\])*"/g, '')))  ))
-//			throw new Error("Invalid characters in JSON parse string.");                 
-
-        var regEx = /(\"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}.*?\")|(\"\\\/Date\(.*?\)\\\/")/g;
-        text = text.replace(regEx,this.regExDate);      
-
-        return eval('(' + text + ')');    
-    },
-	m : {
+	regExDate: function (str, p1, p2, offset, s) {
+		var date = str.substring(1).replace('"', '');
+		if (date.substring(0, 7) == "\\\/Date(") {
+			var d = date.match(/Date\((.*?)\)/)[1];
+			return "new Date(" + parseInt(d) + ")";
+		}
+		/*else { // ISO Date 2007-12-31T23:59:59Z
+			var matches = date.split(/[-,:,T,Z]/);
+			if (matches.length == 7) {
+				matches[1] = (parseInt(matches[1], 0) - 1).toString();
+				var isDate = true;
+				var s = "";
+				for (var i = 0; i < matches.length; i++) {
+					if (isNaN(parseInt(matches[i], 10))) {
+						isDate = false;
+						break;
+					}
+					if (i > 0) {
+						s += ",";
+                    }
+					s += parseInt(matches[i], 10);
+					console.log(s);
+				}
+				if (isDate) {
+					return "new Date(Date.UTC(" + s + "))";
+				}
+			}
+		}*/
+		return str;
+	},
+	parse: function (text) {
+		text = text.replace(/(\"\\\/Date\(\d+\)\\\/")/g, this.regExDate);
+		return eval('(' + text + ')');
+	},
+	m: {
 		'\b': '\\b',
 		'\t': '\\t',
 		'\n': '\\n',
 		'\f': '\\f',
 		'\r': '\\r',
-		'"' : '\\"',
+		'"': '\\"',
 		'\\': '\\\\'
 	},
-	toJSON: function(o) {	
-		if(o == null) {
+	toJSON: function (o) {
+		if (o == null) {
 			return "null";
 		}
 		var v = [];
 		var i;
 		var c = o.constructor;
-		if(c == Number) {
+		if (c == Number) {
 			return isFinite(o) ? o.toString() : AjaxPro.toJSON(null);
-		} else if(c == Boolean) {
+		} else if (c == Boolean) {
 			return o.toString();
-		} else if(c == String) {
+		} else if (c == String) {
 			if (/["\\\x00-\x1f]/.test(o)) {
-				o = o.replace(/([\x00-\x1f\\"])/g, function(a, b) {
+				o = o.replace(/([\x00-\x1f\\"])/g, function (a, b) {
 					var c = AjaxPro.m[b];
 					if (c) {
 						return c;
@@ -233,53 +239,34 @@ Object.extend(AjaxPro, {
 						Math.floor(c / 16).toString(16) +
 						(c % 16).toString(16);
 				});
-            }
+			}
 			return '"' + o + '"';
 		} else if (c == Array) {
-			for(i=0; i<o.length; i++) {
+			for (i = 0; i < o.length; i++) {
 				v.push(AjaxPro.toJSON(o[i]));
 			}
 			return "[" + v.join(",") + "]";
 		} else if (c == Date) {
-//			var d = {};
-//			d.__type = "System.DateTime";
-//			if(AjaxPro.noUtcTime == true) {
-//				d.Year = o.getFullYear();
-//				d.Month = o.getMonth() +1;
-//				d.Day = o.getDate();
-//				d.Hour = o.getHours();
-//				d.Minute = o.getMinutes();
-//				d.Second = o.getSeconds();
-//				d.Millisecond = o.getMilliseconds();
-//			} else {
-//				d.Year = o.getUTCFullYear();
-//				d.Month = o.getUTCMonth() +1;
-//				d.Day = o.getUTCDate();
-//				d.Hour = o.getUTCHours();
-//				d.Minute = o.getUTCMinutes();
-//				d.Second = o.getUTCSeconds();
-//				d.Millisecond = o.getUTCMilliseconds();
-//			}
 			return AjaxPro.toJSON("/Date(" + new Date(Date.UTC(o.getUTCFullYear(), o.getUTCMonth(), o.getUTCDate(), o.getUTCHours(), o.getUTCMinutes(), o.getUTCSeconds(), o.getUTCMilliseconds())).getTime() + ")/");
 		}
-		if(typeof o.toJSON == "function") {
+		if (typeof o.toJSON == "function") {
 			return o.toJSON();
 		}
-		if(typeof o == "object") {
-			for(var attr in o) {
-				if(typeof o[attr] != "function") {
+		if (typeof o == "object") {
+			for (var attr in o) {
+				if (typeof o[attr] != "function") {
 					v.push('"' + attr + '":' + AjaxPro.toJSON(o[attr]));
 				}
 			}
-			if(v.length>0) {
+			if (v.length > 0) {
 				return "{" + v.join(",") + "}";
 			}
-			return "{}";		
+			return "{}";
 		}
 		return o.toString();
 	},
-	dispose: function() {
-		if(AjaxPro.queue != null) {
+	dispose: function () {
+		if (AjaxPro.queue != null) {
 			AjaxPro.queue.dispose();
 		}
 	}
@@ -287,7 +274,7 @@ Object.extend(AjaxPro, {
 
 addEvent(window, "unload", AjaxPro.dispose);
 
-AjaxPro.Request = function(url) {
+AjaxPro.Request = function (url) {
 	this.url = url;
 	this.xmlHttp = null;
 };
@@ -302,91 +289,92 @@ AjaxPro.Request.prototype = {
 	args: null,
 	context: null,
 	isRunning: false,
-	abort: function() {
-		if(this.timeoutTimer != null) {
+	abort: function () {
+		if (this.timeoutTimer != null) {
 			clearTimeout(this.timeoutTimer);
 		}
-		if(this.xmlHttp) {
+		if (this.xmlHttp) {
 			this.xmlHttp.onreadystatechange = AjaxPro.noOperation;
 			this.xmlHttp.abort();
 		}
-		if(this.isRunning) {
+		if (this.isRunning) {
 			this.isRunning = false;
 			this.onLoading(false);
 		}
 	},
-	dispose: function() {
+	dispose: function () {
 		this.abort();
 	},
-	getEmptyRes: function() {
+	getEmptyRes: function () {
 		return {
 			error: null,
 			value: null,
-			request: {method:this.method, args:this.args},
+			request: { method: this.method, args: this.args },
 			context: this.context,
 			duration: this.duration
-		};	
+		};
 	},
-	endRequest: function(res) {
+	endRequest: function (res) {
 		this.abort();
-		if(res.error != null) {
+		if (res.error != null) {
 			this.onError(res.error, this);
 		}
 
-		if(typeof this.callback == "function") {
+		if (typeof this.callback == "function") {
 			this.callback(res, this);
 		}
 	},
-	mozerror: function() {
-		if(this.timeoutTimer != null) {
+	mozerror: function () {
+		if (this.timeoutTimer != null) {
 			clearTimeout(this.timeoutTimer);
 		}
 		var res = this.getEmptyRes();
-		res.error = {Message:"Unknown",Type:"ConnectFailure",Status:0};
+		res.error = { Message: "Unknown", Type: "ConnectFailure", Status: 0 };
 		this.endRequest(res);
 	},
-	doStateChange: function() {
+	doStateChange: function () {
 		this.onStateChanged(this.xmlHttp.readyState, this);
-		if(this.xmlHttp.readyState != 4 || !this.isRunning) {
+		if (this.xmlHttp.readyState != 4 || !this.isRunning) {
 			return;
 		}
 		this.duration = new Date().getTime() - this.__start;
-		if(this.timeoutTimer != null) {
+		if (this.timeoutTimer != null) {
 			clearTimeout(this.timeoutTimer);
 		}
 		var res = this.getEmptyRes();
-		if(this.xmlHttp.status == 200 && this.xmlHttp.statusText == "OK") {
+		//Ignore empty statustext to be http2 compatible
+		if (this.xmlHttp.status == 200 && this.xmlHttp.statusText == "OK" || !this.xmlHttp.statusText) {
 			res = this.createResponse(res);
 		} else {
 			res = this.createResponse(res, true);
-			res.error = {Message:this.xmlHttp.statusText,Type:"ConnectFailure",Status:this.xmlHttp.status};
+			res.error = { Message: this.xmlHttp.statusText, Type: "ConnectFailure", Status: this.xmlHttp.status };
 		}
-		
+
 		this.endRequest(res);
 	},
-	createResponse: function(r, noContent) {
-		if(!noContent) {
-			if(typeof(this.xmlHttp.responseText) == "unknown") {
-				r.error = {Message: "XmlHttpRequest error reading property responseText.", Type: "XmlHttpRequestException"};
+	createResponse: function (r, noContent) {
+		if (!noContent) {
+			if (typeof (this.xmlHttp.responseText) == "unknown") {
+				r.error = { Message: "XmlHttpRequest error reading property responseText.", Type: "XmlHttpRequestException" };
 				return r;
 			}
-		
+
 			var responseText = "" + this.xmlHttp.responseText;
 
-			if(AjaxPro.cryptProvider != null && typeof AjaxPro.cryptProvider.decrypt == "function") {
+			if (AjaxPro.cryptProvider != null && typeof AjaxPro.cryptProvider.decrypt == "function") {
 				responseText = AjaxPro.cryptProvider.decrypt(responseText);
 			}
 
-			if(this.xmlHttp.getResponseHeader("Content-Type") == "text/xml") {
+			if (this.xmlHttp.getResponseHeader("Content-Type") == "text/xml") {
 				r.value = this.xmlHttp.responseXML;
 			} else {
-				if(responseText != null && responseText.trim().length > 0) {
+				if (responseText != null && responseText.trim().length > 0) {
 					r.json = responseText;
 					var v = null;
 					v = AjaxPro.parse(responseText);
-					if(v != null) {
-						if(typeof v.value != "undefined") r.value = v.value;
-						else if(typeof v.error != "undefined") r.error = v.error;
+					if (v != null) {
+						if (typeof v.value != "undefined") r.value = v.value;
+						else if (typeof v.error != "undefined") r.error = v.error;
 					}
 				}
 			}
@@ -396,20 +384,20 @@ AjaxPro.Request.prototype = {
 		} */
 		return r;
 	},
-	timeout: function() {
+	timeout: function () {
 		this.duration = new Date().getTime() - this.__start;
 		var r = this.onTimeout(this.duration, this);
-		if(typeof r == "undefined" || r != false) {
+		if (typeof r == "undefined" || r != false) {
 			this.abort();
 		} else {
 			this.timeoutTimer = setTimeout(this.timeout.bind(this), AjaxPro.timeoutPeriod);
 		}
 	},
-	invoke: function(method, args, callback, context) {
+	invoke: function (method, args, callback, context) {
 		this.__start = new Date().getTime();
 
 		// if(this.xmlHttp == null) {
-			this.xmlHttp = new XMLHttpRequest();
+		this.xmlHttp = new XMLHttpRequest();
 		// }
 
 		this.isRunning = true;
@@ -417,11 +405,11 @@ AjaxPro.Request.prototype = {
 		this.args = args;
 		this.callback = callback;
 		this.context = context;
-		
-		var async = typeof(callback) == "function" && callback != AjaxPro.noOperation;
-		
-		if(async) {
-			if(MS.Browser.isIE) {
+
+		var async = typeof (callback) == "function" && callback != AjaxPro.noOperation;
+
+		if (async) {
+			if (MS.Browser.isIE) {
 				this.xmlHttp.onreadystatechange = this.doStateChange.bind(this);
 			} else {
 				this.xmlHttp.onload = this.doStateChange.bind(this);
@@ -429,17 +417,17 @@ AjaxPro.Request.prototype = {
 			}
 			this.onLoading(true);
 		}
-		
+
 		var json = AjaxPro.toJSON(args) + "";
-		if(AjaxPro.cryptProvider != null && typeof AjaxPro.cryptProvider.encrypt == "function") {
+		if (AjaxPro.cryptProvider != null && typeof AjaxPro.cryptProvider.encrypt == "function") {
 			json = AjaxPro.cryptProvider.encrypt(json);
 		}
-		
+
 		this.xmlHttp.open("POST", this.url, async);
 		this.xmlHttp.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
 		this.xmlHttp.setRequestHeader("X-" + AjaxPro.ID + "-Method", method);
-		
-		if(AjaxPro.token != null && AjaxPro.token.length > 0) {
+
+		if (AjaxPro.token != null && AjaxPro.token.length > 0) {
 			this.xmlHttp.setRequestHeader("X-" + AjaxPro.ID + "-Token", AjaxPro.token);
 		}
 
@@ -449,26 +437,26 @@ AjaxPro.Request.prototype = {
 
 		this.timeoutTimer = setTimeout(this.timeout.bind(this), AjaxPro.timeoutPeriod);
 
-		try{ this.xmlHttp.send(json); }catch(e){}	// IE offline exception
+		try { this.xmlHttp.send(json); } catch (e) { }	// IE offline exception
 
-		if(!async) {
-			return this.createResponse({error: null,value: null});
+		if (!async) {
+			return this.createResponse({ error: null, value: null });
 		}
 
-		return true;	
+		return true;
 	}
 };
 
-AjaxPro.RequestQueue = function(conc) {
+AjaxPro.RequestQueue = function (conc) {
 	this.queue = [];
 	this.requests = [];
 	this.timer = null;
-	
-	if(isNaN(conc)) { conc = 2; }
 
-	for(var i=0; i<conc; i++) {		// max 2 http connections
+	if (isNaN(conc)) { conc = 2; }
+
+	for (var i = 0; i < conc; i++) {		// max 2 http connections
 		this.requests[i] = new AjaxPro.Request();
-		this.requests[i].callback = function(res) {
+		this.requests[i].callback = function (res) {
 			var r = res.context;
 			res.context = r[3][1];
 
@@ -476,55 +464,55 @@ AjaxPro.RequestQueue = function(conc) {
 		};
 		this.requests[i].callbackHandle = this.requests[i].callback.bind(this.requests[i]);
 	}
-	
+
 	this.processHandle = this.process.bind(this);
 };
 
 AjaxPro.RequestQueue.prototype = {
-	process: function() {
+	process: function () {
 		this.timer = null;
-		if(this.queue.length == 0) {
+		if (this.queue.length == 0) {
 			return;
 		}
-		for(var i=0; i<this.requests.length && this.queue.length > 0; i++) {
-			if(this.requests[i].isRunning == false) {
+		for (var i = 0; i < this.requests.length && this.queue.length > 0; i++) {
+			if (this.requests[i].isRunning == false) {
 				var r = this.queue.shift();
 
 				this.requests[i].url = r[0];
-				this.requests[i].onLoading = r[3].length >2 && r[3][2] != null && typeof r[3][2] == "function" ? r[3][2] : AjaxPro.onLoading;
-				this.requests[i].onError = r[3].length >3 && r[3][3] != null && typeof r[3][3] == "function" ? r[3][3] : AjaxPro.onError;
-				this.requests[i].onTimeout = r[3].length >4 && r[3][4] != null && typeof r[3][4] == "function" ? r[3][4] : AjaxPro.onTimeout;
-				this.requests[i].onStateChanged = r[3].length >5 && r[3][5] != null && typeof r[3][5] == "function" ? r[3][5] : AjaxPro.onStateChanged;
+				this.requests[i].onLoading = r[3].length > 2 && r[3][2] != null && typeof r[3][2] == "function" ? r[3][2] : AjaxPro.onLoading;
+				this.requests[i].onError = r[3].length > 3 && r[3][3] != null && typeof r[3][3] == "function" ? r[3][3] : AjaxPro.onError;
+				this.requests[i].onTimeout = r[3].length > 4 && r[3][4] != null && typeof r[3][4] == "function" ? r[3][4] : AjaxPro.onTimeout;
+				this.requests[i].onStateChanged = r[3].length > 5 && r[3][5] != null && typeof r[3][5] == "function" ? r[3][5] : AjaxPro.onStateChanged;
 
 				this.requests[i].invoke(r[1], r[2], this.requests[i].callbackHandle, r);
 				r = null;
 			}
 		}
-		if(this.queue.length > 0 && this.timer == null) {
+		if (this.queue.length > 0 && this.timer == null) {
 			this.timer = setTimeout(this.processHandle, 0);
 		}
 	},
-	add: function(url, method, args, e) {
+	add: function (url, method, args, e) {
 		this.queue.push([url, method, args, e]);
-		if(this.timer == null) {
+		if (this.timer == null) {
 			this.timer = setTimeout(this.processHandle, 0);
 		}
 		// this.process();
 	},
-	abort: function() {
+	abort: function () {
 		this.queue.length = 0;
 		if (this.timer != null) {
 			clearTimeout(this.timer);
 		}
 		this.timer = null;
-		for(var i=0; i<this.requests.length; i++) {
-			if(this.requests[i].isRunning == true) {
+		for (var i = 0; i < this.requests.length; i++) {
+			if (this.requests[i].isRunning == true) {
 				this.requests[i].abort();
 			}
 		}
 	},
-	dispose: function() {
-		for(var i=0; i<this.requests.length; i++) {
+	dispose: function () {
+		for (var i = 0; i < this.requests.length; i++) {
 			var r = this.requests[i];
 			r.dispose();
 		}
@@ -534,23 +522,23 @@ AjaxPro.RequestQueue.prototype = {
 
 AjaxPro.queue = new AjaxPro.RequestQueue(2);	// 2 http connections
 
-AjaxPro.AjaxClass = function(url) {
+AjaxPro.AjaxClass = function (url) {
 	this.url = url;
 };
 
 AjaxPro.AjaxClass.prototype = {
-    invoke: function(method, args, e) {
+	invoke: function (method, args, e) {
 
-        if (e != null) {
-            if (e.length != 6) {
-                for (; e.length < 6; ) { e.push(null); }
-            }
-            if (e[0] != null && typeof (e[0]) == "function") {
-                return AjaxPro.queue.add(this.url, method, args, e);
-            }
-        }
-        var r = new AjaxPro.Request();
-        r.url = this.url;
-        return r.invoke(method, args);
-    }
+		if (e != null) {
+			if (e.length != 6) {
+				for (; e.length < 6;) { e.push(null); }
+			}
+			if (e[0] != null && typeof (e[0]) == "function") {
+				return AjaxPro.queue.add(this.url, method, args, e);
+			}
+		}
+		var r = new AjaxPro.Request();
+		r.url = this.url;
+		return r.invoke(method, args);
+	}
 };

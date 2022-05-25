@@ -37,6 +37,7 @@ namespace ASC.Web.Studio.Core.Users
         public const string ContactType_skype = "skype";
         public const string ContactType_msn = "msn";
         public const string ContactType_aim = "aim";
+        public const string ContactType_telegram = "telegram";
         public const string ContactType_icq = "icq";
         public const string ContactType_gmail = "gmail";
         public const string ContactType_gbuzz = "gbuzz";
@@ -113,6 +114,11 @@ namespace ASC.Web.Studio.Core.Users
                 xml.Append("<contact id=\"aim\" title=\"" + Resource.TitleAim + "\">");
                 xml.Append("<pattern>" + Resource.HintAim + "</pattern>");
                 xml.Append("<template><span class=\"label aim\"><span class=\"inner-text\">{0}</span></span></template>");
+                xml.Append("</contact>");
+
+                xml.Append("<contact id=\"telegram\" title=\"" + Resource.TitleTelegram + "\">");
+                xml.Append("<pattern>" + Resource.HintTelegram + "</pattern>");
+                xml.Append("<template><span class=\"label telegram\"><span class=\"inner-text\">{0}</span></span></template>");
                 xml.Append("</contact>");
 
                 xml.Append("<contact id=\"icq\" title=\"" + Resource.TitleIcq + "\">");

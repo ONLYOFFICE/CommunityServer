@@ -135,7 +135,7 @@ namespace ASC.Core.Common.Configuration
                 this[providerProp.Key] = null;
             }
 
-            Cache.Publish(this, CacheNotifyAction.Remove);
+            Cache.Publish(new ConsumerCacheItem { Name = this.Name, TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId }, CacheNotifyAction.Remove);
         }
 
         public bool Contains(KeyValuePair<string, string> item)
@@ -352,5 +352,12 @@ namespace ASC.Core.Common.Configuration
         {
             return Builder.Resolve<IEnumerable<T>>();
         }
+    }
+
+    public class ConsumerCacheItem
+    {
+        public string Name { get; set; }
+        public int TenantId { get; set; }
+
     }
 }

@@ -104,7 +104,7 @@ window.tagsPage = (function($) {
         var $html = $(html);
         $html.actionMenu('tagActionMenu', buttons);
         if (0 <= tag.id) { // mail tag
-            $html.find('.tag').click(function() {
+            $html.find('.tag').on("click", function() {
                 editTag(tag.id);
             });
             // get last mail tag in list

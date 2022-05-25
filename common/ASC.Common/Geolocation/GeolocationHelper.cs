@@ -24,6 +24,8 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
+
 namespace ASC.Geolocation
 {
     public class GeolocationHelper

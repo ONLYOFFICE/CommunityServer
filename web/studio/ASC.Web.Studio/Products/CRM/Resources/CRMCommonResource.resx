@@ -974,4 +974,7 @@
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>
+  <data name="Currency_EthiopianBirr" xml:space="preserve">
+    <value>Ethiopian Birr</value>
+  </data>
 </root>

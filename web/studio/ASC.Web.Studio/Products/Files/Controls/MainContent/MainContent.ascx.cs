@@ -51,6 +51,8 @@ namespace ASC.Web.Files.Controls
 
         protected bool IsFirstVisit;
 
+        protected bool IsVisitor;
+
         public void Page_Init(object sender, EventArgs e)
         {
             var mail = WebItemManager.Instance[WebItemManager.MailProductID];
@@ -58,6 +60,8 @@ namespace ASC.Web.Files.Controls
             ProductMailAvailable = mail != null && !mail.IsDisabled();
 
             IsFirstVisit = Global.IsFirstVisit();
+
+            IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -89,7 +93,7 @@ namespace ASC.Web.Files.Controls
 
             UploaderPlaceHolder.Controls.Add(LoadControl(ChunkUploadDialog.Location));
 
-            if (IsFirstVisit && !CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor() && (Page is _Default))
+            if (IsFirstVisit && !CoreContext.Configuration.Personal && !IsVisitor && (Page is _Default))
             {
                 ControlPlaceHolder.Controls.Add(LoadControl(FilesDashboardEmptyScreen.Location));
             }

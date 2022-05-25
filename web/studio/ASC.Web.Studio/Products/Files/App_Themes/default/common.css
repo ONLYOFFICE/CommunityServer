@@ -45,7 +45,29 @@ body .may-drop-to {
 #fileSidePanelSpacer {
     margin: 0;
 }
-
+.auto-clean-up {
+    display: flex;
+    align-items: center;
+}
+.auto-clean-up-info {
+    margin-left: 52px;
+    cursor: pointer;
+}
+#defaultAccessRightsSetting label {
+    display: inline-block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    height: 18px;
+    line-height: 18px;
+}
+#defaultAccessRightsSetting label input {
+    vertical-align: middle;
+    margin: 0 8px 0 0;
+}
+#defaultAccessRightsSetting .header-base-small {
+    display: inline-block;
+    margin-bottom: 8px;
+}
 /*******************************************************************************
     Selector
 *******************************************************************************/

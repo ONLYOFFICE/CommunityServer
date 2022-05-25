@@ -24,6 +24,7 @@ namespace ASC.Feed
     {
         Created = 0,
         Updated = 1,
-        Commented = 2
+        Commented = 2,
+        AllDayEventCreated = 3
     }
 }

@@ -54,12 +54,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="JabberStyler.cs" />
+    <Compile Include="MarkDownStyler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushStyler.cs" />
     <Compile Include="TextileStyler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\style.css"></EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\NotifyTemplateResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </EmbeddedResource>

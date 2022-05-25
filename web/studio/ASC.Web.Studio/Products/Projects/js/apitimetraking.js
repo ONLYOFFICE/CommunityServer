@@ -127,20 +127,20 @@ ASC.Projects.TimeTraking = (function($) {
         };
 
         unlockElements();
-        $inputHours.focus();
+        $inputHours.trigger("focus");
             
         if ($("#teamList option").length === 0 || $("#selectUserTasks option").length === 0) {
             lockStartAndAddButtons();
         }
 
         if (!$inputDate.hasClass('hasDatepicker')) {
-            $inputDate.datepicker({ selectDefaultDate: false, onSelect: function () { $inputDate.blur(); } });
+            $inputDate.datepicker({ selectDefaultDate: false, onSelect: function () { $inputDate.trigger("blur"); } });
         }
 
         $inputDate.mask(ASC.Resources.Master.DatePatternJQ);
         $inputDate.datepicker('setDate', teamlab.getDisplayDate(new Date()));
 
-        $('#timerTime #selectUserProjects').bind('change', function() {
+        $('#timerTime #selectUserProjects').on('change', function() {
             var prjid = parseInt($("#selectUserProjects option:selected").val());
 
             var onCompleteObj = function (cb) {
@@ -162,13 +162,13 @@ ASC.Projects.TimeTraking = (function($) {
             asyncMethods.push(function (cb) {
                 teamlab.getProjectTeamExcluded(prjid, {
                     before: function () {
-                        $("#teamList").attr(disabledAttr, disabledAttr);
-                        $("#selectUserTasks").attr(disabledAttr, disabledAttr);
+                        $("#teamList").prop(disabledAttr, true);
+                        $("#selectUserTasks").prop(disabledAttr, true);
                     },
                     success: onGetTeam,
                     after: function () {
-                        $("#teamList").removeAttr(disabledAttr);
-                        $("#selectUserTasks").removeAttr(disabledAttr);
+                        $("#teamList").prop(disabledAttr, false);
+                        $("#selectUserTasks").prop(disabledAttr, false);
                     }
                 });
             });
@@ -176,24 +176,24 @@ ASC.Projects.TimeTraking = (function($) {
             async.parallel(asyncMethods);
         });
 
-        $startButton.bind(clickEvent, function () {
+        $startButton.on(clickEvent, function () {
             if ($startButton.hasClass(disableClass)) return;
             playPauseTimer();
         });
 
-        $resetButton.bind(clickEvent, function () {
+        $resetButton.on(clickEvent, function () {
             if ($resetButton.hasClass(disableClass)) return;
             resetTimer();
         });
 
-        $addLog.bind(clickEvent, function () {
+        $addLog.on(clickEvent, function () {
             if ($addLog.hasClass(disableClass)) return;
             lockStartAndAddButtons();
             var h, m, s;
             var prjid = parseInt($("#selectUserProjects option:selected").attr("value"));
             var personid = $("#teamList option:selected").attr("value");
             var taskid = parseInt($("#selectUserTasks option:selected").attr("value"));
-            var description = $.trim($textareaTimeDesc.val());
+            var description = $textareaTimeDesc.val().trim();
             var invalidTime = false;
             var hours;
 
@@ -270,14 +270,17 @@ ASC.Projects.TimeTraking = (function($) {
         });
 
         function checkKey(e) {
-            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 13) {
                 e.stopPropagation();
                 return false;
             }
+            if (e.which == 13) {
+                $addLog.click();
+            }
         }
 
-        $inputMinutes.keypress(checkKey);
-        $inputHours.keypress(checkKey);
+        $inputMinutes.on("keypress", checkKey);
+        $inputHours.on("keypress", checkKey);
     };
 
     function isInt(input) {
@@ -373,24 +376,23 @@ ASC.Projects.TimeTraking = (function($) {
     };
 
     function lockElements(onlyManualInput) {
-        var trueStr = "true";
-        $inputHours.attr(disabledAttr, trueStr);
-        $inputMinutes.attr(disabledAttr, trueStr);
+        $inputHours.prop(disabledAttr, true);
+        $inputMinutes.prop(disabledAttr, true);
         if (!onlyManualInput) {
-            $inputDate.attr(disabledAttr, trueStr);
-            $textareaTimeDesc.attr(disabledAttr, trueStr);
+            $inputDate.prop(disabledAttr, true);
+            $textareaTimeDesc.prop(disabledAttr, true);
         }
     };
 
     function unlockElements() {
         var t = getCurrentTime();
         if (t.h === 0 && t.m === 0 && t.s === 0) {
-            $inputHours.removeAttr(disabledAttr);
-            $inputMinutes.removeAttr(disabledAttr);
+            $inputHours.prop(disabledAttr, false);
+            $inputMinutes.prop(disabledAttr, false);
         }
 
-        $inputDate.removeAttr(disabledAttr);
-        $textareaTimeDesc.removeAttr(disabledAttr);
+        $inputDate.prop(disabledAttr, false);
+        $textareaTimeDesc.prop(disabledAttr, false);
     };
 
     function lockStartAndAddButtons() {
@@ -540,7 +542,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
             }
         });
 
-        $('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function () {
+        $('#timeTrakingPopup .middle-button-container a.button.blue.middle').on('click', function () {
             
             var h = parseInt(inputHours.val(), 10);
             var m = parseInt(inputMinutes.val(), 10);
@@ -577,18 +579,18 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         
         if (parseInt(m, 10) > 59 || parseInt(m, 10) < 0 || !isInt(m)) {
             errorPanel.text(ProjectsJSResource.InvalidTime);
-            inputMinutes.focus();
+            inputMinutes.trigger("focus");
             error = true;
         }
         if (parseInt(h, 10) < 0 || !isInt(h)) {
             errorPanel.text(ProjectsJSResource.InvalidTime);
-            inputHours.focus();
+            inputHours.trigger("focus");
             error = true;
         }
         
-        if ($.trim(d) === "" || d == null || !$.isDateFormat(d)) {
+        if (d == null || d.trim() === "" || !$.isDateFormat(d)) {
             errorPanel.text(ProjectsJSResource.IncorrectDate);
-            $('#timeTrakingPopup #timeTrakingDate').focus();
+            $('#timeTrakingPopup #timeTrakingDate').trigger("focus");
             error = true;
         }
 
@@ -638,7 +640,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         }
 
         StudioBlockUIManager.blockUI($popupContainer, 550);
-        inputHours.focus();
+        inputHours.trigger("focus");
     };
 
     function onGetTimeSpend(params, data) {

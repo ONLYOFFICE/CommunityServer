@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="362f6481-64dd-4f21-9e71-1d157b5dc745" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        Welcome to the openstack.net SDK. If you have any information, tips, updates, or corrections that
+        you would like to see added to the guide, feel free to submit them to the author using the
+        <ui>Send Feedback</ui> link at the bottom of the page or the e-mail link in the page footer.
+      </para>
+    </introduction>
+
+    <section address="ProjectResources">
+      <title>Project Resources</title>
+      <content>
+        <para>
+          The following links go directly to the latest information available about the project.
+        </para>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              Getting Started: <link xlink:href="e11545c6-88c9-4ff1-b0cf-abffd4bd3ff7"/>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Latest Release: <externalLink>
+                <linkText>GitHub Releases</linkText>
+                <linkAlternateText>Release notes for the latest release on GitHub</linkAlternateText>
+                <linkUri>https://github.com/openstacknetsdk/openstack.net/releases/latest</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Source Code: <externalLink>
+                <linkText>GitHub Repository</linkText>
+                <linkAlternateText>Source code for the project on GitHub</linkAlternateText>
+                <linkUri>https://github.com/openstacknetsdk/openstack.net</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Documentation: <externalLink>
+                <linkText>API Documentation</linkText>
+                <linkAlternateText>Documentation for the latest release</linkAlternateText>
+                <linkUri>http://openstacknetsdk.org/docs</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Issue Tracker: <externalLink>
+                <linkText>GitHub Issues</linkText>
+                <linkAlternateText>Project issue tracker on GitHub Issues</linkAlternateText>
+                <linkUri>https://github.com/openstacknetsdk/openstack.net/issues</linkUri>
+              </externalLink>
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <relatedTopics/>
+  </developerConceptualDocument>
+</topic>

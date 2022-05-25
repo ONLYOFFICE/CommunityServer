@@ -27,6 +27,7 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
@@ -41,6 +42,7 @@ namespace ASC.Web.Studio.Core.Notify
     public class StudioNotifyService
     {
         private readonly INotifyClient client;
+        private ILog Log = LogManager.GetLogger("ASC.Notify");
 
         private static string EMailSenderName { get { return ASC.Core.Configuration.Constants.NotifyEMailSenderSysName; } }
 
@@ -191,20 +193,24 @@ namespace ASC.Web.Studio.Core.Notify
             client.SendNoticeAsync(Actions.VoipBlocked, null, null);
         }
 
-        #endregion
 
+
+        #endregion
         #region User Password
 
         public void UserPasswordChange(UserInfo userInfo)
         {
-            var hash = CoreContext.Authentication.GetUserPasswordStamp(userInfo.ID).ToString("s");
+            var auditEventDate = DateTime.UtcNow;
+
+            String hash = auditEventDate.ToString("s");
+
             var confirmationUrl = CommonLinkUtility.GetConfirmationUrl(userInfo.Email, ConfirmType.PasswordChange, hash);
 
             Func<string> greenButtonText = () => WebstudioNotifyPatternResource.ButtonChangePassword;
 
             var action = CoreContext.Configuration.Personal
-                             ? (CoreContext.Configuration.CustomMode ? Actions.PersonalCustomModePasswordChange : Actions.PersonalPasswordChange)
-                             : Actions.PasswordChange;
+                             ? (CoreContext.Configuration.CustomMode ? Actions.PersonalCustomModeEmailChangeV115 : Actions.PersonalPasswordChangeV115)
+                             : Actions.PasswordChangeV115;
 
             client.SendNoticeToAsync(
                         action,
@@ -213,6 +219,10 @@ namespace ASC.Web.Studio.Core.Notify
                         new[] { EMailSenderName },
                         null,
                         TagValues.GreenButton(greenButtonText, confirmationUrl));
+
+            var displayUserName = userInfo.DisplayUserName(false);
+
+            MessageService.Send(HttpContext.Current.Request, auditEventDate, MessageAction.UserSentPasswordChangeInstructions, MessageTarget.Create(userInfo.ID), displayUserName);
         }
 
         #endregion
@@ -594,7 +604,7 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception ex)
                 {
-                    LogManager.GetLogger("ASC.Notify").Error(ex);
+                    Log.Error(ex);
                 }
             });
 
@@ -678,6 +688,7 @@ namespace ASC.Web.Studio.Core.Notify
                 notifyAction = defaultRebranding ? Actions.EnterpriseAdminWelcomeV10 : Actions.EnterpriseWhitelabelAdminWelcomeV10;
 
                 tagValues.Add(TagValues.GreenButton(() => WebstudioNotifyPatternResource.ButtonAccessControlPanel, CommonLinkUtility.GetFullAbsolutePath(SetupInfo.ControlPanelUrl)));
+                tagValues.Add(new TagValue(Tags.ControlPanelUrl, CommonLinkUtility.GetFullAbsolutePath(SetupInfo.ControlPanelUrl).TrimEnd('/')));
             }
             else if (TenantExtra.Opensource)
             {
@@ -690,6 +701,7 @@ namespace ASC.Web.Studio.Core.Notify
                 notifyAction = Actions.SaasAdminWelcomeV115;
                 //tagValues.Add(TagValues.GreenButton(() => WebstudioNotifyPatternResource.ButtonConfigureRightNow, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetAdministration(ManagementType.General))));
                 tagValues.Add(new TagValue(CommonTags.Footer, "common"));
+                tagValues.Add(new TagValue(Tags.PricingPage, CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx")));
             }
 
             tagValues.Add(new TagValue(Tags.UserName, newUserInfo.FirstName.HtmlEncode()));
@@ -887,7 +899,7 @@ namespace ASC.Web.Studio.Core.Notify
             }
             catch (Exception error)
             {
-                LogManager.GetLogger("ASC.Notify").Error(error);
+                Log.Error(error);
             }
         }
 
@@ -1041,7 +1053,7 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception ex)
                 {
-                    LogManager.GetLogger("ASC.Notify").Error(ex);
+                    Log.Error(ex);
                 }
             });
         }
@@ -1106,7 +1118,7 @@ namespace ASC.Web.Studio.Core.Notify
             }
             catch (Exception error)
             {
-                LogManager.GetLogger("ASC.Notify").Error(error);
+                Log.Error(error);
             }
         }
 

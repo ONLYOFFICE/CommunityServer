@@ -80,7 +80,7 @@
         initAdvSelectorData: function () {
             var that = this;
 
-            that.rewriteObjectItem.call(that, window.GroupManager.getAllGroups());
+            that.rewriteObjectItem.call(that, window.GroupManager.getGroupsArray());
 
             //teamlab.getGroups({}, {
             //    before: function () {
@@ -155,7 +155,7 @@
                 isError = true;
             }
             if (isError) {
-                $addPanel.find(".error input").first().focus();
+                $addPanel.find(".error input").first().trigger("focus");
                 return;
             }
             teamlab.addGroup(null, newGroup, {

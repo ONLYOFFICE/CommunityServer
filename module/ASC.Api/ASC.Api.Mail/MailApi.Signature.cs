@@ -28,9 +28,11 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        /// This method needed for getting mailbox signature.
+        /// Returns a signature of a mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id"></param>
+        /// <short>Get a signature</short>
+        /// <category>Signature</category>
+        /// <param name="mailbox_id">Mailbox ID</param>
         /// <returns>Signature object</returns>
         [Read(@"signature/{mailbox_id:[0-9]+}")]
         public MailSignatureData GetSignature(int mailbox_id)
@@ -46,11 +48,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// This method needed for update or create signature.
+        /// Updates or creates a signature of a mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id">Id of updated mailbox.</param>
-        /// <param name="html">New signature value.</param>
-        /// <param name="is_active">New signature status.</param>
+        /// <short>Update a signature</short>
+        /// <category>Signature</category>
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="html">New signature value</param>
+        /// <param name="is_active">New signature status (active or not)</param>
+        /// <returns>Updated signature object</returns>
         [Create(@"signature/update/{mailbox_id:[0-9]+}")]
         public MailSignatureData UpdateSignature(int mailbox_id, string html, bool is_active)
         {

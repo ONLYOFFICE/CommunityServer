@@ -9,7 +9,7 @@
         var load = function (fun) {
             onReady(fun);
 
-            var ckeditorScript = loadScript("ckeditor.js");
+            var ckeditorScript = loadScript("ckeditor.js?ver=4.16.1");
             ckeditorScript.onload = function () {
                 var adapterScript = loadScript("adapters/jquery.js");
                 adapterScript.onload = function () {

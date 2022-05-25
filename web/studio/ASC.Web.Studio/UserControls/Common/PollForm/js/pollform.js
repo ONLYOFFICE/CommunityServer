@@ -95,7 +95,7 @@ PollMaster = new function () {
             '</div>';
 
         jq('#__poll_' + uniqueID + '_qbox').append(sb);
-        jq("input[name='q" + numb + "']").focus();
+        jq("input[name='q" + numb + "']").trigger("focus");
         if (numb > 2)
             jq("span[class^='poll_remove_span']").show();
         if (numb >= 15)

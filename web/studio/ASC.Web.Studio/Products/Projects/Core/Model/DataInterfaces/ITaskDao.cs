@@ -43,6 +43,8 @@ namespace ASC.Projects.Core.DataInterfaces
 
         List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
 
+        List<Tuple<Guid, int, int>> GetByFilterAverageTime(TaskFilter filter, bool isAdmin, bool checkAccess);
+
         IEnumerable<TaskFilterCountOperationResult> GetByFilterCountForStatistic(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         List<Task> GetById(ICollection<int> ids);

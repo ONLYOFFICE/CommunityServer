@@ -219,7 +219,7 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-                SecurityContext.AuthenticateMe(_author);
+                SecurityContext.CurrentAccount = _author;
 
                 using (var scope = DIHelper.Resolve())
                 {

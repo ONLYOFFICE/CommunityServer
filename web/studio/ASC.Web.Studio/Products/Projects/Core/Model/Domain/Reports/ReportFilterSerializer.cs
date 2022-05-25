@@ -116,6 +116,19 @@ namespace ASC.Projects.Core.Domain.Reports
                 }
             }
 
+            if (filter.ViewType == 1 && filter.TypeOfShowAverageTime == AverageTime.CompletingTasks && filter.IsShowAverageTime)
+            {
+                root.Add(new XElement("showAvgForTask", true));
+            }
+            else if (filter.IsShowAverageTime)
+            {
+                root.Add(new XElement("isShowAverageTime", filter.IsShowAverageTime));
+                if (filter.TypeOfShowAverageTime != AverageTime.All)
+                {
+                    root.Add(new XElement("typeOfShowAverageTime", filter.TypeOfShowAverageTime));
+                }
+            }
+
             doc.AddFirst(root);
             return doc.ToString(SaveOptions.DisableFormatting);
         }
@@ -214,6 +227,25 @@ namespace ASC.Projects.Core.Domain.Reports
                 }
             }
 
+            var isShowAverageTime = root.Element("isShowAverageTime");
+            if (isShowAverageTime != null)
+            {
+                filter.IsShowAverageTime = bool.Parse(isShowAverageTime.Value);
+            }
+
+            var typeOfShowAverageTime = root.Element("typeOfShowAverageTime");
+            if (typeOfShowAverageTime != null)
+            {
+                filter.TypeOfShowAverageTime = (AverageTime)Enum.Parse(typeof(AverageTime), typeOfShowAverageTime.Value);
+            }
+
+            var showAvgForTask = root.Element("showAvgForTask");
+            if (showAvgForTask != null)
+            {
+                filter.IsShowAverageTime = true;
+                filter.TypeOfShowAverageTime = AverageTime.CompletingTasks;
+            }
+
             return filter;
         }
 
@@ -269,6 +301,18 @@ namespace ASC.Projects.Core.Domain.Reports
             if (filter.PaymentStatuses.Any())
             {
                 uri.AppendFormat("&fpays={0}", string.Join(LIST_SEP, filter.PaymentStatuses.Select(id => ((int)id).ToString(CultureInfo.InvariantCulture)).ToArray()));
+            }
+            if (filter.ViewType == 1 && filter.TypeOfShowAverageTime == AverageTime.CompletingTasks && filter.IsShowAverageTime)
+            {
+                uri.AppendFormat("&ctasks={0}", true);
+            }
+            else if (filter.IsShowAverageTime)
+            {
+                uri.AppendFormat("&atchecked={0}", filter.IsShowAverageTime);
+                if (filter.TypeOfShowAverageTime != AverageTime.All)
+                {
+                    uri.AppendFormat("&atstat={0}", filter.TypeOfShowAverageTime);
+                }
             }
 
             return uri.ToString().Trim('&').ToLower();
@@ -338,6 +382,22 @@ namespace ASC.Projects.Core.Domain.Reports
 
             p = GetParameterFromUri(uri, "fpays");
             if (!string.IsNullOrEmpty(p)) filter.PaymentStatuses = ToEnumsArray<PaymentStatus>(p);
+
+            p = GetParameterFromUri(uri, "atstat");
+            if (!string.IsNullOrEmpty(p)) filter.ViewAverageTime = ToEnumsArray<AverageTime>(p);
+
+            p = GetParameterFromUri(uri, "atchecked");
+            if (!string.IsNullOrEmpty(p)) filter.IsShowAverageTime = bool.Parse(p);
+
+            p = GetParameterFromUri(uri, "atstat");
+            if (!string.IsNullOrEmpty(p)) filter.TypeOfShowAverageTime = (AverageTime)Enum.Parse(typeof(AverageTime), p);
+            
+            p = GetParameterFromUri(uri, "ctasks");
+            if (!string.IsNullOrEmpty(p) && bool.Parse(p))
+            {
+                filter.TypeOfShowAverageTime = AverageTime.CompletingTasks;
+                filter.IsShowAverageTime = true;
+            }
 
             return filter;
         }

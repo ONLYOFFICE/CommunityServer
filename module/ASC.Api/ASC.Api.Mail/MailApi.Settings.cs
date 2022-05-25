@@ -23,9 +23,9 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns Common Settings
+        /// Returns the common settings.
         /// </summary>
-        /// <returns>MailCommonSettings object</returns>
+        /// <returns>Common settings</returns>
         /// <short>Get common settings</short> 
         /// <category>Settings</category>
         [Read(@"settings")]
@@ -36,10 +36,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns EnableConversations flag
+        /// Returns the "Enable conversations" flag.
         /// </summary>
-        /// <returns>boolean</returns>
-        /// <short>Get EnableConversations flag</short> 
+        /// <returns>Boolean value: True - the flag is enabled, False - the flag is disabled</returns>
+        /// <short>Get the "Enable conversations" flag</short> 
         /// <category>Settings</category>
         [Read(@"settings/conversationsEnabled")]
         public bool GetEnableConversationFlag()
@@ -49,10 +49,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Set EnableConversations flag
+        /// Sets the "Enable Conversations" flag.
         /// </summary>
-        /// <param name="enabled">True or False value</param>
-        /// <short>Set EnableConversations flag</short> 
+        /// <param name="enabled">Specifies if the "Enable Conversations" flag is enabled or not</param>
+        /// <short>Set the "Enable Conversations" flag</short> 
         /// <category>Settings</category>
         [Update(@"settings/conversationsEnabled")]
         public void SetEnableConversationFlag(bool enabled)
@@ -61,10 +61,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns AlwaysDisplayImages flag
+        /// Returns the "Always display images" flag.
         /// </summary>
-        /// <returns>boolean</returns>
-        /// <short>Get AlwaysDisplayImages flag</short> 
+        /// <returns>Boolean value: True - the flag is enabled, False - the flag is disabled</returns>
+        /// <short>Get the "Always display images" flag</short> 
         /// <category>Settings</category>
         [Read(@"settings/alwaysDisplayImages")]
         public bool GetAlwaysDisplayImagesFlag()
@@ -74,10 +74,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Set AlwaysDisplayImages flag
+        /// Sets the "Always display images" flag.
         /// </summary>
-        /// <param name="enabled">True or False value</param>
-        /// <short>Set AlwaysDisplayImages flag</short> 
+        /// <param name="enabled">Specifies if the "Always display images" flag is enabled or not</param>
+        /// <short>Set the "Always display images" flag</short> 
         /// <category>Settings</category>
         [Update(@"settings/alwaysDisplayImages")]
         public void SetAlwaysDisplayImagesFlag(bool enabled)
@@ -86,15 +86,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns CacheUnreadMessages flag
+        /// Returns the "Cache unread messages" flag.
         /// </summary>
-        /// <returns>boolean</returns>
-        /// <short>Get CacheUnreadMessages flag</short> 
+        /// <returns>Boolean value: True - the flag is enabled, False - the flag is disabled</returns>
+        /// <short>Get the "Cache unread messages" flag</short> 
         /// <category>Settings</category>
         [Read(@"settings/cacheMessagesEnabled")]
         public bool GetCacheUnreadMessagesFlag()
         {
-            //TODO: Change cache algoritnm and restore it back
+            //TODO: Change cache algorithm and restore it back.
 
             /*var value = MailCommonSettings.CacheUnreadMessages;
             return value;*/
@@ -103,10 +103,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Set CacheUnreadMessages flag
+        /// Sets the "Cache unread messages" flag.
         /// </summary>
-        /// <param name="enabled">True or False value</param>
-        /// <short>Set CacheUnreadMessages flag</short> 
+        /// <param name="enabled">Specifies if the "Cache unread messages" flag is enabled or not</param>
+        /// <short>Set the "Cache unread messages" flag</short> 
         /// <category>Settings</category>
         [Update(@"settings/cacheMessagesEnabled")]
         public void SetCacheUnreadMessagesFlag(bool enabled)
@@ -115,10 +115,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns GoNextAfterMove flag
+        /// Returns the "Go next after move" flag.
         /// </summary>
-        /// <returns>boolean</returns>
-        /// <short>Get GoNextAfterMove flag</short> 
+        /// <returns>Boolean value: True - the flag is enabled, False - the flag is disabled</returns>
+        /// <short>Get the "Go next after move" flag</short> 
         /// <category>Settings</category>
         [Read(@"settings/goNextAfterMoveEnabled")]
         public bool GetEnableGoNextAfterMoveFlag()
@@ -128,10 +128,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Set GoNextAfterMove flag
+        /// Sets the "Go next after move" flag.
         /// </summary>
-        /// <param name="enabled">True or False value</param>
-        /// <short>Set GoNextAfterMove flag</short> 
+        /// <param name="enabled">Specifies if the "Go next after move" flag is enabled or not</param>
+        /// <short>Set the "Go next after move" flag</short> 
         /// <category>Settings</category>
         [Update(@"settings/goNextAfterMoveEnabled")]
         public void SetEnableGoNextAfterMoveFlag(bool enabled)
@@ -140,10 +140,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns ReplaceMessageBody flag
+        /// Returns the "Replace message body" flag.
         /// </summary>
-        /// <returns>boolean</returns>
-        /// <short>Get ReplaceMessageBody flag</short> 
+        /// <returns>Boolean value: True - the flag is enabled, False - the flag is disabled</returns>
+        /// <short>Get the "Replace message body" flag</short> 
         /// <category>Settings</category>
         [Read(@"settings/replaceMessageBody")]
         public bool GetEnableReplaceMessageBodyFlag()
@@ -153,10 +153,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Set ReplaceMessageBody flag
+        /// Sets the "Replace message body" flag.
         /// </summary>
-        /// <param name="enabled">True or False value</param>
-        /// <short>Set ReplaceMessageBody flag</short> 
+        /// <param name="enabled">Specifies if the "Replace message body" flag is enabled or not</param>
+        /// <short>Set the "Replace message body" flag</short> 
         /// <category>Settings</category>
         [Update(@"settings/replaceMessageBody")]
         public void SetEnableReplaceMessageBodyFlag(bool enabled)

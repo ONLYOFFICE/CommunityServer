@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Järjestelmänvalvojat</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Kumppanuusohjelma</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Kaikki verkkotunnukset</value>
   </data>
@@ -477,12 +474,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>sisäänkirjautuminen</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>API avain</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Yhdistä Bitly palveluun, jotta voit lyhentää portaalin kutsun linkkejä ja jaettuja linkkejä asiakirjojen moduulissa.</value>
@@ -1111,9 +1102,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Uusi salasana on virheellinen. Sen on sisällettävä</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Sen on sisällettävä</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>numerot</value>
   </data>
@@ -1282,9 +1270,6 @@
   </data>
   <data name="HelpCenter" xml:space="preserve">
     <value>Ohjekeskus (englanniksi)</value>
-  </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Ohjelman tarkoituksena on mainostaa ONLYOFFICE™ palvelua. Saat palkkion jokaisesta tilauksesta, joka saa alkunsa lähettämästäsi suosituksesta.</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Piilota</value>
@@ -1465,9 +1450,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Siirrä myös ONLYOFFICE™ sähköposti (ei suositella)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Liity ohjelmaan</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Voit jatkaa käyttäjien lisäämistä vieraina tai vaihtoehtoisesti päivittää tilauksesi suurempaan käyttäjämäärään.</value>
@@ -2385,15 +2367,6 @@ Puhdista lista{1}.</value>
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Kutsut on onnistuneesti lähetetty uudelleen</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Lähetä sähköposti</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Ota yhteyttä saadaksesi tietää erikoistarjouksistamme</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Vähennä tarvittavaa arvoa tai valitse uusi hintavaihtoehto.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Osta</value>
   </data>
@@ -2405,18 +2378,6 @@ Puhdista lista{1}.</value>
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Valitse vaihtoehto, joka sopii parhaiten tarpeisiisi. Suositeltu vaihtoehto on esivalittu valmiiksi.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Tämä hintavaihtoehto ei ole käytettävissä</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Sivuston käytettävissä oleva levytila: {0}. Levytilaa käytetty: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Sivuston käyttäjien enimmäismäärä: {0}. Nykyinen käyttäjämäärä: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Et voi valita tätä hintavaihtoehtoa. Nykyinen levytilasi tai käyttäjämääräsi ylittää valitsemasi hintavaihtoehdon rajat:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Automaattinen uudelleentilaus on aktivoitu</value>
@@ -2442,9 +2403,6 @@ Puhdista lista{1}.</value>
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>ONLYOFFICE™ portaalisi epäaktivoidaan pian {2}. Ole hyvä ja {0}klikkaa tätä{1} jotta voit jatkaa olemassaolevaa palvelua tai muuta se sopivaan.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Luomasi portaalien määrä: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Hintavaihtoehto ei ole käytettävissä ennen maksetun vuoden päättymistä.</value>
   </data>
@@ -2453,9 +2411,6 @@ Puhdista lista{1}.</value>
   </data>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Kirjaudu Avangate-tilillesi peruuttaaksesi toistuvan maksun.</value>
-  </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Tarjous on voimassa {0} asti.</value>
   </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Hintavaihtoehdot</value>

@@ -1,0 +1,9 @@
+version: 1.0.{build}
+os: Visual Studio 2015 RC
+build_script:
+- msbuild build\build.proj /nologo /t:CI
+after_build:
+- cd build
+- powershell -Command .\appveyor-deploy-docs.ps1
+- cd ..
+test: off

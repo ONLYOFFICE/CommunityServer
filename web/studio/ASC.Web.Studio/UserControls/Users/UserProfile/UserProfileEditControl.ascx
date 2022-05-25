@@ -98,12 +98,12 @@
                     <div id="inputUserEmail">
                         <input type="text" id="profileEmail" value="<%= Email %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag ? "disabled" : "" %> <%= ProfileIsLdap ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : (ProfileIsSso ? " title=\"" + Resource.SsoUserEditCanOnlyAdminTitle + "\"" : " title=\"" + Resource.Email + "\"") %>/>
                         <span class="emailInfo"></span>
-                        <% if (!IsPageEditProfileFlag  && !IsTrial) { %>
+                        <% if (CanCreateEmailOnDomain) { %>
                         <br />
                         <a id="createEmailOnDomain" class="link dotline" style="display:none;"><%= Resource.CreateEmailOnDomain %></a>
                         <% } %>
                     </div>
-                    <% if (!IsPageEditProfileFlag && CurrentUserIsMailAdmin  && !IsTrial) { %>
+                    <% if (CanCreateEmailOnDomain) { %>
                     <div id="inputPortalEmail" style="display:none;">
                         <input type="text" autocomplete="off" class="textEdit portalEmail" maxlength="30" size="30" />
                         @<select id="domainSelector"></select>
@@ -151,12 +151,13 @@
                         <div id="bubleBlock">
                         <div id="passwordInfo" style="display:none;"><%= Resource.ErrorPasswordMessage %>:
                             <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(), UserPasswordMinLength, PasswordSettings.MaxLength) %></span>
+                            <br /><span id="passLatinLetters" class="infoItem"><%= Resource.ErrorPasswordOnlyLatinLetters + ", " + Resource.ErrorPasswordNoSpaces %></span>
                             <% if (UserPasswordDigits) { %>
                             <br /><span id="passDigits" class="infoItem"><%= Resource.ErrorPasswordNoDigits %></span>
                             <% } if (UserPasswordUpperCase) { %>
                             <br /><span id="passUpper" class="infoItem"><%= Resource.ErrorPasswordNoUpperCase %></span>
                             <% } if (UserPasswordSpecSymbols) { %>
-                            <br /><span id="passSpecial" class="infoItem"><%= Resource.ErrorPasswordNoSpecialSymbols %> (!@#$%^&*_\-()=)</span>
+                            <br /><span id="passSpecial" class="infoItem"><%= Resource.ErrorPasswordNoSpecialSymbols %></span>
                             <% } %>
                         </div>
                         </div>
@@ -271,6 +272,7 @@
                 <option class="optionItem icq" value="icq"><%= Resource.TitleIcq %></option>
                 <option class="optionItem jabber" value="jabber"><%= Resource.TitleJabber %></option>
                 <option class="optionItem aim" value="aim"><%= Resource.TitleAim %></option>
+                <option class="optionItem telegram" value="telegram"><%= Resource.TitleTelegram %></option>
             </select>
             <a class="delete-field icon-link trash"></a>
             <input type="text" class="textEdit" value="" autocomplete="off" />

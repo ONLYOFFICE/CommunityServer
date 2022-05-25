@@ -23,6 +23,6 @@ namespace ASC.Core.Common.Notify.Telegram
     {
         public Guid PortalUserId { get; set; }
         public int TenantId { get; set; }
-        public int TelegramId { get; set; }
+        public long TelegramId { get; set; }
     }
 }

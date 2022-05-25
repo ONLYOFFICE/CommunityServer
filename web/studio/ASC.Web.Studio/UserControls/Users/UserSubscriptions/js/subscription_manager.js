@@ -14,6 +14,16 @@
  *
 */
 
+jq(document).ready(function () {
+    jq('#switcherSubscriptionButton').one('click', function () {
+        if (!jq('#subscriptionBlockContainer').hasClass('subsLoaded') &&
+            typeof (window.CommonSubscriptionManager) != 'undefined' &&
+            typeof (window.CommonSubscriptionManager.LoadSubscriptions) === 'function') {
+            window.CommonSubscriptionManager.LoadSubscriptions();
+            jq('#subscriptionBlockContainer').addClass('subsLoaded');
+        }
+    });
+});
 
 var CommonSubscriptionManager = new function() {
     this.currentModuleSubsTab;
@@ -190,7 +200,7 @@ var CommonSubscriptionManager = new function() {
                 var num = jq("#content_" + id + " .selected-item").attr("data-value");
                 module = jq(option[num]).attr("data-id");
 
-                jq("#content_" + id + " .subs-subtab select").change(function() {
+                jq("#content_" + id + " .subs-subtab select").on("change", function() {
                     var elem = jq("#content_" + id + " .subs-subtab option")[jq(this).val()];
                     var selected = jq(elem).attr("data-id");
                     CommonSubscriptionManager.ClickModuleTag(productID, selected);
@@ -251,7 +261,7 @@ var CommonSubscriptionManager = new function() {
 
             el.html(jq("#subsSelectorTemplate").tmpl({ type: notify }));
 
-            el.find("input[type=\"checkbox\"]").change(f);
+            el.find("input[type=\"checkbox\"]").on("change", f);
 
             var connector = el.find(".baseLinkAction");
             if (connector.hasClass("tgConnector")) {
@@ -386,7 +396,7 @@ var CommonSubscriptionManager = new function() {
         };
 
         function onClose() {
-            body.unbind("click.tgConnect");
+            body.off("click.tgConnect");
             tgDisconnect.off("click");
 
             if (timeout) {
@@ -397,7 +407,7 @@ var CommonSubscriptionManager = new function() {
         function init(element) {
             elements.push(element);
             element.removeAttr("data-value");
-            element.click(function (e) {
+            element.on("click", function (e) {
                 e.stopPropagation(true);
 
                 var height = jq(window).height();
@@ -416,7 +426,7 @@ var CommonSubscriptionManager = new function() {
                     LoadingBanner.displayLoading();
                     isConnected();
 
-                    body.bind("click.tgConnect", function (e) {
+                    body.on("click.tgConnect", function (e) {
                         if (jq(e.target).parents("#telegramConnect").length) return;
 
                         helper.addClass("display-none");

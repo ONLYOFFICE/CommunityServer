@@ -56,24 +56,24 @@ namespace ASC.Web.Studio.UserControls.Management
         protected override void OnPreRender(EventArgs e)
         {
             if (Activation) return;
-            if (SecurityContext.IsAuthenticated) Response.Redirect(GetRefererURL());
+            if (SecurityContext.IsAuthenticated) Response.Redirect(Context.GetRefererURL());
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SecurityContext.IsAuthenticated && User.ID != SecurityContext.CurrentAccount.ID)
             {
-                Response.Redirect(GetRefererURL(), true);
+                Response.Redirect(Context.GetRefererURL(), true);
                 return;
             }
             if (!TfaAppAuthSettings.IsVisibleSettings || !TfaAppAuthSettings.Enable)
             {
-                Response.Redirect(GetRefererURL(), true);
+                Response.Redirect(Context.GetRefererURL(), true);
                 return;
             }
             if (!Activation && !TfaAppUserSettings.EnableForUser(User.ID))
             {
-                Response.Redirect(GetRefererURL(), true);
+                Response.Redirect(Context.GetRefererURL(), true);
                 return;
             }
 
@@ -119,17 +119,6 @@ namespace ASC.Web.Studio.UserControls.Management
             return user;
         }
 
-        private string GetRefererURL()
-        {
-            var refererURL = (string)Context.Session["refererURL"];
-            Context.Session["refererURL"] = null;
-
-            if (string.IsNullOrEmpty(refererURL))
-                refererURL = CommonLinkUtility.GetDefault();
-
-            return refererURL;
-        }
-
         [SecurityPassthrough]
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public object ValidateTfaCode(string query, string code)
@@ -140,8 +129,6 @@ namespace ASC.Web.Studio.UserControls.Management
             try
             {
                 newBackupCodes = user.ValidateAuthCode(code, !Activation);
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccesViaTfaApp);
             }
             catch (Authorize.BruteForceCredentialException)
             {
@@ -154,7 +141,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw;
             }
 
-            var refererUrl = GetRefererURL();
+            var refererUrl = Context.GetRefererURL();
 
             if (newBackupCodes)
             {

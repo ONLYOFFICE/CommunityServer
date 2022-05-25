@@ -108,7 +108,6 @@ namespace ASC.Web.Studio.UserControls.Management
                 .RegisterStyle(
                     "~/skins/default/phonecontroller.css",
                     "~/UserControls/Management/TariffSettings/css/tariff.less",
-                    "~/UserControls/Management/TariffSettings/css/tariffusage.less",
                     "~/UserControls/Management/TariffSettings/css/tariffcustom.less")
                 .RegisterClientScript(new CountriesResources());
 

@@ -39,6 +39,8 @@ namespace ASC.Web.People.Masters
             //ControlHolder.Controls.Add(new ImportUsersWebControl());
             ControlHolder.Controls.Add(LoadControl(ResendInvitesControl.Location));
 
+            ControlHolder.Controls.Add(LoadControl(Studio.UserControls.Management.TariffLimitExceed.Location));
+
             Master
                 .AddClientScript(
                     new ClientSettingsResources(),
@@ -52,7 +54,7 @@ namespace ASC.Web.People.Masters
                 .AddStaticStyles(GetStaticStyleSheet())
                 .AddStaticBodyScripts(GetStaticJavaScript())
                 .RegisterInlineScript(
-                    "jQuery(document.body).children('form').bind('submit', function() { return false; });");
+                    "jQuery(document.body).children('form').on('submit', function() { return false; });");
         }
 
         public ScriptBundleData GetStaticJavaScript()

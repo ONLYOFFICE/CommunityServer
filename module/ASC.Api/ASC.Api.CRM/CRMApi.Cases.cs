@@ -37,15 +37,15 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///   Close the case with the ID specified in the request
+        /// Closes a case with the ID specified in the request.
         /// </summary>
-        /// <short>Close case</short> 
+        /// <short>Close a case</short> 
         /// <category>Cases</category>
         /// <param name="caseid" optional="false">Case ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Case
+        /// Case
         /// </returns>
         [Update(@"case/{caseid:[0-9]+}/close")]
         public CasesWrapper CloseCases(int caseid)
@@ -61,15 +61,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Resume the case with the ID specified in the request
+        /// Resumes a case with the ID specified in the request.
         /// </summary>
-        /// <short>Resume case</short> 
+        /// <short>Resume a case</short> 
         /// <category>Cases</category>
         /// <param name="caseid" optional="false">Case ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Case
+        /// Case
         /// </returns>
         [Update(@"case/{caseid:[0-9]+}/reopen")]
         public CasesWrapper ReOpenCases(int caseid)
@@ -85,15 +85,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Creates the case with the parameters specified in the request
+        /// Creates a case with the parameters specified in the request.
         /// </summary>
-        /// <short>Create case</short> 
+        /// <short>Create a case</short> 
         /// <param name="title" optional="false">Case title</param>
-        /// <param name="members" optional="true">Participants</param>
-        /// <param name="customFieldList" optional="true">User field list</param>
+        /// <param name="members" optional="true">Case participants</param>
+        /// <param name="customFieldList" optional="true">List of case custom fields</param>
         /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
         /// <param name="accessList" optional="true">List of users with access to the case</param>
-        /// <param name="isNotify" optional="true">Notify users in accessList about the case</param>
+        /// <param name="isNotify" optional="true">Notifies users from the access list about the case</param>
         /// <returns>Case</returns>
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
@@ -155,16 +155,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Updates the selected case with the parameters specified in the request
+        /// Updates the selected case with the parameters specified in the request.
         /// </summary>
-        /// <short>Update case</short> 
+        /// <short>Update a case</short> 
         /// <param name="caseid" optional="false">Case ID</param>
-        /// <param name="title" optional="false">Case title</param>
-        /// <param name="members" optional="true">Participants</param>
-        /// <param name="customFieldList" optional="true">User field list</param>
+        /// <param name="title" optional="false">New case title</param>
+        /// <param name="members" optional="true">New case participants</param>
+        /// <param name="customFieldList" optional="true">New list of case custom fields</param>
         /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
-        /// <param name="accessList" optional="true">List of users with access to the case</param>
-        /// <param name="isNotify" optional="true">Notify users in accessList about the case</param>
+        /// <param name="accessList" optional="true">New list of users with access to the case</param>
+        /// <param name="isNotify" optional="true">Notifies users from the access list about the case</param>
         /// <category>Cases</category>
         /// <returns>Case</returns>
         /// <exception cref="ArgumentException"></exception>
@@ -229,17 +229,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for the selected case with the parameters specified in the request
+        /// Sets access rights to the selected case with the parameters specified in the request.
         /// </summary>
         /// <param name="caseid" optional="false">Case ID</param>
         /// <param name="isPrivate" optional="false">Case privacy: private or not</param>
         /// <param name="accessList" optional="false">List of users with access to the case</param>
-        /// <short>Set rights to case</short> 
+        /// <short>Set access rights to the case</short> 
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Case 
+        /// Case 
         /// </returns>
         [Update(@"case/{caseid:[0-9]+}/access")]
         public CasesWrapper SetAccessToCases(int caseid, bool isPrivate, IEnumerable<Guid> accessList)
@@ -290,17 +290,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for other users to the list of cases with the IDs specified in the request
+        /// Sets access rights to the list of cases with the IDs specified in the request.
         /// </summary>
-        /// <param name="casesid">Case ID list</param>
+        /// <param name="casesid">List of case IDs</param>
         /// <param name="isPrivate">Case privacy: private or not</param>
         /// <param name="accessList">List of users with access</param>
-        /// <short>Set case access rights</short> 
+        /// <short>Set access rights to the cases by IDs</short> 
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Case list
+        /// List of cases
         /// </returns>
         [Update(@"case/access")]
         public IEnumerable<CasesWrapper> SetAccessToBatchCases(IEnumerable<int> casesid, bool isPrivate, IEnumerable<Guid> accessList)
@@ -325,19 +325,19 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for other users to the list of all cases matching the parameters specified in the request
+        /// Sets access rights to the list of all the cases matching the parameters specified in the request.
         /// </summary>
         /// <param optional="true" name="contactid">Contact ID</param>
         /// <param optional="true" name="isClosed">Case status</param>
-        /// <param optional="true" name="tags">Tags</param>
+        /// <param optional="true" name="tags">Case tags</param>
         /// <param name="isPrivate">Case privacy: private or not</param>
         /// <param name="accessList">List of users with access</param>
-        /// <short>Set case access rights</short> 
+        /// <short>Set access rights to the cases by parameters</short> 
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Case list
+        /// List of cases
         /// </returns>
         [Update(@"case/filter/access")]
         public IEnumerable<CasesWrapper> SetAccessToBatchCases(
@@ -368,11 +368,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the detailed information about the case with the ID specified in the request
+        /// Returns the detailed information about a case with the ID specified in the request.
         /// </summary>
-        /// <short>Get case by ID</short> 
+        /// <short>Get a case by ID</short> 
         /// <category>Cases</category>
         /// <param name="caseid">Case ID</param>
+        /// <returns>Case</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"case/{caseid:[0-9]+}")]
@@ -387,15 +388,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Returns the list of all cases matching the parameters specified in the request
+        /// Returns a list of all the cases matching the parameters specified in the request.
         /// </summary>
-        /// <short>Get case list</short> 
+        /// <short>Get cases</short> 
         /// <param optional="true" name="contactid">Contact ID</param>
         /// <param optional="true" name="isClosed">Case status</param>
-        /// <param optional="true" name="tags">Tags</param>
+        /// <param optional="true" name="tags">Case tags</param>
         /// <category>Cases</category>
         /// <returns>
-        ///    Case list
+        /// List of cases
         /// </returns>
         [Read(@"case/filter")]
         public IEnumerable<CasesWrapper> GetCases(int contactid, bool? isClosed, IEnumerable<string> tags)
@@ -469,15 +470,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the case with the ID specified in the request
+        /// Deletes a case with the ID specified in the request.
         /// </summary>
-        /// <short>Delete case</short> 
+        /// <short>Delete a case</short> 
         /// <param name="caseid">Case ID</param>
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Case
+        /// Case
         /// </returns>
         [Delete(@"case/{caseid:[0-9]+}")]
         public CasesWrapper DeleteCase(int caseid)
@@ -495,15 +496,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the group of cases with the IDs specified in the request
+        /// Deletes a group of cases with the IDs specified in the request.
         /// </summary>
-        /// <param name="casesids">Case ID list</param>
+        /// <param name="casesids">List of case IDs</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <short>Delete case group</short> 
+        /// <short>Delete cases by IDs</short> 
         /// <category>Cases</category>
         /// <returns>
-        ///   Case list
+        /// List of cases
         /// </returns>
         [Update(@"case")]
         public IEnumerable<CasesWrapper> DeleteBatchCases(IEnumerable<int> casesids)
@@ -521,17 +522,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the list of all cases matching the parameters specified in the request
+        /// Deletes a list of all the cases matching the parameters specified in the request.
         /// </summary>
         /// <param optional="true" name="contactid">Contact ID</param>
         /// <param optional="true" name="isClosed">Case status</param>
-        /// <param optional="true" name="tags">Tags</param>
+        /// <param optional="true" name="tags">Case tags</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <short>Delete case group</short> 
+        /// <short>Delete cases by parameters</short> 
         /// <category>Cases</category>
         /// <returns>
-        ///   Case list
+        /// List of cases
         /// </returns>
         [Delete(@"case/filter")]
         public IEnumerable<CasesWrapper> DeleteBatchCases(int contactid, bool? isClosed, IEnumerable<string> tags)
@@ -547,12 +548,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all contacts associated with the case with the ID specified in the request
+        /// Returns a list of all the contacts related to the case with the ID specified in the request.
         /// </summary>
-        /// <short>Get all case contacts</short> 
+        /// <short>Get case contacts</short> 
         /// <param name="caseid">Case ID</param>
         /// <category>Cases</category>
-        /// <returns>Contact list</returns>
+        /// <returns>List of contacts</returns>
         ///<exception cref="ArgumentException"></exception>
         [Read(@"case/{caseid:[0-9]+}/contact")]
         public IEnumerable<ContactWrapper> GetCasesMembers(int caseid)
@@ -564,16 +565,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Adds the selected contact to the case with the ID specified in the request
+        /// Adds the selected contact to the case with the ID specified in the request.
         /// </summary>
-        /// <short>Add case contact</short> 
+        /// <short>Add a case contact</short> 
         /// <category>Cases</category>
         /// <param name="caseid">Case ID</param>
         /// <param name="contactid">Contact ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Participant
+        /// Contact
         /// </returns>
         [Create(@"case/{caseid:[0-9]+}/contact")]
         public ContactWrapper AddMemberToCases(int caseid, int contactid)
@@ -595,16 +596,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Delete the selected contact from the case with the ID specified in the request
+        /// Deletes the selected contact from the case with the ID specified in the request.
         /// </summary>
-        /// <short>Delete case contact</short> 
+        /// <short>Delete a case contact</short> 
         /// <category>Cases</category>
         /// <param name="caseid">Case ID</param>
         /// <param name="contactid">Contact ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Participant
+        /// Contact
         /// </returns>
         [Delete(@"case/{caseid:[0-9]+}/contact/{contactid:[0-9]+}")]
         public ContactWrapper DeleteMemberFromCases(int caseid, int contactid)
@@ -628,13 +629,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of 30 cases in the CRM module with prefix
+        /// Returns a list of 30 cases from the CRM module with a prefix specified in the request.
         /// </summary>
-        /// <param optional="true" name="prefix"></param>
-        /// <param optional="true" name="contactID"></param>
+        /// <param optional="true" name="prefix">Case prefix</param>
+        /// <param optional="true" name="contactID">Contact ID</param>
         /// <category>Cases</category>
         /// <returns>
-        ///    Cases list
+        /// List of cases
         /// </returns>
         /// <visible>false</visible>
         [Read(@"case/byprefix")]

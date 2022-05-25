@@ -72,6 +72,7 @@ var FeedFilter = (function() {
             filters.push({ type: "combobox", id: product, isset: true, params: { value: product } });
         } else {
             filters.push({ type: "combobox", id: "community", reset: true });
+            filters.push({ type: "combobox", id: "people", reset: true });
             filters.push({ type: "combobox", id: "crm", reset: true });
             filters.push({ type: "combobox", id: "projects", reset: true });
             filters.push({ type: "combobox", id: "documents", reset: true });
@@ -157,6 +158,7 @@ var FeedFilter = (function() {
         for (var filterInd = 0; filterInd < filters.length; filterInd++) {
             switch (filters[filterInd].id) {
                 case "community":
+                case "people":
                 case "crm":
                 case "projects":
                 case "documents":

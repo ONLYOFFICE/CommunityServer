@@ -590,12 +590,27 @@ namespace ASC.Web.UserControls.Wiki
 
         private void NotifyCommentCreated(Page page, Comment comment)
         {
-            WikiNotifyClient.SendNoticeAsync(
-                SecurityContext.CurrentAccount.ID.ToString(),
-                Constants.EditPage,
-                PageNameUtil.ReplaceSpaces(page.PageName),
-                null,
-                GetNotifyTags(page.PageName, "new wiki page comment", comment));
+            var mentionedUsers = MentionProvider.GetMentionedUsers(comment.Body);
+            var mentionedUserIds = mentionedUsers.Select(u => u.ID.ToString());
+
+            var provider = WikiNotifySource.Instance.GetSubscriptionProvider();
+
+            var authorID = SecurityContext.CurrentAccount.ID.ToString();
+            var objectID = PageNameUtil.ReplaceSpaces(page.PageName);
+
+            var recipients = provider
+                .GetRecipients(Constants.EditPage, objectID)
+                .Where(r => !mentionedUserIds.Contains(r.ID))
+                .ToArray();
+
+            var tags = GetNotifyTags(page.PageName, "new wiki page comment", comment);
+
+            WikiNotifyClient.SendNoticeToAsync(authorID, Constants.EditPage, objectID, recipients, tags);
+
+            if (mentionedUsers.Length > 0)
+            {
+                WikiNotifyClient.SendNoticeToAsync(authorID, Constants.MentionForWikiComment, objectID, mentionedUsers, tags);
+            }
         }
 
         private ITagValue[] GetNotifyTags(string pageName)
@@ -620,8 +635,6 @@ namespace ASC.Web.UserControls.Wiki
                     new TagValue(Constants.TagDate, TenantUtil.DateTimeNow()),
                     new TagValue(Constants.TagPostPreview, HtmlUtil.GetText(EditPage.ConvertWikiToHtml(page.PageName, page.Body, defPage, WikiSection.Section.ImageHangler.UrlFormat, CoreContext.TenantManager.GetCurrentTenant().TenantId), 120))
                 };
-            if (comment != null && !string.IsNullOrEmpty(pageName))
-                ReplyToTagProvider.Comment("wiki", pageName, comment.Id.ToString());
 
             if (!string.IsNullOrEmpty(patternType))
             {
@@ -651,8 +664,7 @@ namespace ASC.Web.UserControls.Wiki
                     new TagValue(Constants.TagUserURL, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(user.ID))),
                     new TagValue(Constants.TagDate, TenantUtil.DateTimeNow()),
                     new TagValue(Constants.TagPostPreview, HtmlUtil.GetText(EditPage.ConvertWikiToHtml(page.PageName, page.Body, defPageHref, WikiSection.Section.ImageHangler.UrlFormat, CoreContext.TenantManager.GetCurrentTenant().TenantId), 120)),
-                    new TagValue(Constants.TagCatName, objectId),
-                    ReplyToTagProvider.Comment("wiki", pageName)
+                    new TagValue(Constants.TagCatName, objectId)
                 };
 
             return tags.ToArray();

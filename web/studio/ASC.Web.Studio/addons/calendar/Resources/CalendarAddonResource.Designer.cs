@@ -95,5 +95,14 @@ namespace ASC.Web.Calendar.Resources {
                 return ResourceManager.GetString("EventAlertSubscription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whole Calendar module.
+        /// </summary>
+        public static string WholeCalendarModule {
+            get {
+                return ResourceManager.GetString("WholeCalendarModule", resourceCulture);
+            }
+        }
     }
 }

@@ -54,7 +54,8 @@ namespace ASC.Web.Studio.ThirdParty
                     OAuth20TokenHelper.RequestCode<DropboxLoginProvider>(HttpContext.Current,
                                                                          additionalArgs: new Dictionary<string, string>
                                                                              {
-                                                                                 { "force_reauthentication", "true" }
+                                                                                 { "force_reauthentication", "true" },
+                                                                                 { "token_access_type","offline" }
                                                                              });
                 }
                 else

@@ -126,7 +126,7 @@ namespace ASC.Api
 
         public ApiBatchResponse CallApiMethod(ApiBatchRequest request, bool encode)
         {
-            var response = _batchHandler.ProcessBatchRequest(_context, request);
+            var response = _batchHandler.ProcessBatchRequest(_context, request).Result;
             if (encode && response != null && response.Data != null)
                 response.Data = Convert.ToBase64String(Encoding.UTF8.GetBytes(response.Data));
             return response;

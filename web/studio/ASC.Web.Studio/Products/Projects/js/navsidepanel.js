@@ -138,7 +138,7 @@ ASC.Projects.navSidePanel = (function () {
             return true;
         });
 
-        $createNewTask.click(function () {
+        $createNewTask.on("click", function () {
             var anchor = location.hash.substring(1);
             var author = jq.getAnchorParam('responsible_for_milestone', anchor) ||
                 jq.getAnchorParam('tasks_responsible', anchor) ||
@@ -157,13 +157,13 @@ ASC.Projects.navSidePanel = (function () {
             return false;
         });
 
-        $createNewMilestone.click(function () {
+        $createNewMilestone.on("click", function () {
             ASC.Projects.MilestoneAction.showNewMilestonePopup();
             $createNewButton.hide();
             return false;
         });
 
-        $createNewTimer.click(function () {
+        $createNewTimer.on("click", function () {
             var currentCategory = jq(".menu-list").find(".menu-item." + currentCategoryClass).attr("id");
             var taskId = jq.getURLParam("ID");
 
@@ -180,7 +180,7 @@ ASC.Projects.navSidePanel = (function () {
             return false;
         });
 
-        $myProjectsConteiner.find(".expander").click(function (event) {
+        $myProjectsConteiner.find(".expander").on("click", function (event) {
             var menuItem = jq(this).closest(".menu-sub-item");
             if (jq(menuItem).hasClass(openClass)) {
                 jq(menuItem).removeClass(openClass);
@@ -250,7 +250,7 @@ ASC.Projects.navSidePanel = (function () {
         var hash = document.location.hash;
         if (currentPage === "settings.aspx") {
             if (!$menuSettings.hasClass("open")) {
-                $menuSettings.find(".expander").click();
+                $menuSettings.find(".expander").trigger("click");
             }
 
             if (hash === "#status") {

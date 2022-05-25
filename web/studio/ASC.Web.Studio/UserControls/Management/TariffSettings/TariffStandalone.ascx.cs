@@ -47,7 +47,6 @@ namespace ASC.Web.Studio.UserControls.Management
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
         protected AdditionalWhiteLabelSettings Settings;
-        protected int TenantCount;
 
         protected bool RequestLicenseAccept
         {
@@ -75,7 +74,6 @@ namespace ASC.Web.Studio.UserControls.Management
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();
             CurrentQuota = TenantExtra.GetTenantQuota();
-            TenantCount = CoreContext.TenantManager.GetTenants().Count();
 
             Settings = AdditionalWhiteLabelSettings.Instance;
             Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
@@ -86,14 +84,6 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string TariffDescription()
         {
-            if (TenantExtra.UpdatedWithoutLicense)
-            {
-                return String.Format(UserControlsCommonResource.TariffUpdateWithoutLicense.HtmlEncode(),
-                                     "<span class='tariff-marked'>",
-                                     "</span>",
-                                     "<br />");
-            }
-
             if (CurrentQuota.Trial)
             {
                 if (CurrentTariff.State == TariffState.Trial)

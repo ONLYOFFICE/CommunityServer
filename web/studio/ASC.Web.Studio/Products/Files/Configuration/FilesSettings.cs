@@ -16,11 +16,14 @@
 
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Files.Core;
+using ASC.Files.Core.Security;
 
 namespace ASC.Web.Files.Classes
 {
@@ -73,6 +76,18 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "DownloadZip")]
         private bool DownloadTarGzSetting { get; set; }
 
+        [DataMember(Name = "ShareLink")]
+        public bool DisableShareLinkSetting { get; set; }
+
+        [DataMember(Name = "ShareLinkSocialMedia")]
+        public bool DisableShareSocialMediaSetting { get; set; }
+
+        [DataMember(Name = "AutomaticallyCleanUp")]
+        public AutoCleanUpData AutomaticallyCleanUpSetting { get; set; }
+
+        [DataMember(Name = "DefaultSharingAccessRights")]
+        public List<FileShare> DefaultSharingAccessRightsSetting { get; set; }
+
         public override ISettings GetDefault()
         {
             return new FilesSettings
@@ -92,6 +107,10 @@ namespace ASC.Web.Files.Classes
                 HideRecentSetting = false,
                 HideTemplatesSetting = false,
                 DownloadTarGzSetting = false,
+                DisableShareLinkSetting = CoreContext.Configuration.CustomMode,
+                DisableShareSocialMediaSetting = CoreContext.Configuration.CustomMode,
+                AutomaticallyCleanUpSetting = null,
+                DefaultSharingAccessRightsSetting = null
             };
         }
 
@@ -120,6 +139,32 @@ namespace ASC.Web.Files.Classes
                 setting.Save();
             }
             get { return Load().EnableThirdpartySetting; }
+        }
+
+        public static bool ExternalShare
+        {
+            set
+            {
+                var setting = Load();
+                setting.DisableShareLinkSetting = !value;
+                setting.Save();
+            }
+            get { return !Load().DisableShareLinkSetting; }
+        }
+
+        public static bool ExternalShareSocialMedia
+        {
+            set
+            {
+                var setting = Load();
+                setting.DisableShareSocialMediaSetting = !value;
+                setting.Save();
+            }
+            get
+            {
+                var setting = Load();
+                return !setting.DisableShareLinkSetting && !setting.DisableShareSocialMediaSetting;
+            }
         }
 
         public static bool StoreOriginalFiles
@@ -258,6 +303,76 @@ namespace ASC.Web.Files.Classes
                 setting.SaveForCurrentUser();
             }
             get => LoadForCurrentUser().DownloadTarGzSetting;
+        }
+
+        public static AutoCleanUpData AutomaticallyCleanUp
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.AutomaticallyCleanUpSetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get
+            {
+                var setting = LoadForCurrentUser().AutomaticallyCleanUpSetting;
+                return setting ?? new AutoCleanUpData();
+            }
+        }
+
+        public static List<FileShare> DefaultSharingAccessRights
+        {
+            set
+            {
+                List<FileShare> GetNormalizedList(List<FileShare> src)
+                {
+                    if (src == null || !src.Any())
+                    {
+                        return null;
+                    }
+
+                    var res = new List<FileShare>();
+
+                    if (src.Contains(FileShare.FillForms))
+                    {
+                        res.Add(FileShare.FillForms);
+                    }
+
+                    if (src.Contains(FileShare.CustomFilter))
+                    {
+                        res.Add(FileShare.CustomFilter);
+                    }
+
+                    if (src.Contains(FileShare.Review))
+                    {
+                        res.Add(FileShare.Review);
+                    }
+
+                    if (src.Contains(FileShare.ReadWrite))
+                    {
+                        res.Add(FileShare.ReadWrite);
+                        return res;
+                    }
+
+                    if (src.Contains(FileShare.Comment))
+                    {
+                        res.Add(FileShare.Comment);
+                        return res;
+                    }
+
+                    res.Add(FileShare.Read);
+                    return res;
+                }
+
+                var setting = LoadForCurrentUser();
+                setting.DefaultSharingAccessRightsSetting = GetNormalizedList(value);
+                setting.SaveForCurrentUser();
+            }
+            get
+            {
+                var setting = LoadForCurrentUser().DefaultSharingAccessRightsSetting;
+                return setting ?? new List<FileShare>() { FileShare.Read };
+            }
         }
     }
 }

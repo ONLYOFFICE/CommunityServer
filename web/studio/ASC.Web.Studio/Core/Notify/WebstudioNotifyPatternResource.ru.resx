@@ -230,30 +230,17 @@ $GreenButton
 [www.onlyoffice.com](http://onlyoffice.com/)</value>
   </data>
   <data name="pattern_change_email_v115" xml:space="preserve">
-    <value>Хотите изменить адрес электронной почты в своем аккаунте ONLYOFFICE?
+    <value>Хотите изменить email для своего аккаунта ONLYOFFICE?
 
-Нажмите на кнопку ниже и войдите* в ваш облачный офис.
-
-$GreenButton
-
-Ссылка действительна в течение 7 дней.
-
-*Если вы не войдете в ONLYOFFICE в этом браузере, потребуется использовать старый адрес электронной почты для подтверждения. Если вы его не помните, обратитесь к администратору портала.
-
-Не хотите менять адрес электронной почты? Просто проигнорируйте это сообщение.</value>
-  </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Запрос на смену пароля на портале "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Был получен запрос на смену пароля, который Вы используете для входа на портал "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Пожалуйста, перейдите по ссылке ниже, чтобы сменить Ваш пароль:
+Нажимите на кнопку и залогиньтесь*.
 
 $GreenButton
 
-*Обратите внимание*: эта ссылка действительна только 7 дней. Пожалуйста, выполните смену пароля в течение этого времени.
+Ссылка действует 7 дней.
 
-Если Вы не хотите менять Ваш пароль или получили это письмо по ошибке, пожалуйста, проигнорируйте его или обратитесь к администратору вашего портала "${__VirtualRootPath}":"${__VirtualRootPath}" за разъяснениями.</value>
+*Если вы не залогинены в ONLYOFFICE в текущем браузере, введите свой старый email для подтверждения. Если вы его не помните, свяжитесь с администратором портала.
+
+Не хотите менять email? Просто проигнорируйте сообщение.</value>
   </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Запрос на изменение номера мобильного телефона
@@ -1011,31 +998,17 @@ h3.Попробуйте бизнес-решения ONLYOFFICE "в облаке"
 команда ONLYOFFICE</value>
   </data>
   <data name="pattern_personal_change_email_v115" xml:space="preserve">
-    <value>Хотите изменить адрес электронной почты в своем аккаунте ONLYOFFICE?
+    <value>Хотите изменить email для своего аккаунта ONLYOFFICE Personal?
 
-Нажмите на кнопку ниже и войдите* в ваш облачный офис.
-
-$GreenButton
-
-Ссылка действительна в течение 7 дней.
-
-*Если вы не войдете в ONLYOFFICE в этом браузере, потребуется использовать старый адрес электронной почты для подтверждения.
-
-Не хотите менять адрес электронной почты? Просто проигнорируйте это сообщение.</value>
-  </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>Был получен запрос на смену пароля, который Вы используете для входа на портал "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Пожалуйста, перейдите по ссылке ниже, чтобы сменить Ваш пароль:
+Нажимите на кнопку и залогиньтесь*.
 
 $GreenButton
 
-*Обратите внимание*: эта ссылка действительна только 7 дней. Пожалуйста, выполните смену пароля в течение этого времени.
+Ссылка действует 7 дней.
 
-Если Вы не хотите менять Ваш пароль или получили это письмо по ошибке, пожалуйста, проигнорируйте его.
+*Если вы не залогинены в ONLYOFFICE в текущем браузере, введите свой старый email для подтверждения. 
 
-С уважением,
-команда ONLYOFFICE</value>
+Не хотите менять email? Просто проигнорируйте сообщение.</value>
   </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>Здравствуйте,
@@ -1769,10 +1742,7 @@ $GreenButton
     <value>${LetterLogoText}. Создана резервная копия портала ${__VirtualRootPath}</value>
   </data>
   <data name="subject_change_email_v115" xml:space="preserve">
-    <value>Подтвердите изменение адреса электронной почты</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText}. Помощь с паролем</value>
+    <value>Подтвердите изменение email</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Запрос на изменение номера мобильного телефона</value>
@@ -1921,9 +1891,6 @@ $GreenButton
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Подключите свое облачное хранилище к ONLYOFFICE</value>
   </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal. Помощь с паролем</value>
-  </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Пожалуйста, активируйте Ваш адрес электронной почты</value>
   </data>
@@ -2052,5 +2019,26 @@ $GreenButton
   </data>
   <data name="subject_user_ldap_activation" xml:space="preserve">
     <value>Вас приглашают стать участником ${__VirtualRootPath}</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>Хотите изменить пароль от аккаунта ONLYOFFICE? Нажмите на кнопку, чтобы подтвердить смену.
+
+$GreenButton
+
+Ссылка действует 7 дней.
+
+Не хотите менять пароль? Просто проигнорируйте это сообщение.</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>Хотите изменить пароль от аккаунта ONLYOFFICE Personal? Нажмите на кнопку, чтобы подтвердить смену.
+
+$GreenButton
+
+Ссылка действует 7 дней.
+
+Не хотите менять пароль? Просто проигнорируйте это сообщение.</value>
+  </data>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Подтвердите изменение пароля</value>
   </data>
 </root>

@@ -27,6 +27,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Feed.Data
 {
@@ -331,11 +332,19 @@ namespace ASC.Feed.Data
 
             GroupId = groupId;
 
-            if (now.Year == createdDate.Year && now.Date == createdDate.Date)
+            var compareDate = JObject.Parse(Json).Value<bool>("IsAllDayEvent")
+                ? TenantUtil.DateTimeToUtc(createdDate).Date
+                : createdDate.Date;
+
+            if (now.Date == compareDate.AddDays(-1))
+            {
+                IsTomorrow = true;
+            }
+            else if(now.Date == compareDate)
             {
                 IsToday = true;
             }
-            else if (now.Year == createdDate.Year && now.Date == createdDate.Date.AddDays(1))
+            else if (now.Date == compareDate.AddDays(1))
             {
                 IsYesterday = true;
             }
@@ -358,6 +367,8 @@ namespace ASC.Feed.Data
         public bool IsToday { get; private set; }
 
         public bool IsYesterday { get; private set; }
+
+        public bool IsTomorrow { get; private set; }
 
         public DateTime CreatedDate { get; private set; }
 

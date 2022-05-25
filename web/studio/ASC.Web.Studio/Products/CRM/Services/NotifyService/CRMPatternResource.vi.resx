@@ -101,11 +101,11 @@ Vui lòng truy cập liên kết này để tải về file nén: "exportdata.zi
 
 *Lưu ý*: liên kết này chỉ có hiệu lực trong 24 giờ.
 
-Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support.onlyoffice.com":"http://support.onlyoffice.com"
+Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Trân trọng,
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -114,11 +114,11 @@ ONLYOFFICE™ Support Team
 
 Truy cập danh sách "Liên hệ":"$__VirtualRootPath/Products/CRM/".
 
-Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại  "support.onlyoffice.com":"http://support.onlyoffice.com"
+Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại  "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Trân trọng,
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
   </data>

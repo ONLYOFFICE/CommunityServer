@@ -161,8 +161,8 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
                 .RegisterStyle("~/UserControls/Common/Comments/css/codehighlighter/vs.less");
 
 
-            var uploadPath = string.Format("{0}://{1}:{2}{3}", Page.Request.GetUrlRewriter().Scheme, Page.Request.GetUrlRewriter().Host, Page.Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?newEditor=true");
-            uploadPath += "&esid=" + FckDomainName;
+            var uploadPath = string.Format("{0}://{1}:{2}{3}", Page.Request.GetUrlRewriter().Scheme, Page.Request.GetUrlRewriter().Host, Page.Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx");
+            uploadPath += "?esid=" + FckDomainName;
 
             Items = CleanInactive(Items.ToList());
 

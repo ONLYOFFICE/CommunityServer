@@ -26,16 +26,19 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        /// This method needed for update or create autoreply.
+        /// Updates or creates an autoreply with the parameters specified in the request.
         /// </summary>
-        /// <param name="mailboxId">Id of updated mailbox.</param>
-        /// <param name="turnOn">New autoreply status.</param>
-        /// <param name="onlyContacts">If true then send autoreply only for contacts.</param>
-        /// <param name="turnOnToDate">If true then field To is active.</param>
-        /// <param name="fromDate">Start date of autoreply sending.</param>
-        /// <param name="toDate">End date of autoreply sending.</param>
-        /// <param name="subject">New autoreply subject.</param>
-        /// <param name="html">New autoreply value.</param>
+        /// <short>Update an autoreply</short>
+        /// <category>Autoreply</category>
+        /// <param name="mailboxId">Mailbox ID</param>
+        /// <param name="turnOn">New autoreply status</param>
+        /// <param name="onlyContacts">If true, then send autoreply only to contacts</param>
+        /// <param name="turnOnToDate">If true, then the "toDate" field is active</param>
+        /// <param name="fromDate">New start date of autoreply sending</param>
+        /// <param name="toDate">New end date of autoreply sending</param>
+        /// <param name="subject">New autoreply subject</param>
+        /// <param name="html">New autoreply value in the HTML format</param>
+        /// <returns>Updated autoreply information</returns>
         [Create(@"autoreply/update/{mailboxId:[0-9]+}")]
         public MailAutoreplyData UpdateAutoreply(int mailboxId, bool turnOn, bool onlyContacts,
             bool turnOnToDate, DateTime fromDate, DateTime toDate, string subject, string html)

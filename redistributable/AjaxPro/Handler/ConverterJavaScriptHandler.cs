@@ -93,7 +93,7 @@ namespace AjaxPro
 				}
 			}
 
-			etag = MD5Helper.GetHash(System.Text.Encoding.Default.GetBytes("converter"));
+			etag = Hash5Helper.GetHash(System.Text.Encoding.Default.GetBytes("converter"));
 
 			DateTime now = DateTime.Now;
 			DateTime lastMod = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second); //.ToUniversalTime();
@@ -105,7 +105,7 @@ namespace AjaxPro
 			context.Response.Cache.SetLastModified(lastMod);
 
 			context.Response.Write(@"//--------------------------------------------------------------
-// Copyright (C) 2006 Michael Schwarz (http://www.ajaxpro.info).
+// Copyright (C) 2021 Michael Schwarz (http://www.ajaxpro.info).
 // All rights reserved.
 //--------------------------------------------------------------
 // Converter.js

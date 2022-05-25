@@ -20,7 +20,7 @@ window.blankModal = (function ($) {
     var init = function () {
         jq(".dashboard-center-box .close").on("click", close);
 
-        jq(document).keyup(function (event) {
+        jq(document).on("keyup", function (event) {
             var code;
 
             if (event.keyCode) {
@@ -47,7 +47,7 @@ window.blankModal = (function ($) {
     var show = function () {
         init();
         $('[blank-page]').removeClass("hidden");
-        jq(".dashboard-center-box .slick-next").focus();
+        jq(".dashboard-center-box .slick-next").trigger("focus");
     };
 
     var close = function() {

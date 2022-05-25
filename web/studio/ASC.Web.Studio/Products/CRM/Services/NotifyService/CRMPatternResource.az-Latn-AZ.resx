@@ -75,7 +75,7 @@ $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" buraya yeni olay əlavə
 
           #end
 
-          ^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+          ^Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -96,7 +96,7 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 #end
 
           
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -110,44 +110,57 @@ Lütfən, arxiv endirmək üçün bu keçiddən istifadə edin: "exportdata.zip"
 
 *Qeyd*: Bu keçid 24 saat ərzində etibarlıdır. Lütfən, bu müddət ərzində əməliyyatı icra edin. 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
-Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support.onlyoffice.com":"http://support.onlyoffice.com"
+Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Uğurlar, 
 ONLYOFFICE™ Komandası
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+"www.onlyoffice.com":"https://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>Vaxtı keçmiş</value>
   </data>
-  <data name="pattern_ResponsibleForTask" xml:space="preserve">
-    <value>h1.Task Assigned to You: $EntityTitle
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Fürsət üçün cavabdeh əxs təyin olundunuz: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
 
-$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
+$__DateTime "$__AuthorName":"$__AuthorUrl", sizi fürsət üçün cavabdeh şəxs təyin etdi: $EntityTitle .
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Fürsət təsviri:
+$AdditionalData.get_item("OpportunityDescription")
+#end
+
+^"Bildiriş növünü dəyişmək üçün, "abunəlik parametrlərinizi":"$RecipientSubscriptionConfigURL" idarə edin.^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Sizə ayrılmış tapşırıq: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Sizi tapşırığa cavabdeh olaraq təyin etdi: $EntityTitle.
 #if($AdditionalData.get_item("TaskCategory"))
 
-Task category:  $AdditionalData.get_item("TaskCategory")
+Tapşırıq kateqoriyası:  $AdditionalData.get_item("TaskCategory")
 #end
 #if($AdditionalData.get_item("ContactRelativeUrl"))
 
-Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+Kontaktla əlaqələndirin: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
 #end
 #if($AdditionalData.get_item("CaseRelativeUrl"))
 
-Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+Tədbirlə əlaqələndirin: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
 #end
 #if($AdditionalData.get_item("DealRelativeUrl"))
 
-Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+Fürsətlə əlaqələndirin: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
 #end
 #if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
 
-Task description:
+Tpşırıq təsviri:
 $AdditionalData.get_item("TaskDescription")
 #end
 
-Due date: $AdditionalData.get_item("DueDate")
+Bitmə tarixi: $AdditionalData.get_item("DueDate")
 
 
 #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
@@ -162,9 +175,9 @@ Due date: $AdditionalData.get_item("DueDate")
 
 #end
 
-Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+"Tapşırıqlar":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" siyahısına keçin.
 
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+^Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^</value>
   </data>
   <data name="pattern_SetAccess" xml:space="preserve">
     <value>h1.Sizin üçün buraya giriş hüququ verildi "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
@@ -172,16 +185,47 @@ Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" Sizin üçün buraya giriş hüququ verdi "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
 Uğurlar, 
 ONLYOFFICE™ Komandası
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+"www.onlyoffice.com":"https://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Tapşırıq haqqında xatırlatma: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Tapşırıq kateqoriyası:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Kontaktla əlaqələndirin: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Tədbirlə əlaqələndirin: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Fürsətlə əlaqələndirin: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Tpşırıq təsviri:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Bitmə tarixi: $AdditionalData.get_item("DueDate")
+
+"Tapşırıqlar":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" siyahısına keçin.</value>
   </data>
   <data name="subject_AddRelationshipEvent" xml:space="preserve">
     <value>CRM. $EntityTitle üçün yeni tədbir əlavə olundu</value>
+  </data>
+  <data name="subject_AddRelationshipEvent_tg" xml:space="preserve">
+    <value>CRM. [$EntityTitle](${__VirtualRootPath}/${EntityRelativeURL}) üçün yeni tədbir əlavə edildi</value>
   </data>
   <data name="subject_CreateNewContact" xml:space="preserve">
     <value>CRM. 'Web kontakt forması' istifadə edilərək yeni kontakt yaradıldı</value>
@@ -192,10 +236,28 @@ ONLYOFFICE™ Komandası
   <data name="subject_ImportCompleted" xml:space="preserve">
     <value>Vaxtı keçmiş</value>
   </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Siz fürsət üçün cavabdh şəxs olaraq təyin olundunuz: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity_tg" xml:space="preserve">
+    <value>CRM. Siz bu fürsət üçün məsul şəxs təyin olundunuz: [$EntityTitle](${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID)</value>
+  </data>
   <data name="subject_ResponsibleForTask" xml:space="preserve">
     <value>CRM. Sizə ayrılmış tapşırıq: $EntityTitle</value>
   </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>CRM. Sizə təyin edilmiş tapşırıq: [$EntityTitle](${__VirtualRootPath}/products/crm/tasks.aspx)</value>
+  </data>
   <data name="subject_SetAccess" xml:space="preserve">
     <value>CRM. $EntityTitle üçün giriş verildi</value>
+  </data>
+  <data name="subject_SetAccess_tg" xml:space="preserve">
+    <value>CRM. [$EntityTitle](${__VirtualRootPath}/${EntityRelativeURL}) üçün giriş icaəsi verilib</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Tapşırıq xatırladıcısı: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder_tg" xml:space="preserve">
+    <value>CRM. Tapşırıq haqqında xatırlatma: [$EntityTitle](${__VirtualRootPath}/products/crm/tasks.aspx)</value>
   </data>
 </root>

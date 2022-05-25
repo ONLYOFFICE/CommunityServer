@@ -39,7 +39,7 @@ var PortalRename = new function () {
         jq("#studio_portalRename .button.blue").on("click", function (event) {
             if (jq("#studio_portalRename .button.blue").hasClass("disable")) return;
 
-            var alias = jq.trim(jq("#studio_tenantAlias").val());
+            var alias = jq("#studio_tenantAlias").val().trim();
             if (alias === "") {
                 jq("#studio_tenantAlias").addClass("with-error");
                 return;
@@ -57,7 +57,7 @@ var PortalRename = new function () {
 
     this.saveNewTenantAlias = function () {
 
-        var alias = jq.trim(jq("#studio_tenantAlias").val());
+        var alias = jq("#studio_tenantAlias").val().trim();
 
         Teamlab.updatePortalName({}, alias, {
 
@@ -75,7 +75,7 @@ var PortalRename = new function () {
             error: function (params, errors) {
                 var errTest = errors[0];
                 try {
-                    var error = jq.parseJSON(Encoder.htmlDecode(errTest)).errors[0];
+                    var error = JSON.parse(Encoder.htmlDecode(errTest)).errors[0];
 
                     switch (error) {
                         case "portalNameExist": errTest = ASC.Resources.Master.ResourceJS.ErrorPortalNameExist; break;

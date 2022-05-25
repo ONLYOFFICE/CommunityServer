@@ -12,6 +12,7 @@
     <BuildTargets   Condition=" '$(BuildTargets)' == 'ReBuild'  ">Restore;ReBuild</BuildTargets>
     <ReplaceResources Condition="$(ReplaceResources)==''">0</ReplaceResources>
     <DeploySites Condition="'$(DeploySites)' == ''">0</DeploySites>
+	<YarnBuild Condition="'$(YarnBuild)' == ''">true</YarnBuild>
   </PropertyGroup>
 
   <Target Name="BuildTask">
@@ -24,7 +25,6 @@
   </Target>
   
   <Target Name="ReplaceResources">
-	<CallTarget Targets="BuildTask" />
     <ReplaceResources BaseFolder="$(ASCDir)" ResourceFile="$(ASCDir)build\sql\custom.resources.json" />
   </Target>
   
@@ -34,6 +34,7 @@
       <Output ItemName="AlToolPath" TaskParameter="Include"/>
     </CreateItem>
 
+    <CallTarget Targets="BuildTask" Condition=" '$(ReplaceResources)' == '1' OR '$(GenerateBundle)' == '1' OR '$(GenerateHelpCenterHtml)' == '1'"/>
 	<CallTarget Targets="ReplaceResources" Condition=" '$(ReplaceResources)' == '1' "/>
 	
     <MSBuild
@@ -43,14 +44,20 @@
         Properties="Configuration=$(Configuration);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants)"
         RebaseOutputs="true"
         StopOnFirstFailure="true"/>
-
-    <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
-    <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.Thumbnails\" ContinueOnError="true"/>
-    <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.SsoAuth\" ContinueOnError="true"/>
-    <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.UrlShortener\" ContinueOnError="true"/>
-
   </Target>
 
+  <ItemGroup>
+	<NodeProject Include="$(ASCDir)module\ASC.Socket.IO\" />
+	<NodeProject Include="$(ASCDir)module\ASC.Thumbnails\" />
+	<NodeProject Include="$(ASCDir)module\ASC.UrlShortener\" />
+	<NodeProject Include="$(ASCDir)module\ASC.SsoAuth\" />
+	<NodeProject Include="$(ASCDir)module\ASC.WebDav\" />
+  </ItemGroup>
+
+  <Target Name="YarnInstall"  AfterTargets="Build" Condition="$(YarnBuild) == 'true' " >
+	<Exec Command="yarn install --frozen-lockfile" WorkingDirectory="%(NodeProject.Identity)" ContinueOnError="true"/>
+  </Target>
+	
   <Target Name="SetAssemblyInfo">
     <Message Text="%(ProjectToBuild.Filename)"/>
     <AssemblyInfo CodeLanguage="CS"

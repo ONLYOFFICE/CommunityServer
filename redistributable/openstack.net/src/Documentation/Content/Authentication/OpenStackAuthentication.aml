@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="1bb35d97-0c79-4e98-a2ae-6c1eef098ba7" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <summary>
+      <para>
+        This page describes the process for authenticating against reference OpenStack
+        installations, including but not limited to DevStack and the Rackspace Private Cloud.
+      </para>
+    </summary>
+
+    <introduction>
+      <para></para>
+    </introduction>
+
+    <section address="UsageNotes">
+      <title>Usage Notes</title>
+      <content>
+        <para>
+          Client authentication against a reference OpenStack installation requires the
+          following.
+        </para>
+        <list class="ordered">
+          <listItem>
+            <para>
+              Create an instance of <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+              and initialize its properties with the desired authentication credentials. The
+              <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+              credentials class allows the <codeInline>tenantName</codeInline> and <codeInline>tenantId</codeInline>
+              properties described in the OpenStack documentation to be defined.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Create an instance of <codeEntityReference>T:net.openstack.Core.Providers.OpenStackIdentityProvider</codeEntityReference>,
+              and pass the previously created credentials to the constructor.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              When creating a service provider instance, such as <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudFilesProvider</codeEntityReference>
+              or <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudQueuesProvider</codeEntityReference>,
+              pass <markup>
+                <span class="input">null</span>
+              </markup> for the <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+              parameter and the identity provider from the previous step as the
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              parameter.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section address="Limitations">
+      <title>Limitations</title>
+      <content>
+        <para>
+          The <codeEntityReference>T:net.openstack.Core.Providers.OpenStackIdentityProvider</codeEntityReference>
+          only supports authentication using username and password credentials, along with optionally specifying
+          the tenant name and/or tenant ID (referred to as the project name and ID starting with the Identity
+          Service API v3).
+        </para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Core.Providers.OpenStackIdentityProvider</codeEntityReference>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

@@ -82,7 +82,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
     jq(function () {
         if (elementId != undefined) {
-            jq("#" + elementId).click(function () {
+            jq("#" + elementId).on("click", function () {
                 _manager.ShowDialog();
             });
         }
@@ -202,7 +202,6 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var changeItemAction = function (itemId, actionId) {
-        changeStatus(true);
         var act = null;
 
         for (var i = 0; i < _workData.actions.length; i++) {
@@ -219,10 +218,11 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 break;
             }
         }
+
+        changeStatus(true);
     };
 
     var removeItem = function (itemId) {
-        changeStatus(true);
         for (var i = 0; i < _workData.items.length; i++) {
             if (_workData.items[i].id == itemId) {
                 if (_workData.items[i].canEdit === false || _workData.items[i].hideRemove) {
@@ -242,11 +242,13 @@ var SharingSettingsManager = function (elementId, sharingData) {
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
         jq(".sharing-empty").toggle(_workData.items.length <= 1);
+
+        changeStatus(true);
+
         return true;
     };
 
     var addUsers = function (event, users) {
-        changeStatus(true);
         var selectedIds = jq(users).map(function (j, user) {
             return user.id;
         }).toArray();
@@ -279,8 +281,6 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var addUserItem = function (user) {
-        changeStatus(true);
-
         var defAct = null;
         var actions = clone(_workData.actions);
         for (var i = 0; i < actions.length; i++) {
@@ -310,10 +310,11 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
+
+        changeStatus(true);
     };
 
     var addGroups = function (event, groups) {
-        changeStatus(true);
         var selectedIds = jq(groups).map(function (j, group) {
             return group.id;
         }).toArray();
@@ -346,7 +347,6 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var addGroupItem = function (groupId, groupName) {
-        changeStatus(true);
         var defAct = null;
         for (var i = 0; i < _workData.actions.length; i++) {
             if (_workData.actions[i].defaultGroupAction) {
@@ -365,6 +365,8 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
+
+        changeStatus(true);
     };
 
     var reDrawItems = function () {
@@ -450,7 +452,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         jq(".sharing-changed-buttons").toggleClass("display-none", !value);
 
         if (_manager.OnChange != null) {
-            _manager.OnChange(_changed);
+            _manager.OnChange(_changed, _workData);
         }
     };
 
@@ -462,7 +464,6 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     this.UpdateSharingData = function (data, link) {
-        changeStatus(false);
         _data = data;
         _workData = clone(data);
 
@@ -475,6 +476,8 @@ var SharingSettingsManager = function (elementId, sharingData) {
         } else {
             jq("#shareGetLink").hide();
         }
+
+        changeStatus(false);
     };
 
     this.GetSharingData = function () {
@@ -510,7 +513,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 });
         }
 
-        PopupKeyUpActionProvider.EnterAction = PopupKeyUpActionProvider.CtrlEnterAction = "jq(\".sharing-save-button:visible\").click();";
+        PopupKeyUpActionProvider.EnterAction = PopupKeyUpActionProvider.CtrlEnterAction = "jq(\".sharing-save-button:visible\").trigger('click');";
     };
 
     this.SaveAndCloseDialog = function () {

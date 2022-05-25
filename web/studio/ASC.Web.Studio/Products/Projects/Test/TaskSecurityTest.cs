@@ -60,7 +60,7 @@ namespace ASC.Web.Projects.Test
 
         protected Task CreateNewTask(Guid userID, Guid? responsibleID = null)
         {
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             var newTask = GenerateTask();
 
@@ -80,7 +80,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner);
 
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             var task = Get(newTask);
 
@@ -98,7 +98,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner, userID);
 
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             var task = Get(newTask);
 
@@ -110,7 +110,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner);
 
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             newTask.Title = "Test";
 
@@ -162,7 +162,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner, userID);
 
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             newTask.Title = "Test";
 
@@ -179,7 +179,7 @@ namespace ASC.Web.Projects.Test
             {
                 var newTask = CreateNewTask(Owner, ProjectManager);
 
-                SecurityContext.AuthenticateMe(UserInTeam);
+                SecurityContext.CurrentUser = UserInTeam;
 
                 newTask.Title = "Test";
 
@@ -199,7 +199,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner);
 
-            SecurityContext.AuthenticateMe(userID);
+            SecurityContext.CurrentUser = userID;
 
             Delete(newTask);
 
@@ -228,7 +228,7 @@ namespace ASC.Web.Projects.Test
         {
             var newTask = CreateNewTask(Owner);
 
-            SecurityContext.AuthenticateMe(userId);
+            SecurityContext.CurrentUser = userId;
 
             var task = Get(newTask);
 
@@ -264,7 +264,7 @@ namespace ASC.Web.Projects.Test
 
             SaveOrUpdate(newTask);
 
-            SecurityContext.AuthenticateMe(UserInTeam);
+            SecurityContext.CurrentUser = UserInTeam;
 
             var task = Get(newTask);
 

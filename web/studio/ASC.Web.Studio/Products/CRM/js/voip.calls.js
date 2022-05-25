@@ -51,7 +51,7 @@ ASC.CRM.Voip.CallsView = (function ($) {
                     isTempLoad: true
                 });
 
-            jq(window).bind("afterResetSelectedContact", function (event, obj, objName) {
+            jq(window).on("afterResetSelectedContact", function (event, obj, objName) {
                 if (objName === "callsContactSelectorForFilter" && filterId) {
                     jq('#' + filterId).advansedFilter('resize');
                 }
@@ -89,12 +89,12 @@ ASC.CRM.Voip.CallsView = (function ($) {
                     $filteritem.removeClass("default-value");
                 });
 
-                $headerContainer.next().andSelf().appendTo($filteritem.find('span.contact-selector:first'));
+                $headerContainer.next().addBack().appendTo($filteritem.find('span.contact-selector:first'));
 
                 if (!filter.isset) {
                     setTimeout(function () {
                         if ($filteritem.hasClass("default-value")) {
-                            $headerContainer.click();
+                            $headerContainer.trigger("click");
                         }
                     }, 0);
                 }
@@ -106,7 +106,7 @@ ASC.CRM.Voip.CallsView = (function ($) {
             if (!$headerContainer.parent().is("#" + hiddenContainerId)) {
                 $headerContainer.off(showList);
                 $headerContainer.find(".inner-text .value").text(ASC.CRM.Resources.CRMCommonResource.Select);
-                $headerContainer.next().andSelf().appendTo(jq('#' + hiddenContainerId));
+                $headerContainer.next().addBack().appendTo(jq('#' + hiddenContainerId));
                 jq('#' + headerContainerId).contactadvancedSelector("reset");
             }
         }
@@ -467,8 +467,8 @@ ASC.CRM.Voip.CallsView = (function ($) {
                     { id: 'price', title: CRMJSResource.VoipCallCost, selected: sortByParam == 'price', sortOrder: sortByParam == 'price' ? sortOrderParam : 'descending', def: sortByParam == 'price' }
                 ]
             })
-            .bind('setfilter', filterChangedHandler)
-            .bind('resetfilter', filterChangedHandler);
+            .on('setfilter', filterChangedHandler)
+            .on('resetfilter', filterChangedHandler);
     }
 
     function getFilterDays() {

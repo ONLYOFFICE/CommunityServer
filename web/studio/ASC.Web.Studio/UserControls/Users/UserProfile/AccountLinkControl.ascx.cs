@@ -48,7 +48,15 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 ProviderConstants.MailRu,
                 ProviderConstants.VK,
                 ProviderConstants.Yandex,
-                ProviderConstants.GosUslugi
+                ProviderConstants.GosUslugi,
+                ProviderConstants.AppleId,
+                ProviderConstants.Microsoft
+            };
+
+        public static List<string> InviteExceptProviders = new List<string>
+            {
+                ProviderConstants.Twitter,
+                ProviderConstants.AppleId,
             };
 
         public static bool IsNotEmpty
@@ -106,7 +114,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             foreach (var provider in AuthProviders.Where(provider => string.IsNullOrEmpty(fromOnly) || fromOnly == provider || (provider == "google" && fromOnly == "openid")))
             {
-                if (InviteView && provider.ToLower() == "twitter") continue;
+                if (InviteView && InviteExceptProviders.Contains(provider)) continue;
 
                 var loginProvider = ProviderManager.GetLoginProvider(provider);
                 if (loginProvider != null && loginProvider.IsEnabled)

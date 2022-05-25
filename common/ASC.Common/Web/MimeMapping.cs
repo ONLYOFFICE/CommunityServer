@@ -435,6 +435,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".otp", "application/vnd.oasis.opendocument.presentation-template");
             AddMimeMapping(".ots", "application/vnd.oasis.opendocument.spreadsheet-template");
             AddMimeMapping(".ott", "application/vnd.oasis.opendocument.text-template");
+            AddMimeMapping(".oxps", "application/oxps");
             AddMimeMapping(".p", "text/x-pascal");
             AddMimeMapping(".p10", "application/pkcs10");
             AddMimeMapping(".p10", "application/x-pkcs10");

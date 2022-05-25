@@ -30,6 +30,7 @@ namespace ASC.Data.Backup
     {
         Stream GetEntry(string key);
         IEnumerable<string> GetEntries(string key);
+        IEnumerable<string> GetDirectories(string key);
 
     }
 }

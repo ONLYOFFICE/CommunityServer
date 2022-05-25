@@ -59,7 +59,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddDiscussion" xml:space="preserve">
-    <value>Qeyd et</value>
+    <value>Yadda saxla</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arxiv edin</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arxiv edin</value>
   </data>
   <data name="AuthorTitle" xml:space="preserve">
     <value>Müəllif</value>
@@ -67,32 +73,50 @@
   <data name="Comments" xml:space="preserve">
     <value>Şərhlər</value>
   </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Bu müzakirə üçün heç bir şərh tapılmadı.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Şərh tapılmadı</value>
+  </data>
   <data name="CreateDiscussion" xml:space="preserve">
-    <value>Yeni müzakirə yarat</value>
+    <value>Yeni müzakirə yaradın</value>
   </data>
   <data name="CreateMessage" xml:space="preserve">
     <value>Müzakirəyə başla</value>
   </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Müzakirə üçün tapşırıq yaradın</value>
+  </data>
   <data name="DeleteDiscussionPopup" xml:space="preserve">
-    <value>Siz gerçəkdən bu müzakirəni silmək istəyirsiniz mi?</value>
+    <value>Bu müzakirəni silmək istədiyinizə əminsiniz?</value>
   </data>
   <data name="DeleteMessage" xml:space="preserve">
     <value>Müzakirəni sil</value>
   </data>
   <data name="DescrEmptyListMilFilter" xml:space="preserve">
-    <value>Bu bölmədə filtrə uyğun heç bir müzakirə tapılmadı.</value>
+    <value>Bu bölmədə filterə uyğun heç bir müzakirə tapılmadı.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Təsvir</value>
   </data>
   <data name="DiscussionNotFound_Describe" xml:space="preserve">
-    <value>İş ərzində yarana biləcək bütün problemlərin düzgün həllinin tapılması üçün bütün layihə komandası ilə birlikdə müzakirələrdən istifadə olunur.</value>
+    <value>Layihə zamanı yarana biləcək hər hansı problemin düzgün həllini tapmaq üçün layihə komandanızla danışıqlar aparılır. Bütün məsələləri həmkarlarınızla müzakirə edin, digər layihələrdən olan istifadəçiləri müzakirənizə qoşulmağa dəvət edin.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Layihə zamanı yarana biləcək hər hansı problemin düzgün həllini tapmaq üçün layihə komandanızla müzakirələr aparılır. Bütün mövzuları həmkarlarınızla müzakirə edin.</value>
   </data>
   <data name="DiscussionNotFound_Header" xml:space="preserve">
     <value>Hələ heç bir müzakirə başlanmayıb</value>
   </data>
   <data name="DiscussionParticipants" xml:space="preserve">
-    <value>Abunələr</value>
+    <value>Abunəçilər</value>
   </data>
   <data name="EditMessage" xml:space="preserve">
     <value>Müzakirəni redaktə et</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Hər mesajda müəyyən mətn olmalıdır</value>
   </data>
   <data name="FilterNoDiscussions" xml:space="preserve">
     <value>Bu filtrə uyğun heç bir müzakirə yoxdur</value>
@@ -109,17 +133,20 @@
   <data name="MessageTitle" xml:space="preserve">
     <value>Başlıq</value>
   </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Açın</value>
+  </data>
   <data name="ReadMore" xml:space="preserve">
-    <value>Ardını oxu</value>
+    <value>Ətraflı məlumat</value>
   </data>
   <data name="SelectProject" xml:space="preserve">
     <value>Layihəni seç</value>
   </data>
   <data name="StartFirstDiscussion" xml:space="preserve">
-    <value>İlk müzakirəni başla</value>
+    <value>İlk müzakirəni başlat</value>
   </data>
   <data name="SubscribePeopleInfoComment" xml:space="preserve">
-    <value>Seçdiyiniz adamlara mesaj və ona olan şərhlər haqqında xəbər veriləcək.</value>
+    <value>Seçdiyiniz insanlara mesaj və ona edilən şərhlər barədə məlumat veriləcək.</value>
   </data>
   <data name="SubscribeUsers" xml:space="preserve">
     <value>Bildir</value>

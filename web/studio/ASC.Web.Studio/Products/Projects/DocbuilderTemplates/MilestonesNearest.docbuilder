@@ -1,4 +1,6 @@
-﻿oWs.SetColumnWidth(2, 20);
+﻿writeInterval();
+
+oWs.SetColumnWidth(2, 20);
 
 var projects = [];
 

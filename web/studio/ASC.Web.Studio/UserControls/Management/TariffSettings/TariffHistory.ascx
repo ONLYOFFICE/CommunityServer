@@ -21,7 +21,7 @@
                     <td><%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).FName %> <%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).LName %></td>
                     <td><%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).Email %></td>
                     <td><%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).PaymentDate.ToShortDateString() %> <%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).PaymentDate.ToShortTimeString() %></td>
-                    <td><%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).Price.ToString("###,##") %> <%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).PaymentCurrency %></td>
+                    <td><%# (((ASC.Core.Billing.PaymentInfo)Container.DataItem).Qty * ((ASC.Core.Billing.PaymentInfo)Container.DataItem).Price).ToString("###,##") %> <%# ((ASC.Core.Billing.PaymentInfo)Container.DataItem).PaymentCurrency %></td>
                 </tr>
     </ItemTemplate>
     <FooterTemplate>

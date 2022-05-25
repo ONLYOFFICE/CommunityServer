@@ -199,7 +199,7 @@ namespace ASC.Mail
         public const string ORDER_BY_SUBJECT = "subject";
         public const string CONNECTION_STRING_NAME = "mail";
         public const string DNS_DEFAULT_ORIGIN = "@";
-        public const string ARCHIVE_NAME = "download.tar.gz";
+        public const string ARCHIVE_NAME = "download.zip";
         public static readonly DateTime BaseJsDateTime = new DateTime(1970, 1, 1);
 
         public enum TariffType

@@ -18,8 +18,10 @@
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -78,16 +80,6 @@
     </Compile>
     <Compile Include="Master\Community.Master.designer.cs">
       <DependentUpon>Community.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Birthdays\Classes\BirthdaysModule.cs" />
-    <Compile Include="Modules\Birthdays\Classes\BirthdaysNotifyClient.cs" />
-    <Compile Include="Modules\Birthdays\Classes\BirthdaysSubscriptionManager.cs" />
-    <Compile Include="Modules\Birthdays\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\Birthdays\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Blogs\AddBlog.aspx.cs">
       <DependentUpon>AddBlog.aspx</DependentUpon>
@@ -861,6 +853,7 @@
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
       <DependentUpon>BlogPatternResource.resx</DependentUpon>
@@ -946,146 +939,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BirthdayPatternResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Modules\Birthdays\Resources\BirthdayPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.de.resx" Condition="$(Cultures.Contains('de'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.el.resx" Condition="$(Cultures.Contains('el'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.es.resx" Condition="$(Cultures.Contains('es'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.it.resx" Condition="$(Cultures.Contains('it'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BirthdaysResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Modules\Birthdays\Resources\BirthdaysResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
@@ -2026,6 +1879,7 @@
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WikiPatternResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
       <DependentUpon>WikiPatternResource.resx</DependentUpon>
@@ -2055,48 +1909,63 @@
     </Compile>
     <EmbeddedResource Include="Resources\CommunityResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.de.resx" Condition="$(Cultures.Contains('de'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.el.resx" Condition="$(Cultures.Contains('el'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.es.resx" Condition="$(Cultures.Contains('es'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.it.resx" Condition="$(Cultures.Contains('it'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
@@ -2108,24 +1977,31 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Resources\CommunityResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2134,6 +2010,7 @@
     </Compile>
     <EmbeddedResource Include="Resources\CommunityResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.be.resx" Condition="$(Cultures.Contains('be'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
@@ -2149,33 +2026,40 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.he.resx" Condition="$(Cultures.Contains('he'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.hy.resx" Condition="$(Cultures.Contains('hy'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.id.resx" Condition="$(Cultures.Contains('id'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
@@ -2185,12 +2069,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.th.resx" Condition="$(Cultures.Contains('th'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
       <DependentUpon>CommunityResource.resx</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
       <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
@@ -2483,51 +2369,6 @@
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
       <DependentUpon>WikiResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.be.resx" Condition="$(Cultures.Contains('be'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.be.resx" Condition="$(Cultures.Contains('be'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.da.resx" Condition="$(Cultures.Contains('da'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.id.resx" Condition="$(Cultures.Contains('id'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\default\images\icon-blogs.png" />
@@ -2548,14 +2389,6 @@
     <Content Include="js\common.js" />
     <Content Include="js\tagsautocompletebox.js" />
     <Content Include="Master\Styles.ascx" />
-    <Content Include="Modules\Birthdays\App_Themes\default\birthdays.css" />
-    <Content Include="Modules\Birthdays\App_Themes\default\images\birthday.png" />
-    <Content Include="Modules\Birthdays\App_Themes\default\images\white_cross.png" />
-    <Content Include="Modules\Birthdays\Default.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="Modules\Birthdays\js\birthdays.js" />
-    <Content Include="Modules\Birthdays\Resources\patterns.xml" />
     <Content Include="Modules\Blogs\AddBlog.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -3280,7 +3113,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AjaxPro.2">
-      <Version>2.9.17.2</Version>
+      <Version>21.12.22.2</Version>
     </PackageReference>
     <PackageReference Include="FredCK.FCKeditorV2">
       <Version>2.6.3.19702</Version>
@@ -3289,7 +3122,7 @@
       <Version>1.6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -67,7 +67,7 @@ $CommentBody
 
 "Ardını oxu":"$BookmarkUrl"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əlfəcinlərə yeni şərhlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını" dəyişin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əlfəcinlərə yeni şərhlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişin.^</value>
   </data>
   <data name="pattern_BookmarkCreatedID" xml:space="preserve">
     <value>h1.Yeni əlfəcin əlavə olundu: "$BookmarkTitle":"$BookmarkUrl"
@@ -76,12 +76,18 @@ $Date istifadəçi "$__AuthorName":"$__AuthorUrl" yeni əlfəcini əlavə etdi:"
 
 $BookmarkDescription
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Yeni əlavə olunmuş əlfəcinlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını" dəyişin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Yeni əlavə olunmuş əlfəcinlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişin.^</value>
   </data>
   <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
     <value>İcma. Əlfəcinə yeni şərh var: $BookmarkTitle</value>
   </data>
+  <data name="subject_BookmarkCommentCreatedID_tg" xml:space="preserve">
+    <value>İcma. Yeni şərh əlavə edildi: [$BookmarkTitle]($BookmarkUrl)</value>
+  </data>
   <data name="subject_BookmarkCreatedID" xml:space="preserve">
     <value>İcma. Yeni əlfəcin əlavə olundu: $BookmarkTitle</value>
+  </data>
+  <data name="subject_BookmarkCreatedID_tg" xml:space="preserve">
+    <value>İcma. Yeni əlfəcin əlavə edildi: [$BookmarkTitle]($BookmarkUrl)</value>
   </data>
 </root>

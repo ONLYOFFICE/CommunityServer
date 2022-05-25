@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Bütün hüquqlar qorunur.</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Personal fərdi bulud yaddaşı olan mətn sənədləri, cədvəllər və təqdimatlar üçün ödənişsiz onlayn redaktə dəstidir.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>onlayn word redaktə, onlayn word editoru, onlayn pulsuz word, onlayn word office</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>Və ya ilə daxil olun</value>
+  </data>
+  <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
+    <value>Brauzerdə və ya ONLYOFFICE masaüstü proqramı vasitəsilə işləyin</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Şəxsi, CRM kontaktlarınızdan və ya portal istifadəçilərinizdən e-poçt ünvanını və ya əlaqə adını yazmağa başlayın və ya insanları tədbirinizə dəvət etmək üçün hər hansı digər e-poçtdan istifadə edin.</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Hesabın təsdiqlənməsi üçün e-poçtunuzu yoxlayın.</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Əlverişli birgə redaktə və nəzərdən keçirmə</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Sənəd əməkdaşlığı</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>MS Office formatları ilə 100% uyğundur</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Bağlantı təlimatları</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Hesab yaradın</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Bulud yaradın</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Sənəd Müzakirəsi</value>
+  </data>
+  <data name="DiscussionDocumentDescriptionCustomMode" xml:space="preserve">
+    <value>Redaktordan çıxmazdan əvvəl sənəd üzərində işi müzakirə etmək üçün şərhlərdən istifadə edin və söhbət edin.</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Sənəd Redaktoru</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>O, istənilən mürəkkəblik səviyyəsində formatlaşdırma ilə mətn sənədlərini asanlıqla yaratmağa və redaktə etməyə kömək edəcək.</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Elektron poçt ünvanınızı daxil edin</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>Və ya ilə daxil olun</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Şifrəni unutmusunuz?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Burada portal ünvanınızı dəyişə bilərsiniz. onlyoffice.com/onlyoffice.eu portal ünvanının yanında görünəcək hissəni daxil edin.{0}{1}Qeyd edin{2}: {1}Yadda saxla{2} düyməsini kliklədikdən sonra köhnə portal ünvanınız yeni ONLYOFFICE istifadəçiləri üçün əlçatan olacaq. </value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Enterprise Edition-ı aktivləşdirmək üçün lisenziya açarı almalısınız.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Onlayn Sənəd Redaktorları{1}{0}Sənəd İdarəetməsi{1}{0}Poçt{1}{0}Layihələr{1}{0}CRM{1}{0}Təqvim{1}{0}İcma{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Hesaba Giriş</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Buluda qoşulun</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>ONLYOFİS hər zaman istifadəyə hazırdır</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>Hələ qeydiyyatdan keçməmisiniz?</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE masa üstü</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Tətbiqdən çıxmadan sənədlər üzərində birlikdə işləmək üçün ONLYOFFICE nüsxənizi buludla birləşdirin.</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE onlayn</value>
+  </data>
+  <data name="OfficeOnlineDescriptionCustomMode" xml:space="preserve">
+    <value>İstənilən yerdən işləmək üçün sizə yalnız brauzer lazımdır. Etibarlı hosting məlumatlarınızın təhlükəsizliyini təmin edəcək.</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Onlayn Versiya</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>Parol</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+İstifadəçi profiliniz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında uğurla portala əlavə edildi. Bu gün onunla başlayın!
+
+h3.Sənədlərlə işləməyə başlayın:
+# Mətn sənədləri, cədvəl və təqdimatlar yaradın və redaktə edin.
+# Bütün sənədləriniz üçün vahid iş sahəsi yaratmaq üçün istifadə etdiyiniz bulud yaddaşlarını birləşdirin.
+# Sənədləri komanda üzvlərinizlə paylaşın.
+# Sənədlər üzərində birlikdə işləməyin müxtəlif yollarını araşdırın: iki real vaxtda birgə redaktə rejimi, nəzərdən keçirmə, şərhlər, söhbət.
+h3.Əlavə ${LetterLogoText} alətlərini sınayın:
+
+# E-poçt hesabınızı "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/" -ə əlavə edin.
+# "Layihələr":"${__VirtualRootPath}/products/projects/" yaradın və mərhələlər və tapşırıqlar əlavə etməklə iş axınınızı idarə edin.
+# "CRM":"${__VirtualRootPath}/products/crm/" -dan istifadə edərək müştəri münasibətlərinizi idarə edin.
+# Bloqlarınızı, forumlarınızı başlatmaq, tədbirlər əlavə etmək, əlfəcinləri paylaşmaq üçün "Community":"${__VirtualRootPath}/products/community/" -dən istifadə edin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə iş qrafikinizi təşkil edin.
+# Komanda yoldaşlarınızla onlayn söhbət etmək üçün "Danışıq":"${__VirtualRootPath}/addons/talk/" -a başlayın.
+$GreenButton
+
+Hörmətlə,
+
+${LetterLogoText} Team</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Məlumat ixracı uğurla tamamlandı
+
+Arxivi endirmək üçün bu linki izləyin: "${EntityTitle}":"${EntityRelativeURL}"
+
+^Siz bu e-poçtu alırsınız, çünki siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisisiniz. Bildiriş növünü dəyişmək üçün "abunəlik parametrlərinizi":"$RecipientSubscriptionConfigURL" idarə edin.^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Məlumat idxalı uğurla tamamlandı
+
+"${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" siyahısına keçin.
+
+^Bildiriş növünü dəyişmək üçün "abunəlik parametrlərinizi":"$RecipientSubscriptionConfigURL" idarə edin.^</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.ONLYOFFICE Personal-a xoş gəlmisiniz
+
+Siz indicə buludda şəxsi ofisinizi yaratdınız.
+
+h3.Bu, dostlarınız və ya həmkarlarınıza girişi təmin etməklə istənilən yerdən sənədləri redaktə edə və saxlaya, onlarla işləyə biləcəyiniz virtual iş sahəsidir.
+ONLYOFFICE Microsoft Office™ sənəd formatları ilə uyğun gəlir və yaradılmış obyektlərin format və keyfiyyətində heç bir itkinin olmayacağına zəmanət verir. Sizi uyğunluqla bağlı problemlərdən xilas etməyi və tam peşəkar redaktə alətləri dəsti ilə təmin etməyi vəd edirik.
+
+h3. Sürətli başlanğıc üçün ONLYOFFICE-də edə biləcəkləriniz bunlardır:
+
+- Kompüterinizdən faylları endirmək və ya yenisini yaratmaq;
+
+- Bütün məşhur fayl formatları ilə işləmək;
+
+- Avtoşəkilləri, diaqramları, cədvəlləri, tənlikləri və digər obyektləri redaktə etmək;
+
+- Genişləndirilmiş redaktə xüsusiyyətləri üçün müxtəlif əlavələrdən istifadə etmək;
+
+- "Chrome genişləndirilməsi" vasitəsilə şəxsi buludunuza asanlıqla daxil olmaq:"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US".
+
+Siz həmçinin ödənişsiz "masa üstü redaktorlarımız" vasitəsilə sənədləri oflayn rejimdə redaktə edə bilərsiniz:"https://www.onlyoffice.com/download-desktop.aspx" və ya "mobil redaktə dəsti" əldə edə bilərsiniz:"https://www.onlyoffice.com iOS və ya Android cihazınız üçün /mobile.aspx".
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart Sevimli bulud yaddaşınızı ONLYOFFICE-ə qoşun $PersonalHeaderEnd
+
+Bulud ofisi yaratmağınızdan bir həftə keçib, ona görə də qaçırdığınız bəzi faydalı funksiyaları açıqlamağın vaxtıdır.
+
+*Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* və ya *Yandex.Disk*-i ONLYOFFICE ilə əlaqələndirib bütün sənədləriniz üçün vahid idarəetməsahəsi yaradın. Xarici faylları da ONLYOFFICE daxilində redaktə edə və onları faylları saxladığınız yaddaşa əlavə edə biləcəksiniz. Fayl yaddaşlarını ONLYOFFICE ilə əlaqələndirməklə bağlı ətraflı məlumatı "buradan":"${__HelpLink}/tipstricks/add-resource.aspx" əldə edə bilərsiniz.
+
+Siz, həmçinin, "əlaqələndirici tətbiqimizdən":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn" istifadə edərək ONLYOFFICE redaktorlarını Google Diskə inteqrasiya edə bilərsiniz.
+
+Sənəd İdarəetməsi haqqında daha çox bilmək istəyirsiniz?
+
+h3."Buludda":"https://www.onlyoffice.com/cloud-office.aspx" və ya "serverinizdə":"https://www.onlyoffice.com/server-solutions.aspx" Biznes üçün ONLYOFFICE-i 30 gün ərzində pulsuz sınayın və biznes alət dəsti ilə genişləndirilmiş sənəd idarəetmə imkanlarını yoxlayın:
+
+- Layihələr üzrə komanda sənədlərini idarə etmək;
+
+- Sənədləri CRM və Email ilə inteqrasiya etmək;
+
+- Faylları istifadəçi qrupları ilə paylaşmaq;
+
+- Komandanın ünsiyyət vasitələri ilə iş prosesinizi optimallaşdırmaq.
+
+Maraqlıdır? "Biznes üçün ONLYOFFICE":"http://www.onlyoffice.com/document-management.aspx" haqqında ətraflı məlumat əldə edin.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
+    <value>Bulud ofis hesabınızdakı e-poçtu dəyişmək istəyirsiniz?
+
+Aşağıdakı düyməni basın və buludunuza daxil olun*.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+*Bu brauzerdə bulud ofisinizə daxil olmamısınızsa, təsdiq üçün köhnə e-poçtunuzdan istifadə etməlisiniz.
+
+E-poçtunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>"${__VirtualRootPath}":"${__VirtualRootPath}" portalına daxil olmaq üçün istifadə edilən parolunuzu dəyişdirmək tələbi gəlib.
+
+Şifrənizi dəyişmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır. Qeyd olunan müddət ərzində parol dəyişdirmə prosesini tamamlayın.
+
+Əgər parolunuzu dəyişmək istəmirsinizsə və ya bu e-məktubu səhvən almışsınızsa, onu nəzərə almayın.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password_v115" xml:space="preserve">
+    <value>Bulud ofis hesabınızdakı parolu dəyişmək istəyirsiniz? Təsdiqləmək üçün aşağıdakı düyməni basın.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+Parolunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Salam,
+
+Siz indicə şəxsi istifadə üçün ONLYOFFICE həllində hesabı qeydiyyatdan keçirdiniz. Qeydiyyatı təsdiqləmək və parol yaratmaq üçün "bura":"$InviteLink" üzərinə klikləyin.
+
+Əgər linki aça bilmirsinizsə, lütfən, aşağıdakı "$InviteLink":"$InviteLink" i kopyalayın və onu brauzerinizin ünvan çubuğuna yapışdırın.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Personal.onlyoffice.com saytında hesabınıza xitam verilməsini xahiş etmisiniz. Sorğunu tamamlamaq üçün linkə daxil olun (link 7 gün ərzində aktivdir):
+
+$GreenButton
+
+*Qeyd*: Silindikdən sonra hesabınız və onunla əlaqəli bütün məlumatlar "Məxfilik bəyanatımız":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid= 5048502&amp;amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0" a uyğun olaraq həmişəlik silinəcək.
+
+Davam etmək istəmirsinizsə, bu e-poçtu nəzərə almayın.
+
+Hər hansı sualınız varsa, "support@onlyoffice.com":"mailto:support@onlyoffice.com" ünvanında bizimlə əlaqə saxlayın
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+"$FromUserName":"$FromUserLink" istifadəçisindən məlumatın silinməsi prosesi uğurla tamamlandı.
+
+Şəxsi məlumatların ödənişsiz silinməsinə icazə verilir:
+
+# Sənədlər - $DocsSpace
+# Poçt - $MailSpace
+# Danışıq - $TalkSpace</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3.Yeni portal qeydiyyatdan keçdi
+# Portal url: "${__VirtualRootPath}":"${__VirtualRootPath}"
+# First name: $UserName
+# Last name: $UserLastName
+# Email: $UserEmail
+# Phone: $Phone
+# Creation date: $Date</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE təqdimat redaktoru</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Sizi təsirli təqdimatlar yaratmaq və istənilən ideyanı auditoriyaya təqdim etmək üçün bütün vasitələrlə təmin edəcək.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>İstifadəçi ilə eyni şeyi edin|"Ümumi" bölməsində Dropbox, Box və digər hesabları birləşdirin|"Ümumi" bölməsində sənədlər və qovluqlara giriş hüquqlarını tənzimləyin</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Öz sənədlərini, eləcə də müvafiq giriş hüquqları ilə paylaşılan sənədləri yaradın və redaktə edin|Digər istifadəçilərə sənədləri və qovluqları oxumaq/redaktə etmək imkanı verin|"Sənədlərim" bölməsində Dropbox, Box və digər hesabları birləşdirin</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>İndi yaradın</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>Mən ONLYOFFICE xəbər bülleteninə abunə olmaq istəyirəm</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>Mən ONLYOFFICE {0}Qaydaları və şərtləri{1} ilə razıyam</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>Yadda saxla</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>Nəzərdən keçirin</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>Sənədi dəyişdirmədən redaktə təklif etmək üçün nəzərdən keçirmə rejimini işə salın.</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Aktivləşdirmə e-poçtu göndərildi</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>Abunə ol</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>Buluda abunə ol</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}İki faktorlu təsdiqləmə{1}, istifadəçilərin üçün portala daxil olması üçün ən təhlükəsiz yoldur. Kredensialları daxil etdikdən sonra istifadəçidən qoşulmuş təsdiqləyici tətbiqi üçün kodu daxil etməsi tələb olunacaq.{2}Bütün istifadəçilərin portala daha təhlükəsiz giriş əldə etməsi üçün bu seçimi aktiv edin. {2}Dəyişiklikləri tətbiq etmək üçün bu bölmənin altındakı {0}Yadda Saxla{1} düyməsinə klikləyin.{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE cədvəl redaktoru</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Elektron cədvəllərlə peşəkar işi təmin edir, mürəkkəb hesablamalar aparmağa və məlumatlarınızı təşkil etməyə kömək edir.</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>ONLYOFFICE Personala xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Sevimli bulud yaddaşınızı ONLYOFFICE ilə birləşdirin</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>ONLYOFFICE Şəxsi parol yardımı</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Zəhmət olmasa e-poçt ünvanınızı aktivləşdirin</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE Şəxsi hesabın ləğvi</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. İstifadəçi məlumatlarının silinməsi tamamlandı</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>Yeni portal qeydiyyatdan keçib</value>
+  </data>
+  <data name="TariffNotPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}Lisenziyanız üçün dəstək və yeniləmələr artıq mövcud deyil{1}.</value>
+  </data>
+  <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}{2}{1} tarixindən etibarən lisenziyanız üçün dəstək və yeniləmələr daha əlçatan deyil.</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition-dən istifadə edirsiniz.</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>İstifadə qaydaları</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>Qeydiyyatdan keçdiyiniz üçün təşəkkür edirik</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Əməkdaşlıq buludu</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>Şəxsi onlayn ofis</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>İzləməni dəyişdirin</value>
+  </data>
+  <data name="TrackingChangesDescriptionCustomMode" xml:space="preserve">
+    <value>Edilmiş dəyişikliklərin ekranını işə salın. Müxtəlif baxış rejimləri bu redaktələri qəbul etdiyiniz və ya imtina etdiyiniz halda sənədin necə görünəcəyini yoxlamağa kömək edəcək.</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>İki birgə redaktə rejimi</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>Sürətli rejimdə siz əməkdaşınızın nə yazdığını görürsünüz, o da sizin nə yazdığınızı görür. Strict-də siz sənədin hissələrini özəl olaraq redaktə edirsiniz və dəyişikliklər yadda saxladıqdan sonra göstərilir.</value>
+  </data>
+</root>

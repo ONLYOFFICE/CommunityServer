@@ -61,6 +61,7 @@ window.EditProfileManager = (function () {
         $passDigits,
         $passSpecial,
         $passMinLength,
+        $passLatinLetters,
         $passwordInfo,
         $emailInfo,
         $domainSelector,
@@ -102,6 +103,7 @@ window.EditProfileManager = (function () {
         $passDigits = jq('#passDigits');
         $passSpecial = jq('#passSpecial');
         $passMinLength = jq('#passMinLength');
+        $passLatinLetters = jq('#passLatinLetters');
         $passwordInfo = jq('#passwordInfo');
         $emailInfo = jq(classEmailInfo);
         $domainSelector = jq('#domainSelector');
@@ -197,7 +199,7 @@ window.EditProfileManager = (function () {
         jq(".group-field").tlcombobox({ align: 'left' });
         jq(".group-field.external").tlcombobox(false);
 
-        $profileFirstName.focus();
+        $profileFirstName.trigger("focus");
 
         jq(".tabs-content select").each(function () {
             var className = jq(this).find("option:selected").val();
@@ -557,7 +559,7 @@ window.EditProfileManager = (function () {
 
             fromDateInp.datepicker({
                 onSelect: function() {
-                    var date = jq(this).blur().datepicker("getDate");
+                    var date = jq(this).trigger("blur").datepicker("getDate");
                     birthDateInp.datepicker("option", "maxDate", date);
                     jQuery.datepicker._hideDatepicker();
                 }
@@ -565,7 +567,7 @@ window.EditProfileManager = (function () {
 
             birthDateInp.datepicker({
                 onSelect: function() {
-                    var date = jq(this).blur().datepicker("getDate");
+                    var date = jq(this).trigger("blur").datepicker("getDate");
                     fromDateInp.datepicker("option", "minDate", date);
                     jQuery.datepicker._hideDatepicker();
                 }
@@ -684,7 +686,7 @@ window.EditProfileManager = (function () {
                         $newEl.find(".group-field").addClass("external");
 
                         var title = jq("#profileFirstName").attr("title");
-                        $newEl.find(".textEdit").addClass("disable").attr("disabled", true).attr("title", title);
+                        $newEl.find(".textEdit").addClass("disable").prop("disabled", true).attr("title", title);
 
                     }
                 }
@@ -726,7 +728,7 @@ window.EditProfileManager = (function () {
     };
 
     function lockProfileActionPageElements() {
-        jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").attr("disabled", "disabled");
+        jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").prop("disabled", true);
         jq(".group-field").tlcombobox(false);
         jq(".add-new-field, #loadPhotoImage, #chooseGroupsSelector, #departmentsField .departments-list .reset-icon").addClass("disabled");
 
@@ -734,7 +736,7 @@ window.EditProfileManager = (function () {
     };
 
     function unlockProfileActionPageElements() {
-        jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").removeAttr("disabled");
+        jq(".profile-action-userdata .userdata-value input, #profileComment, .contacts-group input").prop("disabled", false);
         jq(".group-field").tlcombobox(true);
         jq(".add-new-field, #loadPhotoImage, #chooseGroupsSelector, #departmentsField .departments-list .reset-icon").removeClass("disabled");
 
@@ -1043,10 +1045,10 @@ window.EditProfileManager = (function () {
 
     function copyLocalPart() {
         if (isUserEmail) {
-            $profileEmail.val(splitEmail($portalEmail)).focus();
+            $profileEmail.val(splitEmail($portalEmail)).trigger("focus");
             delayedCheck($profileEmail);
         } else {
-            $portalEmail.val(splitEmail($profileEmail)).focus();
+            $portalEmail.val(splitEmail($profileEmail)).trigger("focus");
             delayedCheck($portalEmail);
         }
         clearEmailInfo();
@@ -1096,7 +1098,7 @@ window.EditProfileManager = (function () {
     };
 
     function checkPassword() {
-        var inputValues = $password.val().trim(),
+        var inputValues = $password.val(),
             inputLength = inputValues.length,
             progress = jq('.validationProgress'),
             progressStep = ($password.width() + 41) / passwordSettings.minLength;
@@ -1170,23 +1172,25 @@ window.EditProfileManager = (function () {
             special;
 
         (passwordSettings.upperCase)
-            ? upper = /[A-Z]/.test(inputValues)
+            ? upper = new RegExp(passwordSettings.upperCaseRegexStr).test(inputValues)
             : upper = true;
 
         (passwordSettings.digits)
-            ? digits = /\d/.test(inputValues)
+            ? digits = new RegExp(passwordSettings.digitsRegexStr).test(inputValues)
             : digits = true;
 
         (passwordSettings.specSymbols)
-            ? special = /[!@#$%^&*_\-()=]/.test(inputValues)
+            ? special = new RegExp(passwordSettings.specSymbolsRegexStr).test(inputValues)
             : special = true;
 
-        checkPasswordInfoColor(upper, digits, special, inputValues);
+        var onlyLatinLetters = new RegExp("^" + passwordSettings.allowedCharactersRegexStr + "{1,}$").test(inputValues);
 
-        return digits && upper && special && inputValues.length >= passwordSettings.minLength;
+        checkPasswordInfoColor(inputValues, upper, digits, special, onlyLatinLetters);
+
+        return digits && upper && special && inputValues.length >= passwordSettings.minLength && inputValues.length <= passwordSettings.maxLength && onlyLatinLetters;
     };
 
-    function checkPasswordInfoColor(upper, digits, special, inputValues) {
+    function checkPasswordInfoColor(inputValues, upper, digits, special, onlyLatinLetters) {
         (upper)
             ? greenText($passUpper)
             : redText($passUpper);
@@ -1199,9 +1203,13 @@ window.EditProfileManager = (function () {
             ? greenText($passSpecial)
             : redText($passSpecial);
 
-        (inputValues.length >= passwordSettings.minLength)
+        (inputValues.length >= passwordSettings.minLength && inputValues.length <= passwordSettings.maxLength)
             ? greenText($passMinLength)
             : redText($passMinLength);
+
+        (onlyLatinLetters)
+            ? greenText($passLatinLetters)
+            : redText($passLatinLetters);
     };
 
     function greenText(control) {
@@ -1236,7 +1244,7 @@ window.EditProfileManager = (function () {
             var enabledModuleIndex = enabledModulesId.indexOf(module.id);
             if (enabledModuleIndex >= 0) {
                 moduleInfo.append("<tr>"
-                    + "<td>" + jq.trim(enabledModulesList[enabledModuleIndex].title) + "</td>"
+                    + "<td>" + enabledModulesList[enabledModuleIndex].title.trim() + "</td>"
                     + module.value
                     + "</tr>");
             }

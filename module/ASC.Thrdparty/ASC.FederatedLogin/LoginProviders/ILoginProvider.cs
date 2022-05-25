@@ -27,6 +27,10 @@ namespace ASC.FederatedLogin.LoginProviders
         LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params);
 
         LoginProfile GetLoginProfile(string accessToken);
+
+        LoginProfile GetLoginProfile(OAuth20Token token);
+
+        OAuth20Token GetToken(string codeOAuth);
     }
 
     public interface IOAuthProvider

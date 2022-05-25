@@ -26,6 +26,8 @@
 /*
  * MS	06-05-23	using local variables instead of "new Type()" for get De-/SerializableTypes
  * MS	06-09-26	improved performance using StringBuilder
+ * MS	21-11-29	added check for custom type deserialization
+ * 
  * 
  * 
  */
@@ -171,12 +173,14 @@ namespace AjaxPro
 			if(!typeof(HtmlControl).IsAssignableFrom(type))
 				throw new InvalidCastException("The target type is not a HtmlControlType");
 
+			JavaScriptDeserializer.ThrowExceptionIfNotCustomTypeDeserializationAllowed(type);
+
 			html = AddRunAtServer(html, (Activator.CreateInstance(type) as HtmlControl).TagName);
 
 			if(type.IsAssignableFrom(typeof(HtmlSelect)))
 				html = CorrectAttributes(html);
 
-			Control o = HtmlControlConverterHelper.Parse(html);;
+			Control o = HtmlControlConverterHelper.Parse(html);
 			
 			if(o.GetType() == type)
 				return (o as HtmlControl);

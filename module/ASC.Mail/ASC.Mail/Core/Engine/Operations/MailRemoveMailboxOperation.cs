@@ -55,7 +55,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
-                SecurityContext.AuthenticateMe(CurrentUser);
+                SecurityContext.CurrentAccount = CurrentUser;
 
                 var engine = new EngineFactory(_mailBoxData.TenantId, _mailBoxData.UserId);
 

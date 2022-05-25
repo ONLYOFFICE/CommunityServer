@@ -249,9 +249,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Адміністратори</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Статус афілійованої особи</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Будь-які домени</value>
   </data>
@@ -498,12 +495,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>Логін</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Підключіть службу Bitly, щоб скоротити посилання на портальні запрошення та спільні посилання в модулі Документи.</value>
@@ -806,27 +797,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Таємний маркер доступу</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>ID клієнта</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Таємниця клієнта</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Увімкніть додаток для імпорту контактів Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Додаючи сервісну службу Yahoo, ви зможете прикріпити нових користувачів із списку контактів до порталу ONLYOFFICE.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>ID клієнта</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Таємниця клієнта</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Контактна інформація</value>
@@ -1274,10 +1244,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Пароль повинен містити</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Повинен містити
-</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>цифри</value>
   </data>
@@ -1467,10 +1433,6 @@
     <value>Центр довідки
 </value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Метою програми є законна реклама офісу ONLYOFFICE™ для отримання комісії зо передплатами, придбаними відповідними особами.
-</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Приховати</value>
   </data>
@@ -1598,9 +1560,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Імпорт з Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Імпорт з Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Поточний тарифний план дає змогу додавати таку кількість користувачів: {0}.
 </value>
@@ -1668,10 +1627,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Також перенести пошту ONLYOFFICE™ (не рекомендується)
-</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Стати партнером
 </value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
@@ -2765,16 +2720,6 @@
     <value>Повторні запрошення були успішно надіслані
 </value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Написати лист</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Зв'яжіться з нами, щоб дізнатись про спеціальні пропозиції</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Зменште необхідний параметр або виберіть інший тарифний план.
-</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Купити зараз</value>
   </data>
@@ -2788,22 +2733,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Виберіть план, який найбільше відповідає вашим потребам. Рекомендований план виділено нижче.
-</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Цей план вибрати неможливо
-</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Дозволений дисковий простір: {0}. Поточний дисковий простір: {1}.
-</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Кількість дозволених користувачів порталу: {0}. Поточна кількість користувачів: {1}.
-</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Ви не можете вибрати цей план, тому що дисковий простір або кількість користувачів перевищує обмеження вибраного тарифного плану:
 </value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
@@ -2834,9 +2763,6 @@
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Ваш портал ONLYOFFICE ™ буде заблоковано {2}. Будь ласка, {0}натисніть тут{1}, щоб подовжити існуючий план або змінити його на відповідний.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Кількість порталів, які ви створили: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Тарифний план недоступний до кінця оплаченого року.
 </value>
@@ -2853,16 +2779,9 @@
     <value>Для скасування регулярних платежів перейдіть до свого облікового запису Avangate.
 </value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>До {0} тільки.
-</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Тарифні плани
 </value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Для зручності Ваші платежі у російських рублях розраховуються з використанням фіксованого обмінного курсу {0} Російські рублі за 1 долар США.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Оплата</value>

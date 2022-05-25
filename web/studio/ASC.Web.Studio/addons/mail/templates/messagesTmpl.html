@@ -5,17 +5,18 @@
 </script>
 
 <script id="messageItemTmpl" type="text/x-jquery-tmpl">
-    <div style="-ms-grid-row: ${index}" data_id="${id}" date="${date}" chain_date="${chainDate}" class="row{{if isNew}} new{{/if}}"{{if restoreFolderId}} PrevFolderId="${restoreFolderId}"{{/if}}>
+    <div style="-ms-grid-row: ${index}" data_id="${id}" date="${date}" chain_date="${chainDate}" class="row{{if isNew}} new{{/if}}" {{if restoreFolderId}} PrevFolderId="${restoreFolderId}" {{/if}}>
         {{if !$item.hideCheckboxes }}
         <div class="checkbox">
-            <input type="checkbox" data_id="${id}" title="${ASC.Mail.Resources.MailResource.Select}"/>
+            <input type="checkbox" data_id="${id}" title="${ASC.Mail.Resources.MailResource.Select}" />
         </div>
         {{/if}}
-        <div class="importance"><i class="icon-{{if important!=true}}un{{/if}}important" 
-            title="{{if important}}${ASC.Mail.Resources.MailScriptResource.ImportantLabel}{{else}}${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}{{/if}}"></i>
+        <div class="importance">
+            <i class="icon-{{if important!=true}}un{{/if}}important"
+               title="{{if important}}${ASC.Mail.Resources.MailScriptResource.ImportantLabel}{{else}}${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}{{/if}}"></i>
         </div>
         <div class="from">
-            <a href="${anchor}" {{if $item.targetBlank}}target="_blank"{{/if}}>
+            <a href="${anchor}" {{if $item.targetBlank}} target="_blank" {{/if}}>
                 <span class="author" title="${author!='' ? author : sender}" email="${sender}">
                     {{if author=='' && sender==''}}${ASC.Mail.Resources.MailResource.NoAddress}{{else}}${author!='' ? author : sender}{{/if}}
                 </span>
@@ -23,7 +24,7 @@
             </a>
         </div>
         <div class="subject" title="{{if subject==''}}${ASC.Mail.Resources.MailResource.NoSubject}{{else}}${$item.htmlEncode(subject)}{{/if}}">
-            <a href="${anchor}" _tags="{{each tagIds}}{{if $index>0}},{{/if}}${$value}{{/each}}" {{if $item.targetBlank}}target="_blank"{{/if}}>
+            <a href="${anchor}" _tags="{{each tagIds}}{{if $index>0}},{{/if}}${$value}{{/each}}" {{if $item.targetBlank}} target="_blank" {{/if}}>
                 {{tmpl($item.getTagsToDisplay(tags), { htmlEncode : $item.htmlEncode}) "messageItemTagsTmpl"}}
                 {{tmpl($item.getCountTagsInMore(tags)) "messageItemTagsMoreTmpl"}}
                 <span class="subject-text">{{if subject==''}}${ASC.Mail.Resources.MailResource.NoSubject}{{else}}${$item.htmlEncode(subject)}{{/if}}</span>
@@ -31,17 +32,39 @@
         </div>
         {{if $item.showFolders}}
         <div class="folder">
-            <a href="${anchor}" {{if $item.targetBlank}}target="_blank"{{/if}}>${folderName}</a>
+            <a href="${anchor}" {{if $item.targetBlank}} target="_blank" {{/if}}>${folderName}</a>
         </div>
         {{/if}}
-        <div class="attachment">
-            <a href="${anchor}" {{if $item.targetBlank}}target="_blank"{{/if}}>{{if hasAttachments==true}}<i class="{{if calendarUid != null && calendarUid != ''}}icon-calendar{{else}}icon-attachment{{/if}}"></i>{{/if}}</a>
+
+        <div class="readReq">
+            <a href="${anchor}" {{if $item.targetBlank}} target="_blank" {{/if}}>
+                {{if readRequestStatus==true && folder==1}}
+                <svg class="readReq-svg" width="16" height="16">
+                    <use base="/" href="/skins/default/images/svg/mail-icons.svg#mailRequestRead" />
+                </svg>{{/if}}
+            </a>
         </div>
+
+        <div class="attachment">
+            <a href="${anchor}" 
+               {{if $item.targetBlank}} target="_blank" 
+               {{/if}}>
+            {{if hasAttachments==true}}
+            <i class=
+               "{{if calendarUid != null && calendarUid != ''}}
+               icon-calendar
+               {{else}}
+               icon-attachment
+               {{/if}}">
+                </i>
+            {{/if}}</a>
+        </div>
+
         <div class="date">
-            <a href="${anchor}" {{if $item.targetBlank}}target="_blank"{{/if}}>{{if isToday}}${ASC.Mail.Resources.MailResource.TodayLabel}{{else isYesterday}}${ASC.Mail.Resources.MailResource.YesterdayLabel}{{else}}${displayDate}{{/if}}</a>
+            <a href="${anchor}" {{if $item.targetBlank}} target="_blank" {{/if}}>{{if isToday}}${ASC.Mail.Resources.MailResource.TodayLabel}{{else isYesterday}}${ASC.Mail.Resources.MailResource.YesterdayLabel}{{else}}${displayDate}{{/if}}</a>
         </div>
         <div class="time">
-            <a href="${anchor}" {{if $item.targetBlank}}target="_blank"{{/if}}>${displayTime}</a>
+            <a href="${anchor}" {{if $item.targetBlank}} target="_blank" {{/if}}>${displayTime}</a>
         </div>
     </div>
 </script>

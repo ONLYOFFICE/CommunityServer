@@ -56,6 +56,9 @@ window.ASC.Files.EventHandler = (function () {
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.Download, ASC.Files.EventHandler.onGetTasksStatuses);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.TerminateTasks, ASC.Files.EventHandler.onGetTasksStatuses);
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetTasksStatuses, ASC.Files.EventHandler.onGetTasksStatuses);
+
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.ChangeExternalShareSettings, ASC.Files.EventHandler.onChangeExternalShareSettings);
+            ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.ChangeExternalShareSocialMediaSettings, ASC.Files.EventHandler.onChangeExternalShareSocialMediaSettings);
         }
     };
 
@@ -134,7 +137,11 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         if (ASC.Files.CreateMenu) {
-            ASC.Files.CreateMenu.disableMenu(ASC.Files.UI.accessEdit());
+            if (!ASC.Desktop && (ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PRIVACY || ASC.Files.Folders.folderContainer == "privacy")) {
+                ASC.Files.CreateMenu.disableMenu(false);
+            } else {
+                ASC.Files.CreateMenu.disableMenu(ASC.Files.UI.accessEdit());
+            }
         }
 
         ASC.Files.UI.stickContentHeader();
@@ -159,7 +166,7 @@ window.ASC.Files.EventHandler = (function () {
                     ASC.Files.UI.removeEntryObject(replaceWith);
                 } else {
                     jq("#filesMainContent").prepend(htmlXML);
-                    newFolderItems = jq("#filesMainContent .file-row[name=\"addRow\"]");
+                    newFolderItems = jq("#filesMainContent .file-row[name=\"addRow\"][data-id!=\"folder_0\"][data-id!=\"file_0\"]");
                 }
             } else {
                 jq("#filesMainContent").append(htmlXML);
@@ -375,58 +382,6 @@ window.ASC.Files.EventHandler = (function () {
         ASC.Files.UI.checkButtonBack(".to-parent-folder", "#filesBreadCrumbs");
 
         return true;
-    };
-
-    var onGetPrivacy = function () {
-        //fake duplicate from onGetFolderItems
-
-        ASC.Files.Folders.currentFolder = {
-            access: ASC.Files.Constants.AceStatusEnum.Read,
-            entryId: ASC.Files.Constants.FOLDER_ID_PRIVACY,
-            entryType: "folder",
-            id: ASC.Files.Constants.FOLDER_ID_PRIVACY,
-            shareable: false,
-            title: ASC.Files.FilesJSResource.PrivacyRoom,
-        };
-        ASC.Files.UI.setDocumentTitle(ASC.Files.Folders.currentFolder.title);
-
-        jq("#filesMainContent")
-            .removeClass("myFiles")
-            .removeClass("corporateFiles")
-            .removeClass("shareformeFiles")
-            .removeClass("recentFiles")
-            .removeClass("favoritesFiles")
-            .removeClass("templatesFiles")
-            .removeClass("privacyFiles")
-            .removeClass("trashFiles")
-            .removeClass("projectFiles");
-
-        ASC.Files.Folders.folderContainer = "privacy";
-        jq("#filesMainContent").addClass("privacyFiles");
-
-        if (ASC.Files.Tree) {
-            ASC.Files.Tree.pathParts = [ASC.Files.Constants.FOLDER_ID_PRIVACY];
-            ASC.Files.Tree.updateTreePath();
-        }
-
-        if (ASC.Files.Filter) {
-            ASC.Files.Filter.disableFilter();
-        }
-
-        ASC.Files.UI.countTotal = 0;
-
-        jq("#filesMainContent").empty();
-        jq(document).scrollTop(0);
-
-        jq("#emptyContainer_privacy .emptyScrBttnPnl").remove();
-        ASC.Files.EmptyScreen.displayEmptyScreen();
-
-        ASC.Files.UI.lastSelectedEntry = null;
-        ASC.Files.Folders.eventAfter = null;
-
-        if (ASC.Files.CreateMenu) {
-            ASC.Files.CreateMenu.disableMenu(false);
-        }
     };
 
     var onGetItems = function (jsonData, params, errorMessage) {
@@ -746,6 +701,10 @@ window.ASC.Files.EventHandler = (function () {
             jq("#contentVersions").addClass("version-edit");
         }
 
+        if (fileData.deny_download) {
+            jq(".version-download").remove();
+        }
+
         jq("#contentVersions").addClass("version-highlight");
 
         if (ASC.Files.Utility.CanWebView(fileData.title)) {
@@ -864,7 +823,7 @@ window.ASC.Files.EventHandler = (function () {
         }
     };
 
-    var onMoveItemsFinish = function (listData, isCopyOperation, countProcessed) {
+    var onMoveItemsFinish = function (listData, isCopyOperation, countProcessed, listSource) {
         var folderToId = ASC.Files.UI.parseItemId(listData[0]).entryId;
         listData = listData.slice(1);
         var listFromId = new Array();
@@ -932,8 +891,8 @@ window.ASC.Files.EventHandler = (function () {
 
         if (filesCount > 0) {
             var fileCountObj = folderToObj.find(".countFiles");
-
-            fileCountObj.html((parseInt(fileCountObj.html()) || 0) + filesCount);
+            var countOverwrites = ASC.Files.Folders.owerwriteManager.get(isCopyOperation, listSource);
+            fileCountObj.html((parseInt(fileCountObj.html()) || 0) + filesCount - countOverwrites);
         }
 
         if (listFromId.length > 0 && ASC.Files.Folders.currentFolder.id != folderToId) {
@@ -1259,11 +1218,11 @@ window.ASC.Files.EventHandler = (function () {
                     switch (data[i].operation) {
                         case 0:
                             //move
-                            onMoveItemsFinish(listResult, false, data[i].processed);
+                            onMoveItemsFinish(listResult, false, data[i].processed, listSource);
                             break;
                         case 1:
                             //copy
-                            onMoveItemsFinish(listResult, true, data[i].processed);
+                            onMoveItemsFinish(listResult, true, data[i].processed, listSource);
                             break;
                         case 2:
                             //delete
@@ -1271,7 +1230,7 @@ window.ASC.Files.EventHandler = (function () {
                             break;
                         case 3:
                             //download
-                            if (listResult[0]) {
+                            if (listResult[0] && data[i].error == null) {
                                 location.href = listResult[0];
                             }
                             ASC.Files.Folders.bulkStatuses = false;
@@ -1317,6 +1276,39 @@ window.ASC.Files.EventHandler = (function () {
         }
     };
 
+    var onChangeExternalShareSettings = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            return;
+        }
+
+        var enable = jsonData === true;
+        jq("#cbxExternalShare").prop("checked", enable);
+
+        if (enable) {
+            jq("#cbxExternalShareSocialMedia").prop("disabled", false).next().removeClass("gray-text");
+        } else {
+            jq("#cbxExternalShareSocialMedia").prop("disabled", true).prop("checked", false).next().addClass("gray-text");
+        }
+
+        if (ASC.Files.Share) {
+            ASC.Files.Share.changeExternalShareSettings();
+        }
+    };
+
+    var onChangeExternalShareSocialMediaSettings = function (jsonData, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.UI.displayInfoPanel(errorMessage, true);
+            return;
+        }
+
+        jq("#cbxExternalShareSocialMedia").prop("checked", jsonData === true);
+
+        if (ASC.Files.Share) {
+            ASC.Files.Share.changeExternalShareSettings();
+        }
+    };
+
     var onThumbnailError = function () {
         if (!jq.browser.msie) {
             this.parentElement.style.backgroundSize = "96px";
@@ -1328,7 +1320,6 @@ window.ASC.Files.EventHandler = (function () {
         init: init,
 
         onGetFolderItems: onGetFolderItems,
-        onGetPrivacy: onGetPrivacy,
         onGetItems: onGetItems,
         onGetFile: onGetFile,
         onCreateNewFile: onCreateNewFile,
@@ -1348,6 +1339,9 @@ window.ASC.Files.EventHandler = (function () {
 
         onMoveFilesCheck: onMoveFilesCheck,
         onGetTasksStatuses: onGetTasksStatuses,
+
+        onChangeExternalShareSettings: onChangeExternalShareSettings,
+        onChangeExternalShareSocialMediaSettings: onChangeExternalShareSocialMediaSettings,
 
         onThumbnailError: onThumbnailError
     };

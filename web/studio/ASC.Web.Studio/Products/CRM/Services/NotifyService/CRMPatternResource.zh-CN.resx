@@ -108,10 +108,10 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 登录地址: "$__VirtualRootPath":"$__VirtualRootPath" 
 "更改订阅设置":"$RecipientSubscriptionConfigURL"
 
-不管您在系统操作中遇到任何疑难，请随时联系我们："support.onlyoffice.com":"http://support.onlyoffice.com"
+不管您在系统操作中遇到任何疑难，请随时联系我们："support.onlyoffice.com":"https://support.onlyoffice.com"
 
 ONLYOFFICE™团队 敬上
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+"www.onlyoffice.com":"https://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>CRM. 已成功导入联系人</value>

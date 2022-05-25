@@ -51,7 +51,7 @@ namespace ASC.Web.CRM.Controls.Common
             Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
 
             var privatePanel = (PrivatePanel)LoadControl(PrivatePanel.Location);
-            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser") };
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode() };
             privatePanel.UsersWhoHasAccess = usersWhoHasAccess;
             privatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };
             privatePanel.HideNotifyPanel = true;

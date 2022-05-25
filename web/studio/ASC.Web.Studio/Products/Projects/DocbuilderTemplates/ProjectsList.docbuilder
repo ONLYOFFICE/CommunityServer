@@ -1,4 +1,35 @@
-﻿oWs.SetColumnWidth(2, 20);
+﻿writeInterval();
+
+oWs.SetColumnWidth(2, 20);
+oWs.SetColumnWidth(4, 20);
+oWs.SetColumnWidth(5, 20);
+oWs.SetColumnWidth(6, 20);
+
+var currentRow = 4;
+var currentColumn = "E";
+
+writeRow([7, 8, 9], reportColumns, [1, 2, 3], {
+	color: darkGrayBorderColor
+}, {
+	size: smallFontSize,
+	color: grayFontColor
+});
+
+var currentRow = 5;
+var currentColumn = "E";
+
+var data = reportData.shift();
+
+writeRow([0, 1, 2], data, [1, 2, 3], {
+	color: darkGrayBorderColor
+}, {
+	size: smallFontSize,
+	color: blackFontColor,
+});
+
+
+var currentRow = 7;
+var currentColumn = "B";
 
 writeRow([0, 1, 2, 3, 4, 5], reportColumns, [3, 4, 5], {
 	color: darkGrayBorderColor

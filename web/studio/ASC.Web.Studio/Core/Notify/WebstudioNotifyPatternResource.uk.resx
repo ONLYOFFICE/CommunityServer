@@ -157,19 +157,6 @@ $GreenButton
 Команда підтримки ONLYOFFICE ™
 "Www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Запит на зміну пароля для порталу "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Отримано запит на зміну вашого пароля, який використовується для входу в портал "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Будь ласка, перейдіть за посиланням нижче, щоб змінити пароль:
-
-$GreenButton
-
-*Примітка*: це посилання дійсно лише 7 днів. Пройдіть процес зміни пароля протягом цього періоду.
-
-Якщо ви не бажаєте змінювати пароль або отримали це повідомлення помилково, будь ласка, ігноруйте його або зверніться до свого адміністратора порталу "${__VirtualRootPath}":"${__VirtualRootPath}", щоб дізнатись деталі.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Запит на зміну мобільний телефон
 
@@ -443,9 +430,6 @@ h2.$activity.Key
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. ${__VirtualRootPath} створення резервної копії порталу</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} допомога пароля</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Запит на зміну мобільного телефону</value>

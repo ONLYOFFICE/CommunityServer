@@ -664,11 +664,6 @@ namespace ASC.Data.Storage.Selectel
             throw new NotImplementedException();
         }
 
-        public override string GetUploadedUrl(string domain, string directoryPath)
-        {
-            throw new NotImplementedException();
-        }
-
         public override string GetUploadUrl()
         {
             throw new NotImplementedException();

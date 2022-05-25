@@ -30,7 +30,7 @@ namespace ASC.Web.Projects.Controls.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend)
+            if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend || Report.ReportType == ReportType.ProjectsList)
             {
                 DateTime fromDateTime;
                 DateTime toDateTime;

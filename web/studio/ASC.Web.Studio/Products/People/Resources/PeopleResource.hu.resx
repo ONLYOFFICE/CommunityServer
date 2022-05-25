@@ -70,6 +70,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Tagok hozzáadása</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Születésnapok</value>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Mégse</value>
   </data>

@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Mitglieder hinzufügen</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Geburtstage</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Deaktiviert</value>
   </data>
@@ -219,9 +222,6 @@
   </data>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Google</value>
-  </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahoo</value>
   </data>
   <data name="ImportPeople" xml:space="preserve">
     <value>Personen importieren</value>

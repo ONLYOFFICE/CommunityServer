@@ -241,9 +241,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Amministratori</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Stato di affiliato</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Tutti i domini</value>
   </data>
@@ -524,12 +521,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Collega il servizio Bitly per abbreviare i collegamenti dell'invito al portale e i collegamenti condivisi nel modulo Documenti.</value>
@@ -1049,29 +1040,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>WordPress Secret</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>ID Client</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret
-</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Collegare l'applicazione per importare i contatti di Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Aggiungendo l'applicazione del servizio Yahoo, è possibile aggiungere nuovi utenti del portale ONLYOFFICE® direttamente dall'elenco dei contatti.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>ID Client</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Secret
-</value>
   </data>
   <data name="ConsumersYandex" xml:space="preserve">
     <value>Yandex</value>
@@ -1648,9 +1616,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>La password deve contenere </value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>la Password deve contenere</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>cifre</value>
   </data>
@@ -1868,9 +1833,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Centro assistenza</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>L'obiettivo di questo programma  è quello di legalmente promuovere ONLYOFFICE® per ricevere una commissione sulle iscrizioni acquistate dagli utenti indirizzati.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Nascondi</value>
   </data>
@@ -2024,9 +1986,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Importa da Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importa da Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Seleziona un'altra sorgente</value>
   </data>
@@ -2102,9 +2061,6 @@ Sei sicuro di voler eliminare {!group} {0}?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Trasferisci anche Posta ONLYOFFICE® (non consigliato)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Diventa un affiliato</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Puoi continuare ad aggiungere gli utenti come {!guests} o cambiare il piano tariffario per poter aggiungere più utenti.</value>
@@ -3372,15 +3328,6 @@ Contattare l'amministratore SSO nel caso vogliate modificare i campi profilo blo
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Gli inviti sono stati rinviati con successo</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Invia email</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Contattaci per sapene di più sulle offerte speciali</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Riduci il parametro richiesto o seleziona un altro piano tariffario</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Acquista ora</value>
   </data>
@@ -3392,18 +3339,6 @@ Contattare l'amministratore SSO nel caso vogliate modificare i campi profilo blo
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Scegli un piano adatto. Il piano raccomandato è evidenziato.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Impossibile selezionare questo piano</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Spazio disco consentito: {0}. Spazio disco attuale: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Numero di utenti consentito: {0}. Numero di utenti attuale: {1}</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Impossibile selezionare questo piano perchè viene superato lo spazo/numero di utenti previsto per il piano tariffario scelto:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Pagamento ricorrente attivato</value>
@@ -3432,9 +3367,6 @@ Contattare l'amministratore SSO nel caso vogliate modificare i campi profilo blo
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Il tuo portale ONLYOFFICE® verrà bloccato{2}. Prego {0}clicca qui{1} Per prolungare il piano esistente o modificarlo con uno appropriato alle tue esigenze.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Numero di portali che hai creato: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Il piano tariffario non è disponibile alla fine dell'anno pagato.</value>
   </data>
@@ -3447,14 +3379,8 @@ Contattare l'amministratore SSO nel caso vogliate modificare i campi profilo blo
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Per annullare i pagamenti ricorrenti, visita il tuo account Avangate.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Offerta valida solo al {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Piani tariffari</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>per la tua comodità i pagamenti in rubli (Russia) sono calcolati secondo un cambio fisso {0} Rubli per 1 Dollaro Americano </value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Pagamenti</value>

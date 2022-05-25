@@ -355,10 +355,6 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getCrmContactsForMail(params, ids, options);
         });
 
-        var getTlGroups = wrapper(2, function(params, options) {
-            window.Teamlab.getGroups(params, options);
-        });
-
         var searchEmails = wrapper(3, function (params, term, options) {
             window.Teamlab.searchEmails(params, term, options);
         });
@@ -606,7 +602,6 @@ if (typeof window.serviceManager === 'undefined') {
             createMailContact: createMailContact,
             deleteMailContacts: deleteMailContacts,
             updateMailContact: updateMailContact,
-            getTLGroups: getTlGroups,
             linkChainToCrm: linkChainToCrm,
             markChainAsCrmLinked: markChainAsCrmLinked,
             unmarkChainAsCrmLinked: unmarkChainAsCrmLinked,

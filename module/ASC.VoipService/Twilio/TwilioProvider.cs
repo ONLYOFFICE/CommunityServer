@@ -177,14 +177,14 @@ namespace ASC.VoipService.Twilio
                 try
                 {
                     var call = CallResource.Fetch(result.Id, client: client);
-                    if (!call.Price.HasValue || string.IsNullOrEmpty(call.Duration))
+                    if (String.IsNullOrEmpty(call.Price) || string.IsNullOrEmpty(call.Duration))
                     {
                         count--;
                         Thread.Sleep(10000);
                         continue;
                     }
 
-                    result.Price = (-1) * call.Price.Value;
+                    result.Price = (-1) * Convert.ToDecimal(call.Price);
                     result.DialDuration = Convert.ToInt32(call.Duration);
                     break;
                 }

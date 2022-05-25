@@ -121,7 +121,7 @@ namespace ASC.Web.Files.Utils
             var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, null, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri);
 
             if (WorkContext.IsMono && ServicePointManager.ServerCertificateValidationCallback == null)
             {
@@ -137,7 +137,7 @@ namespace ASC.Web.Files.Utils
                 var fileSecurity = Global.GetFilesSecurity();
                 if (!fileSecurity.CanRead(file))
                 {
-                    var readLink = FileShareLink.Check(doc, true, fileDao, out file);
+                    var readLink = FileShareLink.Check(doc, true, fileDao, out file, out ASC.Files.Core.Security.FileShare linkShare);
                     if (file == null)
                     {
                         throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
@@ -156,7 +156,7 @@ namespace ASC.Web.Files.Utils
 
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, null, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, CultureInfo.CurrentUICulture.Name, null, null, false, out convertUri);
 
             return SaveConvertedFile(file, convertUri);
         }
@@ -336,7 +336,7 @@ namespace ASC.Web.Files.Utils
                             }
 
                             CoreContext.TenantManager.SetCurrentTenant(tenantId);
-                            SecurityContext.AuthenticateMe(account);
+                            SecurityContext.CurrentAccount = account;
 
                             var user = CoreContext.UserManager.GetUsers(account.ID);
                             var culture = string.IsNullOrEmpty(user.CultureName) ? CoreContext.TenantManager.GetCurrentTenant().GetCulture() : CultureInfo.GetCultureInfo(user.CultureName);
@@ -360,7 +360,7 @@ namespace ASC.Web.Files.Utils
                             var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, null, null, true, out convertedFileUrl);
+                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, CultureInfo.CurrentUICulture.Name, null, null, true, out convertedFileUrl);
                         }
                         catch (Exception exception)
                         {

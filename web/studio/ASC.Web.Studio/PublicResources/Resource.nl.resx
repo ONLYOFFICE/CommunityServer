@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Beheerders</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Filiaalstatus</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Elk domein</value>
   </data>
@@ -477,12 +474,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>inloggen</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Maak verbinding met de Bitly-service om uitnodigingslinks voor het portaal en gedeelde links in de Documentenmodule te verkorten.</value>
@@ -783,27 +774,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Toegangstoken Geheim</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Geheim</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Schakel de applicatie in voor importeren van Yahoo-contacten.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Door de Yahoo serviceapplicatie toe te voegen, kunt u nieuwe gebruikers van het ONLYOFFICE portaal uit de contactenlijst toevoegen.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Geheim</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Contactinformatie</value>
@@ -1231,9 +1201,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Wachtwoord moet bevatten</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Het moet bevatten</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>cijfers</value>
   </data>
@@ -1412,9 +1379,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Help en ondersteuning</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Het doel van het programma is om ONLYOFFICE™ wettelijk te adverteren, om een provisie te ontvangen voor abonnementen die door de doorverwezen personen zijn gekocht.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Verbergen</value>
   </data>
@@ -1538,9 +1502,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Importeren uit Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importeren uit Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Uw huidige abonnement stelt u in staat om {0} gebruikers toe te voegen.</value>
   </data>
@@ -1603,9 +1564,6 @@ Weet u zeker dat u {!group} {0} wilt verwijderen?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migreer ONLYOFFICE™ Mail ook (niet aanbevolen)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Word onze Partner</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>U kunt de gebruikers als {!guests} blijven toevoegen of het abonnement wijzigen maar een met een groter aantal gebruikers.</value>
@@ -2653,15 +2611,6 @@ Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mail
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Uitnodigingen zijn succesvol opnieuw verzonden</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>E-mail verzenden</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Neem contact met ons op om meer te weten te komen over speciale aanbiedingen</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Verminder de vereiste parameter of selecteer een ander abonnement.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Koop nu</value>
   </data>
@@ -2673,18 +2622,6 @@ Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mail
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Kies een abonnement dat het beste bij uw behoeften past. Het aanbevolen abonnement is hieronder gemarkeerd.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Dit abonnement kan niet worden geselecteerd</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Opslagruimte hoeveelheid toegestaan: {0}. Huidige opslagruimte: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Aantal portaalgebruikers toegestaan: {0}. Huidig aantal gebruikers: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>U kunt dit abonnement niet selecteren omdat ofwel de opslagruimte of het aantal gebruikers de beperkingen van het geselecteerde abonnement overschrijdt:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Herhaalbetalingen staan aan</value>
@@ -2710,9 +2647,6 @@ Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mail
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Uw ONLYOFFICE™ portaal wordt geblokkeerd {2}. Alstublieft, {0}klik hier{1} om het bestaande abonnement te verlengen of te wijzigen naar een passender abonnement.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Aantal portalen dat u heeft aangemaakt: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Het abonnement is niet beschikbaar tot het einde van het betaalde jaar.</value>
   </data>
@@ -2725,14 +2659,8 @@ Om te registreren, vul uw e-mail in en klik op Uitnodiging Verzenden. Een e-mail
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Om Herhaalbetalingen te annuleren, ga naar uw Avangate-account.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Slecht tot aan {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Abonnementen</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Voor uw gemak worden betalingen in Russische roebels berekend aan de hand van de vaste wisselkoers {0} Russische roebels voor 1 US dollar.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Betalingen</value>

@@ -229,32 +229,6 @@ Vous pouvez également travailler sur les documents hors ligne grâce à nos "ap
 Bien cordialement,
 L'équipe ONLYOFFICE</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Connectez votre stockage en nuage préféré à ONLYOFFICE $PersonalHeaderEnd
-
-Cela fait une semaine que vous avez créé votre bureau en ligne, et nous pensons donc qu'il est temps de dévoiler certaines caractéristiques bénéfiques que vous avez peut-être manquées.
-
-Connectez *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* ou *Yandex.Disk* à ONLYOFFICE et créez un espace de gestion de documents unique pour tous vos documents. Vous pourrez modifier des fichiers externes dans ONLYOFFICE et les enregistrer dans l'espace de stockage où vous conservez vos documents. Lisez les détails sur la connexion des stockages de fichiers à ONLYOFFICE "ici" : "${__HelpLink}/tipstricks/add-resource.aspx".
-
-Vous pouvez également intégrer les éditeurs ONLYOFFICE dans Google Drive en utilisant notre "application complémentaire" : "https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Vous avez besoin de plus de gestion de documents ?
-
-h3.essayez ONLYOFFICE pour les entreprises "dans le nuage" : "https://www.onlyoffice.com/cloud-office.aspx" ou "sur votre serveur" : "https://www.onlyoffice.com/server-solutions.aspx" gratuitement pendant 30 jours et découvrez des possibilités étendues de gestion de documents ainsi qu'un ensemble d'outils pour les entreprises :
-
-- Gérer les documents de l'équipe dans le cadre de projets ;
-
-- Intégrer des documents avec le CRM et le courrier électronique ;
-
-- Partagez des fichiers avec des groupes d'utilisateurs ;
-
-- Optimisez votre flux de travail avec des outils de communication d'équipe.
-
-Intéressé ? En savoir plus sur "ONLYOFFICE for business" : "http://www.onlyoffice.com/document-management.aspx".
-
-Cordialement,
-L'équipe ONLYOFFICE</value>
-  </data>
   <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
     <value>Souhaitez-vous changer l'adresse mail de votre compte du bureau cloud ?
 
@@ -267,20 +241,6 @@ Le lien est valide pendant 7 jours.
 *Si vous n'êtes pas connecté au bureau cloud dans le navigateur, veuillez utiliser votre ancienne adresse de mail pour la confirmation.
 
 Vous ne voulez pas changer l'adresse de courriel ? Ignorez ce message.</value>
-  </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Vous avez demandé une réinitialisation du mot de passe pour accéder au portail "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Pour changer le mot de passe, cliquez sur le lien ci-dessous :
-
-$GreenButton
-
-*Note*: ce lien est valide 7 jours seulement. Veuillez changez le mot de passe pendant ce délai.
- 
-Si vous n'avez pas effectué cette demande, ignorez cet email.
-
-Bien cordialement,
-L'équipe ONLYOFFICE</value>
   </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Bonjour,
@@ -379,12 +339,6 @@ L'effacement des données personnelles permet de libérer :
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Bienvenue dans ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Connectez votre stockage cloud préféré à ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Assistance du mot de passe ONLYOFFICE Personal</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Veuillez activer votre adresse mail</value>

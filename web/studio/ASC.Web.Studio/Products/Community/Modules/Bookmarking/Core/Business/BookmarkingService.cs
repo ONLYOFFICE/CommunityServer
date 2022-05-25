@@ -354,14 +354,27 @@ namespace ASC.Bookmarking.Business
                     new TagValue(BookmarkSubscriptionConstants.UserURL,
                                                      BookmarkingBusinessUtil.RenderProfileLink(c.UserID)),
                     new TagValue(BookmarkSubscriptionConstants.Date, c.Datetime.ToShortString()),
-                    new TagValue(BookmarkSubscriptionConstants.CommentBody, c.Content),GetReplyToTag(b,c)
+                    new TagValue(BookmarkSubscriptionConstants.CommentBody, c.Content)
                             };
+
+            var mentionedUsers = MentionProvider.GetMentionedUsers(c.Content);
+            var mentionedUserIds = mentionedUsers.Select(u => u.ID.ToString());
+
+            var provider = BookmarkingNotifySource.Instance.GetSubscriptionProvider();
 
             var objectID = b.ID.ToString(CultureInfo.InvariantCulture);
 
-            var action = BookmarkingBusinessConstants.NotifyActionNewComment;
+            var recipients = provider
+                .GetRecipients(BookmarkingBusinessConstants.NotifyActionNewComment, objectID)
+                .Where(r => !mentionedUserIds.Contains(r.ID))
+                .ToArray();
 
-            SendBookmarkNoticeAsync(action, objectID, tags);
+            SendBookmarkNoticeToAsync(BookmarkingBusinessConstants.NotifyActionNewComment, objectID, recipients, tags);
+
+            if (mentionedUsers.Length > 0)
+            {
+                SendBookmarkNoticeToAsync(BookmarkingBusinessConstants.NotifyActionMentionForBookmarkComment, objectID, mentionedUsers, tags);
+            }
         }
 
         private void SendRecentBookmarkUpdates(Bookmark b)
@@ -378,8 +391,7 @@ namespace ASC.Bookmarking.Business
                                                           DisplayUserSettings.GetFullUserName(b.UserCreatorID))),
 		                       //TODO: Rewrite patterns
 		                       new TagValue(BookmarkSubscriptionConstants.Date, b.Date.ToShortString()),
-                               new TagValue(BookmarkSubscriptionConstants.BookmarkDescription, HttpUtility.HtmlDecode(b.Description)),
-                               GetReplyToTag(b, null)
+                               new TagValue(BookmarkSubscriptionConstants.BookmarkDescription, HttpUtility.HtmlDecode(b.Description))
                            };
 
             const string objectID = BookmarkingBusinessConstants.SubscriptionRecentBookmarkID;
@@ -387,11 +399,6 @@ namespace ASC.Bookmarking.Business
             var action = BookmarkingBusinessConstants.NotifyActionNewBookmark;
 
             SendBookmarkNoticeAsync(action, objectID, tags);
-        }
-
-        private static TagValue GetReplyToTag(Bookmark bookmark, Comment comment)
-        {
-            return ReplyToTagProvider.Comment("bookmark", bookmark.ID.ToString(CultureInfo.InvariantCulture), comment != null ? comment.ID.ToString() : null);
         }
 
         internal static string ModifyBookmarkUrl(Bookmark b)
@@ -411,6 +418,21 @@ namespace ASC.Bookmarking.Business
             {
                 notifyClient.AddInterceptor(initatorInterceptor);
                 notifyClient.SendNoticeAsync(action, objectID, null, tags);
+            }
+            finally
+            {
+                notifyClient.RemoveInterceptor(initatorInterceptor.Name);
+            }
+        }
+
+        private static void SendBookmarkNoticeToAsync(INotifyAction action, string objectID, IRecipient[] recipients, TagValue[] tags)
+        {
+            var initatorInterceptor = new InitiatorInterceptor(GetCurrentRecipient());
+            var notifyClient = BookmarkingNotifyClient.NotifyClient;
+            try
+            {
+                notifyClient.AddInterceptor(initatorInterceptor);
+                notifyClient.SendNoticeToAsync(action, objectID, recipients, null, tags);
             }
             finally
             {

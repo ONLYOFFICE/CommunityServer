@@ -287,6 +287,11 @@ namespace ASC.Web.Mail
             return ConfigurationManagerExtension.AppSettings["proxy.http-url"] ?? "/httphandlers/urlProxy.ashx";
         }
 
+        public static string GetImapSyncStartDate()
+        {
+            return ConfigurationManagerExtension.AppSettings["mail.imap-sync-start-date"];
+        }
+
         public List<MailAccountData> GetAccounts()
         {
             if (Accounts == null)
@@ -453,7 +458,9 @@ namespace ASC.Web.Mail
                 .AppendFormat("ASC.Mail.Constants.ENABLE_MAIL_SERVER = {0};\r\n",
                     JsonConvert.SerializeObject(IsEnableMailServer()))
                 .AppendFormat("ASC.Mail.Constants.LinkToTariff = {0};\r\n",
-                    JsonConvert.SerializeObject(LinkToTariff()));
+                    JsonConvert.SerializeObject(LinkToTariff()))
+                 .AppendFormat("ASC.Mail.Constants.IMAP_SYNC_START_DATE = {0};\r\n",
+                    JsonConvert.SerializeObject(GetImapSyncStartDate()));
 
 
             return sbScript.ToString();
@@ -526,6 +533,7 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/third-party/jquery.textchange.min.js",
                         "~/addons/mail/js/third-party/linkify.min.js",
                         "~/addons/mail/js/third-party/linkify-string.min.js",
+                        "~/addons/mail/js/third-party/linkify-html.min.js",
                         "~/addons/mail/js/third-party/placeholder.js",
                         "~/addons/mail/js/containers/set.js",
                         "~/addons/mail/js/mail.common.js",
@@ -574,7 +582,6 @@ namespace ASC.Web.Mail
                         "~/addons/mail/js/contacts/types.js",
                         "~/addons/mail/js/contacts/filter/tlfilter.js",
                         "~/addons/mail/js/contacts/filter/customfilter.js",
-                        "~/addons/mail/js/contacts/tlgroups.js",
                         "~/addons/mail/js/contacts/contacts.js",
                         "~/addons/mail/js/contacts/modal/editcontact.js",
                         "~/addons/mail/js/blankpage.js",

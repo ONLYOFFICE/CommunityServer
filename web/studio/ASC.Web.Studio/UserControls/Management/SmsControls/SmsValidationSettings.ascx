@@ -29,6 +29,9 @@
                     <%= Resource.ButtonSmsDisable %></label>
             </div>
 
+            <% if (SmsVisible)
+               { %>
+
             <% if (SmsEnable)
                { %>
 
@@ -49,16 +52,14 @@
 
             <% } %>
 
-            <% if (!CoreContext.Configuration.CustomMode)
-               { %>
             <div class="clearFix">
                 <input type="radio" id="chk2FactorAuthEnable" name="chk2FactorAuth" <%= StudioSmsNotificationSettings.Enable ? "checked=\"checked\"" : "" %>
                     <%= SmsEnable ? "" : "disabled='disabled'" %> />
                 <label for="chk2FactorAuthEnable">
                     <%= Resource.ButtonSmsEnable %>
-                    <% if (TenantExtra.Saas && SmsEnable) { %>
+                    <%--<% if (TenantExtra.Saas && SmsEnable) { %>
                     <span class="new-label-banner"><%= Resource.FreeSms %></span>
-                    <% } %>
+                    <% } %>--%>
                 </label>
             </div>
             <% } %>
@@ -77,22 +78,26 @@
 
     <div class="settings-help-block">
         <p>
-            <%= String.Format((CoreContext.Configuration.CustomMode ? CustomModeResource.SmsAuthDescriptionCustomMode : Resource.SmsAuthDescription).HtmlEncode(), "<b>", "</b>", "<br/>") %>
+            <%= String.Format((!SmsVisible ? CustomModeResource.SmsAuthDescriptionCustomMode : Resource.SmsAuthDescription).HtmlEncode(), "<b>", "</b>", "<br/>") %>
         </p>
+
+        <% if (SmsVisible)
+           { %>
         <p>
             <% if (SmsEnable)
                { %>
             <%= String.Format(Resource.SmsAuthNoteDescription.HtmlEncode(), "<b>", "</b>", "<br/>") %>
             <% }
-               else if (!StudioSmsNotificationSettings.IsVisibleSettings)
+               else if (!SmsAvailable)
                { %>
             <%= String.Format(Resource.SmsAuthNoteQuotaDescription.HtmlEncode(), "<b>", "</b>", "<br/>") %>
             <% }
-               else if (!CoreContext.Configuration.CustomMode)
+               else if (ThirdPartyVisible)
                { %>
             <%= String.Format(Resource.SmsAuthNoteKeysDescription.HtmlEncode(), "<b>", "</b>", "<br/>", "<a href=\"" + CommonLinkUtility.GetAdministration(ManagementType.ThirdPartyAuthorization) + "\" target=\"_blank\">", "</a>") %>
             <% } %>
         </p>
+        <% } %>
 
         <% if (!string.IsNullOrEmpty(HelpLink))
            { %>

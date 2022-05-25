@@ -35,13 +35,13 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns the list of the contacts for auto complete feature.
+        /// Searches for contacts by their emails.
         /// </summary>
-        /// <param name="term">string part of contact name, lastname or email.</param>
-        /// <returns>Strings list.  Strings format: "Name Lastname" email</returns>
-        /// <short>Get contact list for auto complete</short> 
+        /// <param name="term">String part of contact name, lastname or email</param>
+        /// <returns>List of strings in the following format: "Name Lastname" email</returns>
+        /// <short>Search contacts by email</short> 
         /// <category>Contacts</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Read(@"emails/search")]
         public IEnumerable<string> SearchEmails(string term)
         {
@@ -57,15 +57,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns lists of mail contacts.
+        /// Returns a list of filtered mail contacts by the search query specified in the request.
         /// </summary>
-        /// <param optional="true" name="search">Text to search in contacts name or emails.</param>
-        /// <param optional="true" name="contactType">Type of contacts</param>
+        /// <param optional="true" name="search">Text to search in contact names or emails</param>
+        /// <param optional="true" name="contactType">Contact type</param>
         /// <param optional="true" name="pageSize">Count of contacts on page</param>
         /// <param optional="true" name="fromIndex">Page number</param> 
-        /// <param name="sortorder">Sort order by name. String parameter: "ascending" - ascended, "descending" - descended.</param> 
+        /// <param name="sortorder">Sort order by name. String parameter: "ascending" - ascended, "descending" - descended</param> 
         /// <returns>List of filtered contacts</returns>
-        /// <short>Gets filtered contacts</short> 
+        /// <short>Get contacts by search query</short> 
         /// <category>Contacts</category>
         [Read(@"contacts")]
         public IEnumerable<MailContactData> GetContacts(string search, int? contactType, int? pageSize, int fromIndex,
@@ -96,13 +96,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///   Returns lists of mail contacts with contact information
+        /// Returns a list of mail contacts with the contact information specified in the request.
         /// </summary>
-        /// <param optional="false" name="infoType">infoType</param>
-        /// <param optional="false" name="data">data</param>
-        /// <param optional="true" name="isPrimary">isPrimary</param>
+        /// <param optional="false" name="infoType">Information type</param>
+        /// <param optional="false" name="data">Contact data</param>
+        /// <param optional="true" name="isPrimary">Primary contact or not</param>
         /// <returns>List of filtered contacts</returns>
-        /// <short>Gets filtered contacts</short> 
+        /// <short>Get contacts by contact information</short> 
         /// <category>Contacts</category>
         [Read(@"contacts/bycontactinfo")]
         public IEnumerable<MailContactData> GetContactsByContactInfo(ContactInfoType infoType, String data, bool? isPrimary)
@@ -115,14 +115,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Create mail contact
+        /// Creates a mail contact with the parameters specified in the request.
         /// </summary>
-        /// <param name="name">Contact's name</param>
-        /// <param name="description">Description of contact</param>
+        /// <param name="name">Contact name</param>
+        /// <param name="description">Contact description</param>
         /// <param name="emails">List of emails</param>
         /// <param name="phoneNumbers">List of phone numbers</param>
-        /// <returns>Information about created contact </returns>
-        /// <short>Create mail contact</short>
+        /// <returns>Information about created contact</returns>
+        /// <short>Create a mail contact</short>
         /// <category>Contacts</category>
         [Create(@"contact/add")]
         public MailContactData CreateContact(string name, string description, List<string> emails, List<string> phoneNumbers)
@@ -139,11 +139,11 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Removes selected mail contacts
+        /// Removes the mail contacts with the IDs specified in the request.
         /// </summary>
-        /// <param name="ids">List of mail contact ids</param>
-        /// <returns>List of removed mail contact ids </returns>
-        /// <short>Remove mail contact </short> 
+        /// <param name="ids">List of mail contact IDs</param>
+        /// <returns>List of removed mail contact IDs </returns>
+        /// <short>Remove mail contacts</short> 
         /// <category>Contacts</category>
         [Update(@"contacts/remove")]
         public IEnumerable<int> RemoveContacts(List<int> ids)
@@ -157,15 +157,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Updates the existing mail contact
+        /// Updates a mail contact with the ID specified in the request.
         /// </summary>
-        /// <param name="id">id of mail contact</param>
-        /// <param name="name">Contact's name</param>
-        /// <param name="description">Description of contact</param>
-        /// <param name="emails">List of emails</param>
-        /// <param name="phoneNumbers">List of phone numbers</param>
-        /// <returns>Information about updated contact </returns>
-        /// <short>Update mail contact</short>
+        /// <param name="id">Mail contact ID</param>
+        /// <param name="name">New contact name</param>
+        /// <param name="description">New contact description</param>
+        /// <param name="emails">New list of emails</param>
+        /// <param name="phoneNumbers">New list of phone numbers</param>
+        /// <returns>Information about updated contact</returns>
+        /// <short>Update a mail contact</short>
         /// <category>Contacts</category>
         [Update(@"contact/update")]
         public MailContactData UpdateContact(int id, string name, string description, List<string> emails, List<string> phoneNumbers)
@@ -184,13 +184,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns list of crm entities linked with chain. Entity: contact, case or opportunity.
+        /// Returns a list of the CRM entities (contact, case or opportunity) linked with a chain.
         /// </summary>
-        /// <param name="message_id">Id of message included in the chain. It may be id any of messages included in the chain.</param>
-        /// <returns>List of structures: {entity_id, entity_type, avatar_link, title}</returns>
-        /// <short>Get crm linked entities</short> 
+        /// <param name="message_id">Message ID. It may be ID of any message included in the chain</param>
+        /// <returns>List of entity information: {entity_id, entity_type, avatar_link, title}</returns>
+        /// <short>Get the linked CRM entities</short> 
         /// <category>Contacts</category>
-        ///<exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        ///<exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Read(@"crm/linked/entities")]
         public IEnumerable<CrmContactData> GetLinkedCrmEntitiesInfo(int message_id)
         {

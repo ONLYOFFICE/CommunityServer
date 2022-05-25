@@ -34,6 +34,7 @@ using ASC.Feed.Aggregator.Modules;
 using ASC.Feed.Aggregator.Modules.Community;
 using ASC.Feed.Aggregator.Modules.CRM;
 using ASC.Feed.Aggregator.Modules.Documents;
+using ASC.Feed.Aggregator.Modules.People;
 using ASC.Feed.Aggregator.Modules.Projects;
 using ASC.Feed.Data;
 using ASC.Projects.Core.Services.NotifyService;
@@ -55,6 +56,8 @@ namespace ASC.Feed.Aggregator
                 new ForumTopicsModule(),
                 new ForumPostsModule(),
                 new EventsModule(),
+                new BirthdaysModule(),
+                new NewEmployeeModule(),
                 new ContactsModule(),
                 new CrmTasksModule(),
                 new DealsModule(),
@@ -292,7 +295,7 @@ namespace ASC.Feed.Aggregator
         {
             try
             {
-                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(userid));
+                SecurityContext.CurrentUser = userid;
                 return true;
             }
             catch

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Automating all things Rackspace</Description>
+    <AssemblyTitle>Rackspace</AssemblyTitle>
+    <Authors>carolynvs</Authors>
+    <TargetFrameworks>net6.0;net4.8</TargetFrameworks>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
+    <AssemblyName>Rackspace</AssemblyName>
+    <PackageId>Rackspace</PackageId>
+    <PackageTags>openstack, rackspace, rackconnect</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Openstack.net" Version="1.8.0" />
+</ItemGroup>
+
+</Project>

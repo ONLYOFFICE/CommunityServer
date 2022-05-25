@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowserNoCanvasSupport" xml:space="preserve">
+    <value>Sizin brauzereniz HTML5 kanvas teqini dəstəkləmir</value>
+  </data>
+  <data name="CompanyNameForCanvasLogo" xml:space="preserve">
+    <value>Şirkət adı</value>
+  </data>
+  <data name="ErrorFileNotImage" xml:space="preserve">
+    <value>Naməlum şəkil faylı növü</value>
+  </data>
+  <data name="ErrorImageSize" xml:space="preserve">
+    <value>Şəklin ölçüsü icazə verilən parametrləri keçir</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettings" xml:space="preserve">
+    <value>Ölçülər Retina ekranları üçün göstərilir. Standart əksetmə qabiliyyətinə malik ekranlar üçün yükləmə zamanı loqonun eni və hündürlüyü müvafiq olaraq dəyişdiriləcək.</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
+    <value>{0}Portal Loqo Parametrləri{1} funksiyası yalnız ödənişli portallar üçün əlçatandır.</value>
+  </data>
+  <data name="LogoDark" xml:space="preserve">
+    <value>Haqqında/Giriş səhifələri üçün loqo</value>
+  </data>
+  <data name="LogoDark2" xml:space="preserve">
+    <value>Giriş səhifəsi üçün loqo</value>
+  </data>
+  <data name="LogoDocsEditor" xml:space="preserve">
+    <value>Redaktorun başlığı üçün loqo</value>
+  </data>
+  <data name="LogoFavicon" xml:space="preserve">
+    <value>Piktoqram</value>
+  </data>
+  <data name="LogoLightSmall" xml:space="preserve">
+    <value>Portal başlığı üçün loqo</value>
+  </data>
+  <data name="LogoSettings" xml:space="preserve">
+    <value>Portalın Loqo Parametrləri</value>
+  </data>
+  <data name="LogoUploadRecommendation" xml:space="preserve">
+    <value>Şəffaf fonu olan {0}PNG{1} şəkillərdən istifadə edin.</value>
+  </data>
+  <data name="SuccessfullySaveWhiteLabelSettingsMessage" xml:space="preserve">
+    <value>Ağ etiket parametrləri uğurla yadda saxlanıldı</value>
+  </data>
+  <data name="UseAsLogoButton" xml:space="preserve">
+    <value>Loqo kimi istifadə et</value>
+  </data>
+</root>

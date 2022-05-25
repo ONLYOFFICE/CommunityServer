@@ -44,13 +44,11 @@ window.tlFilter = (function($) {
                         defaulttitle: MailScriptResource.FilterChoose
                     }
                 ]
-            }).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
+            }).on('setfilter', onSetFilter).on('resetfilter', onResetFilter).on('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advanced filter plugin call - because
             // its replace target element with new markup
             filter = $('#tlFilter');
-
-            tlGroups.events.bind('update', onUpdateGroups);
         }
     };
 
@@ -76,13 +74,8 @@ window.tlFilter = (function($) {
 
     var update = function() {
         filter.advansedFilter('resize');
-        tlGroups.update();
-    };
-
-    var onUpdateGroups = function() {
-        var groups = [];
-        $.each(tlGroups.getGroups(), function(index, value) {
-            groups.push({ value: value.id, classname: '', title: value.name });
+        var groups = window.GroupManager.getGroupsArray(function (group) {
+            return { value: group.id, classname: '', title: group.name };
         });
         filter.advansedFilter({ filters: [{ type: 'combobox', id: 'group', options: groups, enable: groups.length > 0 }] });
         events.trigger('ready');

@@ -24,7 +24,7 @@ jq(function () {
     var successRegisteringShown = false;
 
     var $loginEmail = jq("#login");
-    $loginEmail.blur();
+    $loginEmail.trigger("blur");
     var loginEmailVal = $loginEmail.val();
     if (loginEmailVal != "") {
         $loginEmail.parent().addClass("focus");
@@ -38,14 +38,14 @@ jq(function () {
         bindConfirmEmailBtm();
         jq('.auth-form-with_btns_social .account-links a')
                     .removeClass('disabled')
-                    .unbind('click');
+                    .off('click');
     } else {
         jq('.auth-form-with_btns_social .account-links a')
             .addClass('disabled');
     }
 
     jq('.auth-form-with_form_btn')
-        .click(function () {
+        .on("click", function () {
             return false;
         });
 
@@ -151,7 +151,7 @@ jq(function () {
                 jq("#confirmEmailBtn").trigger("click");
             }
         });
-        jq('.account-links a').click(function () {
+        jq('.account-links a').on("click", function () {
             return false;
         });
         // change in consent to terms
@@ -159,32 +159,32 @@ jq(function () {
         function showAccountLinks() {
             jq('.account-links a')
                    .removeClass('disabled')
-                   .unbind('click');
+                   .off('click');
             bindConfirmEmailBtm();
         }
         function hideAccountLinks() {
             if (!jq("#agree_to_terms")[0].checked) {
                 jq('.auth-form-with_btns_social .account-links a')
-                    .click(function () { return false; })
+                    .on("click", function () { return false; })
                     .addClass('disabled');
                 jq("#confirmEmailBtn")
                     .addClass('disabled')
-                    .unbind('click');
+                    .off('click');
             }
         }
-        jq("#agree_to_terms").change(function () {
+        jq("#agree_to_terms").on("change", function () {
             if (this.checked) {
                 showAccountLinks();
             } else {
                 hideAccountLinks();
             }
         });
-        jq("#desktop_agree_to_terms").change(function () {
+        jq("#desktop_agree_to_terms").on("change", function () {
             var btn = jq("#loginBtn");
             if (this.checked) {
-                btn.removeClass('disabled').unbind('click');
+                btn.removeClass('disabled').off('click');
             } else {
-                btn.addClass('disabled').click(function() {
+                btn.addClass('disabled').on("click", function() {
                     return false;
                 });
             }
@@ -195,7 +195,7 @@ jq(function () {
             return false;
         });
         
-        jq(document).keyup(function (event) {
+        jq(document).on("keyup", function (event) {
             var code;
             if (!e) {
                 var e = event;
@@ -243,8 +243,8 @@ jq(function () {
             loginPopupShown = true;
             passwordRecoveryShown = false;
 
-            jq('#login').focus();
-            jq('#pwd').blur();
+            jq('#login').trigger("focus");
+            jq('#pwd').trigger("blur");
             jq("body").addClass("auth-maincontent-hidden");
             positionPersonalCreateNowForLogin();
 
@@ -337,7 +337,7 @@ jq(function () {
 
         var loginMessage = jq(".login-message[value!='']").val();
         if (loginMessage && loginMessage.length) {
-            jq("#personalLogin a").click();
+            jq("#personalLogin a").trigger("click");
 
             var type = jq(".login-message[value!='']").attr("data-type");
             if (type | 0) {
@@ -349,7 +349,7 @@ jq(function () {
 
         try {
             var anch = ASC.Controls.AnchorController.getAnchor();
-            if (jq.trim(anch) == "passrecovery") {
+            if (anch.trim() == "passrecovery") {
                 PasswordTool.ShowPwdReminderDialog();
             }
         } catch (e) {
@@ -359,7 +359,7 @@ jq(function () {
         }
     }
 
-    jq("input[type='email'], input[type='password']").focus(inputFocus).focusout(inputFocusOut);
+    jq("input[type='email'], input[type='password']").on("focus", inputFocus).on("focusout", inputFocusOut);
 
     function inputFocus() {
         var currentInput = jq(this);
@@ -427,7 +427,7 @@ jq(function () {
     positionConfirmEmailBtn();
     AddPaddingWithoutScrollTo(jq("#loginPopup"), jq("#loginPopup"));
 
-    jq(window).resize(function () {
+    jq(window).on("resize", function () {
         maxCreateFormWidth();
         if (loginPopupShown) {
             positionPersonalCreateNowForLogin();
@@ -492,7 +492,7 @@ function onSuccessRemindPwd() {
     if (jq('body').hasClass('desktop')) {
         jq("#loginPopup").fadeIn(1000);
     } else {
-        jq("#personalLogin a").click();
+        jq("#personalLogin a").trigger("click");
     }
 };
 /*---------------------------*/

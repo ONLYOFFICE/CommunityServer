@@ -67,5 +67,5 @@
         }
     }
 
-    jq(window).bind('people-render-profiles', onRenderProfiles);
+    jq(window).on('people-render-profiles', onRenderProfiles);
 })();

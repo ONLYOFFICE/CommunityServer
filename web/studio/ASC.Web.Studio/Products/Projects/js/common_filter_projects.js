@@ -207,10 +207,10 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     sorters: settings.sorters
                 }
             )
-            .unbind('setfilter')
-            .unbind('resetfilter')
-            .bind('setfilter', onSetFilter)
-            .bind('resetfilter', onResetFilter);
+            .off('setfilter')
+            .off('resetfilter')
+            .on('setfilter', onSetFilter)
+            .on('resetfilter', onResetFilter);
     };
 
     function clear() {

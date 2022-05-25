@@ -44,7 +44,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
-                SecurityContext.AuthenticateMe(CurrentUser);
+                SecurityContext.CurrentAccount = CurrentUser;
 
                 var engine = new EngineFactory(CurrentTenant.TenantId, CurrentUser.ID.ToString());
 

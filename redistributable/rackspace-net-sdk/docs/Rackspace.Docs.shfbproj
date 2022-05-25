@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which assemblies to include from solution and
+				 project documentation sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>a191de47-3e93-423f-9f57-64b2bd5e58c7</ProjectGuid>
+    <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
+    <AssemblyName>Rackspace.Docs</AssemblyName>
+    <RootNamespace>Rackspace.Docs</RootNamespace>
+    <Name>Rackspace.Docs</Name>
+    <!-- SHFB properties -->
+    <FrameworkVersion>.NET Framework 4.5.2</FrameworkVersion>
+    <OutputPath>..\artifacts\docs\html\</OutputPath>
+    <HtmlHelpName>Rackspace.Docs</HtmlHelpName>
+    <Language>en-US</Language>
+    <TransformComponentArguments>
+      <Argument Key="logoFile" Value="Help.png" xmlns="" />
+      <Argument Key="logoHeight" Value="" xmlns="" />
+      <Argument Key="logoWidth" Value="" xmlns="" />
+      <Argument Key="logoAltText" Value="" xmlns="" />
+      <Argument Key="logoPlacement" Value="left" xmlns="" />
+      <Argument Key="logoAlignment" Value="left" xmlns="" />
+      <Argument Key="maxVersionParts" Value="" xmlns="" />
+    </TransformComponentArguments>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\src\Rackspace\Rackspace.csproj" />
+      <DocumentationSource sourceFile="..\packages\openstack.net\lib\net45\openstacknet.dll" />
+      <DocumentationSource sourceFile="..\packages\openstack.net\lib\net45\openstacknet.xml" />
+    </DocumentationSources>
+    <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
+    <HelpFileFormat>Website</HelpFileFormat>
+    <IndentHtml>False</IndentHtml>
+    <KeepLogFile>True</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <CleanIntermediates>True</CleanIntermediates>
+    <VisibleItems>InheritedMembers, ProtectedInternalAsProtected</VisibleItems>
+    <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
+    <HelpFileVersion>1.0.0.0</HelpFileVersion>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <SdkLinkTarget>Top</SdkLinkTarget>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <PresentationStyle>VS2013</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>MemberName</NamingMethod>
+    <HelpTitle>Rackspace .NET SDK</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <WebsiteSdkLinkType>Msdn</WebsiteSdkLinkType>
+    <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
+    <IncludeFavorites>False</IncludeFavorites>
+    <BinaryTOC>False</BinaryTOC>
+    <FeedbackEMailLinkText>
+    </FeedbackEMailLinkText>
+    <FeedbackEMailAddress>
+    </FeedbackEMailAddress>
+    <CopyrightText>Go back to the Rackspace .NET SDK project home.</CopyrightText>
+    <RootNamespaceTitle>API</RootNamespaceTitle>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="Flurl.Extensions" isExposed="False" />
+<Filter entryType="Namespace" fullName="Flurl.Http" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Client" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Client.Json" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Core" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Core.Exceptions" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Server" isExposed="False" />
+<Filter entryType="Namespace" fullName="JSIStudios.SimpleRESTServices.Server.EventArgs" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Caching" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Collections" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Domain" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Domain.Converters" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Domain.Mapping" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Domain.Queues" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Exceptions" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Exceptions.Response" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Providers" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Synchronous" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Core.Validators" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Hp" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Exceptions" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.AutoScale" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.Databases" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.Dns" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.LoadBalancers" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.Monitoring" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.Request" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Objects.Response" isExposed="False" />
+<Filter entryType="Namespace" fullName="net.openstack.Providers.Rackspace.Validators" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Authentication" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.ContentDeliveryNetworks.v1" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Networking" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Networking.v2" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Networking.v2.Serialization" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Serialization" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Synchronous" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Synchronous.Extensions" isExposed="False" />
+<Filter entryType="Namespace" fullName="OpenStack.Testing" isExposed="False" />
+<Filter entryType="Namespace" fullName="Rackspace.CloudNetworks.v2.Serialization" isExposed="False" />
+<Filter entryType="Namespace" fullName="Rackspace.Serialization" isExposed="False" />
+<Filter entryType="Namespace" fullName="System.Extensions" isExposed="False" /></ApiFilter>
+    <ComponentConfigurations>
+      <ComponentConfig id="IntelliSense Component" enabled="True">
+        <component id="IntelliSense Component">
+          <!-- Output options (optional)
+  Attributes:
+    Include namespaces (false by default)
+    Namespaces comments filename ("Namespaces" if not specified or empty)
+    Output folder (current folder if not specified or empty) -->
+          <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}\..\api" />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
+    <ComponentPath>..\packages\EWSoftware.SHFB.NETFramework\tools\</ComponentPath>
+    <HeaderText>
+    </HeaderText>
+    <FooterText>
+    </FooterText>
+    <CopyrightHref>http://rackspace.github.io/rackspace-net-sdk/</CopyrightHref>
+  </PropertyGroup>
+  <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
+			 the build.  The others are optional common platform types that may appear. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="icons" />
+    <Folder Include="media" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentLayout Include="ContentLayout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Flurl.Http, Version=0.6.3.0, Culture=neutral, PublicKeyToken=1308302a96879dfb">
+      <HintPath>..\packages\Flurl.Http.Signed\lib\net45\Flurl.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Marvin.JsonPatch, Version=0.7.0.0, Culture=neutral, PublicKeyToken=686c63b2d045ab44">
+      <HintPath>..\packages\Marvin.JsonPatch.Signed\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="openstacknet, Version=1.5.0.0, Culture=neutral, PublicKeyToken=a7b9d24dda86d33e">
+      <HintPath>..\packages\openstack.net\lib\net45\openstacknet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleRESTServices, Version=1.3.0.0, Culture=neutral, PublicKeyToken=8965cea5c205d3a3">
+      <HintPath>..\packages\SimpleRESTServices\lib\net40\SimpleRESTServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+  <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be
+			 evaluated correctly. -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+</Project>

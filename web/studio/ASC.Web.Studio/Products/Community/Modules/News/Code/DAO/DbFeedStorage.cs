@@ -266,7 +266,7 @@ namespace ASC.Web.Community.News.Code.DAO
             try
             {
                 NewsNotifyClient.NotifyClient.AddInterceptor(initatorInterceptor);
-                var replyToTag = GetReplyToTag(feed, null);
+
                 if (type == FeedType.Poll && feed is FeedPoll)
                 {
                     NewsNotifyClient.NotifyClient.SendNoticeAsync(
@@ -283,8 +283,7 @@ namespace ASC.Web.Community.News.Code.DAO
                                      DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID)),
                         new TagValue(NewsConst.TagUserUrl,
                                      CommonLinkUtility.GetFullAbsolutePath(
-                                         CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID))),
-                        replyToTag
+                                         CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID)))
                         );
                 }
                 else
@@ -303,8 +302,7 @@ namespace ASC.Web.Community.News.Code.DAO
                                      DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID)),
                         new TagValue(NewsConst.TagUserUrl,
                                      CommonLinkUtility.GetFullAbsolutePath(
-                                         CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID))),
-                        replyToTag
+                                         CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID)))
                         );
                 }
 
@@ -417,34 +415,47 @@ namespace ASC.Web.Community.News.Code.DAO
         {
             var feedType = feed.FeedType == FeedType.Poll ? "poll" : "feed";
 
+            var tags = new ITagValue[]
+            {
+                new TagValue(NewsConst.TagFEED_TYPE, feedType),
+                //new TagValue(NewsConst.TagAnswers, feed.Variants.ConvertAll<string>(v => v.Name)),
+                new TagValue(NewsConst.TagCaption, feed.Caption),
+                new TagValue("CommentBody", HtmlUtility.GetFull(comment.Comment)),
+                new TagValue(NewsConst.TagDate, comment.Date.ToShortString()),
+                new TagValue(NewsConst.TagURL, CommonLinkUtility.GetFullAbsolutePath("~/Products/Community/Modules/News/Default.aspx?docid=" + feed.Id)),
+                new TagValue("CommentURL", CommonLinkUtility.GetFullAbsolutePath("~/Products/Community/Modules/News/Default.aspx?docid=" + feed.Id + "#container_" + comment.Id.ToString(CultureInfo.InvariantCulture))),
+                new TagValue(NewsConst.TagUserName, DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID)),
+                new TagValue(NewsConst.TagUserUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID)))
+            };
+
             var initatorInterceptor = new InitiatorInterceptor(new DirectRecipient(comment.Creator, ""));
             try
             {
                 NewsNotifyClient.NotifyClient.AddInterceptor(initatorInterceptor);
-                NewsNotifyClient.NotifyClient.SendNoticeAsync(
-                    NewsConst.NewComment, feed.Id.ToString(CultureInfo.InvariantCulture),
-                    null,
-                    new TagValue(NewsConst.TagFEED_TYPE, feedType),
-                    //new TagValue(NewsConst.TagAnswers, feed.Variants.ConvertAll<string>(v => v.Name)),
-                    new TagValue(NewsConst.TagCaption, feed.Caption),
-                    new TagValue("CommentBody", HtmlUtility.GetFull(comment.Comment)),
-                    new TagValue(NewsConst.TagDate, comment.Date.ToShortString()),
-                    new TagValue(NewsConst.TagURL, CommonLinkUtility.GetFullAbsolutePath("~/Products/Community/Modules/News/Default.aspx?docid=" + feed.Id)),
-                    new TagValue("CommentURL", CommonLinkUtility.GetFullAbsolutePath("~/Products/Community/Modules/News/Default.aspx?docid=" + feed.Id + "#container_" + comment.Id.ToString(CultureInfo.InvariantCulture))),
-                    new TagValue(NewsConst.TagUserName, DisplayUserSettings.GetFullUserName(SecurityContext.CurrentAccount.ID)),
-                    new TagValue(NewsConst.TagUserUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(SecurityContext.CurrentAccount.ID))),
-                    GetReplyToTag(feed, comment)
-                    );
+
+                var mentionedUsers = MentionProvider.GetMentionedUsers(comment.Comment);
+                var mentionedUserIds = mentionedUsers.Select(u => u.ID.ToString());
+
+                var provider = NewsNotifySource.Instance.GetSubscriptionProvider();
+
+                var objectID = feed.Id.ToString(CultureInfo.InvariantCulture);
+
+                var recipients = provider
+                    .GetRecipients(NewsConst.NewComment, objectID)
+                    .Where(r => !mentionedUserIds.Contains(r.ID))
+                    .ToArray();
+
+                NewsNotifyClient.NotifyClient.SendNoticeToAsync(NewsConst.NewComment, objectID, recipients, false, tags);
+
+                if (mentionedUsers.Length > 0)
+                {
+                    NewsNotifyClient.NotifyClient.SendNoticeToAsync(NewsConst.MentionForFeedComment, objectID, mentionedUsers, false, tags);
+                }
             }
             finally
             {
                 NewsNotifyClient.NotifyClient.RemoveInterceptor(initatorInterceptor.Name);
             }
-        }
-
-        private static TagValue GetReplyToTag(Feed feed, FeedComment feedComment)
-        {
-            return ReplyToTagProvider.Comment("event", feed.Id.ToString(CultureInfo.InvariantCulture), feedComment != null ? feedComment.Id.ToString(CultureInfo.InvariantCulture) : null);
         }
 
         public void RemoveFeedComment(long commentId)

@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 using ASC.Api.Calendar.ExternalCalendars;
+using ASC.Api.Calendar.Attachments;
 using ASC.Api.Calendar.iCalParser;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -45,6 +46,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         private const string _eventTable = "calendar_events evt";
         private const string _todoTable = "calendar_todos td";
         private const string _eventItemTable = "calendar_event_item evt_itm";
+        private ILog Log = LogManager.GetLogger("ASC.Calendar");
 
         private static string eventUidDomain;
 
@@ -393,7 +395,8 @@ namespace ASC.Api.Calendar.BusinessObjects
             int calendarId;
             using (var tr = db.BeginTransaction())
             {
-
+                description = StringUtils.NormalizeStringForMySql(description);
+                name = StringUtils.NormalizeStringForMySql(name);
                 calendarId = db.ExecuteScalar<int>(new SqlInsert("calendar_calendars")
                                                                 .InColumnValue("id", 0)
                                                                 .InColumnValue("tenant",
@@ -611,7 +614,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                         {
                             using (var tr = db.BeginTransaction())
                             {
-                                var eventsData = db.ExecuteList( new SqlQuery("calendar_events e")
+                                var eventsData = db.ExecuteList(new SqlQuery("calendar_events e")
                                 .Select(cc.SelectQuery)
                                 .Where("e.calendar_id", calendarId)
                                 .Where("e.tenant", tenant.TenantId));
@@ -632,13 +635,13 @@ namespace ASC.Api.Calendar.BusinessObjects
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC.Calendar").Error(ex);
+                        Log.Error(ex);
                     }
                 }, TaskCreationOptions.LongRunning);
 
                 updateNotifications.ConfigureAwait(false);
                 updateNotifications.Start();
-                
+
 
             }
             else
@@ -704,7 +707,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                         }
                         catch (Exception ex)
                         {
-                            LogManager.GetLogger("ASC.Calendar").Error(ex);
+                            Log.Error(ex);
                         }
                     }, TaskCreationOptions.LongRunning);
 
@@ -729,7 +732,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 }
                 catch (Exception ex)
                 {
-                    LogManager.GetLogger("ASC.Calendar").Error(ex);
+                    Log.Error(ex);
                 }
 
                 db.ExecuteNonQuery(new SqlDelete("calendar_calendars").Where("id", calendarId));
@@ -833,6 +836,8 @@ namespace ASC.Api.Calendar.BusinessObjects
             using (var tr = db.BeginTransaction())
             {
 
+                description = StringUtils.NormalizeStringForMySql(description);
+                name = StringUtils.NormalizeStringForMySql(name);
                 todoId = db.ExecuteScalar<int>(new SqlInsert("calendar_todos")
                                                             .InColumnValue("id", 0)
                                                             .InColumnValue("tenant",
@@ -885,6 +890,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
                                               .Select(cc.SelectQuery)
                                               .Where(Exp.In(tdId.Name, todoIds))
+                                              .Where("owner_id", userId)
                                               .Where("tenant", tenantId));
                 }
                 else
@@ -892,6 +898,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     data = db.ExecuteList(new SqlQuery(_todoTable)
 
                                                    .Select(cc.SelectQuery)
+                                                   .Where("owner_id", userId)
                                                    .Where(Exp.In(tdId.Name, todoIds)));
                 }
 
@@ -1018,6 +1025,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             var eUid = cc.RegistryColumn("evt.uid");
             var eStatus = cc.RegistryColumn("evt.status");
             var eTimeZone = cc.RegistryColumn("evt.time_zone");
+            var eHasAttachments = cc.RegistryColumn("evt.has_attachments");
 
             var data = new List<Object[]>();
 
@@ -1088,7 +1096,8 @@ namespace ASC.Api.Calendar.BusinessObjects
                         RecurrenceRule = eRRule.Parse<RecurrenceRule>(r),
                         Uid = eUid.Parse<string>(r),
                         Status = (EventStatus)eStatus.Parse<int>(r),
-                        TimeZone = eTimeZone.Parse<TimeZoneInfo>(r)
+                        TimeZone = eTimeZone.Parse<TimeZoneInfo>(r),
+                        HasAttachments = eHasAttachments.Parse<bool>(r)
                     };
                     events.Add(ev);
                 }
@@ -1195,12 +1204,14 @@ namespace ASC.Api.Calendar.BusinessObjects
                                  string uid,
                                  EventStatus status,
                                  DateTime createDate,
-                                 TimeZoneInfo timeZone)
+                                 TimeZoneInfo timeZone,
+                                 bool hasAttachments)
         {
             int eventId;
             using (var tr = db.BeginTransaction())
             {
-
+                description = StringUtils.NormalizeStringForMySql(description);
+                name = StringUtils.NormalizeStringForMySql(name);
                 eventId = db.ExecuteScalar<int>(new SqlInsert("calendar_events")
                                                             .InColumnValue("id", 0)
                                                             .InColumnValue("tenant",
@@ -1222,6 +1233,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                             .InColumnValue("uid", GetEventUid(uid))
                                                             .InColumnValue("status", (int)status)
                                                             .InColumnValue("time_zone", timeZone?.Id)
+                                                            .InColumnValue("has_attachments", hasAttachments)
                                                             .Identity(0, 0, true));
 
                 foreach (var item in publicItems)
@@ -1255,7 +1267,8 @@ namespace ASC.Api.Calendar.BusinessObjects
             List<SharingOptions.PublicItem> publicItems,
             EventStatus status,
             DateTime createDate,
-            TimeZoneInfo timeZone
+            TimeZoneInfo timeZone,
+            bool hasAttachments
             )
         {
             using (var tr = db.BeginTransaction())
@@ -1272,6 +1285,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     .Set("rrule", rrule.ToString())
                     .Set("status", (int)status)
                     .Set("time_zone", timeZone?.Id)
+                    .Set("has_attachments", hasAttachments)
                     .Where(Exp.Eq("id", eventId));
 
                 if (ownerId.Equals(SecurityContext.CurrentAccount.ID))

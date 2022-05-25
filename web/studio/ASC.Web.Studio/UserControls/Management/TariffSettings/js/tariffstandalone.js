@@ -28,9 +28,9 @@ var TariffStandalone = new function () {
     };
 
     var uploadInit = function () {
-        jq("#licenseKey").click(function (e) {
+        jq("#licenseKey").on("click", function (e) {
             e.preventDefault();
-            jq("#uploadButton").click();
+            jq("#uploadButton").trigger("click");
         });
 
         var upload = jq("#uploadButton")
@@ -44,7 +44,7 @@ var TariffStandalone = new function () {
             .bind("fileuploaddone", function (e, data) {
                 LoadingBanner.hideLoaderBtn(".step");
                 try {
-                    var result = jq.parseJSON(data.result);
+                    var result = JSON.parse(data.result);
                 } catch (e) {
                     result = {Success: false};
                 }
@@ -117,5 +117,5 @@ jq(function () {
 
     jq("#activatePanel").on("click", "#activateButton:not(.disable)", TariffStandalone.activate);
 
-    jq("#policyAccepted").click(TariffStandalone.licenseKeyEdit);
+    jq("#policyAccepted").on("click", TariffStandalone.licenseKeyEdit);
 });

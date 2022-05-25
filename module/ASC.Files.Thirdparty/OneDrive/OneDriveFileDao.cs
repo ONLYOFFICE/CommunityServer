@@ -577,6 +577,15 @@ namespace ASC.Files.Thirdparty.OneDrive
             return null;
         }
 
+        public EntryProperties GetProperties(object fileId)
+        {
+            return null;
+        }
+
+        public void SaveProperties(object fileId, EntryProperties entryProperties)
+        {
+        }
+
         public Task<Stream> GetFileStreamAsync(File file)
         {
             return Task.FromResult(GetFileStream(file));

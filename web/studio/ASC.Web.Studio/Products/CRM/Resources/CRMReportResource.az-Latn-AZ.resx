@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Fürsətlər üçün orta büdcə</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Uğurlu fürsətlərin orta müddəti, günlər</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Fakturalı</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Verilmiş fakturalar</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Büdcə</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Boş Sənəd Yaratma Şablonu</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Büdcə üzrə</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Nömrə üzrə</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Zənglər</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Zəng sayı</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Zəng müddəti</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Dövr üçün zənglər</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Bağlanıb</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Ba]lanmış tapşırıqlar</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Temperatur səviyyələrinə görə kontaktlar</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Növə görə kontaktlar</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Fürsətlər ilə</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Fürsətsiz</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Çevirmə</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Nömrə</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Yaradıldı</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Hesabatı yaratmaq üçün siz baza valyutasına uyğun olaraq fürsətin büdcəsini yaratmalısınız. Bunu etmək üçün istifadə olunan valyutanın məzənnəsini təyin edin.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Valyuta Parametrləri</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Cari ay</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Cari rüb</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Cari həftə</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Cari il</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Gün</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Fürsət büdcəsi</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Büdcə üzrə imkanlar</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Nömrəyə görə imkanlar</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Mərhələyə görə imkanlar</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Statusa görə imkanlar</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>İmkanların nömrəsi</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Müddət</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Bütün vaxt</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>Hesabat məlumatını almaq mümkün deyil</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>Hesabat skriptini almaq mümkün deyil</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Hazırlanmış hesabatlar</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Yaratdığınız bütün hesabatlar burada yerləşir. Siz hesabat fayllarını redaktə edə, silə və ya endirə bilərsiniz. Hesabat yaratmaq üçün soldakı siyahıdan şablon seçin, filtrləri təyin edin və "Yarat" düyməsini basın.</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Hesabat yaradın</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>Bütün imkanlar qalib gələrsə</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Gələn</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Statusa görə fakturalar</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Dövrə görə fakturalar</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Element</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>İtib</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Menecer</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Menecerlər</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>bunlardan {0} cavabsızdır</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Növbəti 30 gün ərzində bağanacaq</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Yeni kontaktlar</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>İmkanları olan və olmayan yeni kontaktlar</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Yeni tapşırıqlar</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Növbəti ay</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Növbəti rüblük</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Növbəti həftə</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Növbəti il</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Hesabat üçün məlumat yoxdur. Başqa filter seçin.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Gedən</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Vaxtı keçib</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Vaxtı bitmiş tapşırıqlar</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Ödənişli</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Əvvəlki ay</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Əvvəlki rüblük</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Əvvəlki həftə</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Əvvəlki il</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Rədd edildi</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Hesabatın yaradılması</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Siz {0} CRM / Hesabatlar / Yaradılmış Hesabatlar {1} bölməsində yaradılan bütün hesabatlara baxa, yükləyə, redaktə edə və ya silə bilərsiniz</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Hesabatın yaradılması ({0}% tamamlanıb)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Hesabatlar</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Günə, menecerlərə görə satışlar</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Saata, menecerlərə görə satışlar</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Menecerlərə görə satışlar</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Hesabat, bütün menecerlər və ya seçilmiş menecerlərə görə seçilmiş {1}Zaman müddəti {2} üçün uğurlu imkanları göstərməyi nəzərdə tutub. {0} Həftə və ya ay seçildikdə, hesabat gün üzrə nəticələri göstərir, rüb və ya il seçilərsə, məlumatlar aya görə qruplaşdırılacaq.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Aya, menecerlərə görə satışlar</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Satış proqnozu</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Bu hesabat, fürsət ehtimalı nəzərə alınmaqla, müəyyən bir müddət üçün satış proqnozunu göstərir. {1}Vaxt müddətində{0} bütün menecerlər və ya seçilmiş menecerlər üçün tələb olunan {2} imkanların sayını göstərir. Məlumata seçilmiş vaxt çərçivəsinə düşən təxmini bitmə tarixi olan imkanlar üçün ümumi büdcə daxildir.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Fürsətlər büdcəsinə görə satış hunisi</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Fürsətlərin sayına görə satış hunisi</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Satış hunisi</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Bu hesabat müəyyən bir müddət üçün satış axını yaratmaq üçün nəzərdə tutulub. Seçilmiş {1}zaman müddətində{2} bütün menecerlər və ya seçilmişlər üçün imkanların sayını göstərir.
+{0} Əsas dataya axındakı imkanların sayı, orta imkan büdcəsi, uğurla bağlanan imkanların orta müddəti, açıq imkanların qapalı imkanlara nisbəti daxildir.
+{0} Data imkanların sayına və büdcəyə görə çeşidlənə bilər.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Mərhələ</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Məbləğ</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1}Zaman müddəti {2} üçün imkanlar, kontaktlar, tapşırıqlar və hesab-fakturalar üzrə ümumi məlumatı göstərmək üçün nəzərdə tutulub. Hesabat statusa və mərhələyə görə imkanları, növə və mərhələyə görə kontaktları və statusa görə fakturaları göstərir.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Bu an üçün xülasə</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Müddət üçün xülasə</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1}Zaman müddəti {2} üçün imkanlar, kontaktlar, tapşırıqlar və hesab-fakturalar üzrə ümumi məlumatı göstərmək üçün nəzərdə tutulub. Hesabat büdcə və say üzrə imkanları, növə görə kontaktları, tapşırıqları və vaxta görə fakturaları göstərir</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Statusa görə tapşırıqlar</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Müddət üçün tapşırıqlar</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Zaman müddəti</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Yekun</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Ümumi fürsət büdcəsi</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Fürsətlərin ümumi sayı</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Menecerlər üzrə müddətə görə ümumi satışlar</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Növ</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>Ehtimal nəzərə alınmaqla</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Qalib gəldiniz</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlərə görə seçilmiş {1}Zaman müddəti {2} üzrə kontaktların ümumi sayını göstərmək üçün nəzərdə tutulub. Hesabatda yeni əlaqələr növləri və imkanların olub-olmaması göstərilir. Məlumatlar yalnız menecerlər tərəfindən qruplaşdırılır.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Menecerlər üzrə kontaktlar</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1} Zaman müddəti {2} üzrə uğurlu və itirilmiş imkanların ümumi iş həcmini göstərmək üçün nəzərdə tutulub. Məlumatlar yalnız menecerlər tərəfindən qruplaşdırılır.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Menecerlərə görə imkanlar</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1} Zaman müddəti {2} üçün fakturaların ümumi sayını göstərmək üçün nəzərdə tutulub. Hesabatda göndərilən fakturaların ümumi sayı, həmçinin ödənilmiş, rədd edilmiş və gecikdirilmiş hesab-fakturaların sayı göstərilir. Məlumatlar yalnız menecerlər tərəfindən qruplaşdırılır.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Menecerlərə görə fakturalar</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1} Zaman müddəti {2} üzrə tapşırıqların ümumi sayını göstərmək üçün nəzərdə tutulub. Hesabat növünə görə qapalı, yeni və gecikmiş tapşırıqları göstərir. Məlumatlar yalnız menecerlər tərəfindən qruplaşdırılır.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Menecerlərə görə tapşırıqlar</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Hesabat bütün menecerlər və ya seçilmiş menecerlər üçün seçilmiş {1} Zaman müddəti {2} üzrə zənglərin ümumi sayını göstərmək üçün nəzərdə tutulub. Hesabatda daxil olan və gedən zənglərin ümumi sayı və onların müddəti göstərilir. Məlumatlar yalnız menecerlər tərəfindən qruplaşdırılır.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Qeyd edək ki, Twilio xidmətinə qoşula bilərsiz. Əlaqələndirmək üçün {0} linkini{1} izləyin</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>Menecerlərə görə VoIP</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Dünən</value>
+  </data>
+</root>

@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9c4a6074-9d84-4488-9565-50ecb5049ffe" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        To ensure the long-term reliability of both the SDK and applications which rely on the SDK, the following
+        policy is enforced for each release of the SDK.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Scope</title>
+      <content>
+        <para>
+          This breaking changes policy is only enforced for libraries which explicitly state it as their governing
+          policy. In certain cases, a library governed by this breaking changes policy may depend on a library which is
+          not governed by the same policy, or which does not provide any breaking changes policy. In those cases, a
+          best-effort is provided to ensure changes to the dependency do not affect dependent code. For maximum
+          long-term compatibility, dependent applications and libraries should treat dependencies not governed by this
+          policy in accordance with the rules described for preliminary features, even though they are not marked as
+          such within the documentation.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <title>Definitions</title>
+      <content>
+        <definitionTable>
+          <definedTerm>Binary compatible</definedTerm>
+          <definition>
+            <para>
+              An assembly <literal>x</literal> is <newTerm>binary compatible</newTerm> with an assembly
+              <literal>y</literal> if replacing <literal>y</literal> with <literal>x</literal> will not cause an
+              application previously compiled against <literal>y</literal> to stop functioning at runtime.
+            </para>
+            <alert class="note">
+              <para>
+                Binary compatibility is transitive, but not necessarily symmetric. Specifically, the assembly
+                <literal>x</literal> may include new APIs that are not included in <literal>y</literal>; since the
+                application compiled against <literal>y</literal> is clearly not using any of these new APIs, they do
+                not prevent <literal>x</literal> from being binary compatible with <literal>y</literal>.
+              </para>
+            </alert>
+          </definition>
+          <definedTerm>Source compatible</definedTerm>
+          <definition>
+            <para>
+              An assembly <literal>x</literal> is <newTerm>source compatible</newTerm> with an assembly
+              <literal>y</literal> if replacing <literal>y</literal> with <literal>x</literal> will not cause an
+              application previously compiled against <literal>y</literal> to encounter build errors when it is
+              recompiled.
+            </para>
+          </definition>
+          <definedTerm>Version</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>version</newTerm> is comprised of four parts, with the following form.
+            </para>
+            <quote>
+              major.minor.patch.revision
+            </quote>
+            <para>
+              Each part of the version number is an integer in the range 0-65535, inclusive.
+            </para>
+          </definition>
+          <definedTerm>Major release</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>major release</newTerm> is a release which increments the "major" part of the version.
+            </para>
+          </definition>
+          <definedTerm>Minor release</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>minor release</newTerm> is a release which increments the "minor" part of the version, but does
+              not change the "major" part.
+            </para>
+          </definition>
+          <definedTerm>Patch release</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>patch release</newTerm> is a release which increments the "patch" and/or "revision" parts of
+              the version, but does not change either the "major" or "minor" parts.
+            </para>
+          </definition>
+          <definedTerm>Preliminary feature</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>preliminary feature</newTerm> is a special designation for a publicly-exposed API in the
+              library which is exempted from certain rules within the breaking changes policy for the purpose of
+              improving the agility of library development without compromising reliability for business users primarily
+              interested in API stability.
+            </para>
+          </definition>
+          <definedTerm>Stable feature</definedTerm>
+          <definition>
+            <para>
+              A <newTerm>stable feature</newTerm> is any type or member within the publicly-exposed API of the library
+              which is not designated as a preliminary feature.
+            </para>
+          </definition>
+        </definitionTable>
+      </content>
+    </section>
+
+    <section>
+      <title>Major and Minor Releases</title>
+      <content>
+        <para>
+          Major and minor releases do not preserve binary compatibility. For dependent assemblies which use a strong
+          name, the binary incompatibility is enforced by a change to the strong name of the assembly. Major and minor
+          releases update the value of the
+          <codeEntityReference>T:System.Reflection.AssemblyVersionAttribute</codeEntityReference> attribute, which
+          always changes the strong name of the assembly.
+        </para>
+        <para>
+          Minor releases are typically used for the following.
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              Promotion of features previously marked as preliminary to stable features of the API.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Changes to stable features of the API where necessary for the purpose of introducing new functionality,
+              addressing performance concerns, or correcting bugs in the library.
+            </para>
+          </listItem>
+        </list>
+        <para>
+          Major releases are typically used for substantial refactoring or other alterations in order to meet the needs
+          of a broader user base, or for the purpose of improving overall usability or flexibility of the library.
+        </para>
+      </content>
+    </section>
+
+    <section>
+      <title>Patch Releases</title>
+      <content>
+        <para>
+          Patch releases preserve binary compatibility for all features of the library which are not marked preliminary.
+          This includes but is not limited to the following guarantees.
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              Patch releases never change the strong name of the assembly. This means a patch release updates the
+              <codeEntityReference>T:System.Reflection.AssemblyFileVersionAttribute</codeEntityReference> and
+              <codeEntityReference>T:System.Reflection.AssemblyInformationalVersionAttribute</codeEntityReference>
+              values, but does not change the
+              <codeEntityReference>T:System.Reflection.AssemblyVersionAttribute</codeEntityReference> value.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Patch releases do not change the runtime signature of any type or method which is not marked preliminary.
+              The runtime signatures include type and method names
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Patch releases may only add elements to the public API of the assembly if they are marked preliminary.
+              This rule ensures that patch releases preserve symmetric binary compatibility for applications and
+              libraries which avoid the use of any feature marked as preliminary.
+            </para>
+          </listItem>
+        </list>
+      </content>
+      <sections>
+        <section>
+          <title>Revision-Only Releases</title>
+          <content>
+            <para>
+              In some cases, a release will only update the "revision" part of the version. With regard to this breaking
+              changes policy, these releases are equivalent to patch releases. In practice, revision-only releases are
+              typically reserved for correcting a previous patch or revision release which violated the breaking changes
+              policy, or for correcting a bug which was introduced in the current patch cycle without making changes to
+              the public API of the assembly.
+            </para>
+          </content>
+        </section>
+
+        <section>
+          <title>Exceptions</title>
+          <content>
+            <para>
+              Certain exceptions apply to the binary compatibility requirement of patch releases. These include the
+              following.
+            </para>
+            <list class="bullet">
+              <listItem>
+                <para>
+                  All implementation details, i.e. code which is not part of the public API of the assembly, is allowed
+                  to change during a patch release. Code using the reflection APIs to manipulate any aspect of the
+                  library may observe breaking changes at runtime as a result of changes to implementation details.
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  All types and members which are marked as preliminary are exempted from the binary compatibility
+                  requirement, subject to the rules of
+                  <link xlink:href="#PreliminaryFeatures">preliminary features</link>.
+                </para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
+    </section>
+
+    <section>
+      <title>Summary of Release Characteristics</title>
+      <content>
+        <para>The following table summarizes the intent of various releases.</para>
+        <table>
+          <tableHeader>
+            <row>
+              <entry>
+                <para>Release Type</para>
+              </entry>
+              <entry>
+                <para>Binary Compatibility</para>
+              </entry>
+              <entry>
+                <para>Source Compatibility</para>
+              </entry>
+              <entry>
+                <para>New Features</para>
+              </entry>
+            </row>
+          </tableHeader>
+          <row>
+            <entry>
+              <para>Major</para>
+            </entry>
+            <entry>
+              <para>Unrestricted</para>
+            </entry>
+            <entry>
+              <para>Unrestricted</para>
+            </entry>
+            <entry>
+              <para>Unrestricted</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Minor</para>
+            </entry>
+            <entry>
+              <para>
+                Unrestricted<superscript>1</superscript>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Relaxed Preferred<superscript>2</superscript>
+              </para>
+            </entry>
+            <entry>
+              <para>Unrestricted</para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>Patch</para>
+            </entry>
+            <entry>
+              <para>Transitive: Required</para>
+              <para>
+                Symmetric: Preferred<superscript>3</superscript>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Strict Preferred<superscript>4</superscript>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Preliminary Only<superscript>3</superscript>
+              </para>
+            </entry>
+          </row>
+        </table>
+        <list class="ordered">
+          <listItem>
+            <para>
+              Since minor releases result in a change to the strong name of the assembly, binary compatibility is never
+              preserved for strong-named applications or libraries which reference the assembly. These cases are rarely
+              problematic due to the runtime's support for side-by-side loading of multiple versions of the same
+              assembly.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              To minimize the cost of updating an application to use a new minor release of the library,
+              source-incompatible changes should only be introduced when necessary to support a substantial improvement
+              to the library. Eligible improvements include but are not limited to resource utilization, runtime
+              performance, or new feature offerings.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Restricting the introduction of features in a patch release to preliminary features provides applications
+              the ability to leverage symmetric binary compatibility for maximum runtime reliability, by avoiding the
+              use of any feature which is marked as preliminary.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Changes to preliminary features may result in source code incompatibilities due to situations including
+              but not limited to conflicts due to ambiguous names. In addition, changing the name of a required
+              parameter for the purpose of correcting a spelling error or avoiding confusion is generally allowed due to
+              a very low risk of actually causing compilation problems for users. Changes to the names of optional
+              parameters, on the other hand, should be avoided whenever possible as users are likely to be referencing
+              them directly by name.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section address="PreliminaryFeatures">
+      <title>Preliminary Features</title>
+      <content>
+        <para>
+          This library may include types and/or members which are designated as preliminary features. The preliminary
+          feature designation is indicated by a clear note at the top of the associated documentation page. In the
+          library source code, preliminary features are indicated by including the
+          <codeInline>&lt;preliminary/&gt;</codeInline> element to the XML documentation comment for the feature. While
+          preliminary features are much more "flexible" during the release cycle of the library, certain rules do apply
+          in order to ensure the stronger rules provided for stable features will not be violated by a change to a
+          preliminary feature. The following list includes examples of these rules, but other rules may be imposed by
+          basic logical constraints. The API elements referred to in the following list are assumed to be restricted to
+          the publicly-exposed API of the library. The terms "member" and "members" refer to any method, property, or
+          event.
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              A member may only refer to a preliminary type in its signature if it is also marked preliminary.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              An interface may only include a preliminary member if it is also marked preliminary.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              An interface may only extend a preliminary interface if it is also marked preliminary.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              A class may only include a preliminary <codeInline>abstract</codeInline> member if either it is also
+              marked preliminary, or all constructors for the class are marked <codeInline>internal</codeInline>. This
+              restriction also applies to <codeInline>abstract</codeInline> classes which do not implement an
+              <codeInline>abstract</codeInline> member declared in a base class.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <relatedTopics>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

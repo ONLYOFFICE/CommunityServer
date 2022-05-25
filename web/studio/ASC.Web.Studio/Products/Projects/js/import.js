@@ -70,21 +70,21 @@ ASC.Projects.Import = (function($) {
         $tbxUserName = jq("#tbxUserName");
         $tbxPassword = jq("#tbxPassword");
 
-        $chooseProjects.removeAttr(checkedClass);
-        $importClosed.removeAttr(checkedClass);
-        $sendInvitations.removeAttr(checkedClass);
-        $agreement.removeAttr(checkedClass);
+        $chooseProjects.prop(checkedClass, false);
+        $importClosed.prop(checkedClass, false);
+        $sendInvitations.prop(checkedClass, false);
+        $agreement.prop(checkedClass, false);
 
-        if ($importAsCollaborators.attr(disabledAttr) != disabledAttr) {
-            $importAsCollaborators.removeAttr(checkedClass);
+        if (!$importAsCollaborators.prop(disabledAttr)) {
+            $importAsCollaborators.prop(checkedClass, false);
         } else {
             quotaEndFlag = true;
         }
-        $tbxURL.focus();
+        $tbxURL.trigger("focus");
 
         checkImportStatus(true);
 
-        $startImportButton.click(function () {
+        $startImportButton.on("click", function () {
             if (jq(this).hasClass(disableClass)) return;
 
             if (!validateData()) return;
@@ -95,7 +95,7 @@ ASC.Projects.Import = (function($) {
                 Teamlab.checkPrjImportQuota({}, getDataForImport(), { success: onCheckQuota, error: showOverLimitPopup });
         });
 
-        $agreement.click(function () {
+        $agreement.on("click", function () {
             changeAgreementCheckBox(this);
         });
 
@@ -116,39 +116,39 @@ ASC.Projects.Import = (function($) {
         $basecampProjectsContainer.on("click", "li", function () {
             var input = jq(this).children("input");
             if (input.is(":checked")) {
-                input.removeAttr(checkedClass);
+                input.prop(checkedClass, false);
             } else {
-                input.attr(checkedClass, checkedClass);
+                input.prop(checkedClass, true);
             }
             onProjectClick(this);
         });
-        jq("#checkArchivedProj").change(function() {
+        jq("#checkArchivedProj").on("change", function() {
             var archivedProjCont = jq("#archivedProjects");
             if (!jq(this).is(":checked")) {
-                archivedProjCont.find("input").removeAttr(checkedClass);
+                archivedProjCont.find("input").prop(checkedClass, false);
                 archivedProjCont.find("li").addClass(uncheckedClass);
             } else {
-                archivedProjCont.find("input").attr(checkedClass, checkedClass);
+                archivedProjCont.find("input").prop(checkedClass, true);
                 archivedProjCont.find("li").removeClass(uncheckedClass);
             }
         });
-        jq("#checkActiveProj").change(function() {
+        jq("#checkActiveProj").on("change", function() {
             var activeProjCont = jq("#activeProjects");
             if (!jq(this).is(":checked")) {
-                activeProjCont.find("input").removeAttr(checkedClass);
+                activeProjCont.find("input").prop(checkedClass, false);
                 activeProjCont.find("li").addClass(uncheckedClass);
             } else {
-                activeProjCont.find("input").attr(checkedClass, checkedClass);
+                activeProjCont.find("input").prop(checkedClass, true);
                 activeProjCont.find("li").removeClass(uncheckedClass);
             }
         });
-        jq("#importCheckedProjects").click(function() {
+        jq("#importCheckedProjects").on("click", function() {
             if (jq(this).hasClass(disableClass)) return;
 
             var projects = $basecampProjectsContainer.find("li input");
             importCheckedProjects(projects);
         });
-        jq("#continueImport").click(function() {
+        jq("#continueImport").on("click", function() {
             beforeStartImport();
             jq.unblockUI();
         });
@@ -247,9 +247,9 @@ ASC.Projects.Import = (function($) {
         jq.tmpl(template, archevedProjs).appendTo(archivedProjCont);
 
         loadingBanner.hideLoading();
-        jq("#checkArchivedProj").removeAttr(disabledAttr);
-        jq("#checkActiveProj").attr(checkedClass, checkedClass);
-        archivedProjCont.find("input").removeAttr(checkedClass);
+        jq("#checkArchivedProj").prop(disabledAttr, false);
+        jq("#checkActiveProj").prop(checkedClass, true);
+        archivedProjCont.find("input").prop(checkedClass, false);
         archivedProjCont.find("li").addClass(uncheckedClass);
         viewImportInfoPanel(jq("#chooseProjectsPopup"));
     };
@@ -454,14 +454,14 @@ ASC.Projects.Import = (function($) {
     };
 
     function lockImportTools() {
-        $tbxURL.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
-        $tbxUserName.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
-        $tbxPassword.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
+        $tbxURL.prop(readonlyAttr, true).addClass(disabledAttr);
+        $tbxUserName.prop(readonlyAttr, true).addClass(disabledAttr);
+        $tbxPassword.prop(readonlyAttr, true).addClass(disabledAttr);
 
-        $importClosed.attr(disabledAttr, disabledAttr);
-        $sendInvitations.attr(disabledAttr, disabledAttr);
-        $chooseProjects.attr(disabledAttr, disabledAttr);
-        $importAsCollaborators.attr(disabledAttr, disabledAttr);
+        $importClosed.prop(disabledAttr, true);
+        $sendInvitations.prop(disabledAttr, true);
+        $chooseProjects.prop(disabledAttr, true);
+        $importAsCollaborators.prop(disabledAttr, true);
         loadingBanner.showLoaderBtn($importTools);
 
         if (! $importTools.find(".loader-container a").length) {
@@ -472,15 +472,15 @@ ASC.Projects.Import = (function($) {
     };
 
     function unlockImportTools() {
-        $tbxURL.removeAttr(readonlyAttr).removeClass(disabledAttr);
-        $tbxUserName.removeAttr(readonlyAttr).removeClass(disabledAttr);
-        $tbxPassword.removeAttr(readonlyAttr).removeClass(disabledAttr);
+        $tbxURL.prop(readonlyAttr, false).removeClass(disabledAttr);
+        $tbxUserName.prop(readonlyAttr, false).removeClass(disabledAttr);
+        $tbxPassword.prop(readonlyAttr, false).removeClass(disabledAttr);
 
-        $importClosed.removeAttr(disabledAttr);
-        $sendInvitations.removeAttr(disabledAttr);
-        $chooseProjects.removeAttr(disabledAttr);
+        $importClosed.prop(disabledAttr, false);
+        $sendInvitations.prop(disabledAttr, false);
+        $chooseProjects.prop(disabledAttr, false);
         if (!quotaEndFlag) {
-            $importAsCollaborators.removeAttr(disabledAttr);
+            $importAsCollaborators.prop(disabledAttr, false);
         }
 
         loadingBanner.hideLoaderBtn($importTools);

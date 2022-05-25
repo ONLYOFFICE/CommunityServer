@@ -234,6 +234,9 @@ ASC.Projects.TaskDescriptionPage = (function() {
         CommentsManagerObj.moduleName = "projects_Task";
         CommentsManagerObj.comments = jq.base64.encode(JSON.stringify(task.comments));
         CommentsManagerObj.objectID = "common";
+        CommentsManagerObj.onLoadComplete = function () {
+            window.CKEDITOR_mentionsFeed = ASC.Projects.Master.Team;
+        }
         CommentsManagerObj.Init();
         CommentsManagerObj.objectID = task.id;
         jq("#hdnObjectID").val(task.id);
@@ -274,7 +277,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
 
             if (task.status == 2) {
                 $subtasks.find(".quickAddSubTaskLink").remove();
-                $subtasks.find(".subtask .check input").attr('disabled', true);
+                $subtasks.find(".subtask .check input").prop('disabled', true);
             }
             if (subtaskTab.selected) {
                 $subtasks.show();
@@ -534,7 +537,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
             var option = $taskSelector.find("option[value="+taskId+"]");
             option.removeClass(displayNoneClass);
             option.prop("selected", true);
-            $taskSelector.change();
+            $taskSelector.trigger("change");
 
             var link = relatedTasks[taskId];
             editedLink = link;
@@ -646,11 +649,11 @@ ASC.Projects.TaskDescriptionPage = (function() {
             hideHintInvalidLink();
         });
 
-        $hintInvalidLink.mouseenter(function () {
+        $hintInvalidLink.on("mouseenter", function () {
             overInvalidLinkHint = true;
         });
 
-        $hintInvalidLink.mouseleave(function () {
+        $hintInvalidLink.on("mouseleave", function () {
             overInvalidLinkHint = false;
             hideHintInvalidLink();
         });
@@ -689,7 +692,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
                 addTaskLink(link, editedLink.targetTaskId);
             }
         });
-        $taskSelector.change(function () {
+        $taskSelector.on("change", function () {
             var taskId = $taskSelector.val();
             if (taskId != "-1") {
                 checkValidLinkTypeForTask(taskId);
@@ -866,7 +869,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
             button: {
                 title: TaskResource.AddNewSubtask,
                 onclick: function () {
-                    $subtaskContainer.find(".quickAddSubTaskLink .link").click();
+                    $subtaskContainer.find(".quickAddSubTaskLink .link").trigger("click");
                 },
                 canCreate: function () {
                     return currentTask.status !== 2 && currentTask.canCreateSubtask;
@@ -883,7 +886,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
                 title: TaskResource.CreateNewLink,
                 onclick: function () {
                     if (!$editLinkBox.is(":visible")) {
-                        $createAddTaskLinkButton.click();
+                        $createAddTaskLinkButton.trigger("click");
                     }
                 },
                 canCreate: function () {
@@ -900,7 +903,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
             button: {
                 title: ASC.Resources.Master.TemplateResource.AddNewCommentButton,
                 onclick: function () {
-                    jq("#add_comment_btn").click();
+                    jq("#add_comment_btn").trigger("click");
                 },
                 canCreate: function () {
                     return currentTask.canCreateComment;
@@ -981,6 +984,8 @@ ASC.Projects.TaskDescriptionPage = (function() {
         baseObject.SubtasksManager.setTasks(tasks);
 
         displayTaskDescription(task);
+
+        document.title = jq.format("{0} - {1}", task.title, ASC.Projects.Resources.ProjectsJSResource.ProductName);
     };
 
     function onUpdateTask(params, task) {

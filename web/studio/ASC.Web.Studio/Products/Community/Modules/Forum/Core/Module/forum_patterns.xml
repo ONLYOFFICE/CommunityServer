@@ -17,7 +17,7 @@ $PostURL
   </pattern>
   <pattern id="new post in topic" sender="telegram.sender">
     <subject resource="|subject_PostInTopicEmailPattern_tg|ASC.Web.Community.Modules.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $PostText
     </body>
@@ -47,7 +47,7 @@ $PostURL
   </pattern>
   <pattern id="new topic in forum" sender="telegram.sender">
     <subject resource="|subject_TopicInForumEmailPattern_tg|ASC.Web.Community.Modules.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $PostText
     </body>

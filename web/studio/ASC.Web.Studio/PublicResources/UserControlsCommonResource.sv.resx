@@ -229,9 +229,6 @@
   <data name="SharingSettingsEmpty" xml:space="preserve">
     <value>Lägg till användare eller grupper och ge dem rätten.</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Baspris</value>
-  </data>
   <data name="TariffFileSizeLimitTitle" xml:space="preserve">
     <value>Stor filstorlek</value>
   </data>
@@ -249,9 +246,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Års-{2}{1} Abonnemang</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Års-{1} Abonnemang</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Du använder en plan för ideella organisationer.</value>
@@ -276,9 +270,6 @@
   </data>
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 år</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Att lägga till en ny portal kommer överskrida antalet portaler tillåtna på din nuvarande prisplan.</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per användare/månad</value>

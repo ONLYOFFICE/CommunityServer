@@ -554,7 +554,7 @@ var SmallChat = (function() {
                 openMessageDialog(userName, null, null, null, messageInMenu);
             }
         }
-        jq(".message_input_area").blur();
+        jq(".message_input_area").trigger("blur");
     }
 
     function isDialogOpen(userName) {
@@ -721,7 +721,7 @@ var SmallChat = (function() {
             $smallChatPopupID.addClass("display-none");
             $currentStatus.removeClass("disable");
             $smallChatTextStatus.removeClass(currentImage);
-            $currentStatus.click(chooseStatus);
+            $currentStatus.on("click", chooseStatus);
             if (state == OFFLINE) {
                 $showSmallChatIcon.addClass("small_chat_icon_white");
                 $showSmallChatIcon.removeClass("small_chat_icon_green");
@@ -1334,7 +1334,7 @@ var SmallChat = (function() {
 
                 flashConversationBlock(userName);
                 if (!isMobile) {
-                    $messageInputArea.focus();
+                    $messageInputArea.trigger("focus");
                 }
                 autosize($messageInputArea);
                 $messageInputArea.on("autosize:resized", resizeMessageInputArea);
@@ -1349,7 +1349,7 @@ var SmallChat = (function() {
                     sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
                 }
                 var $chatMessagesLoading = $conversationBlock.find(".chat_messages_loading");
-                $conversationBlock.find(".message_bus_container").scroll(function () {
+                $conversationBlock.find(".message_bus_container").on("scroll", function () {
                     if ($conversationBlock.attr("data-internal-id") != "stop" && !$conversationBlock.find(".message_bus_container").scrollTop() &&
                         sessionStorageManager.getItem("WasConnected")) {
                         $chatMessagesLoading.removeClass("display-none");
@@ -1680,7 +1680,7 @@ var SmallChat = (function() {
                 sessionStorageManager.removeItem("minimizeWindows");
             }
         }
-        $messageInputArea.focus();
+        $messageInputArea.trigger("focus");
     }
 
     function restoreConversationsBlocks() {
@@ -1760,7 +1760,7 @@ var SmallChat = (function() {
                 openMessageDialog(newUserName, null, null, null, messageInMenu);
             } else {
                 newUserName = sessionStorageManager.getItem("userName" + (sessionStorageManager.getItem("dialogsNumber") - 1));
-                jq(".conversation_block[data-username='" + newUserName + "']").find(".message_input_area").focus();
+                jq(".conversation_block[data-username='" + newUserName + "']").find(".message_input_area").trigger("focus");
             }
             return true;
         } else if (k == 9) { /* Tab */
@@ -1775,7 +1775,7 @@ var SmallChat = (function() {
                             if ($conversationBlock.find(".smile_icon").hasClass("display-none")) {
                                 restore($conversationBlock);
                             }
-                            $conversationBlock.find(".message_input_area").focus();
+                            $conversationBlock.find(".message_input_area").trigger("focus");
                         }, 1);
                         break;
                     }
@@ -1908,7 +1908,7 @@ var SmallChat = (function() {
         $smallChatPopupID.addClass("display-none");
         $currentStatus.removeClass("disable");
         $smallChatTextStatus.removeClass(currentImage);
-        $currentStatus.click(chooseStatus);
+        $currentStatus.on("click", chooseStatus);
         currentStatus = state;
         sessionStorageManager.setItem("CurrentStatus", currentStatus);
         switch (state) {
@@ -2040,7 +2040,7 @@ var SmallChat = (function() {
                 });
                 setChatHeight();
             }
-        }).bind("resize", function () {
+        }).on("resize", function () {
             jq(this).css("top", "auto");
         });
 
@@ -2262,7 +2262,7 @@ var SmallChat = (function() {
     function init() {
         
         setSmallChatPosition();
-        jq(window).scroll(function (event) {
+        jq(window).on("scroll", function (event) {
             setSmallChatPosition();
         });
 
@@ -2287,7 +2287,7 @@ var SmallChat = (function() {
             });
         }
 
-        $window.bind("beforeunload", function () {
+        $window.on("beforeunload", function () {
             reloadPage = true;
         });
         $body.on("mousedown", ".noty_bar", closeNoty);
@@ -2366,11 +2366,11 @@ var SmallChat = (function() {
                 sessionStorageManager.getItem("dialogsNumber"), getMaxDialogNumber());
         }).
         on("click", ".smile_icon", moveSmileMenu);
-        jq("." + AWAY).click(chooseStatus);
-        jq("." + NOT_AVAILABLE).click(chooseStatus);
-        jq("." + OFFLINE).click(chooseStatus);
+        jq("." + AWAY).on("click", chooseStatus);
+        jq("." + NOT_AVAILABLE).on("click", chooseStatus);
+        jq("." + OFFLINE).on("click", chooseStatus);
 
-        jq(document).click(function (e) {
+        jq(document).on("click", function (e) {
             var $block = jq(e.target),
                 $smallChatPopupID = jq("#smallChatPopupID");
             if ($smallChatPopupID.hasClass("display_block") && !$block.hasClass("small_chat_status_menu") &&
@@ -2401,15 +2401,15 @@ var SmallChat = (function() {
             $body.on("click", ".small_chat_close_all_windows", closeAllWindowsEvent);
             jq(".small_chat_close_all_windows").removeClass("disable");
         }
-        $window.focus(function () {
+        $window.on("focus", function () {
             activeWindow();
-        }).blur(function () {
+        }).on("blur", function () {
             if (isActive) {
                 isActive = false;
             }
-        }).mouseenter(function () {
+        }).on("mouseenter", function () {
             activeWindow();
-        }).mouseleave(function () {
+        }).on("mouseleave", function () {
             if (isActive) {
                 isActive = false;
             }
@@ -2478,7 +2478,7 @@ var SmallChat = (function() {
                 if (window.getSelection().toString() == "") {
                     var $conversationBlock = jq(e.currentTarget).parent();
                     flashConversationBlock($conversationBlock.attr("data-username"));
-                    $conversationBlock.find(".message_input_area").focus();
+                    $conversationBlock.find(".message_input_area").trigger("focus");
                 }
             });
 
@@ -2491,15 +2491,15 @@ var SmallChat = (function() {
                
             });
 
-            jq(".small_chat_en_dis_sounds").click(function () {
+            jq(".small_chat_en_dis_sounds").on("click", function () {
                 handleMenuClickEvent(jq(this), "EnableSound");
             });
 
-            jq(".small_chat_en_dis_ctrl_enter_sender").click(function () {
+            jq(".small_chat_en_dis_ctrl_enter_sender").on("click", function () {
                 handleMenuClickEvent(jq(this), "EnableCtrlEnter");
             });
 
-            jq(".small_chat_minimize_all_windows_if_lose_focus").click(function () {
+            jq(".small_chat_minimize_all_windows_if_lose_focus").on("click", function () {
                 handleMenuClickEvent(jq(this), "EnableMinimizeAllWindowsIfLoseFocus");
             });
 

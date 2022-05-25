@@ -27,7 +27,6 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Common.Billing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Notify;
@@ -42,18 +41,19 @@ namespace ASC.Web.Studio.Core.Notify
 {
     public class StudioPeriodicNotify
     {
+        private static ILog Log = LogManager.GetLogger("ASC.Notify");
+
         public static void SendSaasLetters(INotifyClient client, string senderName, DateTime scheduleDate)
         {
-            var log = LogManager.GetLogger("ASC.Notify");
             var nowDate = scheduleDate.Date;
 
-            log.Info("Start SendSaasTariffLetters");
+            Log.Info("Start SendSaasTariffLetters");
 
             var activeTenants = CoreContext.TenantManager.GetTenants().ToList();
 
             if (activeTenants.Count <= 0)
             {
-                log.Info("End SendSaasTariffLetters");
+                Log.Info("End SendSaasTariffLetters");
                 return;
             }
 
@@ -255,29 +255,6 @@ namespace ASC.Web.Studio.Core.Notify
                             action = Actions.SaasAdminTrialWarningBefore5V115;
                             coupon = "PortalCreation10%";
 
-                            if (string.IsNullOrEmpty(coupon))
-                            {
-                                try
-                                {
-                                    log.InfoFormat("start CreateCoupon to {0}", tenant.TenantAlias);
-
-                                    coupon = SetupInfo.IsSecretEmail(CoreContext.UserManager.GetUsers(tenant.OwnerId).Email)
-                                                ? tenant.TenantAlias
-                                                : CouponManager.CreateCoupon();
-
-                                    log.InfoFormat("end CreateCoupon to {0} coupon = {1}", tenant.TenantAlias, coupon);
-                                }
-                                catch (AggregateException ae)
-                                {
-                                    foreach (var ex in ae.InnerExceptions)
-                                        log.Error(ex);
-                                }
-                                catch (Exception ex)
-                                {
-                                    log.Error(ex);
-                                }
-                            }
-
                             greenButtonText = () => WebstudioNotifyPatternResource.ButtonUseDiscount;
                             greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/Tariffs.aspx");
                         }
@@ -419,20 +396,19 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception err)
                 {
-                    log.Error(err);
+                    Log.Error(err);
                 }
             }
 
-            log.Info("End SendSaasTariffLetters");
+            Log.Info("End SendSaasTariffLetters");
         }
 
         public static void SendEnterpriseLetters(INotifyClient client, string senderName, DateTime scheduleDate)
         {
-            var log = LogManager.GetLogger("ASC.Notify");
             var nowDate = scheduleDate.Date;
             const string dbid = "webstudio";
 
-            log.Info("Start SendTariffEnterpriseLetters");
+            Log.Info("Start SendTariffEnterpriseLetters");
 
             var defaultRebranding = MailWhiteLabelSettings.Instance.IsDefault;
 
@@ -440,7 +416,7 @@ namespace ASC.Web.Studio.Core.Notify
 
             if (activeTenants.Count <= 0)
             {
-                log.Info("End SendTariffEnterpriseLetters");
+                Log.Info("End SendTariffEnterpriseLetters");
                 return;
             }
 
@@ -811,25 +787,24 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception err)
                 {
-                    log.Error(err);
+                    Log.Error(err);
                 }
             }
 
-            log.Info("End SendTariffEnterpriseLetters");
+            Log.Info("End SendTariffEnterpriseLetters");
         }
 
         public static void SendOpensourceLetters(INotifyClient client, string senderName, DateTime scheduleDate)
         {
-            var log = LogManager.GetLogger("ASC.Notify");
             var nowDate = scheduleDate.Date;
 
-            log.Info("Start SendOpensourceTariffLetters");
+            Log.Info("Start SendOpensourceTariffLetters");
 
             var activeTenants = CoreContext.TenantManager.GetTenants();
 
             if (activeTenants.Count <= 0)
             {
-                log.Info("End SendOpensourceTariffLetters");
+                Log.Info("End SendOpensourceTariffLetters");
                 return;
             }
 
@@ -872,11 +847,11 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception err)
                 {
-                    log.Error(err);
+                    Log.Error(err);
                 }
             }
 
-            log.Info("End SendOpensourceTariffLetters");
+            Log.Info("End SendOpensourceTariffLetters");
         }
 
         public static void SendPersonalLetters(INotifyClient client, string senderName, DateTime scheduleDate)
@@ -904,7 +879,7 @@ namespace ASC.Web.Studio.Core.Notify
                     {
                         INotifyAction action;
 
-                        SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(user.ID));
+                        SecurityContext.CurrentUser = user.ID;
 
                         var culture = tenant.GetCulture();
                         if (!string.IsNullOrEmpty(user.CultureName))
@@ -925,39 +900,25 @@ namespace ASC.Web.Studio.Core.Notify
 
                         var dayAfterRegister = (int)scheduleDate.Date.Subtract(user.CreateDate.Date).TotalDays;
 
-                        if (CoreContext.Configuration.CustomMode)
-                        {
-                            switch (dayAfterRegister)
-                            {
-                                case 7:
-                                    action = Actions.PersonalCustomModeAfterRegistration7;
-                                    break;
-                                default:
-                                    continue;
-                            }
-                        }
-                        else
-                        {
 
-                            switch (dayAfterRegister)
-                            {
-                                case 7:
-                                    action = Actions.PersonalAfterRegistration7;
-                                    break;
-                                case 14:
-                                    action = Actions.PersonalAfterRegistration14;
-                                    break;
-                                case 21:
-                                    action = Actions.PersonalAfterRegistration21;
-                                    break;
-                                case 28:
-                                    action = Actions.PersonalAfterRegistration28;
-                                    greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
-                                    greenButtonUrl = "https://www.onlyoffice.com/download-workspace.aspx";
-                                    break;
-                                default:
-                                    continue;
-                            }
+                        switch (dayAfterRegister)
+                        {
+                            case 7:
+                                action = Actions.PersonalAfterRegistration7;
+                                break;
+                            case 14:
+                                action = Actions.PersonalAfterRegistration14;
+                                break;
+                            case 21:
+                                action = Actions.PersonalAfterRegistration21;
+                                break;
+                            case 28:
+                                action = Actions.PersonalAfterRegistration28;
+                                greenButtonText = () => WebstudioNotifyPatternResource.ButtonStartFreeTrial;
+                                greenButtonUrl = "https://www.onlyoffice.com/download-workspace.aspx";
+                                break;
+                            default:
+                                continue;
                         }
 
                         if (action == null) continue;

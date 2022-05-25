@@ -53,7 +53,7 @@ ASC.Projects.PageNavigator = (function () {
         if (typeof $rowCounter === "undefined") {
             $rowCounter = jq("#countOfRows");
             $rowCounter.advancedSelector({
-                    height: 26*4, //magic: itemsCount*itemHeight
+                    height: 30*4, //magic: itemsCount*itemHeight
                     width: 60,
                     itemsSelectedIds: entryCountOnPage,
                     onechosen: true,
@@ -363,7 +363,7 @@ ASC.Projects.Base = (function () {
             .on(clickEvent, ".blue", okButtonHandler || function () { jq.unblockUI(); })
             .on(clickEvent, ".gray", cancelButtonHandler || function () { jq.unblockUI(); });
 
-        PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .blue').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .blue').trigger('click');";
 
         StudioBlockUIManager.blockUI($commonPopupContainer, 400);
     };
@@ -556,7 +556,7 @@ ASC.Projects.Base = (function () {
                 return true;
             }
 
-            getSelectedActionCombobox($elt).find(entityMenuClass).click();
+            getSelectedActionCombobox($elt).find(entityMenuClass).trigger("click");
             if (!$actionPanel) return true;
 
             var e = jq.fixEvent(event),
@@ -637,13 +637,13 @@ ASC.Projects.Base = (function () {
 
     function unbindEvents() {
         if (typeof $describePanel != "undefined") {
-            $describePanel.unbind();
+            $describePanel.off();
         }
         if (typeof $actionPanel != "undefined") {
-            $actionPanel.unbind();
+            $actionPanel.off();
         }
-        $commonListContainer.unbind();
-        $commonPopupContainer.unbind();
+        $commonListContainer.off();
+        $commonPopupContainer.off();
         eventBinder.unbind();
     }
 

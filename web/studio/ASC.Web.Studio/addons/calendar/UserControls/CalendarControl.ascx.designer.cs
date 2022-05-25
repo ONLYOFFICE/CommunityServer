@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Calendar.UserControls {
-    
-    
-    public partial class CalendarControl {
-        
+namespace ASC.Web.Calendar.UserControls
+{
+
+
+    public partial class CalendarControl
+    {
+
         /// <summary>
         /// _sharingContainer control.
         /// </summary>
@@ -20,5 +22,23 @@ namespace ASC.Web.Calendar.UserControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder _sharingContainer;
+
+        /// <summary>
+        /// _phDocUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder _phDocUploader;
+
+        /// <summary>
+        /// _commonPopup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.Controls.Common.Container _commonPopup;
     }
 }

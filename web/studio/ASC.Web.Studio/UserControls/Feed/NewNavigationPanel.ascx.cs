@@ -33,6 +33,8 @@ namespace ASC.Web.Studio.UserControls.Feed
             {
                 case "community":
                     return WebItemSecurity.IsAvailableForMe(WebItemManager.CommunityProductID);
+                case "people":
+                    return WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID);
                 case "crm":
                     return WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID);
                 case "projects":

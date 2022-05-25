@@ -47,6 +47,7 @@
 
         .category-wrapper {
             overflow: hidden;
+            display: flex;
             padding: 5px 0 5px 0;
         }
 
@@ -115,6 +116,7 @@
                 width: 8px;
                 position: relative;
                 margin: 1px 1px 0 7px;
+
                 &:after {
                     .arrow-close(4px, #696969);
                     left: 0;
@@ -162,6 +164,7 @@
 
                     .expander {
                         margin: 0 1px 0 40px;
+
                         &:after {
                             .arrow-close(4px, #696969);
                             left: 0;
@@ -198,12 +201,12 @@
                     &.open {
                         .expander {
                             margin: 2px 3px 0 38px;
+
                             &:after {
                                 .arrow-down(4px, #696969);
                                 left: 0;
                                 margin-top: -4px;
                             }
-                            
                         }
 
                         .menu-sub-list {
@@ -216,6 +219,7 @@
             &.open {
                 .expander {
                     margin: 3px 3px 0 5px;
+
                     &:after {
                         .arrow-down(4px, #696969);
                         left: 0;

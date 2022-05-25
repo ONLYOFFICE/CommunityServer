@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.PublicResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceJS {
@@ -84,6 +84,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ActivateTfaAppEmptyCode {
             get {
                 return ResourceManager.GetString("ActivateTfaAppEmptyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active connections was logged out.
+        /// </summary>
+        public static string ActiveConnectionsWasLoggedOut {
+            get {
+                return ResourceManager.GetString("ActiveConnectionsWasLoggedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The active connection was logged out: {0}, {1}.
+        /// </summary>
+        public static string ActiveConnectionWasLoggedOut {
+            get {
+                return ResourceManager.GetString("ActiveConnectionWasLoggedOut", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string Complete {
             get {
                 return ResourceManager.GetString("Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out from {0}, {1}.
+        /// </summary>
+        public static string ConfirmLogoutFrom {
+            get {
+                return ResourceManager.GetString("ConfirmLogoutFrom", resourceCulture);
             }
         }
         
@@ -750,6 +777,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You want to create a mailbox with an already existing address..
+        /// </summary>
+        public static string ErrorDuplicateMailbox {
+            get {
+                return ResourceManager.GetString("ErrorDuplicateMailbox", resourceCulture);
             }
         }
         
@@ -1654,6 +1690,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A problem has occurred while trying to send receipt..
+        /// </summary>
+        public static string MailSendReceiptError {
+            get {
+                return ResourceManager.GetString("MailSendReceiptError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event cancellation notification has been sent to attendees..
         /// </summary>
         public static string MailSentIcalCancelText {
@@ -2005,6 +2050,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reading confirmed.
+        /// </summary>
+        public static string ReadingConfirmedLabel {
+            get {
+                return ResourceManager.GetString("ReadingConfirmedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read receipt for «{0}».
+        /// </summary>
+        public static string ReceiptSubjectLabel {
+            get {
+                return ResourceManager.GetString("ReceiptSubjectLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to confirmed receiving «{0}» message..
+        /// </summary>
+        public static string ReceiptUserLabel {
+            get {
+                return ResourceManager.GetString("ReceiptUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Path.
         /// </summary>
         public static string RestoreConsumerPath {
@@ -2028,6 +2100,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string SameIPRestrictionError {
             get {
                 return ResourceManager.GetString("SameIPRestrictionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SaveButton {
+            get {
+                return ResourceManager.GetString("SaveButton", resourceCulture);
             }
         }
         
@@ -2266,6 +2347,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You sent the message and requested a read receipt:.
+        /// </summary>
+        public static string SentRequestInfoLabel {
+            get {
+                return ResourceManager.GetString("SentRequestInfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice.
         /// </summary>
         public static string ShareInviteLinkDscr {
@@ -2437,6 +2527,24 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are about to unsubscribe from all notifications of the &quot;{0}&quot; module. Are you sure you want to continue?.
         /// </summary>
         public static string UnsubscribeProductMessage {
@@ -2509,6 +2617,51 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add with access rights.
+        /// </summary>
+        public static string UserSelectorAddWithAccessRights {
+            get {
+                return ResourceManager.GetString("UserSelectorAddWithAccessRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string UserSelectorAll {
+            get {
+                return ResourceManager.GetString("UserSelectorAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check all groups.
+        /// </summary>
+        public static string UserSelectorCheckAllGroups {
+            get {
+                return ResourceManager.GetString("UserSelectorCheckAllGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check all users.
+        /// </summary>
+        public static string UserSelectorCheckAllUsers {
+            get {
+                return ResourceManager.GetString("UserSelectorCheckAllUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check current users.
+        /// </summary>
+        public static string UserSelectorCheckCurrentUsers {
+            get {
+                return ResourceManager.GetString("UserSelectorCheckCurrentUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No users in this list.
         /// </summary>
         public static string UserSelectorEmptyList {
@@ -2550,6 +2703,42 @@ namespace ASC.Web.Studio.PublicResources {
         public static string UserSelectorNoResults {
             get {
                 return ResourceManager.GetString("UserSelectorNoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User, Group, email.
+        /// </summary>
+        public static string UserSelectorSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("UserSelectorSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} selected.
+        /// </summary>
+        public static string UserSelectorSelectedCount {
+            get {
+                return ResourceManager.GetString("UserSelectorSelectedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show more.
+        /// </summary>
+        public static string UserSelectorShowMore {
+            get {
+                return ResourceManager.GetString("UserSelectorShowMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users withouth group.
+        /// </summary>
+        public static string UserSelectorUsersWithouthGroup {
+            get {
+                return ResourceManager.GetString("UserSelectorUsersWithouthGroup", resourceCulture);
             }
         }
         
@@ -2622,6 +2811,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string WizardCancelConfirmMessage {
             get {
                 return ResourceManager.GetString("WizardCancelConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }

@@ -91,6 +91,9 @@
   <data name="AutoTimerStart" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="AverageProject" xml:space="preserve">
+    <value>Average project closing time (hour)</value>
+  </data>
   <data name="BannerMobileProjects" xml:space="preserve">
     <value>Теamlab Projects</value>
   </data>

@@ -88,7 +88,7 @@ namespace ASC.Mail.Core.Dao
                     return ids;
 
                 CoreContext.TenantManager.SetCurrentTenant(Tenant);
-                SecurityContext.AuthenticateMe(new Guid(CurrentUserId));
+                SecurityContext.CurrentUser = new Guid(CurrentUserId);
 
                 foreach (var info in contactList)
                 {

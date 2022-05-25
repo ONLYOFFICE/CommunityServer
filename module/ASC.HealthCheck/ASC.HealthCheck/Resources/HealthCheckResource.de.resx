@@ -76,9 +76,6 @@
   <data name="AlreadyContainsPhone" xml:space="preserve">
     <value>Diese Telefonnummer wurde bereits hinzugefügt</value>
   </data>
-  <data name="AutoreplyServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE automatische Antwort</value>
-  </data>
   <data name="BackupServiceTitle" xml:space="preserve">
     <value>ONLYOFFICE-Datensicherung</value>
   </data>

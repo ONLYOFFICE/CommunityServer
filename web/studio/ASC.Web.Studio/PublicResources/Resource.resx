@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -53,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutCompanyAddressTitle" xml:space="preserve">
     <value>address</value>
@@ -175,6 +234,9 @@
   <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
     <value>Validation code field cannot be empty</value>
   </data>
+  <data name="ActiveConnections" xml:space="preserve">
+    <value>Active Connections</value>
+  </data>
   <data name="AddButton" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -243,9 +305,6 @@
   </data>
   <data name="AdminSettings" xml:space="preserve">
     <value>Administrators</value>
-  </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Affiliate Status</value>
   </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Any domains</value>
@@ -537,11 +596,8 @@
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
   </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>login</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
+  <data name="ConsumersbitlyToken" xml:space="preserve">
+    <value>Access Token</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Enable this application to shorten portal invitation links and shared links in the Documents module with the Bitly service.</value>
@@ -855,6 +911,9 @@
   <data name="Consumerssmscpsw" xml:space="preserve">
     <value>Password or password MD5 hash in lowercase</value>
   </data>
+  <data name="Consumerssmscsender" xml:space="preserve">
+    <value>Sender ID</value>
+  </data>
   <data name="ConsumersTelegram" xml:space="preserve">
     <value>Telegram</value>
   </data>
@@ -941,21 +1000,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>WordPress Secret</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Enable the application to import users from the Yahoo service.</value>
-  </data>
-  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
-    <value>Enable this app to add new portal users from your Yahoo contact list. {0}Go to the Create Application page in the Yahoo Developer Network and create a new app for ONLYOFFICE integration. Insert the data you received below:</value>
   </data>
   <data name="ConsumersYandex" xml:space="preserve">
     <value>Yandex</value>
@@ -1539,9 +1583,6 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Password must contain</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>The password must contain</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>digits</value>
   </data>
@@ -1765,9 +1806,6 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Help Center</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>The program purpose is to legally advertise ONLYOFFICE™ to receive a commission on subscriptions purchased by referred individuals.</value>
-  </data>
   <data name="HelpPrivacyRoomSettings" xml:space="preserve">
     <value>Enable this option to create a secure environment for document editing and co-authoring. All documents stored within Private Room as well as data transfer while co-editing documents will be encrypted using the AES-256 encryption algorithm to prevent from accessing your data.{0} Private Room is available through {3}ONLYOFFICE Desktop Editors{4}. To start, users must log in to the ONLYOFFICE cloud in its Connect to cloud section. Once connected, they automatically obtain a pair of encryption keys. Learn how it works {5}here{6}.</value>
   </data>
@@ -1821,6 +1859,9 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="HintSkype" xml:space="preserve">
     <value>Enter your Skype account</value>
+  </data>
+  <data name="HintTelegram" xml:space="preserve">
+    <value>Enter your Telegram account</value>
   </data>
   <data name="HintTwitter" xml:space="preserve">
     <value>Enter your Twitter profile</value>
@@ -1930,9 +1971,6 @@ Are you sure want to delete the {0} {!group}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Import from Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Import from Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Select another source</value>
   </data>
@@ -2010,9 +2048,6 @@ Are you sure want to delete the {0} {!group}?</value>
   </data>
   <data name="IUnderstand" xml:space="preserve">
     <value>I understand and want to proceed</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Become our Affiliate</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>You can keep adding the users as {!guests} or change the pricing plan for the one with a larger number of users.</value>
@@ -2415,6 +2450,12 @@ if you want to change the locked profile fields.</value>
   </data>
   <data name="LogoSettingsTitle" xml:space="preserve">
     <value>Logo Settings</value>
+  </data>
+  <data name="LogOutAllActiveConnections" xml:space="preserve">
+    <value>Log out all active connections</value>
+  </data>
+  <data name="LogoutFromAllActiveConnectionsInfo" xml:space="preserve">
+    <value>All active connections except this connection will be logged out, as it is currently in use.</value>
   </data>
   <data name="MailAutoGeneratedText" xml:space="preserve">
     <value>This email is generated automatically and you do not need to answer it.</value>
@@ -2907,6 +2948,9 @@ if you want to change the locked profile fields.</value>
   </data>
   <data name="PublishButton" xml:space="preserve">
     <value>Publish</value>
+  </data>
+  <data name="RadicaleCardDavDeleteMessage" xml:space="preserve">
+    <value>Deleting the address book was successful</value>
   </data>
   <data name="ReactivatePortalButton" xml:space="preserve">
     <value>Reactivate</value>
@@ -3598,15 +3642,6 @@ To register, enter your email and click Send Invitation.  An email message with 
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Invitations have been successfully re-sent</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Send email</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Contact us to find about special offers</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Reduce the required parameter or select another pricing plan.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Buy now</value>
   </data>
@@ -3618,18 +3653,6 @@ To register, enter your email and click Send Invitation.  An email message with 
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Choose a plan that suits your needs best. The recommended plan is highlighted below.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>This plan cannot be selected</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Storage space size allowed: {0}. Current storage space: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Number of portal users allowed: {0}. Current number of users: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>You cannot select this plan as either the storage space or number of users exceeds limitations of the selected pricing plan:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Recurring payments are on</value>
@@ -3661,9 +3684,6 @@ To register, enter your email and click Send Invitation.  An email message with 
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Your ONLYOFFICE™ portal will be blocked {2}. Please {0}click here{1} to prolong the existing plan or change it for an appropriate one.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Number of portals you've created: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>The pricing plan is not available until the end of the paid year.</value>
   </data>
@@ -3676,14 +3696,8 @@ To register, enter your email and click Send Invitation.  An email message with 
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>To cancel Recurring Payments, please, go to your Avangate account.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Up to {0} only.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Pricing plans</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>For your convenience paiments in Russian roubles are calculated using the fixed exchange rate {0} Russian roubles for 1 US dollar.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Payments</value>
@@ -3720,6 +3734,9 @@ To register, enter your email and click Send Invitation.  An email message with 
   </data>
   <data name="TenantUsersTotal" xml:space="preserve">
     <value>Number of active {!users}</value>
+  </data>
+  <data name="TerminateDate" xml:space="preserve">
+    <value>Terminate Date</value>
   </data>
   <data name="TermsOfUsePopupHelperLink" xml:space="preserve">
     <value>Read more about terms of use</value>
@@ -3810,6 +3827,9 @@ To register, enter your email and click Send Invitation.  An email message with 
   </data>
   <data name="TitleSkype" xml:space="preserve">
     <value>Skype</value>
+  </data>
+  <data name="TitleTelegram" xml:space="preserve">
+    <value>Telegram</value>
   </data>
   <data name="TitleTwitter" xml:space="preserve">
     <value>Twitter</value>
@@ -3971,6 +3991,42 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
     <value>You decided to join this portal.</value>
   </data>
+  <data name="ConsumersAppleId" xml:space="preserve">
+    <value>Apple ID</value>
+  </data>
+  <data name="ConsumersappleIdClientId" xml:space="preserve">
+    <value>Application Client ID</value>
+  </data>
+  <data name="ConsumersAppleIdDescription" xml:space="preserve">
+    <value>Enable the application to sign in to the portal using a Apple ID account.</value>
+  </data>
+  <data name="ConsumersAppleIdInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using Apple ID. {0}Go to Apple Developers Portal and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
+  </data>
+  <data name="ConsumersappleIdKeyId" xml:space="preserve">
+    <value>A 10-character key identifier generated for the Sign in with Apple private key</value>
+  </data>
+  <data name="ConsumersappleIdPrivateKey" xml:space="preserve">
+    <value>Private key downloaded from Apple Developer</value>
+  </data>
+  <data name="ConsumersappleIdTeamId" xml:space="preserve">
+    <value>10-character developer account Team ID</value>
+  </data>
+  <data name="ConsumersMicrosoft" xml:space="preserve">
+    <value>Microsoft</value>
+  </data>
+  <data name="ConsumersmicrosoftClientId" xml:space="preserve">
+    <value>Application Client ID</value>
+  </data>
+  <data name="ConsumersmicrosoftClientSecret" xml:space="preserve">
+    <value>Client Secret</value>
+  </data>
+  <data name="ConsumersMicrosoftDescription" xml:space="preserve">
+    <value>Enable the application to sign in to the portal using a Microsoft account.</value>
+  </data>
+  <data name="ConsumersMicrosoftInstructionV11" xml:space="preserve">
+    <value>Enable this app to allow your users to sign in to ONLYOFFICE using Microsoft. {0}Go to Microsoft Azure and create a new app ONLYOFFICE integration. Insert the data you received below:</value>
+  </data>
   <data name="ProductDemo" xml:space="preserve">
     <value>Product Demo</value>
   </data>
@@ -3982,5 +4038,50 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="RequestTraining" xml:space="preserve">
     <value>Request training</value>
+  </data>
+  <data name="DeepLinkAppBtn" xml:space="preserve">
+    <value>Open in the app</value>
+  </data>
+  <data name="DeepLinkBrowserBtn" xml:space="preserve">
+    <value>Stay in the browser</value>
+  </data>
+  <data name="DeepLinkDescription" xml:space="preserve">
+    <value>You can open the document on the portal or in the mobile application.</value>
+  </data>
+  <data name="DeepLinkRemember" xml:space="preserve">
+    <value>Remember</value>
+  </data>
+  <data name="PasswordDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="PasswordMatch" xml:space="preserve">
+    <value>Passwords match</value>
+  </data>
+  <data name="InviteRepeatPassword" xml:space="preserve">
+    <value>Confirm the password</value>
+  </data>
+  <data name="ConfirmPasswordMatch" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="AdminSettingsHelper" xml:space="preserve">
+    <value>Want to ensure maximum security for your ONLYOFFICE Workspace?</value>
+  </data>
+  <data name="DoNotShowItAgain" xml:space="preserve">
+    <value>Don't show it again</value>
+  </data>
+  <data name="UseThisChecklist" xml:space="preserve">
+    <value>Use this checklist</value>
+  </data>
+  <data name="DNSSettingsCurrentDomain" xml:space="preserve">
+    <value>Your current domain</value>
+  </data>
+  <data name="DNSSettingsCustomDomain" xml:space="preserve">
+    <value>Your custom domain</value>
+  </data>
+  <data name="DNSSettingsSendRequest" xml:space="preserve">
+    <value>Send request</value>
+  </data>
+  <data name="HelpAnswerDNSSettingsSaas" xml:space="preserve">
+    <value>DNS Settings allow you to set an alternative URL address for your ONLYOFFICE portal. Send your request to our support team, and our specialists will help you with the settings.</value>
   </data>
 </root>

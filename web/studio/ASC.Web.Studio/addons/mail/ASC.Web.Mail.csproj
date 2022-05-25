@@ -68,17 +68,23 @@
     <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
     <Content Include="Controls\AdministrationPage\AdministrationPage.ascx" />
-    <Content Include="Controls\BlankModal\BlankModal.ascx" />
+    <Content Include="Controls\BlankModal\BlankModal.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Controls\BlankModal\js\blankmodal.js" />
     <Content Include="Controls\ContactsPage\ContactsPage.ascx" />
-    <Content Include="Controls\MailBox\MailBox.ascx" />
+    <Content Include="Controls\MailBox\MailBox.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Controls\TagBox\TagBox.ascx" />
     <Content Include="Controls\TagsPage\TagsPage.ascx" />
     <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
     <Content Include="Controls\DocumentsPopup\js\documentspopup.js" />
     <Content Include="Controls\DocumentsPopup\css\documentspopup.less" />
     <Content Include="Controls\UserFoldersPage\UserFoldersPage.ascx" />
-    <Content Include="Default.aspx" />
+    <Content Include="Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="js\autocomplete\crmautocomplete.js" />
     <Content Include="js\commonsettings\page.js" />
     <Content Include="js\filters\filter.js" />
@@ -120,7 +126,6 @@
     <Content Include="js\contacts\filter\crmfilter.js" />
     <Content Include="js\contacts\panel.js" />
     <Content Include="js\contacts\filter\tlfilter.js" />
-    <Content Include="js\contacts\tlgroups.js" />
     <Content Include="js\contacts\types.js" />
     <Content Include="js\autocomplete\emailautocomplete.js" />
     <Content Include="js\fromsenderfilter.js" />
@@ -395,6 +400,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MailAdministrationResource.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailActionCompleteResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -465,6 +473,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailApiErrorsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -614,6 +625,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MailApiResource.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailAttachmentsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -1084,11 +1098,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.7</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

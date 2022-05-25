@@ -11,10 +11,12 @@
     </Header>
     <Body>
         <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
+        <% if (ExternalLinksAvailable) { %>
         <label id="attachFilesAsLinks" for="attachFilesAsLinksSelector" class="checkbox">
             <input id="attachFilesAsLinksSelector" type="checkbox" checked="checked" />
             <%= MailResource.AttachFilesAsLinksLabel %>
         </label>
+        <% } %>
         <div id="attachFrame" data-frame="<%= FrameUrl %>"></div>
     </Body>
 </sc:Container>

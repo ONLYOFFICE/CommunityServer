@@ -76,9 +76,6 @@
   <data name="AlreadyContainsPhone" xml:space="preserve">
     <value>Этот номер телефона уже был добавлен</value>
   </data>
-  <data name="AutoreplyServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Autoreply</value>
-  </data>
   <data name="BackupServiceTitle" xml:space="preserve">
     <value>ONLYOFFICE Backup</value>
   </data>

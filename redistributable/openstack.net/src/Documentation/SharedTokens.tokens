@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<content
+  xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!--
+    The following items can only be used in <token> elements that appear in the **XML documentation comments**.
+  -->
+
+  <item id="SeeTaskParallelLibrary">
+    <see href="http://msdn.microsoft.com/en-us/library/dd460717.aspx">Task Parallel Library</see>
+  </item>
+
+  <item id="AsyncAwaitExample">
+    <note>
+      <para>
+        The following code uses the <see langword="async/await"/> operators. For more information
+        about using these operators in your code, see <conceptualLink target="32cc6156-3b31-4450-b209-b55fcfc0a210"/>.
+      </para>
+    </note>
+  </item>
+
+  <item id="TplExample">
+    <para>
+      The following code shows demonstrates the same example using the <token>SeeTaskParallelLibrary</token>
+      instead of the <see langword="async/await"/> operators.
+    </para>
+  </item>
+
+  <item id="NullIfNotIncluded">
+    <para>-or-</para>
+    <para>
+      <see langword="null"/> if the underlying property was not included in the JSON representation of the object.
+    </para>
+  </item>
+
+  <!--
+    The following items can only be used in <token> elements that appear in **MAML topics**.
+  -->
+
+  <item id="TaskBasedAsync"><ddue:externalLink>
+          <ddue:linkText>Task-based Asynchronous Pattern (TAP)</ddue:linkText>
+          <ddue:linkAlternateText>Task-based Asynchronous Pattern (TAP) (Microsoft Developer Network)</ddue:linkAlternateText>
+          <ddue:linkUri>http://msdn.microsoft.com/en-us/library/hh873175.aspx</ddue:linkUri>
+        </ddue:externalLink></item>
+
+  <item id="TaskParallelLibrary"><ddue:externalLink>
+      <ddue:linkText>Task Parallel Library</ddue:linkText>
+      <ddue:linkUri>http://msdn.microsoft.com/en-us/library/dd460717.aspx</ddue:linkUri>
+    </ddue:externalLink></item>
+
+  <item id="TaskParallelLibrary35"><ddue:externalLink>
+            <ddue:linkText>Task Parallel Library for .NET 3.5</ddue:linkText>
+            <ddue:linkUri>http://www.nuget.org/packages/TaskParallelLibrary/</ddue:linkUri>
+          </ddue:externalLink></item>
+
+  <item id="RackspaceThreadingLibrary"><ddue:externalLink>
+      <ddue:linkText>Rackspace Threading Library</ddue:linkText>
+      <ddue:linkUri>https://github.com/rackerlabs/dotnet-threading</ddue:linkUri>
+    </ddue:externalLink></item>
+
+  <item id="OpenStackIdentityService"><ddue:externalLink>
+                <ddue:linkText>OpenStack Identity Service</ddue:linkText>
+                <ddue:linkUri>http://docs.openstack.org/api/openstack-identity-service/2.0/content/</ddue:linkUri>
+              </ddue:externalLink></item>
+
+  <item id="HpScopedTokens"><ddue:externalLink>
+                <ddue:linkText>Scoped Tokens</ddue:linkText>
+                <ddue:linkUri>http://docs.hpcloud.com/api/identity/#scoped-tokens</ddue:linkUri>
+              </ddue:externalLink></item>
+
+  <item id="Async"><ddue:markup><span class="keyword">async</span></ddue:markup></item>
+
+  <item id="Await"><ddue:markup><span class="keyword">await</span></ddue:markup></item>
+
+  <item id="AsyncAwait"><ddue:markup><span class="keyword">async</span>/<span class="keyword">await</span></ddue:markup></item>
+</content>

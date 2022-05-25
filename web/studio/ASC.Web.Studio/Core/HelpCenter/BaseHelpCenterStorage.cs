@@ -24,7 +24,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -211,7 +211,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             {
                 using (var stream = File.OpenRead(FilePath))
                 {
-                    return FromStream(stream);
+                    return ReadFromStream(stream);
                 }
             }
 
@@ -223,18 +223,8 @@ namespace ASC.Web.Studio.Core.HelpCenter
             try
             {
                 using (var filesStream = File.Open(FilePath, FileMode.Create))
-                using (var stream = ToStream(obj))
                 {
-                    if (stream.CanSeek)
-                    {
-                        stream.Seek(0, SeekOrigin.Begin);
-                    }
-                    var buffer = new byte[4096];
-                    int readed;
-                    while ((readed = stream.Read(buffer, 0, 4096)) != 0)
-                    {
-                        filesStream.Write(buffer, 0, readed);
-                    }
+                    WriteToStream(filesStream, obj);
                 }
             }
             catch (Exception e)
@@ -243,23 +233,24 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
         }
 
-        private static MemoryStream ToStream(Dictionary<string, T> obj)
+        private static void WriteToStream(FileStream fileStream, Dictionary<string, T> obj)
         {
-            var stream = new MemoryStream();
-            using (var gzip = new GZipStream(stream, CompressionMode.Compress, true))
+            using (var gzipStream = new GZipStream(fileStream, CompressionMode.Compress, true))
+            using (var memoryStream = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(gzip, obj);
+                var serializer = new DataContractJsonSerializer(typeof(Dictionary<string, T>));
+                serializer.WriteObject(memoryStream, obj);
+                memoryStream.Position = 0;
+                memoryStream.CopyTo(gzipStream);
             }
-            return stream;
         }
 
-        private static Dictionary<string, T> FromStream(Stream stream)
+        private static Dictionary<string, T> ReadFromStream(FileStream fileStream)
         {
-            var formatter = new BinaryFormatter();
-            using (var gzip = new GZipStream(stream, CompressionMode.Decompress, true))
+            using (var gzip = new GZipStream(fileStream, CompressionMode.Decompress, true))
             {
-                return (Dictionary<string, T>)formatter.Deserialize(gzip);
+                var serializer = new DataContractJsonSerializer(typeof(Dictionary<string, T>));
+                return (Dictionary<string, T>)serializer.ReadObject(gzip);
             }
         }
 

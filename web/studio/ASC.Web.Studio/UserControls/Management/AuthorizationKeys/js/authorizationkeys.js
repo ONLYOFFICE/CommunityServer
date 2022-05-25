@@ -20,7 +20,7 @@ if (typeof ASC === "undefined")
 
 ASC.AuthorizationKeysManager = (function () {
     function init() {
-        jq("#authKeysContainer .on_off_button:not(.disable)").click(function () {
+        jq("#authKeysContainer .on_off_button:not(.disable)").on("click", function () {
             var switcherBtn = jq(this);
             var itemName = switcherBtn.attr("id").replace("switcherBtn", "");
             if (switcherBtn.hasClass("off")) {
@@ -31,17 +31,17 @@ ASC.AuthorizationKeysManager = (function () {
             }
         });
         
-        jq(".popupContainerClass .cancelButton").click(function () {
+        jq(".popupContainerClass .cancelButton").on("click", function () {
             PopupKeyUpActionProvider.CloseDialog();
         });
         
-        jq(".popupContainerClass .saveButton").click(function () {
+        jq(".popupContainerClass .saveButton").on("click", function () {
             var saveButton = jq(this);
             var itemName = saveButton.attr("id").replace("saveBtn", "");
             save(itemName, true);
         });
 
-        jq(".popupContainerClass input.textEdit").keyup(function (key) {
+        jq(".popupContainerClass input.textEdit").on("keyup", function (key) {
             var inputObj = jq(this);
             var popupObj = inputObj.parents(".popupContainerClass");
             var saveBtn = popupObj.find(".saveButton");
@@ -56,9 +56,9 @@ ASC.AuthorizationKeysManager = (function () {
                 jq.each(inputList, function (index, obj) {
                     if (inputObj.is(obj)) {
                         if (index == inputList.length - 1) {
-                            saveBtn.click();
+                            saveBtn.trigger("click");
                         } else {
-                            jq(inputList[index + 1]).focus();
+                            jq(inputList[index + 1]).trigger("focus");
                         }
                         return false;
                     }

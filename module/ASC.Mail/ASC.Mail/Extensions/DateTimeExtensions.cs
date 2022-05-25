@@ -23,6 +23,16 @@ namespace ASC.Mail.Extensions
 {
     public static class DateTimeExtensions
     {
+        /// <summary>
+		/// Cuts off precision beyond a second on a DateTime value.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <returns>A DateTime with a 0 millisecond component.</returns>
+		public static DateTime CutToSecond(this DateTime value)
+        {
+            return value - TimeSpan.FromMilliseconds(value.Millisecond);
+        }
+
         public static string ToVerbString(this DateTime dateTime)
         {
             try

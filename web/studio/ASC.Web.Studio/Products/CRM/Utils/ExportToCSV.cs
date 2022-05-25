@@ -44,7 +44,7 @@ using ASC.Web.Studio.Utility;
 
 using Autofac;
 
-using Ionic.Zip;
+using ICSharpCode.SharpZipLib.Zip;
 
 using Newtonsoft.Json.Linq;
 
@@ -240,7 +240,7 @@ namespace ASC.Web.CRM.Classes
                 Status = ProgressStatus.Started;
 
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
-                SecurityContext.AuthenticateMe(_author);
+                SecurityContext.CurrentAccount = _author;
 
                 using (var scope = DIHelper.Resolve())
                 {
@@ -311,12 +311,11 @@ namespace ASC.Web.CRM.Classes
                 _totalCount += historyDao.GetAllItemsCount();
                 _totalCount += invoiceItemDao.GetInvoiceItemsCount();
 
-                using (var zipStream = new ZipOutputStream(stream, true))
+                using (var zipStream = new ZipOutputStream(stream))
                 {
-                    zipStream.AlternateEncoding = Encoding.UTF8;
-                    zipStream.AlternateEncodingUsage = ZipOption.Always;
+                    zipStream.IsStreamOwner = false;
 
-                    zipStream.PutNextEntry(CRMContactResource.Contacts + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMContactResource.Contacts + ".csv"));
                     var contactData = contactDao.GetAllContacts();
                     var contactInfos = new StringDictionary();
                     contactInfoDao.GetAll()
@@ -338,43 +337,42 @@ namespace ASC.Web.CRM.Classes
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry(CRMCommonResource.DealModuleName + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.DealModuleName + ".csv"));
                     var dealData = dealDao.GetAllDeals();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportDealsToCsv(dealData, daoFactory))))
                     {
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry(CRMCommonResource.CasesModuleName + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.CasesModuleName + ".csv"));
                     var casesData = casesDao.GetAllCases();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportCasesToCsv(casesData, daoFactory))))
                     {
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry(CRMCommonResource.TaskModuleName + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.TaskModuleName + ".csv"));
                     var taskData = taskDao.GetAllTasks();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportTasksToCsv(taskData, daoFactory))))
                     {
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry(CRMCommonResource.History + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.History + ".csv"));
                     var historyData = historyDao.GetAllItems();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportHistoryToCsv(historyData, daoFactory))))
                     {
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.PutNextEntry(CRMCommonResource.ProductsAndServices + ".csv");
+                    zipStream.PutNextEntry(GetNewZipEntry(CRMCommonResource.ProductsAndServices + ".csv"));
                     var invoiceItemData = invoiceItemDao.GetAll();
                     using (var zipEntryData = new MemoryStream(Encoding.UTF8.GetBytes(ExportInvoiceItemsToCsv(invoiceItemData, daoFactory))))
                     {
                         zipEntryData.CopyTo(zipStream);
                     }
 
-                    zipStream.Flush();
-                    zipStream.Close();
+                    zipStream.Finish();
 
                     stream.Position = 0;
                 }
@@ -795,7 +793,7 @@ namespace ASC.Web.CRM.Classes
                         ColumnName = "customField_" + item.ID
                     });
                 });
-            
+
             var customFieldEntity = customFieldDao.GetEntityFields(EntityType.Opportunity, deals.Select(x => x.ID).ToArray())
                .GroupBy(x => x.EntityID)
                .ToDictionary(x => x.Key, x => x.ToList());
@@ -1325,6 +1323,11 @@ namespace ASC.Web.CRM.Classes
             }
 
             return fileUrl;
+        }
+
+        private ZipEntry GetNewZipEntry(string name)
+        {
+            return new ZipEntry(name) { IsUnicodeText = true };
         }
     }
 

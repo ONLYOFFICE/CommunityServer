@@ -65,6 +65,7 @@ namespace ASC.Mail.Core.DbSchema.Tables
             public const string ChainId = "chain_id";
             public const string ChainDate = "chain_date";
             public const string LastModified = "time_modified";
+            public const string ReadRequestStatus = "read_request_status";
         }
 
         public string Name
@@ -112,7 +113,8 @@ namespace ASC.Mail.Core.DbSchema.Tables
                 Columns.ChainDate,
                 Columns.IsTextBodyOnly,
                 Columns.HasParseError,
-                Columns.CalendarUid
+                Columns.CalendarUid,
+                Columns.ReadRequestStatus
             };
         }
     }

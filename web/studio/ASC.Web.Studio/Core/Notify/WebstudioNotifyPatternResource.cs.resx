@@ -158,19 +158,6 @@ ONLYOFFICE™ Support Team
 
 </value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Žádost o změnu hesla pro "${__VirtualRootPath}":"${__VirtualRootPath}" portál
-
-Požádali jste o změnu hesla používaného pro vstup do "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.
-
-Prosím, pro změnu Vašeho hesla následujte odkaz níže:
-
-$GreenButton
-
-*Poznámka*: tento odkaz je platný pouze po dobu 7 dní: Prosím, proveďte změnu hesla v rozmezí tohoto období.
-
-Pokud si nechte změnit heslo nebo jste tento e-mail obdrželi omylem, ignorujte ho prosím nebo kontaktujte Vašeho "${__VirtualRootPath}":"${__VirtualRootPath}" administrátora portálu a zjistěte více informací.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Žádost o změnu mobilního telefonu
 
@@ -452,9 +439,6 @@ tým ONLYOFFICE</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}.${__ VirtualRootPath} byl vytvořen záložní portál </value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} pomoc s heslem</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Žádost o změnu mobilního telefonu</value>

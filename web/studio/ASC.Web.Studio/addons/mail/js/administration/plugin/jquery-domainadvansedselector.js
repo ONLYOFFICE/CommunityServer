@@ -39,7 +39,7 @@
                 that.rewriteObjectItem.call(that, data);
             }
 
-            that.$element.unbind('click.onshow').bind('click.onshow', function() {
+            that.$element.off('click.onshow').on('click.onshow', function() {
                 that.refrashSelectorData();
             });
         },

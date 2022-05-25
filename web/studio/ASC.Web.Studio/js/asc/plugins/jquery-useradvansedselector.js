@@ -65,7 +65,7 @@
                 teamlab.getQuotas({}, {
                     success: function (params, data) {
                         if (data.availableUsersCount == 0) {
-                            $addPanel.find(".type select").val("visitor").attr("disabled", "disabled");
+                            $addPanel.find(".type select").val("visitor").prop("disabled", true);
                         }
                     },
                     error: function (params, errors) { }
@@ -73,6 +73,14 @@
             } else {
                 $addPanel.find(".type").hide();
             }
+        },
+
+        getTooltip: function (profile) {
+            var tooltip = Encoder.htmlDecode(profile.displayName) + "\n" + profile.email;
+            if (profile.isPending || profile.isActivated === false) {
+                tooltip += " (" + ASC.Resources.Master.ResourceJS.UserPending + ")";
+            }
+            return tooltip;
         },
 
         initAdvSelectorData: function () {
@@ -93,8 +101,10 @@
                     title: dataItem.displayName,
                     id: dataItem.id,
                     isVisitor: dataItem.isVisitor,
-                    status: dataItem.isPending || dataItem.isActivated === false ? ASC.Resources.Master.ResourceJS.UserPending : "",
-                    groups: window.GroupManager.getGroups(dataItem.groups)
+                    status: dataItem.isPending || dataItem.isActivated === false ? "pending" : "",
+                    groups: window.GroupManager.getGroups(dataItem.groups),
+                    avatarSmall: dataItem.avatarSmall,
+                    tooltip: that.getTooltip(dataItem)
                 };
 
                 data.push(newObj);
@@ -129,7 +139,7 @@
         initAdvSelectorGroupsData: function () {
             var that = this;
 
-            that.rewriteObjectGroup.call(that, window.GroupManager.getAllGroups());
+            that.rewriteObjectGroup.call(that, window.GroupManager.getGroupsArray());
 
             if (that.options.isAdmin) {
                 var groups = [];
@@ -236,14 +246,14 @@
             }
 
             if (isError) {
-                $addPanel.find(".error input").first().focus();
+                $addPanel.find(".error input").first().trigger("focus");
                 return;
             }
 
             teamlab.getQuotas({}, {
                 success: function (params, data) {
                     if (data.availableUsersCount == 0 && !newUser.isVisitor) {
-                        that.showServerError.call(that, { field: $btn, error: ResourceJS.UserSelectorErrorLimitUsers + data.maxUsersCount });
+                        that.showServerError.call(that, { field: $btn, error: ResourceJS.UserSelectorErrorLimitUsers + " " + data.maxUsersCount });
                         return;
                     }
 
@@ -258,8 +268,11 @@
                                 id: profile.id,
                                 title: profile.displayName,
                                 isVisitor: profile.isVisitor,
-                                status: ASC.Resources.Master.ResourceJS.UserPending,
-                                groups: []
+                                isPending: true,
+                                status: "pending",
+                                groups: [],
+                                avatarSmall: profile.avatarSmall,
+                                tooltip: that.getTooltip(profile)
                             };
 
                             var copy = Object.assign({}, profile);
@@ -286,8 +299,10 @@
                 id: item.id,
                 title: item.displayName,
                 isVisitor: item.isVisitor,
-                status: item.isPending || item.isActivated === false ? ASC.Resources.Master.ResourceJS.UserPending : "",
-                groups: []
+                status: item.isPending || item.isActivated === false ? "pending" : "",
+                groups: [],
+                avatarSmall: profile.avatarSmall,
+                tooltip: that.getTooltip(profile)
             };
             this.actionsAfterCreateItem.call(this, { newitem: newuser, response: item, nameProperty: "groups" });
         },

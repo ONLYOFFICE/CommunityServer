@@ -52,7 +52,7 @@ namespace ASC.Core.Data
         private IEnumerable<TenantQuota> GetTenantQuotas(Exp where)
         {
             var q = new SqlQuery(tenants_quota)
-                .Select("tenant", "name", "max_file_size", "max_total_size", "active_users", "features", "price", "price2", "avangate_id", "visible")
+                .Select("tenant", "name", "max_file_size", "max_total_size", "active_users", "features", "price", "avangate_id", "visible")
                 .Where(where);
 
             return ExecList(q)
@@ -64,9 +64,8 @@ namespace ASC.Core.Data
                     ActiveUsers = Convert.ToInt32(r[4]) != 0 ? Convert.ToInt32(r[4]) : int.MaxValue,
                     Features = (string)r[5],
                     Price = Convert.ToDecimal(r[6]),
-                    Price2 = Convert.ToDecimal(r[7]),
-                    AvangateId = (string)r[8],
-                    Visible = Convert.ToBoolean(r[9]),
+                    AvangateId = (string)r[7],
+                    Visible = Convert.ToBoolean(r[8]),
                 });
         }
 
@@ -82,7 +81,6 @@ namespace ASC.Core.Data
                 .InColumnValue("active_users", quota.ActiveUsers)
                 .InColumnValue("features", quota.Features)
                 .InColumnValue("price", quota.Price)
-                .InColumnValue("price2", quota.Price2)
                 .InColumnValue("avangate_id", quota.AvangateId)
                 .InColumnValue("visible", quota.Visible);
 

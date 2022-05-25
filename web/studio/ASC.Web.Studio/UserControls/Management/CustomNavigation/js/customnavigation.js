@@ -153,7 +153,7 @@ CustomNavigationManager = new function () {
 
     this.Init = function () {
 
-        jq("#addBtn").click(function () {
+        jq("#addBtn").on("click", function () {
             Teamlab.getCustomNavigationItemSample({},
             {
                 before: function () {
@@ -195,11 +195,11 @@ CustomNavigationManager = new function () {
             });
         });
 
-        jq("#customNavigationItemDialog .cancel-btn").click(function () {
+        jq("#customNavigationItemDialog .cancel-btn").on("click", function () {
             PopupKeyUpActionProvider.CloseDialog();
         });
 
-        jq("#saveBtn").click(function () {
+        jq("#saveBtn").on("click", function () {
             var data = getItemData();
 
             if (!data) return;
@@ -223,7 +223,7 @@ CustomNavigationManager = new function () {
             });
         });
 
-        jq("#removeBtn").click(function () {
+        jq("#removeBtn").on("click", function () {
             var id = jq("#customNavigationItemDialog #itemId").val();
 
             Teamlab.deleteCustomNavigationItem({}, id,

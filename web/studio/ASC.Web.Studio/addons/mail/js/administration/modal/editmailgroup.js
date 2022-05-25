@@ -28,7 +28,7 @@ window.editMailGroupModal = (function($) {
         group = administrationManager.getMailGroup(idGroup);
         var html = $.tmpl('editMailGroupTmpl', group);
         var $html = $(html);
-        $html.find('.delete_entity').unbind('click').bind('click', deleteMailbox);
+        $html.find('.delete_entity').off('click').on('click', deleteMailbox);
         $html.find('#add_mailbox').mailboxadvancedSelector({
             inPopup: true,
             getAddresses: function() {
@@ -37,7 +37,7 @@ window.editMailGroupModal = (function($) {
         }).on('showList', function(e, items) {
             addAddress(items);
         });
-        $html.find('.buttons .save').unbind('click').bind('click', function() {
+        $html.find('.buttons .save').off('click').on('click', function() {
             saveAddresses()
                 .then(function() {
                     events.trigger('onupdategroup', group);
@@ -102,7 +102,7 @@ window.editMailGroupModal = (function($) {
         } else if (mailboxRows.length >= 2) {
             for (var i = 0; i < mailboxRows.length; i++) {
                 var deleteButton = $(mailboxRows[i]).find('.delete_entity');
-                deleteButton.unbind('click').bind('click', deleteMailbox).show();
+                deleteButton.off('click').on('click', deleteMailbox).show();
             }
         }
     }

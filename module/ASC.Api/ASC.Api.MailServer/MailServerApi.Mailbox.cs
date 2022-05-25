@@ -38,16 +38,16 @@ namespace ASC.Api.MailServer
     public partial class MailServerApi
     {
         /// <summary>
-        ///    Create mailbox
+        /// Creates a mailbox with the parameters specified in the request.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="local_part"></param>
-        /// <param name="domain_id"></param>
-        /// <param name="user_id"></param>
-        /// <param name="notifyCurrent">Send message to creating mailbox's address</param>
-        /// <param name="notifyProfile">Send message to email from user profile</param>
-        /// <returns>MailboxData associated with tenant</returns>
-        /// <short>Create mailbox</short> 
+        /// <param name="name">Mailbox name</param>
+        /// <param name="local_part">Mailbox local part</param>
+        /// <param name="domain_id">Mailbox domain ID</param>
+        /// <param name="user_id">User ID</param>
+        /// <param name="notifyCurrent">Specifies if the notifications will be sent to the email address from which this mailbox was created or not</param>
+        /// <param name="notifyProfile">Specifies if the notifications will be sent to the email address from the current user's profile or not</param>
+        /// <returns>Mailbox data associated with the tenant</returns>
+        /// <short>Create a mailbox</short> 
         /// <category>Mailboxes</category>
         [Create(@"mailboxes/add")]
         public ServerMailboxData CreateMailbox(string name, string local_part, int domain_id, string user_id,
@@ -63,11 +63,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Create my mailbox
+        /// Create my common domain mailbox with the name specified in the request.
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns>MailboxData associated with tenant</returns>
-        /// <short>Create mailbox</short> 
+        /// <param name="name">Sender name</param>
+        /// <returns>Mailbox data associated with the tenant</returns>
+        /// <short>Create my mailbox</short> 
         /// <category>Mailboxes</category>
         [Create(@"mailboxes/addmy")]
         public ServerMailboxData CreateMyMailbox(string name)
@@ -78,10 +78,10 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Returns list of the mailboxes associated with tenant
+        /// Returns a list of all the mailboxes associated with the tenant.
         /// </summary>
-        /// <returns>List of MailboxData for current tenant</returns>
-        /// <short>Get mailboxes list</short> 
+        /// <returns>List of mailbox data for the current tenant</returns>
+        /// <short>Get mailboxes</short> 
         /// <category>Mailboxes</category>
         [Read(@"mailboxes/get")]
         public List<ServerMailboxData> GetMailboxes()
@@ -92,13 +92,13 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Deletes the selected mailbox
+        /// Deletes a mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="id">id of mailbox</param>
-        /// <returns>MailOperationResult object</returns>
+        /// <param name="id">Mailbox ID</param>
+        /// <returns>Operation status</returns>
         /// <exception cref="ArgumentException">Exception happens when some parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="ItemNotFoundException">Exception happens when mailbox wasn't found.</exception>
-        /// <short>Remove mailbox from mail server</short> 
+        /// <short>Remove a mailbox from the mail server</short> 
         /// <category>Mailboxes</category>
         [Delete(@"mailboxes/remove/{id}")]
         public MailOperationStatus RemoveMailbox(int id)
@@ -109,12 +109,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Update mailbox
+        /// Updates a mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id">id of mailbox</param>
-        /// <param name="name">sender name</param>
-        /// <returns>Updated MailboxData</returns>
-        /// <short>Update mailbox</short>
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="name">New sender name</param>
+        /// <returns>Updated mailbox data</returns>
+        /// <short>Update a mailbox</short>
         /// <category>Mailboxes</category>
         [Update(@"mailboxes/update")]
         public ServerMailboxData UpdateMailbox(int mailbox_id, string name)
@@ -125,13 +125,13 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Add alias to mailbox
+        /// Adds an alias to the mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id">id of mailbox</param>
-        /// <param name="alias_name">name of alias</param>
-        /// <returns>MailboxData associated with tenant</returns>
-        /// <short>Add mailbox's aliases</short>
-        /// <category>AddressData</category>
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="alias_name">Mailbox alias</param>
+        /// <returns>Mailbox data associated with the tenant</returns>
+        /// <short>Add a mailbox alias</short>
+        /// <category>Address data</category>
         [Update(@"mailboxes/alias/add")]
         public ServerDomainAddressData AddMailboxAlias(int mailbox_id, string alias_name)
         {
@@ -141,12 +141,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Remove alias from mailbox
+        /// Removes an alias from the mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id">id of mailbox</param>
-        /// <param name="address_id"></param>
-        /// <returns>id of mailbox</returns>
-        /// <short>Remove mailbox's aliases</short>
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="address_id">Mailbox address ID</param>
+        /// <returns>Mailbox ID</returns>
+        /// <short>Remove a mailbox alias</short>
         /// <category>Mailboxes</category>
         [Update(@"mailboxes/alias/remove")]
         public int RemoveMailboxAlias(int mailbox_id, int address_id)
@@ -157,11 +157,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Change mailbox password
+        /// Changes a password of the mailbox with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id"></param>
-        /// <param name="password"></param>
-        /// <short>Change mailbox password</short> 
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="password">New password</param>
+        /// <short>Change a mailbox password</short> 
         /// <category>Mailboxes</category>
         [Update(@"mailboxes/changepwd")]
         public void ChangeMailboxPassword(int mailbox_id, string password)
@@ -173,12 +173,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Check existence of mailbox address
+        /// Checks if the mailbox address is already registered or not.
         /// </summary>
-        /// <param name="local_part"></param>
-        /// <param name="domain_id"></param>
-        /// <short>Is server mailbox address exists</short>
-        /// <returns>True - address exists, False - not exists</returns>
+        /// <param name="local_part">Mailbox local part</param>
+        /// <param name="domain_id">Mailbox domain ID</param>
+        /// <short>Check the mailbox address existence</short>
+        /// <returns>Boolean value: True - address exists, False - address does not exist</returns>
         /// <category>Mailboxes</category>
         [Read(@"mailboxes/alias/exists")]
         public bool IsAddressAlreadyRegistered(string local_part, int domain_id)
@@ -188,12 +188,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Validate mailbox address
+        /// Checks if the mailbox address is valid or not.
         /// </summary>
-        /// <param name="local_part"></param>
-        /// <param name="domain_id"></param>
-        /// <short>Is server mailbox address valid</short>
-        /// <returns>True - address valid, False - not valid</returns>
+        /// <param name="local_part">Mailbox local part</param>
+        /// <param name="domain_id">Mailbox domain ID</param>
+        /// <short>Validate the mailbox address</short>
+        /// <returns>Boolean value: True - address is valid, False - address is not valid</returns>
         /// <category>Mailboxes</category>
         [Read(@"mailboxes/alias/valid")]
         public bool IsAddressValid(string local_part, int domain_id)

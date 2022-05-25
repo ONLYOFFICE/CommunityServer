@@ -2132,6 +2132,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Imap sync.
+        /// </summary>
+        public static string ImapSync {
+            get {
+                return ResourceManager.GetString("ImapSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The account is successfully connected..
         /// </summary>
         public static string ImportAccountHeader {

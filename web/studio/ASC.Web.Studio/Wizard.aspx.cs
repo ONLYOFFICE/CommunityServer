@@ -63,7 +63,7 @@ namespace ASC.Web.Studio
                 try
                 {
                     var owner = CoreContext.UserManager.GetUsers(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
-                    SecurityContext.AuthenticateMe(owner.ID);
+                    SecurityContext.CurrentUser = owner.ID;
                 }
                 catch (System.Security.Authentication.InvalidCredentialException)
                 {

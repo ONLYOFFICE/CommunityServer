@@ -115,11 +115,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logo for the About/Login page.
+        ///   Looks up a localized string similar to Logo for the Login page.
         /// </summary>
-        public static string LogoDark {
+        public static string LogoDark2 {
             get {
-                return ResourceManager.GetString("LogoDark", resourceCulture);
+                return ResourceManager.GetString("LogoDark2", resourceCulture);
             }
         }
         

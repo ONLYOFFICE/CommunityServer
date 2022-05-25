@@ -118,7 +118,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 }
 
                 CoreContext.TenantManager.SetCurrentTenant(TenantId);
-                SecurityContext.AuthenticateMe(UserId);
+                SecurityContext.CurrentUser = UserId;
 
                 Dictionary<string, string> urls;
                 BuilderKey = DocumentServiceConnector.DocbuilderRequest(null, Script, true, out urls);

@@ -157,19 +157,6 @@ Met vriendelijke groet,
 ONLYOFFICE™ Support Team
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Verzoek wijzigen wachtwoord voor het "${__VirtualRootPath}":"${__VirtualRootPath}" portaal
-
-Er is een verzoek gedaan om uw wachtwoord te wijzigen waarmee u inlogt op het ${LetterLogoText} portaal.
-
-Klik alstublieft op de onderstaande link om uw wachtwoord te wijzigen:
-
-$GreenButton
-
-*Let op*: deze link is maar 7 dagen geldig. Voltooi het proces om uw wachtwoord te wijzigen alstublieft binnen die periode. 
-
-Als u uw wachtwoord niet wilt wijzigen of deze e-mail ten onrechte ontvangt, kunt u deze negeren of contact opnemen met uw "${__VirtualRootPath}":"${__VirtualRootPath}" portaalbeheerder om meer informatie te krijgen.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Verzoek wijzigen mobiel telefoonnummer
 
@@ -446,9 +433,6 @@ ONLYOFFICE Team</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. ${__VirtualRootPath} Portaal Backup gecreërd</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} wachtwoord assistentie</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Mobiele telefoon wijzigings verzoek</value>

@@ -17,11 +17,14 @@
 
 window.DocumentsPopup = (function ($) {
     var isInit = false,
+        filesSettings = null,
         el,
         attachFilesAsLinks,
         $attachFilesAsLinksSelector,
         loader,
+        frameParent,
         frameUrl,
+        frame,
         supportedCustomEvents = {SelectFiles: "on_documents_selected"},
         eventsHandler = jq({});
 
@@ -30,7 +33,10 @@ window.DocumentsPopup = (function ($) {
         attachFilesAsLinks = el.find("#attachFilesAsLinks");
         $attachFilesAsLinksSelector = el.find("#attachFilesAsLinksSelector");
         loader = el.find(".loader-page");
-        frameUrl = jq("#attachFrame").data("frame");
+        frameParent = el.find("#attachFrame");
+        frameUrl = frameParent.data("frame");
+
+        el.toggleClass("without-links", attachFilesAsLinks.length == 0);
 
         jq("<iframe/>",
             {
@@ -39,9 +45,11 @@ window.DocumentsPopup = (function ($) {
                 "id": "fileChoiceFrame",
                 "scrolling": "no",
                 "src": frameUrl,
-                "onload": "javascript:DocumentsPopup.hideLoader();return false;"
+                "onload": "javascript:DocumentsPopup.onFrameLoaded();return false;"
             })
-            .appendTo("#attachFrame");
+            .appendTo(frameParent);
+
+        frame = frameParent.find("iframe").get(0);
     }
 
     function attachSelectedFiles (selectedFiles, folderShareable) {
@@ -75,6 +83,8 @@ window.DocumentsPopup = (function ($) {
                 var fileTmpl = {
                     title: file.title,
                     access: file.access,
+                    denyDownload: ASC.Files.UI.denyDownload(file),
+                    denySharing: ASC.Files.UI.denySharing(file),
                     type: type,
                     exttype: ASC.Files.Utility.getCssClassByFileTitle(file.title),
                     id: file.id,
@@ -103,12 +113,16 @@ window.DocumentsPopup = (function ($) {
     function bindEvents () {
         window.addEventListener("message",
             function (message) {
+                if (!message || typeof message.data != "string") {
+                    return;
+                }
+
                 if (frameUrl.indexOf(message.source.location.pathname) === -1) {
                     return;
                 }
 
                 try {
-                    var data = jq.parseJSON(message.data);
+                    var data = JSON.parse(message.data);
                 } catch (e) {
                     console.error(e);
                     return;
@@ -123,6 +137,8 @@ window.DocumentsPopup = (function ($) {
                 attachSelectedFiles(data.files, data.folderShareable);
             },
             false);
+
+        $attachFilesAsLinksSelector.on("change", onLinksSelectorChanged);
     }
 
     function init () {
@@ -143,21 +159,87 @@ window.DocumentsPopup = (function ($) {
 
         StudioBlockUIManager.blockUI(el, 1000, { bindEvents: false });
 
+        showLoader();
+    }
+
+    function showLoader () {
         loader.show();
         attachFilesAsLinks.css("visibility", "hidden");
-    }
-
-    function bind (eventName, fn) {
-        eventsHandler.bind(eventName, fn);
-    }
-
-    function unbind (eventName) {
-        eventsHandler.unbind(eventName);
+        frameParent.css("visibility", "hidden");
     }
 
     function hideLoader () {
-        attachFilesAsLinks.css("visibility", "visible");
         loader.hide();
+        attachFilesAsLinks.css("visibility", "visible");
+        frameParent.css("visibility", "visible");
+    }
+
+    function bind (eventName, fn) {
+        eventsHandler.on(eventName, fn);
+    }
+
+    function unbind (eventName) {
+        eventsHandler.off(eventName);
+    }
+
+    function onFrameLoaded() {
+        try {
+            filesSettings = null;
+
+            var contentWindow = frame.contentWindow;
+            var fileChoice = contentWindow.ASC.Files.FileChoice;
+
+            fileChoice.eventAfter = onLinksSelectorChanged;
+
+            if (fileChoice.isEventAfterTriggered && fileChoice.isEventAfterTriggered()) {
+                onLinksSelectorChanged();
+            }
+        } catch (ex) {
+            onError(ex);
+        }
+    }
+
+    function onLinksSelectorChanged() {
+        try {
+            var checked = $attachFilesAsLinksSelector.is(':checked');
+            var contentWindow = frame.contentWindow;
+            var fileSelectorTree = contentWindow.ASC.Files.FileSelector.fileSelectorTree;
+
+            if (checked && (fileSelectorTree.selectedFolderId == ASC.Files.Constants.FOLDER_ID_RECENT || fileSelectorTree.selectedFolderId == ASC.Files.Constants.FOLDER_ID_FAVORITES)) {
+                fileSelectorTree.clickOnFolder(ASC.Files.Constants.FOLDER_ID_MY_FILES);
+            }
+
+            var recentData = fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_RECENT);
+            var favoritesData = fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_FAVORITES);
+
+            initFilesSettings(recentData, favoritesData);
+
+            if (filesSettings.displayRecent) {
+                recentData.entryObject.toggleClass("display-none", checked);
+            }
+
+            if (filesSettings.displayFavorites) {
+                favoritesData.entryObject.toggleClass("display-none", checked);
+            }
+
+            hideLoader();
+        } catch (ex) {
+            onError(ex);
+        }
+    };
+
+    function initFilesSettings(recentData, favoritesData) {
+        if (!filesSettings) {
+            filesSettings = {
+                displayRecent: recentData ? !recentData.entryObject.hasClass("display-none") : false,
+                displayFavorites: favoritesData ? !favoritesData.entryObject.hasClass("display-none") : false
+            };
+        }
+    }
+
+    function onError(error) {
+        console.error(error);
+        hideLoader();
     }
 
     return {
@@ -166,6 +248,6 @@ window.DocumentsPopup = (function ($) {
         unbind: unbind,
         events: supportedCustomEvents,
         showPortalDocUploader: showPortalDocUploader,
-        hideLoader: hideLoader
+        onFrameLoaded: onFrameLoaded,
     };
 })(jQuery);

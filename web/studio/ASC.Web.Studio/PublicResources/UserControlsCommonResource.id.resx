@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Pengguna aktif adalah anggota portal dengan pengecualian guest dan pengguna dengan status  "dinonaktifkan "</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Tambahkan pilihan polling</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Lampirkan file dari dokumen proyek</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Persingkat tautan undangan portal dan tautan berbagi dokumen dengan Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Masuk ke Portal menggunakan akun sosial Anda dan cari kontak</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Hubungkan layanan penyimpanan cloud favorit Anda dan simpan semua file Anda di satu tempat</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Hubungi pelanggan Anda langsung dari CRM berkat{0}integrasi ONLYOFFICE Twilio{1}</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -418,9 +403,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Kode sumber tersedia di {0}Github{1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Harga umum</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Lihat Avangate untuk daftar lengkap mata uang</value>
   </data>
@@ -430,14 +412,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Gratis</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Buka daftar harga</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Apakah Anda ingin memilih paket harga baru?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Penawaran terbatas</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Ya, upgrade paket harga</value>
@@ -447,9 +423,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Tahun{2}{1} Berlangganan</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Tahun{1} Berlangganan</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Anda sedang menggunakan paket harga untuk organisasi nirlaba.</value>
@@ -466,17 +439,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 tahun</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Hanya per tahun</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Langganan Paling Populer</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Menambahkan portal baru akan melebihi jumlah maksimum portal yang diizinkan oleh paket Anda saat ini.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Simpan {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per pengguna/bln</value>

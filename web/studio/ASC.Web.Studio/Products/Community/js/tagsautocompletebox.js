@@ -132,7 +132,7 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
             }
 
             jq('#' + ContainerElementID).append(bodySH + bodySHLoader);
-            eval('jq("#' + this.InputID + '").keyup(function(event){' + varName + '.Handler(event);})');
+            eval('jq("#' + this.InputID + '").on("keyup", function(event){' + varName + '.Handler(event);})');
         }
         catch (e) { };
     } else {
@@ -143,7 +143,7 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
                 var bodySHLoader = '<div id=' + helperID + '_loader style="' + z_index + 'padding:0px; margin:0px; position:absolute; display:none;"><img src="' + LoaderPath + '" alt="" id="' + tagsAutocompleteImageID + '"></div>';
 
                 jq('#' + ContainerElementID).append(bodySH + bodySHLoader);
-                eval('jq("#' + this.InputID + '").keyup(function(event){' + varName + '.Handler(event);})');
+                eval('jq("#' + this.InputID + '").on("keyup", function(event){' + varName + '.Handler(event);})');
             }
             catch (e) { };
         });
@@ -161,7 +161,7 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
         }
 
         var isVisible = jq('#' + this.ID).is(':visible');
-        var text = jq.trim(jq('#' + this.InputID).val());
+        var text = jq('#' + this.InputID).val().trim();
 
         if (code == 38 && isVisible)//up
         {
@@ -316,7 +316,7 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
     this.Close = function() {
         jq('#' + this.ID).hide();
         this.DeleteItems();
-        jq("body").unbind("click");
+        jq("body").off("click");
     };
 
     this.GetItemById = function(idItem) {
@@ -384,13 +384,13 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
                     var result = new String();
                     var isFirst = 1;
                     for (var i = 0; i < vals.length - 1; i++) {
-                        if (jq.trim(vals[i]) != '') {
+                        if (vals[i].trim() != '') {
                             if (isFirst == 1) {
-                                result += jq.trim(vals[i]);
+                                result += vals[i].trim();
                                 isFirst = 0;
                             }
                             else {
-                                result += ',' + jq.trim(vals[i]);
+                                result += ',' + vals[i].trim();
                             }
                         }
                     }
@@ -445,10 +445,10 @@ var SearchHelper = function(inputID, hsItemClass, hsItemSelectClass, code, selec
         jq('#' + this.ID).html(items_context);
         jq('#' + this.ID).show();
 
-        jq("body").unbind("click");
+        jq("body").off("click");
 
         var varName = this.VarName;
-        jq('body').click(function(event) {
+        jq('body').on("click", function(event) {
             eval(varName + '.Close();');
         });
     };

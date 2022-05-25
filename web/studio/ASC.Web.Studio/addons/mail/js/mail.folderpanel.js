@@ -33,12 +33,12 @@ window.folderPanel = (function($) {
             }
 
             wndQuestion = $('#removeQuestionWnd');
-            wndQuestion.find('.buttons .cancel').bind('click', function() {
+            wndQuestion.find('.buttons .cancel').on('click', function() {
                 hide();
                 return false;
             });
 
-            wndQuestion.find('.buttons .remove').bind('click', function() {
+            wndQuestion.find('.buttons .remove').on('click', function() {
                 if (clearFolderId) {
                     serviceManager.removeMailFolderMessages(clearFolderId, {}, {}, window.MailScriptResource.DeletionMessage);
                     serviceManager.getMailFolders();
@@ -84,7 +84,7 @@ window.folderPanel = (function($) {
 
                 var deleteTrash = $this.find('.delete_mails');
                 if (deleteTrash.length > 0) {
-                    deleteTrash.unbind('click').bind('click', { folder: folder }, function (e) {
+                    deleteTrash.off('click').on('click', { folder: folder }, function (e) {
                         if (e) {
                             showQuestionBox(e.data.folder);
                             e.preventDefault();

@@ -32,11 +32,11 @@ using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WebZones;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.Support;
-using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -122,10 +122,6 @@ namespace ASC.Web.Studio.Masters
                 activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
             }
 
-            if (ThirdPartyBanner.Display && !Request.DesktopApp())
-            {
-                BannerHolder.Controls.Add(LoadControl(ThirdPartyBanner.Location));
-            }
 
             var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
@@ -145,10 +141,9 @@ namespace ASC.Web.Studio.Masters
 
             var matches = Regex.Match(HttpContext.Current.Request.Url.AbsolutePath, "(products|addons)/(\\w+)/(share\\.aspx|saveas\\.aspx|filechoice\\.aspx|ganttchart\\.aspx|jabberclient\\.aspx|timer\\.aspx|generatedreport\\.aspx).*", RegexOptions.IgnoreCase);
 
-            if (SecurityContext.IsAuthenticated && !matches.Success)
+            if (SecurityContext.IsAuthenticated && !matches.Success && AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportEnabled)
             {
                 LiveChatHolder.Controls.Add(LoadControl(SupportChat.Location));
-                AddBodyScripts(ResolveUrl, "~/UserControls/Common/Support/livechat.js");
             }
         }
 
@@ -179,6 +174,15 @@ namespace ASC.Web.Studio.Masters
 
         private void InitScripts()
         {
+            ThemeStyles.AddSource(ResolveUrl, "~/skins/default/layout.less");
+
+            if (!DisabledLayoutMedia)
+            {
+                ThemeStyles.AddSource(ResolveUrl, Request.DesktopApp()
+                    ? "~/skins/default/layout-desktop.less"
+                    : "~/skins/default/layout-media.less");
+            }
+
             AddStyles(r => r, "~/skins/<theme_folder>/main.less");
 
             AddClientScript(
@@ -219,7 +223,6 @@ namespace ASC.Web.Studio.Masters
                     isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
                 }
             }
-
             RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);
         }
 

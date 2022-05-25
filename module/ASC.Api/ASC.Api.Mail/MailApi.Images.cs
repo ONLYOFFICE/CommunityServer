@@ -25,10 +25,10 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns list of all trusted addresses for image displaying.
+        /// Returns a list of all the trusted addresses for image displaying.
         /// </summary>
-        /// <returns>Addresses list. Email adresses represented as string name@domain.</returns>
-        /// <short>Get trusted addresses</short> 
+        /// <returns>List of addresses. Email adresses are represented as strings in the name@domain format</returns>
+        /// <short>Get trusted image addresses</short> 
         /// <category>Images</category>
         [Read(@"display_images/addresses")]
         public IEnumerable<string> GetDisplayImagesAddresses()
@@ -37,13 +37,13 @@ namespace ASC.Api.Mail
         }
 
         ///  <summary>
-        ///     Add the address to trusted addresses.
+        ///  Adds the image address specified in the request to the list of trusted image addresses.
         ///  </summary>
-        /// <param name="address">Address for adding. </param>
-        /// <returns>Added address</returns>
-        ///  <short>Add trusted address</short> 
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
-        ///  <category>Images</category>
+        /// <param name="address">Image address</param>
+        /// <returns>Added image address</returns>
+        /// <short>Add the trusted image address</short> 
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <category>Images</category>
         [Create(@"display_images/address")]
         public string AddDisplayImagesAddress(string address)
         {
@@ -53,12 +53,12 @@ namespace ASC.Api.Mail
         }
 
         ///  <summary>
-        ///     Remove the address from trusted addresses.
+        ///  Removes the image address specified in the request from the list of trusted image addresses.
         ///  </summary>
-        /// <param name="address">Address for removing</param>
-        /// <returns>Removed address</returns>
-        ///  <short>Remove from trusted addresses</short> 
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <param name="address">Image address</param>
+        /// <returns>Removed image address</returns>
+        ///  <short>Remove the trusted image address</short> 
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         ///  <category>Images</category>
         [Delete(@"display_images/address")]
         public string RemovevDisplayImagesAddress(string address)

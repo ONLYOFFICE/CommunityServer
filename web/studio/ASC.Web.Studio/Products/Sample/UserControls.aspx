@@ -110,13 +110,13 @@ jq("#emailSelector").AdvancedEmailSelector("clear");</code></pre>
         }
     ]
 })
-.bind("setfilter", function (evt, $container, filter, filterparams, filters) {
+.on("setfilter", function (evt, $container, filter, filterparams, filters) {
     renderContent(filters);
 })
-.bind("resetfilter", function (evt, $container, filter, filters) {
+.on("resetfilter", function (evt, $container, filter, filters) {
     renderContent(filters);
 })
-.bind("resetallfilters", function () {
+.on("resetallfilters", function () {
     jq("#peopleFilterContent").html("");
 });</code></pre>
 

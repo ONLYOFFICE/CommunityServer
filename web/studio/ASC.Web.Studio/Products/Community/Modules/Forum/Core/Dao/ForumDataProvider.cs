@@ -22,7 +22,6 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Web;
 
 using ASC.Common.Caching;
 using ASC.Common.Data;
@@ -65,6 +64,8 @@ namespace ASC.Forum
         public int ThreadID { get; set; }
         public Dictionary<int, int> TopicViewRecentPostIDs { get; set; }
 
+        private static readonly ICache CacheAsc = AscCache.Memory;
+
         public ThreadVisitInfo()
         {
             TopicViewRecentPostIDs = new Dictionary<int, int>();
@@ -73,50 +74,40 @@ namespace ASC.Forum
 
         public static ThreadVisitInfo GetThreadVisitInfo(int threadID)
         {
-            if (HttpContext.Current != null)
+            var key = UserKeys.StringSessionKey + SecurityContext.CurrentAccount.ID.ToString();
+            var hash = CacheAsc.Get<Hashtable>(key);
+            if (hash == null)
             {
-                var key = UserKeys.StringSessionKey + SecurityContext.CurrentAccount.ID.ToString();
-                var hash = HttpContext.Current.Session[key] as Hashtable;
-                if (hash == null)
+                hash = Hashtable.Synchronized(new Hashtable());
+                foreach (var f in ForumDataProvider.InitFirstVisit())
                 {
-                    hash = Hashtable.Synchronized(new Hashtable());
-                    foreach (var f in ForumDataProvider.InitFirstVisit())
-                    {
-                        hash[UserKeys.StringThreadKey + f.ThreadID.ToString(CultureInfo.InvariantCulture)] = f;
-                    }
-                    HttpContext.Current.Session.Add(key, hash);
+                    hash[UserKeys.StringThreadKey + f.ThreadID.ToString(CultureInfo.InvariantCulture)] = f;
                 }
-
-                var threadKey = UserKeys.StringThreadKey + threadID.ToString(CultureInfo.InvariantCulture);
-                var tvi = new ThreadVisitInfo { ThreadID = threadID };
-                if (hash.Contains(threadKey))
-                {
-                    tvi = (ThreadVisitInfo)hash[threadKey];
-                }
-                else
-                {
-                    hash[threadKey] = tvi;
-                    HttpContext.Current.Session[key] = hash;
-                }
-
-                return tvi;
+                CacheAsc.Insert(key, hash, TimeSpan.FromMinutes(15));
             }
 
-            return null;
+            var threadKey = UserKeys.StringThreadKey + threadID.ToString(CultureInfo.InvariantCulture);
+            var tvi = new ThreadVisitInfo { ThreadID = threadID };
+            if (hash.Contains(threadKey))
+            {
+                tvi = (ThreadVisitInfo)hash[threadKey];
+            }
+            else
+            {
+                hash[threadKey] = tvi;
+                CacheAsc.Insert(key, hash, TimeSpan.FromMinutes(15));
+            }
+            return tvi;
         }
 
         public static DateTime GetMinVisitThreadDate()
         {
-            HttpContext context = HttpContext.Current;
-            if (context == null)
+            var key = UserKeys.StringSessionKey + SecurityContext.CurrentAccount.ID.ToString();
+            if (CacheAsc.Get<Hashtable>(key) == null)
                 return DateTime.MinValue;
 
-            Guid userID = SecurityContext.CurrentAccount.ID;
-            if (context.Session[UserKeys.StringSessionKey + userID.ToString()] == null)
-                return DateTime.MinValue;
-
-            DateTime result = DateTime.MinValue;
-            var hash = (Hashtable)context.Session[UserKeys.StringSessionKey + userID.ToString()];
+            var result = DateTime.MinValue;
+            var hash = CacheAsc.Get<Hashtable>(key);
 
             foreach (var tvi in hash.Values)
             {

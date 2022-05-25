@@ -32,8 +32,12 @@ window.ProjectDocumentsPopup = (function () {
 
             window.addEventListener("message",
                 function (message) {
+                    if (!message || typeof message.data != "string") {
+                        return;
+                    }
+
                     try {
-                        var data = jq.parseJSON(message.data);
+                        var data = JSON.parse(message.data);
                     } catch (e) {
                         console.error(e);
                         return;

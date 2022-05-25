@@ -14,7 +14,6 @@
  *
 */
 
-
 @import "../../../skins/base.less";
 
 @textColor: #333;
@@ -22,399 +21,412 @@
 @controlColor: #83888d;
 
 .noContentBlock {
-    display: none;
+  display: none;
 }
 
 #feed-table {
-    width: 100%;
-    table-layout: fixed;
+  width: 100%;
+  table-layout: fixed;
 }
 
 #feed-list {
-    width: 100%;
+  width: 100%;
 
-    .item {
-        border-top: 1px solid #d6d6d6;
-        padding: 10px 0px 15px 5px;
+  .item {
+    border-top: 1px solid #d6d6d6;
+    padding: 10px 0px 15px 5px;
 
-        p {
-            margin: 0;
-        }
-
-        &:hover {
-            .content-box .feed-item .header .title,
-            .content-box .feed-item .author .title,
-            .content-box .feed-item .description .extra-location .title,
-            .content-box .feed-item .grouped-feeds-box .title {
-                text-decoration: underline;
-            }
-
-            .content-box .feed-item .control-btn,
-            .content-box .feed-item .header .grouped-feeds-count,
-            .content-box .comments-box .comments-show-panel .control-btn
-            {
-                border-bottom: 1px dotted @controlColor;
-            }
-        }
-
-        .content-box .comments-box .comment:hover{
-            .comment-content-box .comment-author .title {
-                text-decoration: underline;
-            }
-
-            .comment-content-box .reply-comment-btn {
-                border-bottom: 1px dotted @controlColor;
-            }
-        }
-
-        .avatar {
-            float: left;
-            margin-top: 28px;
-
-            img, a {
-                display: block;
-                width: 50px;
-                height: 50px;
-            }
-            
-            img {
-                border: 0;
-            }
-        }
-
-        .content-box {
-            margin-left: 60px;
-
-            .control-btn {
-                display: inline-block;
-                border-bottom: 1px solid transparent;
-                margin-top: 10px;
-                color: @controlColor;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
-            .header {
-                margin-bottom: 8px;
-
-                line-height: 19px;
-                
-
-                .action {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-
-                .title {
-                    .limitedSingleText(60%);
-                    font-size: 14px;
-                    color: @textColor;
-                    text-decoration: none;
-                    margin-left: 4px;
-                }
-
-                .grouped-feeds-count {
-                    font-size: 14px;
-                    cursor: pointer;
-                    border-bottom: 1px solid transparent;
-                    margin-left: 4px;
-                }
-
-                .new-indicator {
-                    .limitedSingleText(100px);
-                    margin-top: -4px;
-                    margin-left: 4px;
-                    padding: 2px 4px 2px;
-                    .borderRadius(2px);
-                    color: #648c45;
-                    background-color: #d6eabe;
-                }
-            }
-
-            .description {
-                height: 18px;
-                line-height: 18px;
-                margin: 0px 0px 1px -3px;
-
-                .menu-item-icon {
-                    margin-top: 1px;
-                    margin-right: 2px;
-                }
-
-                .product {
-                    color: @textColor;
-                    font-weight: bold;
-                }
-
-                .location {
-                    color: @descriptiveColor;
-                    margin-left: 4px;
-                }
-
-                .extra-location {
-                    color: @descriptiveColor;
-                    margin-left: 4px;
-
-                    .title {
-                        .limitedSingleText(60%);
-                        color: @descriptiveColor;
-                        text-decoration: none;
-                    }
-                }
-            }
-
-            .date {
-                line-height: 16px;
-                height: 16px;
-                color: @descriptiveColor;
-
-                .time {
-                    margin-left: 13px;
-                }
-            }
-
-            .author {
-                line-height: 16px;
-                height: 16px;
-                margin-bottom: 13px;
-
-                .label, .author-title {
-                    color: @descriptiveColor;
-                }
-
-                .author-title {
-                    margin-left: 4px;
-                }
-
-                .guest {
-                    color: @textColor;
-                }
-
-                .title {
-                    color: @textColor;
-                    margin-left: 4px;
-                    max-width: 90%;
-                    overflow: hidden;
-                    -ms-text-overflow: ellipsis;
-                    -o-text-overflow: ellipsis;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    text-decoration: none;
-                }
-            }
-
-            .body {
-                max-width: 90%;
-                overflow: hidden;
-                -ms-text-overflow: ellipsis;
-                -o-text-overflow: ellipsis;
-                text-overflow: ellipsis;
-
-                .show-all-btn {
-                    font-weight: bold;
-                    margin-top: 5px;
-                }
-
-                .asccut {
-                    display: none;
-                }
-            }
-
-            .hide-grouped-feeds-btn {
-                display: none;
-            }
-
-            .grouped-feeds-box {
-                display: none;
-                margin: 14px 0 0px;
-
-                .title {
-                    font-size: 13px;
-                    color: @textColor;
-                    text-decoration: none;
-                    line-height: 26px;
-                }
-            }
-
-            .comment-error-msg-box {
-                display: none;
-                margin-bottom: 10px;
-            }
-
-            .comment-form {
-                display: none;
-                margin: 15px 0;
-
-                textarea {
-                    display: block;
-                    overflow: auto;
-                    width: 525px;
-                    height: 100px;
-                    margin-bottom: 18px;
-                    resize: none;
-
-                    &.error {
-                        border-color: #cc0000;
-                    }
-                }
-            }
-
-            .comments-box {
-                .comments-show-panel {
-                    width: 500px;
-                    height: 30px;
-                    background-color: #eee;
-
-                    .control-btn {
-                        margin: 7px 0 7px 10px;
-                        line-height: 16px;
-                    }
-                }
-
-                .extra-comments-box{
-                    display: none;
-                }
-
-                .comment {
-                    margin-bottom: 10px;
-                    border-top: 1px solid #d6d6d6;
-                    padding-top: 8px;
-
-                    .comment-avatar {
-                        display: block;
-                        float: left;
-                        width: 50px;
-                        height: 50px;
-                        margin-left: 15px;
-                    }
-
-                    .comment-content-box {
-                        margin-left: 74px;
-
-                        .comment-author {
-                            height: 18px;
-                            line-height: 18px;
-
-                            a {
-                                color: @textColor;
-                                text-decoration: none;
-                            }
-
-                            span {
-                                color: @descriptiveColor;
-                            }
-                        }
-
-                        .comment-body {
-                            margin: 4px 0 6px;
-                            max-width: 100%;
-                            overflow: hidden;
-                            -ms-text-overflow: ellipsis;
-                            -o-text-overflow: ellipsis;
-                            text-overflow: ellipsis;
-                        }
-
-                        .reply-comment-btn {
-                            display: inline-block;
-                            border-bottom: 1px solid transparent;
-                            color: @controlColor;
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-        }
-
-        &:hover {
-            .feed-content {
-                .feed-title .feed-item-title {
-                    color: @textColor;
-                    text-decoration: underline;
-                }
-
-                .feed-author-container .feed-item-author {
-                    text-decoration: underline;
-                }
-            }
-
-            .feed-item-see-all {
-                border-color: #116D9D;
-                color: #116D9D;
-            }
-        }
+    p {
+      margin: 0;
     }
+
+    &:hover {
+      .content-box .feed-item .header .title,
+      .content-box .feed-item .author .title,
+      .content-box .feed-item .description .extra-location .title,
+      .content-box .feed-item .grouped-feeds-box .title {
+        text-decoration: underline;
+      }
+
+      .content-box .feed-item .control-btn,
+      .content-box .feed-item .header .grouped-feeds-count,
+      .content-box .comments-box .comments-show-panel .control-btn {
+        border-bottom: 1px dotted @controlColor;
+      }
+    }
+
+    .content-box .comments-box .comment:hover {
+      .comment-content-box .comment-author .title {
+        text-decoration: underline;
+      }
+
+      .comment-content-box .reply-comment-btn {
+        border-bottom: 1px dotted @controlColor;
+      }
+    }
+
+    .avatar {
+      float: left;
+      margin-top: 28px;
+
+      img,
+      a {
+        display: block;
+        width: 50px;
+        height: 50px;
+      }
+
+      img {
+        border: 0;
+      }
+    }
+
+    .content-box {
+      margin-left: 60px;
+
+      .control-btn {
+        display: inline-block;
+        border-bottom: 1px solid transparent;
+        margin-top: 10px;
+        color: @controlColor;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .header {
+        margin-bottom: 8px;
+        line-height: 19px;
+
+        .action {
+          font-size: 14px;
+          font-weight: bold;
+        }
+
+        .title {
+          .limitedSingleText(60%);
+          font-size: 14px;
+          color: @textColor;
+          text-decoration: none;
+          margin-left: 4px;
+        }
+
+        .grouped-feeds-count {
+          font-size: 14px;
+          cursor: pointer;
+          border-bottom: 1px solid transparent;
+          margin-left: 4px;
+        }
+
+        .new-indicator {
+          .limitedSingleText(100px);
+          margin-top: -4px;
+          margin-left: 4px;
+          padding: 2px 4px 2px;
+          .borderRadius(2px);
+          color: #648c45;
+          background-color: #d6eabe;
+        }
+      }
+
+      .description {
+        height: 18px;
+        line-height: 18px;
+        margin: 0px 0px 1px -3px;
+
+        .menu-item-icon {
+          margin-top: 1px;
+          margin-right: 2px;
+          display: block;
+        }
+
+        .menu-item-icon-birthday {
+          margin-top: 1px;
+          margin-left: 4px;
+          display: block;
+        }
+
+        .description-div {
+            display: inline-block;
+        }
+
+        .product {
+          color: @textColor;
+          font-weight: bold;
+        }
+
+        .location {
+          color: @descriptiveColor;
+          margin-left: 4px;
+        }
+
+        .birthdays {
+          color: @descriptiveColor;
+        }
+
+        .extra-location {
+          color: @descriptiveColor;
+          margin-left: 4px;
+
+          .title {
+            .limitedSingleText(60%);
+            color: @descriptiveColor;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .date {
+        line-height: 16px;
+        height: 16px;
+        color: @descriptiveColor;
+
+        .time {
+          margin-left: 13px;
+        }
+      }
+
+      .author {
+        line-height: 16px;
+        height: 16px;
+        margin-bottom: 13px;
+
+        .label,
+        .author-title {
+          color: @descriptiveColor;
+        }
+
+        .author-title {
+          margin-left: 4px;
+        }
+
+        .guest {
+          color: @textColor;
+        }
+
+        .title {
+          color: @textColor;
+          margin-left: 4px;
+          max-width: 90%;
+          overflow: hidden;
+          -ms-text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          text-decoration: none;
+        }
+      }
+
+      .body {
+        max-width: 90%;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+
+        .show-all-btn {
+          font-weight: bold;
+          margin-top: 5px;
+        }
+
+        .asccut {
+          display: none;
+        }
+      }
+
+      .hide-grouped-feeds-btn {
+        display: none;
+      }
+
+      .grouped-feeds-box {
+        display: none;
+        margin: 14px 0 0px;
+
+        .title {
+          font-size: 13px;
+          color: @textColor;
+          text-decoration: none;
+          line-height: 26px;
+        }
+      }
+
+      .comment-error-msg-box {
+        display: none;
+        margin-bottom: 10px;
+      }
+
+      .comment-form {
+        display: none;
+        margin: 15px 0;
+
+        textarea {
+          display: block;
+          overflow: auto;
+          width: 525px;
+          height: 100px;
+          margin-bottom: 18px;
+          resize: none;
+
+          &.error {
+            border-color: #cc0000;
+          }
+        }
+      }
+
+      .comments-box {
+        .comments-show-panel {
+          width: 500px;
+          height: 30px;
+          background-color: #eee;
+
+          .control-btn {
+            margin: 7px 0 7px 10px;
+            line-height: 16px;
+          }
+        }
+
+        .extra-comments-box {
+          display: none;
+        }
+
+        .comment {
+          margin-bottom: 10px;
+          border-top: 1px solid #d6d6d6;
+          padding-top: 8px;
+
+          .comment-avatar {
+            display: block;
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-left: 15px;
+          }
+
+          .comment-content-box {
+            margin-left: 74px;
+
+            .comment-author {
+              height: 18px;
+              line-height: 18px;
+
+              a {
+                color: @textColor;
+                text-decoration: none;
+              }
+
+              span {
+                color: @descriptiveColor;
+              }
+            }
+
+            .comment-body {
+              margin: 4px 0 6px;
+              max-width: 100%;
+              overflow: hidden;
+              -ms-text-overflow: ellipsis;
+              -o-text-overflow: ellipsis;
+              text-overflow: ellipsis;
+            }
+
+            .reply-comment-btn {
+              display: inline-block;
+              border-bottom: 1px solid transparent;
+              color: @controlColor;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .feed-content {
+        .feed-title .feed-item-title {
+          color: @textColor;
+          text-decoration: underline;
+        }
+
+        .feed-author-container .feed-item-author {
+          text-decoration: underline;
+        }
+      }
+
+      .feed-item-see-all {
+        border-color: #116d9d;
+        color: #116d9d;
+      }
+    }
+  }
 }
 
-#show-next-feeds-btn {	
-	color: #666666;
-    cursor: pointer;
-    display: none;	
-	font-weight: bold;
-	margin: 20px 0 30px 8px;	
-    text-decoration: underline;
-    &:hover{
-        text-decoration: none;
-    }
+#show-next-feeds-btn {
+  color: #666666;
+  cursor: pointer;
+  display: none;
+  font-weight: bold;
+  margin: 20px 0 30px 8px;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 #show-next-feeds-loader {
-    background: url('../images/loader16.gif') no-repeat 2px 7px;
-	display: none;
-	height: 25px;	
-	margin-left: 25px;
-    padding-left: 25px;
+  background: url("../images/loader16.gif") no-repeat 2px 7px;
+  display: none;
+  height: 25px;
+  margin-left: 25px;
+  padding-left: 25px;
 }
 
 .feed-params-hint {
-    float: left;
-    padding-right: 8px;
-    line-height: 20px;
-    color: #83888D;
-    span {
-        .limitedSingleText(200px);
-        display: block;
-    }
-    
+  float: left;
+  padding-right: 8px;
+  line-height: 20px;
+  color: #83888d;
+  span {
+    .limitedSingleText(200px);
+    display: block;
+  }
 }
 
 .feed-values-hint {
-    float: right;
-    line-height: 20px;
-    span {
-        .limitedSingleText(400px);
-        display: block;
-    }
+  float: right;
+  line-height: 20px;
+  span {
+    .limitedSingleText(400px);
+    display: block;
+  }
 }
 
 #feed-filter {
-    display: none;
+  display: none;
 }
 
 #manager-empty-screen {
-    display: none;
-    margin-top: 63px;
-    margin-left: 217px;
+  display: none;
+  margin-top: 63px;
+  margin-left: 217px;
 
-    .header-base.large {
-        margin-bottom: 23px;
+  .header-base.large {
+    margin-bottom: 23px;
+  }
+
+  .header-base {
+    margin-bottom: 23px;
+  }
+
+  .module-item {
+    .link {
+      font-size: 16px;
     }
 
-    .header-base {
-        margin-bottom: 23px;
+    .module-link-dscr {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      margin-left: 32px;
+
+      color: #83888d;
+      font-size: 14px;
     }
-
-    .module-item {
-        .link {
-            font-size: 16px;
-        }
-
-        .module-link-dscr {
-            margin-top: 5px;
-            margin-bottom: 20px;
-            margin-left: 32px;
-
-            color: #83888d;
-            font-size: 14px;
-        }
-    }
+  }
 }

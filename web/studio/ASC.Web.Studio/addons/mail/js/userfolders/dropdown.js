@@ -99,7 +99,7 @@ window.userFoldersDropdown = (function($) {
         userFoldersManager.bind(userFoldersManager.events.OnUpdate, onEdited);
         userFoldersManager.bind(userFoldersManager.events.OnDelete, onDeleted);
 
-        popup.keyup(function (e) {
+        popup.on("keyup", function (e) {
                 var movetoBtn = popup.find(".moveto_button").not(".disable");
 
                 if (!movetoBtn || !e) return true;
@@ -448,7 +448,7 @@ window.userFoldersDropdown = (function($) {
 
         movetoBtn.toggleClass('disable', true);
 
-        movetoBtn.unbind("click").bind("click",
+        movetoBtn.off("click").on("click",
             function (e) {
                 if ($(this).hasClass('disable') || !selected)
                     return;
@@ -460,8 +460,8 @@ window.userFoldersDropdown = (function($) {
         container.jstree(true).deselect_all();
 
         container
-            .unbind("select_node.jstree")
-            .bind("select_node.jstree", function (e, data) {
+            .off("select_node.jstree")
+            .on("select_node.jstree", function (e, data) {
                 movetoBtn.toggleClass('disable', false);
 
                 if (!data.node.state.opened) {

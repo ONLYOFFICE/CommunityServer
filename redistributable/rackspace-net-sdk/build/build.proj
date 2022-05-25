@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask TaskName="GitVersionTask.GetVersion" AssemblyFile="..\packages\GitVersionTask\GitVersionTask.dll"/>
+
+  <PropertyGroup>
+    <Configuration>Debug</Configuration>
+    <Version>$(bamboo_GitVersion_NuGetVersion)</Version>
+    <NuGet>$(LocalAppData)\NuGet\NuGet.exe</NuGet>
+    <Paket>..\.paket\paket.exe</Paket>
+    <MSBuild>&quot;$(MSBuildToolsPath)\MSBuild.exe&quot;</MSBuild>
+    <XUnit>..\packages\xunit.runner.console\tools\xunit.console.exe</XUnit>
+    <XUnitXslt>..\packages\xunit.runner.console\tools\NUnitXml.xslt</XUnitXslt>
+  </PropertyGroup>
+
+  <Target Name="CI">
+    <PropertyGroup>
+      <Configuration>Release</Configuration>
+    </PropertyGroup>
+
+    <CallTarget Targets="Build" />
+    <CallTarget Targets="UnitTest" />
+    <CallTarget Targets="IntegrationTest" />
+    <CallTarget Targets="Documentation" />
+    <CallTarget Targets="Package" />
+  </Target>
+
+  <Target Name="GitVersion" DependsOnTargets="RestorePackages" Condition=" '$(Version)' == '' ">
+    <GitVersionTask.GetVersion SolutionDirectory="..">
+      <Output TaskParameter="NuGetVersion" PropertyName="Version" />
+    </GitVersionTask.GetVersion>
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="RestorePackages;GitVersion">
+    <Exec Command="$(MSBuild) ..\Rackspace.sln /p:Configuration=$(Configuration) /nologo /v:minimal" />
+  </Target>
+
+  <Target Name="Documentation" DependsOnTargets="Build">
+    <PropertyGroup>
+      <SHFBROOT>$(MSBuildThisFileDirectory.Replace('build\','packages'))\EWSoftware.SHFB\tools</SHFBROOT>
+    </PropertyGroup>
+
+    <Exec Command="(set SHFBROOT=$(SHFBROOT)) &amp; $(MSBuild) ..\docs\Rackspace.Docs.sln /p:Configuration=$(Configuration) /nologo /v:minimal" />
+  </Target>
+
+  <Target Name="RestorePackages" DependsOnTargets="DownloadPaket">
+    <Delete Files="..\paket.lock" />
+    <Exec Command="$(Paket) install"/>
+  </Target>
+
+  <Target Name="DownloadPaket" Condition="!Exists('$(Paket)')">
+    <Exec Command="..\.paket\paket.bootstrapper.exe 2.51.7" />
+  </Target>
+
+  <Target Name="DownloadNuGet" Condition="!Exists('$(NuGet)')">
+    <MakeDir Directories="$(LocalAppData)\NuGet" />
+    <Exec Command="@powershell -NoProfile -ExecutionPolicy unrestricted -Command &quot;$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest 'https://www.nuget.org/nuget.exe' -OutFile '$(NuGet)'&quot;" />
+  </Target>
+
+  <Target Name="UnitTest" DependsOnTargets="Build">
+    <MakeDir Directories="..\artifacts\TestResults\" />
+    <Exec Command="$(XUnit) ..\test\Rackspace.UnitTests\bin\$(Configuration)\Rackspace.UnitTests.dll -xml ..\artifacts\TestResults\unit-tests.xml" ContinueOnError="true" />
+
+    <!-- Convert test results to the NUnit format for easier reporting -->
+    <XslTransformation XmlInputPaths="..\artifacts\TestResults\unit-tests.xml"  XslInputPath="$(XUnitXslt)"
+      OutputPaths="..\artifacts\TestResults\unit-tests.nunit.xml" />
+  </Target>
+
+  <Target Name="IntegrationTest" DependsOnTargets="Build">
+    <MakeDir Directories="..\artifacts\TestResults\" />
+    <Exec Command="$(XUnit) ..\test\Rackspace.IntegrationTests\bin\$(Configuration)\Rackspace.IntegrationTests.dll -xml ..\artifacts\TestResults\integration-tests.xml -notrait ci=false" ContinueOnError="true" />
+
+    <!-- Convert test results to the NUnit format for easier reporting -->
+    <XslTransformation XmlInputPaths="..\artifacts\TestResults\integration-tests.xml"  XslInputPath="$(XUnitXslt)"
+      OutputPaths="..\artifacts\TestResults\integration-tests.nunit.xml" />
+  </Target>
+
+  <Target Name="Package" DependsOnTargets="DownloadNuGet;Build;Documentation">
+    <MakeDir Directories="..\artifacts\packages\" />
+    <Exec Command="$(NuGet) pack Rackspace.nuspec -OutputDirectory ..\artifacts\packages -Prop Configuration=$(Configuration) -Version $(Version) -Symbols"/>
+  </Target>
+
+  <Target Name="PublishNuGet" DependsOnTargets="DownloadNuGet;GitVersion">
+    <Exec Command="@powershell -NoProfile -ExecutionPolicy unrestricted -File check-nuget-version-exists.ps1 $(Version)" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="ShouldPublishToNuGet" />
+    </Exec>
+
+    <!-- The environment variable BAMBOO_NUGET_PASSWORD comes from the nuget.password variable defined on the rackspace.net plan in Bamboo -->
+    <Message Text="Skipping publish to NuGet because version $(Version) has already been published."
+          Condition=" '$(ShouldPublishToNuGet)' == 'False' " />
+    <Exec Command="$(NuGet) push ..\artifacts\packages\Rackspace.$(Version).nupkg %25BAMBOO_NUGET_PASSWORD%25"
+          Condition=" '$(ShouldPublishToNuGet)' == 'True' " />
+  </Target>
+
+  <Target Name="PublishMyGet" DependsOnTargets="DownloadNuGet;GitVersion">
+    <!-- We don't need to check for existing versions because MyGet lets you overwrite -->
+    <!-- The environment variable BAMBOO_MYGET_PASSWORD comes from the nuget.password variable defined on the rackspace.net plan in Bamboo -->
+    <Exec Command="$(NuGet) push ..\artifacts\packages\Rackspace.$(Version).nupkg %25BAMBOO_MYGET_PASSWORD%25 -Source https://www.myget.org/F/rackspace/api/v2"/>
+  </Target>
+</Project>

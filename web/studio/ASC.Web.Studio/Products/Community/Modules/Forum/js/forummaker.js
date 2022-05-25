@@ -591,7 +591,7 @@ var ForumMakerProvider = new function() {
         ForumMakerProvider.InitSortCategory();
         var textInput = jq("#forum_fmCategoryName");
         if (textInput.length)
-            textInput.focus();
+            textInput.trigger("focus");
     });
 };
 

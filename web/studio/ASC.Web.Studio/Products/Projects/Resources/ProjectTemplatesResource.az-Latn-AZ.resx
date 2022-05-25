@@ -112,6 +112,9 @@
   <data name="NoResponsible" xml:space="preserve">
     <value>Heç kim</value>
   </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Cavabdehləri Məlumatlandırın</value>
+  </data>
   <data name="RemoveQuestion" xml:space="preserve">
     <value>Bu şablonu silmək istədiyinizə əminsiniz mi?</value>
   </data>

@@ -179,9 +179,9 @@ Bibliography.prototype.fillListStyles = function (styles, bibliographyStyle) {
         selectStyles[0].options[selectStyles[0].options.length] = new Option(value, style);
     }
     $("#styles :first").remove();
-    selectStyles.attr('disabled', false);
+    selectStyles.prop('disabled', false);
     if (bibliographyStyle) {
-        $("#styles option[value=" + bibliographyStyle + "]").attr('selected', 'true');
+        $("#styles option[value=" + bibliographyStyle + "]").prop('selected', true);
     }
 };
 
@@ -200,7 +200,7 @@ function createSearchItem(title, description, id) {
    
     searchResult.show();
     var item =
-    "<div class=\"search-item\" id=" + escapeHtml(id) + ">" +
+    "<div class=\"search-item\" id=\"" + id + "\">" +
       "<div class = \"citation\">" +
         "<h4 style=\"overflow-x: hidden;margin:0\">" + escapeHtml(title) + "</h4>" +
         "<p style=\";margin:0\">" + escapeHtml(description) + "</p>" +

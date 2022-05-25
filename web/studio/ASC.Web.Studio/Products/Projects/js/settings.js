@@ -132,15 +132,15 @@ ASC.Projects.SettingsManager = (function () {
         var $input = jq(".custom-status[data-type=" + statusType + "] input");
 
         if (state.enabled) {
-            $input.removeAttr(disabled);
+            $input.prop(disabled, false);
         } else {
-            $input.attr(disabled, disabled);
+            $input.prop(disabled, true);
             $input[0].checked = false;
         }
         if (state.on) {
-            $input.attr(checked, checked);
+            $input.prop(checked, true);
         } else {
-            $input.removeAttr(checked);
+            $input.prop(checked, false);
         }
     }
 
@@ -243,7 +243,7 @@ ASC.Projects.SettingsManager = (function () {
         var $startModule = jq("#startModule");
 
         $startModule.advancedSelector({
-            height: 26 * 4, //magic: itemsCount*itemHeight
+            height: 30 * 4, //magic: itemsCount*itemHeight
             itemsSelectedIds: [currentModule.StartModuleType],
             onechosen: true,
             showSearch: false,
@@ -279,7 +279,7 @@ ASC.Projects.SettingsManager = (function () {
                     .removeAttr('title')
                     .removeClass('disabled')
                     .find(':radio')
-                    .attr('disabled', false);
+                    .prop('disabled', false);
             };
             fileSelector.createThirdPartyTree();
         };
@@ -357,7 +357,7 @@ ASC.Projects.SettingsManager = (function () {
             }
         }));
 
-        PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .blue').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .blue').trigger('click');";
 
         StudioBlockUIManager.blockUI($commonPopupContainer, 400);
 
@@ -433,7 +433,7 @@ ASC.Projects.SettingsManager = (function () {
         }
 
         $uploadButton.on(clickEvent, function (e) {
-            $uploadButtonInput.click();
+            $uploadButtonInput.trigger("click");
             e.stopPropagation();
         });
 

@@ -27,28 +27,23 @@ namespace ASC.MessagingSystem
     static class MessageFactory
     {
         private static readonly ILog log = LogManager.GetLogger("ASC.Messaging");
-        private const string userAgentHeader = "User-Agent";
-        private const string forwardedHeader = "X-Forwarded-For";
-        private const string hostHeader = "Host";
-        private const string refererHeader = "Referer";
 
-
-        public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, MessageTarget target, params string[] description)
+        public static EventMessage Create(HttpRequest request, string initiator, DateTime? dateTime, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
                 return new EventMessage
                 {
-                    IP = request != null ? request.Headers[forwardedHeader] ?? request.UserHostAddress : null,
+                    IP = MessageSettings.GetIP(request),
                     Initiator = initiator,
-                    Date = DateTime.UtcNow,
+                    Date = dateTime.HasValue ? dateTime.Value : DateTime.UtcNow,
                     TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                     UserId = SecurityContext.CurrentAccount.ID,
-                    Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
+                    Page = MessageSettings.GetUrlReferer(request),
                     Action = action,
                     Description = description,
                     Target = target,
-                    UAHeader = request != null ? request.Headers[userAgentHeader] : null
+                    UAHeader = MessageSettings.GetUAHeader(request)
                 };
             }
             catch (Exception ex)
@@ -74,12 +69,11 @@ namespace ASC.MessagingSystem
 
                 if (headers != null)
                 {
-                    var userAgent = headers.ContainsKey(userAgentHeader) ? headers[userAgentHeader] : null;
-                    var forwarded = headers.ContainsKey(forwardedHeader) ? headers[forwardedHeader] : null;
-                    var host = headers.ContainsKey(hostHeader) ? headers[hostHeader] : null;
-                    var referer = headers.ContainsKey(refererHeader) ? headers[refererHeader] : null;
+                    var ip = MessageSettings.GetIP(headers);
+                    var userAgent = MessageSettings.GetUAHeader(headers);
+                    var referer = MessageSettings.GetReferer(headers);
 
-                    message.IP = forwarded ?? host;
+                    message.IP = ip;
                     message.UAHeader = userAgent;
                     message.Page = referer;
                 }
@@ -114,6 +108,37 @@ namespace ASC.MessagingSystem
             }
         }
 
+        public static EventMessage Create(HttpRequest request, MessageUserData userData, MessageAction action)
+        {
+            try
+            {
+                var message = new EventMessage
+                {
+                    Date = DateTime.UtcNow,
+                    TenantId = userData == null ? CoreContext.TenantManager.GetCurrentTenant().TenantId : userData.TenantId,
+                    UserId = userData == null ? SecurityContext.CurrentAccount.ID : userData.UserId,
+                    Action = action,
+                    Active = true
+                };
 
+                if (request != null)
+                {
+                    var ip = MessageSettings.GetIP(request);
+                    var userAgent = MessageSettings.GetUAHeader(request);
+                    var referer = MessageSettings.GetReferer(request);
+
+                    message.IP = ip;
+                    message.UAHeader = userAgent;
+                    message.Page = referer;
+                }
+
+                return message;
+            }
+            catch (Exception ex)
+            {
+                log.Error(string.Format("Error while parse Initiator Message for \"{0}\" type of event: {1}", action, ex));
+                return null;
+            }
+        }
     }
 }

@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Lisää jäseniä</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Syntymäpäivät</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Ei käytössä</value>
   </data>

@@ -51,11 +51,11 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///    Returns the detailed information about the contact with the ID specified in the request
+        /// Returns the detailed information about a contact with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <returns>Contact</returns>
-        /// <short>Get contact by ID</short> 
+        /// <short>Get a contact by ID</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
@@ -77,15 +77,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Returns the contact list for the project with the ID specified in the request
+        /// Returns contacts for the project with the ID specified in the request.
         /// </summary>
         /// <short>
-        ///  Get contacts by project ID
+        /// Get contacts by project ID
         /// </short>
         /// <param name="projectid">Project ID</param>
         /// <category>Contacts</category>
         /// <returns>
-        ///     Contact list
+        /// List of contacts
         /// </returns>
         ///<exception cref="ArgumentException"></exception>
         [Read(@"contact/project/{projectid:[0-9]+}")]
@@ -98,15 +98,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Links the selected contact to the project with the ID specified in the request
+        /// Links the selected contact to the project with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <param name="projectid">Project ID</param>
         /// <category>Contacts</category>
-        /// <short>Link contact with project</short> 
+        /// <short>Link a contact to the project</short> 
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>Contact Info</returns>
+        /// <returns>Contact information</returns>
         [Create(@"contact/{contactid:[0-9]+}/project/{projectid:[0-9]+}")]
         public ContactWrapper SetRelativeContactToProject(int contactid, int projectid)
         {
@@ -132,16 +132,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Links the selected contacts to the project with the ID specified in the request
+        /// Links the selected contacts to the project with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact IDs array</param>
+        /// <param name="contactid">Array of contact IDs</param>
         /// <param name="projectid">Project ID</param>
         /// <category>Contacts</category>
-        /// <short>Link contact list with project</short> 
+        /// <short>Link contacts to the project</short> 
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         [Create(@"contact/project/{projectid:[0-9]+}")]
         public IEnumerable<ContactWrapper> SetRelativeContactListToProject(IEnumerable<int> contactid, int projectid)
@@ -173,14 +173,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Removes the link with the selected project from the contact with the ID specified in the request
+        /// Removes a link to the selected project from the contact with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <param name="projectid">Project ID</param>
         /// <category>Contacts</category>
-        /// <short>Remove contact from project</short> 
+        /// <short>Remove a contact from the project</short> 
         /// <returns>
-        ///    Contact info
+        /// Contact information
         /// </returns>
         [Delete(@"contact/{contactid:[0-9]+}/project/{projectid:[0-9]+}")]
         public ContactBaseWrapper RemoveRelativeContactToProject(int contactid, int projectid)
@@ -206,15 +206,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Adds the selected opportunity to the contact with the ID specified in the request. The same as AddMemberToDeal
+        /// Adds the selected opportunity to the contact with the ID specified in the request.
         /// </summary>
         /// <param name="opportunityid">Opportunity ID</param>
         /// <param name="contactid">Contact ID</param>
-        /// <short>Add contact opportunity</short> 
+        /// <short>Add a contact opportunity</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///    Opportunity
+        /// Opportunity
         /// </returns>
         [Create(@"contact/{contactid:[0-9]+}/opportunity/{opportunityid:[0-9]+}")]
         public OpportunityWrapper AddDealToContact(int contactid, int opportunityid)
@@ -236,15 +236,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the selected opportunity from the contact with the ID specified in the request
+        /// Deletes the selected opportunity from the contact with the ID specified in the request.
         /// </summary>
         /// <param name="opportunityid">Opportunity ID</param>
         /// <param name="contactid">Contact ID</param>
-        /// <short>Delete contact opportunity</short> 
+        /// <short>Delete a contact opportunity</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///    Opportunity
+        /// Opportunity
         /// </returns>
         [Delete(@"contact/{contactid:[0-9]+}/opportunity/{opportunityid:[0-9]+}")]
         public OpportunityWrapper DeleteDealFromContact(int contactid, int opportunityid)
@@ -263,20 +263,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all contacts in the CRM module matching the parameters specified in the request
+        /// Returns a list of all the contacts in the CRM module matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="tags">Tag</param>
+        /// <param optional="true" name="tags">Contact tag</param>
         /// <param optional="true" name="contactStage">Contact stage ID (warmth)</param>
         /// <param optional="true" name="contactType">Contact type ID</param>
-        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity"></param>
+        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity">Contact list view</param>
         /// <param optional="true" name="fromDate">Start date</param>
         /// <param optional="true" name="toDate">End date</param>
         /// <param optional="true" name="responsibleid">Responsible ID</param>
-        /// <param optional="true" name="isShared">Responsible ID</param>
-        /// <short>Get contact list</short> 
+        /// <param optional="true" name="isShared">Contact privacy: private or not</param>
+        /// <short>Get filtered contacts</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         [Read(@"contact/filter")]
         public IEnumerable<ContactWrapper> GetContacts(
@@ -378,14 +378,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of the contacts for auto complete feature.
+        /// Searches for contacts by their emails.
         /// </summary>
-        /// <param name="term">String part of contact name, lastname or email.</param>
-        /// <param name="maxCount">Max result count</param>
-        /// <short>Search contact list</short> 
+        /// <param name="term">String part of contact name, lastname or email</param>
+        /// <param name="maxCount">Maximum result count</param>
+        /// <short>Search contacts by email</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         /// <visible>false</visible>
         [Read(@"contact/simple/byEmail")]
@@ -399,20 +399,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all contacts in the CRM module matching the parameters specified in the request
+        /// Returns a list of all the contacts with their tasks in the CRM module matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="tags">Tag</param>
+        /// <param optional="true" name="tags">Contact tag</param>
         /// <param optional="true" name="contactStage">Contact stage ID (warmth)</param>
         /// <param optional="true" name="contactType">Contact type ID</param>
-        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity"></param>
+        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity">Contact list view</param>
         /// <param optional="true" name="responsibleid">Responsible ID</param>
-        /// <param optional="true" name="isShared">Responsible ID</param>
+        /// <param optional="true" name="isShared">Contact privacy: private or not</param>
         /// <param optional="true" name="fromDate">Start date</param>
         /// <param optional="true" name="toDate">End date</param>
-        /// <short>Get contact list</short> 
+        /// <short>Get filtered contacts with tasks</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         /// <visible>false</visible>
         [Read(@"contact/simple/filter")]
@@ -513,15 +513,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Get the group of contacts with the IDs specified in the request
+        /// Returns a group of contacts with the IDs specified in the request and their emails.
         /// </summary>
-        /// <param name="contactids">Contact ID list</param>
+        /// <param name="contactids">List of contact IDs</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <short>Get contact group</short> 
+        /// <short>Get contacts with emails</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///   Contact list
+        /// List of contacts
         /// </returns>
         /// <visible>false</visible>
         [Read(@"contact/mail")]
@@ -536,20 +536,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the list of all contacts in the CRM module matching the parameters specified in the request
+        /// Deletes a list of all the contacts in the CRM module matching the parameters specified in the request.
         /// </summary>
-        /// <param optional="true" name="tags">Tag</param>
+        /// <param optional="true" name="tags">Contact tags</param>
         /// <param optional="true" name="contactStage">Contact stage ID (warmth)</param>
         /// <param optional="true" name="contactType">Contact type ID</param>
-        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity"></param>
+        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity">Contact list view</param>
         /// <param optional="true" name="fromDate">Start date</param>
         /// <param optional="true" name="toDate">End date</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <short>Delete the list of all contacts </short> 
+        /// <short>Delete contacts by parameters</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///   Contact list
+        /// List of contacts
         /// </returns>
         [Delete(@"contact/filter")]
         public IEnumerable<ContactBaseWrapper> DeleteBatchContacts(
@@ -585,14 +585,14 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        ///    Returns the list of all the persons linked to the company with the ID specified in the request
+        /// Returns a list of all the persons linked to the company with the ID specified in the request.
         /// </summary>
         /// <param name="companyid">Company ID</param>
         /// <exception cref="ArgumentException"></exception>
-        /// <short>Get company linked persons list</short> 
+        /// <short>Get persons linked to the company</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///   Linked persons
+        /// Company linked persons
         /// </returns>
         [Read(@"contact/company/{companyid:[0-9]+}/person")]
         public IEnumerable<ContactWrapper> GetPeopleFromCompany(int companyid)
@@ -602,20 +602,20 @@ namespace ASC.Api.CRM
             var company = DaoFactory.ContactDao.GetByID(companyid);
             if (company == null || !CRMSecurity.CanAccessTo(company)) throw new ItemNotFoundException();
 
-            return ToListContactWrapper(DaoFactory.ContactDao.GetMembers(companyid).Where(CRMSecurity.CanAccessTo).ToList());
+            return ToListContactWrapper(DaoFactory.ContactDao.GetMembers(companyid));
         }
 
         /// <summary>
-        ///   Adds the selected person to the company with the ID specified in the request
+        /// Adds the selected person to the company with the ID specified in the request.
         /// </summary>
         /// <param optional="true"  name="companyid">Company ID</param>
         /// <param optional="true" name="personid">Person ID</param>
-        /// <short>Add person to company</short> 
+        /// <short>Add a person to the company</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Person
+        /// Person
         /// </returns>
         [Create(@"contact/company/{companyid:[0-9]+}/person")]
         public PersonWrapper AddPeopleToCompany(int companyid, int personid)
@@ -634,16 +634,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the selected person from the company with the ID specified in the request
+        /// Deletes the selected person from the company with the ID specified in the request.
         /// </summary>
         /// <param optional="true"  name="companyid">Company ID</param>
         /// <param optional="true" name="personid">Person ID</param>
-        /// <short>Delete person from company</short> 
+        /// <short>Delete a person from the company</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Person
+        /// Person
         /// </returns>
         [Delete(@"contact/company/{companyid:[0-9]+}/person")]
         public PersonWrapper DeletePeopleFromCompany(int companyid, int personid)
@@ -662,18 +662,18 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Creates the person with the parameters (first name, last name, description, etc.) specified in the request
+        /// Creates a person with the parameters (first name, last name, description, etc.) specified in the request.
         /// </summary>
         /// <param name="firstName">First name</param>
         /// <param name="lastName">Last name</param>
-        /// <param optional="true"  name="jobTitle">Post</param>
+        /// <param optional="true"  name="jobTitle">Job title</param>
         /// <param optional="true" name="companyId">Company ID</param>
         /// <param optional="true" name="about">Person description text</param>
-        /// <param name="shareType">Person privacy: 0 - not shared, 1 - shared for read/write, 2 - shared for read only</param>
-        /// <param optional="true" name="managerList">List of managers for the person</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
+        /// <param name="shareType">Person privacy: 0 - not shared, 1 - shared for reading/writing, 2 - shared for reading only</param>
+        /// <param optional="true" name="managerList">List of person managers</param>
+        /// <param optional="true" name="customFieldList">Custom field list</param>
         /// <param optional="true" name="photo">Contact photo (upload using multipart/form-data)</param>
-        /// <short>Create person</short> 
+        /// <short>Create a person</short> 
         /// <category>Contacts</category>
         /// <returns>Person</returns>
         /// <exception cref="ArgumentException"></exception>
@@ -738,15 +738,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Changes the photo for the contact with the ID specified in the request
+        /// Changes a photo for the contact with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <param name="photo">Contact photo (upload using multipart/form-data)</param>
-        /// <short> Change contact photo</short> 
+        /// <short>Change a contact photo</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///    Path to contact photo
+        /// Path to the contact photo
         /// </returns>
         [Update(@"contact/{contactid:[0-9]+}/changephoto")]
         public string ChangeContactPhoto(int contactid, IEnumerable<HttpPostedFileBase> photo)
@@ -775,15 +775,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Changes the photo for the contact with the ID specified in the request
+        /// Changes a photo for the contact with the ID specified in the request by URL.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
-        /// <param name="photourl">contact photo url</param>
-        /// <short> Change contact photo</short> 
+        /// <param name="photourl">Contact photo URL</param>
+        /// <short>Change a contact photo by URL</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///    Path to contact photo
+        /// Path to the contact photo
         /// </returns>
         [Update(@"contact/{contactid:[0-9]+}/changephotobyurl")]
         public string ChangeContactPhoto(int contactid, string photourl)
@@ -797,17 +797,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Merge two selected contacts
+        /// Merges two contacts specified in the request.
         /// </summary>
-        /// <param name="fromcontactid">the first contact ID for merge</param>
-        /// <param name="tocontactid">the second contact ID for merge</param>
+        /// <param name="fromcontactid">The first contact ID to merge</param>
+        /// <param name="tocontactid">The second contact ID to merge</param>
         /// <short>Merge contacts</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <exception cref="SecurityException"></exception>
         /// <returns>
-        ///    Contact
+        /// Contact
         /// </returns>
         [Update(@"contact/merge")]
         public ContactWrapper MergeContacts(int fromcontactid, int tocontactid)
@@ -831,19 +831,19 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected person with the parameters (first name, last name, description, etc.) specified in the request
+        /// Updates the selected person with the parameters (first name, last name, description, etc.) specified in the request.
         /// </summary>
         /// <param name="personid">Person ID</param>
-        /// <param name="firstName">First name</param>
-        /// <param name="lastName">Last name</param>
-        /// <param optional="true"  name="jobTitle">Post</param>
-        /// <param optional="true" name="companyId">Company ID</param>
-        /// <param optional="true" name="about">Person description text</param>
-        /// <param name="shareType">Person privacy: 0 - not shared, 1 - shared for read/write, 2 - shared for read only</param>
-        /// <param optional="true" name="managerList">List of persons managers</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
-        /// <param optional="true" name="photo">Contact photo (upload using multipart/form-data)</param>
-        /// <short>Update person</short> 
+        /// <param name="firstName">New first name</param>
+        /// <param name="lastName">New last name</param>
+        /// <param optional="true"  name="jobTitle">New job title</param>
+        /// <param optional="true" name="companyId">New company ID</param>
+        /// <param optional="true" name="about">New person description text</param>
+        /// <param name="shareType">New person privacy: 0 - not shared, 1 - shared for reading/writing, 2 - shared for reading only</param>
+        /// <param optional="true" name="managerList">New list of person managers</param>
+        /// <param optional="true" name="customFieldList">New custom field list</param>
+        /// <param optional="true" name="photo">New contact photo (upload using multipart/form-data)</param>
+        /// <short>Update a person</short> 
         /// <category>Contacts</category>
         /// <returns>Person</returns>
         /// <exception cref="ArgumentException"></exception>
@@ -908,16 +908,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Creates the company with the parameters specified in the request
+        /// Creates a company with the parameters specified in the request.
         /// </summary>
         /// <param  name="companyName">Company name</param>
         /// <param optional="true" name="about">Company description text</param>
-        /// <param optional="true" name="personList">Linked person list</param>
-        /// <param name="shareType">Company privacy: 0 - not shared, 1 - shared for read/write, 2 - shared for read only</param>
-        /// <param optional="true" name="managerList">List of managers for the company</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
+        /// <param optional="true" name="personList">List of persons linked to the company</param>
+        /// <param name="shareType">Company privacy: 0 - not shared, 1 - shared for reading/writing, 2 - shared for reading only</param>
+        /// <param optional="true" name="managerList">List of company managers</param>
+        /// <param optional="true" name="customFieldList">Custom field list</param>
         /// <param optional="true" name="photo">Contact photo (upload using multipart/form-data)</param>
-        /// <short>Create company</short> 
+        /// <short>Create a company</short> 
         /// <category>Contacts</category>
         /// <returns>Company</returns>
         /// <exception cref="ArgumentException"></exception>
@@ -983,14 +983,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Quickly creates the list of companies
+        /// Creates a list of companies with the names specified in the request.
         /// </summary>
         /// <short>
-        ///    Quick company list creation
+        /// Create companies
         /// </short>
         /// <param name="companyName">Company name</param>
         /// <category>Contacts</category>
-        /// <returns>Contact list</returns>
+        /// <returns>List of contacts</returns>
         /// <exception cref="ArgumentException"></exception>
         [Create(@"contact/company/quick")]
         public IEnumerable<ContactBaseWrapper> CreateCompany(IEnumerable<string> companyName)
@@ -1027,20 +1027,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Quickly creates the list of persons with the first and last names specified in the request
+        /// Creates a list of persons with the first and last names specified in the request.
         /// </summary>
         /// <short>
-        ///    Quick person list creation
+        /// Create persons
         /// </short>
         /// <param name="data">Pairs: user first name, user last name</param>
         /// <remarks>
         /// <![CDATA[
-        ///  data has format
-        ///  [{key: 'First name 1', value: 'Last name 1'},{key: 'First name 2', value: 'Last name 2'}]
+        ///  Data has the following format:
+        ///  [{key: 'First name 1', value: 'Last name 1'}, {key: 'First name 2', value: 'Last name 2'}].
         /// ]]>
         /// </remarks>
         /// <category>Contacts</category>
-        /// <returns>Contact list</returns>
+        /// <returns>List of contacts</returns>
         /// <exception cref="ArgumentException"></exception>
         [Create(@"contact/person/quick")]
         public IEnumerable<ContactBaseWrapper> CreatePerson(IEnumerable<ItemKeyValuePair<string, string>> data)
@@ -1080,19 +1080,19 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected company with the parameters specified in the request
+        /// Updates the selected company with the parameters specified in the request.
         /// </summary>
         /// <param name="companyid">Company ID</param>
-        /// <param  name="companyName">Company name</param>
-        /// <param optional="true" name="about">Company description text</param>
-        /// <param name="shareType">Company privacy: 0 - not shared, 1 - shared for read/write, 2 - shared for read only</param>
-        /// <param optional="true" name="managerList">List of company managers</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
-        /// <short>Update company</short> 
+        /// <param  name="companyName">New company name</param>
+        /// <param optional="true" name="about">New company description text</param>
+        /// <param name="shareType">New company privacy: 0 - not shared, 1 - shared for reading/writnig, 2 - shared for reading only</param>
+        /// <param optional="true" name="managerList">New list of company managers</param>
+        /// <param optional="true" name="customFieldList">New custom field list</param>
+        /// <short>Update a company</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///   Company
+        /// Company
         /// </returns>
         [Update(@"contact/company/{companyid:[0-9]+}")]
         public CompanyWrapper UpdateCompany(
@@ -1137,16 +1137,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected contact status
+        /// Updates a status of the contact with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
-        /// <param  name="contactStatusid">Contact status ID</param>
-        /// <short>Update status in contact by id</short> 
+        /// <param  name="contactStatusid">New contact status ID</param>
+        /// <short>Update a contact status by ID</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Company
+        /// Company
         /// </returns>
         [Update(@"contact/{contactid:[0-9]+}/status")]
         public ContactWrapper UpdateContactStatus(int contactid, int contactStatusid)
@@ -1176,16 +1176,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates status of the selected company and all its participants
+        /// Updates a status of the selected company and all its participants.
         /// </summary>
         /// <param name="companyid">Company ID</param>
-        /// <param  name="contactStatusid">Contact status ID</param>
-        /// <short>Update company and participants status</short> 
+        /// <param  name="contactStatusid">New contact status ID</param>
+        /// <short>Update a status of a company and its participants</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Company
+        /// Company
         /// </returns>
         [Update(@"contact/company/{companyid:[0-9]+}/status")]
         public ContactWrapper UpdateCompanyAndParticipantsStatus(int companyid, int contactStatusid)
@@ -1226,16 +1226,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates status of the selected person, related company and all its participants
+        /// Updates a status of the selected person, related company and all its participants.
         /// </summary>
         /// <param name="personid">Person ID</param>
-        /// <param  name="contactStatusid">Contact status ID</param>
-        /// <short>Update person, related company and participants status</short> 
+        /// <param  name="contactStatusid">New contact status ID</param>
+        /// <short>Update a status of a person, related company and its participants</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Person
+        /// Person
         /// </returns>
         [Update(@"contact/person/{personid:[0-9]+}/status")]
         public ContactWrapper UpdatePersonAndItsCompanyStatus(int personid, int contactStatusid)
@@ -1297,14 +1297,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Get access rights to the contact with the ID specified in the request
+        /// Returns access rights to the contact with the ID specified in the request.
         /// </summary>
+        /// <param name="contactid">Contact ID</param>
         /// <short>Get contact access rights</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="SecurityException"></exception>
-        /// <returns>User list</returns>
+        /// <returns>List of contacts</returns>
         [Read(@"contact/{contactid:[0-9]+}/access")]
         public IEnumerable<EmployeeWraper> GetContactAccessList(int contactid)
         {
@@ -1323,18 +1324,18 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for other users to the contact with the ID specified in the request
+        /// Sets access rights to the contact with the ID specified in the request.
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <param name="isShared">Contact privacy: private or not</param>
         /// <param name="managerList">List of managers</param>
-        /// <short>Set contact access rights</short> 
+        /// <short>Set access rights to the contact</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="SecurityException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Contact
+        /// Contact
         /// </returns>
         [Update(@"contact/{contactid:[0-9]+}/access")]
         public ContactWrapper SetAccessToContact(int contactid, bool isShared, IEnumerable<Guid> managerList)
@@ -1378,17 +1379,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for other users to the list of contacts with the IDs specified in the request
+        /// Sets access rights to the list of contacts with the IDs specified in the request.
         /// </summary>
-        /// <param name="contactid">Contact ID list</param>
+        /// <param name="contactid">List of contact IDs</param>
         /// <param name="isShared">Company privacy: shared or not</param>
         /// <param name="managerList">List of managers</param>
-        /// <short>Set contact access rights</short> 
+        /// <short>Set access rights to the contacts by IDs</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Contact list
+        /// List of contacts
         /// </returns>
         [Update(@"contact/access")]
         public IEnumerable<ContactWrapper> SetAccessToBatchContact(IEnumerable<int> contactid, bool isShared, IEnumerable<Guid> managerList)
@@ -1407,22 +1408,22 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Sets access rights for the selected user to the list of contacts with the parameters specified in the request
+        /// Sets access rights to the list of contacts with the parameters specified in the request.
         /// </summary>
         /// <param name="isPrivate">Contact privacy: private or not</param>
         /// <param name="managerList">List of managers</param>
-        /// <param optional="true" name="tags">Tag</param>
+        /// <param optional="true" name="tags">Contact tags</param>
         /// <param optional="true" name="contactStage">Contact stage ID (warmth)</param>
         /// <param optional="true" name="contactType">Contact type ID</param>
-        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity"></param>
+        /// <param optional="true" name="contactListView" remark="Allowed values: Company, Person, WithOpportunity">Contact list view</param>
         /// <param optional="true" name="fromDate">Start date</param>
         /// <param optional="true" name="toDate">End date</param>
-        /// <short>Set contact access rights</short> 
+        /// <short>Set access rights to the contacts by parameters</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Contact list
+        /// List of contacts
         /// </returns>
         [Update(@"contact/filter/access")]
         public IEnumerable<ContactWrapper> SetAccessToBatchContact(
@@ -1468,15 +1469,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Deletes the contact with the ID specified in the request from the portal
+        /// Deletes a contact with the ID specified in the request from the portal.
         /// </summary>
-        /// <short>Delete contact</short> 
+        /// <short>Delete a contact</short> 
         /// <category>Contacts</category>
         /// <param name="contactid">Contact ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Contact
+        /// Contact
         /// </returns>
         [Delete(@"contact/{contactid:[0-9]+}")]
         public ContactWrapper DeleteContact(int contactid)
@@ -1493,15 +1494,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the group of contacts with the IDs specified in the request
+        /// Deletes a group of contacts with the IDs specified in the request.
         /// </summary>
-        /// <param name="contactids">Contact ID list</param>
+        /// <param name="contactids">List of contact IDs</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        /// <short>Delete contact group</short> 
+        /// <short>Delete contacts by IDs</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///   Contact list
+        /// List of contacts
         /// </returns>
         [Update(@"contact")]
         public IEnumerable<ContactBaseWrapper> DeleteBatchContacts(IEnumerable<int> contactids)
@@ -1515,15 +1516,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of 30 contacts in the CRM module with prefix
+        /// Returns a list of 30 contacts from the CRM module with a prefix specified in the request.
         /// </summary>
-        /// <param optional="true" name="prefix"></param>
-        /// <param optional="false" name="searchType" remark="Allowed values: -1 (Any), 0 (Company), 1 (Persons), 2 (PersonsWithoutCompany), 3 (CompaniesAndPersonsWithoutCompany)">searchType</param>
-        /// <param optional="true" name="entityType"></param>
-        /// <param optional="true" name="entityID"></param>
+        /// <short>Get contacts by prefix</short>
+        /// <param optional="true" name="prefix">Contact prefix</param>
+        /// <param optional="false" name="searchType" remark="Allowed values: -1 (Any), 0 (Company), 1 (Persons), 2 (PersonsWithoutCompany), 3 (CompaniesAndPersonsWithoutCompany)">Contact search type</param>
+        /// <param optional="true" name="entityType">Contact entity type</param>
+        /// <param optional="true" name="entityID">Contact entity ID</param>
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         /// <visible>false</visible>
         [Read(@"contact/byprefix")]
@@ -1582,15 +1584,16 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        ///    Returns the list contacts in the CRM module with contact information
+        /// Returns a list of contacts from the CRM module with the contact information specified in the request.
         /// </summary>
         /// <param optional="false" name="infoType">Contact information type</param>
-        /// <param optional="false" name="data">Data</param>
-        /// <param optional="true" name="category">Category</param>
+        /// <param optional="false" name="data">Contact data</param>
+        /// <param optional="true" name="category">Contact category</param>
         /// <param optional="true" name="isPrimary">Contact importance: primary or not</param>
+        /// <short>Get contacts by contact information</short>
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact list
+        /// List of contacts
         /// </returns>
         [Read(@"contact/bycontactinfo")]
         public IEnumerable<ContactWrapper> GetContactsByContactInfo(ContactInfoType? infoType, String data, int? category, bool? isPrimary)
@@ -1605,12 +1608,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// 
+        /// Returns a certain number of tweets created by a user with the ID specified in the request.
         /// </summary>
-        /// <param name="contactid"></param>
-        /// <param name="count"></param>
+        /// <param name="contactid">Contact ID</param>
+        /// <param name="count">Number of tweets</param>
+        /// <short>Get user tweets</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>List of tweets</returns>
         [Read(@"contact/{contactid:[0-9]+}/tweets")]
         public List<Message> GetUserTweets(int contactid, int count)
         {
@@ -1636,7 +1640,7 @@ namespace ASC.Api.CRM
             {
                 try
                 {
-                    messages.AddRange(twitterProvider.GetUserTweets(twitterAccount.ID, twitterAccount.Data, MessageCount));
+                    messages.AddRange(twitterProvider.GetUserTweets(twitterAccount.Data, MessageCount));
                 }
                 catch (ResourceNotFoundException ex)
                 {
@@ -1669,11 +1673,12 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        /// 
+        /// Returns a list of twitter profiles by the search text specified in the request.
         /// </summary>
-        /// <param name="searchText"></param>
+        /// <param name="searchText">Search text</param>
+        /// <short>Get twitter profiles</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>List of twitter profiles</returns>
         [Read(@"contact/twitterprofile")]
         public List<TwitterUserInfo> FindTwitterProfiles(string searchText)
         {
@@ -1698,13 +1703,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// 
+        /// Deletes an avatar of the contact with the ID specified in the request.
         /// </summary>
-        /// <param name="contactId"></param>
-        /// <param name="contactType"></param>
-        /// <param name="uploadOnly"></param>
+        /// <param name="contactId">Contact ID</param>
+        /// <param name="contactType">Contact type ID</param>
+        /// <param name="uploadOnly">Defines if an avatar is already uploaded or not</param>
+        /// <short>Delete a contact avatar</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>Default photo</returns>
         [Delete(@"contact/{contactid:[0-9]+}/avatar")]
         public string DeleteContactAvatar(int contactId, string contactType, bool uploadOnly)
         {
@@ -1733,11 +1739,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// 
+        /// Returns a list of the social media images for the contact with the ID specified in the request.
         /// </summary>
-        /// <param name="contactId"></param>
+        /// <param name="contactId">Contact ID</param>
+        /// <short>Get contact social media images by contact ID</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>List of social media images</returns>
         [Read(@"contact/{contactid:[0-9]+}/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImages(int contactId)
         {
@@ -1745,11 +1752,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// 
+        /// Returns a list of the contact social media images for the social networks specified in the request.
         /// </summary>
-        /// <param name="socialNetworks"></param>
+        /// <param name="socialNetworks">List of contact social networks</param>
+        /// <short>Get contact social media images by networks</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>List of social media images</returns>
         [Create(@"contact/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImagesByNetworks(List<ContactInfoWrapper> socialNetworks)
         {
@@ -1768,15 +1776,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// 
+        /// Uploads an avatar of the contact with the ID specified in the request from the social network.
         /// </summary>
-        /// <param name="contactId"></param>
-        /// <param name="socialNetwork"></param>
-        /// <param name="userIdentity"></param>
-        /// <param name="uploadOnly"></param>
-        /// <param name="tmpDirName" visible="false"></param>
+        /// <param name="contactId">Contact ID</param>
+        /// <param name="socialNetwork">Contact social network</param>
+        /// <param name="userIdentity">User identity</param>
+        /// <param name="uploadOnly">Defines if an avatar is already uploaded or not</param>
+        /// <param name="tmpDirName" visible="false">Temporary directory name</param>
+        /// <short>Upload an avatar from social network</short>
         /// <category>Contacts</category>
-        /// <returns></returns>
+        /// <returns>Avatar</returns>
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
         public ContactPhotoManager.PhotoData UploadUserAvatarFromSocialNetwork(int contactId, SocialNetworks socialNetwork, string userIdentity, bool uploadOnly, string tmpDirName)
         {
@@ -1801,6 +1810,17 @@ namespace ASC.Api.CRM
             return null;
         }
 
+        /// <summary>
+        /// Sends a mail through SMTP to contacts with the IDs specified in the request.
+        /// </summary>
+        /// <param name="fileIDs">File IDs</param>
+        /// <param name="contactIds">Contact IDs</param>
+        /// <param name="subject">Mail subject</param>
+        /// <param name="body">Mail body</param>
+        /// <param name="storeInHistory" visible="false">Defines if a mail will be stored in the history or not</param>
+        /// <short>Send a mail</short>
+        /// <category>Contacts</category>
+        /// <returns>Mail</returns>
         /// <visible>false</visible>
         [Create(@"contact/mailsmtp/send")]
         public IProgressItem SendMailSMTPToContacts(List<int> fileIDs, List<int> contactIds, String subject, String body, bool storeInHistory)
@@ -1813,6 +1833,14 @@ namespace ASC.Api.CRM
             return MailSender.Start(fileIDs, contactIds, subject, body, storeInHistory);
         }
 
+        /// <summary>
+        /// Returns a preview of a mail sent through SMTP to contact with the ID specified in the request.
+        /// </summary>
+        /// <param name="template">Mail template</param>
+        /// <param name="contactId">Contact ID</param>
+        /// <short>Get a mail preview</short>
+        /// <category>Contacts</category>
+        /// <returns>Mail preview</returns>
         /// <visible>false</visible>
         [Create(@"contact/mailsmtp/preview")]
         public string GetMailSMTPToContactsPreview(string template, int contactId)
@@ -1824,6 +1852,13 @@ namespace ASC.Api.CRM
             return manager.Apply(template, contactId);
         }
 
+
+        /// <summary>
+        /// Returns a status of a mail sent through SMTP to the current contact.
+        /// </summary>
+        /// <short>Get a mail status</short>
+        /// <category>Contacts</category>
+        /// <returns>Mail status</returns>
         /// <visible>false</visible>
         [Read(@"contact/mailsmtp/status")]
         public IProgressItem GetMailSMTPToContactsStatus()
@@ -1831,6 +1866,12 @@ namespace ASC.Api.CRM
             return MailSender.GetStatus();
         }
 
+        /// <summary>
+        /// Cancels the mail sending through SMTP to the current contacts.
+        /// </summary>
+        /// <short>Cancel mail sending</short>
+        /// <category>Contacts</category>
+        /// <returns>Mail status</returns>
         /// <visible>false</visible>
         [Update(@"contact/mailsmtp/cancel")]
         public IProgressItem CancelMailSMTPToContacts()
@@ -1840,6 +1881,13 @@ namespace ASC.Api.CRM
             return progressItem;
         }
 
+        /// <summary>
+        /// Sets the creation date of a contact with the ID specified in the request.
+        /// </summary>
+        /// <param name="contactId">Contact ID</param>
+        /// <param name="creationDate">Contact creation date</param>
+        /// <short>Set the contact creation date</short>
+        /// <category>Contacts</category>
         /// <visible>false</visible>
         [Update(@"contact/{contactid:[0-9]+}/creationdate")]
         public void SetContactCreationDate(int contactId, ApiDateTime creationDate)
@@ -1853,6 +1901,12 @@ namespace ASC.Api.CRM
             dao.SetContactCreationDate(contactId, creationDate);
         }
 
+        /// <summary>
+        /// Sets the last modified date of a contact with the ID specified in the request.
+        /// </summary>
+        /// <param name="contactId">Contact ID</param>
+        /// <param name="lastModifedDate">Contact last modified date</param>
+        /// <short>Set the contact last modified date</short>
         /// <visible>false</visible>
         [Update(@"contact/{contactid:[0-9]+}/lastmodifeddate")]
         public void SetContactLastModifedDate(int contactId, ApiDateTime lastModifedDate)

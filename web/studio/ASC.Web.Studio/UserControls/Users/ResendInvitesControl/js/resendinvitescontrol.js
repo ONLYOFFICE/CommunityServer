@@ -16,11 +16,11 @@
 
 
 jq(function() {
-    jq('#resendBtn').click(function() {
+    jq('#resendBtn').on("click", function() {
         InvitesResender.Resend();
     });
  
-    jq('#resendCancelBtn, #resendInvitesCloseBtn').click(function() {
+    jq('#resendCancelBtn, #resendInvitesCloseBtn').on("click", function() {
         InvitesResender.Hide();
     });
 });
@@ -52,7 +52,7 @@ var InvitesResender = new function() {
 
         StudioBlockUIManager.blockUI("#inviteResender", 350);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#resendBtn\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#resendBtn\").trigger('click');";
     }
     
     this.Hide = function() {

@@ -35,6 +35,8 @@ using ASC.Notify.Patterns;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
 
+using Constants = ASC.Feed.Constants;
+
 namespace ASC.Web.Studio.Core.Notify
 {
     public class StudioWhatsNewNotify
@@ -76,7 +78,7 @@ namespace ASC.Web.Studio.Core.Notify
                             continue;
                         }
 
-                        SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(user.ID));
+                        SecurityContext.CurrentUser = user.ID;
 
                         var culture = string.IsNullOrEmpty(user.CultureName) ? tenant.GetCulture() : user.GetCulture();
 
@@ -108,7 +110,7 @@ namespace ASC.Web.Studio.Core.Notify
                             g => g.Key.Name,
                             g => g.Select(f => new WhatsNewUserActivity
                             {
-                                Date = f.CreatedDate,
+                                Date = f.Item.Equals(Constants.BirthdaysModule) ? TenantUtil.DateTimeToUtc(f.CreatedDate) : f.CreatedDate,
                                 UserName = f.Author != null && f.Author.UserInfo != null ? f.Author.UserInfo.DisplayUserName() : string.Empty,
                                 UserAbsoluteURL = f.Author != null && f.Author.UserInfo != null ? CommonLinkUtility.GetFullAbsolutePath(f.Author.UserInfo.GetUserProfilePageURL()) : string.Empty,
                                 Title = HtmlUtil.GetText(f.Title, 512),
@@ -226,6 +228,10 @@ namespace ASC.Web.Studio.Core.Notify
                 return WebstudioNotifyPatternResource.ActionCreateFile;
             else if (feed.Module == ASC.Feed.Constants.FoldersModule)
                 return WebstudioNotifyPatternResource.ActionCreateFolder;
+            else if (feed.Module == ASC.Feed.Constants.BirthdaysModule)
+                return WebstudioNotifyPatternResource.ActionBirthday;
+            else if (feed.Module == ASC.Feed.Constants.NewEmployeeModule)
+                return WebstudioNotifyPatternResource.ActionNewEmployee;
 
             return "";
         }

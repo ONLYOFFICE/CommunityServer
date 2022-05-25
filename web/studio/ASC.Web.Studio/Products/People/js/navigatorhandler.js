@@ -50,7 +50,7 @@ ASC.People.PageNavigator = (function () {
             $totalUsers.text(usersCount);
         }
 
-        jq(window).bind('people-render-profiles', onRenderProfiles);
+        jq(window).on('people-render-profiles', onRenderProfiles);
     };
 
     return {

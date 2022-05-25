@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>Tính năng {0}Cài đặt Logo Cổng thông tin{1} chỉ dành cho cổng thông tin đã trả phí.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo cho trang Giới thiệu/Đăng nhập</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo cho header của trình soạn thảo</value>
   </data>

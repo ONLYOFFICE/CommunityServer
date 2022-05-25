@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>openstack.net</id>
+    <version>0.0.0</version>
+    <title>openstack.net</title>
+    <authors>alanquillin, kravi, ejwebb, jasonmitschke, bretmc, sharwell, carolynvs, dwalleck</authors>
+    <owners>dwalleck</owners>
+    <licenseUrl>http://openstacknetsdk.org/docs/html/8b286b82-7aaf-4e45-9ffc-adbd7dbcfaa6.htm</licenseUrl>
+    <projectUrl>https://github.com/openstacknetsdk/openstack.net</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>An OpenStack SDK for Microsoft .NET</description>
+    <releaseNotes>https://github.com/openstacknetsdk/openstack.net/releases/v$version$</releaseNotes>
+    <copyright></copyright>
+    <tags>openstack</tags>
+    <dependencies>
+      <group targetFramework="4.5">
+        <dependency id="Newtonsoft.Json" version="6.0.1" />
+        <dependency id="Flurl.Signed" version="[1, 1.1)" />
+        <dependency id="Flurl.Http.Signed" version="[0.7.0, 0.8)" />
+        <dependency id="Marvin.JsonPatch.Signed" version="[0.7.0]" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+
+    <!-- Runtime libraries -->
+    <file src="bin\v4.0\$Configuration$\deploy\openstacknet.dll" target="lib\net45"/>
+    <file src="bin\v4.0\$Configuration$\deploy\openstacknet.pdb" target="lib\net45"/>
+    <!-- <file src="..\..\artifacts\docs\Api\v4.0\openstacknet.xml" target="lib\net45"/> -->
+
+  </files>
+</package>

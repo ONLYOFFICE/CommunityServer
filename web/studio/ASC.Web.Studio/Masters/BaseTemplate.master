@@ -10,6 +10,7 @@
 <%@ Register TagPrefix="master" TagName="HeadStyles" Src="HeadStyles.ascx" %>
 <%@ Register TagPrefix="master" TagName="CommonStyles" Src="CommonStyles.ascx" %>
 <%@ Register TagPrefix="master" TagName="ThemeStyles" Src="ThemeStyles.ascx" %>
+<%@ Register TagPrefix="master" TagName="FirstScripts" Src="FirstScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="HeadScripts" Src="HeadScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="CommonBodyScripts" Src="CommonBodyScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="BodyScripts" Src="BodyScripts.ascx" %>
@@ -46,11 +47,6 @@
         <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
         <% } %>
 
-        <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/layout.css") %>" />
-        <% if (!DisabledLayoutMedia) { %>
-        <link type="text/css" rel="stylesheet" href="<%= ResolveUrl(Request.DesktopApp() ? "~/skins/default/layout-desktop.css" : "~/skins/default/layout-media.css") %>" />
-        <% } %>
-
         <master:ThemeStyles ID="ThemeStyles" runat="server" />
         <master:CommonStyles ID="CommonStyles" runat="server" />
         <rbc:ResourceStyleBundleControl ID="StaticStyle" runat="server" />
@@ -67,7 +63,7 @@
         <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
         <link rel="manifest" href="/manifest.json" />
 
-        <script type="text/javascript" src="<%= ResolveUrl("~/js/asc/core/headscript.js") %>"></script>
+        <master:FirstScripts ID="FirstScripts" runat="server" />
 
     </head>
 <body class="<%= ColorThemeClass %>
@@ -96,7 +92,7 @@
                 <div class="nav-content webkit-scrollbar">
                     <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
                     <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
-                    <asp:PlaceHolder ID="BannerHolder" runat="server" />
+                    <div class="layout-bottom-spacer"></div>
                 </div>
                 <% if (EnabledWebChat && !IsMobile)
                     { %>
@@ -126,6 +122,7 @@
                 </div>
                 <div class="page-content mainPageContent webkit-scrollbar">
                     <asp:ContentPlaceHolder ID="PageContent" runat="server" />
+                    <div class="layout-bottom-spacer"></div>
                 </div>
                 <div class="paging-content">
                     <asp:ContentPlaceHolder ID="PagingContent" runat="server"></asp:ContentPlaceHolder>
@@ -137,7 +134,6 @@
     <div id="container" style="position: absolute; top: 0; left: 0;"></div>
 
     <master:HeadScripts ID="HeadScripts" runat="server" />
-
     <client:ClientScriptReference ID="clientLocalizationScript" runat="server" />
     <client:ClientScriptReference ID="baseTemplateMasterScripts" runat="server" />
 

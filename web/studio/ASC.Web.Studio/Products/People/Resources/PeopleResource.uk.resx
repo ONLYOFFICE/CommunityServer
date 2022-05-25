@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Додати учасників</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Дні Народження</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Заблокован</value>
   </data>

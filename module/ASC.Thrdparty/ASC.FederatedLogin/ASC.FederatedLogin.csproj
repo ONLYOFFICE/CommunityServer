@@ -83,12 +83,13 @@
     <Compile Include="LoginProviders\BitlyLoginProvider.cs" />
     <Compile Include="LoginProviders\EncryptionLoginProvider.cs" />
     <Compile Include="LoginProviders\BoxLoginProvider.cs" />
+    <Compile Include="LoginProviders\AppleIdLoginProvider.cs" />
+    <Compile Include="LoginProviders\MicrosoftLoginProvider.cs" />
     <Compile Include="LoginProviders\TelegramLoginProvider.cs" />
     <Compile Include="LoginProviders\GosUslugiLoginProvider.cs" />
     <Compile Include="LoginProviders\MailRuLoginProvider.cs" />
     <Compile Include="LoginProviders\VKLoginProvider.cs" />
     <Compile Include="LoginProviders\WordpressLoginProvider.cs" />
-    <Compile Include="LoginProviders\YahooLoginProvider.cs" />
     <Compile Include="LoginProviders\IValidateKeysProvider.cs" />
     <Compile Include="LoginProviders\DocuSignLoginProvider.cs" />
     <Compile Include="LoginProviders\DropboxLoginProvider.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="LoginProviders\ILoginProvider.cs" />
     <Compile Include="LoginProviders\LinkedInLoginProvider.cs" />
     <Compile Include="LoginProviders\OneDriveLoginProvider.cs" />
-    <Compile Include="LoginProviders\OpenIdLoginProvider.cs" />
     <Compile Include="LoginProviders\ProviderManager.cs" />
     <Compile Include="LoginProviders\TwitterLoginProvider.cs" />
     <Compile Include="LoginProviders\YandexLoginProvider.cs" />
@@ -140,14 +140,14 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetOpenAuth.Ultimate">
-      <Version>4.1.0.12182</Version>
-    </PackageReference>
     <PackageReference Include="JWT">
-      <Version>1.3.4</Version>
+      <Version>8.2.3</Version>
     </PackageReference>
-    <PackageReference Include="twitterizer">
-      <Version>2.4.2.2</Version>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt">
+      <Version>6.12.2</Version>
+    </PackageReference>
+    <PackageReference Include="TweetinviAPI">
+      <Version>5.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

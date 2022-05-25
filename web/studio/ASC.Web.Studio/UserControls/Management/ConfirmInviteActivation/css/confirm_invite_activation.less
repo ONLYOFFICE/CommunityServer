@@ -117,22 +117,66 @@
 
     .property {
         margin-bottom: 10px;
+        font-size: 11px;
+
+        .value {
+            position: relative;
+
+            .eye-label {
+                position: absolute;
+                top: 5px;
+                right: 6px;
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+            }
+
+            .eye-label.hide-label {
+                background: url("../../../Users/UserProfile/css/images/access-deny.svg");
+            }
+
+            .eye-label.show-label {
+                background: url("../../../Users/UserProfile/css/images/read-only.svg");
+            }
+        }
 
         .name {
+            height: 17px;
             margin-bottom: 3px;
             font-weight: bolder;
         }
 
         .textEdit {
-            width: 250px;
-            padding: 3px;
+            width: 251px;
+            padding: 4px 3px;
         }
+
+        #studio_confirm_pwd, #studio_confirm_pwd_match {
+            width: 230px;
+            padding-right: 24px;
+        }
+
+    }
+
+    .name #password-do-not-match-text {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 9px;
+        color: #CC0000;
+        margin-bottom: 7px;
+        margin-top: 0px;
+        display: none;
     }
 
     .errorText {
         line-height: 12px;
         position: absolute;
         top: -37px;
+    }
+
+    .big-button-container {
+        margin-top: 36px;
     }
 
     .button.huge {
@@ -233,6 +277,16 @@
             margin-bottom: 32px;
             position: relative;
             width: 100%;
+
+            .value {
+                position: relative;
+
+                .eye-label {
+                    top: 20px;
+                    right: 22px;
+                }
+            }
+
 
             &.focus, &.error, &.valid {
                 &.input-hint-top {
@@ -358,6 +412,11 @@
                     border-color: #c44747;
                 }
             }
+
+            #studio_confirm_pwd, #studio_confirm_pwd_match {
+                width: 100%;
+                padding-right:40px;
+            }
         }
     }
 }
@@ -401,6 +460,10 @@
         .rightPart .property {
             height: 48px;
             margin-bottom: 24px;
+
+            .value .eye-label {
+                top: 16px;
+            }
 
             &.focus, &.error, &.valid {
                 &.input-hint-top {

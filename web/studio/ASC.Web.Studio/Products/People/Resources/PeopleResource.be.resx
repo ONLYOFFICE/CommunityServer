@@ -217,9 +217,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
   <data name="ImportPeople" xml:space="preserve">
     <value>Імпарт карыстальнікаў</value>
   </data>

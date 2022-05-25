@@ -25,12 +25,12 @@
     function managePeriodFilter(toggle) {
         if (toggle === true) {
             $('#periodSelection').removeClass('disabled');
-            $('#startDate input').removeAttr('disabled');
-            $('#endDate input').removeAttr('disabled');
+            $('#startDate input').prop("disabled", false);
+            $('#endDate input').prop("disabled", false);
         } else {
             $('#periodSelection').addClass('disabled');
-            $('#startDate input').attr('disabled', 'disabled');
-            $('#endDate input').attr('disabled', 'disabled');
+            $('#startDate input').prop('disabled', true);
+            $('#endDate input').prop('disabled', true);
         }
     }
 
@@ -158,7 +158,7 @@
 
     $(document).ready(function () {
         $('#visitorsChartCanvas')
-          .bind("plothover", function (evt, pos, item) {
+          .on("plothover", function (evt, pos, item) {
               if (item) {
                   if (!displayDates.hasOwnProperty(item.datapoint[0])) {
                       return;
@@ -238,7 +238,7 @@
           .datepicker("option", "minDate", minDate)
           .datepicker("option", "maxDate", defaultToDate);
 
-        $('#visitorsFilter').click(function(evt) {
+        $('#visitorsFilter').on("click", function(evt) {
             var $target = $(evt.target);
             if ($target.is('li.filter') && !$target.is('li.filter.selected')) {
                 changeFilter($target.attr('id'));
@@ -247,7 +247,7 @@
 
         changeFilter('filterBy3Months');
 
-        $(window).bind("resize resizeWinTimerWithMaxDelay", function () {
+        $(window).on("resize resizeWinTimerWithMaxDelay", function () {
             var plot = jq("#visitorsChartCanvas").data("plot");
             if (typeof (plot) !== "undefined") {
                 try {

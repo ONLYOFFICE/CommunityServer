@@ -133,7 +133,7 @@ var PhoneController = new function() {
             _enterPhone();
         });
 
-        PhoneController.phoneControlContainer.find("input.phoneControlInput:first").unbind('paste').bind('paste', function(e) {
+        PhoneController.phoneControlContainer.find("input.phoneControlInput:first").off('paste').on('paste', function(e) {
             setTimeout(
                 function() {
                     _enterPhone();
@@ -172,12 +172,12 @@ var PhoneController = new function() {
                 PhoneController.selectedCountryPhone = _getCountryByKey(key);
             } else {
                 PhoneController.selectedCountryPhone = _getCountryByKey(key);
-                phone_text = jq.trim(phone_text.replace(PhoneController.GetCountryPhoneReg(PhoneController.selectedCountryPhone.country_code), ""));
+                phone_text = phone_text.replace(PhoneController.GetCountryPhoneReg(PhoneController.selectedCountryPhone.country_code), "").trim();
                 phone_text = [PhoneController.selectedCountryPhone.country_code, phone_text].join("");
                 PhoneController.phoneControlContainer.find("input.phoneControlInput:first").val(phone_text);
             }
         } else {
-            phone_text = jq.trim(phone_text.replace(PhoneController.GetCountryPhoneReg(null), ""));
+            phone_text = phone_text.replace(PhoneController.GetCountryPhoneReg(null), "").trim();
             PhoneController.selectedCountryPhone = _getCountryByKey(key);
 
             phone_text = [PhoneController.selectedCountryPhone.country_code, phone_text].join("");
@@ -203,7 +203,7 @@ var PhoneController = new function() {
     };
 
     _purePhone = function () {
-        var phone_text = jq.trim(PhoneController.phoneControlContainer.find("input.phoneControlInput:first").val());
+        var phone_text = PhoneController.phoneControlContainer.find("input.phoneControlInput:first").val().trim();
         if (phone_text.length && phone_text[0] != '+') {
             phone_text = "+" + phone_text;
         }

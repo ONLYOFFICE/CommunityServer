@@ -240,14 +240,19 @@ namespace ASC.Projects.Data.DAO
             filter = (TaskFilter)filter.Clone();
 
             var query = new SqlQuery(TasksTable + " t")
-                .Select("t.create_by", "t.project_id")
+                .InnerJoin(TasksResponsibleTable + " tr", Exp.EqColumns("t.tenant_id", "tr.tenant_id") & Exp.EqColumns("t.id", "tr.task_id"))
+                .Select("tr.responsible_id", "t.project_id")
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
-                .Where("t.tenant_id", Tenant)
-                .Where(Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()));
+                .Where("t.tenant_id", Tenant);
+
+            if (filter.GetFromDate() != DateTime.MinValue && filter.GetToDate() != DateTime.MaxValue)
+            {
+                query.Where((Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()) & !Exp.Eq("t.start_date", DateTime.MinValue)) | Exp.Between("t.start_date", filter.GetFromDate(), filter.GetToDate()));
+            }
 
             if (filter.HasUserId)
             {
-                query.Where(Exp.In("t.create_by", filter.GetUserIds()));
+                query.Where(Exp.In("tr.responsible_id", filter.GetUserIds()));
                 filter.UserId = Guid.Empty;
                 filter.DepartmentId = Guid.Empty;
             }
@@ -256,11 +261,42 @@ namespace ASC.Projects.Data.DAO
 
             var queryCount = new SqlQuery()
                 .SelectCount()
-                .Select("t1.create_by", "t1.project_id")
+                .Select("t1.responsible_id", "t1.project_id")
                 .From(query, "t1")
-                .GroupBy("create_by", "project_id");
+                .GroupBy("responsible_id", "project_id");
+
 
             return Db.ExecuteList(queryCount).ConvertAll(b => new Tuple<Guid, int, int>(Guid.Parse((string)b[1]), Convert.ToInt32(b[2]), Convert.ToInt32(b[0])));
+        }
+
+        public List<Tuple<Guid, int, int>> GetByFilterAverageTime(TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            filter = (TaskFilter)filter.Clone();
+
+            var query = new SqlQuery(TasksTable + " t")
+                .Select("ROUND(AVG(TIME_TO_SEC(TIMEDIFF(t.status_changed, t.create_on))/60/60))", "tr.responsible_id, t.project_id")
+                .InnerJoin(TasksResponsibleTable + " tr", Exp.EqColumns("t.tenant_id", "tr.tenant_id") & Exp.EqColumns("t.id", "tr.task_id"))
+                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
+                .Where("t.tenant_id", Tenant)
+                .Where(Exp.Eq("t.status", 2))
+                .Where(Exp.Between("t.status_changed", filter.GetFromDate(), filter.GetToDate()));
+
+            if (filter.GetFromDate() != DateTime.MinValue && filter.GetToDate() != DateTime.MaxValue)
+            {
+                query.Where((Exp.Between("t.create_on", filter.GetFromDate(), filter.GetToDate()) & !Exp.Eq("t.start_date", DateTime.MinValue)) | Exp.Between("t.start_date", filter.GetFromDate(), filter.GetToDate()));
+            }
+
+            if (filter.HasUserId)
+            {
+                query.Where(Exp.In("tr.responsible_id", filter.GetUserIds()));
+                filter.UserId = Guid.Empty;
+                filter.DepartmentId = Guid.Empty;
+            }
+
+            query = CreateQueryFilterCount(query, filter, isAdmin, checkAccess);
+
+            query.GroupBy("tr.responsible_id", "project_id");
+            return Db.ExecuteList(query).ConvertAll(a => new Tuple<Guid, int, int>(Guid.Parse((string)a[1]), Convert.ToInt32(a[2]), Convert.ToInt32(a[0])));
         }
 
         public List<Task> GetByResponsible(Guid responsibleId, IEnumerable<TaskStatus> statuses)

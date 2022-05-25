@@ -26,10 +26,10 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns the list of alerts for the authenticated user
+        /// Returns a list of all the alerts for the authenticated user.
         /// </summary>
-        /// <returns>Alerts list</returns>
-        /// <short>Get alerts list</short> 
+        /// <returns>List of alerts</returns>
+        /// <short>Get alerts</short> 
         /// <category>Alerts</category>
         [Read(@"alert")]
         public IList<MailAlertData> GetAlerts()
@@ -38,11 +38,11 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Deletes the alert with the ID specified in the request
+        /// Deletes an alert with the ID specified in the request.
         /// </summary>
         /// <param name="id">Alert ID</param>
-        /// <returns>Deleted alert id. Same as request parameter.</returns>
-        /// <short>Delete alert by ID</short> 
+        /// <returns>Deleted alert ID. Same as the request parameter</returns>
+        /// <short>Delete an alert by ID</short> 
         /// <category>Alerts</category>
         [Delete(@"alert/{id}")]
         public long DeleteAlert(long id)

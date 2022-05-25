@@ -20,6 +20,7 @@ using System;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Sms;
 using ASC.Web.Studio.PublicResources;
@@ -42,14 +43,14 @@ namespace ASC.Web.Studio.Core.SMS
             user.MobilePhoneActivationStatus = MobilePhoneActivationStatus.NotActivated;
             if (SecurityContext.IsAuthenticated)
             {
-                CoreContext.UserManager.SaveUserInfo(user);
+                CoreContext.UserManager.SaveUserInfo(user, syncCardDav: true);
             }
             else
             {
                 try
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                    CoreContext.UserManager.SaveUserInfo(user);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
+                    CoreContext.UserManager.SaveUserInfo(user, syncCardDav: true);
                 }
                 finally
                 {
@@ -69,7 +70,7 @@ namespace ASC.Web.Studio.Core.SMS
         {
             if (user == null || Equals(user, Constants.LostUser)) throw new Exception(Resource.ErrorUserNotFound);
 
-            if (!StudioSmsNotificationSettings.IsVisibleSettings || !StudioSmsNotificationSettings.Enable) throw new MethodAccessException();
+            if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings || !StudioSmsNotificationSettings.Enable) throw new MethodAccessException();
 
             var mobilePhone = SmsSender.GetPhoneValueDigits(user.MobilePhone);
 
@@ -83,9 +84,9 @@ namespace ASC.Web.Studio.Core.SMS
             }
         }
 
-        public static void ValidateSmsCode(UserInfo user, string code)
+        public static void ValidateSmsCode(UserInfo user, string code, bool isEntryPoint = false)
         {
-            if (!StudioSmsNotificationSettings.IsVisibleSettings
+            if (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings
                 || !StudioSmsNotificationSettings.Enable)
             {
                 return;
@@ -109,8 +110,8 @@ namespace ASC.Web.Studio.Core.SMS
 
             if (!SecurityContext.IsAuthenticated)
             {
-                var cookiesKey = SecurityContext.AuthenticateMe(user.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
+                var action = isEntryPoint ? MessageAction.LoginSuccessViaApiSms : MessageAction.LoginSuccessViaSms;
+                CookiesManager.AuthenticateMeAndSetCookies(user.Tenant, user.ID, action);
             }
 
             if (user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)

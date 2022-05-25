@@ -119,7 +119,7 @@ namespace ASC.Projects.Data.DAO
                             .ConvertAll(x =>
                                             {
                                                 var st = ToSubTask(x);
-                                                st.StatusChangedOn = Convert.ToDateTime(x.Last());
+                                                st.StatusChangedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(x.Last()));
                                                 return st;
                                             }).ToList();
         }

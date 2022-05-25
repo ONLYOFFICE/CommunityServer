@@ -230,18 +230,27 @@ Cordiali saluti,
 Il team di supporto ONLYOFFICE®
 [www.onlyoffice.com](http://onlyoffice.com/)</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Richiesta modifica password per il portale "${__VirtualRootPath}":"${__VirtualRootPath}" 
+  <data name="pattern_change_email_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua email sul tuo account ONLYOFFICE?
 
-È stata richiesta una modifica della password utilizzata per accedere al portale "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Si prega di andare sul link qui sotto per completare la procedura:
+Clicca sul pulsante qui sotto per fare il login* al tuo cloud.
 
 $GreenButton
 
-*Nota*: questo collegamento è valido solo per 7 giorni. Completare il processo di modifica della password entro tale periodo.
+Il link è valido per 7 giorni.
 
-Se non desideri modificare la tua password o non abbia ricevuto questa email per errore, ignora o contatta il tuo amministratore del portale "${__VirtualRootPath}":${__VirtualRootPath} per scoprire i dettagli.</value>
+*Se non hai effettuato l'accesso al ONLYOFFICE in questo browser, ti serve usare la tua email precedente per la conferma. Se non te la ricordi, contatta l'amministratore del tuo portale.
+
+Non vuoi cambiare la tua email? Allora puoi semplicemente ignorare questo messaggio.</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua password sul tuo account ONLYOFFICE? Clicca sul pulsante qui sotto per confermarlo.
+
+$GreenButton
+
+Il link è valido per 7 giorni.
+
+Non vuoi cambiare la tua password? Allora puoi semplicemente ignorare questo messaggio.</value>
   </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Richiesta cambio numero di cellulare
@@ -719,19 +728,26 @@ Ti interessa? Ulteriori informazioni su "ONLYOFFICE for business":"http://www.on
 Cordiali saluti,
 La squadra di ONLYOFFICE</value>
   </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>È stata richiesta la modifica della password utilizzata per accedere al portale "${__VirtualRootPath}":"${__VirtualRootPath}".
+  <data name="pattern_personal_change_email_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua email sul tuo account ONLYOFFICE Personal?
 
-Si prega di seguire il link sottostante per cambiare la password:
+Clicca sul pulsante qui sotto per fare il login* al tuo cloud.
 
 $GreenButton
 
-*Nota*: questo link sarà valido solo per 7 giorni. Si prega di completare la procedura di modifica della password entro nel periodo richiesto.
+Il link è valido per 7 giorni.
 
-Se non si desidera modificare la password o aver ricevuto questa email per errore, ignorarla.
+*Se non hai effettuato l'accesso al ONLYOFFICE in questo browser, ti serve usare la tua email precedente per la conferma.
+Non vuoi cambiare la tua email? Allora puoi semplicemente ignorare questo messaggio.</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua password sul tuo account ONLYOFFICE Personal? Clicca sul pulsante qui sotto per confermarlo.
 
-Cordiali saluti,
-il Team ONLYOFFICE</value>
+$GreenButton 
+
+Il link è valido per 7 giorni.
+
+Non vuoi cambiare la tua password? Allora puoi semplicemente ignorare questo messaggio.</value>
   </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>Salve,
@@ -1070,8 +1086,8 @@ il team di ONLYOFFICE</value>
   <data name="subject_change_email_v115" xml:space="preserve">
     <value>‎Confermare la modifica della dell'indirizzo di posta elettronica‎</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} Password di assistenza</value>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Conferma cambiamento della tua password</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Richiesta cambio cellulare</value>
@@ -1213,9 +1229,6 @@ il team di ONLYOFFICE</value>
   </data>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Collega il tuo cloud storage preferito a ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal assistenza per password</value>
   </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Si prega di attivare il tuo indirizzo email</value>

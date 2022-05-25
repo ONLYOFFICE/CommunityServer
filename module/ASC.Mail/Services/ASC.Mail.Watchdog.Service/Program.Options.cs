@@ -26,12 +26,6 @@ namespace ASC.Mail.Watchdog.Service
         {
             [Option("console", Required = false, HelpText = "Console state")]
             public bool IsConsole { get; set; }
-
-            [HelpOption]
-            public string GetUsage()
-            {
-                return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-            }
         }
     }
 }

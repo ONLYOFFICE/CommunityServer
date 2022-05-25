@@ -56,6 +56,12 @@
               <xsl:attribute name="data-shared">
                 <xsl:value-of select="shared" />
               </xsl:attribute>
+              <xsl:attribute name="data-deny_download">
+                <xsl:value-of select="deny_download" />
+              </xsl:attribute>
+              <xsl:attribute name="data-deny_sharing">
+                <xsl:value-of select="deny_sharing" />
+              </xsl:attribute>
               <xsl:attribute name="data-create_by_id">
                 <xsl:value-of select="create_by_id" />
               </xsl:attribute>
@@ -113,6 +119,9 @@
             <xsl:attribute name="title">
               <xsl:value-of select="title" />
             </xsl:attribute>
+            <xsl:if test="encrypted = 'true'">
+              <div class="thumb-encrypted"></div>
+            </xsl:if>
           </div>
 
           <div class="entry-info">
@@ -137,6 +146,12 @@
               </xsl:attribute>
               <xsl:attribute name="data-shared">
                 <xsl:value-of select="shared" />
+              </xsl:attribute>
+              <xsl:attribute name="data-deny_download">
+                <xsl:value-of select="deny_download" />
+              </xsl:attribute>
+              <xsl:attribute name="data-deny_sharing">
+                <xsl:value-of select="deny_sharing" />
               </xsl:attribute>
               <xsl:attribute name="data-create_by_id">
                 <xsl:value-of select="create_by_id" />
@@ -185,6 +200,9 @@
               </xsl:attribute>
               <xsl:attribute name="data-comment">
                 <xsl:value-of select="comment" />
+              </xsl:attribute>
+              <xsl:attribute name="data-encrypted">
+                <xsl:value-of select="encrypted" />
               </xsl:attribute>
             </input>
           </div>

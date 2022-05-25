@@ -14,7 +14,6 @@
  *
 */
 
-
 if (typeof ASC === "undefined") {
     ASC = {};
 }
@@ -514,19 +513,11 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     break;
             }
 
-            var body = jq("<div/>").html(
+            var bodyContent = jq("<div/>").html(
                 jq.tmpl('template-mailCalendar', info))
                 .prop('outerHTML');
 
-            body = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\
-                    <html xmlns=\"http://www.w3.org/1999/xhtml\">\
-                        <head>\
-                            <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\
-                            <link href=\"https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext\" rel=\"stylesheet\" type=\"text/css\" />\
-                            <meta name=\"viewport\" content=\"width=device-width\" />\
-                        </head>\
-                        <body style=\"margin: 0; padding: 0; text-align: center; width: 100%; font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333;\">" + body + "</body>\
-                    </html>";
+            var body = getBodyWrapper(bodyContent);
 
             return body;
         }
@@ -689,6 +680,73 @@ if (typeof ASC.Mail.Utility === "undefined") {
             return d.promise();
         }
 
+        function createMessageWithReadReceipt(params) {
+            var d = jq.Deferred();
+
+            receiptMessage = new ASC.Mail.Message();
+
+            receiptMessage.isReceipt = true;
+
+            if (params.subject !== "") {
+                receiptMessage.subject = ResourceJS.ReceiptSubjectLabel.format(params.subject);
+            }
+            else {
+                receiptMessage.subject = ResourceJS.ReceiptSubjectLabel.format(window.MailScriptResource.NoSubject);
+            }
+
+            receiptMessage.from = params.from;
+            receiptMessage.to = params.to;
+
+            window.moment.locale(ASC.Resources.Master.TwoLetterISOLanguageName);
+
+            var fromUser = "";
+            var parsed = ASC.Mail.Utility.ParseAddresses(params.toAddresses).addresses;
+
+            for (var i = 0, len = parsed.length; i < len; i++) {
+                var user = parsed[i];
+                if (user.email === params.from) {
+                    fromUser = user.name;
+                    break;
+                }
+            }
+                                   
+            var info = {
+                user: fromUser,
+                receiptLabel: receiptMessage.subject,
+                mailTo: params.from,
+                receiptUserLabel: ResourceJS.ReceiptUserLabel.format(params.subject),
+                dateNow: window.moment().format('LLLL'),
+                sentRequestInfoLabel: ResourceJS.SentRequestInfoLabel,
+                dateSent: window.moment(params.receivedDate).format('LLLL')
+            }
+
+            var bodyContent = jq("<div/>").html(
+                jq.tmpl('template-mailReceipt', info))
+                .prop('outerHTML');
+
+            var body = getBodyWrapper(bodyContent);
+            
+            receiptMessage.body = body;
+
+            d.resolve(receiptMessage, params);
+
+            return d.promise();
+        }
+
+        function getBodyWrapper(bodyContent) {            
+            var body = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\
+                    <html xmlns=\"http://www.w3.org/1999/xhtml\">\
+                        <head>\
+                            <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\
+                            <link href=\"https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext\" rel=\"stylesheet\" type=\"text/css\" />\
+                            <meta name=\"viewport\" content=\"width=device-width\" />\
+                        </head>\
+                        <body style=\"margin: 0; padding: 0; text-align: center; width: 100%; font-family: 'Open Sans', Tahoma, Arial; font-size: 14px; color: #333;\">" + bodyContent + "</body>\
+                    </html>";
+
+            return body;
+        }
+
         function sendCalendarRequest(params) {
             var d = jq.Deferred();
 
@@ -733,6 +791,33 @@ if (typeof ASC.Mail.Utility === "undefined") {
             return d.promise();
         }
 
+        function improveAddresses(addresses) {
+            var result = { addresses: [], hasBad: false };
+
+            if (!addresses || !addresses.length)
+                return result;
+
+            if (!Array.isArray(addresses) && ("string" === typeof addresses)) {
+                var p = ASC.Mail.Utility.ParseAddresses(addresses);
+                result.addresses = p.addresses;
+                result.hasBad = p.errors.length > 0;
+                return result;
+            }
+
+            for (var i = 0, len = addresses.length; i < len; i++) {
+                var a = !(addresses[i] instanceof ASC.Mail.Address)
+                    ? ASC.Mail.Utility.ParseAddress(addresses[i])
+                    : addresses[i];
+
+                result.addresses.push(a);
+
+                if (!a.isValid)
+                    result.hasBad = true;
+            }
+
+            return result;
+        }
+
         return {
             ParseErrorTypes: parseErrorTypes,
             /**
@@ -756,8 +841,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         n = /^(.*)<([^>]+)>$/,
                         i = e.match(t) || e.match(n);
                     return i ? {
-                        name: jq.trim(i[1].replace(/\\"/g, '"').replace(/\\\\/g, "\\")),
-                        email: jq.trim(i[2])
+                        name: i[1].replace(/\\"/g, '"').replace(/\\\\/g, "\\").trim(),
+                        email: i[2].trim()
                     } : {
                         email: e
                     }
@@ -825,7 +910,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         case ";":
                             if (!i) {
                                 t = e.substring(o, a);
-                                t = jq.trim(t);
+                                t = t.trim();
                                 if (t) {
                                     parseAndAppend(t);
                                 }
@@ -989,33 +1074,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
              * @return {Object} result with messageUrl;
              */
             SendMessage: function (message, params) {
-                function improveAddresses(addresses) {
-                    var result = { addresses: [], hasBad: false };
-
-                    if (!addresses || !addresses.length)
-                        return result;
-
-                    if (!jq.isArray(addresses) && ("string" === typeof addresses)) {
-                        var p = ASC.Mail.Utility.ParseAddresses(addresses);
-                        result.addresses = p.addresses;
-                        result.hasBad = p.errors.length > 0;
-                        return result;
-                    }
-
-                    for (var i = 0, len = addresses.length; i < len; i++) {
-                        var a = !(addresses[i] instanceof ASC.Mail.Address)
-                            ? ASC.Mail.Utility.ParseAddress(addresses[i])
-                            : addresses[i];
-
-                        result.addresses.push(a);
-
-                        if (!a.isValid)
-                            result.hasBad = true;
-                    }
-
-                    return result;
-                }
-
                 var d = jq.Deferred();
 
                 params = params || { skipAccountsCheck: true };
@@ -1057,6 +1115,65 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         .then(afterSend, d.reject)
                         .then(d.resolve, d.reject);
 
+                } catch (e) {
+                    d.reject(params, e);
+                }
+
+                return d.promise();
+            },
+            SendReceipt: function (params) {
+                var d = jq.Deferred();
+                try {
+                    createMessageWithReadReceipt(params)
+                        .then(ASC.Mail.Utility.Send)
+                        .then(function () {
+                            var socket = ASC.SocketIO && !ASC.SocketIO.disabled() ? ASC.SocketIO.Factory.counters : null;
+                            if (!socket || !socket.connected()) {
+                                setTimeout(function () {
+                                    ASC.Mail.Utility._showSignalRMailNotification(4);
+                                }, 3000);
+                            }
+                        })
+                        .then(d.resolve, d.reject);
+                } catch (e) {
+                    d.reject(params, e);
+                }
+
+                return d.promise();
+            },
+            /**
+             * Send message without save
+             * @param {ASC.Mail.Message} message
+             */
+            Send: function (message, params) {
+                var d = jq.Deferred();
+
+                params = params || { skipAccountsCheck: true };
+
+                try {
+                    if (!(message instanceof ASC.Mail.Message)) {
+                        throw "Unsupported message format";
+                    }
+
+                    if (!params.hasOwnProperty("skipAccountsCheck") || !message.from)
+                        params.skipAccountsCheck = false;
+
+                    var t = improveAddresses(message.to);
+                    message.to = t.addresses;
+
+                    if (!message.to.length) {
+                        throw "To field is empty";
+                    } else if (t.hasBad) {
+                        throw "To field contains invalid recipients.";
+                    }
+
+                    window.Teamlab.simpleMailSend(
+                        params,
+                        message,
+                        {
+                            success: d.resolve,
+                            error: d.reject
+                        });
                 } catch (e) {
                     d.reject(params, e);
                 }
@@ -1228,6 +1345,9 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     return;
 
                 switch (state) {
+                    case -2:
+                        toastr.error(ResourceJS.MailSendReceiptError);
+                        break;
                     case -1:
                         toastr.error(ResourceJS.MailSendMessageError);
 
@@ -1254,6 +1374,9 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         break;
                     case 3:
                         toastr.success(ResourceJS.MailSentIcalCancelText);
+                        break;
+                    case 4:
+                        toastr.success(ResourceJS.ReadingConfirmedLabel);
                         break;
                     default:
                         break;
@@ -1549,6 +1672,7 @@ if (typeof ASC.Mail.Message === "undefined") {
         this.calendarIcs = "";
         this.requestReceipt = false;
         this.requestRead = false;
+        this.isReceipt = false;
 
         this.HasDocumentsForSave = function () {
             return docIds.length > 0;

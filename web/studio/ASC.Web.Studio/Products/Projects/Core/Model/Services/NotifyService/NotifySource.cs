@@ -81,6 +81,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 NotifyConstants.Event_SubTaskDeleted,
                 NotifyConstants.Event_SubTaskCreated,
                 NotifyConstants.Event_SubTaskEdited,
+                NotifyConstants.Event_SubTaskMoved,
                 NotifyConstants.Event_SubTaskClosed,
                 NotifyConstants.Event_SubTaskResumed,
                 NotifyConstants.Event_ProjectDeleted,

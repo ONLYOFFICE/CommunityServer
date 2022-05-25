@@ -1,0 +1,1 @@
+GitVersion /Output BuildServer /UpdateAssemblyInfo

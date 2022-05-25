@@ -35,6 +35,7 @@ namespace ASC.Web.Community.News
 
         public static INotifyAction NewFeed = new NotifyAction("new feed", "news added");
         public static INotifyAction NewComment = new NotifyAction("new feed comment", "new feed comment");
+        public static INotifyAction MentionForFeedComment = new NotifyAction("mention for feed comment", "mention for feed comment");
 
         public static string TagCaption = "Caption";
         public static string TagText = "Text";

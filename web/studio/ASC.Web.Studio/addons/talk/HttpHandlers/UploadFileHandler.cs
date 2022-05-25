@@ -48,7 +48,7 @@ namespace ASC.Web.Talk.HttpHandlers
                     throw FileSizeComment.FileImageSizeException;
                 }
 
-                var fileName = file.FileName.Replace("~", "-");
+                var fileName = Path.GetFileName(file.FileName).Replace("~", "-");
                 var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(CultureInfo.InvariantCulture), "talk");
                 var md5Hash = TalkSpaceUsageStatManager.GetUserMd5Hash(SecurityContext.CurrentAccount.ID);
                 var fileUrl = storage.Save(Path.Combine(md5Hash, GenerateRandomString(), fileName), file.InputStream).ToString();

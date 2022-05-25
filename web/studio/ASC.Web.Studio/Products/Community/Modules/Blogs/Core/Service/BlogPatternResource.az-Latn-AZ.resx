@@ -67,7 +67,7 @@ $CommentBody
 
 "Ardını oxu":"$CommentURL"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bloq yazılarına yeni şərhlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını" dəyişin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bloq yazılarına yeni şərhlər haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişin.^</value>
   </data>
   <data name="pattern_new_post" xml:space="preserve">
     <value>h1.Bloqlarda yeni yazı: "$PostSubject":"$URL"
@@ -78,12 +78,18 @@ $PostPreview
 
 "Ardını oxuyun":"$URL"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Yeni bloq yazıları haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını" dəyişin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Yeni bloq yazıları haqqında bildirişlər almaq istəmirsinizsə, lütfən,"abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişin.^</value>
   </data>
   <data name="subject_new_comment" xml:space="preserve">
     <value>İcma. Bloq yazısına yeni şərh: $PostSubject</value>
   </data>
+  <data name="subject_new_comment_tg" xml:space="preserve">
+    <value>İcma. Bloq paylaşımına yeni şərh əlavə edildi:[$PostSubject]($CommentURL)</value>
+  </data>
   <data name="subject_new_post" xml:space="preserve">
     <value>İcma. Bloqlarda yeni yazı: $PostSubject</value>
+  </data>
+  <data name="subject_new_post_tg" xml:space="preserve">
+    <value>İcma. Bloqlarda yeni paylaşım:[$PostSubject]($URL)</value>
   </data>
 </root>

@@ -24,7 +24,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 {
     public class Options
     {
-        [OptionList('u', "users", MetaValue = "STRING ARRAY", Required = false, HelpText = "An array of users for which the aggregator will take tasks. " +
+        [Option('u', "users", MetaValue = "STRING ARRAY", Required = false, HelpText = "An array of users for which the aggregator will take tasks. " +
                                                                                            "Separator = ';' " +
                                                                                            "Example: -u\"{tl_userId_1}\";\"{tl_userId_2}\";\"{tl_userId_3}\"", Separator = ';')]
         public IList<string> OnlyUsers { get; set; }
@@ -34,11 +34,5 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         [Option("unlimit", Required = false, HelpText = "Unlimit messages per mailbox session")]
         public bool NoMessagesLimit { get; set; }
-
-        [HelpOption]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-        }
     }
 }

@@ -391,7 +391,7 @@ ASC.Projects.GantChartPage = (function () {
         // create new button
         var $dropDownObj = jq("#createNewButton");
 
-        jq("#showGanttHelp").click(function (event) {
+        jq("#showGanttHelp").on("click", function (event) {
             var elt = jq((event.target) ? event.target : event.srcElement);
             if (ganttHelpPanel.is(":visible")) {
                 ganttHelpPanel.hide();
@@ -420,7 +420,7 @@ ASC.Projects.GantChartPage = (function () {
             return message;
         };
 
-        jq("#createNewMilestone").click(function () {
+        jq("#createNewMilestone").on("click", function () {
             if (currentFilteredProjectsIds.length) {
                 disableChartEvents();
                 ASC.Projects.MilestoneAction.showNewMilestonePopup();
@@ -429,7 +429,7 @@ ASC.Projects.GantChartPage = (function () {
             }
         });
 
-        jq("#createNewTask").click(function () {
+        jq("#createNewTask").on("click", function () {
             if (currentFilteredProjectsIds.length) {
                 disableChartEvents();
                 ASC.Projects.TaskAction.showCreateNewTaskForm();
@@ -439,16 +439,16 @@ ASC.Projects.GantChartPage = (function () {
         });
 
         // undo/redo buttons
-        undoBtn.click(function () {
+        undoBtn.on("click", function () {
             if (jq(this).hasClass("disable") || jq("#mainActionButtons").hasClass("disable")) return;
             chart.undoManager().undo();
         });
-        redoBtn.click(function () {
+        redoBtn.on("click", function () {
             if (jq(this).hasClass("disable") || jq("#mainActionButtons").hasClass("disable")) return;
             chart.undoManager().redo();
         });
 
-        jq(".print").click(function () {
+        jq(".print").on("click", function () {
             if (jq(this).parent().hasClass("disable")) return;
             var content = getContentForPrint();
             var printWin = window.open();
@@ -459,7 +459,7 @@ ASC.Projects.GantChartPage = (function () {
             printWin.focus();
         });
 
-        jq(".refresh").click(function () {
+        jq(".refresh").on("click", function () {
             // if (jq(this).parent().hasClass("disable")) return;
 
             refreshChartData();
@@ -469,7 +469,7 @@ ASC.Projects.GantChartPage = (function () {
         jq(".scale-conteiner").on("click", ".tl-combobox-container", function () {
             autoScaleFlag = false;
         });
-        zoomScale.change(function () {
+        zoomScale.on("change", function () {
             if (autoScaleFlag) {
                 autoScaleFlag = false;
                 return false;
@@ -478,7 +478,7 @@ ASC.Projects.GantChartPage = (function () {
             localStorageManager.setItem("ganttZoomScale", jq(this).val());
         });
 
-        jq("#todayPreset").click(function () {
+        jq("#todayPreset").on("click", function () {
             if (chart) {
                 chart.viewController().strafeToDay();
                 updateZoomElement();
@@ -492,14 +492,14 @@ ASC.Projects.GantChartPage = (function () {
             return false;
         });
 
-        jq("#questionWindowDeleteMilestone .remove, #questionWindowTaskWithSubtasks .end").click(function () {
+        jq("#questionWindowDeleteMilestone .remove, #questionWindowTaskWithSubtasks .end").on("click", function () {
             enableChartEvents();
             chart.modelController().finalize();
             jq.unblockUI();
             return false;
         });
 
-        jq('#questionWindowTaskRemove .remove').click(function () {
+        jq('#questionWindowTaskRemove .remove').on("click", function () {
             enableChartEvents();
             saveOrderFlag = true;
             removeTask({}, jq(this).data("taskid"));
@@ -507,63 +507,63 @@ ASC.Projects.GantChartPage = (function () {
             jq.unblockUI();
         });
 
-        jq("#moveTaskOutMilestone .move-all").click(function () {
+        jq("#moveTaskOutMilestone .move-all").on("click", function () {
             enableChartEvents();
             chart.modelController().finalize('SaveConnections');
             jq.unblockUI();
             return false;
         });
 
-        jq("#moveTaskOutMilestone .one-move").click(function () {
+        jq("#moveTaskOutMilestone .one-move").on("click", function () {
             enableChartEvents();
             chart.modelController().finalize();
             jq.unblockUI();
             return false;
         });
         //empty screen
-        jq("#addFirstTask").click(function () {
+        jq("#addFirstTask").on("click", function () {
             chart.addNewTask();
             emptyScreen.addClass("display-none");
             return false;
         });
-        jq("#addFirstMilestone").click(function () {
+        jq("#addFirstMilestone").on("click", function () {
             chart.addNewMilestone();
             emptyScreen.addClass("display-none");
             return false;
         });
-        jq("#hideEmptyScreen").click(function () {
+        jq("#hideEmptyScreen").on("click", function () {
             emptyScreen.addClass("display-none");
             return false;
         });
 
         //additional panel
-        fullScreenMode.click(function () {
+        fullScreenMode.on("click", function () {
             if (jq(this).hasClass("active")) return;
             checkFullScreen();
         });
 
-        leftPanelMode.click(function () {
+        leftPanelMode.on("click", function () {
             if (jq(this).hasClass("active")) return;
             checkLeftPanel();
         });
 
-        jq("#hideActionsButton").click(function () {
+        jq("#hideActionsButton").on("click", function () {
             helpActionsPanel.addClass("display-none");
             localStorageManager.setItem("hideActionHelpPlag", true);
         });
        
-		jq("#btnCloseHelpActionsPanel").click(function () {
+		jq("#btnCloseHelpActionsPanel").on("click", function () {
             helpActionsPanel.addClass("display-none");
             localStorageManager.setItem("hideActionHelpPlag", true);
         });
 		
-        jq(document).keydown(function (e) {
+        jq(document).on("keydown", function (e) {
             var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 
             // Hook CTR + P
             if (80 === keyCode && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
-                jq(".print").click();
+                jq(".print").trigger("click");
                 return;
             }
 
@@ -593,11 +593,11 @@ ASC.Projects.GantChartPage = (function () {
             disableChartEvents();
         });
 
-        teamMemberFilter.change(function () {
+        teamMemberFilter.on("change", function () {
             //filterChartData();
         });
 
-        openTaskOnly.change(function () {
+        openTaskOnly.on("change", function () {
             filterChartData();
 
             if (openTaskOnly.is(":checked")) {
@@ -616,15 +616,15 @@ ASC.Projects.GantChartPage = (function () {
             }
         });
 
-        jq(".gantt-context-menu").mouseenter(function () {
+        jq(".gantt-context-menu").on("mouseenter", function () {
             disableChartEvents();
         });
 
-        jq(".gantt-context-menu").mouseleave(function () {
+        jq(".gantt-context-menu").on("mouseleave", function () {
             enableChartEvents();
         });
 
-        jq(".gantt-context-menu .dropdown-item").click(function (event) {
+        jq(".gantt-context-menu .dropdown-item").on("click", function (event) {
             var contextMenuId = jq(this).closest(".gantt-context-menu").attr("id");
             if (contextMenuId == "statusList") {
                 return true;
@@ -645,7 +645,7 @@ ASC.Projects.GantChartPage = (function () {
             }
         });
 
-        jq('body').click(function (event) {
+        jq('body').on("click", function (event) {
             var elt = jq((event.target) ? event.target : event.srcElement);
             var isHide = true;
 
@@ -701,11 +701,11 @@ ASC.Projects.GantChartPage = (function () {
             checkPossibleLinkType();
             enableSaveLinkButton();
         });
-        linkTypeSelector.change(function () {
+        linkTypeSelector.on("change", function () {
             enableSaveLinkButton();
         });
 
-        saveLinkButton.click(function () {
+        saveLinkButton.on("click", function () {
             if (jq(this).hasClass("disable")) return;
             var link = {};
 
@@ -739,7 +739,7 @@ ASC.Projects.GantChartPage = (function () {
             setResponsibleMenu.data("changed", "true");
         });
 
-        jq("#setResponsible").click(function (event) {
+        jq("#setResponsible").on("click", function (event) {
             if (setResponsibleMenu.data("changed") != "true") {
                 setResponsibleMenu.data("id", "");
                 setResponsibleMenu.hide();
@@ -890,10 +890,10 @@ ASC.Projects.GantChartPage = (function () {
             jq(document).find('.mainPageContent').append('<div id="block-panel" class="blocked-panel"/>');
             blockPanel = jq('#block-panel');
             if (blockPanel) {
-                blockPanel.mousemove(function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
-                blockPanel.mousedown(function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
-                blockPanel.mouseup(function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
-                blockPanel.bind("contextmenu",function(e) { return false; });
+                blockPanel.on("mousemove", function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
+                blockPanel.on("mousedown", function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
+                blockPanel.on("mouseup", function (e) { e.preventDefault(); e.stopImmediatePropagation(); });
+                blockPanel.on("contextmenu",function(e) { return false; });
             }
         }
 
@@ -950,26 +950,26 @@ ASC.Projects.GantChartPage = (function () {
         initLeftPanelCells();
 
         if (!reload) {
-            jq(document).bind("loadTasks", function (event, data) {
+            jq(document).on("loadTasks", function (event, data) {
                 loadTasks = true;
                 jq(document).trigger("loadData", { prjId: data.prjId });
             });
 
-            jq(document).bind("loadMilestones", function (event, data) {
+            jq(document).on("loadMilestones", function (event, data) {
                 loadMilestones = true;
                 jq(document).trigger("loadData", { prjId: data.prjId });
             });
 
-            jq(document).bind("loadGanttIndex", function (event, data) {
+            jq(document).on("loadGanttIndex", function (event, data) {
                 loadGanttIndex = true;
                 jq(document).trigger("loadData", { prjId: data.prjId });
             });
-            jq(document).bind("loadStatuses", function (event, data) {
+            jq(document).on("loadStatuses", function (event, data) {
                 loadStatuses = true;
                 jq(document).trigger("loadData", { prjId: data.prjId });
             });
 
-            jq(document).bind("loadData", function (event, data) {
+            jq(document).on("loadData", function (event, data) {
                 if (loadMilestones && loadTasks && loadGanttIndex && loadStatuses) {
 
                     if (!data) return;
@@ -1137,7 +1137,7 @@ ASC.Projects.GantChartPage = (function () {
         Teamlab.getPrjGanttIndex({ prjId: projectId }, projectId, {
             success: function (params, data) {
                 if (typeof data === "string") {
-                    allProjectsHash[params.prjId].ganttIndex = jq.parseJSON(data);
+                    allProjectsHash[params.prjId].ganttIndex = JSON.parse(data);
                 } else {
                     allProjectsHash[params.prjId].ganttIndex = {};
                 }
@@ -1305,7 +1305,7 @@ ASC.Projects.GantChartPage = (function () {
             layers[OVERLAY_LAYER].addEventListener("onmousewheel", function (e) { return false }, false);
         }
 
-        jq('.left-panel').bind('mousewheel DOMMouseScroll', function (event, delta) {
+        jq('.left-panel').on('mousewheel DOMMouseScroll', function (event, delta) {
             jq(".advanced-selector-container ").first().css({ display: 'none' });
             if (taskContextMenu.is(":visible")) {
                 taskContextMenu.hide();
@@ -1720,7 +1720,7 @@ ASC.Projects.GantChartPage = (function () {
         }
         PopupKeyUpActionProvider.CloseDialogAction = closeDialogAction;
         StudioBlockUIManager.blockUI(jq("#questionWindowTaskRemove"), 400);
-        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowTaskRemove .remove').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowTaskRemove .remove').trigger('click');";
 
         jq("#questionWindowTaskRemove .remove").data("taskid", task.id());
     };
@@ -1728,27 +1728,27 @@ ASC.Projects.GantChartPage = (function () {
         disableChartEvents();
         PopupKeyUpActionProvider.CloseDialogAction = closeDialogAction;
         StudioBlockUIManager.blockUI(jq("#questionWindowDeleteMilestone"), 400);
-        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowDeleteMilestone .remove').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowDeleteMilestone .remove').trigger('click');";
         jq("#questionWindowDeleteMilestone").attr("milestoneId", milestoneId);
     };
     var showTaskWithSubtasksQuestionPopup = function (taskId) {
         disableChartEvents();
         PopupKeyUpActionProvider.CloseDialogAction = closeDialogAction;
         StudioBlockUIManager.blockUI(jq("#questionWindowTaskWithSubtasks"), "auto");
-        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowTaskWithSubtasks .end').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowTaskWithSubtasks .end').trigger('click');";
         jq("#questionWindowTaskWithSubtasks .end").data("taskid", taskId);
     };
     var showMilestoneWithTasksQuestionPopup = function () {
         disableChartEvents();
         PopupKeyUpActionProvider.CloseDialogAction = closeDialogAction;
         StudioBlockUIManager.blockUI(jq("#questionWindowMilestoneTasks"), 400);
-        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowMilestoneTasks .cancel').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#questionWindowMilestoneTasks .cancel').trigger('click');";
     };
     var showMoveTaskOutMilestonePopup = function () {
         disableChartEvents();
         PopupKeyUpActionProvider.CloseDialogAction = closeDialogAction;
         StudioBlockUIManager.blockUI(jq("#moveTaskOutMilestone"), "auto");
-        PopupKeyUpActionProvider.EnterAction = "jq('#moveTaskOutMilestone .cancel').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#moveTaskOutMilestone .cancel').trigger('click');";
     };
     var showCreateNewLinkPopup = function (task) {
         if (setTaskSelect(task)) {
@@ -2661,14 +2661,14 @@ ASC.Projects.GantChartPage = (function () {
             ganttCellChecker.find('.dropdown-content').each(function () { jq(this).css('margin-top', '0px'); });
             ganttCellChecker.addClass("gantt-context-menu").css("width", "auto");
 
-            jq("#Responsibility").click(function (e) { saveHiddenRows(e); });
-            jq("#BeginDate").click(function (e) { saveHiddenRows(e); });
-            jq("#EndDate").click(function (e) { saveHiddenRows(e); });
-            jq("#Status").click(function (e) { saveHiddenRows(e); });
-            jq("#Priority").click(function (e) { saveHiddenRows(e); });
+            jq("#Responsibility").on("click", function (e) { saveHiddenRows(e); });
+            jq("#BeginDate").on("click", function (e) { saveHiddenRows(e); });
+            jq("#EndDate").on("click", function (e) { saveHiddenRows(e); });
+            jq("#Status").on("click", function (e) { saveHiddenRows(e); });
+            jq("#Priority").on("click", function (e) { saveHiddenRows(e); });
         };
 
-        jq("#showChoosedFields").click(function (e) {
+        jq("#showChoosedFields").on("click", function (e) {
             saveAvailableRows(e);
         });
 
@@ -2770,7 +2770,7 @@ ASC.Projects.GantChartPage = (function () {
 
         if (currentScale != value) {
             autoScaleFlag = true;
-            zoomScale.val(value).change();
+            zoomScale.val(value).trigger("change");
             localStorageManager.setItem("ganttZoomScale", value);
         }
     };
@@ -3043,7 +3043,7 @@ ASC.Projects.GantChartPage = (function () {
                 dateControl.style.width = '0px';
                 dateControl.style.height = '30px';
                 dateControl.style.background = 'transparent';
-                dateControl.onfocus = 'this.blur()';
+                dateControl.onfocus = 'this.trigger("blur")';
 
                 document.body.appendChild(dateControl);
 
@@ -3072,7 +3072,7 @@ ASC.Projects.GantChartPage = (function () {
             }
 
             jq("#datepicker-chart").datepicker(show ? "show" : "hide");
-            jq("#ui-datepicker-div").focus();
+            jq("#ui-datepicker-div").trigger("focus");
         }
     };
 

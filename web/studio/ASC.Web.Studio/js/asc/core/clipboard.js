@@ -62,6 +62,20 @@ window.ASC.Clipboard = (function () {
         return clip;
     };
 
+    var createManually = function (trigger, options, onSuccess) {
+        if (!ASC.Clipboard.enable) {
+            return null;
+        }
+
+        var clip = new Clipboard(trigger, options);
+
+        if (onSuccess) {
+            clip.on("success", onSuccess);
+        }
+
+        return clip;
+    };
+
     var destroy = function (clip) {
         if (clip) {
             clip.destroy();
@@ -76,6 +90,8 @@ window.ASC.Clipboard = (function () {
         enable: enable,
 
         create: create,
+        createManually: createManually,
+
         destroy: destroy,
     };
 })();

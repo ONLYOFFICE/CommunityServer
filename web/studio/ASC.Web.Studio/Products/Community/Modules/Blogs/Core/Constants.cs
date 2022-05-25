@@ -36,6 +36,7 @@ namespace ASC.Blogs.Core
         public static INotifyAction NewPost = new NotifyAction("new post");
         public static INotifyAction NewPostByAuthor = new NotifyAction("new personal post");
         public static INotifyAction NewComment = new NotifyAction("new comment");
+        public static INotifyAction MentionForPostComment = new NotifyAction("mention for post comment");
 
         public const string _NewBlogSubscribeCategory = "{9C8ED95F-07D2-42d0-B241-C0A51F7D26D5}";
 

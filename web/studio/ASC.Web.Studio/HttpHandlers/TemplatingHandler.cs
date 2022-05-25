@@ -42,6 +42,8 @@ namespace ASC.Web.Studio.HttpHandlers
             get { return false; }
         }
 
+        private ILog Log = LogManager.GetLogger("ASC.Web.Template");
+
         public void ProcessRequest(HttpContext context)
         {
             var path = context.Request["id"];
@@ -73,7 +75,7 @@ namespace ASC.Web.Studio.HttpHandlers
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
         }
 
-        private static XDocument RenderDocument(HttpContext context, string templatePath, string templateName)
+        private XDocument RenderDocument(HttpContext context, string templatePath, string templateName)
         {
             try
             {
@@ -123,12 +125,12 @@ namespace ASC.Web.Studio.HttpHandlers
             }
             catch (Exception err)
             {
-                LogManager.GetLogger("ASC.Web.Template").Error(err);
+                Log.Error(err);
                 throw;
             }
         }
 
-        private static String GetModuleResource(string typeName, string key)
+        private string GetModuleResource(string typeName, string key)
         {
             try
             {
@@ -149,7 +151,7 @@ namespace ASC.Web.Studio.HttpHandlers
             }
             catch (Exception err)
             {
-                LogManager.GetLogger("ASC.Web.Template").Error(err);
+                Log.Error(err);
                 return string.Empty;
             }
         }

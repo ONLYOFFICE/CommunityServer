@@ -1,0 +1,751 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e11545c6-88c9-4ff1-b0cf-abffd4bd3ff7" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        This page serves as a brief overview of the features provided by this SDK.
+      </para>
+    </introduction>
+
+    <section address="Services">
+      <title>Services</title>
+      <content>
+        <para>The following table lists the services currently supported by the SDK. Each service is presented with the following information.</para>
+        <definitionTable>
+          <definedTerm>Service interfaces</definedTerm>
+          <definition>
+            <para>
+              The interfaces in the SDK which define the core operations provided by the service. In some cases, these
+              interfaces include certain vendor-specific extensions to the core service.
+            </para>
+          </definition>
+          <definedTerm>Service clients</definedTerm>
+          <definition>
+            <para>
+              The classes in the SDK which implement the service interfaces. In addition to the operations defined by
+              the interface(s), these classes may implement support for additional vendor-specific extensions as well
+              as operations which have not yet been incorporated into the service interface as a result of the
+              <link xlink:href="9c4a6074-9d84-4488-9565-50ecb5049ffe">breaking changes policy</link>.
+            </para>
+          </definition>
+          <definedTerm>Domain object namespaces</definedTerm>
+          <definition>
+            <para>
+              The namespaces in the SDK which define the object model used by the service. The listed namespaces are
+              provided for easy reference to the definitions of key objects specific to the service; some objects
+              referenced by the service interfaces and/or clients may be defined in other namespaces.
+            </para>
+          </definition>
+          <definedTerm>API references</definedTerm>
+          <definition>
+            <para>
+              Links to additional external references for the service API. The links may include OpenStack and/or
+              vendor-specific documentation covering the operations provided by the SDK.
+            </para>
+          </definition>
+        </definitionTable>
+        <table>
+          
+          <row>
+            <entry address="CDN">
+              <para>
+                <legacyBold>ContentDeliveryNetwork</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:OpenStack.ContentDeliveryNetworks.v1.IContentDeliveryNetworkService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:OpenStack.ContentDeliveryNetworks.v1.ContentDeliveryNetworkService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:OpenStack.ContentDeliveryNetworks.v1</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack (Poppy) Content Delivery Network Service API v1 Reference</linkText>
+                  <linkUri>http://docs.cloudcdn.apiary.io/</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace CDN Developer Guide - API V1</linkText>
+                  <linkUri>http://docs.rackspace.com/cdn/api/v1.0/cdn-devguide/content/Overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          
+          <row>
+            <entry address="ObjectStorage">
+              <para>
+                <legacyBold>Object Storage</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.IObjectStorageProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudFilesProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Object Storage API V1 Reference - API V1</linkText>
+                  <linkUri>http://docs.openstack.org/api/openstack-object-storage/1.0/content/</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Complete API Reference - Object Storage API V1</linkText>
+                  <linkUri>http://developer.openstack.org/api-ref-objectstorage-v1.html</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Files Developer Guide - API V1</linkText>
+                  <linkUri>http://docs.rackspace.com/files/api/v1/cf-devguide/content/Overview-d1e70.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="Compute">
+              <para>
+                <legacyBold>Compute</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.IComputeProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudServersProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Compute API V2 Reference - API V2 and Extensions</linkText>
+                  <linkUri>http://docs.openstack.org/api/openstack-compute/2/content/</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Complete API Reference - Compute API V2</linkText>
+                  <linkUri>http://developer.openstack.org/api-ref-compute-v2.html</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Next Generation Cloud Servers Developer Guide - API V2</linkText>
+                  <linkUri>http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_preface.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="Identity">
+              <para>
+                <legacyBold>Identity</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              </para>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.IExtendedCloudIdentityProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.OpenStackIdentityProvider</codeEntityReference>
+              </para>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudIdentityProvider</codeEntityReference>
+              </para>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Hp.HpIdentityProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Identity API V2.0 Reference - API V2.0 and Extensions</linkText>
+                  <linkUri>http://docs.openstack.org/api/openstack-identity-service/2.0/content/</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Complete API Reference - Identity API V2.0</linkText>
+                  <linkUri>http://developer.openstack.org/api-ref-identity-v2.html</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Identity Client Developer Guide - API V2.0</linkText>
+                  <linkUri>http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/QuickStart-000.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="BlockStorage">
+              <para>
+                <legacyBold>Block Storage</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.IBlockStorageProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudBlockStorageProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Block Storage API V2 Reference - API V2 and Extensions</linkText>
+                  <linkUri>http://docs.openstack.org/api/openstack-block-storage/2.0/content/</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Complete API Reference - Block Storage API V2</linkText>
+                  <linkUri>http://developer.openstack.org/api-ref-blockstorage-v2.html</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Block Storage Developer Guide - API V1.0</linkText>
+                  <linkUri>http://docs.rackspace.com/cbs/api/v1.0/cbs-devguide/content/overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="Databases">
+              <para>
+                <legacyBold>Databases</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.IDatabaseService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudDatabasesProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Providers.Rackspace.Objects.Databases</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>OpenStack Complete API Reference - Database Service API V1.0</linkText>
+                  <linkUri>http://developer.openstack.org/api-ref-databases-v1.html</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Databases Developer Guide - API V1.0</linkText>
+                  <linkUri>http://docs.rackspace.com/cdb/api/v1.0/cdb-devguide/content/overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="Queues">
+              <para>
+                <legacyBold>Queues</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.IQueueingService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudQueuesProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain.Queues</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>Marconi API: v1 Blueprint</linkText>
+                  <linkUri>https://wiki.openstack.org/wiki/Marconi/specs/api/v1</linkUri>
+                </externalLink>
+              </para>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Queues Developer Guide - API V1</linkText>
+                  <linkUri>http://docs.rackspace.com/queues/api/v1.0/cq-devguide/content/overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="RackspaceNetworks">
+              <para>
+                <legacyBold>Networks (Rackspace)</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Core.Providers.INetworksProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudNetworksProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Core.Domain</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Networks Developer Guide - API V2</linkText>
+                  <linkUri>http://docs.rackspace.com/networks/api/v2/cn-devguide/content/ch_preface.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="RackspaceDNS">
+              <para>
+                <legacyBold>DNS (Rackspace)</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.IDnsService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudDnsProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Providers.Rackspace.Objects.Dns</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud DNS Developer Guide - API V1.0</linkText>
+                  <linkUri>http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="RackspaceLoadBalancers">
+              <para>
+                <legacyBold>Load Balancers (Rackspace)</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.ILoadBalancerService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudLoadBalancerProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Providers.Rackspace.Objects.LoadBalancers</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Load Balancers Developer Guide - API V1.0</linkText>
+                  <linkUri>http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Overview-d1e82.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry address="RackspaceMonitoring">
+              <para>
+                <legacyBold>Monitoring (Rackspace)</legacyBold>
+              </para>
+            </entry>
+            <entry/>
+            <entry/>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service interfaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.IMonitoringService</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Service clients</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudMonitoringProvider</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>Domain objects namespaces</para>
+            </entry>
+            <entry>
+              <para>
+                <codeEntityReference>N:net.openstack.Providers.Rackspace.Objects.Monitoring</codeEntityReference>
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry/>
+            <entry>
+              <para>API references</para>
+            </entry>
+            <entry>
+              <para>
+                <externalLink>
+                  <linkText>Rackspace Cloud Monitoring Developer Guide - API V1.0</linkText>
+                  <linkUri>http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/overview.html</linkUri>
+                </externalLink>
+              </para>
+            </entry>
+          </row>
+        </table>
+      </content>
+    </section>
+
+    <relatedTopics>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

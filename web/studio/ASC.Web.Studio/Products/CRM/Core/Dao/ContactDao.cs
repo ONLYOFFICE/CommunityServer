@@ -1399,7 +1399,7 @@ namespace ASC.CRM.Core.Dao
 
         public Contact GetByIDFromDb(int contactID)
         {
-            SqlQuery sqlQuery = GetContactSqlQuery(Exp.Eq("id", contactID), false);
+            SqlQuery sqlQuery = GetContactSqlQuery(Exp.Eq("id", contactID));
 
             var contacts = Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
 
@@ -1412,7 +1412,7 @@ namespace ASC.CRM.Core.Dao
         {
             if (contactID == null || contactID.Length == 0) return new List<Contact>();
 
-            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID), false);
+            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
             return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(CRMSecurity.CanAccessTo);
         }
@@ -1421,7 +1421,7 @@ namespace ASC.CRM.Core.Dao
         {
             if (contactID == null || contactID.Length == 0) return new List<Contact>();
 
-            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID), false);
+            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
             return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row)).FindAll(cont => !CRMSecurity.CanAccessTo(cont));
         }
@@ -1430,7 +1430,7 @@ namespace ASC.CRM.Core.Dao
         {
             if (contactID == null || contactID.Length == 0) return new List<Contact>();
 
-            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID), false);
+            SqlQuery sqlQuery = GetContactSqlQuery(Exp.In("id", contactID));
 
             return Db.ExecuteList(sqlQuery).ConvertAll(row => ToContact(row));
         }
@@ -1860,15 +1860,9 @@ namespace ASC.CRM.Core.Dao
             return string.IsNullOrEmpty(alias) ? result.ToArray() : result.ConvertAll(item => string.Concat(alias, item)).ToArray();
         }
 
-        private SqlQuery GetContactSqlQuery(Exp where, bool useCompanyIdIndex = true)
+        private SqlQuery GetContactSqlQuery(Exp where)
         {
             var sqlQuery = Query("crm_contact");
-
-            //TODO: get rid of UseIndex
-            if (useCompanyIdIndex)
-            {
-                sqlQuery.UseIndex("company_id");
-            }
 
             sqlQuery.Select(GetContactColumnsTable(String.Empty));
 

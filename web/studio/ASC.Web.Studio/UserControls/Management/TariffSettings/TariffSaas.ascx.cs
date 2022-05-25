@@ -74,8 +74,6 @@ namespace ASC.Web.Studio.UserControls.Management
         protected bool IsBusiness;
         protected bool IsExpired;
 
-        protected bool InRuble;
-
         protected bool StartupEnabled;
 
         protected RegionInfo CurrentRegion;
@@ -83,6 +81,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private IDictionary<string, Dictionary<string, decimal>> priceInfo;
         private IEnumerable<TenantQuota> quotaList;
+        private ILog Log = LogManager.GetLogger("ASC.Web.Billing");
 
         protected bool IsAdmin;
         protected bool IsPeopleModuleAvailable;
@@ -122,7 +121,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var peopleProduct = WebItemManager.Instance[WebItemManager.PeopleProductID];
             IsPeopleModuleAvailable = peopleProduct != null && !peopleProduct.IsDisabled();
 
-            ActiveUsersPercent = (int)(100 * CurrentUsersCount / CurrentQuota.ActiveUsers);
+            ActiveUsersPercent = 100 * CurrentUsersCount / CurrentQuota.ActiveUsers;
             StorageSpacePercent = (int)(100 * CurrentUsedSize / CurrentQuota.MaxTotalSize);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
@@ -145,8 +144,6 @@ namespace ASC.Web.Studio.UserControls.Management
                     CurrentRegion = RegionDefault;
                 }
             }
-
-            InRuble = "RU".Equals(CurrentRegion.Name);
         }
 
         private RegionInfo GetRegionInfoByRequestCurrency()
@@ -239,7 +236,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 return false;
             }
 
-            if (TenantStatisticsProvider.GetAdminsCount() > 1)
+            var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var admins = WebItemSecurity.GetProductAdministrators(Guid.Empty);
+
+            if (admins.Any(admin => admin.ID != currentTenant.OwnerId))
             {
                 errorMessage = string.Format(UserControlsCommonResource.SaasTariffErrorAdmins, 1);
                 return false;
@@ -267,8 +268,6 @@ namespace ASC.Web.Studio.UserControls.Management
                 errorMessage = UserControlsCommonResource.SaasTariffErrorWhiteLabel;
                 return false;
             }
-
-            var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 
             if (!string.IsNullOrEmpty(currentTenant.MappedDomain))
             {
@@ -363,7 +362,7 @@ namespace ASC.Web.Studio.UserControls.Management
             return threeYearsQuota;
         }
 
-        protected static Tuple<string, string, string> GetShoppingData(TenantQuota quota, string currency, int quantity)
+        protected Tuple<string, string, string> GetShoppingData(TenantQuota quota, string currency, int quantity)
         {
             var getLink = true;
             var buttonText = Resource.TariffButtonBuy;
@@ -418,7 +417,7 @@ namespace ASC.Web.Studio.UserControls.Management
             return new Tuple<string, string, string>(buttonText, infoText, link);
         }
 
-        private static string GetShoppingLink(TenantQuota quota, string currency, string language, string customerId, int quantity)
+        private string GetShoppingLink(TenantQuota quota, string currency, string language, string customerId, int quantity)
         {
             var link = string.Empty;
             if (quota != null)
@@ -429,7 +428,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     if (uri == null)
                     {
                         var message = string.Format("GetShoppingLink: return null for tenant {0} quota {1} currency {2} language {3} customerId {4} quantity {5}", TenantProvider.CurrentTenantID, quota.Id, currency, language, customerId, quantity);
-                        LogManager.GetLogger("ASC.Web.Billing").Info(message);
+                        Log.Info(message);
                     }
                     else
                     {
@@ -439,28 +438,21 @@ namespace ASC.Web.Studio.UserControls.Management
                 catch (Exception ex)
                 {
                     var message = string.Format("GetShoppingLink: {0} tenant {1} quota {2} currency {3} language {4} customerId {5} quantity {6}", ex.Message, TenantProvider.CurrentTenantID, quota.Id, currency, language, customerId, quantity);
-                    LogManager.GetLogger("ASC.Web.Billing").Info(message, ex);
+                    Log.Info(message, ex);
                 }
             }
             return link;
         }
 
-        private static string GetPriceString(decimal price, bool rubleRate, RegionInfo region)
+        private static string GetPriceString(decimal price, RegionInfo region)
         {
-            var inRuble = "RU".Equals(region.Name);
-
-            if (rubleRate && inRuble)
-            {
-                price *= SetupInfo.ExchangeRateRuble;
-            }
-
             var inEuro = "EUR".Equals(region.ISOCurrencySymbol);
 
             var priceString = inEuro && Math.Truncate(price) != price
                                   ? price.ToString(CultureInfo.InvariantCulture)
                                   : ((int)price).ToString(CultureInfo.InvariantCulture);
 
-            return string.Format(inRuble ? "{1}{0}" : "{0}{1}", region.CurrencySymbol, priceString);
+            return string.Format("{0}{1}", region.CurrencySymbol, priceString);
         }
 
         protected string GetPricePerMonthString(TenantQuota quota)
@@ -472,11 +464,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 var prices = priceInfo[quota.AvangateId];
                 if (prices.ContainsKey(CurrentRegion.ISOCurrencySymbol))
                 {
-                    return GetPriceString(prices[CurrentRegion.ISOCurrencySymbol] / length, false, CurrentRegion);
+                    return GetPriceString(prices[CurrentRegion.ISOCurrencySymbol] / length, CurrentRegion);
                 }
-                return GetPriceString(quota.Price / length, false, RegionDefault);
+                return GetPriceString(quota.Price / length, RegionDefault);
             }
-            return GetPriceString(quota.Price / length, true, CurrentRegion);
+            return GetPriceString(quota.Price / length, CurrentRegion);
         }
 
         protected decimal GetPrice(TenantQuota quota, RegionInfo region)
@@ -543,11 +535,11 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var result = new TariffDetails()
             {
-                Price = GetPriceString(GetPrice(selectedQuota, region) / length, true, region),
+                Price = GetPriceString(GetPrice(selectedQuota, region) / length, region),
                 UsersCount = usersCount,
                 Period = period,
-                Sale = sale > 0 ? GetPriceString(sale, true, region) : string.Empty,
-                TotalPrice = GetPriceString(total, true, region),
+                Sale = sale > 0 ? GetPriceString(sale, region) : string.Empty,
+                TotalPrice = GetPriceString(total, region),
             };
 
             var shoppingData = GetShoppingData(selectedQuota, region.ISOCurrencySymbol, usersCount);

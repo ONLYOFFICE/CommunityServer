@@ -47,6 +47,8 @@ namespace ASC.Web.Core
                 cacheNotify = AscCache.Notify;
                 cacheNotify.Subscribe<WebItemSecurityNotifier>((r, act) =>
                 {
+                    CoreContext.TenantManager.SetCurrentTenant(r.Tenant);
+
                     ClearCache();
                 });
             }
@@ -170,7 +172,7 @@ namespace ASC.Web.Core
                 CoreContext.AuthorizationManager.AddAce(a);
             }
 
-            cacheNotify.Publish(new WebItemSecurityNotifier(), CacheNotifyAction.Any);
+            cacheNotify.Publish(new WebItemSecurityNotifier() { Tenant = TenantProvider.CurrentTenantID }, CacheNotifyAction.Any);
         }
 
         public static WebItemSecurityInfo GetSecurityInfo(string id)
@@ -255,7 +257,7 @@ namespace ASC.Web.Core
                 CoreContext.UserManager.RemoveUserFromGroup(userid, productid);
             }
 
-            cacheNotify.Publish(new WebItemSecurityNotifier(), CacheNotifyAction.Any);
+            cacheNotify.Publish(new WebItemSecurityNotifier() { Tenant = TenantProvider.CurrentTenantID }, CacheNotifyAction.Any);
         }
 
         public static bool IsProductAdministrator(Guid productid, Guid userid)
@@ -380,6 +382,6 @@ namespace ASC.Web.Core
 
     public class WebItemSecurityNotifier
     {
-
+        public int Tenant { get; set; }
     }
 }

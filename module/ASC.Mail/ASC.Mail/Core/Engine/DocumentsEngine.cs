@@ -55,7 +55,7 @@ namespace ASC.Mail.Core.Engine
             if (SecurityContext.IsAuthenticated) return;
 
             CoreContext.TenantManager.SetCurrentTenant(Tenant);
-            SecurityContext.AuthenticateMe(new Guid(_userId));
+            SecurityContext.CurrentUser = new Guid(_userId);
         }
 
         public List<object> StoreAttachmentsToMyDocuments(int messageId)

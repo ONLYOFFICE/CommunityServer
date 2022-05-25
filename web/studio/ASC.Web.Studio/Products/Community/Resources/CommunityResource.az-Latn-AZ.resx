@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portala giriş hüququ</value>
+    <value>Portala Giriş Hüquqları</value>
   </data>
   <data name="Announcement" xml:space="preserve">
     <value>Elan</value>
@@ -67,29 +67,68 @@
   <data name="Announcements" xml:space="preserve">
     <value>Elanlar</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Doğum günləri</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Bloqlar</value>
   </data>
   <data name="Bookmark" xml:space="preserve">
-    <value>Səhifə qeydi</value>
+    <value>Əlfəcin</value>
   </data>
   <data name="Bookmarks" xml:space="preserve">
-    <value>Səhifə qeydləri</value>
+    <value>Əlfəcinlər</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Kateqoriyalar</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Yaradın</value>
+    <value>Yarat</value>
+  </data>
+  <data name="DashboardCreateWelcomePost" xml:space="preserve">
+    <value>Salamlama paylaşımı yaradın</value>
+  </data>
+  <data name="DashboardDiscussWithTeam" xml:space="preserve">
+    <value>Komanda ilə müzakirə edin</value>
+  </data>
+  <data name="DashboardDiscussWithTeamFirstLine" xml:space="preserve">
+    <value>Korporativ bloqlar və forumlar yaradın.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamSecondLine" xml:space="preserve">
+    <value>Sorğular əlavə edin.</value>
+  </data>
+  <data name="DashboardDiscussWithTeamThirdLine" xml:space="preserve">
+    <value>Talk istifadə edərək ani mesajları mübadilə edin.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPosted" xml:space="preserve">
+    <value>Komandanızı xəbərdar edin</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
+    <value>Talk vasitəsilə qrup söhbəti və ya kütləvi poçtlar yaradın.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
+    <value>Paylaşılan sənədlər, son tarixləri və komanda yoldaşının ad günləri üçün bildirişləri konfiqurasiya edin.</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedSecondLineNew" xml:space="preserve">
+    <value>Paylaşılan sənədlər və bitmə tarixləri haqqında bildirişləri konfiqurasiya edin</value>
+  </data>
+  <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
+    <value>Mesajları qaçırmamaq üçün Firebase-dən istifadə edin.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledge" xml:space="preserve">
+    <value>Xəbərləri və bilikləri paylaşın</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeFirstLine" xml:space="preserve">
+    <value>Korporativ xəbərlər ilə məlumat lövhəsi yaradın.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
+    <value>Əlfəcinləri faydalı veb resurslarına əlavə edib paylaşın.</value>
+  </data>
+  <data name="DashboardShareNewsAndKnowledgeThirdLine" xml:space="preserve">
+    <value>Korporativ vikini qoruyun</value>
   </data>
   <data name="Events" xml:space="preserve">
-    <value>Olaylar</value>
+    <value>Tədbirlər</value>
   </data>
   <data name="Favorites" xml:space="preserve">
-    <value>Seçilmişlər</value>
+    <value>Sevimlilər</value>
   </data>
   <data name="Files" xml:space="preserve">
     <value>Fayllar</value>
@@ -98,7 +137,10 @@
     <value>Forum</value>
   </data>
   <data name="ForumEditor" xml:space="preserve">
-    <value>Forum redaktoru</value>
+    <value>Forum Redaktoru</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>Forum paylaşımı</value>
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forumlar</value>
@@ -119,10 +161,10 @@
     <value>Xəbərlər</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Əmr</value>
+    <value>Sifariş</value>
   </data>
   <data name="Orders" xml:space="preserve">
-    <value>Əmrlər</value>
+    <value>Sifarişlər</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Səhifə</value>
@@ -134,28 +176,31 @@
     <value>Sorğular</value>
   </data>
   <data name="Post" xml:space="preserve">
-    <value>Yazı</value>
+    <value>Bloq paylaşımı</value>
   </data>
   <data name="ProductAdminOpportunities" xml:space="preserve">
-    <value>İstifadəçinin etdiyini edin|Bloqlarda, Wiki'də, Forum mesajlarında və sair yerlərdə istənilən yazını redaktə edin</value>
+    <value>İstifadəçinin etdiyini edin|Bloqlarda, Vikidə, Forum mesajlarında və sair yerlərdə istənilən yazını redaktə edin</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
-    <value>Bloalarda olaylar və yazılar yaradın. Sorğular hazırlayın. Səhifə qeydləri düzəldin və onları digər istifadəçilərlə paylaşın.</value>
+    <value>Bloalarda tədbirlər və yazılar yaradın. Sorğular hazırlayın. Əlfəcinlər düzəldin və onları digər istifadəçilərlə paylaşın.</value>
   </data>
   <data name="ProductDescriptionExt" xml:space="preserve">
-    <value>Bloalarda olaylar və yazılar yaradın. Sorğular hazırlayın. Səhifə qeydləri düzəldin və onları digər istifadəçilərlə paylaşın.</value>
+    <value>Bloqlarda tədbirlər və yazılar yaradın. Sorğular hazırlayın. Əlfəcinlər düzəldin və onları digər istifadəçilərlə paylaşın.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Tədbirlər və bloq yazıları yaradın. Sorğular təşkil edin. Əlfəcinlər yaradıb onları digər istifadəçilərlə paylaşın.</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>İcma</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Öz yazılarınızı Bloqlarda yazıb redaktə edin, xəbər paylaşın və sair.</value>
+    <value>Öz paylaşımlarınızı Bloqlarda yazıb redaktə edin, xəbərləri paylaşın və sair.</value>
   </data>
   <data name="RecentlyEdited" xml:space="preserve">
     <value>Axırıncı redaktə edilənlər</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Parametrlər</value>
   </data>
   <data name="Subscribed" xml:space="preserve">
     <value>abunə olub</value>

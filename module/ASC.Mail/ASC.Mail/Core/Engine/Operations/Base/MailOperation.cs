@@ -89,7 +89,7 @@ namespace ASC.Mail.Core.Engine.Operations.Base
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(_culture);
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_culture);

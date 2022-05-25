@@ -85,6 +85,9 @@
   <data name="Edited" xml:space="preserve">
     <value>Redaktə olundu</value>
   </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Boş fayl</value>
+  </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>Bu əyləmi gerçəkləşdirməyə icazə yoxdur</value>
   </data>
@@ -102,6 +105,9 @@
   </data>
   <data name="ExistsReferencesChildPosts" xml:space="preserve">
     <value>Yazı silinə bilməz, çünki başqa yazılar da bu yazı ilə əlaqəlidir</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Maksimum fayl ölçüsü keçildi</value>
   </data>
   <data name="FileUploadAddButton" xml:space="preserve">
     <value>Fayl yapışdır</value>

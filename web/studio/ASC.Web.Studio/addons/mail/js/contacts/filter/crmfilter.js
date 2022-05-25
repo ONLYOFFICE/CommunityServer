@@ -101,7 +101,7 @@ window.crmFilter = (function($) {
                         enable: false
                     }
                 ]
-            }).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
+            }).on('setfilter', onSetFilter).on('resetfilter', onResetFilter).on('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advansed filter plugin call - because
             // its replace target element with new markup
@@ -112,7 +112,7 @@ window.crmFilter = (function($) {
             tagsManager.bind(tagsManager.events.OnCreate, onUpdateTags);
             tagsManager.bind(tagsManager.events.OnUpdate, onUpdateTags);
 
-            contactStages.events.bind('update', onUpdateStages);
+            contactStages.events.on('update', onUpdateStages);
         }
     };
 

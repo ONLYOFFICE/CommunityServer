@@ -47,7 +47,8 @@
 #sharingLinkAce .combobox-container {
     min-width: 120px;
 }
-#shareLinkDescr {
+#shareLinkDescr,
+#shareLinkEnable {
     float: left;
     margin: 1px 0 0 12px;
 }

@@ -57,9 +57,9 @@ namespace ASC.Web.Files.Utils
             return Signature.Read<string>(doc ?? String.Empty, Global.GetDocDbKey());
         }
 
-        public static bool Check(string doc, bool checkRead, IFileDao fileDao, out File file)
+        public static bool Check(string doc, bool checkRead, IFileDao fileDao, out File file, out FileShare fileShare)
         {
-            var fileShare = Check(doc, fileDao, out file);
+            fileShare = Check(doc, fileDao, out file);
             return (!checkRead
                     && (fileShare == FileShare.ReadWrite
                         || fileShare == FileShare.CustomFilter
@@ -72,6 +72,7 @@ namespace ASC.Web.Files.Utils
         public static FileShare Check(string doc, IFileDao fileDao, out File file)
         {
             file = null;
+            if (!FilesSettings.ExternalShare) return FileShare.Restrict;
             if (string.IsNullOrEmpty(doc)) return FileShare.Restrict;
             var fileId = Parse(doc);
             file = fileDao.GetFile(fileId);

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9135e7f8-b287-44ca-9faf-802a50dbad1a" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <summary>
+      <para>
+        This page describes the process for authenticating against the Rackspace Public Cloud.
+      </para>
+    </summary>
+
+    <introduction>
+      <para>
+        The default authentication provider used by this SDK performs authentication using
+        an instance of <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudIdentityProvider</codeEntityReference>,
+        which uses the OpenStack Identity Service v2.0 API and supports both username/password
+        and username/API key credentials.
+      </para>
+    </introduction>
+
+    <section address="UsageNotes">
+      <title>Usage Notes</title>
+      <content>
+        <para>
+          To authenticate a client against the Rackspace Public Cloud, start by creating an
+          instance of <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+          or <codeEntityReference>T:net.openstack.Providers.Rackspace.Objects.RackspaceCloudIdentity</codeEntityReference>
+          and initializing its properties with the desired authentication credentials. The
+          credentials may then be passed to service provider instances, such as
+          <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudFilesProvider</codeEntityReference>
+          or <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudQueuesProvider</codeEntityReference>,
+          using either of the following methods.
+        </para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              When creating a service provider instance pass the initialized credentials for the
+              <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+              parameter and <markup>
+                <span class="input">null</span>
+              </markup> as the <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              parameter.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              Create an instance of <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudIdentityProvider</codeEntityReference>,
+              and pass the previously created credentials to the constructor. Then, when creating a service provider instance
+              pass <markup>
+                <span class="input">null</span>
+              </markup> for the <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+              parameter and the identity provider instance as the
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              parameter.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section address="Limitations">
+      <title>Limitations</title>
+      <content>
+        <para>
+          The <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudIdentityProvider</codeEntityReference>
+          used for Rackspace authentication does not support
+          <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+          credentials, so the <codeInline>tenantName</codeInline> and <codeInline>tenantId</codeInline>
+          properties described in the OpenStack documentation cannot be included with authentication requests.
+        </para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Providers.Rackspace.Objects.RackspaceCloudIdentity</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudIdentityProvider</codeEntityReference>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

@@ -142,9 +142,6 @@ ONLYOFFICE Tiimi</value>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. ${__VirtualRootPath} portaalin turvavarmenne luotu</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} salasana tuki</value>
-  </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Matkapuhelimen numeron vaihdon pyyntö</value>
   </data>

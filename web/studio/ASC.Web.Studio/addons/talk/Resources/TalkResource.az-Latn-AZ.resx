@@ -64,6 +64,9 @@
   <data name="BtnAddToMailing" xml:space="preserve">
     <value>Kütləvi məktub göndərməyə əlavə et</value>
   </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Ləğv et</value>
+  </data>
   <data name="BtnCloseHistory" xml:space="preserve">
     <value>Tarixi qapat</value>
   </data>
@@ -72,6 +75,9 @@
   </data>
   <data name="BtnDecline" xml:space="preserve">
     <value>Rədd et</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Silin</value>
   </data>
   <data name="BtnKick" xml:space="preserve">
     <value>Tulla getsin</value>
@@ -94,14 +100,35 @@
   <data name="Chat" xml:space="preserve">
     <value>Söhbət</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Bağla</value>
+  </data>
   <data name="ConferenceGroupName" xml:space="preserve">
     <value>Söhbət otaqları</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Bağlantı</value>
   </data>
   <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
     <value>{0} xoş gəlmisiniz</value>
   </data>
   <data name="DefaultContactTitle" xml:space="preserve">
     <value>Anonim</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Göndərilən faylları silin</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Bütün fayllar</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>Söhbət vasitəsilə göndərdiyiniz fayllar portalda &lt;b&gt; &lt;/b&gt; disk yerini tutur. Bu faylları silməyi seçsəniz, o, yer boşaldacaq, lakin fayllar söhbətdəki hər kəs üçün tarixçədəki linklər vasitəsilə əlçatan olmayacaq.Seçməli olduğunuz elementi seçin:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Bir aydan çox əvvəl göndərilmiş fayllar</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Bir ildən çox əvvəl göndərilmiş fayllar</value>
   </data>
   <data name="FullDateFormat" xml:space="preserve">
     <value>%H:%M:%S %d %b %y</value>
@@ -169,6 +196,9 @@
   <data name="HintUnreadMessages" xml:space="preserve">
     <value>oxunmuş</value>
   </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Mesajların məzmununa görə axtarın</value>
+  </data>
   <data name="LabelConferenceSplash" xml:space="preserve">
     <value>Qəbuledicini əlavə etmək üçün kontaktı buraya daşıyın</value>
   </data>
@@ -214,11 +244,23 @@
   <data name="ProductName" xml:space="preserve">
     <value>Söhbət</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Kontaktı Tapın</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Mesaj tarixçəsində axtarın</value>
+  </data>
   <data name="SendFileMessage" xml:space="preserve">
     <value>Fayl: {0}Ölçü: {1}</value>
   </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>/</value>
+  </data>
   <data name="ShortDateFormat" xml:space="preserve">
     <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Siyahını göstər</value>
   </data>
   <data name="StatusAway" xml:space="preserve">
     <value>Uzaqda</value>
@@ -253,7 +295,13 @@
   <data name="TitleRemoveRoomDialog" xml:space="preserve">
     <value>Söhbəti sil</value>
   </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Yekun</value>
+  </data>
   <data name="ValidSymbols" xml:space="preserve">
     <value>həfrlər, rəqəmlər, nöqtələr(.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Mesaj yazın...</value>
   </data>
 </root>

@@ -56,12 +56,12 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the list of all events on the portal with the event titles, date of creation and update, event text and author
+        ///Returns a list of all the portal events with the event titles, dates of creation and update, event texts and authors.
         ///</summary>
         ///<short>
-        ///All events
+        ///Get events
         ///</short>
-        ///<returns>list of events</returns>
+        ///<returns>List of events</returns>
         ///<category>Events</category>
         [Read("event")]
         public IEnumerable<EventWrapper> GetEvents()
@@ -73,15 +73,15 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        ///Creates a new event with the parameters (title, content, type) specified in the request
+        ///Creates a new event with the parameters (title, content, type) specified in the request.
         ///</summary>
         ///<short>
-        ///Create event
+        ///Create an event
         ///</short>        
-        /// <param name="title">Title</param>
-        /// <param name="content">Content</param>
-        /// <param name="type">Type. One of  (News|Order|Advert|Poll)</param>
-        ///<returns>New created event</returns>
+        /// <param name="title">Event title</param>
+        /// <param name="content">Event content</param>
+        /// <param name="type">Event type (News|Order|Advert|Poll)</param>
+        ///<returns>Newly created event</returns>
         ///<category>Events</category>
         [Create("event")]
         public EventWrapperFull CreateEvent(string content, string title, FeedType type)
@@ -109,15 +109,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Updates the selected event changing the event title, content or/and event type specified
+        ///Updates the selected event changing the event title, content or/and event type specified in the request.
         ///</summary>
         ///<short>
-        ///Update event
+        ///Update an event
         ///</short>
         /// <param name="feedid">Feed ID</param>
-        /// <param name="title">Title</param>
-        /// <param name="content">Content</param>
-        /// <param name="type">Type. One of  (News|Order|Advert|Poll)</param>
+        /// <param name="title">New event title</param>
+        /// <param name="content">New event content</param>
+        /// <param name="type">New event type (News|Order|Advert|Poll)</param>
         ///<returns>List of events</returns>
         ///<category>Events</category>
         [Update("event/{feedid}")]
@@ -143,11 +143,10 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Deletes the selected event
+        ///Deletes an event with the ID specified in the request.
         ///</summary>
-        ///<short>Delete event</short>
+        ///<short>Delete an event</short>
         ///<param name="feedid">Feed ID</param>
-        ///<returns>Nothing</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<category>Events</category>
         [Delete("event/{feedid}")]
@@ -170,10 +169,10 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the list of all events for the current user with the event titles, date of creation and update, event text and author
+        ///Returns a list of all the events for the current user with the event titles, dates of creation and update, event texts and author.
         ///</summary>
         ///<short>
-        ///My events
+        ///Get my events
         ///</short>
         ///<returns>List of events</returns>
         ///<category>Events</category>
@@ -186,12 +185,12 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of events matching the search query with the event title, date of creation and update, event type and author
+        ///Returns a list of events matching the search query specified in the request with the event titles, dates of creation and update, event types and authors.
         ///</summary>
         ///<short>
-        ///Search
+        ///Search events
         ///</short>
-        /// <param name="query">search query</param>
+        /// <param name="query">Search query</param>
         ///<returns>List of events</returns>
         ///<category>Events</category>
         [Read("event/@search/{query}")]
@@ -203,13 +202,13 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the detailed information about the event with the specified ID
+        ///Returns the detailed information about an event with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Specific event
+        ///Get an event
         ///</short>
         ///<param name="feedid">Event ID</param>
-        ///<returns>Event</returns>
+        ///<returns>Event information</returns>
         ///<category>Events</category>
         [Read("event/{feedid}")]
         public EventWrapperFull GetEvent(int feedid)
@@ -219,12 +218,12 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the detailed information about the comments on the event with the specified ID
+        ///Returns the detailed information about the comments on the event with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Get comments
+        ///Get the event comments
         ///</short>
-        ///<param name="feedid">Event id</param>
+        ///<param name="feedid">Event ID</param>
         ///<returns>List of comments</returns>
         ///<category>Events</category>
         [Read("event/{feedid}/comment")]
@@ -236,15 +235,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Adds a comment to the event with the specified ID. The parent event ID can be also specified if needed.
+        ///Adds a comment to the event with the ID specified in the request. The parent event ID can be also specified if needed.
         ///</summary>
         ///<short>
-        ///Add comment
+        ///Add an event comment by feed ID
         ///</short>
-        ///<param name="feedid">Event ID</param>
-        ///<param name="content">Comment content</param>
+        ///<param name="feedid">Feed ID</param>
+        ///<param name="content">Comment text</param>
         ///<param name="parentId">Comment parent ID</param>
-        ///<returns>Comments list</returns>
+        ///<returns>Comment</returns>
         /// <example>
         /// <![CDATA[
         /// Sending data in application/json:
@@ -259,7 +258,7 @@ namespace ASC.Api.Community
         /// ]]>
         /// </example>
         /// <remarks>
-        /// Send parentId=0 or don't send it at all if you want your comment to be on the root level
+        /// Send parentId=0 or doesn't send it at all if you want your comment to be on the root level.
         /// </remarks>
         /// <category>Events</category>
         [Create("event/{feedid}/comment")]
@@ -285,13 +284,13 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Sends a vote to a certain option in a poll-type event with the ID specified
+        /// Sends a vote to a certain option in a poll-type event with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Vote for event
+        /// Vote for an event
         ///</short>
         ///<param name="feedid">Event ID</param>
-        ///<param name="variants">Variants</param>
+        ///<param name="variants">Options</param>
         ///<returns>Event</returns>
         ///<exception cref="ArgumentException">Thrown if not a Poll</exception>
         ///<exception cref="Exception">General error</exception>
@@ -306,7 +305,7 @@ namespace ASC.Api.Community
         /// ]]>
         /// </example>
         /// <remarks>
-        /// If event is not a poll, then you'll get an error
+        /// If an event is not a poll, then you'll get an error.
         /// </remarks>
         /// <category>Events</category>
         [Create("event/{feedid}/vote")]
@@ -328,14 +327,14 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        /// Subscribe or unsubscribe on comments of event with the ID specified
+        /// Subscribes to or unsubscribes from the comments of the event with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Subscribe/unsubscribe on comments
+        /// Comment subscription
         ///</short>
-        ///<param name="isSubscribe">is already subscribed or unsubscribed</param>
+        ///<param name="isSubscribe">Subscribes to the event comments or unsubscribes from them</param>
         ///<param name="feedid">Feed ID</param>
-        ///<returns>Boolean value</returns>
+        ///<returns>Boolean value: true means that the user is subscribed to the event comments</returns>
         ///<category>Events</category>
         [Create("event/{feedid}/subscribe")]
         public bool SubscribeOnComments(bool isSubscribe, string feedid)
@@ -362,13 +361,13 @@ namespace ASC.Api.Community
 
 
         /// <summary>
-        /// Get comment preview with the content specified in the request
+        /// Returns a comment preview with the content specified in the request.
         /// </summary>
-        /// <short>Get comment preview</short>
+        /// <short>Get a comment preview</short>
         /// <section>Comments</section>
         /// <param name="commentid">Comment ID</param>
-        /// <param name="htmltext">Comment content</param>
-        /// <returns>Comment info</returns>
+        /// <param name="htmltext">Comment text in the HTML format</param>
+        /// <returns>Comment information</returns>
         /// <category>Events</category>
         [Create("event/comment/preview")]
         public CommentInfo GetEventCommentPreview(string commentid, string htmltext)
@@ -398,12 +397,12 @@ namespace ASC.Api.Community
 
 
         /// <summary>
-        ///Remove comment with the id specified in the request
+        ///Removes a comment with the ID specified in the request.
         /// </summary>
-        /// <short>Remove comment</short>
+        /// <short>Remove a comment</short>
         /// <section>Comments</section>
         /// <param name="commentid">Comment ID</param>
-        /// <returns>Comment info</returns>
+        /// <returns>Comment information</returns>
         /// <category>Events</category>
         [Delete("event/comment/{commentid}")]
         public string RemoveEventComment(string commentid)
@@ -421,6 +420,16 @@ namespace ASC.Api.Community
         }
 
 
+        ///<summary>
+        ///Adds an event comment with the content specified in the request. The parent event ID can be also specified if needed.
+        ///</summary>
+        ///<short>
+        ///Add an event comment by entity ID
+        ///</short>
+        ///<param name="parentcommentid">Comment parent ID</param>
+        ///<param name="entityid">Entity ID</param>
+        ///<param name="content">Comment text</param>
+        ///<returns>Comment information</returns>
         /// <category>Events</category>
         [Create("event/comment")]
         public CommentInfo AddEventComment(string parentcommentid, string entityid, string content)
@@ -441,6 +450,15 @@ namespace ASC.Api.Community
             return GetCommentInfo(comment);
         }
 
+        ///<summary>
+        ///Updates the selected event comment with the content specified in the request.
+        ///</summary>
+        ///<short>
+        ///Update a comment
+        ///</short>
+        ///<param name="commentid">Comment ID</param>
+        ///<param name="content">New comment text</param>
+        ///<returns>Updated comment</returns>
         /// <category>Events</category>
         [Update("event/comment/{commentid}")]
         public string UpdateComment(string commentid, string content)

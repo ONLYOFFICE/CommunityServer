@@ -6,6 +6,8 @@
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
+<%@ Import Namespace="ASC.Files.Core" %>
+<%@ Import Namespace="ASC.Files.Core.Security" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Helpers" %>
@@ -80,6 +82,22 @@
         <label for="cbxDownloadTarGz">
             <%= FilesUCResource.DownloadTarGz %>
         </label>
+        
+        <br />
+        <br />
+        <div id="divAutomaticallyCleanUp" class="auto-clean-up">
+            <input type="checkbox" id="cbxAutomaticallyCleanUp" class="on-off-checkbox" <%= CleanUpSettings.IsAutoCleanUp ? "checked=\"checked\"" : string.Empty %>/>
+            <label for="cbxAutomaticallyCleanUp"><%= FilesUCResource.AutomaticallyCleanUp %></label>
+                &nbsp
+                <select id="selectGapToAutoCleanUp" <%= !CleanUpSettings.IsAutoCleanUp ? "class=\"disabled\"" : string.Empty %>>
+                    <option value="<%= (int) DateToAutoCleanUp.OneWeek %>" <%= CleanUpSettings.Gap == DateToAutoCleanUp.OneWeek ? "selected=''" : "" %> class="dropdown-item"><%= FilesJSResource.DateOneWeek %></option>
+                    <option value="<%= (int) DateToAutoCleanUp.TwoWeeks %>" <%= CleanUpSettings.Gap == DateToAutoCleanUp.TwoWeeks ? "selected=''" : "" %> class="dropdown-item"><%= FilesJSResource.DateTwoWeeks %></option>
+                    <option value="<%= (int) DateToAutoCleanUp.OneMonth %>" <%= CleanUpSettings.Gap == DateToAutoCleanUp.OneMonth ? "selected=''" : "" %> class="dropdown-item"><%= FilesJSResource.DateOneMonth %></option>
+                    <option value="<%= (int) DateToAutoCleanUp.TwoMonths %>" <%= CleanUpSettings.Gap == DateToAutoCleanUp.TwoMonths ? "selected=''" : "" %> class="dropdown-item"><%= FilesJSResource.DateTwoMonths %></option>
+                    <option value="<%= (int) DateToAutoCleanUp.ThreeMonths %>" <%= CleanUpSettings.Gap == DateToAutoCleanUp.ThreeMonths ? "selected=''" : "" %> class="dropdown-item"><%= FilesJSResource.DateThreeMonths %></option>
+                </select>
+        </div>
+        <label for="cbxAutomaticallyCleanUp" class="auto-clean-up-info"><span class="text-medium-describe"><%= FilesUCResource.AutomaticallyCleanUpInfo %></span></label>
        
         <% if (!CurrentUser.IsVisitor())
            { %>
@@ -125,6 +143,48 @@
             <%= FilesUCResource.SettingTemplates %>
         </label>
         <% } %>
+
+        <br />
+        <br />
+        <br />
+        <div id="defaultAccessRightsSetting">
+            <span class="header-base"><%= FilesUCResource.DefaultSharingAccessRightsSetting %></span>
+            <br />
+            <br />
+            <label>
+                <input type="radio" name="defaultAce" value="<%= (int)FileShare.ReadWrite %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.ReadWrite) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_ReadWrite %>
+            </label>
+            <br />
+            <label>
+                <input type="radio" name="defaultAce" value="<%= (int)FileShare.Comment %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.Comment) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_Comment %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingCommentInfo %>)</span>
+            </label>
+            <br />
+            <label>
+                <input type="radio" name="defaultAce" value="<%= (int)FileShare.Read %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.Read) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_Read %>
+            </label>
+            <br />
+            <br />
+            <span class="header-base-small"><%= FilesUCResource.DefaultSharingAccessRightsSettingSpecific %>:</span>
+            <br />
+            <label>
+                <input type="checkbox" value="<%= (int)FileShare.Review %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.Review) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_Review %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingReviewInfo %>)</span>
+            </label>
+            <br />
+            <label>
+                <input type="checkbox" value="<%= (int)FileShare.CustomFilter %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.CustomFilter) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_CustomFilter %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingCustomFilterInfo %>)</span>
+            </label>
+            <br />
+            <label>
+                <input type="checkbox" value="<%= (int)FileShare.FillForms %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.FillForms) ? "checked=\"checked\"" : string.Empty %> />
+                <%= FilesJSResource.AceStatusEnum_FillForms %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingFillFormsInfo %>)</span>
+            </label>
+        </div>
+
         <% } %>
     </div>
 
@@ -151,6 +211,32 @@
         <label for="cbxEnableSettings">
             <%= FilesUCResource.ThirdPartyEnableSettings %>
         </label>
+        <% } %>
+        <% if (!CoreContext.Configuration.Personal)
+           { %>
+        <br />
+        <br />
+        <br />
+        <span class="header-base"><%= FilesUCResource.SharingSettings %></span>
+        <br />
+        <br />
+        <% 
+            var externalShare = FilesSettings.ExternalShare;
+            var externalShareSocialMedia = FilesSettings.ExternalShareSocialMedia;
+        %>
+        <input type="checkbox" id="cbxExternalShare" class="on-off-checkbox" <%= externalShare ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxExternalShare">
+            <%= FilesUCResource.ConfirmExternalShare %>
+        </label>
+        <% if (!CoreContext.Configuration.CustomMode)
+           { %>
+        <br />
+        <br />
+        <input type="checkbox" id="cbxExternalShareSocialMedia" class="on-off-checkbox" <%= externalShareSocialMedia ? "checked=\"checked\"" : string.Empty %> <%= externalShare ? string.Empty : "disabled=\"disabled\"" %>/>
+        <label for="cbxExternalShareSocialMedia" class="<%= externalShare ? string.Empty : "gray-text" %>"><%= FilesUCResource.ConfirmExternalShareSocialMedia %></label>
+        <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'socialMediaHelper'});"></span>
+        <div class="popup_helper" id="socialMediaHelper"><%= FilesUCResource.ConfirmExternalShareSocialMediaHelper %></div>
+        <% } %>
         <% } %>
     </div>
     <% } %>

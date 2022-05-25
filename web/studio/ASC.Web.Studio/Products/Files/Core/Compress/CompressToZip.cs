@@ -14,6 +14,7 @@
  *
 */
 
+using System;
 using System.IO;
 
 using ASC.Common;
@@ -45,9 +46,13 @@ namespace ASC.Web.Files.Core.Compress
         /// The record name is created (the name of a separate file in the archive)
         /// </summary>
         /// <param name="title">File name with extension, this name will have the file in the archive</param>
-        public void CreateEntry(string title)
+        /// <param name="lastModification">Set the datetime of last modification of the entry.</param>
+        public void CreateEntry(string title, DateTime? lastModification)
         {
             zipEntry = new ZipEntry(title) { IsUnicodeText = true };
+
+            if (lastModification.HasValue)
+                zipEntry.DateTime = lastModification.Value;
         }
 
         /// <summary>

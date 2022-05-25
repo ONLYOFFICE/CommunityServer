@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Administratorzy</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Status stowarzyszenia</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Wszystkie domeny</value>
   </data>
@@ -487,12 +484,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>Zaloguj Się</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Połącz usługę Bitly w celu skrócenia linków do ogłoszeń i współdzielonych łączy w module Dokumenty.</value>
@@ -793,27 +784,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Dostęp Token Secret</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Identyfikator klienta</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Włącz aplikację dla importu kontaktów Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Dodanie aplikacji usługi Yahoo będzie można dodać nowych użytkowników portalu ONLYOFFICE z listy kontaktów.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Identyfikator klienta</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Secret</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Informacje kontaktowe</value>
@@ -1249,9 +1219,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Hasło musi zawierać</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Musi zawierać</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>liczby</value>
   </data>
@@ -1430,9 +1397,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Centrum pomocy</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Celem programu jest prawnie reklamowanie ONLYOFFICE ™ w celu otrzymania prowizji od subskrypcji zakupionej przez osoby, których dotyczą.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Ukryj</value>
   </data>
@@ -1556,9 +1520,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Importuj z Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importuj z Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Aktualny plan wyceny umożliwia dodanie {0} użytkowników.</value>
   </data>
@@ -1622,9 +1583,6 @@ Czy na pewno chcesz usunąć {!group} `{0}`?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migracja usługi ONLYOFFICE ™ Mail (nie zaleca się)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Zostań naszym Partnerem</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Można nadal dodawać użytkowników jako {!guests} lub zmienić plan cen dla jednego z większą liczbą użytkowników.</value>
@@ -2686,15 +2644,6 @@ Ab się zarejestrować, wpisz swój adres e-mail i kliknij na 'Wyślij zaproszen
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Zaproszenia zostały ponownie przesłane</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Wysłać email</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Skontaktuj się z nami, aby znaleźć oferty specjalne</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Zmniejsz wymagany parametr lub wybierz inny plan wyceny.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Kup teraz</value>
   </data>
@@ -2706,18 +2655,6 @@ Ab się zarejestrować, wpisz swój adres e-mail i kliknij na 'Wyślij zaproszen
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Wybierz plan, który najlepiej odpowiada Twoim potrzebom. Poniżej przedstawiono poniższy plan.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Ten plan nie może być wybrany</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Dopuszczalny rozmiar przestrzeni dyskowej: {0}. Aktualna przestrzeń pamięci: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Liczba dozwolonych użytkowników portalu: {0}. Aktualna liczba użytkowników: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Nie możesz wybrać tego planu, ponieważ przestrzeń pamięci lub liczba użytkowników przekracza ograniczenia wybranego planu cenowego:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Płatności powtarzające się są włączone</value>
@@ -2743,9 +2680,6 @@ Ab się zarejestrować, wpisz swój adres e-mail i kliknij na 'Wyślij zaproszen
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Twój portal ONLYOFFICE ™ zostanie zablokowany {2}. Proszę {0} kliknąć tutaj {1}, aby wydłużyć istniejący plan lub zmienić go na odpowiedni.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Liczba utworzonych portali: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Plan wyceny nie jest dostępny do końca płatnego roku.</value>
   </data>
@@ -2758,14 +2692,8 @@ Ab się zarejestrować, wpisz swój adres e-mail i kliknij na 'Wyślij zaproszen
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Aby anulować płatności cykliczne, przejdź na konto Avangate.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Do {0} tylko.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Plany cenowe</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Dla wygody płatności w rublach rosyjskich obliczane są przy użyciu stałego kursu wymiany {0} rubli rosyjskich za 1 dolar amerykański.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Płatności</value>

@@ -60,7 +60,7 @@
             this.isPassword = true;
             if ($.browser.msie && input[0].outerHTML) {
                 var fakeHtml = $(input[0].outerHTML.replace(/type=(['"])?password\1/gi, 'type=$1text$1'));
-                this.fakePassword = fakeHtml.val(input.attr('placeholder')).addClass('placeholder').focus(function() {
+                this.fakePassword = fakeHtml.val(input.attr('placeholder')).addClass('placeholder').on("focus", function() {
                     input.trigger('focus');
                     $(this).hide();
                 });
@@ -78,10 +78,10 @@
             var input = $(this);
             var placeholder = new Placeholder(input);
             placeholder.show(false);
-            input.focus(function() {
+            input.on("focus", function() {
                 placeholder.hide();
             });
-            input.blur(function() {
+            input.on("blur", function() {
                 placeholder.show(true);
             });
             if ($.browser.msie) {
@@ -91,7 +91,7 @@
                     }
                     placeholder.show(true);
                 });
-                input.focus(function() {
+                input.on("focus", function() {
                     if (this.value == "") {
                         var range = this.createTextRange();
                         range.collapse(true);

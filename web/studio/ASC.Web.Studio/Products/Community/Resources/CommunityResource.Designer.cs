@@ -19,7 +19,7 @@ namespace ASC.Web.Community.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CommunityResource {
@@ -84,15 +84,6 @@ namespace ASC.Web.Community.Resources {
         public static string Announcements {
             get {
                 return ResourceManager.GetString("Announcements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Birthdays.
-        /// </summary>
-        public static string Birthdays {
-            get {
-                return ResourceManager.GetString("Birthdays", resourceCulture);
             }
         }
         
@@ -205,11 +196,11 @@ namespace ASC.Web.Community.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure notifications about shared docs, deadlines and teammates&apos; birthdays..
+        ///   Looks up a localized string similar to Configure notifications about shared docs and deadlines..
         /// </summary>
-        public static string DashboardKeepYourTeamPostedSecondLine {
+        public static string DashboardKeepYourTeamPostedSecondLineNew {
             get {
-                return ResourceManager.GetString("DashboardKeepYourTeamPostedSecondLine", resourceCulture);
+                return ResourceManager.GetString("DashboardKeepYourTeamPostedSecondLineNew", resourceCulture);
             }
         }
         

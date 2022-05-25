@@ -218,8 +218,10 @@
                 </table>
             </div>
 
+            {{tmpl($item.data, {}) "messageReadConfirmation"}}
+
             {{if contentIsBlocked == true}}
-            	{{tmpl($item.data, {}) "messageBlockContent"}}
+            {{tmpl($item.data, {}) "messageBlockContent"}}
             {{/if}}
 
             <div message_id="${id}" class="body"></div>
@@ -236,7 +238,7 @@
                     {{if ASC.Mail.Master.IsTurnOnAttachmentsGroupOperations == true}}
                     {{if attachments.length > 1}}
                     <div class="attachments-buttons">
-                        <i class="icon-download-all" />
+                        <i class="icon-download-all"></i>
                         <a class="downloadAllAttachments baseLinkAction link dotline">${ASC.Mail.Resources.MailResource.AttachDownloadAll}</a>
                         <a href="javascript:void(0);" id="bufferLink" download></a>
                         {{if false }}
@@ -291,7 +293,21 @@
                 </table>
             </div>
             {{/if}}
+
         </div>
+    </div>
+</script>
+
+<script id="messageReadConfirmation" type="text/x-jquery-tmpl">
+    <div id="id_read_confirmation_popup_${id}" class="read-confirmation-popup hidden">
+        <span class="text">${ASC.Mail.Resources.MailResource.ReadConfirmation}</span>
+        <span class="info-text">${ASC.Mail.Resources.MailResource.ReadConfirmationText}</span>
+        <a id="id-btn-read-confirmation-${id}" class="link dotline" href="#" onclick="return false;">${ASC.Mail.Resources.MailResource.SendReceiptLabel}</a>
+        <span class="HelpCenterSwitcher" id="receiptHelpCenterSwitcher"></span>&nbsp;
+        <a id="id-btn-close-read-confirm-${id}" class="close-info-popup" href="#" onclick="return false;">&times;</a>
+    </div>
+    <div class="popup_helper" id="sendReceiptInfo">
+        <p>${ASC.Mail.Resources.MailResource.SendReceiptHelp}</p>
     </div>
 </script>
 

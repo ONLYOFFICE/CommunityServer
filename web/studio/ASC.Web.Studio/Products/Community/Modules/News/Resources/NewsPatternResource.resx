@@ -58,6 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="pattern_mention_for_feed_comment" xml:space="preserve">
+    <value>h1.#if($FEED_TYPE == "poll")You were mentioned in comment to Poll#end#if($FEED_TYPE == "feed")You were mentioned in comment to Event#end: "$Caption":"$URL"
+
+$Date "$UserName":"$UserURL" mentioned you in the comment to the "$Caption":"$URL" #if($FEED_TYPE == "poll")poll#end#if($FEED_TYPE == "feed")event#end:
+
+$CommentBody
+
+"Read More":"$CommentURL"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this event, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
   <data name="pattern_new_text" xml:space="preserve">
     <value>h1.#if($FEED_TYPE == "feed")New Event Added: "$Caption":"$URL"
 
@@ -95,6 +106,12 @@ $CommentBody
 "Read More":"$CommentURL"
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this event, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_mention_for_feed_comment" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")Mention in comment to poll#end#if($FEED_TYPE == "feed")Mention in comment to event#end: $Caption</value>
+  </data>
+  <data name="subject_mention_for_feed_comment_tg" xml:space="preserve">
+    <value>Community. #if($FEED_TYPE == "poll")Mention in comment to poll#end#if($FEED_TYPE == "feed")Mention in comment to event#end: [$Caption]($URL)</value>
   </data>
   <data name="subject_new_text" xml:space="preserve">
     <value>Community. #if($FEED_TYPE == "poll")New poll added#end#if($FEED_TYPE == "feed")New event added#end: $Caption</value>

@@ -463,6 +463,9 @@
   <data name="PriceCol" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="PriceTip" xml:space="preserve">
+    <value>Price must contain 1-8 characters</value>
+  </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>

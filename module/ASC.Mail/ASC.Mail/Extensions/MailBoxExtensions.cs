@@ -96,11 +96,11 @@ namespace ASC.Mail.Extensions
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(tenantInfo.OwnerId);
+                    SecurityContext.CurrentUser = tenantInfo.OwnerId;
                 }
                 catch (InvalidCredentialException)
                 {
-                    SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+                    SecurityContext.CurrentUser = new Guid(mailbox.UserId);
                 }
 
                 var apiHelper = new ApiHelper(httpContextScheme, log);
@@ -155,7 +155,7 @@ namespace ASC.Mail.Extensions
                 if (tenantInfo.Status == TenantStatus.RemovePending)
                     return false;
 
-                SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+                SecurityContext.CurrentUser = new Guid(mailbox.UserId);
 
                 var apiHelper = new ApiHelper(httpContextScheme, log);
                 return apiHelper.IsCrmModuleAvailable();

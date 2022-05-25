@@ -14,38 +14,98 @@
  *
 */
 
-jq(function () {
-    var time = 60000;
 
-    var waitForZopim = setInterval(function () {
-        if (time < 0) {
-            clearInterval(waitForZopim);
-        };
+if (typeof (ASC) === 'undefined') {
+    ASC = {};
+}
 
-        if (window.$zopim === undefined || window.$zopim.livechat === undefined) {
-            time -= 100;
-            return ;
-        };
+if (typeof (ASC.ZopimLiveChat) === 'undefined') {
+    ASC.ZopimLiveChat = {};
+}
 
-        var $switcher = jq('#liveChatSwitch .switch-btn');
+ASC.ZopimLiveChat = (function () {
 
-        jq('#liveChatSwitch').click(function () {
-            $switcher.toggleClass('switch-on');
-            if ($switcher.hasClass('switch-on')) {
-                $zopim.livechat.window.hide();
-                localStorage.setItem('livechat', 'on');
-            } else {
-                $zopim.livechat.hideAll();
-                localStorage.setItem('livechat', 'off');
+    var keyChat;
+    var onloadTimeout = null;
+    var counter = 0;
+    var counterMax = 100;
+    var $switcher = jq('#liveChatSwitch .switch-btn');
+
+    var init = function (key) {
+
+        if (!$switcher.length) return;
+
+        keyChat = key;
+
+        jq('#liveChatSwitch').on("click", function () {
+            if (jq(this).hasClass('disabled')) return;
+
+            if (window.$zopim === undefined || window.$zopim.livechat === undefined) {
+                jq(this).addClass('disabled');
+                loadLiveChat();
+                return;
             }
+            toggleSwitcher(localStorage.getItem('livechat') === 'off');
         });
 
-        if (localStorage.getItem("livechat") !== 'on') {
-            $zopim.livechat.hideAll();
-        } else {
-            $switcher.click();
-        };
+        if (localStorage.getItem('livechat') === 'on') {
+            jq('#liveChatSwitch').addClass('disabled');
+            loadLiveChat();
+        }
+    };
 
-        clearInterval(waitForZopim);
-    }, 100);
-});
+    var loadLiveChat = function () {
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) { z._.push(c) },
+                $ = z.s = d.createElement(s),
+                e = d.getElementsByTagName(s)[0];
+            z.set = function (o) {
+                z.set._.push(o)
+            };
+            z._ = [];
+            z.set._ = [];
+            $.async = !0;
+            $.setAttribute("charset", "utf-8");
+            $.src = "https://v2.zopim.com/?" + keyChat;
+            z.t = +new Date;
+            $.type = "text/javascript";
+            $.onload = onloadLiveChat;
+            e.parentNode.insertBefore($, e)
+        })(document, "script");
+    };
+
+    var onloadLiveChat = function () {
+        clearTimeout(onloadTimeout);
+
+        if (counter < counterMax) {
+
+            if (window.$zopim.livechat === undefined) {
+                console.log('livechat undefined');
+                onloadTimeout = setTimeout(onloadLiveChat, 200);
+                counter += 1;
+                return;
+            }
+
+            toggleSwitcher(true);
+        }
+    };
+
+    var toggleSwitcher = function (toggle) {
+        jq('#liveChatSwitch').removeClass('disabled');
+        if (toggle) {
+            $switcher.addClass('switch-on');
+            $zopim.livechat.setDisableSound(false);
+            $zopim.livechat.window.hide();
+            localStorage.setItem('livechat', 'on');
+        } else {
+            $switcher.removeClass('switch-on');
+            $zopim.livechat.setDisableSound(true);
+            $zopim.livechat.hideAll();
+            localStorage.setItem('livechat', 'off');
+        }
+    }
+
+    return {
+        init: init
+    }
+})();

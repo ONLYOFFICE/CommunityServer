@@ -57,8 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocialMediaException.cs" />
     <Compile Include="SocialNetworks.cs" />
-    <Compile Include="InMemoryTokenManager.cs" />
-    <Compile Include="Twitter\TwitterConsumer.cs" />
     <Compile Include="Twitter\Exceptions.cs" />
     <Compile Include="Twitter\TwitterApiInfo.cs" />
     <Compile Include="Twitter\TwitterDataProvider.cs" />
@@ -69,11 +67,11 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetOpenAuth.Ultimate">
-      <Version>4.1.0.12182</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="TweetinviAPI">
+      <Version>5.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +79,13 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -96,8 +96,8 @@ jq(document).ready(function () {
             }
         }, 1000);
     }
-    jQuery(window).focus(function () { reconnect();});
-    jQuery(window).click(function () { reconnect();});
+    jQuery(window).on("focus", function () { reconnect();});
+    jQuery(window).on("click", function () { reconnect();});
 
     setInterval(function () {
         if (!isConnected && navigator.onLine && !ASC.TMTalk.connectionManager.conflict && ASC.TMTalk.connectionManager.status().id == 0) {

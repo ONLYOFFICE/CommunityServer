@@ -472,7 +472,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     function unbindListEvents() {
         if (!isInit) return;
-        $timerList.unbind();
+        $timerList.off();
         self.unbindEvents();
         ASC.Projects.GroupActionPanel.hide();
     };

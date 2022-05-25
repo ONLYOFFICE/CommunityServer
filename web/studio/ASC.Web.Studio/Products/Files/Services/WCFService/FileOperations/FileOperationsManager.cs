@@ -81,9 +81,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         }
 
 
-        public ItemList<FileOperationResult> MarkAsRead(List<object> folderIds, List<object> fileIds)
+        public ItemList<FileOperationResult> MarkAsRead(List<object> folderIds, List<object> fileIds, Dictionary<string, string> headers)
         {
-            var op = new FileMarkAsReadOperation(folderIds, fileIds);
+            var op = new FileMarkAsReadOperation(folderIds, fileIds, headers);
             return QueueTask(op);
         }
 
@@ -108,9 +108,9 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return QueueTask(op);
         }
 
-        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, bool holdResult, bool immediately, Dictionary<string, string> headers)
+        public ItemList<FileOperationResult> Delete(List<object> folders, List<object> files, bool ignoreException, bool holdResult, bool immediately, Dictionary<string, string> headers, bool isEmptyTrash = false)
         {
-            var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, immediately, headers);
+            var op = new FileDeleteOperation(folders, files, ignoreException, holdResult, immediately, headers, isEmptyTrash);
             return QueueTask(op);
         }
 

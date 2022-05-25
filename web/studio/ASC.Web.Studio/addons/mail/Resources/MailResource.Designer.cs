@@ -1970,6 +1970,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Read receipt..
+        /// </summary>
+        public static string ReadConfirmation {
+            get {
+                return ResourceManager.GetString("ReadConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sender requested a read receipt..
+        /// </summary>
+        public static string ReadConfirmationText {
+            get {
+                return ResourceManager.GetString("ReadConfirmationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read Only.
         /// </summary>
         public static string ReadOnly {
@@ -2038,6 +2056,15 @@ namespace ASC.Web.Mail.Resources {
         public static string RequestNotificationHint {
             get {
                 return ResourceManager.GetString("RequestNotificationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a read receipt.
+        /// </summary>
+        public static string RequestReadHint {
+            get {
+                return ResourceManager.GetString("RequestReadHint", resourceCulture);
             }
         }
         
@@ -2182,6 +2209,26 @@ namespace ASC.Web.Mail.Resources {
         public static string SendMail {
             get {
                 return ResourceManager.GetString("SendMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To confirm that you&apos;ve read the message, click 
+        ///“Send receipt”. 
+        ///If you don’t want to send it, click “×”.
+        /// </summary>
+        public static string SendReceiptHelp {
+            get {
+                return ResourceManager.GetString("SendReceiptHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send receipt.
+        /// </summary>
+        public static string SendReceiptLabel {
+            get {
+                return ResourceManager.GetString("SendReceiptLabel", resourceCulture);
             }
         }
         

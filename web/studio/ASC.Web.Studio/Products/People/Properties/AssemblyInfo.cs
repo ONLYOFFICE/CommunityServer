@@ -35,3 +35,4 @@ using ASC.Web.Core;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: Product(typeof(ASC.Web.People.Core.PeopleProduct))]
+[assembly: Product(typeof(ASC.Web.People.BirthdaysModule))]

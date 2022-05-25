@@ -83,7 +83,7 @@
 			        <select></select>
 		        </div>
 	        </div>
-	        <div class="shared-list"/>
+	        <div class="shared-list"></div>
             <div class="export">
 				<span class="export-link link">${dialogExportLink}</span>
 	        </div>
@@ -132,7 +132,7 @@
 		        </div>
 		        <div class="timezone-read-only">
 			        <div class="label">${dialogTimezoneLabel}</div>
-			        <span class="timezone-desc" />
+			        <span class="timezone-desc" ></span>
 		        </div>
 	        </div>
 	        <div class="owner">
@@ -143,7 +143,7 @@
 		        </div>
 	        </div>
 
-	        <div class="shared-list"/>
+	        <div class="shared-list"></div>
 			<div class="ical-export">
 				<span class="ical-link">${dialogExportLink}</span>
 			</div>
@@ -171,7 +171,7 @@
 		        <input type="text" value="${dialogSearchText}" maxlength="${maxlength}"/>
 		        <div class="clean-btn">&nbsp;</div>
 	        </div>
-	        <div class="groups"/>
+	        <div class="groups"></div>
 	        <div class="buttons">
 		        <a id="fc_subscr_save" class="button blue middle" href="#">${dialogButtonSave}</a>
                 <span class="splitter">&nbsp;</span>
@@ -258,6 +258,12 @@
 			        <div class="label">${dialogDescriptionLabel}</div>
 			        <div class="text"></div>
 		        </div>
+                <div class="attachments">
+                    <table class="attachments-list-viewer">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 	        </div>
 	        <div class="editor">
                 <div class="title">
@@ -359,7 +365,7 @@
 		            </div>
                     <div class="description">
 			            <div class="label">${dialogDescriptionLabel}</div>
-			            <textarea cols="3" rows="3"/>
+			            <textarea cols="3" rows="3"></textarea>
 		            </div>
                 </div>
 	        </div>
@@ -501,7 +507,7 @@
 		    </div>
             <div class="description">
 			    <div class="label">${dialogDescriptionLabel}</div>
-			    <textarea id="fc_todo_description" cols="3" rows="3"/>
+			    <textarea id="fc_todo_description" cols="3" rows="3"></textarea>
 		    </div>
             <div class="buttons">
 		        <a class="save-btn button blue middle" id="fc_todo_ok" href="#">${dialogButtonSave}</a>
@@ -743,6 +749,14 @@
 			                <div class="text"></div>
 		                </div>
 
+                        <div class="botttom-indent attachments">
+                            <div class="label"><%=CalendarJSResource.calendarEventAttachments_label%></div>
+                            <table id="calendar_event_attachments_view" class="attachments-list">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div class="botttom-indent">
                             <div class="label"><%=CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
                             <div class="users-list shared-user-list"></div>
@@ -751,7 +765,7 @@
                 </div>
             </div>
 	    </div>
-
+        
 	    <div class="editor botttom-indent">
             <div class="clearFix">
                 <div class="halfwidth left">
@@ -875,15 +889,15 @@
                                 <div class="wrapper" style="position: relative">
 				                    <div class="bullet"></div>
 				                    <select></select>
-                    </div>
-                </div>
+                                </div>
+                            </div>
 		                </div>
 
                         <div class="botttom-indent location">
 			                <div class="label"><%=CalendarJSResource.calendarEventEditor_locationLabel%></div>
 			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
 		                </div>
-
+						                        
                         <div class="botttom-indent owner">
 			                <div class="label"><%=CalendarJSResource.calendarEventEditor_organizerLabel%></div>
                             <div class="name"></div>
@@ -894,7 +908,7 @@
                         
                         <div class="botttom-indent description">
 			                <div class="label"><%=CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
-			                <textarea class="textEdit fullwidth"></textarea>
+			                <textarea id="ckEditor" class="textEdit fullwidth"></textarea>
 		                </div>
                     </div>
                 </div>
@@ -941,6 +955,46 @@
                                 </span>
                             </div>
                             <div class="users-list shared-user-list"></div>
+                        </div>
+                        <div class="botttom-indent">
+                            <div class="label"><%=CalendarJSResource.calendarEventAttachments_label%>
+                                <span id="attachmentsHelpSwitcher" class="HelpCenterSwitcher"></span>
+                                <div id="attachmentsHelpInfo" class="popup_helper">
+                                    <%=CalendarJSResource.calendarEventAttachments_attachmentsLabelHelpInfo%>
+                                </div>
+                            </div>
+                            <span id="attachments_limit_txt"></span>
+                            <div class="simpleWrapper">
+                                <div id="attachment_upload_pnl">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+							                        <span id="attachments_browse_btn" class="attachLink">
+								                        <a class="link dotline plus"><%=CalendarJSResource.calendarEventAttachments_uploadFile%></a>
+							                        </span>
+                                                </td>
+                                                <td>
+                                                    <span id="attachments_from_documents_btn" class="attachLink" onclick="javascript:CalendarDocumentsPopup.showPortalDocUploader();return false;">
+                                                        <a class="link dotline plus"><%= CalendarJSResource.calendarEventAttachments_attachFilesFromDocuments %></a>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span id="attachments_clear_btn" class="attachLink" style="display: none;">
+                                                        <a class="link dotline deleteAll"><%= CalendarJSResource.calendarEventAttachments_attachDeleteAllLabel %></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="attachments">
+                                <table id="calendar_event_attachments" class="attachments-list">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1057,6 +1111,136 @@
                 <a class="button gray middle send-everyone-btn">${dialogButtonSendEveryone}</a>
 		        <a class="button gray middle dont-send-btn">${dialogButtonDontSend}</a>
 	        </div>
+        </div>
+    </div>
+</script>
+
+<script id="attachmentEventTmpl" type="text/x-jquery-tmpl">
+    <tr class="row with-entity-menu ${operation == 1 || attachedAsLink ? 'inactive' : ''}" data_id="${orderNumber}">
+        <td class="file_icon">
+            <div class="attachmentImage ${iconCls}"/>
+        </td>
+        <td class="file_info">
+            <a {{if fileUrl == ''}} 
+                    href="javascript: void(0)" onclick="return false" class="unloded" 
+               {{else}} 
+                    href="${fileUrl}" 
+                    {{if fileUrl.slice(0, 11) !== 'javascript:'}} target="_blank"{{/if}}
+               {{/if}} 
+                    title="${title}">
+               <span class="file-name">
+                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+               </span>
+            </a>
+            <span class="fullSizeLabel" {{if size == 0}} style="display:none;" {{/if}}>(${$item.fileSizeToStr(size)})</span>
+        </td>
+
+        <td class="load_result">
+            {{if isUploaded && isNew}}
+            {{if error}}
+                {{if error != ''}}
+                    <span class="file-load-result red-text" title="${error}">${error}</span>
+                {{else}}
+                    {{if warn}}
+                        {{if warn != ''}}
+                            <span class="file-load-result uploaded-text" title="<%= CalendarJSResource.calendarEventAttachments_uploadedLabel %> (<%= CalendarJSResource.calendarEventAttachments_warningLabel %>: ${warn})"><%= CalendarJSResource.calendarEventAttachments_uploadedLabel %> (<%= CalendarJSResource.calendarEventAttachments_warningLabel %>: ${warn})</span>
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            {{else}}
+                {{if warn}}
+                    {{if warn != ''}}
+                        <span class="file-load-result uploaded-text" title="$<%= CalendarJSResource.calendarEventAttachments_uploadedLabel %> (<%= CalendarJSResource.calendarEventAttachments_warningLabel %>: ${warn})"><%= CalendarJSResource.calendarEventAttachments_uploadedLabel %> (<%= CalendarJSResource.calendarEventAttachments_warningLabel %>: ${warn})</span>
+                    {{/if}}
+                {{else}}
+                        <span class="file-load-result uploaded-text" title="<%= CalendarJSResource.calendarEventAttachments_uploadedLabel %>"><%= CalendarJSResource.calendarEventAttachments_uploadedLabel %></span>
+                {{/if}}
+            {{/if}}
+            {{/if}}
+            {{if isNew}}
+            <div id="item_progress_${orderNumber}" class="attachment-progress" {{if error != '' || isUploaded}} style="display:none;" {{/if}}>
+                <div class="fu-progress-cell">
+                    <div class="upload-progress">
+                        <span class="progress-slider progress-color" style="width:0;">&nbsp;</span>
+                        {{if operation && operation == 1}}
+                        <span class="progress-label">
+                            <%= CalendarJSResource.calendarEventAttachments_copyingToMyDocumentsLabel %>
+                        </span>
+                        {{else}}
+                        <span class="progress-label">
+                            <%= CalendarJSResource.calendarEventAttachments_uploadingLabel %>
+                        </span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </td>
+        
+        <td class="delete_icon">
+            <div id="remove_attachment_${orderNumber}" class="delete_attachment" />
+        </td>
+    </tr>
+</script>
+
+<script id="attachmentEventViewerTmpl" type="text/x-jquery-tmpl">
+    <tr class="row with-entity-menu" data_id="${orderNumber}">
+        <td class="file_icon">
+            <div class="attachmentImage ${iconCls}"/>
+        </td>
+        <td class="file_info">
+            <a {{if fileUrl == ''}} 
+                    href="javascript: void(0)" onclick="return false" class="unloded" 
+               {{else}} 
+                    href="${fileUrl}" 
+                    {{if fileUrl.slice(0, 11) !== 'javascript:'}} target="_blank"{{/if}}
+               {{/if}} 
+                    title="${title}">
+               <span class="file-name">
+                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+               </span>
+            </a>
+        </td>
+    </tr>
+</script>
+
+<script id="attachmentEventDialogTmpl" type="text/x-jquery-tmpl">
+    <tr class="row with-entity-menu">
+        <td class="file_icon">
+            <div class="attachmentImage ${iconCls}"/>
+        </td>
+        <td class="file_info">
+            <a {{if fileUrl == ''}} 
+                    href="javascript: void(0)" onclick="return false" class="unloded" 
+               {{else}} 
+                    href="${fileUrl}" 
+                    {{if fileUrl.slice(0, 11) !== 'javascript:'}} target="_blank"{{/if}}
+               {{/if}} 
+                    title="${title}">
+               <span class="file-name">
+                    ${$item.cutFileName($item.getFileNameWithoutExt(title))}<span class="file-extension">${$item.getFileExtension(title)}</span>
+               </span>
+            </a>
+        </td>
+    </tr>
+</script>
+
+<script id="filesCannotBeAttachedAsLinksTmpl" type="text/x-jquery-tmpl">
+    <div id="filesCannotBeAttachedAsLinksBox">
+        
+        <div class="warning-box"></div>
+        <div class="description-box">
+            <div class="header"><%=CalendarJSResource.calendarEventAttachments_filesCannotBeAttachedAsLinks_Header%></div>
+            <div><%=string.Format(CalendarJSResource.calendarEventAttachments_filesCannotBeAttachedAsLinks_Body, "<br/>")%></div>
+        </div>
+        
+        <div class="buttons">
+            <button class="button middle blue" type="button" id="copyFilesToMyDocuments">
+                <%=CalendarJSResource.calendarEventAttachments_copyFilesToMyDocumentsBtn%>
+            </button>
+            <button class="button middle gray cancel" type="button" id="cancelCopyingToMyDocuments">
+                <%=CalendarJSResource.calendarEventEditor_cancelButton%>
+            </button>
         </div>
     </div>
 </script>

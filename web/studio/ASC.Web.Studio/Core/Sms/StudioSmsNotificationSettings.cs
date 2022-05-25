@@ -54,7 +54,23 @@ namespace ASC.Web.Studio.Core.SMS
             }
         }
 
+        public static bool IsVisibleAndAvailableSettings
+        {
+            get
+            {
+                return IsVisibleSettings && IsAvailableSettings;
+            }
+        }
+
         public static bool IsVisibleSettings
+        {
+            get
+            {
+                return SetupInfo.IsVisibleSettings<StudioSmsNotificationSettings>();
+            }
+        }
+
+        public static bool IsAvailableSettings
         {
             get
             {

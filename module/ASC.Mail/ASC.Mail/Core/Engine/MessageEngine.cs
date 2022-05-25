@@ -505,6 +505,28 @@ namespace ASC.Mail.Core.Engine
             return true;
         }
 
+        public bool ReceiptStatus(List<int> ids, bool receipt = false)
+        {
+            using (var daoFactory = new DaoFactory())
+            {
+                using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
+                {
+                    var daoMailInfo = daoFactory.CreateMailInfoDao(Tenant, User);
+
+                    daoMailInfo.SetFieldValue(
+                        SimpleMessagesExp.CreateBuilder(Tenant, User)
+                            .SetMessageIds(ids)
+                            .Build(),
+                        MailTable.Columns.ReadRequestStatus,
+                        receipt);
+
+                    tx.Commit();
+                }
+            }
+
+            return true;
+        }
+
         public void Restore(List<int> ids)
         {
             List<MailInfo> mailInfoList;
@@ -1830,7 +1852,8 @@ namespace ASC.Mail.Core.Engine
                 IsYesterday = isYesterday,
                 MailboxId = mailInfo.MailboxId,
                 CalendarUid = mailInfo.CalendarUid,
-                Introduction = mailInfo.Intoduction
+                Introduction = mailInfo.Intoduction,
+                ReadRequestStatus = mailInfo.ReadRequestStatus
             };
         }
 
@@ -1876,7 +1899,8 @@ namespace ASC.Mail.Core.Engine
                 MimeMessageId = mail.MimeMessageId,
                 MimeReplyToId = mail.MimeInReplyTo,
                 CalendarUid = mail.CalendarUid,
-                Uidl = mail.Uidl
+                Uidl = mail.Uidl,
+                ReadRequestStatus = mail.ReadRequestStatus
             };
 
             //Reassemble paths

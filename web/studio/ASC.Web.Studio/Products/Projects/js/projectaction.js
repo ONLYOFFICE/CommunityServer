@@ -89,7 +89,7 @@ ASC.Projects.ProjectAction = (function() {
             ASC.CRM.ListContactView.removeMember = removeContactFromProject;
             getCRMParams();
         } else {
-            $projectTitle.focus();
+            $projectTitle.trigger("focus");
             if (!projectId) {
                 clearFields();
             }
@@ -171,7 +171,7 @@ ASC.Projects.ProjectAction = (function() {
     }
 
     function initEvents() {
-        jq("[id$=inputUserName]").keyup(function (eventObject) {
+        jq("[id$=inputUserName]").on("keyup", function (eventObject) {
             if (eventObject.which == 13) {
                 var id = jq("#login").attr("value");
                 if (id != -1) {
@@ -179,16 +179,16 @@ ASC.Projects.ProjectAction = (function() {
                     $projectManagerSelector.find(".borderBase").removeClass(requiredInputErrorClass);
                 }
                 if (id == currentUserId || (projectResponsible && id == projectResponsible)) {
-                    $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
+                    $notifyManagerCheckbox.prop(checkedProp, false).prop(disabledAttr, true);
                 } else {
-                    $notifyManagerCheckbox.removeAttr(disabledAttr).prop(checkedProp, true);
+                    $notifyManagerCheckbox.prop(disabledAttr, false).prop(checkedProp, true);
                 }
             }
         });
 
         // title
-        $projectTitle.keyup(function () {
-            if (jq.trim($projectTitle.val()) != "") {
+        $projectTitle.on("keyup", function () {
+            if ($projectTitle.val().trim() != "") {
                 jq("#projectTitleContainer").removeClass(requiredFieldErrorClass);
             }
         });
@@ -196,7 +196,7 @@ ASC.Projects.ProjectAction = (function() {
         // popup and other button
 
         var oldTeam = jq.map(team, function (user) { return user.id; });
-        jq("#projectActionButton").click(function () {
+        jq("#projectActionButton").on("click", function () {
             if (!validateProjectData() || jq(this).hasClass("disable")) return;
 
             jq(this).addClass("disable");
@@ -217,7 +217,7 @@ ASC.Projects.ProjectAction = (function() {
             }
         });
 
-        jq("#projectDeleteButton").click(function () {
+        jq("#projectDeleteButton").on("click", function () {
             ASC.Projects.Base.showCommonPopup("projectRemoveWarning",
                 function () {
                     lockProjectActionPageElements();
@@ -225,7 +225,7 @@ ASC.Projects.ProjectAction = (function() {
                 });
         });
 
-        jq("#cancelEditProject").click(function () {
+        jq("#cancelEditProject").on("click", function () {
             if (jq(this).hasClass("disable")) return;
             window.onbeforeunload = null;
             document.location.replace(location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1));
@@ -269,10 +269,10 @@ ASC.Projects.ProjectAction = (function() {
 
         if (!projectId && ASC.Projects.MilestoneContainer) {
             ASC.Projects.MilestoneContainer.init();
-            jq(document).bind("chooseResp", function (event, data) {
+            jq(document).on("chooseResp", function (event, data) {
                 showNotifyProjectCheckbox();
             });
-            jq(document).bind("unchooseResp", function (event, data) {
+            jq(document).on("unchooseResp", function (event, data) {
                 hideNotifyProjectCheckbox();
             });
         }
@@ -311,18 +311,18 @@ ASC.Projects.ProjectAction = (function() {
         $projectManagerSelector.html(name).attr("data-id", id).removeClass("plus");
 
         if (id == currentUserId) {
-            $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
-            $followingProjectCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
+            $notifyManagerCheckbox.prop(checkedProp, false).prop(disabledAttr, true);
+            $followingProjectCheckbox.prop(checkedProp, false).prop(disabledAttr, true);
         } else {
-            $notifyManagerCheckbox.removeAttr(disabledAttr).prop(checkedProp, true);
-            $followingProjectCheckbox.removeAttr(disabledAttr);
+            $notifyManagerCheckbox.prop(disabledAttr, false).prop(checkedProp, true);
+            $followingProjectCheckbox.prop(disabledAttr, false);
         }
 
         if (projectResponsible) {
             $projectTeamSelector.useradvancedSelector("undisable", [projectResponsible]);
         }
         projectResponsible = id;
-        $projectParticipantsContainer.find("tr[data-partisipantid='" + id + "'] .reset-action").click();
+        $projectParticipantsContainer.find("tr[data-partisipantid='" + id + "'] .reset-action").trigger("click");
         $projectTeamSelector.useradvancedSelector("disable", [id]);
     };
 
@@ -375,11 +375,11 @@ ASC.Projects.ProjectAction = (function() {
 
     function showNotifyProjectCheckbox() {
         $notifyProjectCheckbox.show();
-        $notifyProjectCheckbox.removeAttr(disabledAttr);
+        $notifyProjectCheckbox.prop(disabledAttr, false);
     }
 
     function hideNotifyProjectCheckbox() {
-        $notifyProjectCheckbox.attr(disabledAttr, disabledAttr);
+        $notifyProjectCheckbox.prop(disabledAttr, true);
     }
 
     function mapTeamMember(item) {
@@ -414,7 +414,7 @@ ASC.Projects.ProjectAction = (function() {
         jq("#projectTitleContainer , #projectManagerContainer, #projectStatusContainer").removeClass(requiredFieldErrorClass);
         $projectManagerSelector.find(".borderBase").removeClass(requiredInputErrorClass);
 
-        var title = jq.trim($projectTitle.val()),
+        var title = $projectTitle.val().trim(),
             responsibleid = $projectManagerSelector.attr("data-id"),
             status = $projectStatus.attr("data-id"),
             isError = false,
@@ -446,7 +446,7 @@ ASC.Projects.ProjectAction = (function() {
     function getProjectData() {
         var project =
         {
-            title: jq.trim($projectTitle.val()),
+            title: $projectTitle.val().trim(),
             responsibleid: projectResponsible,
             notify: $notifyManagerCheckbox.is(":" + checkedProp),
             description: $projectDescription.val(),
@@ -593,29 +593,29 @@ ASC.Projects.ProjectAction = (function() {
 
     function lockProjectActionPageElements() {
         loadingBanner.displayLoading();
-        $projectTitle.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
-        $projectDescription.attr(readonlyAttr, readonlyAttr).addClass(disabledAttr);
-        jq(".inputUserName").attr(disabledAttr, disabledAttr);
+        $projectTitle.prop(readonlyAttr, true).addClass(disabledAttr);
+        $projectDescription.prop(readonlyAttr, true).addClass(disabledAttr);
+        jq(".inputUserName").prop(disabledAttr, true);
         $projectManagerSelector.find("td:last").css({ 'display': "none" });
         $projectParticipantsContainer.find(itemsDisplayListClass).removeClass("canedit");
-        $projectStatus.attr(disabledAttr, disabledAttr).addClass(disabledAttr);
-        $notifyManagerCheckbox.attr(disabledAttr, disabledAttr);
-        $projectPrivacyCheckbox.attr(disabledAttr, disabledAttr);
-        $followingProjectCheckbox.attr(disabledAttr, disabledAttr);
+        $projectStatus.prop(disabledAttr, true).addClass(disabledAttr);
+        $notifyManagerCheckbox.prop(disabledAttr, true);
+        $projectPrivacyCheckbox.prop(disabledAttr, true);
+        $followingProjectCheckbox.prop(disabledAttr, true);
         jq("#TemplatesComboboxContainer").hide();
         jq("#projectTeamContainer .headerPanel").off();
     };
 
     function unlockProjectActionPageElements() {
-        $projectTitle.removeAttr(readonlyAttr).removeClass(disabledAttr);
-        $projectDescription.removeAttr(readonlyAttr).removeClass(disabledAttr);
-        jq(".inputUserName").removeAttr(disabledAttr);
+        $projectTitle.prop(readonlyAttr, false).removeClass(disabledAttr);
+        $projectDescription.prop(readonlyAttr, false).removeClass(disabledAttr);
+        jq(".inputUserName").prop(disabledAttr, false);
         $projectManagerSelector.find("td:last").css({ 'display': "table-cell" });
         $projectParticipantsContainer.find(itemsDisplayListClass).addClass("canedit");
-        $projectStatus.removeAttr(disabledAttr).removeClass(disabledAttr);
-        $notifyManagerCheckbox.removeAttr(disabledAttr);
-        $projectPrivacyCheckbox.removeAttr(disabledAttr);
-        $followingProjectCheckbox.removeAttr(disabledAttr);
+        $projectStatus.prop(disabledAttr, false).removeClass(disabledAttr);
+        $notifyManagerCheckbox.prop(disabledAttr, false);
+        $projectPrivacyCheckbox.prop(disabledAttr, false);
+        $followingProjectCheckbox.prop(disabledAttr, false);
         jq("#TemplatesComboboxContainer").show();
         loadingBanner.hideLoading();
     };
@@ -682,8 +682,8 @@ ASC.Projects.ProjectAction = (function() {
         }
 
         if (opportunity.responsible.id == currentUserId) {
-            $notifyManagerCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
-            $followingProjectCheckbox.prop(checkedProp, false).attr(disabledAttr, disabledAttr);
+            $notifyManagerCheckbox.prop(checkedProp, false).prop(disabledAttr, true);
+            $followingProjectCheckbox.prop(checkedProp, false).prop(disabledAttr, true);
         }
         if (opportunity.isPrivate) {
             $projectPrivacyCheckbox.prop(checkedProp, true);

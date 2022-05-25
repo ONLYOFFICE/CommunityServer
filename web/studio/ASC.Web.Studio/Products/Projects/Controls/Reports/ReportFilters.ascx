@@ -8,7 +8,7 @@
 
 <div id="reportFilters" class="report-filter-container clearFix">
 
-<% if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend) %>
+<% if (Report.ReportType == ReportType.UsersActivity || Report.ReportType == ReportType.TimeSpend || Report.ReportType == ReportType.ProjectsList) %>
 <% { %>
 <div class="filter-item-container">
     <span id="otherInterval" <%if(Report.Filter.TimeInterval != ReportTimeInterval.Absolute || Report.Filter.FromDate.Equals(DateTime.MinValue)){%> style="display:none;" <%} %> >

@@ -73,7 +73,7 @@
 
             <div class="tariff-user-warn-min">
                 <%= UserControlsCommonResource.TariffUserWarnDescr %>
-                <span class="tariff-user-warn-link baseLinkAction"><%= UserControlsCommonResource.TariffUserWarnRead %></span>
+                <span class="baseLinkAction"><%= UserControlsCommonResource.TariffUserWarnRead %></span>
             </div>
 
             <div class="tariff-user-warn-max">

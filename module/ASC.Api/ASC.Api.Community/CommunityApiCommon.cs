@@ -20,7 +20,6 @@ using System.Web;
 
 using ASC.Api.Attributes;
 using ASC.Core;
-using ASC.Web.Community.Birthdays;
 using ASC.Web.Studio.Utility.HtmlUtility;
 
 
@@ -29,29 +28,20 @@ namespace ASC.Api.Community
     public partial class CommunityApi
     {
         /// <summary>
-        /// Subscribe or unsubscribe on birthday of user with the ID specified
+        /// Returns the preview information about the specified category from the community section.
         /// </summary>
-        /// <short>Subscribe/unsubscribe on birthday</short>
-        /// <param name="userid">user ID</param>
-        /// <param name="onRemind">should be subscribed or unsubscribed</param>
-        /// <returns>onRemind value</returns>
-        /// <category>Birthday</category>
-        [Create("birthday")]
-        public bool RemindAboutBirthday(Guid userid, bool onRemind)
-        {
-            BirthdaysNotifyClient.Instance.SetSubscription(SecurityContext.CurrentAccount.ID, userid, onRemind);
-            return onRemind;
-        }
-
+        /// <short>Get preview</short>
+        /// <param name="title">Category title</param>
+        /// <param name="content">Category content</param>
+        /// <returns>Preview information</returns>
         [Create("preview")]
         public object GetPreview(string title, string content)
         {
             return new
             {
                 title = HttpUtility.HtmlEncode(title),
-                content = HtmlUtility.GetFull(content)
+                content = HtmlUtility.GetFull(content, false)
             };
         }
-
     }
 }

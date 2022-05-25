@@ -367,11 +367,22 @@ namespace ASC.Files.Thirdparty
 
             if (key == ProviderTypes.SharePoint)
             {
+                string passwordSP;
+                try
+                {
+                    passwordSP = DecryptPassword(input[4] as string);
+                }
+                catch (Exception e)
+                {
+                    Global.Logger.Error(string.Format("DecryptPassword error: linkId = {0} , user = {1}", id, SecurityContext.CurrentAccount.ID), e);
+                    return null;
+                }
+
                 return new SharePointProviderInfo(
                     id,
                     key.ToString(),
                     providerTitle,
-                    new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), token),
+                    new AuthData(input[9] as string, input[3] as string, passwordSP, token),
                     owner,
                     folderType,
                     createOn);
@@ -401,11 +412,22 @@ namespace ASC.Files.Thirdparty
                     createOn);
             }
 
+            string password;
+            try
+            {
+                password = DecryptPassword(input[4] as string);
+            }
+            catch (Exception e)
+            {
+                Global.Logger.Error(string.Format("DecryptPassword error: linkId = {0} , user = {1}", id, SecurityContext.CurrentAccount.ID), e);
+                return null;
+            }
+
             return new SharpBoxProviderInfo(
                 id,
                 key.ToString(),
                 providerTitle,
-                new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), token),
+                new AuthData(input[9] as string, input[3] as string, password, token),
                 owner,
                 folderType,
                 createOn);

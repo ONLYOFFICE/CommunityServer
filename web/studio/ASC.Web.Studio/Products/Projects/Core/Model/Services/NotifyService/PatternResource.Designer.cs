@@ -157,6 +157,40 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1.You were mentioned in comment to discussion: &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; 
+        ///
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; mentioned you in the comment to the discussion: &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; 
+        ///
+        ///$AdditionalData 
+        ///
+        ///&quot;Read more&quot;:&quot;${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID&quot; 
+        ///
+        ///^You receive this email because y [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_MentionForMessageComment {
+            get {
+                return ResourceManager.GetString("pattern_MentionForMessageComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1.You were mentioned in comment to task: &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; 
+        ///
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; mentioned you in the comment to the &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; task: 
+        ///
+        ///$AdditionalData
+        ///
+        ///&quot;Read more&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID&quot; 
+        ///
+        ///^You receive this email because you are a registered  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_MentionForTaskComment {
+            get {
+                return ResourceManager.GetString("pattern_MentionForTaskComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Discussion deleted: &quot;$EntityTitle&quot; 
         ///
         ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has deleted the discussion &quot;$EntityTitle&quot; in the &quot;$ProjectTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&quot; project.
@@ -278,7 +312,7 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         ///
         ///&quot;Read more&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID&quot; 
         ///
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualR [rest of string was truncated]&quot;;.
+        ///^You receive this email because you are a registered user of the &quot;${__Virtua [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_NewCommentForTask {
             get {
@@ -699,6 +733,21 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1.Subtask moved: &quot;$SubEntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; 
+        ///
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has moved the &quot;$SubEntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; subtask to the &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; task. 
+        ///
+        ///The subtask is assigned to &quot;$Responsible&quot;. 
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__ [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_SubTaskMoved {
+            get {
+                return ResourceManager.GetString("pattern_SubTaskMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Subtask resumed: &quot;$SubEntityTitle&quot; 
         ///
         ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has resumed the subtask: &quot;$SubEntityTitle&quot; of the &quot;$EntityTitle&quot;:&quot;${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID&quot; task. 
@@ -899,6 +948,42 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         public static string subject_LateMilestone {
             get {
                 return ResourceManager.GetString("subject_LateMilestone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle]. Mention in comment to discussion: $EntityTitle.
+        /// </summary>
+        public static string subject_MentionForMessageComment {
+            get {
+                return ResourceManager.GetString("subject_MentionForMessageComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Mention in comment to discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID).
+        /// </summary>
+        public static string subject_MentionForMessageComment_tg {
+            get {
+                return ResourceManager.GetString("subject_MentionForMessageComment_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle]. Mention in comment to task: $EntityTitle.
+        /// </summary>
+        public static string subject_MentionForTaskComment {
+            get {
+                return ResourceManager.GetString("subject_MentionForTaskComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID).  Mention in comment to task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID).
+        /// </summary>
+        public static string subject_MentionForTaskComment_tg {
+            get {
+                return ResourceManager.GetString("subject_MentionForTaskComment_tg", resourceCulture);
             }
         }
         
@@ -1511,6 +1596,24 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         public static string subject_SubTaskEdited_tg {
             get {
                 return ResourceManager.GetString("subject_SubTaskEdited_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle]. Subtask moved: $EntityTitle.
+        /// </summary>
+        public static string subject_SubTaskMoved {
+            get {
+                return ResourceManager.GetString("subject_SubTaskMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Subtask moved: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID).
+        /// </summary>
+        public static string subject_SubTaskMoved_tg {
+            get {
+                return ResourceManager.GetString("subject_SubTaskMoved_tg", resourceCulture);
             }
         }
         

@@ -1,0 +1,27 @@
+{
+  "name": "webdav_server",
+  "version": "1.0.0",
+  "description": "WebDAV server",
+  "private": true,
+  "author": {
+    "name": "Ascensio System SIA"
+  },
+  "scripts": {
+    "start": "node server/webDavServer.js",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "get-byte": "0.0.0",
+    "help": "^3.0.2",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
+    "request": "^2.88.0",
+    "to-byte-array": "^1.0.2",
+    "webdav-server": "2.6.2",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.5.5"
+  }
+}

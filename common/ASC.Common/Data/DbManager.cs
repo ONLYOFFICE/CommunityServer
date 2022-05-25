@@ -27,6 +27,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Logging;
 using ASC.Common.Web;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.Common.Data
 {

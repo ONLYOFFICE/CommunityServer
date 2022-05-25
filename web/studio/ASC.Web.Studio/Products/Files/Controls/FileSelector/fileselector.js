@@ -63,11 +63,11 @@ window.ASC.Files.FileSelector = (function () {
                 }
             });
 
-            jq("#pageNavigatorHolder a").click(function () {
+            jq("#pageNavigatorHolder a").on("click", function () {
                 selectFolder(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId, true);
             });
 
-            jq("#mainContent").scroll(function () {
+            jq("#mainContent").on("scroll", function () {
                 if (jq("#filesMainContent").height() - jq("#fileSelectorDialog").height() <= jq("#mainContent").scrollTop()) {
                     selectFolder(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId, true);
                 }
@@ -86,7 +86,7 @@ window.ASC.Files.FileSelector = (function () {
                 return false;
             });
 
-            jq("#closeFileSelector").click(function () { ASC.Files.FileSelector.onCancel(); });
+            jq("#closeFileSelector").on("click", function () { ASC.Files.FileSelector.onCancel(); });
             
             if (window.location.href.indexOf("compact") != -1) {
                 jq("body").addClass("file-selector-compact");
@@ -170,7 +170,7 @@ window.ASC.Files.FileSelector = (function () {
             ASC.Files.UI.blockUI("#fileSelectorDialog", isFolderSelector ? 440 : 1030);
         }
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#submitFileSelector\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#submitFileSelector\").trigger('click');";
 
         if (typeof thirdParty != "undefined") {
             jq("#fileSelectorTree>ul>li:not(.third-party-entry)").toggle(!thirdParty);

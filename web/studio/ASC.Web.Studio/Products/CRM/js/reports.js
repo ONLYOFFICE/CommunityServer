@@ -63,7 +63,7 @@ ASC.CRM.Reports = (function() {
                     jq.unblockUI();
                     window.currencyRates = response;
                     toastr.success(ASC.CRM.Resources.CRMJSResource.SettingsUpdated);
-                    jq("#generateBtn_Reports").click();
+                    jq("#generateBtn_Reports").trigger("click");
                 },
                 error: function (params, errors) {
                     console.log(errors);
@@ -174,7 +174,7 @@ ASC.CRM.Reports = (function() {
     }
 
     function setBindings(reportType, viewFiles) {
-        jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
+        jq("#menuCreateNewTask").on("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
 
         ProgressDialog.init(
             {

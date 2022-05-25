@@ -64,6 +64,7 @@ namespace ASC.Files.Core
             FileEntryType = FileEntryType.File;
         }
 
+        [DataMember(Name = "fid")]
         public object FolderID { get; set; }
 
         [DataMember(Name = "version")]

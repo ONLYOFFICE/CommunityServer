@@ -55,7 +55,7 @@
 
             <div class="clearFix logo-setting-block ">
                 <div class="header-base-small logo-header">
-                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LogoDark, TenantWhiteLabelSettings.logoDarkSize.Width, TenantWhiteLabelSettings.logoDarkSize.Height) %>
+                    <%= String.Format("{0} ({1}x{2}):", WhiteLabelResource.LogoDark2, TenantWhiteLabelSettings.logoDarkSize.Width, TenantWhiteLabelSettings.logoDarkSize.Height) %>
                 </div>
                 <div>
                     <div class="logo-img-container">

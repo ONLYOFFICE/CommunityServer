@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading;
 
 using ASC.Files.Core;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {
@@ -295,7 +296,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var storageMaxUploadSize = folderDao.GetMaxUploadSize(selector.ConvertId(folderId), chunkedUpload);
 
                 if (storageMaxUploadSize == -1 || storageMaxUploadSize == long.MaxValue)
-                    storageMaxUploadSize = 1024L * 1024L * 1024L;
+                    storageMaxUploadSize = SetupInfo.ProviderMaxUploadSize;
 
                 return storageMaxUploadSize;
             }

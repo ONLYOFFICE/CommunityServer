@@ -35,7 +35,7 @@ var DefaultPage = new function() {
 jq(function() {
     jq("input[name=defaultPage]").each(function() {
         var obj = jq(this);
-        if (obj.attr("checked") == "checked")
+        if (obj.attr("checked"))
             obj.prop("checked", true);
     });
 });

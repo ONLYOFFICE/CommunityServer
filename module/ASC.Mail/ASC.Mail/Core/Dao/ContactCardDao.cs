@@ -96,7 +96,7 @@ namespace ASC.Mail.Core.Dao
 
             if (exp.OrderAsc.HasValue)
             {
-                query.OrderBy(ContactsTable.Columns.ContactName.Prefix(MAIL_CONTACTS), exp.OrderAsc.HasValue);
+                query.OrderBy(ContactsTable.Columns.ContactName.Prefix(MAIL_CONTACTS), exp.OrderAsc.Value);
             }
 
             if (exp.StartIndex.HasValue)

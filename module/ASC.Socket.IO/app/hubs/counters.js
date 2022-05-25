@@ -21,6 +21,7 @@ module.exports = (io) => {
     const counters = io.of('/counters');
     const onlineUsers = [];
     const uaParser = require('ua-parser-js');
+    var timeInterval;
 
     counters.on('connection', (socket) => {
         const request = socket.client.request;
@@ -44,7 +45,7 @@ module.exports = (io) => {
         socket.join([tenantId, `${tenantId}-${userId}`, `${tenantId}-${userName}`]);
 
         getNewMessagesCount();
-
+        
         socket
             .on('disconnect', () => {
                 if (!onlineUsers[tenantId]) return;
@@ -57,10 +58,16 @@ module.exports = (io) => {
                     delete onlineUsers[tenantId][userId].browsers[browserName];
                 }
                 if (Object.keys(onlineUsers[tenantId][userId].browsers).length === 0) {
-                    delete onlineUsers[tenantId][userId];
-                    counters.to(tenantId).emit('renderOfflineUser', userId);
-                    updateMailUserActivity(socket.client.request, false);
-                    console.log(`a user ${userName} in portal ${tenantId} disconnected`);
+                    
+                    timeInterval = setTimeout(function(){
+                        delete onlineUsers[tenantId][userId];
+                        if(typeof onlineUsers[tenantId][userId] != "undefined") return;
+            
+                        counters.to(tenantId).emit('renderOfflineUser', userId);
+                        updateMailUserActivity(socket.client.request, false);
+                        timeInterval = undefined;
+                        console.log(`a user ${userName} in portal ${tenantId} disconnected`);
+                    }, 3000);
                 }
             })
             .on('renderOnlineUsers', () => {
@@ -85,14 +92,11 @@ module.exports = (io) => {
 
         function updateMailUserActivity(request, userOnline = true) {
             if(!request.mailEnabled) return;
+            if((!userOnline && typeof onlineUsers[tenantId][userId] != "undefined") || 
+            (userOnline && !onlineUsers[tenantId][userId])) return;
 
-            setTimeout(function(){
-                if((!userOnline && typeof onlineUsers[tenantId][userId] != "undefined") || 
-                (userOnline && !onlineUsers[tenantId][userId])) return;
-    
-                apiRequestManager.put("mail/accounts/updateuseractivity.json", request, { userOnline });
-                console.log(`updateuseractivity ${userOnline}`);
-            }, 3000);
+            apiRequestManager.put("mail/accounts/updateuseractivity.json", request, { userOnline });
+            console.log(`updateuseractivity ${userOnline}`);
         }
 
         function getNewMessagesCount() {
@@ -135,13 +139,18 @@ module.exports = (io) => {
                         if (!onlineUsers[tenantId]) {
                             onlineUsers[tenantId] = {};
                         }
-                        if (!onlineUsers[tenantId][userId]) {
-                            onlineUsers[tenantId][userId] = {browsers: {},FirstConnection: new Date(), LastConnection: new Date() };
-                            socket.broadcast.to(tenantId).emit('renderOnlineUser', userId);
-                            updateMailUserActivity(socket.client.request);
-                        }
-                        else {
-                            onlineUsers[tenantId][userId].LastConnection = new Date();
+                        if(timeInterval == undefined){
+                            if (!onlineUsers[tenantId][userId]) {
+                                onlineUsers[tenantId][userId] = {browsers: {},FirstConnection: new Date(), LastConnection: new Date() };
+                                socket.broadcast.to(tenantId).emit('renderOnlineUser', userId);
+                                updateMailUserActivity(socket.client.request);
+                            }
+                            else {
+                                onlineUsers[tenantId][userId].LastConnection = new Date();
+                            }
+                        }else{
+                            clearTimeout(timeInterval);
+                            timeInterval = undefined;
                         }
                     
                         if (!onlineUsers[tenantId][userId].browsers[browserName]) {

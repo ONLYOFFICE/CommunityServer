@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Quản trị viên</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Trạng thái Affiliate</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Tên miền bất kỳ</value>
   </data>
@@ -486,12 +483,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>đăng nhập</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Kết nối dịch vụ Bitly để rút gọn các liên kết lời mời của cổng thông tin và các liên kết được chia sẻ trong mô-đun Tài liệu.</value>
@@ -792,27 +783,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Bí mật Token truy cập</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Bật ứng dụng cho phép nhập liên hệ từ Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Thêm ứng dụng dịch vụ Yahoo để có thể thêm người dùng ONLYOFFICE mới từ danh sách liên hệ.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Secret</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Thông Tin Liên Hệ</value>
@@ -1245,9 +1215,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Mật khẩu phải chứa</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Phải chứa</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>chữ số</value>
   </data>
@@ -1426,9 +1393,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Trung tâm Hỗ trợ</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Mục đích của chương trình này là quảng cáo một cách hợp pháp cho ONLYOFFICE™ để nhận hoa hồng từ các thuê bao được mua bởi các cá nhân được giới thiệu.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Ẩn</value>
   </data>
@@ -1552,9 +1516,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Nhập từ Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Nhập từ Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Gói hiện tại của bạn cho phép bạn thêm {0} người dùng.</value>
   </data>
@@ -1617,9 +1578,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Di chuyển cả ONLYOFFICE™ Mail (không nên)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Trở thành Affiliate của chúng tôi</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Bạn có thể tiếp tục thêm người dùng với tư cách là {!guests} hoặc đổi sang gói có số lượng lớn người dùng lớn hơn.</value>
@@ -2675,15 +2633,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Lời mời đã gửi thành công</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Gửi email</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Liên hệ với chúng tôi để tìm hiểu về các ưu đãi đặc biệt</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Giảm thông số bắt buộc hoặc chọn gói dịch vụ khác.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Mua ngay</value>
   </data>
@@ -2695,18 +2644,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Chọn gói phù hợp với nhu cầu của bạn nhất. Gói đề xuất được đánh dấu dưới đây.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Không thể chọn kế hoạch này</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Kích thước dung lượng lưu trữ cho phép: {0}. Dung lượng lưu trữ hiện tại: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Số người dùng cổng thông tin được phép: {0}. Số người dùng hiện tại: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Bạn không thể chọn gói này vì dung lượng lưu trữ hoặc số lượng người dùng vượt quá giới hạn của gói đã chọn:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Thanh toán định kỳ được bật</value>
@@ -2732,9 +2669,6 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Cổng ONLYOFFICE™ của bạn sẽ bị chặn {2}. Vui lòng {0}bấm vào đây{1} để gia hạn gói hiện tại hoặc đổi sang gói thích hợp.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Số cổng thông tin bạn đã tạo: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Gói dịch vụ này không khả dụng cho đến khi kết thúc năm đã trả phí.</value>
   </data>
@@ -2747,14 +2681,8 @@ Bạn có chắc chắn muốn xoá {0} {!group}?</value>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Để hủy Thanh toán Định kỳ, vui lòng truy cập tài khoản Avangate của bạn.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Tối đa là {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Phương án báo giá</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Để thuận tiên, thanh toán bằng đồng rúp của Nga sẽ được tính theo tỷ giá hối đoái cố định {0}đồng rúp của Nga đổi được 1 đô la Mỹ.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Thanh toán</value>

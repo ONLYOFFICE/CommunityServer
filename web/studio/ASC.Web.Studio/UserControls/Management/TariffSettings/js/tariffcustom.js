@@ -34,14 +34,6 @@ var TariffSettings = new function () {
 
         jq.switcherAction("#switcherPayments", "#paymentsContainer");
 
-        jq.dropdownToggle({
-            switcherSelector: "#currencySelector",
-            dropdownID: "currencyList",
-            rightPos: true,
-        });
-
-        jq("#currencyHelpSwitcher").click(function () { jq(this).helper({BlockHelperID: "currencyHelp"}) });
-
         var country = jq(".text-edit-phone").attr("data-country");
         PhoneController.Init(jq(".text-edit-phone"), CountriesManager.countriesList, [country, "US"]);
 
@@ -50,8 +42,8 @@ var TariffSettings = new function () {
 
         updateSelectedTariff("year");
         updatePrices(_defaultTariff);
-        jq(".tarrifs-button-year").click(function() { updateSelectedTariff("year"); }); 
-        jq(".tarrifs-button-month").click(function() { updateSelectedTariff("month"); }); 
+        jq(".tarrifs-button-year").on("click", function() { updateSelectedTariff("year"); });
+        jq(".tarrifs-button-month").on("click", function() { updateSelectedTariff("month"); });
     };
 
     function updateSelectedTariff (t) {
@@ -269,7 +261,7 @@ var TariffSettings = new function () {
         jq("#pricingPlanSlider").toggleClass("warn-slider", userMinWarn);
         jq(".tariff-user-warn-min").toggle(userMinWarn);
         jq(".tariff-user-warn-max").toggle(userMaxWarn);
-        jq(".tariffs-panel, .see-full-price, #currencyPanel").toggle(!userMaxWarn);
+        jq(".tariffs-panel").toggle(!userMaxWarn);
     };
 
     var requestTariff = function () {
@@ -312,5 +304,5 @@ var TariffSettings = new function () {
 jq(function () {
     TariffSettings.init();
 
-    jq(".tariff-request").click(TariffSettings.requestTariff);
+    jq(".tariff-request").on("click", TariffSettings.requestTariff);
 });

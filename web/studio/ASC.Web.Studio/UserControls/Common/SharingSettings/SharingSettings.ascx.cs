@@ -26,6 +26,7 @@ namespace ASC.Web.Studio.UserControls.Common
     public partial class SharingSettings : UserControl
     {
         public bool EnableShareMessage;
+        public Control FormFillingControl;
         public bool IsPopup = true;
 
         public static string Location
@@ -40,6 +41,11 @@ namespace ASC.Web.Studio.UserControls.Common
 
             _sharingDialogContainer.Options.IsPopup = IsPopup;
             _sharingDialogContainer.Header.Visible = IsPopup;
+
+            if (FormFillingControl != null)
+            {
+                FormFillingHolder.Controls.Add(FormFillingControl);
+            }
         }
     }
 }

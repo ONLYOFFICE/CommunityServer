@@ -26,9 +26,9 @@ window.createMailgroupModal = (function($) {
 
         var html = $.tmpl('createMailgroupPopupTmpl', { domain: domain });
 
-        $(html).find('.save').unbind('click').bind('click', addMailgroup);
+        $(html).find('.save').off('click').on('click', addMailgroup);
 
-        $(html).find('.cancel').unbind('click').bind('click', function() {
+        $(html).find('.cancel').off('click').on('click', function() {
             if ($(this).hasClass('disable')) {
                 return false;
             }
@@ -43,7 +43,7 @@ window.createMailgroupModal = (function($) {
 
         $rootEl = $('#mail_server_create_mailgroup_popup');
 
-        $rootEl.find('.mailgroupName').unbind('textchange').bind('textchange', function () {
+        $rootEl.find('.mailgroupName').off('textchange').on('textchange', function () {
             turnOffAllRequiredError();
         });
 
@@ -153,7 +153,7 @@ window.createMailgroupModal = (function($) {
         var mailboxRows = mailboxTable.find('.mailbox_row');
         for (var i = 0; i < mailboxRows.length; i++) {
             var deleteButton = $(mailboxRows[i]).find('.delete_entity');
-            deleteButton.unbind('click').bind('click', deleteAddress).show();
+            deleteButton.off('click').on('click', deleteAddress).show();
         }
 
         mailboxTable.toggleClass('empty_list', mailboxRows.length == 0);
@@ -206,7 +206,7 @@ window.createMailgroupModal = (function($) {
     }
 
     function setFocusToInput() {
-        $rootEl.find('.mailgroupName').focus();
+        $rootEl.find('.mailgroupName').trigger("focus");
     }
 
     return {

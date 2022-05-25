@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -53,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionCol" xml:space="preserve">
     <value>Action</value>
@@ -490,6 +549,9 @@
   <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
     <value>Third-Party Settings Updated</value>
   </data>
+  <data name="DocumentsExternalShareSettingsUpdated" xml:space="preserve">
+    <value>External share Settings Updated</value>
+  </data>
   <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
     <value>Uploading Formats Settings Updated</value>
   </data>
@@ -529,11 +591,20 @@
   <data name="FileDownloadedAs" xml:space="preserve">
     <value>Files [{0}]. Downloaded As: {1}</value>
   </data>
+  <data name="FileExternalLinkAccessUpdated" xml:space="preserve">
+    <value>File {0}. External Link Access Updated: {1}</value>
+  </data>
   <data name="FileImported" xml:space="preserve">
     <value>Folders [{0}]. File Imported: {1}. Provider: {2}</value>
   </data>
   <data name="FileLocked" xml:space="preserve">
     <value>File Locked: {0}</value>
+  </data>
+  <data name="FileMarkedAsFavorite" xml:space="preserve">
+    <value>File Marked As Favorite: {0}</value>
+  </data>
+  <data name="FileMarkedAsRead" xml:space="preserve">
+    <value>File {0}: Marked As Read</value>
   </data>
   <data name="FileMoved" xml:space="preserve">
     <value>Files [{0}]. Moved From Folder "{1}" To Folder: "{2}"</value>
@@ -544,11 +615,26 @@
   <data name="FileMovedWithOverwriting" xml:space="preserve">
     <value>Files [{0}]. Moved With Overwriting From Folder "{1}" To Folder: "{2}"</value>
   </data>
+  <data name="FileOpenedForChange" xml:space="preserve">
+    <value>File {0}: Opened For Change</value>
+  </data>
+  <data name="FileReaded" xml:space="preserve">
+    <value>File {0}: Readed</value>
+  </data>
+  <data name="FileRemovedFromFavorite" xml:space="preserve">
+    <value>File Removed From Favorite: {0}</value>
+  </data>
+  <data name="FileRemovedFromList" xml:space="preserve">
+    <value>File Removed From List: {0}</value>
+  </data>
   <data name="FileRenamed" xml:space="preserve">
     <value>File Renamed: {0}</value>
   </data>
   <data name="FileRestoreVersion" xml:space="preserve">
     <value>Files [{0}]. Revision: {1}. Version Restored</value>
+  </data>
+  <data name="FileRevisionDownloaded" xml:space="preserve">
+    <value>File {0}. Revision {1} Downloaded</value>
   </data>
   <data name="FilesDocumentSigned" xml:space="preserve">
     <value>Document {1} signed via {0}</value>
@@ -571,6 +657,9 @@
   <data name="FileUpdatedAccess" xml:space="preserve">
     <value>Files [{0}]. Access Updated</value>
   </data>
+  <data name="FileUpdatedAccessFor" xml:space="preserve">
+    <value>File {0}. Access Updated for {1}: {2}</value>
+  </data>
   <data name="FileUpdatedRevisionComment" xml:space="preserve">
     <value>Files [{0}]. Revision {1}. Comment Updated </value>
   </data>
@@ -589,14 +678,32 @@
   <data name="FolderDeleted" xml:space="preserve">
     <value>Folder Deleted: {0}</value>
   </data>
+  <data name="FolderDownloaded" xml:space="preserve">
+    <value>Folder Downloaded: {0}</value>
+  </data>
+  <data name="FolderMarkedAsFavorite" xml:space="preserve">
+    <value>Folder Marked As Favorite: {0}</value>
+  </data>
+  <data name="FolderMarkedAsRead" xml:space="preserve">
+    <value>Folder {0}: Marked As Read</value>
+  </data>
   <data name="FolderMoved" xml:space="preserve">
     <value>Folders [{0}]. Moved To Folder: {1}</value>
+  </data>
+  <data name="FolderMovedFrom" xml:space="preserve">
+    <value>Folders [{0}]. Moved From Folder "{1}" To Folder: "{2}"</value>
   </data>
   <data name="FolderMovedToTrash" xml:space="preserve">
     <value>Folders [{0}]. Moved To Trash Folder</value>
   </data>
   <data name="FolderMovedWithOverwriting" xml:space="preserve">
     <value>Folders [{0}]. Moved With Overwriting To Folder: {1}</value>
+  </data>
+  <data name="FolderRemovedFromFavorite" xml:space="preserve">
+    <value>Folder Removed From Favorite: {0}</value>
+  </data>
+  <data name="FolderRemovedFromList" xml:space="preserve">
+    <value>Folder Removed From List: {0}</value>
   </data>
   <data name="FolderRenamed" xml:space="preserve">
     <value>Folder Renamed: {0}</value>
@@ -606,6 +713,9 @@
   </data>
   <data name="FolderUpdatedAccess" xml:space="preserve">
     <value>Folders [{0}]. Access Updated</value>
+  </data>
+  <data name="FolderUpdatedAccessFor" xml:space="preserve">
+    <value>Folder {0}. Access Updated for {1}: {2}</value>
   </data>
   <data name="FollowActionType" xml:space="preserve">
     <value>Follow</value>
@@ -831,6 +941,9 @@
   </data>
   <data name="MoveActionType" xml:space="preserve">
     <value>Move</value>
+  </data>
+  <data name="OpenActionType" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="OpportunitiesCreatedTag" xml:space="preserve">
     <value>Opportunities. Tag Created: {0}</value>
@@ -1201,6 +1314,9 @@
   <data name="SubtaskDeleted" xml:space="preserve">
     <value>Projects [{0}]. Tasks [{1}]. Subtask Deleted: {2}</value>
   </data>
+  <data name="SubtaskMoved" xml:space="preserve">
+    <value>Projects [{0}]. Tasks [{1}]. Subtask Moved: {2}</value>
+  </data>
   <data name="SubtaskUpdated" xml:space="preserve">
     <value>Projects [{0}]. Tasks [{1}]. Subtask Updated: {2}</value>
   </data>
@@ -1291,6 +1407,9 @@
   <data name="TimeZoneSettingsUpdated" xml:space="preserve">
     <value>Time Zone Settings Updated</value>
   </data>
+  <data name="TrashEmptied" xml:space="preserve">
+    <value>Trash Emptied</value>
+  </data>
   <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
     <value>Trusted mail domain settings updated</value>
   </data>
@@ -1359,6 +1478,15 @@
   </data>
   <data name="UserLinkedSocialAccount" xml:space="preserve">
     <value>Social Account Linked. Provider: {0}</value>
+  </data>
+  <data name="UserLogoutActiveConnection" xml:space="preserve">
+    <value>User {0} has logged out active connection</value>
+  </data>
+  <data name="UserLogoutActiveConnections" xml:space="preserve">
+    <value>User {0} has logged out their active connections</value>
+  </data>
+  <data name="UserLogoutActiveConnectionsForUser" xml:space="preserve">
+    <value>Logged out active connections for user: {0} </value>
   </data>
   <data name="UsersDeleted" xml:space="preserve">
     <value>Users Deleted: {0}</value>

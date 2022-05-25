@@ -5,7 +5,6 @@
 namespace Microsoft.Graph
 {
     using Newtonsoft.Json;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// The reference request body.

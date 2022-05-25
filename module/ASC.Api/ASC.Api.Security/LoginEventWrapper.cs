@@ -15,7 +15,10 @@
 */
 
 
+using System;
+
 using ASC.AuditTrail;
+using ASC.MessagingSystem;
 using ASC.Specific;
 
 namespace ASC.Api.Security
@@ -27,15 +30,35 @@ namespace ASC.Api.Security
             Id = loginEvent.Id;
             Date = (ApiDateTime)loginEvent.Date;
             User = loginEvent.UserName;
+            UserId = loginEvent.UserId;
+            Login = loginEvent.Login;
             Action = loginEvent.ActionText;
+            ActionId = (MessageAction)loginEvent.Action;
+            IP = loginEvent.IP;
+            Browser = loginEvent.Browser;
+            Platform = loginEvent.Platform;
+            Page = loginEvent.Page;
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
-        public ApiDateTime Date { get; private set; }
+        public ApiDateTime Date { get; set; }
 
-        public string User { get; private set; }
+        public string User { get; set; }
 
-        public string Action { get; private set; }
+        public Guid UserId { get; set; }
+        public string Login { get; set; }
+
+        public string Action { get; set; }
+
+        public MessageAction ActionId { get; set; }
+
+        public string IP { get; set; }
+
+        public string Browser { get; set; }
+
+        public string Platform { get; set; }
+
+        public string Page { get; set; }
     }
 }

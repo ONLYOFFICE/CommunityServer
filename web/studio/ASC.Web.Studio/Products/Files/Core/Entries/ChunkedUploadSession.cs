@@ -32,6 +32,8 @@ namespace ASC.Files.Core
 
         public bool Encrypted { get; set; }
 
+        public bool KeepVersion { get; set; }
+
         //hack for Backup bug 48873
         [NonSerialized]
         public bool CheckQuota = true;

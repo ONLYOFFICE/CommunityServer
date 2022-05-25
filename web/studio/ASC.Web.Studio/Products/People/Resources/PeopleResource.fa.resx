@@ -61,6 +61,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>افزودن</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>تولدها</value>
+  </data>
   <data name="LblSendActivation" xml:space="preserve">
     <value>ارسال مجدد لینک فعال‌سازی</value>
   </data>

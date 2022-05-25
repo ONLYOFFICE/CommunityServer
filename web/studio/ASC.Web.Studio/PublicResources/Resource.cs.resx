@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Správci</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Affiliate Status</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Libovolné domény</value>
   </data>
@@ -487,12 +484,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>Přihlásit se</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Připojte Bitly službu pro zkrácení odkazů pozvánek a sdílených odkazů v modulu Dokumenty.</value>
@@ -794,27 +785,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Přístupový tajný Token</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Klient ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Klientské tajemství</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Povolte aplikaci pro import kontaktů Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Přidáním aplikace služby Yahoo budete moci ze seznamu kontaktů přidat nové uživatele portálu ONLYOFFICE.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Klient ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Klientské tajemství</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Kontaktní informace</value>
@@ -1253,9 +1223,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Heslo musí obsahovat</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Musí to obsahovat</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>číslice</value>
   </data>
@@ -1434,9 +1401,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Centrum nápovědy</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Cílem program je legálně inzerovat ONLYOFFICE™ pro získání provize za předplatné, které bylo zakoupeno jednotlivci.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Skrýt</value>
   </data>
@@ -1560,9 +1524,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Import z Googlu</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Import z Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Aktuální cenový plán vám umožňuje přidat {0} uživatele.</value>
   </data>
@@ -1625,9 +1586,6 @@ Jste si jistý, že chcete odstranit {0}{!group}?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migrovat také ONLYOFFICE™ Mail (není doporučeno)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Staňte se naším Affiliate</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Můžete přidávat uživatele jako {!guests} nebo změnit cenový plán pro uživatele s větším počtem uživatelů.</value>
@@ -2685,15 +2643,6 @@ pokud chce změnit uzamčené pole profilu</value>
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Pozvánky byly úspěšně znovu odeslány</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Odeslat e-mail</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Kontaktujte nás pro získání informací o speciálních nabídkách</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Zmenšete požadovaný parametr nebo vyberte jiný tarifní plán.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Koupit teď</value>
   </data>
@@ -2705,18 +2654,6 @@ pokud chce změnit uzamčené pole profilu</value>
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Vyberte plán, který Vám nejvíce sedí. Doporučený plán je zvýrazněn níže.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Tento plán nemůže být vybrán</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Povolená velikost Uložiště: {0}. Současná kapacita uložiště: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Maximální počet povolených uživatelů portálu: {0}. Aktuální počet uživatelů: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Tento plán nemůžete vybrat, protože úložný prostor nebo počet uživatelů překračuje omezení vybraného tarifu:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Opakované platby jsou zapnuté</value>
@@ -2742,9 +2679,6 @@ pokud chce změnit uzamčené pole profilu</value>
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Váš portál ONLYOFFICE™ bude zablokován {2}. Prosím, {0}klikněte sem{1} pro prodloužení stávajícího plánu nebo změnu vhodného plánu.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Počet portálů, které jste vytvořili: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Cenový plán není dostupný do konce zaplaceného roku</value>
   </data>
@@ -2757,14 +2691,8 @@ pokud chce změnit uzamčené pole profilu</value>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Pro zrušení pravidelných plateb, jděte prosím na Váš Avangate účet.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Pouze do {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Cenové plány</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Pro Vaše pohodlí jsou platby v ruských rublech přepočteny podle pevného kurzu {0} Ruble za 1 US dollar.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Platby</value>

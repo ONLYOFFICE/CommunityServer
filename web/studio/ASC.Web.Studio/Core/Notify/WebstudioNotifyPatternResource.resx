@@ -58,6 +58,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionBirthday" xml:space="preserve">
+    <value>Starting at</value>
+  </data>
   <data name="ActionCreateBlog" xml:space="preserve">
     <value>Blog was created at</value>
   </data>
@@ -105,6 +108,9 @@
   </data>
   <data name="ActionCreateTask" xml:space="preserve">
     <value>Task was created at</value>
+  </data>
+  <data name="ActionNewEmployee" xml:space="preserve">
+    <value>Added at</value>
   </data>
   <data name="ButtonAccept" xml:space="preserve">
     <value>Accept</value>
@@ -241,19 +247,6 @@ The link is valid for 7 days.
 *If you are not signed in to ONLYOFFICE in this browser, you’ll need to use your old email for confirmation. If you don’t remember it, contact your portal admin.
 
 Don’t want to change your email? Just ignore this message.</value>
-  </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Password change request for the "${__VirtualRootPath}":"${__VirtualRootPath}" portal
-
-There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
-
-Please follow the link below to change your password:
-
-$GreenButton
-
-*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
-
-If you do not want to change your password or received this email by mistake, please ignore it or contact your "${__VirtualRootPath}":"${__VirtualRootPath}" portal administrator to find out the details.</value>
   </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Mobile phone change request
@@ -1031,20 +1024,6 @@ The link is valid for 7 days.
 
 Don’t want to change your email? Just ignore this message.</value>
   </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
-
-Please follow the link below to change your password:
-
-$GreenButton
-
-*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
-
-If you do not want to change your password or received this email by mistake, please ignore it.
-
-Sincerely,
-ONLYOFFICE team</value>
-  </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>Hello,
 
@@ -1781,9 +1760,6 @@ The link is only valid for 7 days.</value>
   <data name="subject_change_email_v115" xml:space="preserve">
     <value>Confirm changing your email</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} password assistance</value>
-  </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Mobile phone change request</value>
   </data>
@@ -1931,9 +1907,6 @@ The link is only valid for 7 days.</value>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Connect your favorite cloud storage to ONLYOFFICE</value>
   </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal password assistance</value>
-  </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Please activate your email address</value>
   </data>
@@ -2062,5 +2035,26 @@ The link is only valid for 7 days.</value>
   </data>
   <data name="subject_user_ldap_activation" xml:space="preserve">
     <value>You’re invited to join ${__VirtualRootPath}</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>Want to change the password on your ONLYOFFICE account? Click the button below to confirm.
+
+$GreenButton
+
+The link is valid for 7 days.
+
+Don’t want to change your password? Just ignore this message</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>Want to change the password on your ONLYOFFICE Personal account? Click the button below to confirm.
+
+$GreenButton 
+
+The link is valid for 7 days.
+
+Don’t want to change your password? Just ignore this message.</value>
+  </data>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Confirm changing your password</value>
   </data>
 </root>

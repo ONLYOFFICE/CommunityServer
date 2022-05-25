@@ -73,6 +73,7 @@ namespace ASC.Mail.Core.Dao
                 .Select(MailboxTable.Columns.OAuthToken.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.IsServerMailbox.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.EmailInFolder.Prefix(mailbox_alias))
+                .Select(MailboxTable.Columns.DateCreated.Prefix(mailbox_alias))
                 .Select(ServerAddressTable.Columns.Id.Prefix(server_address))
                 .Select(ServerAddressTable.Columns.AddressName.Prefix(server_address))
                 .Select(ServerAddressTable.Columns.IsAlias.Prefix(server_address))
@@ -103,14 +104,15 @@ namespace ASC.Mail.Core.Dao
                 MailboxOAuthToken = Convert.ToString(r[6]),
                 MailboxIsTeamlabMailbox = Convert.ToBoolean(r[7]),
                 MailboxEmailInFolder = Convert.ToString(r[8]),
-                ServerAddressId = Convert.ToInt32(r[9]),
-                ServerAddressName = Convert.ToString(r[10]),
-                ServerAddressIsAlias = Convert.ToBoolean(r[11]),
-                ServerDomainId = Convert.ToInt32(r[12]),
-                ServerDomainName = Convert.ToString(r[13]),
-                ServerMailGroupId = Convert.ToInt32(r[14]),
-                ServerMailGroupAddress = Convert.ToString(r[15]),
-                ServerDomainTenant = Convert.ToInt32(r[16])
+                DateCreated = r[9] != null ? Convert.ToDateTime(r[9]) : (DateTime?)null,
+                ServerAddressId = Convert.ToInt32(r[10]),
+                ServerAddressName = Convert.ToString(r[11]),
+                ServerAddressIsAlias = Convert.ToBoolean(r[12]),
+                ServerDomainId = Convert.ToInt32(r[13]),
+                ServerDomainName = Convert.ToString(r[14]),
+                ServerMailGroupId = Convert.ToInt32(r[15]),
+                ServerMailGroupAddress = Convert.ToString(r[16]),
+                ServerDomainTenant = Convert.ToInt32(r[17])
             };
 
             return a;

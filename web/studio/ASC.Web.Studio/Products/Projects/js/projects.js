@@ -310,7 +310,7 @@ ASC.Projects.AllProject = (function () {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        $projectsTable.unbind();
+        $projectsTable.off();
         self.unbindEvents();
         jq("body").off(clickProjectsInitEvent);
     };

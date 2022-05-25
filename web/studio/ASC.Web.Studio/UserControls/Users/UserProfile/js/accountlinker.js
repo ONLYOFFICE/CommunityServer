@@ -16,7 +16,7 @@
 
 
 jq(function () {
-    jq("#accountLinks, .account-links").delegate(".popup", "click", function () {
+    jq("#accountLinks, .account-links").on("click", ".popup", function () {
         if (window.AccountLinkControl_Disable === false || window.AccountLinkControl_AddHandler) {
             var obj = jq(this);
             if (obj.hasClass('linked')) {

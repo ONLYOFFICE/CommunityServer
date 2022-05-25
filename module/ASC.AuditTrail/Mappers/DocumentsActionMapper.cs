@@ -17,404 +17,137 @@
 
 using System.Collections.Generic;
 
+using ASC.AuditTrail.Types;
 using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
-    internal class DocumentsActionMapper
+    public class DocumentsActionMapper : IProductActionMapper
     {
-        public static Dictionary<MessageAction, MessageMaps> GetMaps()
+        public List<IModuleActionMapper> Mappers { get; }
+        public ProductType Product { get; }
+        public DocumentsActionMapper()
         {
-            return new Dictionary<MessageAction, MessageMaps>
+            Product = ProductType.Documents;
+
+            Mappers = new List<IModuleActionMapper>()
+            {
+                new FilesActionMapper(),
+                new FoldersActionMapper(),
+                new SettingsActionMapper()
+            };
+        }
+    }
+    public class FilesActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public FilesActionMapper()
+        {
+            Module = ModuleType.Files;
+            Actions = new MessageMapsDictionary(ProductType.Documents, Module)
+            {
                 {
+                    EntryType.File, new Dictionary<ActionType, MessageAction[]>()
                     {
-                        MessageAction.FileCreated, new MessageMaps
+                        { ActionType.Create, new[] { MessageAction.FileCreated, MessageAction.FileCreatedVersion, MessageAction.FileRestoreVersion, MessageAction.FileConverted } },
+                        {
+                            ActionType.Update, new[]
                             {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "FileCreated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
+                                MessageAction.FileRenamed, MessageAction.FileUpdated, MessageAction.UserFileUpdated, MessageAction.FileUpdatedRevisionComment,
+                                MessageAction.FileLocked, MessageAction.FileUnlocked, MessageAction.FileOpenedForChange, MessageAction.FileMarkedAsFavorite,
+                                MessageAction.FileRemovedFromFavorite, MessageAction.FileMarkedAsRead, MessageAction.FileReaded
                             }
+                        },
+                        { ActionType.Delete, new[] { MessageAction.FileDeletedVersion, MessageAction.FileDeleted, MessageAction.TrashEmptied } },
+                        { ActionType.UpdateAccess, new[] { MessageAction.FileUpdatedAccess, MessageAction.FileUpdatedAccessFor, MessageAction.FileRemovedFromList, MessageAction.FileExternalLinkAccessUpdated } },
+                        { ActionType.Download, new[] {  MessageAction.FileDownloaded, MessageAction.FileDownloadedAs, MessageAction.FileRevisionDownloaded } },
+                        { ActionType.Send, new[] { MessageAction.FileSendAccessLink, MessageAction.FileChangeOwner } },
                     },
+                    new Dictionary<ActionType, MessageAction>()
                     {
-                        MessageAction.FileRenamed, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FileRenamed",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
+                        { ActionType.Upload, MessageAction.FileUploaded },
+                        { ActionType.Import, MessageAction.FileImported },
+                        { ActionType.Move, MessageAction.FileMovedToTrash }
+                    }
+                },
+                {
+                    EntryType.File, EntryType.Folder, new Dictionary<ActionType, MessageAction[]>()
                     {
-                        MessageAction.FileUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FileUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
+                        { ActionType.Copy, new[] { MessageAction.FileCopied, MessageAction.FileCopiedWithOverwriting } },
+                        { ActionType.Move, new[] { MessageAction.FileMoved, MessageAction.FileMovedWithOverwriting } },
+                    }
+                },
+            };
+
+            Actions.Add(MessageAction.DocumentSignComplete, new MessageMaps("FilesDocumentSigned", ActionType.Send, ProductType.Documents, Module, EntryType.File));
+            Actions.Add(MessageAction.DocumentSendToSign, new MessageMaps("FilesRequestSign", ActionType.Send, ProductType.Documents, Module, EntryType.File));
+        }
+    }
+
+    public class FoldersActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public FoldersActionMapper()
+        {
+            Module = ModuleType.Folders;
+            Actions = new MessageMapsDictionary(ProductType.Documents, Module)
+            {
+                {
+                    EntryType.Folder, new Dictionary<ActionType, MessageAction[]>()
                     {
-                        MessageAction.UserFileUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserFileUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
+                        { ActionType.Update, new[] { MessageAction.FolderRenamed, MessageAction.FolderMarkedAsRead } },
+                        { ActionType.UpdateAccess, new[] { MessageAction.FolderUpdatedAccess, MessageAction.FolderUpdatedAccessFor, MessageAction.FolderRemovedFromList } }
                     },
+                    new Dictionary<ActionType, MessageAction>()
                     {
-                        MessageAction.FileCreatedVersion, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "FileCreatedVersion",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
+                        { ActionType.Create, MessageAction.FolderCreated },
+                        { ActionType.Move, MessageAction.FolderMovedToTrash },
+                        { ActionType.Delete, MessageAction.FolderDeleted },
+                        { ActionType.Download, MessageAction.FolderDownloaded },
+                    }
+                },
+                {
+                    EntryType.Folder, EntryType.Folder, new Dictionary<ActionType, MessageAction[]>()
                     {
-                        MessageAction.FileDeletedVersion, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "FileDeletedVersion",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
+                        { ActionType.Copy, new[] { MessageAction.FolderCopied, MessageAction.FolderCopiedWithOverwriting } },
+                        { ActionType.Move, new[] { MessageAction.FolderMoved, MessageAction.FolderMovedFrom, MessageAction.FolderMovedWithOverwriting } },
+                    }
+                },
+            };
+        }
+    }
+
+    public class SettingsActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public SettingsActionMapper()
+        {
+            Module = ModuleType.DocumentsSettings;
+            Actions = new MessageMapsDictionary(ProductType.Documents, Module)
+            {
+                {
+                    EntryType.Folder, new Dictionary<ActionType, MessageAction>()
                     {
-                        MessageAction.FileRestoreVersion, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "FileRestoreVersion",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
+                        { ActionType.Create,  MessageAction.ThirdPartyCreated  },
+                        { ActionType.Update, MessageAction.ThirdPartyUpdated },
+                        { ActionType.Delete, MessageAction.ThirdPartyDeleted },
+                    }
+                },
+                {
+                    ActionType.Update, new []
                     {
-                        MessageAction.FileUpdatedRevisionComment, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FileUpdatedRevisionComment",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileLocked, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FileLocked",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileUnlocked, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FileUnlocked",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileUpdatedAccess, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateAccessActionType",
-                                ActionTextResourceName = "FileUpdatedAccess",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileDownloaded, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DownloadActionType",
-                                ActionTextResourceName = "FileDownloaded",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileDownloadedAs, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DownloadActionType",
-                                ActionTextResourceName = "FileDownloadedAs",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileUploaded, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UploadActionType",
-                                ActionTextResourceName = "FileUploaded",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileImported, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "ImportActionType",
-                                ActionTextResourceName = "FileImported",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileCopied, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CopyActionType",
-                                ActionTextResourceName = "FileCopied",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileCopiedWithOverwriting, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CopyActionType",
-                                ActionTextResourceName = "FileCopiedWithOverwriting",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileMoved, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FileMoved",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileMovedWithOverwriting, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FileMovedWithOverwriting",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileMovedToTrash, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FileMovedToTrash",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "FileDeleted",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderCreated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "FolderCreated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderRenamed, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "FolderRenamed",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderUpdatedAccess, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateAccessActionType",
-                                ActionTextResourceName = "FolderUpdatedAccess",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderCopied, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CopyActionType",
-                                ActionTextResourceName = "FolderCopied",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderCopiedWithOverwriting, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CopyActionType",
-                                ActionTextResourceName = "FolderCopiedWithOverwriting",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderMoved, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FolderMoved",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderMovedWithOverwriting, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FolderMovedWithOverwriting",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderMovedToTrash, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "MoveActionType",
-                                ActionTextResourceName = "FolderMovedToTrash",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.FolderDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "FolderDeleted",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FoldersModule"
-                            }
-                    },
-                    {
-                        MessageAction.ThirdPartyCreated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "ThirdPartyCreated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.ThirdPartyUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "ThirdPartyUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.ThirdPartyDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "ThirdPartyDeleted",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentsThirdPartySettingsUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "DocumentsThirdPartySettingsUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentsOverwritingSettingsUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "DocumentsOverwritingSettingsUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentsForcesave, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "DocumentsForcesave",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentsStoreForcesave, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "DocumentsStoreForcesave",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentsUploadingFormatsSettingsUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "DocumentsUploadingFormatsSettingsUpdated",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "DocumentsSettingsModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileConverted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "FileConverted",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileSendAccessLink, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "FileSendAccessLink",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.FileChangeOwner, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "FileChangeOwner",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentSignComplete, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "FilesDocumentSigned",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                    {
-                        MessageAction.DocumentSendToSign, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "FilesRequestSign",
-                                ProductResourceName = "DocumentsProduct",
-                                ModuleResourceName = "FilesModule"
-                            }
-                    },
-                };
+                        MessageAction.DocumentsThirdPartySettingsUpdated, MessageAction.DocumentsOverwritingSettingsUpdated,
+                        MessageAction.DocumentsForcesave, MessageAction.DocumentsStoreForcesave, MessageAction.DocumentsUploadingFormatsSettingsUpdated,
+                        MessageAction.DocumentsExternalShareSettingsUpdated
+                    }
+                },
+            };
         }
     }
 }

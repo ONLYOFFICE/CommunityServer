@@ -175,7 +175,7 @@ var DepartmentManagement = new function () {
             return;
 
         var departmentName = jq("#studio_newDepName");
-        if (jq.trim(jq(departmentName).val()) === "") {
+        if (jq(departmentName).val().trim() === "") {
             ShowRequiredError(departmentName);
             return;
         }

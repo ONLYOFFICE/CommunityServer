@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>Объявления</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Дни Рождения</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Блоги</value>
   </data>
@@ -105,9 +102,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>Создайте групповой чат или массовые рассылки в чате.</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>Настройте оповещения о предоставлении доступа к документам, сроках выполнения и днях рождения коллег.</value>
   </data>
   <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
     <value>Используйте Firebase, чтобы не пропустить ни одного сообщения.</value>

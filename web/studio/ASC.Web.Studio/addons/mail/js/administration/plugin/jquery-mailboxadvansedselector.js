@@ -28,7 +28,7 @@
         initAdvSelectorData: function() {
             var that = this;
             that.refrashSelectorData();
-            that.$element.unbind('click.once').bind('click.once', function() {
+            that.$element.off('click.once').on('click.once', function() {
                 that.refrashSelectorData();
             });
         },

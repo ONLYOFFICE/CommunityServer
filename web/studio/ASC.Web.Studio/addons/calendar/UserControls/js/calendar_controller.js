@@ -61,6 +61,7 @@ ASC.CalendarSizeManager = new function() {
 
     var cache = {
         topPanelHeight: 48,
+        barContentHeight: 0,
         fcHeaderHeight: 36,
         fcMonthContentTheadHeight: 18,
 
@@ -122,6 +123,7 @@ ASC.CalendarSizeManager = new function() {
         cache = {};
 
         cache.topPanelHeight = document.querySelector("#studioPageContent .studio-top-panel").clientHeight;
+        cache.barContentHeight = document.querySelector("main .bar-content").clientHeight;
         cache.fcHeaderHeight = document.querySelector(".fc-header-outer").clientHeight;
         cache.fcMonthContentTheadHeight = document.querySelector(".fc-border-separate thead").clientHeight;
 
@@ -221,7 +223,7 @@ ASC.CalendarController = new function() {
         return prop;
     };
 
-    var getEventData = function (calendarId, name, description, sDate, eDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
+    var getEventData = function (calendarId, name, description, sDate, eDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset) {
 
         var startDate = new Date(sDate.getTime());
         var endDate = new Date(sDate.getTime());
@@ -272,6 +274,18 @@ ASC.CalendarController = new function() {
                 var attendeeProperty = createProperty(attendees[i]);
                 if (attendeeProperty)
                     vevent.addProperty(attendeeProperty);
+            }
+        }
+
+        if (attachments && attachments.length) {
+            for (var i = 0; i < attachments.length; i++) {
+                var attach = new ICAL.Property("ATTACH");
+                attach.setParameter("FILENAME", attachments[i].title);
+                if (attachments[i].contentType) {
+                    attach.setParameter("FMTTYPE", attachments[i].contentType);
+                }
+                attach.setValue(attachments[i].fileUrl);
+                vevent.addProperty(attach);
             }
         }
 
@@ -471,7 +485,7 @@ ASC.CalendarController = new function() {
 
             onHeightChange: function() {
                 var sizeManager = ASC.CalendarSizeManager.cache;
-                this.height = window.innerHeight - sizeManager.topPanelHeight - sizeManager.fcHeaderHeight - sizeManager.fcMainPadding;
+                this.height = window.innerHeight - sizeManager.topPanelHeight - sizeManager.fcHeaderHeight - sizeManager.fcMainPadding - sizeManager.barContentHeight;
             },
 
             characterRegExp: ASC.CalendarController.characterRegExp,
@@ -495,7 +509,15 @@ ASC.CalendarController = new function() {
             displayInfoPanel: ASC.CalendarController.displayInfoPanel,
             characterString: ASC.CalendarController.characterString
         });
-        
+
+        new ResizeObserver(function () {
+            var barContentHeight = document.querySelector("main .bar-content").clientHeight;
+            if (barContentHeight != ASC.CalendarSizeManager.cache.barContentHeight) {
+                ASC.CalendarSizeManager.cache.barContentHeight = barContentHeight;
+                jq("#asc_calendar").data().fullCalendar.updateSize()
+            }
+        }).observe(document.querySelector("main .bar-content"));
+
         ASC.Mail.Enabled = true;
         ASC.Mail.Accounts = [];
         ASC.Mail.DefaultAccount = null;
@@ -611,13 +633,20 @@ ASC.CalendarController = new function() {
             type: "get",
             url: _controller.ApiUrl + "/" + calendarId + "/caldavurl.json",
             complete: function (d) {
+                
                 var data = jq.evalJSON(d.responseText);
                 if (data.status === 0) {
-                    callbackFunc({ result: true, url: data.response });
+                    if (data.response.completed) {
+                        callbackFunc({ result: true, url: data.response.data });
+                    } else {
+                        callbackFunc({ result: true, url: '' });
+                        toastr.error(data.response.error);
+                        console.error("Radicale error answer: {0} {1}".format(data.response.statusCode, data.response.error))
+                    }
                 }
                 else {
                     callbackFunc({ result: false, url: '' });
-                    AlertError(data.error.message);
+                    toastr.error(data.error.message);
                 }
             }
         });
@@ -910,7 +939,8 @@ ASC.CalendarController = new function() {
                 params.location,
                 params.organizer,
                 params.attendees,
-                params.status
+                params.status,
+                params.attachments
             );
         }
 
@@ -936,7 +966,8 @@ ASC.CalendarController = new function() {
                 params.location,
                 params.organizer,
                 params.attendees,
-                params.status
+                params.status,
+                params.attachments
             );
         }
 
@@ -1030,12 +1061,12 @@ ASC.CalendarController = new function() {
         }
     }
 
-    this.CreateEvent = function(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
+    this.CreateEvent = function(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset) {
 
         action = null; //wtf???
 
         var url = _controller.ApiUrl + "/icsevent.json";
-        var postData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
+        var postData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset);
 
         jq.ajax({ type: 'post',
             url: url,
@@ -1059,12 +1090,12 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.UpdateEvent = function (calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
+    this.UpdateEvent = function (calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset) {
 
         action = null; //wtf???
 
         var url = _controller.ApiUrl + "/icsevent.json";
-        var putData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
+        var putData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset);
         putData.eventId = eventId;
 
         jq.ajax({ type: 'put',
@@ -1079,6 +1110,7 @@ ASC.CalendarController = new function() {
                         data.response[i].end = ASC.Api.TypeConverter.ServerTimeToClient(data.response[i].end);
                         data.response[i].repeatRule = ASC.Api.iCal.ParseRRuleFromString(data.response[i].repeatRule);
                     }
+
                     callbackFunc({ result: true, event: data.response });
                 }
                 else {
@@ -1089,10 +1121,10 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.GetOffsetAndExecute = function (method, calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+    this.GetOffsetAndExecute = function (method, calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments) {
 
         if (isAllDayLong) {
-            method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
+            method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments);
             return;
         }
 
@@ -1106,7 +1138,7 @@ ASC.CalendarController = new function() {
             },
             complete: function (result) {
                 var offset = result.responseJSON.response;
-                method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
+                method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, attachments, offset);
             }
         });
     }

@@ -9,7 +9,7 @@
         </div>
         <div class="content-box">
             <div class="description">
-                <span class="menu-item-icon ${itemClass}" >
+                <span class="menu-item-icon ${itemClass}">
                     <svg class="menu-item-svg">
                         <use href="/skins/default/images/svg/feed-icons.svg#feedIcons${itemClass}"></use>
                     </svg>
@@ -18,7 +18,9 @@
                 {{if location}}
                 <span class="location">${location}.</span>
                 {{/if}}
+                {{if actionText}}
                 <span class="action">${actionText}</span>
+                {{/if}}
                 {{if groupedFeeds.length}}
                 <span class="grouped-feeds-count">
                     ${ASC.Resources.Master.FeedResource.OtherFeedsCountMsg.format(groupedFeeds.length)}
@@ -26,15 +28,30 @@
                 {{/if}}
             </div>
             <div class="header">
+                {{if isAllDayEvent}}
+                <span class="title-all-day-event" onclick="${linkOnClickAttr}">
+                    ${linkInnerText}
+                </span>
+                {{else}}
                 <a class="title" href="${itemUrl}" title="${title}" target="_blank">${title}</a>
+                {{/if}}
             </div>
             <div class="date">
-                {{if isToday}}
-                <span>${ASC.Resources.Master.FeedResource.TodayAt} ${displayCreatedTime}</span>
-                {{else isYesterday}}
-                <span>${ASC.Resources.Master.FeedResource.YesterdayAt} ${displayCreatedTime}</span>
+                {{if comments && comments.length}}
+                <span>${comments[comments.length - 1].formattedDate}</span>
                 {{else}}
-                <span>${displayCreatedDatetime}</span>
+                {{if isTomorrow}}
+                <span>${tomorrow} ${displayCreatedTime}</span>
+                {{else isToday}}
+                <span>${today} ${displayCreatedTime}</span>
+                {{else isYesterday}}
+                <span>${yesterday} ${displayCreatedTime}</span>
+                {{else}}
+                <span>${displayCreatedDate}</span>
+                {{if displayCreatedTime}}
+                <span class="time">${displayCreatedTime}</span>
+                {{/if}}
+                {{/if}}
                 {{/if}}
             </div>
         </div>

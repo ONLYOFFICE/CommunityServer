@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Operator əlavə edin</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Operatorlar əlavə edin</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Zəng tonu əlavə edin</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Qısa ad</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0} Qısa ad {1} söz və ya ifadədən istifadə edərək nömrəni müəyyən edir (məsələn, media, satış və s.). O, virtual nömrələr siyahısında görünəcək.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Nömrə üçün ad daxil edin</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Telefon nömrəsi alın</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Nömrə alma</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Zəng edin</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Vasitəçi</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Müştəri</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Xərc</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Tarix/Vaxt</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Müddət</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Növ</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Gözləmə Müddəti</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Ləğv edin</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Silin</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Nömrə Twilio-da saxlanacaq, lakin cari portal üçün əlçatan olmayacaq</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Nömrəni silin</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Nömrəni silin</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Zəng tonunu silin</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Redaktə edin</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>ONLYOFFICE portalına əlavə etmək üçün yeni IP nömrəsi alın. Daha sonra bu nömrəni portalınızın CRM modulunda istifadə edə bilərsiniz.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Qeyd: Twilio saytında malik olduğunuz telefon nömrələri portala köçürülə bilməz.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Hələ heç bir IP telefon nömrəsi əlavə olunmayıb!</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Ümumi parametrlər</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Salamlama zəng tonları</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0} gələn zəng növbəsi {1} hazırda mövcud operatorlara təyin edilmiş gələn zənglərin sayını göstərir. Əgər daxil olan zənglərin sayı növbənin ölçüsündən çox olarsa, zənglər səsli poçt qutusuna yönləndiriləcək.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Gələn zəngin gözləmə müddəti</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Əlaqələndirildikdən sonra bütün zənglər mövcud portal vasitəsilə idarə olunacaq.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Alınmış nömrəni əlaqələndirin</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Nömrənin əlaqələndirilməsi</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Nömrə əlaqələndirilib</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Yükləmə davam edir, zəhmət olmasa gözləyin</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Təəssüf ki mövcud nömrə yoxdur, yenidən cəhd edin.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>Hələ ki nömrəniz yoxdur.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>Heç bir nömrəniz yoxdur. Onları {0} buradan {1} ala bilərsiniz.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Belə nömrə tapılmadı</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Nömrə operatorları</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>Onları {0}buradan{1} təyin edə bilərsiniz.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Hazırda malik olduğunuz nömrələr</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Operator fasiləsi</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Deaktiv</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0} Operator fasiləsi {1} operatora zəngləri yenidən qəbul etməzdən əvvəl vaxt verir. O, edilən zəng haqqında qeydlər aparmaq üçün istifadə edilə bilər və s.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Gedən zənglər</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Zəng tonlarının növbəsi</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Sürətli quraşdırma</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0} Sürətli qoşulma {1} gedən zəngləri aktiv və ya deaktiv etmək, nömrənin zəng qeydini aparmaq və ya nömrənin müştərilər üçün əlçatan olacağı iş saatlarını təyin etmək üçün istifadə olunur.</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Zəngin qeyd edilməsi</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>Söhbət qeydləri WAV formatında saxlanılacaq. Brauzeriniz bu formatda olan audio faylın səsləndirilməsini dəstəkləmir, yəni siz bu yazıları dinləyə bilməyəcəksiniz.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>Bu funksiyanı dəstəkləyən brauzerlərin siyahısını {0} buradan {1} əldə etmək olar</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Səs tonu siyahısı</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Səs tonu quraşdırması</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0} Zəng parametri {1} hazırda telefonla həyata keçirilən müxtəlif əməliyyatlara təyin edilmiş zəng melodiyalarını göstərmək və dəyişdirmək üçün istifadə olunur.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}Yüklənmiş zəng melodiyası {1} üçün tövsiyələr: Fayl ölçüsü 5 MB-dan çox olmamalıdır. Dəstəklənən formatlar: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Axtar</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Nömrənin quraşdırılması</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Göstərilməyib</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Parametrləri yeniləyin</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Virtual nömrələr</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Virual nömrələr və operatorlar</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0} Virtual nömrələr {1} Twilio xidməti tərəfindən təklif olunan VoIP-dən istifadə edərək CRM müştərilərinizlə əlaqə saxlamaq üçün istifadə olunur.</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Səsli poçt</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Səsli poçt üçün səs tonları</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Gözləmə üçün səs tonları</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Gözləmə müddəti</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 dəqiqə</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 dəqiqə</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 dəqiqə</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0} Gözləmə müddəti {1} müştərinin operatorun cavab verməsini gözləyəcəyi vaxtı göstərir. Bu vaxt keçdikdə, zəng səsli poçt xidmətinə yönləndiriləcək.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>İş saatları</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Yanlış interval</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Vaxtı ##:## formatında daxil edin</value>
+  </data>
+</root>

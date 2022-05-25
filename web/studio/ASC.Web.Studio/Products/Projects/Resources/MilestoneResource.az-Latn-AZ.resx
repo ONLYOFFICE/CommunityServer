@@ -68,7 +68,10 @@
     <value>Cavabdehi seçin</value>
   </data>
   <data name="CloseMilestone" xml:space="preserve">
-    <value>Pilləni qapat</value>
+    <value>Mərhələni bağla</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
   </data>
   <data name="DeadlineInMonth" xml:space="preserve">
     <value>Ay</value>
@@ -80,34 +83,43 @@
     <value>Həftə</value>
   </data>
   <data name="DeleteMilestone" xml:space="preserve">
-    <value>Pilləni sil</value>
+    <value>Mərhələni sil</value>
   </data>
   <data name="DeleteMilestonePopup" xml:space="preserve">
-    <value>Pillələri silmək istdiyinizə əminsiniz mi?</value>
+    <value>Mərhələləri silmək istdiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Mərhələləri sil</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Mərhələləri silmək istədiyinizə əminsiniz?</value>
   </data>
   <data name="DescrEmptyListMilFilter" xml:space="preserve">
     <value>Bu bölmədə filtrə uyğun heç bir pillə yoxdur.</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Açıqlama</value>
+    <value>Təsvir</value>
   </data>
   <data name="FilterNoMilestones" xml:space="preserve">
     <value>Bu filtrə uyğun heç bir pillə yoxdur</value>
   </data>
   <data name="Milestone" xml:space="preserve">
-    <value>Pillə</value>
+    <value>Mərhələ</value>
   </data>
   <data name="MilestoneDeadline" xml:space="preserve">
-    <value>Qurtarma tarixi</value>
+    <value>Son Tarix</value>
   </data>
   <data name="MilestoneNotFound_Header" xml:space="preserve">
     <value>Pillə tapılmadı</value>
   </data>
   <data name="Milestones" xml:space="preserve">
-    <value>Pillələr</value>
+    <value>Mərhələlər</value>
   </data>
   <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
     <value>Pillələr layihənin planlaşdırılmasının əsas mərhələlərini bildirirlər. Pillə yaradılandan sonra onu layihənin bütün iştirakçıları üçün tapşırıqlarla doldurmaq olar. Pilləni planlayaraq, onun son tarixini təyin edin ki, tapşırıqların vaxtında yerinə yetirilməsinə nail olasınız.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Mərhələlər layihənin planlaşdırılması prosesində əsas vaxt nişanlarını qeyd edir. Mərhələ yaradıldıqdan sonra o, bütün layihə iştirakçıları üçün tapşırıqlarla doldurula bilər.</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Yaxınlaşan</value>
@@ -119,7 +131,7 @@
     <value>Bildir</value>
   </data>
   <data name="NoTitleMessage" xml:space="preserve">
-    <value>Hər pillənin başlığı olmalıdır</value>
+    <value>Hər mərhələnin başlığı olmalıdır</value>
   </data>
   <data name="Overdue" xml:space="preserve">
     <value>Gecikmiş</value>
@@ -134,7 +146,7 @@
     <value>Cavabdeh</value>
   </data>
   <data name="RootMilestone" xml:space="preserve">
-    <value>Açar pillə</value>
+    <value>Əsas mərhələ</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Başlıq</value>

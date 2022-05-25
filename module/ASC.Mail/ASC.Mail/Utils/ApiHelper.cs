@@ -34,7 +34,9 @@ using ASC.Mail.Extensions;
 using ASC.Specific;
 using ASC.Web.Core;
 
-using DotNetOpenAuth.Messaging;
+using Ical.Net.CalendarComponents;
+
+using MimeKit;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -330,11 +332,11 @@ namespace ASC.Mail.Utils
 
         public List<string> SearchPeopleEmails(string term, int startIndex, int count)
         {
-            var request = new RestRequest("people/filter.json?filterValue={FilterValue}&StartIndex={StartIndex}&Count={Count}", Method.GET);
+            var request = new RestRequest("people/filter.json", Method.GET);
 
-            request.AddParameter("FilterValue", term, ParameterType.UrlSegment)
-                .AddParameter("StartIndex", startIndex.ToString(), ParameterType.UrlSegment)
-                .AddParameter("Count", count.ToString(), ParameterType.UrlSegment);
+            request.AddParameter("FilterValue", term)
+                .AddParameter("StartIndex", startIndex)
+                .AddParameter("Count", count);
 
             var response = Execute(request);
 
@@ -511,13 +513,33 @@ namespace ASC.Mail.Utils
             }
         }
 
-        public void UploadIcsToCalendar(int calendarId, Stream fileStream, string filename, string contentType)
+        public void UploadIcsToCalendar(int calendarId, Stream fileStream, string filename, string contentType, CalendarEvent eventObj, IEnumerable<MimeEntity> mimeAttachments, List<MailAttachmentData> mailAttachments)
         {
-            var request = new RestRequest("calendar/import.json", Method.POST);
+            var request = new RestRequest("calendar/importFromAggregator.json", Method.POST);
 
             request.AddParameter("calendarId", calendarId);
 
             request.AddFile(filename, fileStream.CopyTo, filename, fileStream.Length, contentType);
+
+            foreach (var attachment in eventObj.Attachments)
+            {
+                if (attachment.Uri.AbsoluteUri.StartsWith("cid:", StringComparison.OrdinalIgnoreCase))
+                {
+                    var contentId = attachment.Uri.AbsoluteUri.Replace("cid:", "");
+                    var mimeEntity = mimeAttachments.FirstOrDefault(a => a.ContentId == contentId);
+
+                    if (mimeEntity != null)
+                    {
+                        var file = mailAttachments.FirstOrDefault(a => a.fileName == mimeEntity.ContentDisposition.FileName);
+
+                        if (file != null)
+                        {
+                            file.dataStream.Position = 0;
+                            request.AddFile(contentId, file.dataStream.CopyTo, string.Format("{0}/{1}", contentId, file.fileName), file.dataStream.Length, file.contentType);
+                        }
+                    }
+                }
+            }
 
             var response = Execute(request);
 

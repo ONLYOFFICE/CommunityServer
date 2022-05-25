@@ -37,7 +37,7 @@ using Autofac;
 namespace ASC.Api.Projects
 {
     ///<summary>
-    ///Projects access
+    ///Project information access.
     ///</summary>
     public partial class ProjectApi : ProjectApiBase, IApiEntryPoint
     {
@@ -179,6 +179,18 @@ namespace ASC.Api.Projects
             }
         }
 
+        ///<summary>
+        ///Updates the project settings with the parameters specified in the request.
+        ///</summary>
+        ///<short>
+        ///Update settings
+        ///</short>
+        ///<category>Settings</category>
+        ///<param name="everebodyCanCreate">Specifies if all the portal users can create projects or not</param>
+        ///<param name="hideEntitiesInPausedProjects">Specifies if the entities will be hidden in the paused projects or not</param>
+        ///<param name="startModule">Module type: Projects, Tasks, Discussions, TimeTracking</param>
+        ///<param name="folderId">Folder ID</param>
+        ///<returns>Updated settings</returns>
         [Update(@"settings")]
         public ProjectsCommonSettings UpdateSettings(bool? everebodyCanCreate,
             bool? hideEntitiesInPausedProjects,
@@ -226,6 +238,14 @@ namespace ASC.Api.Projects
             return null;
         }
 
+        ///<summary>
+        ///Returns the common project settings.
+        ///</summary>
+        ///<short>
+        ///Get settings
+        ///</short>
+        ///<category>Settings</category>
+        ///<returns>Project common settings</returns>
         [Read(@"settings")]
         public ProjectsCommonSettings GetSettings()
         {
@@ -242,12 +262,30 @@ namespace ASC.Api.Projects
         }
 
 
+        ///<summary>
+        ///Creates a task status specified in the request.
+        ///</summary>
+        ///<short>
+        ///Create a task status
+        ///</short>
+        ///<param name="status">Task status</param>
+        ///<category>Tasks</category>
+        ///<returns>Task status</returns>
         [Create(@"status")]
         public CustomTaskStatus CreateStatus(CustomTaskStatus status)
         {
             return EngineFactory.StatusEngine.Create(status);
         }
 
+        ///<summary>
+        ///Updates a task status with a value specified in the request.
+        ///</summary>
+        ///<short>
+        ///Update a task status
+        ///</short>
+        ///<param name="newStatus">New task status</param>
+        ///<category>Tasks</category>
+        ///<returns>Updated task status</returns>
         [Update(@"status")]
         public CustomTaskStatus UpdateStatus(CustomTaskStatus newStatus)
         {
@@ -272,6 +310,15 @@ namespace ASC.Api.Projects
             return status;
         }
 
+        ///<summary>
+        ///Updates the task statuses with the values specified in the request.
+        ///</summary>
+        ///<short>
+        ///Update task statuses
+        ///</short>
+        ///<param name="statuses">New task statuses</param>
+        ///<category>Tasks</category>
+        ///<returns>Updated task statuses</returns>
         [Update(@"statuses")]
         public List<CustomTaskStatus> UpdateStatuses(List<CustomTaskStatus> statuses)
         {
@@ -283,12 +330,29 @@ namespace ASC.Api.Projects
             return statuses;
         }
 
+        ///<summary>
+        ///Returns all the task statuses.
+        ///</summary>
+        ///<short>
+        ///Get task statuses
+        ///</short>
+        ///<category>Tasks</category>
+        ///<returns>Task statuses</returns>
         [Read(@"status")]
         public List<CustomTaskStatus> GetStatuses()
         {
             return EngineFactory.StatusEngine.GetWithDefaults();
         }
 
+        ///<summary>
+        ///Deletes a task status with the ID specified in the request.
+        ///</summary>
+        ///<short>
+        ///Delete a task status
+        ///</short>
+        ///<param name="id">Task status ID</param>
+        ///<category>Tasks</category>
+        ///<returns>Task status</returns>
         [Delete(@"status/{id}")]
         public CustomTaskStatus DeleteStatus(int id)
         {

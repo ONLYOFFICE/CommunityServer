@@ -29,10 +29,10 @@ namespace ASC.Api.Projects
     public partial class ProjectApi
     {
         ///<summary>
-        ///Returns the list of all available project tags
+        ///Returns a list of all the available project tags.
         ///</summary>
         ///<short>
-        ///Project tags
+        ///Get project tags
         ///</short>
         ///<category>Tags</category>
         ///<returns>List of tags</returns>
@@ -43,12 +43,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Creates new tag
+        ///Creates a new tag with the data specified in the request.
         ///</summary>
         ///<short>
-        ///Tag
+        ///Create a tag
         ///</short>
         ///<category>Tags</category>
+        ///<param name="data">Tag data</param>
         ///<returns>Created tag</returns>
         [Create(@"tag")]
         public ObjectWrapperBase CreateNewTag(string data)
@@ -62,10 +63,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed list of all projects with the specified tag
+        ///Returns the detailed list of all the projects with a tag specified in the request.
         ///</summary>
         ///<short>
-        ///Project by tag
+        ///Get projects by a tag
         ///</short>
         ///<category>Tags</category>
         ///<param name="tag">Tag name</param>
@@ -79,20 +80,22 @@ namespace ASC.Api.Projects
 
 
         ///<summary>
-        ///Returns the list of all tags like the specified tag name
+        ///Returns a list of all the tags by the tag name specified in the request.
         ///</summary>
         ///<short>
-        ///Tags by tag name
+        ///Get tags by a tag name
         ///</short>
         ///<category>Tags</category>
         ///<param name="tagName">Tag name</param>
         ///<returns>List of tags</returns>
         [Read(@"tag/search")]
-        public string[] GetTagsByName(string tagName)
+        public IEnumerable<ObjectWrapperBase> GetTagsByName(string tagName)
         {
-            return !string.IsNullOrEmpty(tagName) && tagName.Trim() != string.Empty
-                       ? EngineFactory.TagEngine.GetTags(tagName.Trim()).Select(r => r.Value).ToArray()
-                       : new string[0];
+            tagName = (tagName ?? "").Trim();
+
+            if (string.IsNullOrEmpty(tagName)) return new List<ObjectWrapperBase>();
+
+            return EngineFactory.TagEngine.GetTags(tagName).Select(x => new ObjectWrapperBase { Id = x.Key, Title = x.Value });
         }
     }
 }

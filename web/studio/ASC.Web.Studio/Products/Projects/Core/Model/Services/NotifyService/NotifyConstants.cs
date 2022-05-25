@@ -34,6 +34,9 @@ namespace ASC.Projects.Core.Services.NotifyService
         public static INotifyAction Event_NewFileForDiscussion = new NotifyAction("NewFileForDiscussion", "new file for discussion");
         public static INotifyAction Event_NewFileForTask = new NotifyAction("NewFileForTask", "new file for task");
 
+        public static INotifyAction Event_MentionForTaskComment = new NotifyAction("MentionForTaskComment", "mention for task comment");
+        public static INotifyAction Event_MentionForMessageComment = new NotifyAction("MentionForMessageComment", "mention for message comment");
+
         public static INotifyAction Event_TaskEdited = new NotifyAction("TaskEdited", "task edited");
         public static INotifyAction Event_TaskClosed = new NotifyAction("TaskClosed", "task closed");
         public static INotifyAction Event_TaskCreated = new NotifyAction("TaskCreated", "task created");
@@ -66,6 +69,7 @@ namespace ASC.Projects.Core.Services.NotifyService
         public static INotifyAction Event_ResponsibleForSubTask = new NotifyAction("ResponsibleForSubTask", "responsible for subtask");
         public static INotifyAction Event_SubTaskCreated = new NotifyAction("SubTaskCreated", "subtask created");
         public static INotifyAction Event_SubTaskEdited = new NotifyAction("SubTaskEdited", "subtask edited");
+        public static INotifyAction Event_SubTaskMoved = new NotifyAction("SubTaskMoved", "subtask moved");
         public static INotifyAction Event_SubTaskResumed = new NotifyAction("SubTaskResumed", "subtask resumed");
         public static INotifyAction Event_SubTaskClosed = new NotifyAction("SubTaskClosed", "subtask closed");
         public static INotifyAction Event_SubTaskDeleted = new NotifyAction("SubTaskDeleted", "subtask deleted");

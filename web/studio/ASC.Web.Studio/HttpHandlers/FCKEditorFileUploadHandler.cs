@@ -32,68 +32,15 @@ namespace ASC.Web.Studio.HttpHandlers
     {
         public override void OnProcessRequest(HttpContext context)
         {
-            if (string.IsNullOrEmpty(context.Request["newEditor"]))
-            {
-                OldProcessRequest(context);
-            }
-            else
-            {
-                NewProcessRequest(context);
-            }
-        }
-
-        private static void OldProcessRequest(HttpContext context)
-        {
             try
             {
-                var storeDomain = context.Request["esid"];
-                var itemID = context.Request["iid"] ?? "";
-
-                var file = context.Request.Files["NewFile"];
-
-                if (file.ContentLength > SetupInfo.MaxImageUploadSize)
-                {
-                    OldSendFileUploadResponse(context, 1, true, string.Empty, string.Empty, FileSizeComment.FileImageSizeExceptionString);
-                    return;
-                }
-
-                var filename = file.FileName.Replace("%", string.Empty);
-                var ind = file.FileName.LastIndexOf("\\");
-                if (ind >= 0)
-                {
-                    filename = file.FileName.Substring(ind + 1);
-                }
-                if (FileUtility.GetFileTypeByFileName(filename) != FileType.Image)
-                {
-                    OldSendFileUploadResponse(context, 1, true, string.Empty, filename, Resource.ErrorUnknownFileImageType);
-                    return;
-                }
-
-                var folderID = CommonControlsConfigurer.FCKAddTempUploads(storeDomain, filename, itemID);
-
-                var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "fckuploaders");
-                var saveUri = store.Save(storeDomain, folderID + "/" + filename, file.InputStream).ToString();
-
-                OldSendFileUploadResponse(context, 0, true, saveUri, filename, string.Empty);
-            }
-            catch (Exception e)
-            {
-                OldSendFileUploadResponse(context, 1, true, string.Empty, string.Empty, e.Message.HtmlEncode());
-            }
-        }
-
-        private static void NewProcessRequest(HttpContext context)
-        {
-            try
-            {
-                var funcNum = context.Request["CKEditorFuncNum"];
                 var storeDomain = context.Request["esid"];
                 var itemID = context.Request["iid"] ?? "";
                 var file = context.Request.Files["upload"];
 
                 if (file.ContentLength > SetupInfo.MaxImageUploadSize)
                 {
-                    NewSendFileUploadResponse(context, string.Empty, funcNum, FileSizeComment.FileImageSizeExceptionString);
+                    SendFileUploadResponse(context, string.Empty, FileSizeComment.FileImageSizeExceptionString);
                     return;
                 }
 
@@ -109,7 +56,7 @@ namespace ASC.Web.Studio.HttpHandlers
 
                 if (FileUtility.GetFileTypeByFileName(filename) != FileType.Image)
                 {
-                    NewSendFileUploadResponse(context, string.Empty, funcNum, Resource.ErrorUnknownFileImageType);
+                    SendFileUploadResponse(context, string.Empty, Resource.ErrorUnknownFileImageType);
                     return;
                 }
 
@@ -118,64 +65,62 @@ namespace ASC.Web.Studio.HttpHandlers
                 var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "fckuploaders");
                 var saveUri = store.Save(storeDomain, folderID + "/" + filename, file.InputStream).ToString();
 
-                NewSendFileUploadResponse(context, saveUri, funcNum, string.Empty);
+                SendFileUploadResponse(context, saveUri, string.Empty, filename);
             }
             catch (Exception e)
             {
-                NewSendFileUploadResponse(context, string.Empty, string.Empty, e.Message.HtmlEncode());
+                SendFileUploadResponse(context, string.Empty, e.Message.HtmlEncode());
             }
         }
 
-        private static void OldSendFileUploadResponse(HttpContext context, int errorNumber, bool isQuickUpload, string fileUrl, string fileName, string customMsg)
+        private static void SendFileUploadResponse(HttpContext context, string fileUrl, string errorMsg, string filename = null)
         {
             context.Response.Clear();
-
-            context.Response.Write("<script type=\"text/javascript\">");
-            // Minified version of the document.domain automatic fix script.
-            // The original script can be found at _dev/domain_fix_template.js
-            context.Response.Write(@"(function(){var d=document.domain; while (true){try{var A=window.top.opener.document.domain;break;}catch(e) {};d=d.replace(/.*?(?:\.|$)/g,'');if (d.length==0) break;try{document.domain=d;}catch (e){break;}}})();");
-
-            if (!string.IsNullOrEmpty(fileUrl))
-            {
-                fileUrl = HttpUtility.UrlPathEncode(fileUrl).Replace("'", "\\'");
-            }
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                fileName = HttpUtility.UrlEncode(fileName);
-            }
-
-            if (isQuickUpload)
-                context.Response.Write("window.parent.OnUploadCompleted(" + errorNumber + ",'" + fileUrl.Replace("'", "\\'") + "','" + fileName.Replace("'", "\\'") + "','" + customMsg.Replace("'", "\\'") + "') ;");
-            else
-                context.Response.Write("window.parent.frames['frmUpload'].OnUploadCompleted(" + errorNumber + ",'" + fileName.Replace("'", "\\'") + "') ;");
-
-            context.Response.Write("</script>");
-        }
-
-        private static void NewSendFileUploadResponse(HttpContext context, string fileUrl, string funcNum, string errorMsg)
-        {
-            context.Response.Clear();
-
-            context.Response.Write("<script type=\"text/javascript\">");
 
             if (string.IsNullOrEmpty(errorMsg))
             {
                 if (!string.IsNullOrEmpty(fileUrl))
                 {
-                    fileUrl = HttpUtility.UrlPathEncode(fileUrl).Replace("'", "\\'");
-                    context.Response.Write("window.parent.CKEDITOR.tools.callFunction(" + funcNum + ",'" + fileUrl + "', '');");
+                    context.Response.Write(
+                        Newtonsoft.Json.JsonConvert.SerializeObject(new
+                        {
+                            fileName = filename,
+                            url = HttpUtility.UrlPathEncode(fileUrl),
+                            uploaded = 1,
+                        })
+                    );
                 }
                 else
                 {
-                    context.Response.Write("window.parent.CKEDITOR.tools.callFunction(" + funcNum + ",'', 'empty url');");
+                    context.Response.Write(
+                        Newtonsoft.Json.JsonConvert.SerializeObject(new
+                        {
+                            fileName = filename,
+                            url = fileUrl,
+                            uploaded = 0,
+                            error = new
+                            {
+                                message = "Empty URL"
+                            }
+                        })
+                    );
                 }
             }
             else
             {
-                context.Response.Write("window.parent.CKEDITOR.tools.callFunction(" + funcNum + ",'', '" + errorMsg.Replace("'", "\\'") + "');");
+                context.Response.Write(
+                        Newtonsoft.Json.JsonConvert.SerializeObject(new
+                        {
+                            fileName = filename,
+                            url = fileUrl,
+                            uploaded = 0,
+                            error = new
+                            {
+                                message = errorMsg
+                            }
+                        })
+                    );
             }
-
-            context.Response.Write("</script>");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ASC.Web.People.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class PeopleResource {
@@ -106,6 +106,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Birthdays.
+        /// </summary>
+        public static string Birthdays {
+            get {
+                return ResourceManager.GetString("Birthdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string BlockedMessage {
@@ -120,6 +129,52 @@ namespace ASC.Web.People.Resources {
         public static string CancelButton {
             get {
                 return ResourceManager.GetString("CancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string CardDavCopyBtn {
+            get {
+                return ResourceManager.GetString("CardDavCopyBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CardDav Settings.
+        /// </summary>
+        public static string CardDavSettings {
+            get {
+                return ResourceManager.GetString("CardDavSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable CardDAV to sync contacts from the People module. Copy the server address and enter it in a third-party application or device, use your valid portal login
+        ///and password..
+        /// </summary>
+        public static string CardDavSettingsDescription {
+            get {
+                return ResourceManager.GetString("CardDavSettingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CardDav.
+        /// </summary>
+        public static string CardDavSettingsHeader {
+            get {
+                return ResourceManager.GetString("CardDavSettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try again.
+        /// </summary>
+        public static string CardDavTryAgainBtn {
+            get {
+                return ResourceManager.GetString("CardDavTryAgainBtn", resourceCulture);
             }
         }
         
@@ -358,6 +413,15 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable synchronizing contacts via CardDAV.
+        /// </summary>
+        public static string EnableCardDavLink {
+            get {
+                return ResourceManager.GetString("EnableCardDavLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable.
         /// </summary>
         public static string EnableUserButton {
@@ -547,15 +611,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yahoo.
-        /// </summary>
-        public static string ImportFromYahoo {
-            get {
-                return ResourceManager.GetString("ImportFromYahoo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Import users.
         /// </summary>
         public static string ImportPeople {
@@ -669,6 +724,15 @@ namespace ASC.Web.People.Resources {
         public static string LblActive {
             get {
                 return ResourceManager.GetString("LblActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active connections.
+        /// </summary>
+        public static string LblActiveConnections {
+            get {
+                return ResourceManager.GetString("LblActiveConnections", resourceCulture);
             }
         }
         

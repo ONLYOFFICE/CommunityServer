@@ -144,13 +144,13 @@ ASC.CRM.SocialMedia = (function() {
         var windowHeight = _CalculateProfilesWindowHeight();
         jq("#divSMProfilesWindow").css("height", windowHeight);
 
-        jq("#divSMProfilesWindow").unbind("mouseenter").mouseenter(function() {
+        jq("#divSMProfilesWindow").off("mouseenter").on("mouseenter", function() {
             ASC.CRM.SocialMedia.MouseInProfilesWindow = true;
         });
-        jq("#divSMProfilesWindow").unbind("mouseleave").mouseleave(function() {
+        jq("#divSMProfilesWindow").off("mouseleave").on("mouseleave", function() {
             ASC.CRM.SocialMedia.MouseInProfilesWindow = false;
         });
-        jq(document).bind("click", _CheckProfilesWindow);
+        jq(document).on("click", _CheckProfilesWindow);
     };
 
     _ShowWaitProfilesWindow = function(name) {
@@ -170,7 +170,7 @@ ASC.CRM.SocialMedia = (function() {
 
     _HideProfilesWindow = function() {
         jq("#divSMProfilesWindow").hide();
-        jq(document).unbind("click", _CheckProfilesWindow);
+        jq(document).off("click", _CheckProfilesWindow);
     };
 
 
@@ -245,7 +245,7 @@ ASC.CRM.SocialMedia = (function() {
                         var err = errors[0];
                         LoadingBanner.hideLoading();
                         try {
-                            var json = jq.parseJSON(err);
+                            var json = JSON.parse(err);
                             err = json.description;
                         } catch (e) { }
 
@@ -280,7 +280,7 @@ ASC.CRM.SocialMedia = (function() {
             var $link = jq(".linkChangePhoto");
             if (!$link || ($link && !$link.hasClass("disable"))) {
 
-                jq("[name='chbSocialNetwork']").removeAttr("checked");
+                jq("[name='chbSocialNetwork']").prop("checked", false);
 
                 var curAvatarSrc = jq("img.contact_photo").attr("src");
                 if (curAvatarSrc.indexOf(ASC.CRM.SocialMedia.defaultAvatarSrc + '?') == 0) {
@@ -307,7 +307,7 @@ ASC.CRM.SocialMedia = (function() {
             }
             var imageChecked = jq(event.target).is(":checked");
             if (imageChecked == false) { return; }
-            jq("[name='chbSocialNetwork']").not(jq(event.target)).removeAttr("checked");
+            jq("[name='chbSocialNetwork']").not(jq(event.target)).prop("checked", false);
         },
 
         UploadUserAvatar: function (event, socialNetwork, userIdentity) {
@@ -394,7 +394,7 @@ ASC.CRM.SocialMedia = (function() {
 
             //contact type can be "company" or "people"
             if (jq("#baseInfo_Title").length == 1) {
-                searchText = jq.trim(jq("#baseInfo_Title").val());
+                searchText = jq("#baseInfo_Title").val().trim();
             } else {
                 if (contactType == "company") {
                     searchText = jq("[name='baseInfo_companyName']").val();
@@ -404,7 +404,7 @@ ASC.CRM.SocialMedia = (function() {
                 }
             }
 
-            if (searchText === undefined || jq.trim(searchText).length == 0) {
+            if (searchText === undefined || searchText.trim().length == 0) {
                 return;
             }
 

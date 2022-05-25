@@ -22,5 +22,6 @@ namespace ASC.MessagingSystem
         System,
         DocsService,
         ThirdPartyProvider,
+        AutoCleanUp
     }
 }

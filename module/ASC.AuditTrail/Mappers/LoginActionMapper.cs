@@ -17,44 +17,50 @@
 
 using System.Collections.Generic;
 
+using ASC.AuditTrail.Types;
 using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
-    internal class LoginActionsMapper
+    public class LoginActionsMapper : IProductActionMapper
     {
-        public static Dictionary<MessageAction, MessageMaps> GetMaps()
+        public ProductType Product { get; }
+        public List<IModuleActionMapper> Mappers { get; }
+
+        public LoginActionsMapper()
         {
-            return new Dictionary<MessageAction, MessageMaps>
-                {
-                    {MessageAction.LoginSuccess, new MessageMaps {ActionTextResourceName = "LoginSuccess"}},
-                    {MessageAction.LoginSuccessViaSocialAccount, new MessageMaps {ActionTextResourceName = "LoginSuccessSocialAccount"}},
-                    {MessageAction.LoginSuccessViaSocialApp, new MessageMaps {ActionTextResourceName = "LoginSuccessSocialApp"}},
-                    {MessageAction.LoginSuccessViaSms, new MessageMaps {ActionTextResourceName = "LoginSuccessViaSms"}},
-                    {MessageAction.LoginSuccessViaApi, new MessageMaps {ActionTextResourceName = "LoginSuccessViaApi"}},
-                    {MessageAction.LoginSuccessViaApiSms, new MessageMaps {ActionTextResourceName = "LoginSuccessViaApiSms"}},
-                    {MessageAction.LoginSuccessViaApiTfa, new MessageMaps {ActionTextResourceName = "LoginSuccessViaApiTfa"}},
-                    {MessageAction.LoginSuccessViaApiSocialAccount, new MessageMaps {ActionTextResourceName = "LoginSuccessViaSocialAccount"}},
-                    {MessageAction.LoginSuccessViaSSO, new MessageMaps {ActionTextResourceName = "LoginSuccessViaSSO"}},
-                    {MessageAction.LoginSuccesViaTfaApp, new MessageMaps {ActionTextResourceName = "LoginSuccesViaTfaApp"}},
-                    {MessageAction.LoginFailInvalidCombination, new MessageMaps {ActionTextResourceName = "LoginFailInvalidCombination"}},
-                    {MessageAction.LoginFailSocialAccountNotFound, new MessageMaps {ActionTextResourceName = "LoginFailSocialAccountNotFound"}},
-                    {MessageAction.LoginFailDisabledProfile, new MessageMaps {ActionTextResourceName = "LoginFailDisabledProfile"}},
-                    {MessageAction.LoginFail, new MessageMaps {ActionTextResourceName = "LoginFail"}},
-                    {MessageAction.LoginFailViaSms, new MessageMaps {ActionTextResourceName = "LoginFailViaSms"}},
-                    {MessageAction.LoginFailViaApi, new MessageMaps {ActionTextResourceName = "LoginFailViaApi"}},
-                    {MessageAction.LoginFailViaApiSms, new MessageMaps {ActionTextResourceName = "LoginFailViaApiSms"}},
-                    {MessageAction.LoginFailViaApiTfa, new MessageMaps {ActionTextResourceName = "LoginFailViaApiTfa"}},
-                    {MessageAction.LoginFailViaApiSocialAccount, new MessageMaps {ActionTextResourceName = "LoginFailViaApiSocialAccount"}},
-                    {MessageAction.LoginFailViaTfaApp, new MessageMaps {ActionTextResourceName = "LoginFailViaTfaApp"}},
-                    {MessageAction.LoginFailIpSecurity, new MessageMaps {ActionTextResourceName = "LoginFailIpSecurity"}},
-                    {MessageAction.LoginFailViaSSO, new MessageMaps {ActionTextResourceName = "LoginFailViaSSO"}},
-                    {MessageAction.LoginFailBruteForce, new MessageMaps {ActionTextResourceName = "LoginFailBruteForce"}},
-                    {MessageAction.LoginFailRecaptcha, new MessageMaps {ActionTextResourceName = "LoginFailRecaptcha"}},
-                    {MessageAction.Logout, new MessageMaps {ActionTextResourceName = "Logout"}},
-                    {MessageAction.SessionStarted, new MessageMaps {ActionTextResourceName = "SessionStarted"}},
-                    {MessageAction.SessionCompleted, new MessageMaps {ActionTextResourceName = "SessionCompleted"}}
-                };
+            Product = ProductType.Login;
+
+            Mappers = new List<IModuleActionMapper>()
+            {
+                new LoginNoneModuleActionMapper()
+            };
+        }
+    }
+
+    public class LoginNoneModuleActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public LoginNoneModuleActionMapper()
+        {
+            Module = ModuleType.None;
+
+            Actions = new MessageMapsDictionary()
+            {
+                MessageAction.LoginSuccess,
+                MessageAction.LoginSuccessViaSms,MessageAction.LoginSuccessViaApi,MessageAction.LoginSuccessViaApiSms,
+                MessageAction.LoginSuccessViaApiTfa,MessageAction.LoginSuccessViaApiSocialAccount,MessageAction.LoginSuccessViaSSO,
+                MessageAction.LoginSuccesViaTfaApp,MessageAction.LoginFailInvalidCombination,MessageAction.LoginFailSocialAccountNotFound,
+                MessageAction.LoginFailDisabledProfile, MessageAction.LoginFail,MessageAction.LoginFailViaSms,MessageAction.LoginFailViaApi,
+                MessageAction.LoginFailViaApiSms,MessageAction.LoginFailViaApiTfa,MessageAction.LoginFailViaApiSocialAccount,
+                MessageAction.LoginFailViaTfaApp,MessageAction.LoginFailIpSecurity,MessageAction.LoginFailViaSSO,MessageAction.LoginFailBruteForce,
+                MessageAction.LoginFailRecaptcha,MessageAction.Logout,MessageAction.SessionStarted,MessageAction.SessionCompleted
+            };
+
+            Actions.Add(MessageAction.LoginSuccessViaSocialAccount, new MessageMaps("LoginSuccessSocialAccount"));
+            Actions.Add(MessageAction.LoginSuccessViaSocialApp, new MessageMaps("LoginSuccessSocialApp"));
         }
     }
 }

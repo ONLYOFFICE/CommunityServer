@@ -94,7 +94,7 @@
            { %>
         <li data-id="<%= Global.FolderPrivacy %>" class="tree-node jstree-closed access-read">
             <div class="jstree-wholerow">&nbsp;</div>
-            <span class="jstree-icon <%= Request.DesktopApp() ? "jstree-expander" : "visibility-hidden" %>"></span>
+            <span class="jstree-icon jstree-expander"></span>
             <a data-id="<%= Global.FolderPrivacy %>" title="<%= FilesUCResource.PrivacyRoom %>" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "#" + Global.FolderPrivacy %>">
                 <span class="menu-item-icon privacyFiles">
                     <svg class="menu-item-svg">
@@ -104,7 +104,6 @@
                 <input type="hidden" name="entry_data" data-id="<%= Global.FolderPrivacy %>" data-entryType="folder" data-access="<%= (int)FileShare.ReadWrite %>" />
             </a>
             <% if (WithNew
-                   && Request.DesktopApp()
                    && PrivacyRoomSettings.Enabled)
                { %>
             <span class="new-label-menu is-new" title="<%= FilesUCResource.RemoveIsNew %>" data-id="<%= Global.FolderPrivacy %>"></span>

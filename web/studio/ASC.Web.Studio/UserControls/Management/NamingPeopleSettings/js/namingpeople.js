@@ -36,5 +36,5 @@ NamingPeopleManager = new function() {
 
 jq(function() {
     var namingContentManager = new NamingPeopleContentManager();
-    jq('#saveNamingPeopleBtn').click(NamingPeopleManager.SaveSchema);   
+    jq('#saveNamingPeopleBtn').on("click", NamingPeopleManager.SaveSchema);
 });

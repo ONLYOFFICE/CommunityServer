@@ -30,14 +30,14 @@ namespace ASC.Api.MailServer
     public partial class MailServerApi
     {
         /// <summary>
-        ///    Create group address
+        /// Creates a mail group with the parameters specified in the request.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="domain_id"></param>
-        /// <param name="address_ids"></param>
-        /// <returns>MailGroupData associated with tenant</returns>
-        /// <short>Create mail group address</short>
-        /// <category>MailGroup</category>
+        /// <param name="name">Sender name</param>
+        /// <param name="domain_id">Domain ID</param>
+        /// <param name="address_ids">List of address IDs</param>
+        /// <returns>Mail group data associated with the tenant</returns>
+        /// <short>Create a mail group</short>
+        /// <category>Mail groups</category>
         [Create(@"groupaddress/add")]
         public ServerDomainGroupData CreateMailGroup(string name, int domain_id, List<int> address_ids)
         {
@@ -47,13 +47,13 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Add addresses to group
+        /// Adds an address with the ID specified in the request to the mail group.
         /// </summary>
-        /// <param name="mailgroup_id">id of group address</param>
-        /// <param name="address_id"></param>
-        /// <returns>MailGroupData associated with tenant</returns>
-        /// <short>Add group's addresses</short> 
-        /// <category>MailGroup</category>
+        /// <param name="mailgroup_id">Mail group ID</param>
+        /// <param name="address_id">Address ID</param>
+        /// <returns>Mail group data associated with the tenant</returns>
+        /// <short>Add an address to the mail group</short> 
+        /// <category>Mail groups</category>
         [Update(@"groupaddress/address/add")]
         public ServerDomainGroupData AddMailGroupAddress(int mailgroup_id, int address_id)
         {
@@ -63,13 +63,13 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Remove address from group
+        /// Remove an address with the ID specified in the request from the mail group.
         /// </summary>
-        /// <param name="mailgroup_id">id of group address</param>
-        /// <param name="address_id"></param>
-        /// <returns>id of group address</returns>
-        /// <short>Remove group's address</short>
-        /// <category>MailGroup</category>
+        /// <param name="mailgroup_id">Mail group ID</param>
+        /// <param name="address_id">Address ID</param>
+        /// <returns>Mail group ID</returns>
+        /// <short>Remove an address from the mail group</short>
+        /// <category>Mail groups</category>
         [Delete(@"groupaddress/addresses/remove")]
         public int RemoveMailGroupAddress(int mailgroup_id, int address_id)
         {
@@ -79,11 +79,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Returns list of group addresses associated with tenant
+        /// Returns a list of mail groups associated with the tenant.
         /// </summary>
-        /// <returns>List of MailGroupData for current tenant</returns>
-        /// <short>Get mail group list</short>
-        /// <category>MailGroup</category>
+        /// <returns>List of mail group data for the current tenant</returns>
+        /// <short>Get mail groups</short>
+        /// <category>Mail groups</category>
         [Read(@"groupaddress/get")]
         public List<ServerDomainGroupData> GetMailGroups()
         {
@@ -93,12 +93,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Deletes the selected group address
+        /// Deletes a mail group with the ID specified in the request.
         /// </summary>
-        /// <param name="id">id of group address</param>
-        /// <returns>id of group address</returns>
-        /// <short>Remove group address from mail server</short> 
-        /// <category>MailGroup</category>
+        /// <param name="id">Mail group ID</param>
+        /// <returns>Mail group ID</returns>
+        /// <short>Remove a mail group</short> 
+        /// <category>Mail groups</category>
         [Delete(@"groupaddress/remove/{id}")]
         public int RemoveMailGroup(int id)
         {

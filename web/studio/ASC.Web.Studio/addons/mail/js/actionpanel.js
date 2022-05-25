@@ -81,7 +81,7 @@
 
             var $this = $(this);
 
-            if ($this.attr('disabled')) {
+            if ($this.prop("disabled")) {
                 return;
             }
 
@@ -105,7 +105,7 @@
             $.each(apData.options.buttons, function(index, value) {
                 var $add = $.tmpl("actionPanelItemTmpl", value);
                 if (!value.disabled) {
-                    $add.click(function(e) {
+                    $add.on("click", function(e) {
                         apData['hide']();
                         return value.handler(e, value);
                     });
@@ -126,7 +126,7 @@
             var x = offset.left;
 
             $html.css({ left: x, top: methods._getY(apData.options.horizontal_target ? $this.find(apData.options.horizontal_target) : $this, $html) });
-            $html.click(menuClick);
+            $html.on("click", menuClick);
 
             apData['$html'] = $html;
             $html.css({ opacity: 1 });

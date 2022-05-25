@@ -111,7 +111,7 @@ namespace ASC.Web.CRM.Classes
 
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
 
-                SecurityContext.AuthenticateMe(_userId);
+                SecurityContext.CurrentUser = _userId;
 
                 if (HttpContext.Current == null && !WorkContext.IsMono)
                 {

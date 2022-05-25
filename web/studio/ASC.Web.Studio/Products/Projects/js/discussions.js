@@ -165,7 +165,7 @@ ASC.Projects.Discussions = (function($) {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        $discussionsList.unbind();
+        $discussionsList.off();
         teamlab.unbind(handler);
     };
 
@@ -317,7 +317,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         jq("#descriptionTab").show();
 
         if (isAddCommentHash && isVisibleSelector()) {
-            jq("#add_comment_btn").click();
+            jq("#add_comment_btn").trigger("click");
         }
 
         hideLoading();
@@ -469,6 +469,9 @@ ASC.Projects.DiscussionDetails = (function ($) {
         CommentsManagerObj.moduleName = "projects_Message";
         CommentsManagerObj.comments = jq.base64.encode(JSON.stringify(discussion.comments));
         CommentsManagerObj.objectID = "common";
+        CommentsManagerObj.onLoadComplete = function () {
+            window.CKEDITOR_mentionsFeed = ASC.Projects.Master.Team;
+        }
         CommentsManagerObj.Init();
         CommentsManagerObj.objectID = discussion.id;
         jq("#hdnObjectID").val(discussion.id);
@@ -542,7 +545,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
     };
 
     function daCreateTaskHandler() {
-        jq("body").click();
+        jq("body").trigger("click");
         showLoading();
         teamlab.addPrjTaskByMessage({}, projId, discussionId, {
             success: function (params, task) {
@@ -680,7 +683,7 @@ ASC.Projects.DiscussionAction = (function ($) {
 
     var $fileContainer, $discussionParticipantsContainer, $manageParticipantsSelector, $discussionParticipants,
         $discussionPreviewContainer, $discussionTitleContainer, $discussionTitleContainerInput, $discussionPreviewButton,
-        $discussionProjectSelect, $discussionProjectContainer, $discussionTextContainer;
+        $discussionProjectSelect, $discussionProjectContainer, $discussionTextContainer, $discussionActionButton;
 
     var common, attachments, teamlab, loadingBanner;
     var resources = ASC.Projects.Resources;
@@ -729,7 +732,7 @@ ASC.Projects.DiscussionAction = (function ($) {
             }
         }
 
-        jq('[id$=discussionTitle]').focus();
+        jq('[id$=discussionTitle]').trigger("focus");
 
         var participantIds = [];
         $discussionParticipantsContainer.find(itemsDisplayListClass).each(function () {
@@ -771,12 +774,12 @@ ASC.Projects.DiscussionAction = (function ($) {
             $manageParticipantsSelector.useradvancedSelector("unselect", [$li.attr('guid')]);
         });
 
-        jq('#hideDiscussionPreviewButton').click(function () {
+        jq('#hideDiscussionPreviewButton').on("click", function () {
             $discussionPreviewContainer.hide();
         });
 
-        $discussionTitleContainer.find('input').keyup(function () {
-            if (jq.trim(jq(this).val()) !== '') {
+        $discussionTitleContainer.find('input').on("keyup", function () {
+            if (jq(this).val().trim() !== '') {
                 $discussionTitleContainer.removeClass(requiredFieldErrorClass);
             }
         });
@@ -827,11 +830,11 @@ ASC.Projects.DiscussionAction = (function ($) {
             disable: discussion ? "" : "disable"
         };
 
-        jq.tmpl("discussion_buttons", data).appendTo(jq(".mainPageContent"));
+        jq.tmpl("discussion_buttons", data).insertBefore(jq(".mainPageContent .layout-bottom-spacer"));
 
         $discussionPreviewButton = $("#discussionPreviewButton");
         $discussionPreviewContainer = $("#discussionPreviewContainer");
-        $discussionPreviewButton.click(function () {
+        $discussionPreviewButton.on("click", function () {
             if ($discussionPreviewButton.hasClass(disableClass)) return;
 
             var takeThis = this;
@@ -861,21 +864,21 @@ ASC.Projects.DiscussionAction = (function ($) {
         });
 
         var $discussionCancelButton = $('#discussionCancelButton');
-        $discussionCancelButton.click(function () {
+        $discussionCancelButton.on("click", function () {
             if ($discussionCancelButton.hasClass(disableClass)) return;
             window.onbeforeunload = null;
             document.location.replace(location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1));
         });
 
-        var $discussionActionButton = $('#discussionActionButton');
-        $discussionActionButton.click(function () {
+        $discussionActionButton = $('#discussionActionButton');
+        $discussionActionButton.on("click", function () {
             if ($discussionActionButton.hasClass(disableClass)) return;
             $discussionProjectContainer.removeClass(requiredFieldErrorClass);
             $discussionTitleContainer.removeClass(requiredFieldErrorClass);
             $discussionTextContainer.removeClass(requiredFieldErrorClass);
 
             var projectid = projectId ? projectId : $discussionProjectSelect.attr("data-id");
-            var title = jq.trim($discussionTitleContainerInput.val());
+            var title = $discussionTitleContainerInput.val().trim();
             var content = common.ckEditor.getData();
 
             var isError = false;
@@ -889,7 +892,7 @@ ASC.Projects.DiscussionAction = (function ($) {
                 isError = true;
             }
 
-            if (!jq.trim(content).length) {
+            if (!content.trim().length) {
                 $discussionTextContainer.addClass(requiredFieldErrorClass);
                 isError = true;
             }
@@ -937,7 +940,7 @@ ASC.Projects.DiscussionAction = (function ($) {
         jq('#errorAllParticipantsProject').hide();
 
         getTeam({}, item.id);
-        $discussionTitleContainerInput.focus();
+        $discussionTitleContainerInput.trigger("focus");
     };
 
     function initProjectsCombobox() {
@@ -983,16 +986,18 @@ ASC.Projects.DiscussionAction = (function ($) {
     };
 
     function lockDiscussionActionPageElements() {
-        $discussionProjectSelect.attr(disabledClass, disabledClass).addClass(disabledClass);
-        $discussionTitleContainerInput.attr(readonlyAttr, readonlyAttr).addClass(disabledClass);
-        jq('iframe[id^=ctl00_ctl00]').contents().find('iframe').contents().find('#fckbodycontent').attr(readonlyAttr, readonlyAttr).addClass(disabledClass);
+        $discussionActionButton.addClass(disableClass);
+        $discussionProjectSelect.prop(disabledClass, true).addClass(disabledClass);
+        $discussionTitleContainerInput.prop(readonlyAttr, true).addClass(disabledClass);
+        jq('iframe[id^=ctl00_ctl00]').contents().find('iframe').contents().find('#fckbodycontent').prop(readonlyAttr, true).addClass(disabledClass);
         loader(true);
     };
 
     function unlockDiscussionActionPageElements() {
-        $discussionProjectSelect.removeAttr(disabledClass).removeClass(disabledClass);
-        $discussionTitleContainerInput.removeAttr(readonlyAttr).removeClass(disabledClass);
-        jq('iframe[id^=ctl00_ctl00]').contents().find('iframe').contents().find('#fckbodycontent').removeAttr(readonlyAttr).removeClass(disabledClass);
+        $discussionActionButton.removeClass(disableClass);
+        $discussionProjectSelect.prop(disabledClass, false).removeClass(disabledClass);
+        $discussionTitleContainerInput.prop(readonlyAttr, false).removeClass(disabledClass);
+        jq('iframe[id^=ctl00_ctl00]').contents().find('iframe').contents().find('#fckbodycontent').prop(readonlyAttr, false).removeClass(disabledClass);
         loader(false);
     };
 

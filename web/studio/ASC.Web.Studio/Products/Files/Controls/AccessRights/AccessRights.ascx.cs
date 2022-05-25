@@ -36,6 +36,7 @@ namespace ASC.Web.Files.Controls
         {
             var sharingSetting = (SharingSettings)LoadControl(SharingSettings.Location);
             sharingSetting.EnableShareMessage = true;
+            sharingSetting.FormFillingControl = (FormFilling)LoadControl(FormFilling.Location);
             sharingSetting.IsPopup = IsPopup;
             _sharingContainer.Controls.Add(sharingSetting);
 

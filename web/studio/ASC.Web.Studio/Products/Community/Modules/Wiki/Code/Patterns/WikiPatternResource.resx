@@ -91,6 +91,17 @@ $CommentBody
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^ </value>
   </data>
+  <data name="pattern_MentionForWikiComment" xml:space="preserve">
+    <value>h1.You were mentioned in comment to Wiki Page "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" mentioned you in the comment to the "$PageName":"$URL" Wiki page:
+
+$CommentBody
+
+"Read More":"$URL"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
   <data name="subject_1" xml:space="preserve">
     <value>Community. New Wiki page added: $PageName</value>
   </data>
@@ -108,5 +119,11 @@ $CommentBody
   </data>
   <data name="subject_3_tg" xml:space="preserve">
     <value>Community. New comment to Wiki page: [$PageName]($URL)</value>
+  </data>
+  <data name="subject_MentionForWikiComment" xml:space="preserve">
+    <value>Community. Mention in comment to Wiki page: $PageName</value>
+  </data>
+  <data name="subject_MentionForWikiComment_tg" xml:space="preserve">
+    <value>Community. Mention in comment to Wiki page: [$PageName]($URL)</value>
   </data>
 </root>

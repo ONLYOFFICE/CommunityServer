@@ -56,7 +56,8 @@ namespace ASC.Files.Core.Data
             var q = Query("files_security s")
                 .SelectCount()
                 .Where(Exp.Eq("s.entry_id", MappingID(entryId).ToString()))
-                .Where("s.entry_type", (int)type);
+                .Where("s.entry_type", (int)type)
+                .Where(!Exp.In("s.subject", new[] { FileConstant.DenyDownloadId, FileConstant.DenySharingId }));
 
             return dbManager.ExecuteScalar<int>(q) > 0;
         }

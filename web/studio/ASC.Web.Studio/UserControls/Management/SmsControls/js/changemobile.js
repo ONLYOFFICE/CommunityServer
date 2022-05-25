@@ -23,7 +23,7 @@ window.ASC.Controls.UserMobilePhoneManager = (function () {
 
         StudioBlockUIManager.blockUI("#studio_mobilePhoneChangeDialog", 400);
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeMobileSend\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeMobileSend\").trigger('click');";
     };
 
     var sendNotify = function () {

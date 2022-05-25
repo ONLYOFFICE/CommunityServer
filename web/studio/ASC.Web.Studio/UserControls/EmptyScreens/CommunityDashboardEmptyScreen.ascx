@@ -31,7 +31,7 @@
                 <div class="text">
                     <div class="title"><%= CommunityResource.DashboardKeepYourTeamPosted %></div>
                     <p><%= CommunityResource.DashboardKeepYourTeamPostedFirstLine %></p>
-                    <p><%= CommunityResource.DashboardKeepYourTeamPostedSecondLine %></p>
+                    <p><%= CommunityResource.DashboardKeepYourTeamPostedSecondLineNew %></p>
                     <p><%= CommunityResource.DashboardKeepYourTeamPostedThirdLine %></p>
                 </div>
             </div>

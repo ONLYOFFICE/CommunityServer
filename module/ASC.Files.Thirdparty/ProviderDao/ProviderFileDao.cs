@@ -620,6 +620,24 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
+        public EntryProperties GetProperties(object fileId)
+        {
+            var selector = GetSelector(fileId);
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                return fileDao.GetProperties(selector.ConvertId(fileId));
+            }
+        }
+
+        public void SaveProperties(object fileId, EntryProperties entryProperties)
+        {
+            var selector = GetSelector(fileId);
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                fileDao.SaveProperties(selector.ConvertId(fileId), entryProperties);
+            }
+        }
+
         #endregion
     }
 }

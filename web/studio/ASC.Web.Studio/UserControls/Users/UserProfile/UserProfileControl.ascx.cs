@@ -85,11 +85,6 @@ namespace ASC.Web.Studio.UserControls.Users
             get { return UserInfo != null && !string.IsNullOrEmpty(UserInfo.Location) && !string.IsNullOrEmpty(UserInfo.Location.Trim()) && !"null".Equals(UserInfo.Location.Trim(), StringComparison.InvariantCultureIgnoreCase); }
         }
 
-        protected string JoinAffilliateLink
-        {
-            get { return ConfigurationManagerExtension.AppSettings["web.affiliates.link"]; }
-        }
-
         protected bool IsPersonal
         {
             get { return CoreContext.Configuration.Personal; }

@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Aktywnymi użytkownikami są członkowie portalu, z wyjątkiem gości i użytkowników z "wyłączonym" statusem</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Dodaj wybór ankiety</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Załącz plik z dokumentów projektu</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Wycofaj linki do odnośników i linki do udostępnionych dokumentów za pomocą Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Zaloguj się na portalu za pomocą kont społecznościowych i wyszukaj kontakty</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Łącz swoje ulubione usługi przechowywania danych w chmurze i przechowywać wszystkie pliki w jednym miejscu</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Kod źródłowy jest dostępny na {0} GitHub {1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Cena podstawowa</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Więcej informacji na temat pełnej listy walut można znaleźć w dokumencie Avangate</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Darmowy</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Otwórz pełną listę cen</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Czy chcesz wybrać nowy plan cenowy?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Oferta ograniczona czasowo</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Tak, uaktualnij plan</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0} 1 rok {2} {1} Subskrypcja</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0} 3 Rok {1} Subskrypcja</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Używasz planu organizacji non-profit.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 lata</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Oferta jest dostępna tylko dla rocznie abonentów.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Najbardziej popularna subskrypcja</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Dodanie nowego portalu przekroczy maksymalną liczbę portali dozwolonych przez bieżący plan wyceny.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Zapisać {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} na użytkownika / mies.</value>

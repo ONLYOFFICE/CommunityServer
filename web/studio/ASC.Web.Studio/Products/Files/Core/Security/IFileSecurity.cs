@@ -38,6 +38,8 @@ namespace ASC.Files.Core.Security
 
         bool CanDelete(FileEntry entry, Guid userId);
 
+        bool CanDownload(FileEntry entry, Guid userId);
+
         IEnumerable<Guid> WhoCanRead(FileEntry entry);
     }
 }

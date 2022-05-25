@@ -67,7 +67,7 @@ $PagePreview
 
 "Səhifəyə tam şəkildə bamxaq üçün bu keçiddən istifadə edin":"$URL"
 
-^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ </value>
+^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ </value>
   </data>
   <data name="pattern_2" xml:space="preserve">
     <value>h1.Wiki'də səhifə redaktə edildi: "$PageName":"$URL"
@@ -78,7 +78,7 @@ $PagePreview
 
 "Səhifəyə tam şəkildə bamxaq üçün bu keçiddən istifadə edin":"$URL"
 
-^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ </value>
+^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ </value>
   </data>
   <data name="pattern_3" xml:space="preserve">
     <value>h1. Wiki səhifəsinə yeni şərh "$PageName":"$URL"
@@ -89,15 +89,24 @@ $CommentBody
 
 "Səhifəyə tam şəkildə bamxaq üçün bu keçiddən istifadə edin":"$URL"
 
-^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ </value>
+^Portalda qeydiyyatdan keçmək üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ </value>
   </data>
   <data name="subject_1" xml:space="preserve">
     <value>İcma. Yeni Wiki səhifə əlavə olundu: $PageName</value>
   </data>
+  <data name="subject_1_tg" xml:space="preserve">
+    <value>İcma. Yeni Viki səhifəsi əlavə edildi: [$PageName]($URL)</value>
+  </data>
   <data name="subject_2" xml:space="preserve">
     <value>İcma. Wiki səhifəsi redaktə olundu: $PageName</value>
   </data>
+  <data name="subject_2_tg" xml:space="preserve">
+    <value>İcma. Viki səhifəsi redaktə edildi: [$PageName]($URL)</value>
+  </data>
   <data name="subject_3" xml:space="preserve">
     <value>İcma. Wiki səhifəsinə yeni şərh: $PageName</value>
+  </data>
+  <data name="subject_3_tg" xml:space="preserve">
+    <value>İcma. Viki səhifəsinə yeni şərh: [$PageName]($URL)</value>
   </data>
 </root>

@@ -42,7 +42,7 @@ return {
         			jq("#studio_sidePanel #otherActions .dropdown-content").append(container);
         			if (linkData[i].onclick) {
         				var func = linkData[i].onclick;
-        				link.bind("click", func);
+        				link.on("click", func);
         			}
         		}
         	}
@@ -56,7 +56,7 @@ return {
 
 jq(function() {
     calculateWidthTitleBlock();
-    jq(window).resize(function() {
+    jq(window).on("resize", function() {
         calculateWidthTitleBlock();
     });
 });

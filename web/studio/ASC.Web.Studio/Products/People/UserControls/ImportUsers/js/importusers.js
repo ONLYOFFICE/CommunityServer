@@ -28,7 +28,7 @@ window.master = {
             peopleImport = ASC.People.Import;
         if (typeof evt.data == "string") {
             try {
-                obj = jQuery.parseJSON(evt.data);
+                obj = JSON.parse(evt.data);
             } catch (err) {
                 return;
             }
@@ -272,7 +272,7 @@ ASC.People.Import = (function () {
         var dataPath = flatUploader._settings.data;
 
         $importFrom.advancedSelector({
-            height: 26 * itemsImportFrom.length,
+            height: 30 * itemsImportFrom.length,
             onechosen: true,
             showSearch: false,
             itemsChoose: itemsImportFrom,
@@ -292,14 +292,10 @@ ASC.People.Import = (function () {
                     var button = frame.getElementsByClassName('google');
                     jq(button).trigger("click");
                 }
-                if (item.id === 2) {
-                    var button = frame.getElementsByClassName('yahoo');
-                    jq(button).trigger("click");
-                }
             });
 
         $delimiter.advancedSelector({
-            height: 26 * itemsDelimiter.length,
+            height: 30 * itemsDelimiter.length,
             onechosen: true,
             showSearch: false,
             itemsChoose: itemsDelimiter,
@@ -316,7 +312,7 @@ ASC.People.Import = (function () {
         $delimiter.advancedSelector("selectBeforeShow", itemsDelimiter[0]);
 
         $separator.advancedSelector({
-            height: 26 * itemsSeparator.length,
+            height: 30 * itemsSeparator.length,
             onechosen: true,
             showSearch: false,
             itemsChoose: itemsSeparator,
@@ -333,7 +329,7 @@ ASC.People.Import = (function () {
         $separator.advancedSelector("selectBeforeShow", itemsSeparator[0]);
 
         $encoding.advancedSelector({
-            height: 26 * itemsEncoding.length,
+            height: 30 * itemsEncoding.length,
             onechosen: true,
             showSearch: false,
             itemsChoose: itemsEncoding,
@@ -372,7 +368,7 @@ ASC.People.Import = (function () {
         $addAsGuestButton.val(statuses[1].title);
         $notAddButton.val(statuses[2].title);
 
-        jq(document).click(function (event) {
+        jq(document).on("click", function (event) {
             jq.dropdownToggle({ rightPos: true }).registerAutoHide(event, '.file', '.fileSelector');
             jq('#upload img').attr('src', StudioManager.GetImage('loader_16.gif'));
         });
@@ -387,7 +383,7 @@ ASC.People.Import = (function () {
         jq('#donor tr').clone().appendTo('#userList');
 
         $impBtn.add($cncBtn).addClass("disable");
-        $checkAll.attr("disabled", "disabled");
+        $checkAll.prop("disabled", true);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterActionCallback = callback;
         PopupKeyUpActionProvider.EnterAction = 'ASC.People.Import.checkAndAdd();';
@@ -447,9 +443,9 @@ ASC.People.Import = (function () {
     };
 
     function checkAndAdd() {
-        var firstName = jQuery.trim($firstName.val()),
-            lastName = jQuery.trim($lastName.val()),
-            address = jQuery.trim($email.val());
+        var firstName = $firstName.val().trim(),
+            lastName = $lastName.val().trim(),
+            address = $email.val().trim();
 
         checkInputValues(firstName, firstName == fName, $firstName, $fnError);
         checkInputValues(lastName, lastName == lName, $lastName, $lnError);
@@ -464,7 +460,7 @@ ASC.People.Import = (function () {
                 $inputControl.addClass(classIncorrectBox);
                 makeVisible($errorControl);
             } else {
-                $inputControl.focus();
+                $inputControl.trigger("focus");
             }
             return;
         } else {
@@ -476,19 +472,19 @@ ASC.People.Import = (function () {
     function addUser() {
         var items = $userList.find('.userItem');
 
-        var firstName = jQuery.trim($firstName.val()),
-            lastName = jQuery.trim($lastName.val()),
-            address = jQuery.trim($email.val());
+        var firstName = $firstName.val().trim(),
+            lastName = $lastName.val().trim(),
+            address = $email.val().trim();
 
         if (!isContainErrors(items, firstName, lastName, address)) {
             $userList.find('tr').not('.userItem').remove();
             $email.add($firstName).add($lastName).removeClass(classIncorrectBox);
             makeHidden($fnError.add($lnError).add($eaError));
             appendUser({ FirstName: $firstName.val(), LastName: $lastName.val(), Email: $email.val() });
-            $firstName.val('').blur();
-            $lastName.val('').blur();
-            $email.val('').blur();
-            $firstName.focus();
+            $firstName.val('').trigger("blur");
+            $lastName.val('').trigger("blur");
+            $email.val('').trigger("blur");
+            $firstName.trigger("focus");
         } else {
             checkValuesBeforeAdd(address, !isValidEmail(address), $email, $eaError);
             checkValuesBeforeAdd(lastName, lastName == lName || !userNameRegExp.test(lastName), $lastName, $lnError);
@@ -500,7 +496,7 @@ ASC.People.Import = (function () {
         if (currentVal == '' || hasError) {
             $inputControl.addClass(classIncorrectBox);
             makeVisible($errorControl);
-            $inputControl.focus();
+            $inputControl.trigger("focus");
         } else {
             $inputControl.removeClass(classIncorrectBox);
             makeHidden($errorControl);
@@ -534,7 +530,7 @@ ASC.People.Import = (function () {
 
     function isExists(items, email, select) {
         for (var index = 0, n = items.length; index < n; index++) {
-            if (jQuery.trim(jq(items[index]).find('.email input').val()) == email) {
+            if (jq(items[index]).find('.email input').val().trim() == email) {
                 if (select) {
                     jq(items[index]).find('.email').addClass('incorrectValue');
                 }
@@ -623,10 +619,10 @@ ASC.People.Import = (function () {
         for (var i = 0, n = items.length; i < n; i++) {
             if (jq(items[i]).find('.statusValue').text() != statuses[2].title) {
             arr.push({
-                "FirstName": checkValue(jQuery.trim(jq(items[i]).find('.name .firstname .studioEditableInput').val()), emptyFName),
-                "LastName": checkValue(jQuery.trim(jq(items[i]).find('.name .lastname .studioEditableInput').val()), emptyLName),
-                    "Email": jQuery.trim(jq(items[i]).find('.email input').val()),
-                    "Status": jq(items[i]).find('.statusValue').text() == statuses[0].title ? 1 : 2
+                "FirstName": checkValue(jq(items[i]).find('.name .firstname .studioEditableInput').val().trim(), emptyFName),
+                "LastName": checkValue(jq(items[i]).find('.name .lastname .studioEditableInput').val().trim(), emptyLName),
+                "Email": jq(items[i]).find('.email input').val().trim(),
+                "Status": jq(items[i]).find('.statusValue').text() == statuses[0].title ? 1 : 2
             });
         }
         }
@@ -695,7 +691,7 @@ ASC.People.Import = (function () {
                 }
                 jq(".status").eq(i).advancedSelector(
                     {
-                        height: 26 * 3,
+                        height: 30 * 3,
                         itemsChoose: statuses,
                         showSearch: false,
                         onechosen: true,
@@ -754,13 +750,13 @@ ASC.People.Import = (function () {
         var usersCount = $userList.find('.userItem').length;
 
         if (usersCount == 0) {
-            $impBtn.attr('disabled', 'disabled').addClass('disable');
+            $impBtn.prop("disabled", true).addClass('disable');
             jq('#last-step').removeClass('disable');
-            $cncBtn.attr('disabled', 'disabled').addClass('disable');
+            $cncBtn.prop("disabled", true).addClass('disable');
         }
         else {
-            $impBtn.removeAttr('disabled').removeClass('disable');
-            $cncBtn.removeAttr('disabled').removeClass('disable');
+            $impBtn.prop("disabled", false).removeClass('disable');
+            $cncBtn.prop("disabled", false).removeClass('disable');
         }
     };
 
@@ -934,7 +930,7 @@ ASC.People.Import = (function () {
 
     function showProgressPanel() {
         $wizardUsers.addClass("disable");
-        $wizardUsersInput.attr("disabled", true);
+        $wizardUsersInput.prop("disabled", true);
         $importUsersButton.addClass("disable");
         $importUserLimitPanelButton.addClass("disable");
         $wizardAddToPortal.addClass("active");
@@ -942,7 +938,7 @@ ASC.People.Import = (function () {
 
     function hideProgressPanel() {
         $wizardUsers.removeClass("disable");
-        $wizardUsersInput.attr("disabled", false);
+        $wizardUsersInput.prop("disabled", false);
         $importUsersButton.removeClass("disable");
         $importUserLimitPanelButton.removeClass("disable");
         $wizardAddToPortal.removeClass("active");
@@ -988,7 +984,7 @@ ASC.People.Import = (function () {
             jq(this).attr('class', attrs.replace(/error\d/gi, ''));
             jq(this).find('.remove').removeClass('removeError');
 
-            var valueMail = jQuery.trim(jq(this).find('.email input').val());
+            var valueMail = jq(this).find('.email input').val().trim();
             for (var i = 0, n = result.Data.length; i < n; i++) {
                 if (result.Data[i].Email == valueMail) {
                     if (result.Data[i].Result != '') {
@@ -1059,7 +1055,7 @@ ASC.People.Import = (function () {
 
             if ($userList.find(".userItem").length > 0) {
                 $impBtn.add($cncBtn).removeClass("disable");
-                $checkAll.removeAttr("disabled");
+                $checkAll.prop("disabled", false);
             }
             checkCountUsersForAdd();
             checkGroupButtonActive();
@@ -1211,7 +1207,7 @@ ASC.People.Import = (function () {
     };
 
     function setControlHintSettings(controlName, defaultText) {
-        jq(controlName).focus(function () {
+        jq(controlName).on("focus", function () {
             jq(controlName).removeClass('textEditDefault');
             jq(controlName).addClass('textEditMain');
             if (jq(controlName).val() == defaultText) {
@@ -1219,7 +1215,7 @@ ASC.People.Import = (function () {
             }
         });
 
-        jq(controlName).blur(function () {
+        jq(controlName).on("blur", function () {
             if (jq(controlName).val() == '') {
                 jq(controlName).removeClass('textEditMain');
                 jq(controlName).addClass('textEditDefault');
@@ -1397,7 +1393,7 @@ ASC.People.Import = (function () {
             .hide();
 
         $importBtn.show().removeClass('disable');
-        $checkAll.removeAttr('disabled');
+        $checkAll.prop("disabled", false);
 
         manualImport = true;
         wizard.next();

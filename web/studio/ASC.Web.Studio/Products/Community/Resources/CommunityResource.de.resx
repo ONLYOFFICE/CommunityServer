@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>Mitteilungen</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Geburtstage</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blogs</value>
   </data>
@@ -105,9 +102,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>Erstellen Sie einen Gruppenchat oder Massenmail im Chat.</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>Konfigurieren Sie Benachrichtigungen über freigegebene Dokumente, Friste und Geburtstage Ihrer Kollegen.</value>
   </data>
   <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
     <value>Nutzen Sie Firebase, um nie mehr Nachrichten zu verpassen.</value>

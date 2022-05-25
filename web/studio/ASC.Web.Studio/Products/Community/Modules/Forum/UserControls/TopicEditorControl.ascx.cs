@@ -47,10 +47,7 @@ namespace ASC.Web.UserControls.Forum
         protected string _errorMessage = "";
         protected Settings _settings;
 
-        protected string PreviousPageUrl
-        {
-            get { return _forumManager.PreviousPage.Url; }
-        }
+        protected string PreviousPageUrl => _forumManager.PreviousPage;
 
         private string _tagString = "";
         private string _tagValues = "";
@@ -77,7 +74,7 @@ namespace ASC.Web.UserControls.Forum
 
             if (idTopic == 0)
             {
-                Response.Redirect(_forumManager.PreviousPage.Url);
+                Response.Redirect(_forumManager.PreviousPage);
                 return;
             }
             topicId = idTopic;
@@ -85,13 +82,13 @@ namespace ASC.Web.UserControls.Forum
             EditableTopic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, idTopic);
             if (EditableTopic == null)
             {
-                Response.Redirect(_forumManager.PreviousPage.Url);
+                Response.Redirect(_forumManager.PreviousPage);
                 return;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.TopicEdit, EditableTopic))
             {
-                Response.Redirect(_forumManager.PreviousPage.Url);
+                Response.Redirect(_forumManager.PreviousPage);
                 return;
             }
 
@@ -202,7 +199,7 @@ namespace ASC.Web.UserControls.Forum
                                                     EditableTopic.Sticky, EditableTopic.Closed);
                     FactoryIndexer<TopicWrapper>.UpdateAsync(EditableTopic);
                     _errorMessage = "<div class=\"okBox\">" + ForumUCResource.SuccessfullyEditTopicMessage + "</div>";
-                    Response.Redirect(_forumManager.PreviousPage.Url);
+                    Response.Redirect(_forumManager.PreviousPage);
 
 
                 }

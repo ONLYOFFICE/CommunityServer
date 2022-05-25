@@ -237,20 +237,6 @@ ONLYOFFICE™支持團隊
 ONLYOFFICE™支持團隊
 [www.onlyoffice.com]（http://onlyoffice.com/）</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>
-h1。“ $ {__ VirtualRootPath}”門戶網站的密碼更改請求：“ $ {__ VirtualRootPath}”門戶
-
-有人要求更改用於輸入“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的密碼。
-
-請點選以下連結更改密碼：
-
-$ GreenButton
-
-*注意*：此連結僅有效7天。請在此期間完成密碼更改過程。
-
-如果您不想更改密碼或錯誤地收到此電子郵件，請忽略它或與您的“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶管理員聯繫以了解詳細信息。</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1。手機更換要求
 
@@ -1005,20 +991,6 @@ h3。嘗試“在雲中”進行業務的ONLYOFFICE：“ https://www.onlyoffice
 
 ONLYFOFFICE團隊</value>
   </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>有人要求更改用於輸入“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的密碼。
-
-請點選以下連結更改密碼：
-
-$ GreenButton
-
-*注意*：此連結僅有效7天。請在此期間完成密碼更改過程。
-
-如果您不想更改密碼或誤收到此電子郵件，請忽略它。
-
-真誠的
-ONLYOFFICE團隊</value>
-  </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>你好，
 
@@ -1418,10 +1390,6 @@ $ {LetterLogoText}。請激活您的電子郵件地址</value>
   <data name="subject_backup_created" xml:space="preserve">
     <value>$ {LetterLogoText}。 $ {__ VirtualRootPath}門戶網站備份已創建</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>
-$ {LetterLogoText}密碼幫助</value>
-  </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>
 $ {LetterLogoText}。手機變更要求</value>
@@ -1580,9 +1548,6 @@ $ {LetterLogoText}。另一個區域門戶遷移成功完成</value>
   </data>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>將您喜歡的雲存儲連接到ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE個人密碼幫助</value>
   </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE個人。請激活您的電子郵件地址</value>

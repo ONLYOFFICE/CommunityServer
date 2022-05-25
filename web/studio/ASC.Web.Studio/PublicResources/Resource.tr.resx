@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Yöneticiler</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Ortaklık Durumu</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Herhangi bir alan adı</value>
   </data>
@@ -488,12 +485,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>giriş</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Bitly hizmetine bağlanarak portal davet linklerini ve Belgeler modülünde paylaşılmış linkleri kısalt.</value>
@@ -794,27 +785,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Erişim Dizgeciği Gizle</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Müşteri ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Müşteri Gizliliği</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Yahoo kişi aktarımı uygulamasını etkinleştir.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Yahoo hizmet uygulamasını ekleyerek ONLYOFFICE portalına kişi listesinden yeni kullanıcılarak ekleyebileceksiniz.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Müşteri ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Müşteri Gizliliği</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>İletişim Bilgisi</value>
@@ -1245,9 +1215,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Şifre şunları içermek zorundadır</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>İçermelidir</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>basamak</value>
   </data>
@@ -1426,9 +1393,6 @@
   <data name="HelpCenter" xml:space="preserve">
     <value>Yardım Merkezi</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Programın amacı ONLYOFFICE™'in yasal olarak reklamını yaparak üye olan bireylerin satın aldıkları üyeliklerden komisyon almaktır.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Gizle</value>
   </data>
@@ -1552,9 +1516,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Google'dan İçe Aktar</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahoo'dan İçe Aktar</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Mevcut fiyat planınız {0} kullanıcı eklemenize izin veriyor.</value>
   </data>
@@ -1617,9 +1578,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>ONLYOFFICE™ Posta'yı da Taşı (tavsiye edilmez)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Ortağımız olun</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Kullanıcıları {!guests} olarak eklemeye devam edebilir ya da fiyat planını daha fazla kullanıcıya izin veren bir planla değiştirebilirsiniz.</value>
@@ -2679,15 +2637,6 @@ silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Davetiyeler başarıyla tekrar gönderildi</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>E-posta Gönder</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Özel teklifler hakkında bizimle iletişime geçin</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Gerekli parametreyi düşürün yada başka fiyat planı seçin</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Şimdi satın al</value>
   </data>
@@ -2699,18 +2648,6 @@ silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>İhtiyaçlarınıza en uygun planı seçin. Tavsiye edilen plan aşağıda belirtilmiştir.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Bu plan seçilemiyor</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>İzin verilen saklama alanı: {0}. Mevcut saklama alanı: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>İzin verilen portal kullanıcı sayısı: {0}. Mevcut kullanıcı sayısı: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Saklama alanı yada kullanıcı sayısı seçilen fiyat planının sınırlarını geçtiğinden bu planı seçemezsiniz:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Tekrar eden ödemeler açık</value>
@@ -2736,9 +2673,6 @@ silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>ONLYOFFICE™ portalınız bloke edilecektir {2}. Lütfen {0}buraya tıklayarak{1} mevcut planınızı uzatın veya uygun bir plan seçin.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Oluşturduğunuz portal sayısı: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Fiyat planı ödenen yılın sonuna kadar mevcut değil.</value>
   </data>
@@ -2751,14 +2685,8 @@ silinecektir. Bu işlem geri alınamaz. Belgelerin tamamını silmek için linki
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Tekrarlanan Ödemeleri iptal etmek için Avangate hesabınıza gidiniz.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Yalnızca {0} kadar.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Fiyat planları</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Bilginiz olsun ki, Rus rublesi {0} Russian rublesi 1 US dolarına karşılık gelecek şekilde sabit döviz kuru ile fiyatlandırılmıştır.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Ödemeler</value>

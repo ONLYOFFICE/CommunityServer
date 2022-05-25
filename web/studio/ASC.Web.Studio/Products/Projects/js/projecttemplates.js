@@ -130,7 +130,7 @@ ASC.Projects.ListProjectsTemplates = (function () {
 
         var description = { tasks: [], milestones: [] };
         try {
-            description = jQuery.parseJSON(template.description) || {tasks:[], milestones:[] };
+            description = JSON.parse(template.description) || {tasks:[], milestones:[] };
         } catch (e) {
 
         }
@@ -230,7 +230,7 @@ ASC.Projects.EditProjectTemplates = (function() {
             teamlab.getPrjTemplate({}, tmplId, { success: onGetTemplate, before: loadingBanner.displayLoading, after: loadingBanner.hideLoading });
         }
 
-        $templateTitle.focus();
+        $templateTitle.trigger("focus");
 
         jq("#saveTemplate").on(clickEventName, function () {
             generateAndSaveTemplate.call(this, 'save');
@@ -266,10 +266,10 @@ ASC.Projects.EditProjectTemplates = (function() {
         if (jq(this).hasClass("disable")) return;
         jq("." + requiredFieldErrorClass).removeClass(requiredFieldErrorClass);
 
-        if (jq.trim($templateTitle.val()) == "") {
+        if ($templateTitle.val().trim() == "") {
             $templateTitleContainer.addClass(requiredFieldErrorClass);
             jq.scrollTo($templateTitleContainer);
-            $templateTitle.focus();
+            $templateTitle.trigger("focus");
             return;
         }
         jq(this).addClass("disable");
@@ -303,7 +303,7 @@ ASC.Projects.EditProjectTemplates = (function() {
             description.milestones.push(milestone);
         }
         var data = {
-            title: jq.trim($templateTitle.val()),
+            title: $templateTitle.val().trim(),
             description: JSON.stringify(description)
         };
 

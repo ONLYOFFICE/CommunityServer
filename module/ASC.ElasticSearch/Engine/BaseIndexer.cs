@@ -30,7 +30,6 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
-using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.ElasticSearch.Core;
@@ -49,7 +48,6 @@ namespace ASC.ElasticSearch
         private static readonly ILog Logger = LogManager.GetLogger("ASC.Indexer");
         private static readonly ICacheNotify Notify;
         private static CancellationTokenSource Cts;
-        private static TaskScheduler Scheduler;
 
         private const int QueryLimit = 10000;
 
@@ -63,7 +61,6 @@ namespace ASC.ElasticSearch
         {
             Cts = new CancellationTokenSource();
             Notify = AscCache.Notify;
-            Scheduler = new LimitedConcurrencyLevelTaskScheduler(4);
             Notify.Subscribe<BaseIndexer<T>>((a, b) =>
             {
                 lock (Locker)
@@ -81,14 +78,14 @@ namespace ASC.ElasticSearch
 
         internal void Index(T data, bool immediately = true)
         {
-            BeforeIndex(data);
+            if (!BeforeIndex(data)) return;
 
             Client.Instance.Index(data, idx => GetMeta(idx, data, immediately));
         }
 
         internal void Index(List<T> data, bool immediately = true)
         {
-            CreateIfNotExist(data[0]);
+            if (!CheckExist(data[0])) return;
 
             if (typeof(T).IsSubclassOf(typeof(WrapperWithDoc)))
             {
@@ -124,17 +121,17 @@ namespace ASC.ElasticSearch
                                 {
                                     throw;
                                 }
-                                LogManager.GetLogger("ASC.Indexer").Error(e);
+                                Logger.Error(e);
                             }
                             catch (Exception e)
                             {
-                                LogManager.GetLogger("ASC.Indexer").Error(e);
+                                Logger.Error(e);
                             }
                             finally
                             {
                                 wwd.Document.Data = null;
                                 wwd.Document = null;
-                                wwd = null;
+                                data[i] = null;
                                 GC.Collect();
                             }
                             continue;
@@ -164,7 +161,7 @@ namespace ASC.ElasticSearch
                                 doc.Document.Data = null;
                                 doc.Document = null;
                             }
-                            doc = null;
+                            data[j] = null;
                         }
 
                         portionStart = i;
@@ -187,7 +184,7 @@ namespace ASC.ElasticSearch
 
         internal async Task IndexAsync(List<T> data, bool immediately = true)
         {
-            CreateIfNotExist(data[0]);
+            if (!CheckExist(data[0])) return;
 
             if (typeof(T).IsSubclassOf(typeof(WrapperWithDoc)))
             {
@@ -223,17 +220,17 @@ namespace ASC.ElasticSearch
                                 {
                                     throw;
                                 }
-                                LogManager.GetLogger("ASC.Indexer").Error(e);
+                                Logger.Error(e);
                             }
                             catch (Exception e)
                             {
-                                LogManager.GetLogger("ASC.Indexer").Error(e);
+                                Logger.Error(e);
                             }
                             finally
                             {
                                 wwd.Document.Data = null;
                                 wwd.Document = null;
-                                wwd = null;
+                                data[i] = null;
                                 GC.Collect();
                             }
                             continue;
@@ -263,7 +260,7 @@ namespace ASC.ElasticSearch
                                 doc.Document.Data = null;
                                 doc.Document = null;
                             }
-                            doc = null;
+                            data[j] = null;
                         }
 
                         portionStart = i;
@@ -286,25 +283,25 @@ namespace ASC.ElasticSearch
 
         internal void Update(T data, bool immediately = true, params Expression<Func<T, object>>[] fields)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return;
             Client.Instance.Update(DocumentPath<T>.Id(data), r => GetMetaForUpdate(r, data, immediately, fields));
         }
 
         internal void Update(T data, UpdateAction action, Expression<Func<T, IList>> fields, bool immediately = true)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return;
             Client.Instance.Update(DocumentPath<T>.Id(data), r => GetMetaForUpdate(r, data, action, fields, immediately));
         }
 
         internal void Update(T data, Expression<Func<Selector<T>, Selector<T>>> expression, int tenantId, bool immediately = true, params Expression<Func<T, object>>[] fields)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return;
             Client.Instance.UpdateByQuery(GetDescriptorForUpdate(data, expression, tenantId, immediately, fields));
         }
 
         internal void Update(T data, Expression<Func<Selector<T>, Selector<T>>> expression, int tenantId, UpdateAction action, Expression<Func<T, IList>> fields, bool immediately = true)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return;
             Client.Instance.UpdateByQuery(GetDescriptorForUpdate(data, expression, tenantId, action, fields, immediately));
         }
 
@@ -459,22 +456,26 @@ namespace ASC.ElasticSearch
             ids.AddRange(Ids(lastIndexed));
             ids.Add(meta.Item2);
 
+            Logger.DebugFormat("Index: {0},iterations total {1}", IndexName, ids.Count);
+
             var j = 0;
             var tasks = new List<Task>();
 
-            for (var i = 0; i < ids.Count - 1; i ++)
+            for (var i = 0; i < ids.Count - 1; i++)
             {
                 if (Settings.Default.Threads == 1)
                 {
-                    IndexAllGetData(ids[i], ids[i+1], lastIndexed);
+                    IndexAllGetData(ids[i], ids[i + 1], lastIndexed);
                 }
                 else
                 {
-                    tasks.Add(IndexAllGetDataAsync(ids[i], ids[i+1], lastIndexed));
+                    tasks.Add(IndexAllGetDataAsync(ids[i], ids[i + 1], lastIndexed));
                     j++;
-                    if (j >= Settings.Default.Threads)
+                    if (j >= Settings.Default.Threads || i == ids.Count - 2)
                     {
                         Task.WaitAll(tasks.ToArray());
+                        GC.Collect();
+                        Logger.DebugFormat("Index: {0},iteration:{1}", IndexName, i);
                         tasks = new List<Task>();
                         j = 0;
                     }
@@ -520,26 +521,30 @@ namespace ASC.ElasticSearch
             return result.Documents;
         }
 
-        private void BeforeIndex(T data)
+        private bool BeforeIndex(T data)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return false;
 
             var wrapperWithDoc = data as WrapperWithDoc;
             if (wrapperWithDoc != null)
             {
                 wrapperWithDoc.InitDocument(SearchSettings.CanIndexByContent<T>(data.TenantId));
             }
+
+            return true;
         }
 
-        private async Task BeforeIndexAsync(T data)
+        private async Task<bool> BeforeIndexAsync(T data)
         {
-            CreateIfNotExist(data);
+            if (!CheckExist(data)) return false;
 
             var wrapperWithDoc = data as WrapperWithDoc;
             if (wrapperWithDoc != null)
             {
                 await wrapperWithDoc.InitDocumentAsync(SearchSettings.CanIndexByContent<T>(data.TenantId)).ConfigureAwait(false);
             }
+
+            return true;
         }
 
         private void CreateIfNotExist(T data)
@@ -1031,7 +1036,7 @@ namespace ASC.ElasticSearch
             var result = new List<long>();
             using (var db = DbManager.FromHttpContext("default", 1800000))
             {
-                while(true)
+                while (true)
                 {
                     var dataQuery = GetBaseQuery(lastIndexed)
                         .Select(idColumn)
@@ -1065,7 +1070,8 @@ namespace ASC.ElasticSearch
             if (!string.IsNullOrEmpty(tenantIdColumn))
             {
                 dataQuery.InnerJoin("tenants_tenants t", Exp.EqColumns(tenantIdColumn, "t.id"))
-                    .Where("t.status", TenantStatus.Active);
+                    .Where("t.status", TenantStatus.Active)
+                    .Where(!Exp.Like("t.alias", "nctautotest", SqlLike.StartWith));
             }
 
 

@@ -313,17 +313,8 @@ namespace ASC.FederatedLogin.Profile
             var key = HashHelper.MD5(Transport());
             HttpRuntime.Cache.Add(key, this, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(15),
                                   CacheItemPriority.High, null);
-            return AppendQueryParam(uri, QuerySessionParamName, key);
+            return AppendQueryParam(uri, QueryCacheParamName, key);
         }
-
-        internal Uri AppendSessionProfile(Uri uri, HttpContext context)
-        {
-            //gen key
-            var key = HashHelper.MD5(Transport());
-            context.Session[key] = this;
-            return AppendQueryParam(uri, QuerySessionParamName, key);
-        }
-
 
         internal void ParseFromUrl(Uri uri)
         {
@@ -331,10 +322,6 @@ namespace ASC.FederatedLogin.Profile
             if (!string.IsNullOrEmpty(queryString[QueryParamName]))
             {
                 FromTransport(queryString[QueryParamName]);
-            }
-            else if (!string.IsNullOrEmpty(queryString[QuerySessionParamName]))
-            {
-                FromTransport((string)HttpContext.Current.Session[queryString[QuerySessionParamName]]);
             }
             else if (!string.IsNullOrEmpty(queryString[QueryCacheParamName]))
             {

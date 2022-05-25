@@ -19,7 +19,7 @@ window.fromSenderFilter = (function($) {
     var type = 'from-sender-filter';
 
     function init() {
-        jQuery(document.body).bind('click', onBodyClick);
+        jQuery(document.body).on('click', onBodyClick);
     }
 
     function onBodyClick(e) {
@@ -105,7 +105,7 @@ window.fromSenderFilter = (function($) {
     function setFocusToInput($el) {
         var length = $el.val().length;
 
-        $el.focus();
+        $el.trigger("focus");
         $el[0].setSelectionRange(length.length, length.length);
     }
 

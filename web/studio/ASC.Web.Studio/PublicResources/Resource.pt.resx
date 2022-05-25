@@ -567,9 +567,6 @@ Tem a certeza que quer eliminar o {!group} '{0}'?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>A nova palavra-passe está incorrecta. Deve conter</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Deve conter</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>dígitos</value>
   </data>

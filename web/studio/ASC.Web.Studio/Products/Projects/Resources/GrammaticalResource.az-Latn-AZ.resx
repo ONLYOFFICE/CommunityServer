@@ -62,7 +62,7 @@
     <value>günlər</value>
   </data>
   <data name="MilestoneGenitivePlural" xml:space="preserve">
-    <value>pillələr</value>
+    <value>mərhələlər</value>
   </data>
   <data name="MonthGenitivePlural" xml:space="preserve">
     <value>aylar</value>
@@ -72,5 +72,11 @@
   </data>
   <data name="MonthNominative" xml:space="preserve">
     <value>ay</value>
+  </data>
+  <data name="ResponsibleNominativePlural" xml:space="preserve">
+    <value>Məsuliyyətli istifadəçilər</value>
+  </data>
+  <data name="TaskGenitivePlural" xml:space="preserve">
+    <value>Tapşırıqlar</value>
   </data>
 </root>

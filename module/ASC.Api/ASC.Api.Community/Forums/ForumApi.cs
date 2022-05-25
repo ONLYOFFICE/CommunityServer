@@ -53,10 +53,10 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the list of all forums created on the portal with the topic/thread titles, date of creation and update, post text and author ID and display name
+        ///Returns a list of all the portal forums with the topic/thread titles, dates of creation and update, post texts and authors.
         ///</summary>
         ///<short>
-        ///Forum list
+        ///Get forums
         ///</short>
         ///<returns>List of forums</returns>
         ///<category>Forums</category>
@@ -70,10 +70,10 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the number of all forums created on the portal
+        ///Returns a number of all the portal forums.
         ///</summary>
         ///<short>
-        ///Forums count
+        ///Count forums
         ///</short>
         ///<returns>Number of forums</returns>
         ///<visible>false</visible>
@@ -85,13 +85,13 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the list of all thread topics in the forums on the portal with the thread title, date of creation and update, post text and author id and display name
+        ///Returns a list of all the thread topics with the topic titles, dates of creation and update, post texts and authors.
         ///</summary>
         ///<short>
-        ///Thread topics
+        ///Get thread topics
         ///</short>
         ///<param name="threadid">Thread ID</param>
-        ///<returns>List of topics in thread</returns>
+        ///<returns>List of thread topics</returns>
         ///<category>Forums</category>
         [Read("forum/{threadid}")]
         public ForumThreadWrapperFull GetThreadTopics(int threadid)
@@ -107,12 +107,12 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        ///Returns the list of all recently updated topics in the forums on the portal with the topic title, date of creation and update, post text and author
+        ///Returns a list of all the recently updated topics in the portal forums with the topic titles, dates of creation and update, post texts and authors.
         ///</summary>
         ///<short>
-        ///Last updated topics
+        ///Get last updated topics
         ///</short>
-        ///<returns></returns>
+        ///<returns>List of last updated topics</returns>
         ///<category>Forums</category>
         [Read("forum/topic/recent")]
         public IEnumerable<ForumTopicWrapper> GetLastTopics()
@@ -123,13 +123,13 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns the list of all posts in a selected thread in the forums on the portal with the thread title, date of creation and update, post text and author ID and display name
+        ///Returns a list of all the posts of the selected forum topic with the dates of creation and update, post texts and authors.
         ///</summary>
         ///<short>
-        ///Posts
+        ///Get topic posts
         ///</short>
         ///<param name="topicid">Topic ID</param>
-        ///<returns>List of posts in topic</returns>
+        ///<returns>List of topic posts</returns>
         ///<category>Forums</category>
         [Read("forum/topic/{topicid}")]
         public ForumTopicWrapperFull GetTopicPosts(int topicid)
@@ -146,10 +146,10 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Add thread to category
+        /// Adds a thread to the category with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Add thread to category
+        /// Add a thread to a category
         ///</short>
         /// <param name="categoryId">Category ID (-1 for new category)</param>
         /// <param name="categoryName">Category name</param>
@@ -198,15 +198,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Adds a new topic to an existing thread with a subject, content and topic type specified
+        /// Adds a new topic to the existing thread with a subject, content and topic type specified in the request.
         ///</summary>
         ///<short>
-        /// Add topic to thread
+        /// Add a topic to a thread
         ///</short>
         /// <param name="subject">Topic subject</param>
-        /// <param name="threadid">ID of thread to add to</param>
+        /// <param name="threadid">Thread ID</param>
         /// <param name="content">Topic text</param>
-        /// <param name="topicType">Type of topic</param>
+        /// <param name="topicType">Topic type</param>
         ///<returns>Added topic</returns>
         ///<category>Forums</category>
         [Create("forum/{threadid}")]
@@ -219,15 +219,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Updates a topic in an existing thread changing the thread subject, making it sticky or closing it
+        /// Updates a topic with the ID specified in the request changing a topic subject, making it sticky or closing it.
         ///</summary>
         ///<short>
-        /// Update topic in thread
+        /// Update a topic
         ///</short>
-        /// <param name="topicid">ID of topic to update</param>
-        /// <param name="subject">Subject</param>
-        /// <param name="sticky">Is sticky</param>
-        /// <param name="closed">Close topic</param>
+        /// <param name="topicid">Topic ID</param>
+        /// <param name="subject">New subject</param>
+        /// <param name="sticky">Makes a topic sticky</param>
+        /// <param name="closed">Closes a topic</param>
         ///<returns>Updated topic</returns>
         ///<category>Forums</category>
         [Update("forum/topic/{topicid}")]
@@ -237,10 +237,10 @@ namespace ASC.Api.Community
             return GetTopicPosts(topicid);
         }
         ///<summary>
-        /// Adds a post to an existing topic with a post subject and content specified in the request
+        /// Adds a post to the selected topic with a post subject and content specified in the request.
         ///</summary>
         ///<short>
-        /// Add post to topic
+        /// Add a post to a topic
         ///</short>
         ///<param name="topicid">Topic ID</param>
         ///<param name="parentPostId">Parent post ID</param>
@@ -257,15 +257,15 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Updates a post in an existing topic changing the post subject or/and content
+        /// Updates a post in the selected topic changing the post subject or/and content specified in the request.
         ///</summary>
         ///<short>
-        /// Update post in topic
+        /// Update a topic post
         ///</short>
         ///<param name="topicid">Topic ID</param>
-        ///<param name="postid">ID of post to update</param>
-        ///<param name="subject">Post subject (required)</param>
-        ///<param name="content">Post text</param>
+        ///<param name="postid">Post ID</param>
+        ///<param name="subject">New post subject (required)</param>
+        ///<param name="content">New post text</param>
         ///<returns>Updated post</returns>    
         ///<category>Forums</category>
         [Update("forum/topic/{topicid}/{postid}")]
@@ -276,13 +276,13 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        ///Returns a list of topics matching the search query with the topic title, date of creation and update, post text and author
+        ///Returns a list of topics matching the search query with the topic titles, dates of creation and update, post texts and authors.
         ///</summary>
         ///<short>
-        ///Search
+        ///Search topics
         ///</short>
         ///<param name="query">Search query</param>
-        ///<returns>list of topics</returns>
+        ///<returns>List of topics</returns>
         ///<category>Forums</category>
         [Read("forum/@search/{query}")]
         public IEnumerable<ForumTopicWrapper> SearchTopics(string query)
@@ -295,14 +295,14 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        /// Deletes a selected post
+        /// Deletes a post with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Delete post
+        /// Delete a post
         ///</short>
         ///<param name="postid">Post ID</param>
-        ///<returns></returns>
         ///<category>Forums</category>
+        ///<returns>Post</returns>
         [Delete("forum/post/{postid}")]
         public ForumTopicPostWrapper DeletePost(int postid)
         {
@@ -322,14 +322,14 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Deletes a selected topic
+        /// Deletes a topic with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Delete topic
+        /// Delete a topic
         ///</short>
         ///<param name="topicid">Topic ID</param>
-        ///<returns></returns>
         ///<category>Forums</category>
+        ///<returns>Topic</returns>
         [Delete("forum/topic/{topicid}")]
         public ForumTopicWrapper DeleteTopic(int topicid)
         {
@@ -346,14 +346,14 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Deletes a selected thread
+        /// Deletes a thread with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Delete thread
+        /// Delete a thread
         ///</short>
         ///<param name="threadid">Thread ID</param>
-        ///<returns></returns>
         ///<category>Forums</category>
+        ///<returns>Thread</returns>
         [Delete("forum/thread/{threadid}")]
         public ForumThreadWrapper DeleteThread(int threadid)
         {
@@ -370,14 +370,14 @@ namespace ASC.Api.Community
         }
 
         ///<summary>
-        /// Deletes a selected thread category
+        /// Deletes a category with the ID specified in the request.
         ///</summary>
         ///<short>
-        /// Delete category
+        /// Delete a category
         ///</short>
         ///<param name="categoryid">Category ID</param>
-        ///<returns></returns>
         ///<category>Forums</category>
+        ///<returns>Category</returns>
         [Delete("forum/category/{categoryid}")]
         public ForumCategoryWrapper DeleteThreadCategory(int categoryid)
         {

@@ -99,11 +99,11 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 
 *注意*：このリンクは24時間有効です。その期間内に操作を完了させてください。
 
-ご質問があるか、必要な場合は支援のお願い にてお気軽にお問い合わせ "support.onlyoffice.com":"http://support.onlyoffice.com"
+ご質問があるか、必要な場合は支援のお願い にてお気軽にお問い合わせ "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 敬具、
 ONLYOFFICE™サポートチーム
-"www.onlyoffice.com"： "http://onlyoffice.com/"
+"www.onlyoffice.com"： "https://onlyoffice.com/"
 
 ^あなたがポータルの登録ユーザであるため、このメールを受け取る "${__VirtualRootPath}":"${__VirtualRootPath}". 通知の種類を変更するには、を管理してください "サブスクリプションの設定":"$RecipientSubscriptionConfigURL".^</value>
   </data>

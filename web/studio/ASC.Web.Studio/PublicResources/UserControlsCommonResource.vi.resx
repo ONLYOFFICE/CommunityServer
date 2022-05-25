@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Người dùng hoạt động là các thành viên cổng thông tin, không bao gồm khách và người dùng có trạng thái "không hoạt động"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Thêm lựa chọn bỏ phiếu</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Đính kèm file từ tài liệu dự án</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Dử dụng Bitly để rút gọn các liên kết lời mời từ cổng và liên kết cho tài liệu được chia sẻ</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Đăng nhập vào cổng thông tin bằng tài khoản xã hội và tìm kiếm địa chỉ liên hệ</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Kết nối dịch vụ lưu trữ đám mây yêu thích của bạn để lưu tất cả các file của bạn ở cùng một nơi</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Mã nguồn hiện có trên {0}GitHub{1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Giá cơ bản</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Xem Avangate để biết danh sách đầy đủ các đơn vị tiền tệ</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Miễn phí</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Mở bảng giá đầy đủ</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Bạn có muốn chọn gói dịch vụ mới không?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Ưu đã trong thời gian có hạn</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Có, nâng cấp gói</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>Đăng ký {0}1 năm{2}{1}</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>Đăng ký {0}3 năm{1}</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Bạn đang sử dụng gói dành cho tổ chức phi lợi nhuận.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 năm</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Ưu đãi này chỉ dành cho người đăng ký hàng năm.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Gói được ưa chuộng nhất</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Thêm một cổng thông tin mới sẽ vượt quá số cổng tối đa mà gói hiện tại của bạn cho phép.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Lưu {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} mỗi người dùng/tháng</value>

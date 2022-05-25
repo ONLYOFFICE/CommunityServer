@@ -37,3 +37,8 @@ Template: {{package_sysname}}-communityserver/ds-jwt-secret-header
 Type: string
 Default: AuthorizationJwt
 Description: Document Server Secret Header:
+
+Template: {{package_sysname}}-communityserver/imapsync-start-date
+Type: string
+Default: 
+Description: ImapSync service launch date:

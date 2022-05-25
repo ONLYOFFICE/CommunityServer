@@ -79,13 +79,13 @@ ASC.Sample.PageScript = (function () {
                 }
             ]
         })
-        .bind("setfilter", function (evt, $container, filter, filterparams, filters) {
+        .on("setfilter", function (evt, $container, filter, filterparams, filters) {
             renderFilterContent(filters);
         })
-        .bind("resetfilter", function (evt, $container, filter, filters) {
+        .on("resetfilter", function (evt, $container, filter, filters) {
             renderFilterContent(filters);
         })
-        .bind("resetallfilters", function () {
+        .on("resetallfilters", function () {
             jq("#peopleFilterContent").html("");
         });
     };

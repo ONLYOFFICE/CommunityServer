@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Активные пользователи - это все участники портала, кроме гостей и пользователей со статусом "Заблокирован"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Добавить вариант</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Прикрепить файл из Документов проектa</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Сокращайте пригласительные ссылки и ссылки для доступа к документам с помощью Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Входите на портал через аккаунты социальных сетей и находите контакты</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Подключите облачные хранилища и храните все свои файлы в едином пространстве</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Звоните клиентам прямо из модуля CRM благодаря интеграции {0}ONLYOFFICE{1} с сервисом Twilio.</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -138,6 +123,9 @@
   </data>
   <data name="ContactSupportBtn" xml:space="preserve">
     <value>Обратиться в поддержку</value>
+  </data>
+  <data name="CurrentConnection" xml:space="preserve">
+    <value>Текущее подключение</value>
   </data>
   <data name="DeleteFile" xml:space="preserve">
     <value>Удалить файл</value>
@@ -700,9 +688,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>Для решения технических проблем используйте {0}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Базовая цена</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Полный список валют можно посмотреть на Avangate</value>
   </data>
@@ -715,14 +700,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Бесплатно</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Открыть полный прайс-лист</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Вы хотите выбрать новый тарифный план?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Предложение ограничено</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Да, улучшить план</value>
@@ -732,9 +711,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>Подписка {0}1 год{2}{1}</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>Подписка {0}3 года{1}</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Вы используете тарифный план для некоммерческой организации.</value>
@@ -775,17 +751,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>Трехгодовая</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Предложение доступно только для годовых подписчиков.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Самая популярная подписка</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Добавление нового портала превысит максимальное количество порталов, допустимое согласно текущему тарифному плану.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Сэкономьте {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} за пользователя/мес.</value>
@@ -810,9 +777,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Недостаточно свободного дискового пространства</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>Вы используете ONLYOFFICE Enterprise Edition. {0}Текущая инсталляция была обновлена без предоставления соответствующей лицензии.{1}{2} Загрузите обновленную лицензию, чтобы продолжить использование ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Выберите количество участников вашей команды</value>

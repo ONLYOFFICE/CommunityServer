@@ -34,10 +34,10 @@ namespace ASC.Web.Mail.HttpHandlers
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class ContactPhotoHandler : IHttpHandler
     {
+        private ILog Log = LogManager.GetLogger("ASC.Mail.ContactPhotoHandler");
+
         public void ProcessRequest(HttpContext context)
         {
-            var log = LogManager.GetLogger("ASC.Mail.ContactPhotoHandler");
-
             try
             {
                 if (!SecurityContext.IsAuthenticated)
@@ -70,14 +70,14 @@ namespace ASC.Web.Mail.HttpHandlers
             }
             catch (HttpException he)
             {
-                log.Error("ContactPhoto handler failed", he);
+                Log.Error("ContactPhoto handler failed", he);
 
                 context.Response.StatusCode = he.GetHttpCode();
                 context.Response.Write(he.Message != null ? HttpUtility.HtmlEncode(he.Message) : MailApiErrorsResource.ErrorInternalServer);
             }
             catch (Exception ex)
             {
-                log.Error("ContactPhoto handler failed", ex);
+                Log.Error("ContactPhoto handler failed", ex);
 
                 context.Response.StatusCode = 404;
                 context.Response.Redirect("404.html");
@@ -92,7 +92,7 @@ namespace ASC.Web.Mail.HttpHandlers
                 }
                 catch (HttpException ex)
                 {
-                    LogManager.GetLogger("ASC").Error("ResponceContactPhotoUrl", ex);
+                    Log.Error("ResponceContactPhotoUrl", ex);
                 }
             }
         }

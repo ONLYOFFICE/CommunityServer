@@ -250,7 +250,7 @@ window.TMMail = (function($) {
     }
 
     function getErrorMessage(errors) {
-        if ($.isArray(errors) && errors.length === 1) {
+        if (Array.isArray(errors) && errors.length === 1) {
             return errors[0];
         }
 
@@ -559,7 +559,7 @@ window.TMMail = (function($) {
 
                 var fileIds = JSON.parse(decodeURIComponent(files));
 
-                return jq.isArray(fileIds) ? fileIds : undefined;
+                return Array.isArray(fileIds) ? fileIds : undefined;
             } catch (e) {
                 console.warn(e);
             }
@@ -835,7 +835,7 @@ window.TMMail = (function($) {
     }
 
     function fixMailtoLinks(element) {
-        element.find("a[href*='mailto:']").click(function() {
+        element.find("a[href*='mailto:']").on("click", function() {
             messagePage.setToEmailAddresses([$(this).attr('href').substr(7, $(this).attr('href').length - 1)]);
             window.location.href = "#composeto";
             return false;
@@ -906,17 +906,17 @@ window.TMMail = (function($) {
     function disableButton(button, disable) {
         button.toggleClass("disable", disable);
         if (disable) {
-            button.attr("disabled", "disabled");
+            button.prop("disabled", true);
         } else {
-            button.removeAttr("disabled");
+            button.prop("disabled", false);
         }
     }
 
     function disableInput(input, disable) {
         if (disable) {
-            input.attr('disabled', 'true');
+            input.prop("disabled", true);
         } else {
-            input.removeAttr('disabled');
+            input.prop("disabled", false);
         }
     }
 

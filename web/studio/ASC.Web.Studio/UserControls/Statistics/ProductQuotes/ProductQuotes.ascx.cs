@@ -22,7 +22,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
-using ASC.Core.Billing;
+using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -68,7 +68,7 @@ namespace ASC.Web.Studio.UserControls.Statistics
             var result = TenantStatisticsProvider.GetUsersCount().ToString();
 
             var maxActiveUsers = TenantExtra.GetTenantQuota().ActiveUsers;
-            if (!CoreContext.Configuration.Standalone || maxActiveUsers != LicenseReader.MaxUserCount)
+            if (!CoreContext.Configuration.Standalone || maxActiveUsers != Constants.MaxEveryoneCount)
             {
                 result += " / " + maxActiveUsers;
             }

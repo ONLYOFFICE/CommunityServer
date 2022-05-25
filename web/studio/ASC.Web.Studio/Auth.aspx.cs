@@ -20,6 +20,8 @@ using System.Web;
 
 using ASC.Common.Utils;
 using ASC.Core;
+using ASC.Core.Data;
+using ASC.Core.Security.Authentication;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
@@ -81,11 +83,15 @@ namespace ASC.Web.Studio
 
             if (IsLogout)
             {
-                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                var cookie = CookiesManager.GetCookies(CookiesType.AuthKey);
+                int loginEventId = CookieStorage.GetLoginEventIdFromCookie(cookie);
+                DbLoginEventsManager.LogOutEvent(loginEventId);
 
+                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                 var loginName = user.DisplayUserName(false);
-                ProcessLogout();
                 MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
+
+                ProcessLogout();
 
                 if (!string.IsNullOrEmpty(user.SsoNameId))
                 {
@@ -144,13 +150,9 @@ namespace ASC.Web.Studio
 
         public static void ProcessLogout()
         {
-            //logout
-            if (SecurityContext.IsAuthenticated)
-                CookiesManager.ResetUserCookie(SecurityContext.CurrentAccount.ID);
-            
             CookiesManager.ClearCookies(CookiesType.AuthKey);
             CookiesManager.ClearCookies(CookiesType.SocketIO);
-            
+
             SecurityContext.Logout();
         }
 

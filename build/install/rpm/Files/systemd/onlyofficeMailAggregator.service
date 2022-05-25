@@ -1,17 +1,14 @@
 [Unit]
 Description=ONLYOFFICE MailAggregator Service
-After=network.target syslog.target mysqld.service redis-server.service
-Wants=mysqld.service redis-server.service
+After=network.target syslog.target mysqld.service
+Wants=mysqld.service
 
 [Service]
-Type=forking
-ExecStartPre=/bin/bash -c 'rm -f /tmp/onlyofficeMailAggregator'
-ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/MailAggregator -l:/tmp/onlyofficeMailAggregator /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe
-Environment=MONO_IOMAP=all MONO_PATH=/var/www/onlyoffice/Services/MailAggregator/
+Type=notify
 User=onlyoffice
 Group=onlyoffice
-
-# Give up if ping don't get an answer
+WorkingDirectory=/var/www/onlyoffice/Services/MailAggregator
+ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.Service.dll --urls=http://0.0.0.0:5025 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --'$STORAGE_ROOT'=/var/www/onlyoffice/Data --log:dir=/var/log/onlyoffice/mail --log:name=mail-aggregator --ENVIRONMENT=production
 TimeoutSec=600
 
 Restart=no

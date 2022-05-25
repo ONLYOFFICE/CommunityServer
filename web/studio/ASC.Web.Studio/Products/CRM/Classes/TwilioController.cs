@@ -297,7 +297,7 @@ namespace ASC.Web.CRM.Classes
 
         private VoiceResponse Inbound(TwilioVoiceRequest request, DaoFactory daoFactory)
         {
-            SecurityContext.AuthenticateMe(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
+            SecurityContext.CurrentUser = CoreContext.TenantManager.GetCurrentTenant().OwnerId;
             var call = SaveCall(request, VoipCallStatus.Incoming, daoFactory);
 
             return request.Inbound(call, daoFactory);
@@ -419,7 +419,7 @@ namespace ASC.Web.CRM.Classes
             if (callerId.HasValue && !callerId.Value.Equals(ASC.Core.Configuration.Constants.Guest.ID))
             {
                 CallerId = callerId.Value;
-                SecurityContext.AuthenticateMe(CallerId);
+                SecurityContext.CurrentUser = CallerId;
             }
             if (contactId != 0)
             {
@@ -451,7 +451,7 @@ namespace ASC.Web.CRM.Classes
             if (agent != null && agent.Item1 != null)
             {
                 var agentId = agent.Item1.Id;
-                SecurityContext.AuthenticateMe(agentId);
+                SecurityContext.CurrentUser = agentId;
                 call.AnsweredBy = agentId;
 
                 contact = contacts.FirstOrDefault(CRMSecurity.CanAccessTo);

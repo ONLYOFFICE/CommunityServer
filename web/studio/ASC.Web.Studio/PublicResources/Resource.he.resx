@@ -568,9 +568,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>סיסמה חדשה שגויה. עליה להכיל</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>עליה להכיל</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>ספרות</value>
   </data>

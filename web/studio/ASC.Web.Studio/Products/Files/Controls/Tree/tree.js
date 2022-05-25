@@ -47,6 +47,9 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
                 var hash = ASC.Files.UI.getEntryLink("folder", entryId);
                 jq(this).attr("href", hash);
             });
+            if (treeNode.is(treeNodePrivacy) || treeNodePrivacy.has(treeNode).length) {
+                treeNode.find("li").addClass("access-read");
+            }
         } else {
             treeNode.addClass("jstree-empty");
         }
@@ -76,7 +79,6 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
         if (!treeNode.length
             || folderId == ASC.Files.Constants.FOLDER_ID_FAVORITES
             || folderId == ASC.Files.Constants.FOLDER_ID_RECENT
-            || folderId == ASC.Files.Constants.FOLDER_ID_PRIVACY && !ASC.Desktop
             || folderId == ASC.Files.Constants.FOLDER_ID_TEMPLATES
             || folderId == ASC.Files.Constants.FOLDER_ID_TRASH) {
             return;
@@ -279,6 +281,8 @@ window.ASC.Files.TreePrototype = function (rootSelector, rootId) {
     var tree = this;
     var treeNodeRoot = jq(rootSelector);
     var treeNodeRootId = rootId;
+
+    var treeNodePrivacy = treeNodeRoot.find("li[data-id=" + ASC.Files.Constants.FOLDER_ID_PRIVACY + "]");
 
     treeNodeRoot.on("click", ".jstree-expander", expand);
     treeNodeRoot.on("dblclick", "a", expand);

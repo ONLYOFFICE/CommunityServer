@@ -25,7 +25,7 @@ $URL#end
   
     <pattern id="new feed" sender="telegram.sender">
     <subject resource="|subject_new_text_tg|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">#if($FEED_TYPE == "feed")$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">#if($FEED_TYPE == "feed")$UserName
 
 $Text
 
@@ -54,9 +54,31 @@ $CommentURL
   </pattern>
   <pattern id="new feed comment" sender="telegram.sender">
     <subject resource="|subject_new_text_comment_tg|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $CommentBody
     </body>
   </pattern>
+	<!-- Mention For Feed Comment-->
+	<pattern id="mention for feed comment" sender="email.sender">
+		<subject resource="|subject_mention_for_feed_comment|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
+		<body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_mention_for_feed_comment|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
+	</pattern>
+
+	<pattern id="mention for feed comment" sender="messanger.sender">
+		<subject resource="|subject_mention_for_feed_comment|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
+		<body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
+
+$CommentURL
+		</body>
+	</pattern>
+	<pattern id="mention for feed comment" sender="telegram.sender">
+		<subject resource="|subject_mention_for_feed_comment_tg|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community" />
+		<body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
+		</body>
+	</pattern>
 </patterns>

@@ -58,12 +58,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="pattern_mention_for_blog_comment" xml:space="preserve">
+    <value>h1.You were mentioned in comment to Blog Post: "$PostSubject":"$URL"
+
+ $Date "$UserName":"$UserURL" mentioned you in the comment to the "$PostSubject":"$URL" blog post:
+
+$CommentBody 
+
+"Read More":"$CommentURL"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this blog post, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
   <data name="pattern_new_comment" xml:space="preserve">
     <value>h1.New Comment to Blog Post: "$PostSubject":"$URL"
 
  $Date "$UserName":"$UserURL" has added a new comment to the "$PostSubject":"$URL" blog post:
 
-$CommentBody
+$CommentBody 
 
 "Read More":"$CommentURL"
 
@@ -79,6 +90,12 @@ $PostPreview
 "Read More":"$URL"
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new posts in blogs, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_mention_for_blog_comment" xml:space="preserve">
+    <value>Community.Mention in comment to blog post: $PostSubject</value>
+  </data>
+  <data name="subject_mention_for_blog_comment_tg" xml:space="preserve">
+    <value>Community. Mention in comment to blog post: [$PostSubject]($CommentURL)</value>
   </data>
   <data name="subject_new_comment" xml:space="preserve">
     <value>Community. New comment to blog post: $PostSubject</value>

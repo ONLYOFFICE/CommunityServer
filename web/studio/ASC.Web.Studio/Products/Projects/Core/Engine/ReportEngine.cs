@@ -198,6 +198,20 @@ namespace ASC.Projects.Engine
             var milestones = MilestoneEngine.GetByFilterCountForReport(filter);
             var messages = MessageEngine.GetByFilterCountForReport(filter);
 
+            List<Tuple<Guid, int, int>> averageTasks = null;
+            List<Tuple<Guid, int>> averageProjects = null;
+            if (filter.IsShowAverageTime)
+            {
+                if (filter.TypeOfShowAverageTime == AverageTime.All || filter.TypeOfShowAverageTime == AverageTime.ClosingProjects)
+                {
+                    averageProjects = ProjectEngine.GetByFilterAverageTime(filter);
+                }
+                if (filter.TypeOfShowAverageTime == AverageTime.All || filter.TypeOfShowAverageTime == AverageTime.CompletingTasks)
+                {
+                    averageTasks = TaskEngine.GetByFilterAverageTime(filter);
+                }
+            }
+
             if (filter.ViewType == 1)
             {
                 var projectIds = GetProjects(tasks, milestones, messages);
@@ -205,7 +219,7 @@ namespace ASC.Projects.Engine
 
                 foreach (var p in projects)
                 {
-                    var userIds = GetUsers(p.ID, tasks, milestones, messages);
+                    var userIds = GetUsers(p.ID, tasks, milestones, messages, averageTasks);
 
                     foreach (var userId in userIds)
                     {
@@ -214,10 +228,29 @@ namespace ASC.Projects.Engine
                         var milestonesCount = GetCount(milestones, p.ID, userId);
                         var messagesCount = GetCount(messages, p.ID, userId);
 
+                        var avgTasks = -1;
+                        if(averageTasks != null)
+                        {
+                            if (averageTasks.Where(r => r.Item2 == p.ID && r.Item1 == userId).Any())
+                            {
+                                avgTasks = averageTasks.FirstOrDefault(r => r.Item2 == p.ID && r.Item1 == userId).Item3;
+                            }
+                            else
+                            {
+                                avgTasks = -2;
+                            }
+                        }
+
                         result.Add(new object[]
                         {
-                            p.ID, p.Title, userName, tasksCount, milestonesCount, messagesCount,
-                            tasksCount + milestonesCount + messagesCount
+                            p.ID,
+                            p.Title,
+                            userName,
+                            tasksCount,
+                            milestonesCount,
+                            messagesCount,
+                            tasksCount + milestonesCount + messagesCount,
+                            avgTasks
                         });
                     }
                 }
@@ -225,7 +258,11 @@ namespace ASC.Projects.Engine
             else
             {
                 var userIds = GetUsers(-1, tasks, milestones, messages);
-
+                if (averageProjects != null)
+                {
+                    userIds.AddRange(averageProjects.Select(r => r.Item1));
+                    userIds = userIds.Distinct().ToList();
+                }
                 foreach (var userId in userIds)
                 {
                     var group = CoreContext.UserManager.GetUserGroups(userId).FirstOrDefault();
@@ -235,14 +272,43 @@ namespace ASC.Projects.Engine
                     var milestonesCount = GetCount(milestones, userId);
                     var messagesCount = GetCount(messages, userId);
 
+                    var avgTasks = -1;
+                    var avgProject = -1;
+                    if (averageTasks != null)
+                    {
+                        if (averageTasks.Where(r => r.Item1 == userId).Any())
+                        {
+                            avgTasks = averageTasks.Where(r => r.Item1 == userId).Sum(r => r.Item3) / averageTasks.Where(r => r.Item1 == userId).Count();
+                        }
+                        else
+                        {
+                            avgTasks = -2;
+                        }
+                    }
+                    if (averageProjects != null)
+                    {
+                        if (averageProjects.Where(r => r.Item1 == userId).Any()) 
+                        {
+                            avgProject = averageProjects.FirstOrDefault(r => r.Item1 == userId).Item2;
+                        }
+                        else
+                        {
+                            avgProject = -2;
+                        }
+                    }
+                    
+
                     result.Add(new object[]
                         {
                             group != null ? group.ID : Guid.Empty,
-                            group != null ? group.Name : "", userName,
+                            group != null ? group.Name : "",
+                            userName,
                             tasksCount,
                             milestonesCount,
                             messagesCount,
-                            tasksCount + milestonesCount + messagesCount
+                            tasksCount + milestonesCount + messagesCount,
+                            avgProject,
+                            avgTasks
                         });
                 }
             }
@@ -268,7 +334,8 @@ namespace ASC.Projects.Engine
 
             foreach (var item in data)
             {
-                result.AddRange(item.Where(r => pId == -1 || r.Item2 == pId).Select(r => r.Item1));
+                if(item != null)
+                    result.AddRange(item.Where(r => pId == -1 || r.Item2 == pId).Select(r => r.Item1));
             }
 
             return result.Distinct().ToList();
@@ -278,6 +345,7 @@ namespace ASC.Projects.Engine
         {
             return data.Where(r => r.Item1 == userId).Sum(r => r.Item3);
         }
+
         private static int GetCount(IEnumerable<Tuple<Guid, int, int>> data, int pId, Guid userId)
         {
             var count = 0;

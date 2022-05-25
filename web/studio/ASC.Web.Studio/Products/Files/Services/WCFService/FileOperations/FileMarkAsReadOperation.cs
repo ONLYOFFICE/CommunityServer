@@ -21,21 +21,26 @@ using System.Threading;
 
 using ASC.Common.Security.Authentication;
 using ASC.Files.Core;
+using ASC.MessagingSystem;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Utils;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
     class FileMarkAsReadOperation : FileOperation
     {
+        private readonly Dictionary<string, string> headers;
+
         public override FileOperationType OperationType
         {
             get { return FileOperationType.MarkAsRead; }
         }
 
 
-        public FileMarkAsReadOperation(List<object> folders, List<object> files)
+        public FileMarkAsReadOperation(List<object> folders, List<object> files, Dictionary<string, string> headers)
             : base(folders, files)
         {
+            this.headers = headers;
         }
 
 
@@ -55,19 +60,21 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             {
                 entries.AddRange(FileDao.GetFiles(Files));
             }
-            entries.ForEach(x =>
+            entries.ForEach(entry =>
             {
                 CancellationToken.ThrowIfCancellationRequested();
 
-                FileMarker.RemoveMarkAsNew(x, ((IAccount)Thread.CurrentPrincipal.Identity).ID);
+                FileMarker.RemoveMarkAsNew(entry, ((IAccount)Thread.CurrentPrincipal.Identity).ID);
 
-                if (x.FileEntryType == FileEntryType.File)
+                if (entry.FileEntryType == FileEntryType.File)
                 {
-                    ProcessedFile(x.ID.ToString());
+                    ProcessedFile(entry.ID.ToString());
+                    FilesMessageService.Send(entry, headers, MessageAction.FileMarkedAsRead, entry.Title);
                 }
                 else
                 {
-                    ProcessedFolder(x.ID.ToString());
+                    ProcessedFolder(entry.ID.ToString());
+                    FilesMessageService.Send(entry, headers, MessageAction.FolderMarkedAsRead, entry.Title);
                 }
                 ProgressStep();
             });

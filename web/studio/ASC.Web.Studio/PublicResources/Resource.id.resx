@@ -235,9 +235,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Administrator</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Status Afiliasi</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Domain manapun</value>
   </data>
@@ -1016,9 +1013,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Kata sandi baru salah. Kata sandi harus terdiri dari</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Harus berisi</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>digit</value>
   </data>
@@ -1233,9 +1227,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   <data name="HelpCenter" xml:space="preserve">
     <value>Pusat Bantuan</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Tujuan program ini adalah untuk mengiklankan ONLYOFFICE™ secara legal agar dapat menerima komisi atas pendaftaran berlangganan yang dilakukan oleh pengguna yang dirujukkan.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Sembunyikan</value>
   </data>
@@ -1389,9 +1380,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Impor dari Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Impor dari Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Pilih sumber lain</value>
   </data>
@@ -1466,9 +1454,6 @@ Anda yakin ingin menghapus {!group} {0}?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migrasi ke ONLYOFFICE™ juga (tidak direkomendasikan)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Menjadi Mitra Afiliasi Kami</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Anda dapat terus menambahkan pengguna sebagai tamu atau mengubah paket harga yang digunakan untuk menambahkan pengguna lebih banyak lagi.</value>
@@ -2610,15 +2595,6 @@ Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email beris
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Undangan telah berhasil dikirim kembali</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Kirim email</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Hubungi kami untuk mendapatkan penawaran khusus</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Kurangi parameter yang diperlukan atau pilih paket harga lain.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Beli sekarang</value>
   </data>
@@ -2630,18 +2606,6 @@ Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email beris
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Pilih paket harga yang paling sesuai untuk Anda. Paket harga yang bertanda sorotan adalah paket yang kami rekomendasikan.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Anda tidak dapat memilih paket ini</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Kapasitas penyimpanan yang tersedia: {0}. Kapasitas penyimpanan saat ini: {1}</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Jumlah pengguna portal yang diijinkan: {0}. Jumlah pengguna saat ini: {1}</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Anda tidak dapat memilih paket harga ini karena kapasitas penyimpanan atau jumlah pengguna telah melebihi batas untuk paket harga yang dimiliki:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Pembayaran otomatis diaktifkan</value>
@@ -2664,9 +2628,6 @@ Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email beris
   <data name="TariffLinkStandaloneLife" xml:space="preserve">
     <value>Untuk memperbarui,{0}klik disini{1}.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Jumlah portal yang Anda buat: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Paket harga tersebut tidak tersedia hingga akhir tahun yang telah dibayar.</value>
   </data>
@@ -2679,14 +2640,8 @@ Untuk mendaftar, masukkan email Anda dan klik Kirim Undangan. Sebuah email beris
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Untuk membatalkan Pembayaran Otomatis, silakan buka akun Avangate Anda.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Penawaran berlaku hingga {0}</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Paket harga</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Untuk kenyamanan Anda pembayaran dalam mata uang Rusia dihitung menggunakan nilai tukar tetap{0}Ruble Rusia untuk 1 dolar Amerika Serikat.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Pembayaran</value>

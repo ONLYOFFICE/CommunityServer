@@ -21,6 +21,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Web.Calendar.Controls;
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Calendar.UserControls
@@ -37,6 +38,8 @@ namespace ASC.Web.Calendar.UserControls
             InitScripts();
 
             _sharingContainer.Controls.Add(LoadControl(SharingSettings.Location));
+            _phDocUploader.Controls.Add(LoadControl(DocumentsPopup.Location));
+            _commonPopup.Options.IsPopup = true;
         }
 
         private void InitScripts()
@@ -46,17 +49,24 @@ namespace ASC.Web.Calendar.UserControls
                 .RegisterStyle("~/addons/calendar/UserControls/popup/css/popup.css",
                     "~/addons/calendar/UserControls/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css",
                     "~/addons/calendar/UserControls/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css",
-                    "~/addons/calendar/UserControls/css/jquery.jscrollpane.css")
+                    "~/addons/calendar/UserControls/css/jquery.jscrollpane.css",
+                    "~/addons/calendar/UserControls/fullcalendar/css/attachments.less")
                 .RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                    "~/js/uploader/jquery.fileupload.js",
+                    "~/js/uploader/jquery.fileuploadmanager.js",
                     "~/addons/calendar/UserControls/js/bluebird.min.js",
                     "~/addons/calendar/UserControls/popup/popup.js",
                     "~/addons/calendar/UserControls/js/calendar_controller.js",
                     "~/addons/calendar/UserControls/js/recurrence_rule.js",
                     "~/addons/calendar/UserControls/js/calendar_event_page.js",
+                    "~/addons/calendar/UserControls/js/calendar.attachments.js",
                     "~/addons/calendar/UserControls/js/jquery.jscrollpane.min.js",
                     "~/addons/calendar/UserControls/js/jquery.mousewheel.js",
                     "~/addons/calendar/UserControls/js/jquery.cookie.js",
-                    "~/addons/calendar/UserControls/fullcalendar/fullcalendar.js");
+                    "~/addons/calendar/UserControls/fullcalendar/fullcalendar.js",
+                    "~/Products/Files/js/common.js",
+                    "~/Products/Files/js/ui.js")
+                .RegisterClientScript(new Files.Masters.ClientScripts.FilesConstantsResources());
 
 
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "calendar_full_screen",

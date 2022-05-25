@@ -35,6 +35,7 @@ var app = express();
 
 app.use(cookieParser());
 
+app.get('/isLife', short.isLife);
 app.get('/', short.make);
 app.get('/*', short.redirect);
 

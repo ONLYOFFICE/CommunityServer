@@ -16,9 +16,9 @@
 
 
 jq(function () {
-    jq('#saveMailDomainSettingsBtn').click(MailDomainSettingsManager.SaveSettings);
-    jq('input[name="signInType"]').click(MailDomainSettingsManager.SwitchSignInType);
-    jq('#addTrustDomainBtn').click(MailDomainSettingsManager.AddTrustedDomain);
+    jq('#saveMailDomainSettingsBtn').on("click", MailDomainSettingsManager.SaveSettings);
+    jq('input[name="signInType"]').on("click", MailDomainSettingsManager.SwitchSignInType);
+    jq('#addTrustDomainBtn').on("click", MailDomainSettingsManager.AddTrustedDomain);
     jq("input[type=radio][name=signInType][checked=checked]").prop("checked", true);
 });
 

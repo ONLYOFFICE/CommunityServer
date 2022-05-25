@@ -187,7 +187,7 @@ namespace ASC.Web.Community.News
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public string GetPreviewFull(string html)
         {
-            return HtmlUtility.GetFull(html);
+            return HtmlUtility.GetFull(html, false);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
@@ -243,7 +243,7 @@ namespace ASC.Web.Community.News
         protected string RedirectUpload()
         {
             return string.Format("{0}://{1}:{2}{3}", Request.GetUrlRewriter().Scheme, Request.GetUrlRewriter().Host, Request.GetUrlRewriter().Port,
-                                 VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?esid=news&newEditor=true" + (FeedId != 0 ? "&iid=" + FeedId.ToString() : ""));
+                                 VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?esid=news" + (FeedId != 0 ? "&iid=" + FeedId.ToString() : ""));
         }
     }
 

@@ -140,6 +140,11 @@ namespace ASC.Projects.Engine
             return DaoFactory.TaskDao.GetByFilterCountForReport(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
+        public List<Tuple<Guid, int, int>> GetByFilterAverageTime(TaskFilter filter)
+        {
+            return DaoFactory.TaskDao.GetByFilterAverageTime(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
+        }
+
         public IEnumerable<TaskFilterCountOperationResult> GetByFilterCountForStatistic(TaskFilter filter)
         {
             return DaoFactory.TaskDao.GetByFilterCountForStatistic(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);

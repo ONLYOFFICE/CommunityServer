@@ -59,6 +59,45 @@ namespace ASC.Core
             ObjectId = objectId;
         }
 
+        public static implicit operator AzRecord(AzRecordCache cache)
+        {
+            var result = new AzRecord()
+            {
+                Tenant = cache.Tenant
+            };
+
+
+            if (Guid.TryParse(cache.SubjectId, out var subjectId))
+            {
+                result.SubjectId = subjectId;
+            }
+
+            if (Guid.TryParse(cache.ActionId, out var actionId))
+            {
+                result.ActionId = actionId;
+            }
+
+            result.ObjectId = cache.ObjectId;
+
+            if (Enum.TryParse<AceType>(cache.Reaction, out var reaction))
+            {
+                result.Reaction = reaction;
+            }
+
+            return result;
+        }
+
+        public static implicit operator AzRecordCache(AzRecord cache)
+        {
+            return new AzRecordCache
+            {
+                SubjectId = cache.SubjectId.ToString(),
+                ActionId = cache.ActionId.ToString(),
+                ObjectId = cache.ObjectId,
+                Reaction = cache.Reaction.ToString(),
+                Tenant = cache.Tenant
+            };
+        }
 
         public override bool Equals(object obj)
         {
@@ -79,5 +118,14 @@ namespace ASC.Core
                 (ObjectId ?? string.Empty).GetHashCode() ^
                 Reaction.GetHashCode();
         }
+    }
+
+    public class AzRecordCache
+    {
+        public String SubjectId { get; set; }
+        public String ActionId { get; set; }
+        public String ObjectId { get; set; }
+        public String Reaction { get; set; }
+        public int Tenant { get; set; }
     }
 }

@@ -325,7 +325,7 @@
 
         if (!isInvalidRequest) {
             try {
-                response = jqXHR.responseObject || jQuery.parseJSON(jqXHR.responseText);
+                response = jqXHR.responseObject || JSON.parse(jqXHR.responseText);
             } catch (err) {
                 response = null;
                 isInvalidRequest = true;
@@ -359,7 +359,7 @@
                 req.__errors.push(errorMsg);
             } else {
                 try {
-                    response = jqXHR.responseObject || jQuery.parseJSON(jqXHR.responseText);
+                    response = jqXHR.responseObject || JSON.parse(jqXHR.responseText);
                 } catch (err) {
                     response = null;
                 }
@@ -452,7 +452,7 @@
                 }
                 if (typeof jqXHR.responseText === 'string') {
                     response = jqXHR.responseText.replace(/^<pre>/, '').replace(/<\/pre>$/, '');
-                    response = jQuery.parseJSON(jqXHR.responseText);
+                    response = JSON.parse(jqXHR.responseText);
                 }
             } catch (err) {
                 response = null;
@@ -605,7 +605,7 @@
             return undefined;
         }
 
-        response = jQuery.parseJSON(jqXHR.responseText);
+        response = JSON.parse(jqXHR.responseText);
         req = req.__processing === true ? req : null;
         if (!req) {
             return undefined;
@@ -660,7 +660,7 @@
             return undefined;
         }
 
-        response = jqXHR.responseObject || jQuery.parseJSON(jqXHR.responseText);
+        response = jqXHR.responseObject || JSON.parse(jqXHR.responseText);
         batchreq = batchreq.__processing === true ? batchreq : null;
         if (!batchreq) {
             return undefined;
@@ -705,7 +705,7 @@
             }
 
             try {
-                resp = jQuery.parseJSON(resp.data);
+                resp = JSON.parse(resp.data);
             } catch (err) {
                 resp = null;
             }
@@ -789,7 +789,7 @@
         if (typeof response === 'string') {
             response = response.replace(/^<pre>/, '').replace(/<\/pre>$/, '');
             try {
-                response = jQuery.parseJSON(response);
+                response = JSON.parse(response);
             } catch (err) {
                 response = null;
             }

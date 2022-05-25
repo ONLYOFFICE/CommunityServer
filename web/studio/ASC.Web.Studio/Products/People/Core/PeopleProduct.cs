@@ -96,7 +96,8 @@ namespace ASC.Web.People.Core
                 LargeIconFileName = "product_logolarge.svg",
                 DefaultSortOrder = 50,
                 AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
-                UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList()
+                UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList(),
+                SubscriptionManager = new PeopleSubscriptionManager()
             };
 
             SearchHandlerManager.Registry(new SearchHandler());

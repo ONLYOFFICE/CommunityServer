@@ -160,19 +160,6 @@ Ja radušies kādi jautājumi, sazinieties ar mums uz:
 Ar cieņu,
 ONLYOFFICE™ atbalsta komanda</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Paroles maiņas pieprasījums "${__VirtualRootPath}":"${__VirtualRootPath}" portālam
-
-Ir pieprasīta paroles maiņa, kuru izmantojāt, lai ieietu "${__VirtualRootPath}":"${__VirtualRootPath}" portālā.
-
-Lai mainītu paroli, sekojiet šai saitei:
-
-$GreenButton
-
-*Piezīme*: šī saite ir derīga tikai 7 dienas. Pabeidziet paroles maiņas procesu šajā laikā. 
-
-Ja nevēlaties mainīt savu paroli vai saņēmāt e-pastu kļūdas pēc, lūdzu, ignorējiet šo ziņu vai sazinieties ar savu  "${__VirtualRootPath}":"${__VirtualRootPath}" portāla administratoru.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Mobilā tālruņa maiņas pieprasījums
 
@@ -478,9 +465,6 @@ ONLYOFFICE komanda</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText} izveidota portāla ${__VirtualRootPath} rezerves kopija</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} palīdzība ar paroli</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Mobilā tālruņa numura nomaiņas pieprasījums</value>

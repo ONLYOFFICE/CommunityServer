@@ -108,25 +108,25 @@ window.ASC.Files.MediaPlayer = (function () {
             playerLoading = jq(".jp-loading");
             playerNoSolution = jq(".jp-no-solution");
 
-            jq("#mediaPlayerClose").click(closePlayer);
+            jq("#mediaPlayerClose").on("click", closePlayer);
 
-            jq("#videoViewerOverlay").click(closePlayer);
+            jq("#videoViewerOverlay").on("click", closePlayer);
 
-            playerRef.click(function () { jq(".jp-play").click(); });
+            playerRef.on("click", function () { jq(".jp-play").trigger("click"); });
 
-            playerProgressSeek.bind("mousedown.mediaPlayer", function (e) {
+            playerProgressSeek.on("mousedown.mediaPlayer", function (e) {
                 isSeeking = true;
                 barPos = e.clientX - e.offsetX;
                 barLength = jq(this).width();
             });
-            playerVolume.bind("mousedown.mediaPlayer", function (e) {
+            playerVolume.on("mousedown.mediaPlayer", function (e) {
                 isChangingVolume = true;
                 barPos = e.clientY - e.offsetY;
                 barLength = jq(this).height();
                 playerVolume.parent().addClass("isChanging");
             });
 
-            jq(window).bind("mouseup.mediaPlayer", function (e) {
+            jq(window).on("mouseup.mediaPlayer", function (e) {
                 if (isSeeking) {
                     isSeeking = false;
                     var perc = calcBarPerc(e.clientX);
@@ -140,7 +140,7 @@ window.ASC.Files.MediaPlayer = (function () {
                 }
             });
 
-            jq(window).bind("mousemove.mediaPlayer", function (e) {
+            jq(window).on("mousemove.mediaPlayer", function (e) {
                 if (isSeeking) {
                     var perc = calcBarPerc(e.clientX);
                     playerProgressSeek.children().width(perc * 100 + "%");
@@ -151,17 +151,17 @@ window.ASC.Files.MediaPlayer = (function () {
                 }
             });
 
-            jq("#videoDelete").click(deleteFile);
+            jq("#videoDelete").on("click", deleteFile);
 
-            jq("#videoDownload").click(function () {
+            jq("#videoDownload").on("click", function () {
                 location.href = options.downloadAction(currentFileId);
             });
 
-            jq("#mediaPrev").click(function () {
+            jq("#mediaPrev").on("click", function () {
                 if (playlist.length > 1)
                     prevMedia();
             });
-            jq("#mediaNext").click(function () {
+            jq("#mediaNext").on("click", function () {
                 if (playlist.length > 1)
                     nextMedia();
             });
@@ -294,7 +294,7 @@ window.ASC.Files.MediaPlayer = (function () {
             case keyCodes.spaceBar:
             case keyCodes.enter:
                 if (!isImage) {
-                    jq(".jp-play").click();
+                    jq(".jp-play").trigger("click");
                 }
                 return false;
 
@@ -308,7 +308,7 @@ window.ASC.Files.MediaPlayer = (function () {
 
             case keyCodes.S:
                 if (e.ctrlKey) {
-                    jq("#videoDownload").click();
+                    jq("#videoDownload").trigger("click");
                     return false;
                 }
         }
@@ -375,14 +375,14 @@ window.ASC.Files.MediaPlayer = (function () {
 
         if (!isImage) {
             playerRef.show();
-            jq(document).unbind("mousewheel.mediaPlayer");
-            jq(document).bind("mousewheel.mediaPlayer", function (event, delta) {
+            jq(document).off("mousewheel.mediaPlayer");
+            jq(document).on("mousewheel.mediaPlayer", function (event, delta) {
                 changeVolume(delta > 0 ? scrollVolumeStep : -scrollVolumeStep)
             });
         }
         
-        jq(document).unbind("keydown.mediaPlayer");
-        jq(document).bind("keydown.mediaPlayer", keyDownEvent);
+        jq(document).off("keydown.mediaPlayer");
+        jq(document).on("keydown.mediaPlayer", keyDownEvent);
 
         if (isImage
             || (mapSupplied[ext].type == audio && playerRef.children("video").length)
@@ -438,19 +438,19 @@ window.ASC.Files.MediaPlayer = (function () {
                     loadeddata: function () {
                         positionControls();
                         playerLoading.hide();
-                        jq(window).unbind("resize.mediaPlayer");
-                        jq(window).bind("resize.mediaPlayer", positionControls);
-                        jq(document).unbind("webkitfullscreenchange.mediaPlayer");
-                        jq(document).unbind("fullscreenchange.mediaPlayer");
-                        jq(document).bind("webkitfullscreenchange.mediaPlayer", positionControls);
-                        jq(document).bind("fullscreenchange.mediaPlayer", positionControls);
+                        jq(window).off("resize.mediaPlayer");
+                        jq(window).on("resize.mediaPlayer", positionControls);
+                        jq(document).off("webkitfullscreenchange.mediaPlayer");
+                        jq(document).off("fullscreenchange.mediaPlayer");
+                        jq(document).on("webkitfullscreenchange.mediaPlayer", positionControls);
+                        jq(document).on("fullscreenchange.mediaPlayer", positionControls);
 
                         var vid = playerRef.children("video");
 
-                        vid.bind('enterpictureinpicture.vjp', function (event) {
+                        vid.on('enterpictureinpicture.vjp', function (event) {
                             pipMode = true;
                         });
-                        vid.bind('leavepictureinpicture.vjp', function (event) {
+                        vid.on('leavepictureinpicture.vjp', function (event) {
                             pipMode = false;
                             pipModeExit = new Date();
                         });
@@ -461,7 +461,7 @@ window.ASC.Files.MediaPlayer = (function () {
                         if (mapSupplied[ext].type == audio) {
                             media.poster = "/UserControls/Common/MediaViewer/Images/volume.svg";
                         } else {
-                            playerRef.dblclick(function () {
+                            playerRef.on("dblclick", function () {
                                 playerRef.jPlayer("option", "fullScreen", !playerRef.jPlayer("option", "fullScreen"));
                             });
 
@@ -580,7 +580,7 @@ window.ASC.Files.MediaPlayer = (function () {
         if (createOverlay) {
             createOverlay = false;
             playerRef.append("<div id=\"videoOverlay\" title=\"" + ASC.Resources.Master.UserControlsCommonResource.MediaViewerPlay + "\"></div>");
-            overlayRef = jq("#videoOverlay").click(function () { playerRef.jPlayer("play"); });
+            overlayRef = jq("#videoOverlay").on("click", function () { playerRef.jPlayer("play"); });
         }
         if (overlayRef)
             overlayRef.css({
@@ -607,11 +607,11 @@ window.ASC.Files.MediaPlayer = (function () {
 
         hideError();
 
-        jq(window).unbind("resize.mediaPlayer");
-        jq(document).unbind("webkitfullscreenchange.mediaPlayer");
-        jq(document).unbind("fullscreenchange.mediaPlayer");
-        jq(document).unbind("mousewheel.mediaPlayer");
-        jq(document).unbind("keydown.mediaPlayer");
+        jq(window).off("resize.mediaPlayer");
+        jq(document).off("webkitfullscreenchange.mediaPlayer");
+        jq(document).off("fullscreenchange.mediaPlayer");
+        jq(document).off("mousewheel.mediaPlayer");
+        jq(document).off("keydown.mediaPlayer");
         jq("html").removeClass("scroll-fix");
 
         exitPipMode();

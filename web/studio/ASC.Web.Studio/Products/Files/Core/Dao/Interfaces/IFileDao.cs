@@ -296,6 +296,10 @@ namespace ASC.Files.Core
 
         Stream GetThumbnail(File file);
 
+        EntryProperties GetProperties(object fileId);
+
+        void SaveProperties(object fileId, EntryProperties entryProperties);
+
         #endregion
     }
 }

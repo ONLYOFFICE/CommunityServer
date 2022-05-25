@@ -29,7 +29,7 @@
         <div class="headerPanelSmall-splitter">
             <b><%=NewsResource.NewsBody%>:</b>
         </div>
-        <textarea id="ckEditor" name="news_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%=_text%></textarea>
+        <textarea id="ckEditor" name="news_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%:_text%></textarea>
     </div>
 
     <div class="big-button-container" id="panel_buttons">

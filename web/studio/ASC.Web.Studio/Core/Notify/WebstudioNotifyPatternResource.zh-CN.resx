@@ -163,19 +163,6 @@ $GreenButton
 ONLYOFFICE™客服团队
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" 门户密码变更请求
-
-有一个变更您进入 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户所使用密码的请求。
-
-请使用下面的链接，以变更密码:
-
-$GreenButton
-
-*注意*：此链接仅7天有效。请在此期限内完成密码变更过程。
-
-如果您不想更改密码或错误收到此电子邮件，请忽略它或与您 "${__VirtualRootPath}":"${__VirtualRootPath}" 的门户管理员联系，以了解详情。</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.手机号码修改请求
 
@@ -456,9 +443,6 @@ ONLYOFFICE团队</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}. ${__VirtualRootPath}门户备份已创建</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText}密码助手</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}。手机号码更改请求</value>

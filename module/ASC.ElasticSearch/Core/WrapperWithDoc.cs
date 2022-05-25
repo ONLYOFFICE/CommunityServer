@@ -33,6 +33,8 @@ namespace ASC.ElasticSearch.Core
     {
         public Document Document { get; set; }
 
+        private ILog Log = LogManager.GetLogger("ASC.Indexer");
+
         public static readonly long MaxFileSize = Settings.Default.MaxFileSize;
 
         protected virtual Task<string> GetDocumentDataAsync()
@@ -83,11 +85,11 @@ namespace ASC.ElasticSearch.Core
             }
             catch (FileNotFoundException e)
             {
-                LogManager.GetLogger("ASC.Indexer").Error("InitDocument FileNotFoundException", e);
+                Log.Error("InitDocument FileNotFoundException", e);
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC.Indexer").Error("InitDocument", e);
+                Log.Error("InitDocument", e);
             }
         }
 
@@ -123,11 +125,11 @@ namespace ASC.ElasticSearch.Core
             }
             catch (FileNotFoundException e)
             {
-                LogManager.GetLogger("ASC.Indexer").Error("InitDocument FileNotFoundException", e);
+                Log.Error("InitDocument FileNotFoundException", e);
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC.Indexer").Error("InitDocument", e);
+                Log.Error("InitDocument", e);
             }
         }
     }

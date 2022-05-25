@@ -66,6 +66,7 @@ window.Teamlab = (function () {
         setMailMailboxState: 'onsetmailmailboxstate',
         removeMailMessageAttachment: 'onremovemailmessageattachment',
         sendMailMessage: 'onsendmailmessage',
+        sendMailReceipt: 'onsendmailreceipt',
         saveMailMessage: 'onsavemailmessage',
         saveMailTemplate: 'onsavemailtemplate',
         searchEmails: 'ongetSearchEmails',
@@ -148,6 +149,7 @@ window.Teamlab = (function () {
         addSubtask: 'addsubtask',
         removeSubtask: 'removesubtask',
         updateSubtask: 'updateSubtask',
+        moveSubtask: 'moveSubtask',
         removePrjTask: 'removePrjTask',
         removePrjTasks: 'removePrjTasks',
         updatePrjTask: 'updatePrjTask',
@@ -168,7 +170,8 @@ window.Teamlab = (function () {
         getCrmContactsForProject: 'getCrmContactsForProject',
         addCrmContactForProject: 'addCrmContactForProject',
         removeCrmContactFromProject: 'removeCrmContactFromProject',
-        getDocFolder: 'getDocFolder'
+        getDocFolder: 'getDocFolder',
+        getAutoCleanUp: 'getAutoCleanUp'
     },
         customEventsHash = {},
         eventManager = new CustomEvent(customEvents);
@@ -434,6 +437,17 @@ window.Teamlab = (function () {
         );
     };
 
+    var subscribePeopleBirthday = function (params, data, options) {
+        return addRequest(
+            null,
+            params,
+            ADD,
+            'people/birthdays/reminder.json',
+            data,
+            options
+        );
+    };
+
     var addGroup = function (params, data, options) {
         addRequest(
             null,
@@ -617,17 +631,6 @@ window.Teamlab = (function () {
             params,
             UPDATE,
             'people/self/delete.json',
-            null,
-            options
-        );
-    };
-
-    var joinAffiliate = function (params, options) {
-        return addRequest(
-            null,
-            params,
-            UPDATE,
-            'people/self/joinaffiliate.json',
             null,
             options
         );
@@ -891,18 +894,6 @@ window.Teamlab = (function () {
         );
     };
 
-    var subscribeCmtBirthday = function (params, data, options) {
-        addRequest(
-            null,
-            params,
-            ADD,
-            'community/birthday.json',
-            data,
-            options
-        );
-        return true;
-    };
-
     var getCmtPreview = function (params, data, options) {
         return addRequest(
             null,
@@ -1107,6 +1098,18 @@ window.Teamlab = (function () {
             params,
             ADD,
             'project/task/' + taskid + '/' + id + '/copy.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var movePrjSubtask = function (params, taskid, id, options) {
+        addRequest(
+            customEvents.moveSubtask,
+            params,
+            UPDATE,
+            'project/task/' + taskid + '/' + id + '/move.json',
             null,
             options
         );
@@ -1822,6 +1825,29 @@ window.Teamlab = (function () {
                 }
             }
         });
+    };
+
+
+    var getCardDavLink = function (params, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'settings/carddavurl',
+            null,
+            options
+        );
+    };
+
+    var deleteCardDavLink = function (params, options) {
+        addRequest(
+            null,
+            params,
+            REMOVE,
+            'settings/deletebook',
+            null,
+            options
+        );
     };
 
     var removePrjProject = function (id, options) {
@@ -3048,6 +3074,69 @@ window.Teamlab = (function () {
             },
             options
         );
+    };
+
+    var changeAutomaticallyCleanUp = function (set, gap, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/settings/autocleanup.json",
+            {
+                set: set,
+                gap: gap
+            },
+            options
+        );
+    };
+
+    var filesChangeDafaultAccessRightsSetting = function (value, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/settings/dafaultaccessrights.json",
+            {
+                value: value
+            },
+            options
+        );
+    };
+
+    var getFileProperties = function (params, id, options) {
+        addRequest(
+            null,
+            params,
+            GET,
+            'files/' + id + '/properties.json',
+            null,
+            options
+        );
+        return true;
+    };
+
+    var setFileProperties = function (params, id, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'files/' + id + '/properties.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var setFilesProperties = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            UPDATE,
+            'files/batch/properties.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var copyDocFileAs = function (params, id, data, options) {
@@ -6187,6 +6276,17 @@ window.Teamlab = (function () {
         );
     };
 
+    var simpleMailSend = function (params, message, options) {
+        return addRequest(
+            customEvents.sendMailReceipt,
+            params,
+            UPDATE,
+            'mail/messages/simpleSend.json',
+            message.ToData(),
+            options
+        );
+    };
+
     var saveMailMessage = function (params, message, options) {
         if (!(message instanceof ASC.Mail.Message)) {
             console.error("Unsupported message format");
@@ -7366,6 +7466,17 @@ window.Teamlab = (function () {
         );
     };
 
+    var closeAdminHelper = function (options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            'settings/closeadminhelper.json',
+            null,
+            options
+        );
+    };
+
     var setColorTheme = function (params, theme, options) {
         return addRequest(
             null,
@@ -7834,6 +7945,65 @@ window.Teamlab = (function () {
                     LoginHistoryLifeTime: loginLifeTime,
                     AuditTrailLifeTime: auditLifeTime
                 }
+            },
+            options
+        );
+    };
+
+    var getLoginEventsForProfile = function (params, options) {
+        return addRequest(
+            null,
+            null,
+            GET,
+            'security/activeconnections.json',
+            null,
+            options
+        );
+    };
+
+    var logoutAllActiveConnectionsWithChangePassword = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/activeconnections/logoutallchangepassword.json',
+            null,
+            options
+        );
+    };
+
+    var logoutAllActiveConnectionsForUser = function (params, userId, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/activeconnections/logoutall/' + userId + '.json',
+            {
+                userId : userId
+            },
+            options
+        );
+    };
+
+    var logoutAllActiveConnectionsExceptThis = function (params, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/activeconnections/logoutallexceptthis.json',
+            null,
+            options
+        );
+    };
+
+    var logoutActiveConnection = function (params, loginEventId, options) {
+        return addRequest(
+            null,
+            params,
+            UPDATE,
+            'security/activeconnections/logout/' + loginEventId + '.json',
+            {
+                loginEventId: loginEventId
             },
             options
         );
@@ -8329,6 +8499,7 @@ window.Teamlab = (function () {
         getProfiles: getProfiles,
         getProfilesByFilter: getProfilesByFilter,
         getSimpleProfilesByFilter: getSimpleProfilesByFilter,
+        subscribePeopleBirthday: subscribePeopleBirthday,
         addGroup: addGroup,
         updateGroup: updateGroup,
         getGroup: getGroup,
@@ -8346,7 +8517,6 @@ window.Teamlab = (function () {
         removeUsers: removeUsers,
         getUserGroups: getUserGroups,
         removeSelf: removeSelf,
-        joinAffiliate: joinAffiliate,
 
         addCmtBlog: addCmtBlog,
         getCmtBlog: getCmtBlog,
@@ -8371,7 +8541,6 @@ window.Teamlab = (function () {
         subscribeCmtEventComment: subscribeCmtEventComment,
         addCmtBookmarkComment: addCmtBookmarkComment,
         getCmtBookmarkComments: getCmtBookmarkComments,
-        subscribeCmtBirthday: subscribeCmtBirthday,
         getCmtPreview: getCmtPreview,
 
         subscribeProject: subscribeProject,
@@ -8433,6 +8602,7 @@ window.Teamlab = (function () {
         getPrjEntityFiles: getPrjEntityFiles,
         addPrjSubtask: addPrjSubtask,
         copyPrjSubtask: copyPrjSubtask,
+        movePrjSubtask: movePrjSubtask,
         updatePrjSubtask: updatePrjSubtask,
         updatePrjTask: updatePrjTask,
         updatePrjTasksStatus: updatePrjTasksStatus,
@@ -8551,7 +8721,13 @@ window.Teamlab = (function () {
         createThumbnails: createThumbnails,
         createFile: createFile,
         filesDownloadTarGz: filesDownloadTarGz,
+        changeAutomaticallyCleanUp: changeAutomaticallyCleanUp,
+        filesChangeDafaultAccessRightsSetting: filesChangeDafaultAccessRightsSetting,
         copyDocFileAs: copyDocFileAs,
+
+        getFileProperties: getFileProperties,
+        setFileProperties: setFileProperties,
+        setFilesProperties: setFilesProperties,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -8611,6 +8787,8 @@ window.Teamlab = (function () {
         removePrjTasks: removePrjTasks,
         removeCaldavProjectCalendar: removeCaldavProjectCalendar,
         getCalendarCaldavUrl: getCalendarCaldavUrl,
+        getCardDavLink: getCardDavLink,
+        deleteCardDavLink: deleteCardDavLink,
         addCrmTask: addCrmTask,
         addCrmTaskGroup: addCrmTaskGroup,
         getCrmTask: getCrmTask,
@@ -8811,6 +8989,7 @@ window.Teamlab = (function () {
         setMailMailboxState: setMailMailboxState,
         removeMailMessageAttachment: removeMailMessageAttachment,
         sendMailMessage: sendMailMessage,
+        simpleMailSend: simpleMailSend,
         saveMailMessage: saveMailMessage,
         saveMailTemplate: saveMailTemplate,
         reassignMailMessages: reassignMailMessages,
@@ -8921,6 +9100,11 @@ window.Teamlab = (function () {
         getLoginEvents: getLoginEvents,
         createLoginHistoryReport: createLoginHistoryReport,
         createAuditTrailReport: createAuditTrailReport,
+        getLoginEventsForProfile: getLoginEventsForProfile,
+        logoutAllActiveConnectionsWithChangePassword: logoutAllActiveConnectionsWithChangePassword,
+        logoutAllActiveConnectionsForUser: logoutAllActiveConnectionsForUser,
+        logoutAllActiveConnectionsExceptThis: logoutAllActiveConnectionsExceptThis,
+        logoutActiveConnection: logoutActiveConnection,
 
         getAuditSettings: getAuditSettings,
         setAuditSettings: setAuditSettings,
@@ -8941,6 +9125,7 @@ window.Teamlab = (function () {
         telegramDisconnect: telegramDisconnect,
 
         closeWelcomePopup: closeWelcomePopup,
+        closeAdminHelper: closeAdminHelper,
         setColorTheme: setColorTheme,
         setTimaAndLanguage: setTimaAndLanguage,
         setDefaultpage: setDefaultpage,

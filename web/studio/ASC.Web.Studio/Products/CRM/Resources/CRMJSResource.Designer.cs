@@ -629,6 +629,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete the file because it is opened for editing.
+        /// </summary>
+        public static string ErrorMassage_SecurityException_DeleteEditingFile {
+            get {
+                return ResourceManager.GetString("ErrorMassage_SecurityException_DeleteEditingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image format is not supported.
         /// </summary>
         public static string ErrorMessage_NotImageSupportFormat {

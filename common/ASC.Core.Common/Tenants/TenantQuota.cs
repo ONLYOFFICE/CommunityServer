@@ -55,9 +55,6 @@ namespace ASC.Core.Tenants
         [DataMember(Name = "Price", Order = 70)]
         public decimal Price { get; set; }
 
-        [DataMember(Name = "Price2", Order = 80)]
-        public decimal Price2 { get; set; }
-
         [DataMember(Name = "AvangateId", Order = 90)]
         public string AvangateId { get; set; }
 
@@ -102,12 +99,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("open", value); }
         }
 
-        public bool ControlPanel
-        {
-            get { return GetFeature("controlpanel"); }
-            set { SetFeature("controlpanel", value); }
-        }
-
         public bool Update
         {
             get { return GetFeature("update"); }
@@ -138,12 +129,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("domain", value); }
         }
 
-        public bool HealthCheck
-        {
-            get { return GetFeature("healthcheck"); }
-            set { SetFeature("healthcheck", value); }
-        }
-
         public bool HasMigration
         {
             get { return GetFeature("migration"); }
@@ -162,18 +147,6 @@ namespace ASC.Core.Tenants
             set { SetFeature("sso", value); }
         }
 
-        public bool Branding
-        {
-            get { return GetFeature("branding"); }
-            set { SetFeature("branding", value); }
-        }
-
-        public bool SSBranding
-        {
-            get { return GetFeature("ssbranding"); }
-            set { SetFeature("ssbranding", value); }
-        }
-
         public bool WhiteLabel
         {
             get { return GetFeature("whitelabel"); }
@@ -186,22 +159,16 @@ namespace ASC.Core.Tenants
             set { SetFeature("customization", value); }
         }
 
-        public bool DiscEncryption
-        {
-            get { return GetFeature("discencryption"); }
-            set { SetFeature("discencryption", value); }
-        }
-
-        public bool PrivacyRoom
-        {
-            get { return GetFeature("privacyroom"); }
-            set { SetFeature("privacyroom", value); }
-        }
-
         public bool EnableMailServer
         {
             get { return GetFeature("mailserver"); }
             set { SetFeature("mailserver", value); }
+        }
+
+        public bool Custom
+        {
+            get { return GetFeature("custom"); }
+            set { SetFeature("custom", value); }
         }
 
         public int CountAdmin
@@ -252,32 +219,6 @@ namespace ASC.Core.Tenants
         {
             get { return GetFeature("contentsearch"); }
             set { SetFeature("contentsearch", value); }
-        }
-
-        public int CountPortals
-        {
-            get
-            {
-                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
-                var portals = features.FirstOrDefault(f => f.StartsWith("portals:"));
-                int countPortals;
-                if (portals == null || !Int32.TryParse(portals.Replace("portals:", ""), out countPortals) || countPortals <= 0)
-                {
-                    countPortals = 0;
-                }
-                return countPortals;
-            }
-            set
-            {
-                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
-                var portals = features.FirstOrDefault(f => f.StartsWith("portals:"));
-                features.Remove(portals);
-                if (value > 0)
-                {
-                    features.Add("portals:" + value);
-                }
-                Features = string.Join(",", features.ToArray());
-            }
         }
 
         public bool ThirdParty

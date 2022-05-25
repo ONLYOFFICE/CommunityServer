@@ -19,6 +19,6 @@ namespace ASC.MessagingSystem
 {
     public interface IMessageSender
     {
-        void Send(EventMessage message);
+        int Send(EventMessage message);
     }
 }

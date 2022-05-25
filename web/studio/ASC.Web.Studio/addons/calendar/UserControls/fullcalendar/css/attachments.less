@@ -1,0 +1,312 @@
+﻿/*
+*
+* (c) Copyright Ascensio System Limited 2010-2021
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* http://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+
+@head-row-height: 27px;
+@spliter-width: 8px;
+@attach-column-padding-left: @spliter-width * 3 - 2;
+@border-style: 1px solid #d7d8dc;
+@row-height: 33px;
+@selected-row_bg: #f2f2f2;
+@hovered-row_bg: #e5e5e5;
+
+.simpleWrapper {
+    width: auto;
+    margin: 0;
+
+    #attachment_upload_pnl {
+        margin-top: 6px;
+        margin-bottom: 12px;
+
+        .attachLink {
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        #attachments_limit_txt {
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll,
+        .link:active.deleteAll,
+        .link:hover.deleteAll,
+        .link:visited.deleteAll {
+            display: inline-block;
+            margin-left: 16px;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll:after {
+            background: url("../img/base_sprite.png") no-repeat -57px -84px;
+            content: "";
+            cursor: pointer;
+            display: block;
+            height: 20px;
+            left: -17px;
+            margin-top: -12px;
+            position: absolute;
+            top: 50%;
+            width: 14px;
+        }
+    }
+}
+
+.attachments-list {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+
+    .row:first-child {
+        border-top: 1px solid #d7d8dc;
+    }
+
+    .row {
+        height: @row-height;
+        border-bottom: 1px solid #d7d8dc;
+        cursor: default;
+
+        td {
+            line-height: 21px;
+            vertical-align: middle;
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: inline;
+            }
+        }
+
+        .file_icon {
+            width: @head-row-height;
+            padding-left: @spliter-width;
+        }
+
+        .file_info {
+            width: 100%;
+
+            a {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+
+                .file-name {
+                    max-width: 80%;
+                }
+
+                .file-extension {
+                    color: #A2A2A2;
+                    display: inline;
+                }
+            }
+
+            .fullSizeLabel {
+                max-width: 15%;
+            }
+        }
+
+        .delete_icon {
+            width: 16px;
+            padding-left: @attach-column-padding-left;
+
+            .delete_attachment {
+                background: url("../img/base_sprite.png") no-repeat;
+                background-position: 0 -40px;
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+            }
+        }
+
+        .attachment-progress {
+            width: 100px;
+            display: inline-block;
+
+            .fu-progress-cell {
+                text-align: center;
+
+                .upload-progress {
+                    background-color: #D1D1D1;
+                    color: #FFFFFF;
+                    width: 100px;
+                    position: relative;
+                    height: 15px;
+                    overflow: hidden;
+
+                    .progress-slider {
+                        left: 0;
+                        position: absolute;
+                        width: 0;
+                        height: 14px;
+                    }
+
+                    .progress-label {
+                        left: 0;
+                        font-size: 10px;
+                        position: absolute;
+                        width: 100%;
+                        top: -3px;
+                    }
+                }
+            }
+        }
+
+        .load_result {
+            padding-left: @attach-column-padding-left;
+
+            .file-load-result {
+                max-width: 95%;
+                display: inline-block;
+                float: left;
+            }
+        }
+
+        .icon_edit {
+            width: @head-row-height / 2;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: @spliter-width / 2;
+        }
+
+        .menu_column {
+            padding-right: 9px;
+            width: @head-row-height;
+
+            .entity-menu {
+                margin: 0 0 0 6px;
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+
+        &:hover,
+        &.selected {
+            .file-name {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            a.unloded {
+                .file-name {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: default;
+                }
+            }
+
+            .delete_attachment {
+                background-position: 0px -40px !important;
+            }
+        }
+    }
+}
+
+.attachments-list-viewer {
+    width: 360px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+
+    .row:first-child {
+        border-top: 1px solid #d7d8dc;
+    }
+
+    .row {
+        height: @row-height;
+        border-bottom: 1px solid #d7d8dc;
+        cursor: default;
+
+        td {
+            line-height: 21px;
+            vertical-align: middle;
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: inline;
+            }
+        }
+
+        .file_icon {
+            width: @head-row-height;
+            padding-left: @spliter-width;
+        }
+
+        .file_info {
+            width: 100%;
+
+            a {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+
+                .file-name {
+                    max-width: 80%;
+                }
+
+                .file-extension {
+                    color: #A2A2A2;
+                    display: inline;
+                }
+            }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+
+        &:hover,
+        &.selected {
+            .file-name {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.uploaded-text {
+    color: #a2a2a2 !important;
+}

@@ -221,7 +221,7 @@ var defineBodyMediaClass = function () {
         }
     });
 
-    jq("#commonLogout").click(function() {
+    jq("#commonLogout").on("click", function() {
         if (typeof SmallChat != "undefined" && SmallChat.logoutEvent) {
             SmallChat.logoutEvent();
         }
@@ -380,7 +380,7 @@ var defineBodyMediaClass = function () {
 jq("table.mainPageTable").tlBlock();
 
 //hack for resizing filter
-setTimeout("jq(window).resize()", 500);
+setTimeout("jq(window).trigger('resize')", 500);
 
 jq(window).one("resize", function () {
     clearTimeout(jq.data(this, 'resizeWinTimer'));

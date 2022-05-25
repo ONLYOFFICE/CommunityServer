@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AllRightsReservedCustomMode" xml:space="preserve">
-    <value>© 1999 - {0}. АО "Новые коммуникационные технологии". Все права защищены.</value>
+    <value>© 1999 - {0}. АО "Р7". Все права защищены.</value>
   </data>
   <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
     <value>Организуйте эффективную совместную работу над документами, таблицами и презентациями. Два режима совместного редактирования, комментарии, чат, история версий.</value>
@@ -228,32 +228,6 @@ h3.Возможности тестового облака Р7-Офис:
 С уважением,
 Команда Р7-Офис</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Подключите свое облачное хранилище к ONLYOFFICE $PersonalHeaderEnd
-
-Прошла неделя с тех пор, как вы создали свой облачный офис, и мы хотели бы рассказать вам о некоторых полезных возможностях, которые вы могли не заметить.
-
-Подключите *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* или *Yandex.Disk* к ONLYOFFICE, чтобы создать единое пространство для управления всеми документами. Вы сможете редактировать сторонние файлы в ONLYOFFICE и сохранять их в том хранилище, где ведете документацию. Инструкции по подключению файловых хранилищ к ONLYOFFICE можно найти "здесь":"${__HelpLink}/tipstricks/add-resource.aspx".
-
-Вы также можете интегрировать редакторы ONLYOFFICE в Google Drive с помощью нашего "коннектора":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Еще больше возможностей для управления документами
-
-h3.Попробуйте бизнес-решения ONLYOFFICE "в облаке":"https://www.onlyoffice.com/cloud-office.aspx" или "на собственном сервере":"https://www.onlyoffice.com/server-solutions.aspx". Они бесплатны в течение 30 дней пробного периода и наряду с набором инструментов для бизнеса включают в себя расширенные возможности управления документами:
-
-- Управление проектной документацией;
-
-- Интеграция с CRM и электронной почтой;
-
-- Индивидуальные и групповые права доступа;
-
-- Оптимизация рабочего процесса с помощью инструментов для взаимодействия с командой.
-
-Узнайте больше о возможностях "бизнес-версий ONLYOFFICE":"http://www.onlyoffice.com/document-management.aspx".
-
-С уважением,
-команда ONLYOFFICE</value>
-  </data>
   <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
     <value>Хотите изменить адрес электронной почты в своем аккаунте?
 
@@ -267,19 +241,14 @@ $GreenButton
 
 Не хотите менять адрес электронной почты? Просто проигнорируйте это сообщение.</value>
   </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Был получен запрос на смену пароля, который Вы используете для входа на портал "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Пожалуйста, перейдите по ссылке ниже, чтобы сменить Ваш пароль:
+  <data name="pattern_personal_custom_mode_change_password_v115" xml:space="preserve">
+    <value>Хотите изменить пароль от своего аккаунта? Нажмите на кнопку, чтобы подтвердить смену.
 
 $GreenButton
 
-*Обратите внимание*: эта ссылка действительна только 7 дней. Пожалуйста, выполните смену пароля в течение этого времени.
+Ссылка действует 7 дней.
 
-Если Вы не хотите менять Ваш пароль или получили это письмо по ошибке, пожалуйста, проигнорируйте его.
-
-С уважением,
-Команда Р7-Офис</value>
+Не хотите менять пароль? Просто проигнорируйте это сообщение.</value>
   </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Здравствуйте,
@@ -379,12 +348,6 @@ $GreenButton
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Добро пожаловать в ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Работайте над документами совместно в тестовом облаке Р7-Офис</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Р7-Офис. Помощь с паролем</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Р7-Офис. Пожалуйста, активируйте Ваш адрес электронной почты</value>

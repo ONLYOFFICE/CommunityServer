@@ -35,6 +35,7 @@ namespace ASC.Web.UserControls.Wiki
         public static INotifyAction NewPage = new NotifyAction("new wiki page", WikiResource.NotifyAction_NewPage);
         public static INotifyAction EditPage = new NotifyAction("edit wiki page", WikiResource.NotifyAction_ChangePage);
         public static INotifyAction AddPageToCat = new NotifyAction("add page to cat", WikiResource.NotifyAction_AddPageToCat);
+        public static INotifyAction MentionForWikiComment = new NotifyAction("mention for wiki comment");
 
         public static string TagPageName = "PageName";
         public static string TagURL = "URL";

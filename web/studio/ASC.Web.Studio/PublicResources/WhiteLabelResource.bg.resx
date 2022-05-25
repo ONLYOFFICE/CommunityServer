@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>Функцията {0} Настройки на логото на портала {1} е достъпна само за платени портали.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Лого за страницата За/Вход</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Лого за заглавието на редакторите</value>
   </data>

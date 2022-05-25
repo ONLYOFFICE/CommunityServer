@@ -28,9 +28,7 @@ namespace ASC.Core.Caching
         private readonly ICache cache;
         private readonly ICacheNotify cacheNotify;
 
-
         public TimeSpan CacheExpiration { get; set; }
-
 
         public CachedAzService(IAzService service)
         {
@@ -41,7 +39,7 @@ namespace ASC.Core.Caching
             CacheExpiration = TimeSpan.FromMinutes(10);
 
             cacheNotify = AscCache.Notify;
-            cacheNotify.Subscribe<AzRecord>((r, a) => UpdateCache(r.Tenant, r, a == CacheNotifyAction.Remove));
+            cacheNotify.Subscribe<AzRecordCache>((r, a) => UpdateCache(r.Tenant, r, a == CacheNotifyAction.Remove));
         }
 
 
@@ -60,14 +58,14 @@ namespace ASC.Core.Caching
         public AzRecord SaveAce(int tenant, AzRecord r)
         {
             r = service.SaveAce(tenant, r);
-            cacheNotify.Publish(r, CacheNotifyAction.InsertOrUpdate);
+            cacheNotify.Publish((AzRecordCache)r, CacheNotifyAction.InsertOrUpdate);
             return r;
         }
 
         public void RemoveAce(int tenant, AzRecord r)
         {
             service.RemoveAce(tenant, r);
-            cacheNotify.Publish(r, CacheNotifyAction.Remove);
+            cacheNotify.Publish((AzRecordCache)r, CacheNotifyAction.Remove);
         }
 
 

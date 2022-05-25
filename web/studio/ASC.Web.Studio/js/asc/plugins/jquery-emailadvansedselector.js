@@ -98,7 +98,7 @@
             if (typeof value === "string")
                 parsedItems = ASC.Mail.Utility.ParseAddresses(value).addresses;
 
-            if (jq.isArray(value))
+            if (Array.isArray(value))
                 parsedItems = value;
 
             var result = [];
@@ -132,7 +132,7 @@
                     self.settings.onChangeCallback();
             }
 
-            self.input.focus();
+            self.input.trigger("focus");
         };
 
         this.drawItems = function(items, nextObj) {
@@ -254,10 +254,10 @@
             };
 
             self.obj.on("click", function () {
-                self.input.focus();
+                self.input.trigger("focus");
             });
 
-            self.obj.scroll(function () {
+            self.obj.on("scroll", function () {
                 self.hiddenInput.css("top", self.obj.scrollTop() + "px");
             });
 
@@ -269,7 +269,7 @@
                 if (self.settings.onChangeCallback)
                     self.settings.onChangeCallback();
 
-                self.input.focus();
+                self.input.trigger("focus");
 
                 e.stopPropagation();
             });
@@ -290,7 +290,7 @@
                     target.addClass("selected");
                 }
 
-                self.hiddenInput.val(self.getString(true)).focus().select();
+                self.hiddenInput.val(self.getString(true)).trigger("focus").trigger("select");
 
                 e.stopPropagation();
             });
@@ -307,7 +307,7 @@
                 self.editedValue = target.data("item-data").ToString();
                 var width = self.buffer.text(self.editedValue).width();
                 target.replaceWith(self.input);
-                self.input.val(self.editedValue).width(width).focus();
+                self.input.val(self.editedValue).width(width).trigger("focus");
             });
 
             self.obj.on("input", "input[type=text]", function () {
@@ -322,12 +322,12 @@
                         if (self.obj.find(".emailselector-item.selected").length === 1)
                             self.obj.find(".emailselector-item.selected").trigger("dblclick");
                         else
-                            self.input.focus();
+                            self.input.trigger("focus");
                         break;
                     case keyCode.A:
                         if (e.ctrlKey) {
                             self.obj.find(".emailselector-item").addClass("selected");
-                            self.hiddenInput.val(self.getString(true)).select();
+                            self.hiddenInput.val(self.getString(true)).trigger("select");
                         }
                         break;
                     case keyCode.Z:
@@ -358,7 +358,7 @@
                         if (self.settings.onChangeCallback)
                             self.settings.onChangeCallback();
 
-                        self.input.focus();
+                        self.input.trigger("focus");
                         break;
                     case keyCode.left:
                         var leftSelected = self.obj.find(".emailselector-item.selected:" + (self.selectionMode === "right" ? "last" : "first"));
@@ -382,7 +382,7 @@
                                     prev.addClass("selected");
                                     self.selectionMode = null;
                                 }
-                                self.hiddenInput.val(self.getString(true)).select();
+                                self.hiddenInput.val(self.getString(true)).trigger("select");
                             }
                         }
                         break;
@@ -408,10 +408,10 @@
                                     next.addClass("selected");
                                     self.selectionMode = null;
                                 }
-                                self.hiddenInput.val(self.getString(true)).select();
+                                self.hiddenInput.val(self.getString(true)).trigger("select");
                             } else {
                                 self.obj.find(".emailselector-item").removeClass("selected");
-                                self.input.focus();
+                                self.input.trigger("focus");
                             }
                         }
                         break;
@@ -431,7 +431,7 @@
                     self.settings.onChangeCallback();
 
                 setTimeout(function () {
-                    self.input.focus();
+                    self.input.trigger("focus");
                 }, 0);
             });
 
@@ -441,14 +441,14 @@
 
                 if (e.keyCode === keyCode.enter) {
                     self.addItem(value.trim(), true);
-                    self.input.focus();
+                    self.input.trigger("focus");
                 }
 
                 if (!value) {
                     if (e.ctrlKey && e.keyCode === keyCode.A) {
-                        self.hiddenInput.focus();
+                        self.hiddenInput.trigger("focus");
                         self.obj.find(".emailselector-item").addClass("selected");
-                        self.hiddenInput.val(self.getString(true)).select();
+                        self.hiddenInput.val(self.getString(true)).trigger("select");
                     }
 
                     if (e.ctrlKey && e.keyCode === keyCode.Z) {
@@ -479,13 +479,13 @@
                         if (self.settings.onChangeCallback)
                             self.settings.onChangeCallback();
 
-                        self.input.focus();
+                        self.input.trigger("focus");
                     }
 
                     if (e.keyCode === keyCode.left) {
-                        self.hiddenInput.focus();
+                        self.hiddenInput.trigger("focus");
                         self.obj.find(".emailselector-item:last").addClass("selected");
-                        self.hiddenInput.val(self.getString(true)).select();
+                        self.hiddenInput.val(self.getString(true)).trigger("select");
                     }
                 }
             });
@@ -579,7 +579,7 @@
                     return false;
                 },
                 create: function () {
-                    jq(window).resize(function () {
+                    jq(window).on("resize", function () {
                         self.closeSelector();
                     });
                 },
@@ -650,6 +650,11 @@
             var obj = jq(this);
             var instance = getInstance(obj);
             return instance ? instance.getString() : null;
+        },
+        addItem: function (value) {
+            var obj = jq(this);
+            var instance = getInstance(obj);
+            return instance ? instance.addItem(value, true) : null;
         },
         clear: function() {
             var obj = jq(this);

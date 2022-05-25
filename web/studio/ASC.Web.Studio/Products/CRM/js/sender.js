@@ -36,7 +36,7 @@ ASC.CRM.SmtpSender = (function () {
 
         return jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
             jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
-                jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
+                jq.format("<a style='color:#787878;font-size:12px;' href='https://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
         );
     }
 
@@ -138,11 +138,11 @@ ASC.CRM.SmtpSender = (function () {
 
                         jq("#storeInHistory").prop("checked", false);
 
-                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).unbind("click").bind("click", function () {
+                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).off("click").on("click", function () {
                             ASC.CRM.SmtpSender.showSendEmailPanelPreview();
                         });
 
-                        jq("#backButton a.button.blue.middle").unbind("click").bind("click", function () {
+                        jq("#backButton a.button.blue.middle").off("click").on("click", function () {
                             ASC.CRM.SmtpSender.showSendEmailPanelCreate();
                         });
 
@@ -178,7 +178,7 @@ ASC.CRM.SmtpSender = (function () {
             jq("#previewContent").hide();
             jq("#sendProcessPanel").hide();
             jq("#backButton").hide();
-            jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).unbind("click").bind("click", function () {
+            jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).off("click").on("click", function () {
                 ASC.CRM.SmtpSender.showSendEmailPanelPreview();
             });
         },
@@ -236,7 +236,7 @@ ASC.CRM.SmtpSender = (function () {
                         jq("#createContent").hide();
                         jq("#previewContent").show();
                         jq("#backButton").show();
-                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.Send).unbind("click").bind("click", function () {
+                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.Send).off("click").on("click", function () {
                             ASC.CRM.SmtpSender.sendEmail();
                         });
 

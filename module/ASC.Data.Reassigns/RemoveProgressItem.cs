@@ -92,7 +92,7 @@ namespace ASC.Data.Reassigns
                 Status = ProgressStatus.Started;
 
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
-                SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = Core.Configuration.Constants.CoreSystem;
 
                 long docsSpace, crmSpace, mailSpace, talkSpace;
                 GetUsageSpace(out docsSpace, out mailSpace, out talkSpace);
@@ -140,7 +140,7 @@ namespace ASC.Data.Reassigns
             {
                 logger.Info("data deletion is complete");
                 IsCompleted = true;
-                SecurityContext.AuthenticateMe(_currentUserId);
+                SecurityContext.CurrentUser = _currentUserId;
             }
         }
 

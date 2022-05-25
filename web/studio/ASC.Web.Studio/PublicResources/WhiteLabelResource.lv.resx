@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Portāla logotipa uzstādījumu{1} iespēja ir pieejama vienīgi apmaksātiem portāliem.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Par / Pieteikšanās lapas logotips</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Redaktora galvenes logotips</value>
   </data>

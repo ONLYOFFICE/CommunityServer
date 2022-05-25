@@ -60,7 +60,7 @@ ProgressDialog = (function () {
             }
         );
 
-        jq("#progressDialog .actions-container.close").unbind("click").bind("click", terminate);
+        jq("#progressDialog .actions-container.close").off("click").on("click", terminate);
 
         jq("#progressDialog").off("click").on("click", ".progress-error", showErrorText);
 

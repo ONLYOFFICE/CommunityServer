@@ -18,7 +18,6 @@
 using System;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 
 using ASC.Common.Logging;
 using ASC.Core.Tenants;
@@ -33,7 +32,6 @@ namespace ASC.Core.Billing
         private static readonly string LicensePathTemp;
 
         public const string CustomerIdKey = "CustomerId";
-        public const int MaxUserCount = 10000;
 
 
         static LicenseReader()
@@ -159,29 +157,6 @@ namespace ASC.Core.Billing
                 throw new BillingNotConfiguredException("License not correct", license.OriginalLicense);
             }
 
-            if (license.DueDate.Date < VersionReleaseDate)
-            {
-                throw new LicenseExpiredException("License expired", license.OriginalLicense);
-            }
-
-            if (license.ActiveUsers.Equals(default(int)) || license.ActiveUsers < 1)
-                license.ActiveUsers = MaxUserCount;
-
-            if (license.ActiveUsers < CoreContext.UserManager.GetUsers(EmployeeStatus.Default, EmployeeType.User).Length)
-            {
-                throw new LicenseQuotaException("License quota", license.OriginalLicense);
-            }
-
-            if (license.PortalCount <= 0)
-            {
-                license.PortalCount = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT).CountPortals;
-            }
-            var activePortals = CoreContext.TenantManager.GetTenants().Count();
-            if (activePortals > 1 && license.PortalCount < activePortals)
-            {
-                throw new LicensePortalException("License portal count", license.OriginalLicense);
-            }
-
             return license.DueDate.Date;
         }
 
@@ -195,39 +170,15 @@ namespace ASC.Core.Billing
 
             var quota = new TenantQuota(-1000)
             {
-                ActiveUsers = license.ActiveUsers,
+                ActiveUsers = Constants.MaxEveryoneCount,
                 MaxFileSize = defaultQuota.MaxFileSize,
                 MaxTotalSize = defaultQuota.MaxTotalSize,
                 Name = "license",
                 DocsEdition = true,
-                HasDomain = true,
-                Audit = true,
-                ControlPanel = true,
-                HealthCheck = true,
-                Ldap = true,
-                Sso = true,
                 Customization = license.Customization,
-                WhiteLabel = license.WhiteLabel || license.Customization,
-                Branding = license.Branding,
-                SSBranding = license.SSBranding,
                 Update = true,
-                Support = true,
                 Trial = license.Trial,
-                CountPortals = license.PortalCount,
-                DiscEncryption = true,
-                PrivacyRoom = true,
-                Restore = true,
-                ContentSearch = true
             };
-
-            if (defaultQuota.Name != "overdue" && !defaultQuota.Trial)
-            {
-                quota.WhiteLabel |= defaultQuota.WhiteLabel;
-                quota.Branding |= defaultQuota.Branding;
-                quota.SSBranding |= defaultQuota.SSBranding;
-
-                quota.CountPortals = Math.Max(defaultQuota.CountPortals, quota.CountPortals);
-            }
 
             CoreContext.TenantManager.SaveTenantQuota(quota);
 
@@ -238,13 +189,6 @@ namespace ASC.Core.Billing
             };
 
             CoreContext.PaymentManager.SetTariff(-1, tariff);
-
-            if (!string.IsNullOrEmpty(license.AffiliateId))
-            {
-                var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                tenant.AffiliateId = license.AffiliateId;
-                CoreContext.TenantManager.SaveTenant(tenant);
-            }
         }
 
         private static void LogError(Exception error)
@@ -263,64 +207,6 @@ namespace ASC.Core.Billing
                 {
                     Log.Error(error.Message);
                 }
-            }
-        }
-
-        private static readonly DateTime _date = DateTime.MinValue;
-
-        public static DateTime VersionReleaseDate
-        {
-            get
-            {
-                // release sign is not longer requered
-                return _date;
-
-                /*
-                if (_date != DateTime.MinValue) return _date;
-
-                _date = DateTime.MaxValue;
-                try
-                {
-                    var versionDate = ConfigurationManagerExtension.AppSettings["version.release-date"];
-                    var sign = ConfigurationManagerExtension.AppSettings["version.release-date.sign"];
-
-                    if (!sign.StartsWith("ASC "))
-                    {
-                        throw new Exception("sign without ASC");
-                    }
-
-                    var splitted = sign.Substring(4).Split(':');
-                    var pkey = splitted[0];
-                    if (pkey != versionDate)
-                    {
-                        throw new Exception("sign with different date");
-                    }
-
-                    var date = splitted[1];
-                    var orighash = splitted[2];
-
-                    var skey = MachinePseudoKeys.GetMachineConstant();
-
-                    using (var hasher = new HMACSHA1(skey))
-                    {
-                        var data = string.Join("\n", date, pkey);
-                        var hash = hasher.ComputeHash(Encoding.UTF8.GetBytes(data));
-                        if (HttpServerUtility.UrlTokenEncode(hash) != orighash && Convert.ToBase64String(hash) != orighash)
-                        {
-                            throw new Exception("incorrect hash");
-                        }
-                    }
-
-                    var year = Int32.Parse(versionDate.Substring(0, 4));
-                    var month = Int32.Parse(versionDate.Substring(4, 2));
-                    var day = Int32.Parse(versionDate.Substring(6, 2));
-                    _date = new DateTime(year, month, day);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.GetLogger("ASC").Error("VersionReleaseDate", ex);
-                }
-                return _date;*/
             }
         }
     }

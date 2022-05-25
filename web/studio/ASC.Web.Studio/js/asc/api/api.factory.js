@@ -78,6 +78,7 @@ window.ServiceFactory = (function() {
             skype: { name: 'skype', type: 2, title: 'skype' },
             msn: { name: 'msn', type: 2, title: 'msn' },
             aim: { name: 'aim', type: 2, title: 'aim' },
+            telegram: { name: 'telegram', type: 2, title: 'telegram' },
             icq: { name: 'icq', type: 2, title: 'icq' },
             gmail: { name: 'gmail', type: 0, title: 'Google Mail' },
             gbuzz: { name: 'gbuzz', type: 2, title: 'Google Buzz' },
@@ -104,7 +105,8 @@ window.ServiceFactory = (function() {
             msn: { id: 13, title: 'MSN', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } },
             icq: { id: 14, title: 'ICQ', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } },
             jabber: { id: 15, title: 'Jabber', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } },
-            aim: { id: 16, title: 'AIM', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } }
+            aim: { id: 16, title: 'AIM', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } },
+            telegram: { id: 17, title: 'Telegram', categories: { home: { id: 0, title: 'Home' }, work: { id: 1, title: 'Work' }, other: { id: 2, title: 'Other' } } }
         },
         extTypes = [
             { name: 'archive', exts: ['.zip', '.rar', '.ace', '.arc', '.arj', '.cab', '.enc', '.jar', '.lha', '.lzh', '.pak', '.pk3', '.tar', '.tgz', '.uue', '.xxe', '.zoo', '.bh', '.gz', '.ha'] },
@@ -131,7 +133,7 @@ window.ServiceFactory = (function() {
             { name: 'iaf', exts: ['.iaf'] },
             { name: 'csv', exts: ['.csv'] },
             { name: 'xml', exts: ['.xml'] },
-            { name: 'xps', exts: ['.xps'] },
+            { name: 'xps', exts: ['.xps', '.oxps'] },
             { name: 'avi', exts: ['.avi'] },
             { name: 'flv', exts: ['.flv', '.fla'] },
             { name: 'm2ts', exts: ['.m2ts'] },
@@ -201,6 +203,7 @@ window.ServiceFactory = (function() {
             apiHandler('prj-subtask', /project\/task\/[\d]+\/[\d]+\/copy\.json/),
             apiHandler('prj-subtask', /project\/task\/[\d]+\/[\d]+\.json/),
             apiHandler('prj-subtask', /project\/task\/[\d]+\/[\d]+\/status\.json/),
+            apiHandler('prj-subtask', /project\/task\/[\d]+\/[\d]+\/move\.json/),
             apiHandler('prj-milestone', /project\/milestone\/[\w\d-]+\.json/),
             apiHandler('prj-milestone', /project\/[\w\d-]+\/milestone\.json/, post),
             apiHandler('prj-milestones', /project\/[\w\d-]+\/milestone\.json/, get),
@@ -545,13 +548,13 @@ window.ServiceFactory = (function() {
         var o = null;
         if (typeof response === 'string') {
             try {
-                o = jQuery.parseJSON(converText(response));
+                o = JSON.parse(converText(response));
             } catch(err) {
                 o = null;
             }
             if (!o || typeof o !== 'object') {
                 try {
-                    o = jQuery.parseJSON(converText(jQuery.base64.decode(response)));
+                    o = JSON.parse(converText(jQuery.base64.decode(response)));
                 } catch(err) {
                     o = null;
                 }
@@ -684,6 +687,7 @@ window.ServiceFactory = (function() {
                 case contactTitles.jabber.name:
                 case contactTitles.msn.name:
                 case contactTitles.aim.name:
+                case contactTitles.telegram.name:
                     break;
                 case contactTitles.icq.name:
                     contact.val = 'http://www.icq.com/people/' + contact.title;
@@ -840,6 +844,24 @@ window.ServiceFactory = (function() {
 
         return data;
     };
+
+    var serializeUtcDate = function(dateString) {
+        var offset = 0;
+
+        if (dateString.indexOf('Z') === -1) {
+            offset = dateString.substring(dateString.length - 5).split(':');
+            offset = (+offset[0] * 60 + +offset[1]) * (dateString.charAt(dateString.length - 6, 1) === '+' ? 1 : -1);
+        }
+
+        var parts = dateString.split('.')[0].split('T');
+        parts[0] = parts[0].split('-');
+        parts[1] = parts[1].split(':');
+
+        var date = new Date(parts[0][0], parts[0][1] - 1, parts[0][2], parts[1][0], parts[1][1], parts[1][2], 0);
+        date = new Date(date.getTime() - (offset * 60 * 1000));
+
+        return date;
+    }
 
     var serializeDate = (function() {
         if (false && new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime() === new Date(Date.parse('1970-01-01T00:00:00.000Z')).getTime()) {
@@ -1022,11 +1044,25 @@ window.ServiceFactory = (function() {
         return date ? date.toLocaleTimeString() : '';
     };
 
-    var getDisplayDate = function(date) {
+    var getDisplayDate = function (date) {
         if (date && formatDate) {
             return formattingDate(date, formatDate, dayShortNames, dayNames, monthShortNames, monthNames);
         }
         return date ? date.toLocaleDateString() : '';
+    };
+
+    var getDisplayDayMonth = function (date) {
+        if (date && formatDate) {
+            var format = formatDate;
+            if (format.match(/.yyyy/g)) {
+                format = format.replace(/.yyyy/, '');
+            }
+            else if (format.match(/yyyy./g)) {
+                format = format.replace(/yyyy./, '');
+            }
+            return formattingDate(date, format, dayShortNames, dayNames, monthShortNames, monthNames);
+        }
+        return date ? date.toLocaleDateString([], {day: 'numeric', month: '2-digit'}) : '';
     };
 
     var getDisplayDatetime = function(date) {
@@ -1959,7 +1995,7 @@ window.ServiceFactory = (function() {
     /* feed */
     factories.feed = {
         item: function(response) {
-            var createdDate = serializeDate(response.CreatedDate);
+            var createdDate = response.IsAllDayEvent ? serializeUtcDate(response.CreatedDate) : serializeDate(response.CreatedDate);
             var modifiedDate = serializeDate(response.ModifiedDate);
             var aggregatedDate = serializeDate(response.AggregatedDate);
 
@@ -1973,6 +2009,7 @@ window.ServiceFactory = (function() {
                 displayCreatedDatetime: getDisplayDatetime(createdDate),
                 displayCreatedDate: getDisplayDate(createdDate),
                 displayCreatedTime: getDisplayTime(createdDate),
+                displayCreatedDayMonth: getDisplayDayMonth(createdDate),
                 modifiedDate: modifiedDate,
                 displayModifiedDatetime: getDisplayDatetime(modifiedDate),
                 displayModifiedDate: getDisplayDate(modifiedDate),
@@ -1984,6 +2021,7 @@ window.ServiceFactory = (function() {
                 title: response.Title,
                 isToday: response.IsToday,
                 isYesterday: response.IsYesterday,
+                isTomorrow: response.IsTomorrow,
                 description: response.Description,
                 extraLocation: response.ExtraLocation,
                 extraLocationUrl: response.ExtraLocationUrl,
@@ -1992,6 +2030,7 @@ window.ServiceFactory = (function() {
                 additionalInfo3: response.AdditionalInfo3,
                 additionalInfo4: response.AdditionalInfo4,
                 hasPreview: response.HasPreview,
+                isAllDayEvent: response.IsAllDayEvent,
                 canComment: response.CanComment,
                 commentApiUrl: response.CommentApiUrl,
                 groupedFeeds: response.GroupedFeeds,
@@ -2046,9 +2085,10 @@ window.ServiceFactory = (function() {
             return { feeds: feeds, readedDate: serializeDate(response.readedDate) };
 
             function makeFeedItem(responseItem) {
-                var item = jq.parseJSON(responseItem.feed);
+                var item = JSON.parse(responseItem.feed);
                 item.IsToday = responseItem.isToday;
                 item.IsYesterday = responseItem.isYesterday;
+                item.IsTomorrow = responseItem.isTomorrow;
                 item.LastModifiedBy = responseItem.lastModifiedBy;
                 item.CreatedDate = responseItem.createdDate;
                 item.ModifiedDate = responseItem.modifiedDate;
@@ -2267,7 +2307,7 @@ window.ServiceFactory = (function() {
 
         address: function(response) {
             var categories = ['Home', 'Postal', 'Office', 'Billing', 'Other', 'Work'],
-                infoTypes = ['Phone', 'Email', 'Website', 'Skype', 'Twitter', 'LinkedIn', 'Facebook', 'Address', 'LiveJournal', 'MySpace', 'GMail', 'Blogger', 'Yahoo', 'MSN', 'ICQ', 'Jabber', 'AIM'],
+                infoTypes = ['Phone', 'Email', 'Website', 'Skype', 'Twitter', 'LinkedIn', 'Facebook', 'Address', 'LiveJournal', 'MySpace', 'GMail', 'Blogger', 'Yahoo', 'MSN', 'ICQ', 'Jabber', 'AIM', 'Telegram'],
                 category = response.category,
                 infoType = response.infoType;
 
@@ -2757,7 +2797,7 @@ window.ServiceFactory = (function() {
         },
 
         invoiceJsonData: function(response) {
-            return jq.parseJSON(response || null);
+            return JSON.parse(response || null);
         },
 
         invoiceLines: function(response) {
@@ -2965,10 +3005,12 @@ window.ServiceFactory = (function() {
 
         fixData: fixData,
         formattingDate: formattingDate,
+        serializeUtcDate: serializeUtcDate,
         serializeDate: serializeDate,
         serializeTimestamp: serializeTimestamp,
         getDisplayTime: getDisplayTime,
         getDisplayDate: getDisplayDate,
-        getDisplayDatetime: getDisplayDatetime
+        getDisplayDatetime: getDisplayDatetime,
+        getDisplayDayMonth: getDisplayDayMonth
     };
 })();

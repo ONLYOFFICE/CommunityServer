@@ -130,8 +130,8 @@ window.PagesNavigation = (function($) {
         var $select = $navigationBarDiv.find('select');
         $select.val(pageSize).tlCombobox();
 
-        $select.unbind('change');
-        $select.change(function() { changePageSizeCallback(this.value); });
+        $select.off('change');
+        $select.on("change", function() { changePageSizeCallback(this.value); });
 
         $navigationBarDiv.show();
         decideComboUpOrDown($navigationBarDiv);

@@ -31,6 +31,7 @@ namespace ASC.Web.Core.Files
     {
         public const string FilesBaseVirtualPath = "~/Products/Files/";
         public const string EditorPage = "DocEditor.aspx";
+        public const string OpenPrivatePage = "OpenPrivate.aspx";
         private static readonly string FilesUploaderURL = ConfigurationManagerExtension.AppSettings["files.uploader.url"] ?? "~";
 
         public static string FilesBaseAbsolutePath
@@ -230,6 +231,11 @@ namespace ASC.Web.Core.Files
             get { return FileHandlerPath + "?" + Action + "=download&" + FileId + "={0}"; }
         }
 
+        public static string FileViewUrlString
+        {
+            get { return FileHandlerPath + "?" + Action + "=view&" + FileId + "={0}"; }
+        }
+
         public static string GetFileDownloadUrl(object fileId)
         {
             return GetFileDownloadUrl(fileId, 0, string.Empty);
@@ -278,6 +284,26 @@ namespace ASC.Web.Core.Files
         public static string GetFileWebEditorUrl(object fileId)
         {
             return string.Format(FileWebEditorUrlString, HttpUtility.UrlEncode(fileId.ToString()));
+        }
+
+        public static string FileCustomProtocolEditorUrlString
+        {
+            get { return "oo-office:" + CommonLinkUtility.GetFullAbsolutePath(FileWebEditorUrlString); }
+        }
+
+        public static string GetFileCustomProtocolEditorUrl(object fileId)
+        {
+            return string.Format(FileCustomProtocolEditorUrlString, HttpUtility.UrlEncode(fileId.ToString()));
+        }
+
+        public static string OpenPrivateString
+        {
+            get { return FilesBaseAbsolutePath + OpenPrivatePage + "?" + FileId + "={0}"; }
+        }
+
+        public static string GetOpenPrivate(object fileId)
+        {
+            return string.Format(OpenPrivateString, HttpUtility.UrlEncode(fileId.ToString()));
         }
 
         public static string GetFileWebEditorTryUrl(FileType fileType)

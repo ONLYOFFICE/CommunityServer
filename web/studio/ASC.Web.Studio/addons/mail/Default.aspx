@@ -17,6 +17,9 @@
             #studioPageContent .page-content {
                 overflow: visible;
             }
+            #studioPageContent {
+                min-width: auto;
+            }
             #studioPageContent .studio-top-panel.mainPageLayout,
             #studioPageContent .mainPageLayout,
             #studioPageContent .mainPageTableSidePanel,

@@ -1109,3 +1109,7 @@ main {
     padding: 0 !important;
     overflow: auto !important;
 }
+
+.layout-bottom-spacer {
+    padding: 0;
+}

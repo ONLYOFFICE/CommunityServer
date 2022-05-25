@@ -52,7 +52,8 @@ namespace ASC.Mail.Extensions
                 IsGroup = false,
                 IsTeamlabMailbox = account.IsTeamlabMailbox,
                 IsDefault = mailBoxAccountSettings.DefaultEmail == account.Email,
-                IsSharedDomainMailbox = account.IsSharedDomainMailbox
+                IsSharedDomainMailbox = account.IsSharedDomainMailbox,
+                DateCreated = account.DateCreated
             };
             fromEmailList.Add(emailData);
 

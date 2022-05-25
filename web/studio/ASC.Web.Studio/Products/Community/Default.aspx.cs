@@ -111,7 +111,7 @@ namespace ASC.Web.Community
                 keys.Sort();
                 return enabledList[keys[0]];
             }
-            return "Modules/Birthdays/";
+            return "Modules/Blogs/";
         }
     }
 }

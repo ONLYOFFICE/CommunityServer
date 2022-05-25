@@ -42,13 +42,13 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get
             {
-                return TenantExtra.GetTenantQuota().Ldap;
+                return CoreContext.Configuration.Standalone || TenantExtra.GetTenantQuota().Ldap;
             }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()))
+            if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()))
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;

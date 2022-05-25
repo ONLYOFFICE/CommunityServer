@@ -54,7 +54,7 @@
                 <div class="headerPanelSmall-splitter">
                     <b><%=BlogsResource.ContentTitle %>:</b>
                 </div>
-                <textarea id="ckEditor" name="blog_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%=_text%></textarea>
+                <textarea id="ckEditor" name="blog_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%:_text%></textarea>
             </div>
             <div class="headerPanel-splitter">
                 <div class="headerPanelSmall-splitter">

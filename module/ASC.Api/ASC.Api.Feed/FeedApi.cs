@@ -30,6 +30,9 @@ using ASC.Specific;
 
 namespace ASC.Api.Feed
 {
+    /// <summary>
+    /// Feed access.
+    /// </summary>
     public class FeedApi : IApiEntryPoint
     {
         private const string newFeedsCountCacheKey = "newfeedscount";
@@ -52,6 +55,12 @@ namespace ASC.Api.Feed
             this.context = context;
         }
 
+        ///<summary>
+        ///Opens feeds for reading.
+        ///</summary>
+        ///<short>
+        ///Read feeds
+        ///</short>
         [Update("/read")]
         public void Read()
         {
@@ -59,6 +68,19 @@ namespace ASC.Api.Feed
             newFeedsCountCache.Remove(GetNewFeedsCountKey());
         }
 
+        ///<summary>
+        ///Returns a list of feeds that are filtered by the parameters specified in the request.
+        ///</summary>
+        ///<short>
+        ///Get feeds
+        ///</short>
+        /// <param name="product">Product which feeds you want to read</param>
+        /// <param name="from">Time from which the feeds should be displayed</param>
+        /// <param name="to">Time until which the feeds should be displayed</param>
+        /// <param name="author">Author whose feeds you want to read</param>
+        /// <param name="onlyNew">Displays only fresh feeds</param>
+        /// <param name="timeReaded">Time when the feeds were read</param>
+        ///<returns>List of filtered feeds</returns>
         [Read("/filter")]
         public object GetFeed(
             string product,
@@ -124,6 +146,13 @@ namespace ASC.Api.Feed
             return new { feeds, readedDate };
         }
 
+        ///<summary>
+        ///Returns a number of fresh feeds.
+        ///</summary>
+        ///<short>
+        ///Count fresh feeds
+        ///</short>
+        ///<returns>Number of fresh feeds</returns>
         [Read("/newfeedscount")]
         public object GetFreshNewsCount()
         {

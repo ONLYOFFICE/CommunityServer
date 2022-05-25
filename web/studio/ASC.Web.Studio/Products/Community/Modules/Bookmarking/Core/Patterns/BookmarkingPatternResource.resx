@@ -78,6 +78,17 @@ $BookmarkDescription
 
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new bookmarks added, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
+  <data name="pattern_MentionForBookmarkComment" xml:space="preserve">
+    <value>h1.You were mentioned in comment to Bookmark: "$BookmarkTitle":"$BookmarkUrl"
+
+$Date "$__AuthorName":"$__AuthorUrl" mentioned you in the comment to the bookmark:"$BookmarkTitle":"$BookmarkUrl"
+
+$CommentBody
+
+"Read More":"$BookmarkUrl"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the notifications about new comments added to this bookmark, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
   <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
     <value>Community. New comment to bookmark: $BookmarkTitle</value>
   </data>
@@ -89,5 +100,11 @@ $BookmarkDescription
   </data>
   <data name="subject_BookmarkCreatedID_tg" xml:space="preserve">
     <value>Community. New bookmark added: [$BookmarkTitle]($BookmarkUrl)</value>
+  </data>
+  <data name="subject_MentionForBookmarkComment" xml:space="preserve">
+    <value>Community. Mention in comment to bookmark: $BookmarkTitle</value>
+  </data>
+  <data name="subject_MentionForBookmarkComment_tg" xml:space="preserve">
+    <value>Community. Mention in comment to bookmark: [$BookmarkTitle]($BookmarkUrl)</value>
   </data>
 </root>

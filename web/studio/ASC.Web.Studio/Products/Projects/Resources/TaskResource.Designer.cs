@@ -151,6 +151,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Average task completation time (hour).
+        /// </summary>
+        public static string AverageTask {
+            get {
+                return ResourceManager.GetString("AverageTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The best way is to return and close subtasks manually, then retry to close the task.
         /// </summary>
         public static string BetterToReturn {

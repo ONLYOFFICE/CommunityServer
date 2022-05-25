@@ -363,6 +363,10 @@ only screen and (                min-resolution: 2dppx)
 .account-action-container {
     margin-left: 160px;
 }
+.account-action-container .faq-link {
+    margin-top: 12px;
+    display: block;
+}
 .account-row .menu-small {
     float: right;
 }

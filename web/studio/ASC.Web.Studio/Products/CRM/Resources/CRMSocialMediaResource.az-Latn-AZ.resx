@@ -64,6 +64,24 @@
   <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
     <value>Bağlantılı Twitter hesabı yoxdur</value>
   </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Daxili xəta</value>
+  </data>
+  <data name="ErrorTwitterAccountNotFound" xml:space="preserve">
+    <value>Twitter hesabı tapılmadı</value>
+  </data>
+  <data name="ErrorTwitterConnectionFailure" xml:space="preserve">
+    <value>Twitter'ə qoşulmaq mümkün olmadı</value>
+  </data>
+  <data name="ErrorTwitterRateLimit" xml:space="preserve">
+    <value>Twitter-ə edilən sorğuların maksimum sayı keçilib. Biraz sonra yenidən cəhd edin.</value>
+  </data>
+  <data name="ErrorTwitterUnauthorized" xml:space="preserve">
+    <value>Proqramın Twitter-ə girişi yoxdur. Twitter hesabını yenidən əlaqələndirin.</value>
+  </data>
+  <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
+    <value>Naməlum Twitter hesabı</value>
+  </data>
   <data name="LinkTwitterAccount" xml:space="preserve">
     <value>Twitter hesabına bağla</value>
   </data>
@@ -75,5 +93,8 @@
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Lütfən gözləyin...</value>
+  </data>
+  <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
+    <value>Twitter hesabı əlaqələndirilməyib</value>
   </data>
 </root>

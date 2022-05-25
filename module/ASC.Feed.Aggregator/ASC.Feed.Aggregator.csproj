@@ -72,6 +72,8 @@
     <Compile Include="Modules\Documents\FilesModule.cs" />
     <Compile Include="Modules\Documents\FoldersModule.cs" />
     <Compile Include="Modules\ModulesHelper.cs" />
+    <Compile Include="Modules\People\BirthdaysModule.cs" />
+    <Compile Include="Modules\People\NewEmployeeModule.cs" />
     <Compile Include="Modules\Projects\DiscussionsModule.cs" />
     <Compile Include="Modules\Projects\MilestonesModule.cs" />
     <Compile Include="Modules\Projects\TasksModule.cs" />
@@ -135,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>5.1.2</Version>
+      <Version>6.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

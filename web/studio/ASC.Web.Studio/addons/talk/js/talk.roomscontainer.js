@@ -208,7 +208,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       symbols = [
         ['&lt;',  '<'],
         ['&gt;',  '>'],
-        ['&and;', '\\^'],
+        ['&#94;', '\\^'],
         ['&sim;', '~'],
         ['&amp;', '&']
       ];
@@ -343,8 +343,8 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     if (nodes.length > 0) {
       messagescontainer = nodes[0];
     }
-    $(messagescontainer).unbind('scroll');
-    $(messagescontainer).scroll(function () {
+    $(messagescontainer).off("scroll");
+    $(messagescontainer).on("scroll", function () {
         var currentMessagesCount = 0;
         if (this.scrollTop === 0) {
             currentMessagesCount = jQuery('div#talkRoomsContainer ul.rooms li.room.current ul.messages:first').find('li').not('.default').length;
@@ -979,7 +979,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       else 
         getFilteringHistory(jid, 0); // 0 - last day
 
-      $(window).resize();
+      $(window).trigger("resize");
       
     }
     
@@ -989,7 +989,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
     if (currentRoomData.type === 'chat' && currentRoomData.id === jid) {
       ASC.TMTalk.dom.removeClass(roomlistContainer, 'history');
-      $(window).resize();
+      $(window).trigger("resize");
       showLastMessage(null);
     }
   };
@@ -1257,7 +1257,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       //TMTalk.hideAllDialogs();
       showLastMessage(currentroom);
     }
-    $(window).resize();
+    $(window).trigger("resize");
   };
 
   var onCloseRoom = function (roomId, data) {
@@ -1313,7 +1313,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     currentroom.parentNode.removeChild(currentroom);
 
     TMTalk.hideAllDialogs();
-    $(window).resize();
+    $(window).trigger("resize");
   };
 
   var showLastMessage = function (roomnode) {
@@ -1597,7 +1597,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
               ASC.TMTalk.dom.removeClass(subPanel, 'border');
               ASC.TMTalk.dom.addClass(subPanel, 'noBorder');
           }
-          $(window).resize();
+          $(window).trigger("resize");
           ASC.TMTalk.roomsContainer.showLastMessage(null);
           $messagesContainer.scrollTop(messagesContainerScrollTop);
       }
@@ -1664,7 +1664,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     ASC.TMTalk.roomsContainer.nodes();
 
     if ($.browser.safari) {
-      $('#talkRoomsContainer').mousedown(function (evt) {
+      $('#talkRoomsContainer').on("mousedown", function (evt) {
         var target = evt.target;
         if (ASC.TMTalk.dom.hasClass(target.parentNode, 'button-container') || ASC.TMTalk.dom.hasClass(target, 'filter-value') || ASC.TMTalk.dom.hasClass(target, 'filter-option')) {
           if (window.getSelection) {
@@ -1695,12 +1695,12 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
 
 
     $('#talkRoomsContainer')
-      .keydown(function (evt) {
+      .on("keydown", function (evt) {
         if (evt.target.tagName.toLowerCase() === 'input') {
           evt.originalEvent.stopPropagation ? evt.originalEvent.stopPropagation() : evt.originalEvent.cancelBubble = true;
         }
       })
-      .keyup(function(evt) {
+      .on("keyup", function(evt) {
         switch (evt.keyCode) {
             case 27:
                 if (evt.target.tagName.toLowerCase() === 'input' && ASC.TMTalk.dom.hasClass(evt.target, 'search-value')) {
@@ -1717,7 +1717,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
                 break;
         }
       })
-      .keypress(function (evt) {
+      .on("keypress", function (evt) {
         switch (evt.keyCode) {
             case 13:
             if (evt.target.tagName.toLowerCase() === 'input' && ASC.TMTalk.dom.hasClass(evt.target, 'search-value')) {
@@ -1756,7 +1756,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
             return false;
         }
       })
-      .click(function (evt) {
+      .on("click", function (evt) {
           var target = evt.target;
         if (ASC.TMTalk.dom.hasClass(target, 'button-talk') && ASC.TMTalk.dom.hasClass(target, 'remove-member')) {
           var contact = target.parentNode.parentNode;
@@ -1909,7 +1909,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
                         $(currentfoundmessage).html(number);
                     }
                 }
-                $('div#talkRoomsContainer ul.rooms li.room.current div.filtering-panel.show div.textfield.filtering-field input').focus();
+                $('div#talkRoomsContainer ul.rooms li.room.current div.filtering-panel.show div.textfield.filtering-field input').trigger("focus");
             }
         } else if ((ASC.TMTalk.dom.hasClass(target, 'button-talk') && ASC.TMTalk.dom.hasClass(target, 'search-next-message')) ||
                     ASC.TMTalk.dom.hasClass(target, 'search_nextbutton_container') ||
@@ -1963,7 +1963,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
                         $(currentfoundmessage).html(currentnumber);
                     }
                 }
-                $('div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel.show div.textfield.filtering-field input').focus();
+                $('div#talkRoomsContainer ul.rooms li.room.chat div.filtering-panel.show div.textfield.filtering-field input').trigger("focus");
             }
         } else if (ASC.TMTalk.dom.hasClass(target, 'button-talk') && ASC.TMTalk.dom.hasClass(target, 'clear-search')) {
             var room = target.parentNode.parentNode.parentNode;
@@ -1972,7 +1972,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
         }
       });
 
-    $('#talkDialogsContainer').click(function (evt) {
+    $('#talkDialogsContainer').on("click", function (evt) {
        
       var $target = $(evt.target);
       
@@ -1982,7 +1982,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
           invited = $('#hdnKickInvited').val(),
           roomCid = ASC.TMTalk.trim($('#hdnKickRoomCid').val()),
           reason = $('#txtKickReason').val();
-        if ($.parseJSON(invited)) {
+        if (JSON.parse(invited)) {
             if (roomCid) {
                 window.ASC.TMTalk.roomsContainer.onRottenInvite(roomCid, jid);
             }

@@ -7,18 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Studio.UserControls.Management.DnsSettings {
-    
-    
-    public partial class DnsSettings {
-        
-        /// <summary>
-        /// _dnsSettingsHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder _dnsSettingsHolder;
+namespace ASC.Web.Studio.UserControls.Management.DnsSettings
+{
+
+
+    public partial class DnsSettings
+    {
     }
 }

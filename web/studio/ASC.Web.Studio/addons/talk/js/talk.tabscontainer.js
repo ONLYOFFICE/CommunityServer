@@ -662,7 +662,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
     ASC.TMTalk.tabsContainer.nodes();
 
     if ($.browser.safari) {
-      $('#talkTabContainer ul.tabs:first').mousedown(function () {
+      $('#talkTabContainer ul.tabs:first').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
@@ -671,7 +671,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
     }
 
     $('#talkTabContainer ul.tabs:first')
-      .bind($.browser.safari || ($.browser.msie && $.browser.version < 9) ? 'mousewheel' : 'DOMMouseScroll', function (evt) {
+      .on($.browser.safari || ($.browser.msie && $.browser.version < 9) ? 'mousewheel' : 'DOMMouseScroll', function (evt) {
         var
           tablistContainer = document.getElementById('talkTabContainer'),
           i = 0, n = 0,
@@ -736,7 +736,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
           ASC.TMTalk.dom.removeClass(tablistContainer, 'has-repressed');
         }
       })
-      .mousedown(function (evt) {
+      .on("mousedown", function (evt) {
         var element = evt.target;
         if (!element || typeof element !== 'object') {
           return undefined;
@@ -798,7 +798,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
           }
         }
       })
-      .mouseup(function (evt) {
+      .on("mouseup", function (evt) {
         var element = evt.target;
 
         if (evt.which === 2) {
@@ -811,7 +811,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
           }
         }
       })
-      .click(function (evt) {
+      .on("click", function (evt) {
         var element = evt.target;
 
         if (ASC.TMTalk.dom.hasClass(element, 'button-talk') && ASC.TMTalk.dom.hasClass(element, 'close')) {
@@ -844,7 +844,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
         }
       });
 
-    $('#talkTabContainer div.navigation:first').click(function (evt) {
+    $('#talkTabContainer div.navigation:first').on("click", function (evt) {
         var element = evt.target;
         if (ASC.TMTalk.dom.hasClass(element, 'size') || ASC.TMTalk.dom.hasClass(element, 'countHiddenTabs') || ASC.TMTalk.dom.hasClass(element, 'all') || ASC.TMTalk.dom.hasClass(element, 'pointer-down')) {
             var $container = null;
@@ -1014,7 +1014,7 @@ window.ASC.TMTalk.tabsContainer = (function ($) {
         }
     };
 
-    $(window).resize(function () {
+    $(window).on("resize", function () {
       var
         tablistContainer = document.getElementById('talkTabContainer'),
         nodes = null,

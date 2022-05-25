@@ -4,11 +4,7 @@ Community Server uses code from the following 3rd party projects:
 nuget packages
 ====================================================================================================
 
-AjaxMin - JavaScript and CSS minification Library for use in .NET applications that want to provide minification or parsing functionality. (http://www.apache.org/licenses/LICENSE-2.0)
-License:        Apache License 2.0
-License File:   AjaxMin.license
-
-AjaxPro.2 - .NET Library that provides AJAX related methods to simplify the communication between server and client. (https://github.com/michaelschwarz/Ajax.NET-Professional/blob/master/LICENS)
+AjaxPro.2 - .NET Library that provides AJAX related methods to simplify the communication between server and client. (https://github.com/michaelschwarz/Ajax.NET-Professional/blob/master/LICENSE)
 License:        MIT License
 License File:   AjaxPro.2.license
 
@@ -108,10 +104,6 @@ DotNetOpenAuth.Ultimate - A single assembly that adds OpenID 1.1/2.0, OAuth 1.0(
 License:        MS-PL
 License File:   DotNetOpenAuth.Ultimate.license
 
-DotNetZip - A fork of the DotNetZip project without signing with a solution that compiles cleanly. This project aims to follow semver to avoid versioning conflicts. DotNetZip is a FAST, FREE class library and toolset for manipulating zip files. Use VB, C# or any .NET language to easily create, extract, or update zip files. (https://raw.githubusercontent.com/haf/DotNetZip.Semverd/master/LICENSE)
-License:        Ms-PL , BSD-style (3 clause), Apache 2 license ???
-License File:   DotNetZip.license
-
 Dropbox.Api - Portable class library for accessing the Dropbox v2 API (https://github.com/dropbox/dropbox-sdk-dotnet/blob/master/LICENSE)
 License:        MIT License 
 License File:   Dropbox.Api.license
@@ -131,6 +123,10 @@ License File:   Flurl.Http.Signed.license
 Flurl.Signed - A fluent, portable URL builder. To make HTTP calls off the fluent chain, check out Flurl.Http. (https://raw.githubusercontent.com/tmenier/Flurl/master/LICENSE)
 License:        MIT License
 License File:   Flurl.Signed.license
+
+FolkerKinzel.VCards -.NET library to read, write and convert VCF files that match the vCard standards 2.1, 3.0 and 4.0. (https://github.com/FolkerKinzel/VCards/blob/master/LICENSE)
+License:        MIT License
+License File:   FolkerKinzel.VCards.license
 
 FredCK.FCKeditorV2 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor) (https://download.cksource.com/FCKeditor/FCKeditor/2.6.3/)
 License:        GPL 2 (or later) or LGPL 2.1 (or later) or MPL 1.1 (or later)
@@ -340,6 +336,10 @@ Microsoft.IdentityModel.Tokens - Includes types that provide support for Securit
 License:        MIT License
 License File:   Microsoft.IdentityModel.Tokens.license
 
+Microsoft.IdentityModel.Tokens.Jwt - Includes types that provide support for creating, serializing and validating JSON Web Tokens. (https://licenses.nuget.org/MIT)
+License:        MIT License
+License File:   Microsoft.IdentityModel.Tokens.Jwt.license
+
 Microsoft.Net.Http - This package includes HttpClient for sending requests over HTTP, as well as HttpRequestMessage and HttpResponseMessage for processing HTTP messages. (https://dotnet.microsoft.com/en/dotnet_library_license.htm)
 License:        MICROSOFT .NET LIBRARY LICENSE
 License File:   Microsoft.Net.Http.license
@@ -423,6 +423,10 @@ License File:   NodaTime.license
 Novell.Directory.LDAP - LDAP client library (https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard/blob/master/LICENSE)
 License:        MIT License
 License File:   Novell.Directory.LDAP.license
+
+NUglify - NUglify provides minify and compression methods for CSS, JavaScript and HTML files. (https://github.com/trullock/NUglify/blob/master/license.txt)
+License:        BSD-2-Clause License
+License File:   NUglify.license
 
 NUnit - NUnit features a fluent assert syntax, parameterized, generic and theory tests and is user-extensible. (https://github.com/nunit/nunit/blob/master/LICENSE.txt)
 License:        MIT License
@@ -776,6 +780,10 @@ npm packages
 License:        MIT License
 License File:   @authenio-samlify-node-xmllint.license
 
+axios - Promise based HTTP client for the browser and node.js	(https://github.com/axios/axios/blob/master/LICENSE)
+License:        MIT License
+License File:   axios.license
+
 body-parser - Node.js body parsing middleware. (https://github.com/expressjs/body-parser/blob/master/LICENSE)
 License:        MIT License
 License File:   body-parser.license
@@ -828,9 +836,17 @@ filenamify-url - Convert a URL to a valid filename (https://github.com/sindresor
 License:        MIT License
 License File:   filenamify-url.license
 
+form-data - A library to create readable "multipart/form-data" streams. Can be used to submit forms and file uploads to other web applications.The API of this library is inspired by the XMLHttpRequest-2 FormData Interface. (https://github.com/form-data/form-data/blob/master/License)
+License:        MIT License
+License File:   form-data.license
+
 formidable - A Node.js module for parsing form data, especially file uploads. (https://github.com/node-formidable/formidable/blob/master/LICENSE)
 License:        MIT License
 License File:   formidable.license
+
+get-byte - A Universal way of getting a Byte at a Given Index from a variety of in-memory data formats, including Uint8Array, Buffer, DataView, and Array Buffer (https://github.com/DanielJDufour/get-byte/blob/main/LICENSE)
+License:        CC0-1.0 License
+License File:   get-byte.license
 
 graceful-fs - graceful-fs functions as a drop-in replacement for the fs module, making various improvements. (https://github.com/isaacs/node-graceful-fs)
 License:        ISC License
@@ -847,6 +863,14 @@ License File:   gulp-append-prepend.license
 gulp-just-replace - The gulp-replace is fine. But it's painful to install it on production server as it takes many seconds to install those useless dependencies for me. (https://github.com/caiguanhao/gulp-just-replace/blob/master/LICENSE)
 License:        MIT License
 License File:   gulp-just-replace.license
+
+help - substack way of --help. v3 of help requires at least Node.js v4. To use help with an older version, please use help@2.x. (https://github.com/evanlucas/help/blob/master/LICENSE)
+License:        MIT License
+License File:   help.license
+
+ipaddr - an IPv6 and IPv4 address manipulation library. (https://github.com/whitequark/ipaddr.js/blob/master/LICENSE)
+License:        MIT License
+License File:   ipaddr.license
 
 lodash - The modern build of lodash exported as Node.js/io.js modules. (https://github.com/lodash/lodash/blob/master/LICENSE)
 License:        MIT License
@@ -928,6 +952,10 @@ tmp - A simple temporary file and directory creator for node.js. (https://githu
 License:        MIT License
 License File:   tmp.license
 
+to-byte-array - Convert a string or buffer into a plain array of bytes. (https://github.com/finwo/to-byte-array/blob/master/LICENSE.md)
+License:        MIT License
+License File:   to-byte-array.license
+
 ua-parser-js - A JavaScript-based User-Agent string parser. Can be used either in browser (client-side) or in node.js (server-side) environment. Also available as jQuery/Zepto plugin, Bower/Meteor package, & RequireJS/AMD module.  (https://github.com/faisalman/ua-parser-js/blob/master/license.md)
 License:        MIT License
 License File:   ua-parser-js.license
@@ -935,6 +963,10 @@ License File:   ua-parser-js.license
 url - This module has utilities for URL resolution and parsing meant to have feature parity with node.js core url module. (https://github.com/defunctzombie/node-url/blob/master/LICENSE)
 License:        MIT License
 License File:   url.license
+
+webdav-server - WebDav server. (https://github.com/OpenMarshal/npm-WebDAV-Server/blob/master/LICENSE)
+License:        Unlicense License
+License File:   webdav-server.license
 
 winston - A logger for just about everything. (https://github.com/winstonjs/winston/blob/master/LICENSE)
 License:        MIT License
@@ -1132,11 +1164,15 @@ jstree.min.js - jsTree is jquery plugin, that provides interactive trees (https:
 License:        MIT License
 License File:   jstree.license
 
-linkify.min.js - Linkify is a zero-dependency JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+linkify.min.js - Linkify is a JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags. (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
 License:        MIT License
 License File:   linkify.license
 
-linkify-string.min.js - Linkify is a zero-dependency JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+linkify-html.min.js - Linkify is a JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags. (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
+License:        MIT License
+License File:   linkify-html.license
+
+linkify-string.min.js - Linkify is a JavaScript plugin for finding links in plain-text and converting them to HTML <a> tags. (https://github.com/Soapbox/linkifyjs/blob/master/LICENSE)
 License:        MIT License
 License File:   linkify-string.license
 

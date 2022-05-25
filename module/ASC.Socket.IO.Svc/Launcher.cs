@@ -30,6 +30,8 @@ using ASC.Core.Notify.Signalr;
 
 using WebSocketSharp;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
+
 namespace ASC.Socket.IO.Svc
 {
     public class Launcher : IServiceController
@@ -38,7 +40,7 @@ namespace ASC.Socket.IO.Svc
         private static ProcessStartInfo startInfo;
         private static WebSocket webSocket;
         private static CancellationTokenSource cancellationTokenSource;
-        private const int PingInterval = 10000;
+        private static int PingInterval = int.Parse(ConfigurationManagerExtension.AppSettings["ping.interval"]);
         private static readonly ILog Logger = LogManager.GetLogger("ASC");
         private static string LogDir;
 

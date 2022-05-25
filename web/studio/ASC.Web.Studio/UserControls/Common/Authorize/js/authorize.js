@@ -23,9 +23,9 @@ var Authorize = new function () {
             RecaptchaController.InitRecaptcha(jq("#recaptchaHiddenContainer").attr("data-hl"));
         }
 
-        jq(jq("#login").val().length ? "#pwd" : "#login").focus();
+        jq(jq("#login").val().length ? "#pwd" : "#login").trigger("focus");
 
-        jq("#login,#pwd").keyup(function (event) {
+        jq("#login,#pwd").on("keyup", function (event) {
             var code;
             if (!e) {
                 var e = event;
@@ -38,7 +38,7 @@ var Authorize = new function () {
 
             if (code == 13) {
                 if (jq(this).is("#login") && !jq("#pwd").val().length) {
-                    jq("#pwd").focus();
+                    jq("#pwd").trigger("focus");
                     return true;
                 }
                 if (jq('body').hasClass('desktop') && !!jq("#desktop_agree_to_terms").length && !(jq("#desktop_agree_to_terms").is(':checked'))) {
@@ -53,7 +53,7 @@ var Authorize = new function () {
 
         try {
             var anch = ASC.Controls.AnchorController.getAnchor();
-            if (jq.trim(anch) == "passrecovery") {
+            if (anch.trim() == "passrecovery") {
                 PasswordTool.ShowPwdReminderDialog();
             }
         } catch (e) { }

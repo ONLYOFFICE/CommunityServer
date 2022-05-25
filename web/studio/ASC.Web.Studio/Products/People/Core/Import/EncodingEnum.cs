@@ -41,7 +41,6 @@ namespace ASC.Web.People.Core.Import
     public enum ImportFromWhatEnum
     {
         FromFile,
-        Google,
-        Yahoo
+        Google
     }
 }

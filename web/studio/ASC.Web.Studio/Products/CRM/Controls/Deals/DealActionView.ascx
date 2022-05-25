@@ -61,7 +61,7 @@
                     </optgroup>
                 </select>
                 <span class="splitter"></span>
-                <input type="text" style="width: 100px" name="bidValue" id="bidValue" class="textEdit" value="0" maxlength="15"/>
+                <input type="text" style="width: 100px; height: 19px;" name="bidValue" id="bidValue" class="textEdit" value="0" maxlength="15"/>
                 <span class="splitter"></span>
                 <select id="bidType" name="bidType" onchange="ASC.CRM.DealActionView.selectBidTypeEvent(this)" class="comboBox">
                     <option value="<%=BidType.FixedBid%>">
@@ -94,7 +94,7 @@
         <div id="AdvUserSelectorContainer" class="requiredField headerPanelSmall-splitter">
             <span class="requiredErrorText"><%=CRMDealResource.EmptyDealResponsible%></span>
             <div class="headerPanelSmall header-base-small" style="margin-bottom:5px;"><%=CRMDealResource.ResponsibleDeal%>:</div>
-            <div id="advUserSelectorResponsible" data-responsible-id="" style="position: relative;">
+            <div id="advUserSelectorResponsible" data-responsible-id="" style="position: relative; display: inline-block;">
                 <span>
                     <a class="link dotline dealResponsibleLabel"></a>
                     <span class="sort-down-black"></span>

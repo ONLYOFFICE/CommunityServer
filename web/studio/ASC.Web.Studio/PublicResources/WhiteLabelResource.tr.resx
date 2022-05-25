@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Portal Logo Ayarları{1} özelliği yalnızca ödemeli portallar için mevcuttur.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Hakkında/Giriş sayfası logosu</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Editör başlığı logosu</value>
   </data>

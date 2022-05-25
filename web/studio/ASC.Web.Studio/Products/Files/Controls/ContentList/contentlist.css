@@ -407,7 +407,7 @@
 li.without-share .btn-row {
     visibility: hidden;
 }
-ul.without-share .btn-row {
+ul.without-share li:not(.can-share) .btn-row {
     display: none;
 }
 .file-row .btn-row {
@@ -722,9 +722,19 @@ ul.without-share .btn-row {
 #filesMainContent.thumbnails .file-row.min .version,
 #filesMainContent.thumbnails .file-row.min .pencil,
 #filesMainContent.thumbnails .file-row.min .file-lock,
-#filesMainContent.thumbnails .file-row.min .template-action,
-#filesMainContent.thumbnails .file-row.min .favorite {
+#filesMainContent.thumbnails .file-row.min .template-action {
     display: none !important;
+}
+
+#filesMainContent.thumbnails .file-row.min.on-favorite:not(.row-rename) .entry-info .name {
+    width: 104px;
+    max-width: 104px;
+}
+
+#filesMainContent.thumbnails .file-row.min.on-favorite:not(.row-rename) .favorite {
+    position: absolute;
+    right: 38px;
+    top: 14px;
 }
 
 #filesMainContent.thumbnails .file-row.min .new-label-menu {

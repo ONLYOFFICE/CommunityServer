@@ -167,7 +167,7 @@ window.accountsPanel = (function($) {
             return;
         }
 
-        $('#accountsPanel .accounts a').unbind('click.accountsPanel').bind('click.accountsPanel', function() {
+        $('#accountsPanel .accounts a').off('click.accountsPanel').on('click.accountsPanel', function() {
             var accountEmail = $(this).text();
             var account = accountsManager.getAccountByAddress(accountEmail);
             if (!account) {

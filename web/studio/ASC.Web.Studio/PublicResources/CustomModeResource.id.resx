@@ -208,20 +208,6 @@ Anda juga dapat mengedit dokumen offline dengan gratis kami  "desktop editors":"
 Salam Hangat,
 Tim ONLYOFFICE</value>
   </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Ada permintaan untuk mengubah sandi yang digunakan untuk "$ {__VirtualRootPath} ":"$ {__VirtualRootPath}" portal.
-
-Silakan klik link di bawah ini untuk mengubah password Anda:
-
-$GreenButton
-
-* Catatan *: link ini hanya berlaku selama 7 hari. Silakan lengkapi proses perubahan password dalam jangka waktu tersebut.
-
-Jika Anda tidak ingin mengubah password Anda atau menerima email ini karena kesalahan, harap diabaikan.
-
-Dengan Hormat,
-Tim ONLYOFFICE</value>
-  </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Halo
 
@@ -292,12 +278,6 @@ Penghapusan data pribadi diizinkan untuk gratis:
   </data>
   <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
     <value>Menyediakan pekerjaan profesional dengan spreadsheet, membantu untuk melakukan perhitungan yang rumit dan mengatur data Anda.</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Hubungkan penyimpanan cloud favorit Anda ke ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Bantuan password ONLYOFFICE pribadi</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Silahkan aktivasi alamat email Anda</value>

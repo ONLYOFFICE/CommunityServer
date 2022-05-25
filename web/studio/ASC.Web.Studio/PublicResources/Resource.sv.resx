@@ -1047,9 +1047,6 @@ Om du väljer att inkludera mejl kommer bara meddelanden från de 30 sista dagar
   <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
     <value>Välkomstsida inställningarna har sparats</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Skicka mejl</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Köp nu</value>
   </data>

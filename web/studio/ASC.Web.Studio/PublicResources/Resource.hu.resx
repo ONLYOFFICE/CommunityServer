@@ -202,9 +202,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Adminisztrátorok</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Felvételi Állapot</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Bármely tartomány</value>
   </data>
@@ -997,9 +994,6 @@ Ha a mentést a levelezéssel együtt készíti el, csak az utolsó 30 nap level
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>importálás a Google-ról</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importálás a Yahoo-ról</value>
-  </data>
   <data name="ImportUserLimitTitle" xml:space="preserve">
     <value>Felhasználók hozzáadása</value>
   </data>
@@ -1026,9 +1020,6 @@ Ha a mentést a levelezéssel együtt készíti el, csak az utolsó 30 nap level
   </data>
   <data name="IpSecurityWarning" xml:space="preserve">
     <value>Először meg kell adnia jelenlegi IP-címét, vagy azt az IP-tartományt, amelybe a jelenlegi IP-címe tartozik, ellenkező esetben a beállítások mentése után azonnal megszűnik a portál-hozzáférése. A portáltulajdonos továbbra is bármilyen IP-címről hozzáfér a portálhoz. </value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Legyen Partnerünk.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Nyelv</value>
@@ -1361,9 +1352,6 @@ Biztonsági mentési lista</value>
   <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
     <value>A profil törlésére vonatkozó útmutatást a(z) {0} emailcímre elküldtük</value>
   </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Különleges ajánlatokért keressen minket</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Vegye meg most</value>
   </data>
@@ -1372,9 +1360,6 @@ Biztonsági mentési lista</value>
   </data>
   <data name="TariffLinkStandalone" xml:space="preserve">
     <value>{0}Kattintson ide{1} a portáljához való licencfájl feltöltéshez.</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Az Ön kényelme érdekében az orosz rubelben teljesített kifizetéseket az alábbi, rögzített árfolyamon számoljuk el: 1 amerikai dollár = {0} orosz rubel.</value>
   </data>
   <data name="TfaAppAuthMessageError" xml:space="preserve">
     <value>Helytelen kód</value>

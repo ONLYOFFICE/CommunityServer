@@ -1,0 +1,16 @@
+source https://www.myget.org/F/openstacknetsdk/api/v2
+source https://nuget.org/api/v2
+
+nuget openstack.net !~> 1.5.0.1 prerelease
+
+nuget GitVersionTask 3.1.1
+nuget moq !>= 4.2
+nuget EWSoftware.SHFB 2015.7.25
+nuget EWSoftware.SHFB.NETFramework 4.6.0
+nuget xunit !~> 2.0.0
+nuget xunit.runner.console !~> 2.0.0
+nuget xunit.runner.visualstudio !~> 2.0.1
+
+# For the samples
+source https://www.myget.org/F/rackspace/api/v2
+nuget Rackspace prerelease

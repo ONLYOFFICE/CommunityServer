@@ -82,12 +82,6 @@
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Fájl csatolása projekt dokumentumaiból</value>
   </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Kapcsolódjon kedvenc felhőszolgáltatásához és tárolja az összes fájlját egy helyen.</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Hívja ügyfeleit közvetlenül a CRM-ből az {0}ONLYOFFICE Twilio{1} integrációjának köszönhetően.</value>
-  </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
   </data>
@@ -232,9 +226,6 @@
   <data name="SharingSettingsEmpty" xml:space="preserve">
     <value>Adjon hozzá felhasználókat vagy csoportokat, majd adjon jogosultságot nekik.</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Alapár</value>
-  </data>
   <data name="TariffFree" xml:space="preserve">
     <value>Szabad</value>
   </data>
@@ -244,17 +235,11 @@
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Év{2}{1} Előfizetés</value>
   </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Év{1} Előfizetés</value>
-  </data>
   <data name="TariffOverdueDesktop" xml:space="preserve">
     <value>{0}Lejárt a fizetési határidő.{1} Az {2}ONLYOFFICE együttműködési képességeinek további használatához, {2}hosszabbítsa meg jelenlegi előfizetését, vagy válasszon másik csomagot.</value>
   </data>
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 év</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Az új portál hozzáadásával túllépi a jelenlegi előfizetése által lehetővé tett portálok számát.</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} felhasználó/hó</value>

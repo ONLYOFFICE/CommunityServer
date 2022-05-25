@@ -24,6 +24,9 @@ using System.Reflection;
 
 using ASC.Common.Logging;
 using ASC.Common.Module;
+using ASC.Core.Common.Contracts;
+
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.UrlShortener.Svc
 {
@@ -31,7 +34,10 @@ namespace ASC.UrlShortener.Svc
     {
         private ProcessStartInfo startInfo;
         private Process proc;
+        private HealthCheckSvc HealthCheckSvc;
         private static readonly ILog Logger = LogManager.GetLogger("ASC");
+        private const string ResultOfPing = "OK";
+        private const string PathToPing = "/isLife";
 
         public void Start()
         {
@@ -78,6 +84,8 @@ namespace ASC.UrlShortener.Svc
                 startInfo.EnvironmentVariables.Add("logPath", Path.Combine(Logger.LogDirectory, "web.urlshortener.log"));
 
                 StartNode();
+                HealthCheckSvc = new HealthCheckSvc(cfg.Port, ResultOfPing, Logger, PathToPing);
+                HealthCheckSvc.StartPing();
             }
             catch (Exception e)
             {
@@ -91,6 +99,8 @@ namespace ASC.UrlShortener.Svc
             {
                 if (proc != null && !proc.HasExited)
                 {
+                    HealthCheckSvc.StopPing();
+
                     proc.Kill();
                     proc.WaitForExit(10000);
 

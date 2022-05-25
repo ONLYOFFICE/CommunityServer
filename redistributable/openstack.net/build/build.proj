@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Configuration>Debug</Configuration>
+    <Version>1.7.8</Version>
+    <PaketVersion>2.66.9</PaketVersion>
+    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+    <PaketBootstrapper>$(MSBuildThisFileDirectory.Replace('build\','.paket'))\paket.bootstrapper.exe</PaketBootstrapper>
+    <Paket>$(MSBuildThisFileDirectory.Replace('build\','.paket'))\paket.exe</Paket>
+    <PackagesFolder>$(MSBuildThisFileDirectory.Replace('build\','packages'))</PackagesFolder>
+    <NuGet>$(PackagesFolder)\NuGet.CommandLine\tools\NuGet.exe</NuGet>
+    <MSBuild>&quot;$(MSBuildToolsPath)\MSBuild.exe&quot;</MSBuild>
+    <XUnit>$(PackagesFolder)\xunit.runner.console\tools\xunit.console.exe</XUnit>
+    <XUnitXslt>$(PackagesFolder)\xunit.runner.console\tools\NUnitXml.xslt</XUnitXslt>
+    <ILMerge>$(PackagesFolder)\ILMerge\tools\ILMerge.exe</ILMerge>
+  </PropertyGroup>
+
+  <Target Name="CI">
+    <PropertyGroup>
+      <Configuration>Release</Configuration>
+    </PropertyGroup>
+
+    <CallTarget Targets="Build" />
+    <CallTarget Targets="UnitTest" />
+    <!-- Disabled until new env is setup -->
+    <!--<CallTarget Targets="IntegrationTest" />-->
+    <CallTarget Targets="Documentation" />
+    <CallTarget Targets="Package" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="RestorePackages">
+    <Message Text="Building version $(Version)..." />
+    <Exec Command="$(MSBuild) ..\src\openstack.net.sln /p:Configuration=$(Configuration) /nologo /v:minimal" />
+  </Target>
+
+  <Target Name="Documentation" DependsOnTargets="Build">
+    <PropertyGroup>
+      <SHFBROOT>$(PackagesFolder)\EWSoftware.SHFB\tools</SHFBROOT>
+    </PropertyGroup>
+
+    <Exec Command="(set SHFBROOT=$(SHFBROOT)) &amp; $(MSBuild) ..\src\Documentation\Documentation.sln /p:Configuration=$(Configuration) /nologo /v:minimal" />
+  </Target>
+
+  <Target Name="RestorePackages" DependsOnTargets="DownloadPaket">
+    <Exec Command="$(PaketBootstrapper)" />
+    <Exec Command="$(Paket) install" />
+  </Target>
+
+  <Target Name="DownloadPaket" Condition="!Exists('$(PaketBootstrapper)')">
+    <Exec Command="@powershell -NoProfile -ExecutionPolicy unrestricted -Command &quot;$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest 'https://github.com/fsprojects/Paket/releases/download/$(PaketVersion)/paket.bootstrapper.exe' -OutFile '$(PaketBootstrapper)'&quot;" />
+    <Exec Command="..\.paket\paket.bootstrapper.exe $(PaketVersion)" />
+  </Target>
+
+  <Target Name="UnitTest" DependsOnTargets="Build">
+    <PropertyGroup>
+      <MSTest Condition=" '$(VS140COMNTOOLS)' != '' ">&quot;$(VS140COMNTOOLS)..\IDE\MSTest.exe&quot;</MSTest>
+      <MSTest Condition=" '$(VS120COMNTOOLS)' != '' ">&quot;$(VS120COMNTOOLS)..\IDE\MSTest.exe&quot;</MSTest>
+    </PropertyGroup>
+
+    <RemoveDir Directories="..\artifacts\TestResults\" />
+    <MakeDir Directories="..\artifacts\TestResults\" />
+    <Exec Command="$(XUnit) ..\src\testing\unit\bin\$(Configuration)\OpenStackNet.Testing.Unit.dll -nunit ..\artifacts\TestResults\unit-tests.nunit.xml" />
+    <Exec Command="$(MSTest) /testcontainer:..\src\testing\unit\bin\$(Configuration)\OpenStackNet.Testing.Unit.dll /category:Unit /resultsfile:..\artifacts\TestResults\unit.trx" />
+  </Target>
+
+  <Target Name="IntegrationTest" DependsOnTargets="Build">
+    <MakeDir Directories="..\artifacts\TestResults\" />
+    <Exec Command="$(XUnit) ..\src\testing\integration\bin\$(Configuration)\OpenStackNet.Testing.Integration.dll -xml ..\artifacts\TestResults\integration-tests.xml -notrait ci=false" />
+
+    <!-- Convert test results to the NUnit format for easier reporting -->
+    <XslTransformation XmlInputPaths="..\artifacts\TestResults\integration-tests.xml"  XslInputPath="$(XUnitXslt)"
+      OutputPaths="..\artifacts\TestResults\integration-tests.nunit.xml" />
+  </Target>
+
+  <Target Name="MigrationTest" DependsOnTargets="RestorePackages">
+    <PropertyGroup>
+      <MigrationSln>..\src\testing\migration\migration.sln</MigrationSln>
+    </PropertyGroup>
+
+    <!-- Remove cached prerelease packages so that the latest is grabed from MyGet -->
+    <ItemGroup>
+      <PrereleasePackages Include="$(LOCALAPPDATA)\NuGet\Cache\*beta*"/>
+    </ItemGroup>
+    <Delete Files="@(PrereleasePackages)" />
+
+    <Exec Command="$(NuGet) restore $(MigrationSln)" />
+
+    <Message Text="Updating NuGet packages to the latest available releases (including prereleases available on MyGet)..." />
+    <Exec Command="$(NuGet) update -Prerelease $(MigrationSln)" />
+
+    <Message Text="Verifying that the migration solution builds..." />
+    <Exec Command="$(MSBuild) $(MigrationSln) /nologo /clp:ErrorsOnly" />
+  </Target>
+
+  <Target Name="Package" DependsOnTargets="Build">
+    <MakeDir Directories="..\src\corelib\bin\v4.0\$(Configuration)\deploy" />
+    <Exec Command="$(ILMerge) /t:library /v4 /out:deploy/openstacknet.dll openstacknet.dll SimpleRESTServices.dll"
+          WorkingDirectory="..\src\corelib\bin\v4.0\$(Configuration)" />
+
+    <MakeDir Directories="..\artifacts\packages\" />
+    <Exec Command="$(NuGet) pack ..\src\corelib\corelib.nuspec -OutputDirectory ..\artifacts\ -Prop Configuration=$(Configuration) -Version $(Version)" />
+  </Target>
+
+  <!-- The publish targets don't depend upon Package because of how they are used on the CI server. At this point the code has been packaged and all that needs
+       to happen is to publish the artifact. -->
+  <Target Name="PublishNuGet">
+    <Exec Command="@powershell -NoProfile -ExecutionPolicy unrestricted -File check-nuget-version-exists.ps1 $(Version)" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="ShouldPublishToNuGet" />
+    </Exec>
+
+    <!-- The environment variable BAMBOO_NUGET_PASSWORD comes from the nuget.password variable defined on the openstack.net plan in Bamboo -->
+    <Message Text="Skipping publish to NuGet because version $(Version) has already been published."
+          Condition=" '$(ShouldPublishToNuGet)' == 'False' " />
+    <Exec Command="$(NuGet) push ..\artifacts\packages\openstack.net.$(Version).nupkg %25BAMBOO_NUGET_PASSWORD%25 -Source https://api.nuget.org/v3/index.json"
+          Condition=" '$(ShouldPublishToNuGet)' == 'True' " />
+  </Target>
+
+  <Target Name="PublishMyGet">
+    <!-- We don't need to check for existing versions because MyGet lets you overwrite -->
+    <!-- The environment variable BAMBOO_MYGET_PASSWORD comes from the nuget.password variable defined on the openstack.net plan in Bamboo -->
+    <Exec Command="$(NuGet) push ..\artifacts\packages\openstack.net.$(Version).nupkg %25BAMBOO_MYGET_PASSWORD%25 -Source https://www.myget.org/F/openstacknetsdk/api/v2"/>
+  </Target>
+
+</Project>

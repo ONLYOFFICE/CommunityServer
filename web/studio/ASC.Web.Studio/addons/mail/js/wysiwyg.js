@@ -17,7 +17,7 @@
 
 window.wysiwygEditor = (function ($) {
     var editorInstance,
-        supportedCustomEvents = { OnChange: "onchange", OnFocus: "onfocus" },
+        supportedCustomEvents = { OnChange: "onchange" },
         eventsHandler = $({}),
         isEditorReady,
         signatureOnload,
@@ -43,7 +43,7 @@ window.wysiwygEditor = (function ($) {
         if (button) {
             var $button = $(button);
 
-            $button.unbind("click").bind("click", function () {
+            $button.off("click").on("click", function () {
                 showQuote(this);
             });
 
@@ -57,7 +57,7 @@ window.wysiwygEditor = (function ($) {
                 showQuote($button);
             }
 
-            $button.unbind("contextmenu").bind("contextmenu", function (event) {
+            $button.off("contextmenu").on("contextmenu", function (event) {
                 event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
             });
         }
@@ -117,7 +117,13 @@ window.wysiwygEditor = (function ($) {
         });
 
         $body.find(".mailmessage-filelink-link .file-name").dotdotdot({ wrap: "letter", height: 18 });
-    }
+
+        $body.one("focus", function (e) {
+            if (e.isDefaultPrevented()) return;
+            window.messagePage.bindSend($body);
+            e.preventDefault();
+        });
+    }    
 
     function init() {
         close();
@@ -125,7 +131,8 @@ window.wysiwygEditor = (function ($) {
         var config = {
             toolbar: "Mail",
             removePlugins: "magicline",
-            filebrowserUploadUrl: "fckuploader.ashx?newEditor=true&esid=mail",
+            extraPlugins:"mentions",
+            filebrowserUploadUrl: "fckuploader.ashx?esid=mail",
             height: 200,
             tabIndex: 5,
             resize_dir: "vertical",
@@ -161,6 +168,8 @@ window.wysiwygEditor = (function ($) {
             if (bodyOnload) {
                 setBody(bodyOnload);
             }
+
+            initMentions();
         });
     }
 
@@ -184,13 +193,19 @@ window.wysiwygEditor = (function ($) {
 
     function setFocus() {
         if (editorInstance) {
-            if (isEditorReady) {
-                editorInstance.focus();
-                eventsHandler.trigger(supportedCustomEvents.OnFocus);
-            } else {
+            if (!isEditorReady) {
                 needCkFocus = true;
             }
         }
+    }
+
+    function initMentions() {
+        // listen custom event
+        editorInstance.on('autocompleteCommit', function (evt) {
+            var user = UserManager.getUser(evt.data);
+            jq("#newmessageTo").AdvancedEmailSelector('addItem', user.email);
+            editorInstance.focus();
+        });
     }
 
     function setReply(message) {
@@ -352,11 +367,11 @@ window.wysiwygEditor = (function ($) {
     }
 
     function bind(eventName, fn) {
-        return eventsHandler.bind(eventName, fn);
+        return eventsHandler.on(eventName, fn);
     }
 
     function unbind(eventName) {
-        return eventsHandler.unbind(eventName);
+        return eventsHandler.off(eventName);
     }
 
     function insertFileLinks(files) {

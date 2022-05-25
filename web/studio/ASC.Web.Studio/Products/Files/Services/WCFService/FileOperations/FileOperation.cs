@@ -52,10 +52,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         private readonly IPrincipal principal;
         private readonly string culture;
-        private int total;
         private int processed;
         private int successProcessed;
 
+
+        public int Total { get; set; }
 
         protected DistributedTask TaskInfo { get; private set; }
 
@@ -124,7 +125,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                 Logger = Global.Logger;
 
-                total = InitTotalProgressSteps();
+                Total = InitTotalProgressSteps();
 
                 Do();
             }
@@ -172,7 +173,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         protected virtual void FillDistributedTask()
         {
-            var progress = total != 0 ? 100 * processed / total : 0;
+            var progress = Total != 0 ? 100 * processed / Total : 0;
 
             TaskInfo.SetProperty(SOURCE, string.Join(SPLIT_CHAR, Folders.Select(f => "folder_" + f).Concat(Files.Select(f => "file_" + f)).ToArray()));
             TaskInfo.SetProperty(OPERATION_TYPE, OperationType);

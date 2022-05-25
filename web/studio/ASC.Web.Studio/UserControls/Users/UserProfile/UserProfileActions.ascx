@@ -65,7 +65,7 @@
         <% }
        if (Actions.AllowEdit && !MobileDetector.IsMobile && (!ProfileHelper.UserInfo.IsLDAP() || (ProfileHelper.UserInfo.IsLDAP() && ProfileHelper.UserInfo.HasAvatar())))
            { %>
-        <li class="edit-photo">
+        <li class="edit-photo <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a class="dropdown-item"
                 title="<%= Resource.EditPhoto %>">
                 <%= Resource.EditPhoto %>
@@ -78,6 +78,15 @@
             <a class="dropdown-item"
                 title="<%= CustomNamingPeople.Substitute<Resource>("DisableUserHelp").HtmlEncode() %>">
                 <%= Resource.DisableUserButton %>
+            </a>
+        </li>
+        <% }
+           if (IsAdmin && !MyStaff && Actions.AllowAddOrDelete && !ProfileHelper.UserInfo.IsLDAP())
+           { %>
+        <li class="logout-connections <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
+            <a class="dropdown-item"
+                title="<%= Resource.LogOutAllActiveConnections %>">
+                <%= Resource.LogOutAllActiveConnections %>
             </a>
         </li>
         <% }

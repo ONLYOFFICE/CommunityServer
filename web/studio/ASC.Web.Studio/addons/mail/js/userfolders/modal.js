@@ -35,7 +35,7 @@ window.userFoldersModal = (function($) {
         window.StudioBlockUIManager.blockUI(message, width, { bindEvents: false });
 
         $('#manageWindow .cancelButton').css('cursor', 'pointer');
-        $('.containerBodyBlock .buttons .cancel').unbind('click').bind('click', function () {
+        $('.containerBodyBlock .buttons .cancel').off('click').on('click', function () {
             $.unblockUI();
             return false;
         });
@@ -94,8 +94,8 @@ window.userFoldersModal = (function($) {
         bindCancel();
 
         wnd.find('.buttons .save')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function() {
                     var newFolder = {
                         name: (folderNameInput.val() || "").trim(),
@@ -109,8 +109,8 @@ window.userFoldersModal = (function($) {
             selector.toggleClass("disable", false);
 
             selector
-                .unbind('click')
-                .bind('click',
+                .off('click')
+                .on('click',
                     function() {
                         var options = {
                             btnCaption: window.MailResource.Select,
@@ -157,8 +157,8 @@ window.userFoldersModal = (function($) {
         bindCancel();
 
         wnd.find('.buttons .save')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function() {
                     var newFolder = {
                         id: folder.id,
@@ -172,8 +172,8 @@ window.userFoldersModal = (function($) {
         if (!options.disableSelector) {
             selector.toggleClass("disable", false);
             selector
-                .unbind('click')
-                .bind('click',
+                .off('click')
+                .on('click',
                     function() {
                         var options = {
                             btnCaption: window.MailResource.Select,
@@ -217,8 +217,8 @@ window.userFoldersModal = (function($) {
         bindCancel();
 
         wnd.find('.buttons .del')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function() {
                     options.onSave(folder);
                 });
@@ -226,8 +226,8 @@ window.userFoldersModal = (function($) {
 
     function bindCancel() {
         wnd.find('.buttons .cancel')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     hide();
                     userFoldersDropdown.hide();

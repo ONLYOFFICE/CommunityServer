@@ -719,7 +719,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
 
     function showDropView() {
         if (!$dropView.is(':visible')) {
-            $dropViewBtn.click();
+            $dropViewBtn.trigger("click");
         }
     }
 

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which
+         assemblies to include from solution and project documentation
+         sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ea57bd15-3742-45b8-bde2-263f7236bafd}</ProjectGuid>
+    <SHFBSchemaVersion>1.9.9.0</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
+         Studio adds them anyway -->
+    <AssemblyName>Documentation</AssemblyName>
+    <RootNamespace>Documentation</RootNamespace>
+    <Name>Documentation.v4.0</Name>
+    <!-- SHFB properties -->
+    <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
+    <OutputPath>..\..\artifacts\docs\html\v4.0</OutputPath>
+    <HtmlHelpName>API Reference Documentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\corelib\OpenStack.csproj" subFolders="True" />
+    </DocumentationSources>
+    <BuildAssemblerVerbosity>OnlyErrors</BuildAssemblerVerbosity>
+    <HelpFileFormat>Website</HelpFileFormat>
+    <IndentHtml>False</IndentHtml>
+    <KeepLogFile>True</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <CppCommentsFixup>False</CppCommentsFixup>
+    <CleanIntermediates>True</CleanIntermediates>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <PresentationStyle>VS2013</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>MemberName</NamingMethod>
+    <HelpTitle>openstack.net API Reference Documentation</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <RootNamespaceTitle>API Reference</RootNamespaceTitle>
+    <WebsiteSdkLinkType>Msdn</WebsiteSdkLinkType>
+    <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
+    <IncludeFavorites>True</IncludeFavorites>
+    <BinaryTOC>True</BinaryTOC>
+    <VisibleItems>Attributes, InheritedMembers, ProtectedInternalAsProtected</VisibleItems>
+    <FeedbackEMailAddress>sdk-support@rackspace.com</FeedbackEMailAddress>
+    <CopyrightText>
+    </CopyrightText>
+    <CopyrightHref>
+    </CopyrightHref>
+    <TransformComponentArguments>
+      <Argument Key="logoFile" Value="" />
+      <Argument Key="logoHeight" Value="" />
+      <Argument Key="logoWidth" Value="" />
+      <Argument Key="logoAltText" Value="" />
+      <Argument Key="logoPlacement" Value="left" />
+      <Argument Key="logoAlignment" Value="left" />
+    </TransformComponentArguments>
+    <ComponentConfigurations>
+      <ComponentConfig id="IntelliSense Component" enabled="True">
+        <component id="IntelliSense Component">
+          <output includeNamespaces="false" namespacesFile="Namespaces" folder="{@OutputFolder}\..\..\Api\v4.0" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="Code Block Component" enabled="True">
+        <component id="Code Block Component">
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+      <ComponentConfig id="API Token Resolution" enabled="True">
+        <component id="API Token Resolution">
+          {@TokenFiles}
+          <replace elements="/*//token" item="string(.)" /></component>
+      </ComponentConfig>
+    </ComponentConfigurations>
+    <CatalogName>VisualStudio11</CatalogName>
+    <TocParentId>-1</TocParentId>
+    <TocParentVersion>100</TocParentVersion>
+    <TopicVersion>100</TopicVersion>
+    <TocOrder>-1</TocOrder>
+    <ProductTitle>openstack.net SDK</ProductTitle>
+    <VendorName>openstacknet</VendorName>
+    <MSHelpViewerSdkLinkType>Id</MSHelpViewerSdkLinkType>
+    <CatalogVersion>100</CatalogVersion>
+    <CatalogProductId>VS</CatalogProductId>
+    <PlugInConfigurations>
+      <PlugInConfig id="Version Builder" enabled="True">
+        <configuration>
+          <currentProject label=".NET Framework" version="4.5" ripOldApis="False" />
+          <versions>
+            <version label="openstack.net" version="1.6" helpFileProject="History\Current\Documentation.Current.shfbproj" />
+            <version label="openstack.net" version="1.5" ripOldApis="True" helpFileProject="History\1.5\Documentation.1.5.shfbproj" />
+            <version label="openstack.net" version="1.4" ripOldApis="True" helpFileProject="History\1.4\Documentation.1.4.shfbproj" />
+            <version label="openstack.net" version="1.3.6" ripOldApis="True" helpFileProject="History\1.3.6\Documentation.1.3.6.shfbproj" />
+          </versions>
+        </configuration>
+      </PlugInConfig>
+      <PlugInConfig id="Additional Reference Links" enabled="True">
+        <configuration>
+          <targets>
+            <target htmlSdkLinkType="None" help2SdkLinkType="Index" helpViewerSdkLinkType="Id" websiteSdkLinkType="None" helpFileProject="AdditionalReferenceDocumentation.shfbproj" />
+          </targets>
+        </configuration>
+      </PlugInConfig>
+      <PlugInConfig id="Assembly Binding Redirection" enabled="True">
+        <configuration useGAC="false">
+          <assemblyBinding>
+            <dependentAssembly>
+              <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+              <bindingRedirect oldVersion="0.0.0.0-8.0.0.0" newVersion="8.0.0.0" />
+            </dependentAssembly>
+          </assemblyBinding>
+          <ignoreIfUnresolved />
+        </configuration>
+      </PlugInConfig>
+    </PlugInConfigurations>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="Flurl.Extensions" isExposed="False" />
+      <Filter entryType="Namespace" fullName="Flurl.Http" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Authentication" isExposed="True">
+        <Filter entryType="Class" fullName="OpenStack.Authentication.AuthenticatedHttpClientFactory" filterName="AuthenticatedHttpClientFactory" isExposed="False" />
+        <Filter entryType="Class" fullName="OpenStack.Authentication.ServiceType" filterName="ServiceType" isExposed="False" />
+        <Filter entryType="Class" fullName="OpenStack.Authentication.ServiceUrlBuilder" filterName="ServiceUrlBuilder" isExposed="False" />
+      </Filter>
+      <Filter entryType="Namespace" fullName="OpenStack.Compute.v2_1.Serialization" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Compute.v2_2.Serialization" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Compute.v2_6.Serialization" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Networking.v2.Serialization" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Serialization" isExposed="False" />
+      <Filter entryType="Namespace" fullName="OpenStack.Synchronous.Extensions" isExposed="False" />
+      <Filter entryType="Namespace" fullName="System.Extensions" isExposed="False" />
+      <Filter entryType="Namespace" fullName="Newtonsoft.Json" isExposed="True">
+        <Filter entryType="Class" fullName="Newtonsoft.Json.JsonConverter" filterName="JsonConverter" isExposed="False" />
+      </Filter>
+    </ApiFilter>
+    <HelpAttributes />
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="Flurl.Http" isDocumented="False" />
+      <NamespaceSummaryItem name="OpenStack.Compute.v2_1.Serialization" isDocumented="False" />
+      <NamespaceSummaryItem name="OpenStack.Compute.v2_2.Serialization" isDocumented="False" />
+      <NamespaceSummaryItem name="OpenStack.Compute.v2_6.Serialization" isDocumented="False" />
+      <NamespaceSummaryItem name="OpenStack.Serialization" isDocumented="False" />
+      <NamespaceSummaryItem name="OpenStack.Synchronous" isDocumented="True" />
+    </NamespaceSummaries>
+    <BuildLogFile />
+    <HtmlHelp1xCompilerPath />
+    <HtmlHelp2xCompilerPath />
+    <WorkingPath />
+    <ComponentPath />
+    <MaximumGroupParts>3</MaximumGroupParts>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
+  </PropertyGroup>
+  <!-- There are no properties for these groups.  AnyCPU needs to appear in
+       order for Visual Studio to perform the build.  The others are optional
+       common platform types that may appear. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Content\AsynchronousServices.aml" />
+    <None Include="Content\Authentication\Authentication.aml" />
+    <None Include="Content\Authentication\HPAuthentication.aml" />
+    <None Include="Content\Authentication\OpenStackAuthentication.aml" />
+    <None Include="Content\Authentication\RackspaceAuthentication.aml" />
+    <None Include="Content\BreakingChangesPolicy.aml" />
+    <None Include="Content\License.aml" />
+    <None Include="Content\MSHelpViewerRoot.aml" />
+    <None Include="Content\UserGuide\UserGuide.aml" />
+    <None Include="Content\Welcome.aml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentLayout Include="OpenStackSDK.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content" />
+    <Folder Include="Content\Authentication" />
+    <Folder Include="Content\UserGuide" />
+  </ItemGroup>
+  <ItemGroup>
+    <Tokens Include="SharedTokens.tokens" />
+  </ItemGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>

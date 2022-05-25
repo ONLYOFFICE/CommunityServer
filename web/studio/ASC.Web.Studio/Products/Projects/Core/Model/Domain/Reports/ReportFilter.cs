@@ -58,7 +58,13 @@ namespace ASC.Projects.Core.Domain.Reports
 
         public List<PaymentStatus> PaymentStatuses { get; set; }
 
+        public List<AverageTime> ViewAverageTime { get; set; }
+
         public int ViewType { get; set; }
+
+        public bool IsShowAverageTime { get; set; }
+
+        public AverageTime TypeOfShowAverageTime { get; set; }
 
         public bool NoResponsible { get; set; }
 
@@ -139,13 +145,8 @@ namespace ASC.Projects.Core.Domain.Reports
             switch (TimeInterval)
             {
                 case ReportTimeInterval.Absolute:
-                    date = FromDate;
-                    break;
                 case ReportTimeInterval.Relative:
-                    if (FromDate != DateTime.MinValue && FromDate != DateTime.MaxValue)
-                    {
-                        date = TenantUtil.DateTimeNow();
-                    }
+                    date = FromDate;
                     break;
                 //Hack for Russian Standard Time
                 case ReportTimeInterval.CurrYear:
@@ -170,13 +171,8 @@ namespace ASC.Projects.Core.Domain.Reports
             switch (TimeInterval)
             {
                 case ReportTimeInterval.Absolute:
-                    date = ToDate;
-                    break;
                 case ReportTimeInterval.Relative:
-                    if (FromDate != DateTime.MinValue && FromDate != DateTime.MaxValue && ToDate != DateTime.MinValue && ToDate != DateTime.MaxValue)
-                    {
-                        date = TenantUtil.DateTimeNow().Add(ToDate - FromDate);
-                    }
+                    date = ToDate;
                     break;
                 default:
                     date = GetDate(false);

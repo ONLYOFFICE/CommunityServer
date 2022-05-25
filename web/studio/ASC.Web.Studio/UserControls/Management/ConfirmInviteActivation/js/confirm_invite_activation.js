@@ -15,168 +15,240 @@
 */
 
 
-jq(document).on("keyup",
-    "#studio_confirm_Email," +
-        "#studio_confirm_FirstName," +
-        "#studio_confirm_LastName," +
-        "#studio_confirm_pwd",
-    function (event) {
-        var code;
-        if (!e) {
-            var e = event;
-        }
-        if (e.keyCode) {
-            code = e.keyCode;
-        } else if (e.which) {
-            code = e.which;
-        }
+window.ConfirmInviteManager = new function () {
+    var $registrationForm = jq("#registrationForm");
+    var $emailInput = jq("#studio_confirm_Email");
+    var $firstNameInput = jq("#studio_confirm_FirstName");
+    var $lastNameInput = jq("#studio_confirm_LastName");
+    var $passwordInput = jq("#studio_confirm_pwd");
+    var $passwordMatchInput = jq("#studio_confirm_pwd_match");
+    var $passwordHashInput = jq("#passwordHash");
+    var $labels = jq("#passwordShowLabel, #passwordShowLabelMatch");
+    var $passwordNotMatchText = jq("#password-do-not-match-text");
+    var $buttonConfirmInvite = jq("#buttonConfirmInvite");
 
+    var init = function () {
+        var $inputs = $registrationForm.find("input:visible");
+
+        //set default value
+        $inputs.each(function () {
+            var $input = jq(this);
+            $input.val($input.attr("value"));
+        });
+
+        $labels.on("click", togglePasswordType);
+        $buttonConfirmInvite.on("click", confirmInvite);
+
+        if (ASC.Resources.Master.Personal) {
+            jq("body").addClass("body-personal-confirm");
+
+            $inputs.on("focus", inputFocus).on("focusout", inputFocusOut).on("keyup", inputKeyUp);
+
+            $emailInput.trigger("focus").parents(".property").addClass("focus input-hint-top");
+
+            jq(".property").each(function () {
+                var $inpuntHint = jq(this).children(".name");
+                jq(this).children(".value").append($inpuntHint);
+            });
+
+            var $formBlock = jq(".confirmBlock");
+            AddPaddingWithoutScrollTo($formBlock, $formBlock);
+
+            jq(window).on("resize", function () {
+                AddPaddingWithoutScrollTo($formBlock, $formBlock);
+            });
+        } else {
+            $inputs.on("keyup", inputKeyUp);
+        }
+    };
+
+    var togglePasswordType = function () {
+        var label = jq(this);
+        var input = label.parent().find(".textEdit");
+
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+            label.removeClass("hide-label").addClass("show-label");
+        } else {
+            input.attr("type", "password");
+            label.removeClass("show-label").addClass("hide-label");
+        }
+    };
+
+    var inputFocus = function () {
+        jq(this).parents(".property").addClass("focus").addClass("input-hint-top");
+    };
+
+    var inputFocusOut = function () {
+        var $input = jq(this);
+        var $parent = $input.parents(".property").removeClass("focus");
+
+        if ($input.val().length == 0) {
+            $parent.removeClass("input-hint-top");
+        }
+    }
+
+    var inputKeyUp = function (event) {
+        checkEmailValid(false);
+        checkNameValid($firstNameInput, false);
+        checkNameValid($lastNameInput, false);
+        checkPasswordValid(false, false);
+        checkPasswordMatchValid(false);
+
+        var password = $passwordInput.val();
+        var passwordMatch = $passwordMatchInput.val();
+
+        $passwordNotMatchText.toggle(passwordMatch != "" && password != passwordMatch);
+
+        var code = event.keyCode || event.which;
         if (code != 13) {
             return;
         }
 
-        if (jq(this).is("#studio_confirm_pwd")) {
-            //do postback
-            jq("#buttonConfirmInvite").click();
+        var $input = jq(this);
+        if ($input.is($passwordMatchInput)) {
+            confirmInvite();
             return;
         }
 
-        var input = jq(this).parents(".property").next().find(".value input");
-        input.focus();
+        var $nextInput = $input.parents(".property").next().find(".value input");
+        $nextInput.trigger("focus");
+
         //set focus to end of text
-        var tmpStr = input.val();
-        input.val("");
-        input.val(tmpStr);
-    });
+        var tmpStr = $nextInput.val();
+        $nextInput.val("");
+        $nextInput.val(tmpStr);
+    };
 
-jq(document).on("click", "#buttonConfirmInvite", function () {
-    var requireFields = {
-            email: jq("#studio_confirm_Email"),
-            firstname: jq("#studio_confirm_FirstName"),
-            lastname: jq("#studio_confirm_LastName"),
-            psw: jq("#studio_confirm_pwd")
-        },
-        error = 0;
+    var clearInputError = function ($input) {
+        if (ASC.Resources.Master.Personal) {
+            $input.parents(".property").removeClass("valid").removeClass("error");
+        } else {
+            $input.removeClass("with-error");
+        }
+    };
 
-    jq("#registrationForm input").removeClass("with-error");
+    var toggleInputError = function ($input, show) {
+        if (show) {
+            if (ASC.Resources.Master.Personal) {
+                $input.parents(".property").removeClass("valid").addClass("error");
+            } else {
+                $input.addClass("with-error");
+            }
+        } else {
+            if (ASC.Resources.Master.Personal) {
+                $input.parents(".property").removeClass("error").addClass("valid");
+            } else {
+                $input.removeClass("with-error");
+            }
+        }
+    };
 
-    for (var item in requireFields) {
-        
-        if (requireFields[item].is(":visible")) requireFields[item].val(requireFields[item].val().trim())
+    var checkEmailValid = function (emptyIsError) {
+        if (!$emailInput.length) {
+            return true;
+        }
 
-        if (requireFields[item].is(":visible") && !requireFields[item].val()) {
-            requireFields[item].addClass("with-error");
-            error++;
+        var email = $emailInput.val().trim();
+
+        clearInputError($emailInput);
+
+        if (email.length == 0 && !emptyIsError) {
+            return true;
+        }
+
+        if (!jq.isValidEmail(email)) {
+            toggleInputError($emailInput, true);
+            return false;
+        } else {
+            toggleInputError($emailInput, false);
+            return true;
         }
     }
 
-    if (requireFields.email.is(":visible") && !jq.isValidEmail(requireFields.email.val())) {
-        requireFields.email.addClass("with-error");
-        error++;
+    var checkNameValid = function ($input, emptyIsError) {
+        var name = $input.val().trim();
+        var regexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
+
+        clearInputError($input);
+
+        if (name.length == 0 && !emptyIsError) {
+            return true;
+        }
+
+        if (!regexp.test(name)) {
+            toggleInputError($input, true);
+            return false;
+        } else {
+            toggleInputError($input, false);
+            return true;
+        }
     }
 
-    var regexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
+    var checkPasswordValid = function (emptyIsError, showToastr) {
+        var password = $passwordInput.val();
+        var regex = new RegExp($passwordInput.data("regex"), "g");
+        var help = $passwordInput.data("help");
 
-    if (requireFields.firstname.is(":visible") && !regexp.test(requireFields.firstname.val())) {
-        requireFields.firstname.addClass("with-error");
-        error++;
+        clearInputError($passwordInput);
+
+        if (password.length == 0 && !emptyIsError) {
+            return true;
+        }
+
+        if (!regex.test(password)) {
+            toggleInputError($passwordInput, true);
+            if (showToastr) {
+                toastr.error(help);
+            }
+            return false;
+        } else {
+            toggleInputError($passwordInput, false);
+            return true;
+        }
     }
 
-    if (requireFields.lastname.is(":visible") && !regexp.test(requireFields.lastname.val())) {
-        requireFields.lastname.addClass("with-error");
-        error++;
+    var checkPasswordMatchValid = function (emptyIsError) {
+        var password = $passwordInput.val();
+        var passwordMatch = $passwordMatchInput.val();
+
+        clearInputError($passwordMatchInput);
+
+        if (passwordMatch.length == 0 && !emptyIsError) {
+            return true;
+        }
+
+        if (password != passwordMatch) {
+            toggleInputError($passwordMatchInput, true);
+            return false;
+        } else {
+            toggleInputError($passwordMatchInput, false);
+            return true;
+        }
     }
 
-    var password = requireFields.psw.val();
-    if (!(new XRegExp(requireFields.psw.data("regex"), "ig")).test(password)) {
-        requireFields.psw.addClass("with-error");
+    var confirmInvite = function () {
+        var emailValid = checkEmailValid(true);
+        var firstNameValid = checkNameValid($firstNameInput, true);
+        var lastNameInput = checkNameValid($lastNameInput, true);
+        var passwordValid = checkPasswordValid(true, true);
+        var passwordMatchValid = checkPasswordMatchValid(true);
 
-        toastr.error(requireFields.psw.data("help"));
-        error++;
-    }
+        if (!(emailValid && firstNameValid && lastNameInput && passwordValid && passwordMatchValid)) {
+            return;
+        }
 
-    if (error == 0) {
-        var password = jq("#studio_confirm_pwd").val();
-        window.hashPassword(password, function (passwordHash) {
-            jq("#passwordHash").val(passwordHash);
-
+        window.hashPassword($passwordInput.val(), function (passwordHash) {
+            $passwordHashInput.val(passwordHash);
             window.submitForm("confirmInvite", "");
         });
-    }
-});
+    };
+
+    return {
+        init: init
+    };
+};
 
 jq(function () {
-    if (ASC.Resources.Master.Personal) {
-        jq("body").addClass("body-personal-confirm");
-
-        jq("#buttonConfirmInvite").on("click", function () {
-            jq(".body-personal-confirm input[type='text'], .body-personal-confirm input[type='password']").each(function () {
-                var currentInput = jq(this);
-                var currentInputValue = currentInput[0].value;
-                var currentInputWrapper = currentInput.parents(".property");
-
-                if (currentInputValue.length == 0) {
-                    currentInputWrapper.addClass("error");
-                }
-            });
-        });
-
-        jq(".body-personal-confirm input[type='text'], .body-personal-confirm input[type='password']").focus(inputFocus).focusout(inputFocusOut);
-
-        jq(".property").each(function () {
-            var $inpuntHint = jq(this).children(".name");
-            jq(this).children(".value").append($inpuntHint);
-        });
-
-        var $formBlock = jq(".confirmBlock");
-        AddPaddingWithoutScrollTo($formBlock, $formBlock);
-
-        jq(window).on("resize", function () {
-            AddPaddingWithoutScrollTo($formBlock, $formBlock);
-        });
-
-        function inputFocus() {
-            var currentInput = jq(this);
-
-            currentInput.parents(".property")
-                .removeClass('error')
-                .removeClass('valid')
-                .addClass('focus')
-                .addClass('input-hint-top');
-        };
-
-        function inputFocusOut() {
-            var currentInput = jq(this);
-            var currentInputValue = currentInput[0].value;
-
-            var currentInputId = currentInput[0].id;
-            var currentInputWrapper = currentInput.parents(".property");
-            currentInputWrapper.removeClass('focus');
-
-            if (currentInputValue.length == 0) {
-                currentInputWrapper.removeClass('input-hint-top');
-            } else {
-                if (currentInputId == "studio_confirm_Email") {
-                    if (!jq.isValidEmail(currentInputValue)) {
-                        currentInputWrapper.addClass("error");
-                    } else if (currentInputValue.length > 0) {
-                        currentInputWrapper.addClass('valid');
-                    }
-                } else if (currentInputId.toLowerCase().indexOf("name") != -1) {
-                    var nameRegexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
-                    if (!nameRegexp.test(currentInputValue)) {
-                        currentInputWrapper.addClass("error");
-                    } else if (currentInputValue.length > 0) {
-                        currentInputWrapper.addClass('valid');
-                    }
-                } else if (currentInputId == "studio_confirm_pwd") {
-                    if (!(new XRegExp(jq(this).data("regex"), "ig")).test(currentInputValue)) {
-                        currentInputWrapper.addClass("error");
-                    } else if (currentInputValue.length > 0) {
-                        currentInputWrapper.addClass('valid');
-                    }
-                }
-            }
-        };
-    }
+    window.ConfirmInviteManager.init();
 });

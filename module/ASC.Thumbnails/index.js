@@ -22,6 +22,7 @@ const config = require('./config');
 const log = require('./app/log.js');
 
 const thumb = require('./app/thumb.js');
+const isLife = require('./app/isLife.js');
 
 log.stream = {
   write: (message) => log.info(message)
@@ -32,5 +33,6 @@ var app = express();
 app.use(cookieParser());
 
 app.get('/', thumb);
+app.get('/isLife', isLife);
 
 app.listen(config.get("port"));

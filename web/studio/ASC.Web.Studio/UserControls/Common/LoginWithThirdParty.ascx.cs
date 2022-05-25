@@ -47,6 +47,8 @@ namespace ASC.Web.Studio.UserControls.Common
             get { return "~/UserControls/Common/LoginWithThirdParty.ascx"; }
         }
 
+        private static ILog Log = LogManager.GetLogger("ASC.Web");
+
         protected string LoginMessage;
         public bool RenderDisabled { get; set; }
 
@@ -62,7 +64,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (loginProfile == null && !IsPostBack || SecurityContext.IsAuthenticated) return;
 
-            string cookiesKey;
+            string cookiesKey = string.Empty;
             try
             {
                 if (loginProfile == null)
@@ -78,9 +80,7 @@ namespace ASC.Web.Studio.UserControls.Common
                 var userInfo = GetUserByThirdParty(loginProfile);
                 if (!CoreContext.UserManager.UserExists(userInfo.ID)) return;
 
-                cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
+                cookiesKey = CookiesManager.AuthenticateMeAndSetCookies(userInfo.Tenant, userInfo.ID, MessageAction.LoginSuccessViaSocialAccount);
             }
             catch (System.Security.SecurityException)
             {
@@ -95,19 +95,11 @@ namespace ASC.Web.Studio.UserControls.Common
                 return;
             }
 
-            var refererURL = (string)Session["refererURL"];
-
-            if (String.IsNullOrEmpty(refererURL))
-            {
-                refererURL = CommonLinkUtility.GetDefault();
-            }
-            if (Request.DesktopApp())
-            {
-                refererURL += (refererURL.Contains("?") ? "&" : "?") + "token=" + HttpUtility.HtmlEncode(cookiesKey);
-            }
-
-            Session["refererURL"] = null;
-            Response.Redirect(refererURL);
+            var refererURL = Context.GetRefererURL();
+            Response.Redirect(
+                              Request.DesktopApp()
+                              ? refererURL + ((refererURL.Contains("?") ? "&" : "?") + "token=" + HttpUtility.HtmlEncode(cookiesKey))
+                              : refererURL);
         }
 
         public static UserInfo GetUserByThirdParty(LoginProfile loginProfile)
@@ -139,7 +131,7 @@ namespace ASC.Web.Studio.UserControls.Common
                     {
                         try
                         {
-                            SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                            SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                             CoreContext.UserManager.DeleteUser(userInfo.ID);
                             userInfo = Constants.LostUser;
                         }
@@ -171,12 +163,12 @@ namespace ASC.Web.Studio.UserControls.Common
                                                        .InColumnValue("email", userInfo.Email.ToLowerInvariant())
                                                        .InColumnValue("reason", "personal")
                                     );
-                                LogManager.GetLogger("ASC.Web").Debug(String.Format("Write to template_unsubscribe {0}", userInfo.Email.ToLowerInvariant()));
+                                Log.Debug(String.Format("Write to template_unsubscribe {0}", userInfo.Email.ToLowerInvariant()));
                             }
                         }
                         catch (Exception ex)
                         {
-                            LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, userInfo.Email.ToLowerInvariant()));
+                            Log.Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, userInfo.Email.ToLowerInvariant()));
                         }
                     }
 
@@ -247,7 +239,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                     userInfo = UserManagerWrapper.AddUser(newUserInfo, UserManagerWrapper.GeneratePassword());
                 }
                 finally

@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>Функция {0}Настройки логотипа портала{1} доступна только для оплаченных порталов.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Логотип для страницы "О программе" и страницы входа</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Логотип для шапки редакторов</value>
   </data>

@@ -68,7 +68,7 @@ namespace ASC.Core.Caching
                     }
                 }
             });
-            notify.Subscribe<SubscriptionMethod>((m, a) =>
+            notify.Subscribe<SubscriptionMethodCache>((m, a) =>
             {
                 var store = GetSubsciptionsStore(m.Tenant, m.SourceId, m.ActionId);
                 lock (store)
@@ -146,7 +146,7 @@ namespace ASC.Core.Caching
         public void SetSubscriptionMethod(SubscriptionMethod m)
         {
             service.SetSubscriptionMethod(m);
-            notify.Publish(m, CacheNotifyAction.Any);
+            notify.Publish((SubscriptionMethodCache)m, CacheNotifyAction.Any);
         }
 
 

@@ -1,0 +1,13 @@
+Flurl.Http.Signed
+Flurl.Signed
+Marvin.JsonPatch.Signed
+Moq
+Newtonsoft.Json
+SimpleRESTServices
+xunit
+xunit.abstractions
+xunit.assert
+xunit.core
+xunit.extensibility.core
+xunit.runner.console
+xunit.runner.visualstudio

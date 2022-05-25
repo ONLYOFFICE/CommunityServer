@@ -8,7 +8,7 @@
     <li name="addRow">
       <xsl:attribute name="class">
         file-row folder-row new-folder item-row
-        <xsl:if test="contains(file_status, 'IsFavorite')">
+        <xsl:if test="contains(folder_is_favorite, 'true')">
           on-favorite
         </xsl:if>
         <xsl:if test="provider_key != ''">
@@ -70,6 +70,11 @@
               <xsl:value-of select="title" />
             </a>
           </div>
+			<div class="favorite">
+				<xsl:attribute name="title">
+					<resource name="FilesCommonResource.ButtonRemoveFavorite" />
+				</xsl:attribute>
+			</div>
           <xsl:if test="isnew > 0">
             <div class="new-label-menu is-new">
               <xsl:attribute name="title">
@@ -105,11 +110,17 @@
                   </span>
                   <span class="title-removed">
                     <resource name="FilesCommonResource.TitleRemoved" />
+                  </span>
+                  <span class="title-removed-permanently" >
+                    <resource name="FilesCommonResource.TitleRemovePermanently" />
                   </span>&#160;<span class="create-date">
                     <xsl:value-of select="create_on" />
                   </span>
                   <span class="modified-date" >
                     <xsl:value-of select="modified_on" />
+                  </span>
+                  <span class="deleted-permanently-date">
+                    <xsl:value-of select="deleted_permanently_date" />
                   </span>
                 </xsl:if>
                 <xsl:if test="not(provider_key) or provider_key = ''">
@@ -136,6 +147,12 @@
             </xsl:attribute>
             <xsl:attribute name="data-shared">
               <xsl:value-of select="shared" />
+            </xsl:attribute>
+            <xsl:attribute name="data-deny_download">
+              <xsl:value-of select="deny_download" />
+            </xsl:attribute>
+            <xsl:attribute name="data-deny_sharing">
+              <xsl:value-of select="deny_sharing" />
             </xsl:attribute>
             <xsl:attribute name="data-create_by_id">
               <xsl:value-of select="create_by_id" />
@@ -176,6 +193,12 @@
             <xsl:attribute name="data-folder_id">
               <xsl:value-of select="folder_id" />
             </xsl:attribute>
+            <xsl:attribute name="data-deleted_permanently_date">
+              <xsl:value-of select="deleted_permanently_date" />
+            </xsl:attribute>
+			<xsl:attribute name="data-folder_is_favorite">
+				<xsl:value-of select="folder_is_favorite" />
+			</xsl:attribute>
           </input>
         </div>
       </div>
@@ -373,8 +396,14 @@
                 </span>
                 <span class="title-removed" >
                   <resource name="FilesCommonResource.TitleRemoved" />
+                </span>
+                <span class="title-removed-permanently" >
+                  <resource name="FilesCommonResource.TitleRemovePermanently" />
                 </span>&#160;<span class="modified-date">
                   <xsl:value-of select="modified_on" />
+                </span>
+                <span class="deleted-permanently-date">
+                  <xsl:value-of select="deleted_permanently_date" />
                 </span>
                 <span> | </span>
                 <span class="content-length">
@@ -394,6 +423,12 @@
             </xsl:attribute>
             <xsl:attribute name="data-shared">
               <xsl:value-of select="shared" />
+            </xsl:attribute>
+            <xsl:attribute name="data-deny_download">
+              <xsl:value-of select="deny_download" />
+            </xsl:attribute>
+            <xsl:attribute name="data-deny_sharing">
+              <xsl:value-of select="deny_sharing" />
             </xsl:attribute>
             <xsl:attribute name="data-create_by_id">
               <xsl:value-of select="create_by_id" />
@@ -451,6 +486,9 @@
             </xsl:attribute>
             <xsl:attribute name="data-thumbnail_status">
               <xsl:value-of select="thumbnail_status" />
+            </xsl:attribute>
+            <xsl:attribute name="data-deleted_permanently_date">
+              <xsl:value-of select="deleted_permanently_date" />
             </xsl:attribute>
           </input>
         </div>

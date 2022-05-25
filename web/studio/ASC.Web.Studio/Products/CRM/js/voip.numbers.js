@@ -319,7 +319,7 @@ ASC.CRM.Voip.NumbersView = (function ($) {
 
         buttonObj.on("click", function(e) {
             e.preventDefault();
-            jq("#fileupload_" + audioType).click();
+            jq("#fileupload_" + audioType).trigger("click");
         });
 
         return inputObj;
@@ -378,7 +378,7 @@ ASC.CRM.Voip.NumbersView = (function ($) {
                 }
             })
             .bind("fileuploaddone", function(e, data) {
-                var response = $.parseJSON(data.result);
+                var response = JSON.parse(data.result);
                 if (!response.Success || !response.Data) {
                     if (response.Message) {
                         toastr.error(response.Message);
@@ -452,9 +452,9 @@ ASC.CRM.Voip.NumbersView = (function ($) {
         bindUploader('hold-ringtone-load-btn', 1, 'hold-ringtone-selector');
         bindUploader('voicemail-ringtone-load-btn', 2, 'voicemail-ringtone-selector');
 
-        $numberSettingsBox.find('#greeting-ringtone-player').bind('ended', recorPlayerEndedHandler);
-        $numberSettingsBox.find('#hold-ringtone-player').bind('ended', recorPlayerEndedHandler);
-        $numberSettingsBox.find('#voicemail-ringtone-player').bind('ended', recorPlayerEndedHandler);
+        $numberSettingsBox.find('#greeting-ringtone-player').on('ended', recorPlayerEndedHandler);
+        $numberSettingsBox.find('#hold-ringtone-player').on('ended', recorPlayerEndedHandler);
+        $numberSettingsBox.find('#voicemail-ringtone-player').on('ended', recorPlayerEndedHandler);
     };
 
     function renderOperators() {
@@ -571,12 +571,12 @@ ASC.CRM.Voip.NumbersView = (function ($) {
     function workHoursChangedHandler(e) {
         var wasOn = quickSettingChangedHandler(e);
         if (wasOn) {
-            $workingHoursFromInput.add($workingHoursToInput).val("").attr("disabled", "disabled");
+            $workingHoursFromInput.add($workingHoursToInput).val("").prop("disabled", true);
         } else {
-            $workingHoursFromInput.add($workingHoursToInput).removeAttr("disabled");
+            $workingHoursFromInput.add($workingHoursToInput).prop("disabled", false);
             $workingHoursFromInput.val("6:00");
             $workingHoursToInput.val("23:00");
-            $workingHoursFromInput.focus();
+            $workingHoursFromInput.trigger("focus");
         }
 
     };

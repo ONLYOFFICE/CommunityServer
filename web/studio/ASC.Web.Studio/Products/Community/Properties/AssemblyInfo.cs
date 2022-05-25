@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-using ASC.Web.Community.Birthdays;
 using ASC.Web.Community.Blogs.Common;
 using ASC.Web.Community.Bookmarking;
 using ASC.Web.Community.Forum.Common;
@@ -41,7 +40,6 @@ using ASC.Web.Core;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: Product(typeof(CommunityProduct))]
-[assembly: Product(typeof(BirthdaysModule))]
 [assembly: Product(typeof(BlogsModule))]
 [assembly: Product(typeof(BookmarkingModule))]
 [assembly: Product(typeof(ForumModule))]

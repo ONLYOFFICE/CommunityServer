@@ -61,6 +61,7 @@ namespace ASC.Files.Thirdparty
             base.RemoveProviderInfo(linkId);
 
             var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
+            RemoveFromCache(key);
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Remove);
         }
 
@@ -69,6 +70,7 @@ namespace ASC.Files.Thirdparty
             var result = base.UpdateProviderInfo(linkId, customerTitle, authData, folderType, userId);
 
             var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
+            RemoveFromCache(key);
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Update);
             return result;
         }
@@ -78,6 +80,7 @@ namespace ASC.Files.Thirdparty
             var result = base.UpdateProviderInfo(linkId, authData);
 
             var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
+            RemoveFromCache(key);
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Update);
             return result;
         }

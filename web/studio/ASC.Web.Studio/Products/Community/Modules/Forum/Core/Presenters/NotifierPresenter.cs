@@ -45,8 +45,7 @@ namespace ASC.Forum
                                                                new TagValue(Constants.TagThreadURL, e.ThreadURL),
                                                                new TagValue(Constants.TagPostText, e.PostText),
                                                                new TagValue(Constants.TagUserURL, e.UserURL),
-                                                               new TagValue(Constants.TagUserName, e.Poster.ToString()),
-                                                               ReplyToTagProvider.Comment("forum.topic", e.TopicId.ToString(), e.PostId.ToString()));
+                                                               new TagValue(Constants.TagUserName, e.Poster.ToString()));
 
 
             }
@@ -63,8 +62,7 @@ namespace ASC.Forum
                                                                new TagValue(Constants.TagThreadURL, e.ThreadURL),
                                                                new TagValue(Constants.TagPostText, e.PostText),
                                                                new TagValue(Constants.TagUserURL, e.UserURL),
-                                                               new TagValue(Constants.TagUserName, e.Poster.ToString()),
-                                                               ReplyToTagProvider.Comment("forum.topic", e.TopicId.ToString(), e.PostId.ToString()));
+                                                               new TagValue(Constants.TagUserName, e.Poster.ToString()));
 
 
             }
@@ -97,8 +95,7 @@ namespace ASC.Forum
                                                                 new TagValue(Constants.TagTagName, e.TagName),
                                                                 new TagValue(Constants.TagTagURL, e.TagURL),
                                                                 new TagValue(Constants.TagUserURL, e.UserURL),
-                                                                new TagValue(Constants.TagUserName, e.Poster.ToString()),
-                                                                ReplyToTagProvider.Comment("forum.topic", e.TopicId.ToString()));
+                                                                new TagValue(Constants.TagUserName, e.Poster.ToString()));
 
 
             }

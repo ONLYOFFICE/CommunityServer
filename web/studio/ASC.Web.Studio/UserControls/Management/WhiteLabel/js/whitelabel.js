@@ -48,7 +48,7 @@ var WhiteLabelManager = new function () {
 
         for (var i = 0, n = $logoPaths.length; i < n; i++) {
             var logotype = jq($logoPaths[i]).attr('id').split('_')[1],
-                logoPath = jq.trim(jq($logoPaths[i]).val());
+                logoPath = jq($logoPaths[i]).val().trim();
 
             logoList.push({ key: logotype, value: logoPath });
 
@@ -114,13 +114,13 @@ var WhiteLabelManager = new function () {
                 fontcolor = $c.attr("data-fontcolor"),
                 logotype = $c.attr("id").replace("canvas_logo_", ""),
                 x = logotype == 3 ? cnv.width / 2 : 0,
-                firstChar = jq.trim(text).charAt(0),
+                firstChar = text.trim().charAt(0),
                 firstCharCode = firstChar.charCodeAt(0),
                 ctx = cnv.getContext("2d");
 
             if (logotype.indexOf('_') !== -1) logotype = logotype.split('_')[0]; // for docs editor
 
-            if (firstCharCode >= 0xD800 && firstCharCode <= 0xDBFF) firstChar = jq.trim(text).substr(0, 2); // Note: for surrogates pairs only
+            if (firstCharCode >= 0xD800 && firstCharCode <= 0xDBFF) firstChar = text.trim().substr(0, 2); // Note: for surrogates pairs only
             
             ctx.fillStyle = "transparent";
             ctx.clearRect(0, 0, cnv.width, cnv.height);

@@ -18,7 +18,7 @@
 (function ($, win, doc, body) {
 
     // add new method for jQuery - contains case insensitive
-    jQuery.expr[':'].icontains = function (a, i, m) {
+    jQuery.expr.pseudos.icontains = function (a, i, m) {
         return jQuery(a).text().toUpperCase()
             .indexOf(m[3].toUpperCase()) >= 0;
     };
@@ -115,11 +115,11 @@
         $(document.body).on('click', onBodyClick.bind(that));
 
 
-        jq(window).bind("resizeWinTimerWithMaxDelay", function (event) {
+        jq(window).on("resizeWinTimerWithMaxDelay", function (event) {
             setPositionSelectorContainer.call(that);
         });
 
-        $(document).keyup(function (event) {
+        $(document).on("keyup", function (event) {
             if (!that.$advancedSelector.is(":visible"))
                 return;
 
@@ -353,7 +353,7 @@
 
     function setFocusOnSearch() {
         var that = this;
-        that.$advancedSelector.find(".advanced-selector-search-field").focus();
+        that.$advancedSelector.find(".advanced-selector-search-field").trigger("focus");
     }
 
     function onClickCancelSelector() {
@@ -490,7 +490,7 @@
         addItemBlock.find(".advanced-selector-btn-cancel").on('click', hideAddItemBlock.bind(that));
         addItemBlock.find(".advanced-selector-btn-add").on('click', createNewItem.bind(that));
 
-        $(document).keyup(function (event) {
+        $(document).on("keyup", function (event) {
             if (!addItemBlock.is(":visible"))
                 return;
 
@@ -510,7 +510,7 @@
 
     function setFocusOnAddField() {
         var that = this;
-        that.$advancedSelector.find(".advanced-selector-add-new-block input[type=text]").first().focus();
+        that.$advancedSelector.find(".advanced-selector-add-new-block input[type=text]").first().trigger("focus");
     }
 
     function createNewItem(event) {
@@ -1143,15 +1143,17 @@
 
         var li1 = document.createElement("li");
         var div1 = document.createElement("div");
+        var img1 = document.createElement("img");
         var label1 = document.createElement("label");
         var multiplyChosen = !that.options.onechosen;
+        var listItemsCount = Math.ceil(that.heightListWithoutCreate / that.heightListItem);
 
         for (var i = 0; i < itemsDisplay.length; i++) {
             var item = itemsDisplay[i];
             var title = typeof item.title === "string" ? Encoder.htmlDecode(item.title) : item.title;
             var li = li1.cloneNode(false);
             var className = "";
-            li.title = title;
+            li.title = item.tooltip || title;
 
             var dataId = document.createAttribute("data-id");
             dataId.value = item.id;
@@ -1159,10 +1161,7 @@
 
             //data-id, data-cnt
             if (item.status) {
-                li.title += jq.format(" ({0})", item.status);
-                if (item.status === ASC.Resources.Master.ResourceJS.UserPending) {
-                    className += " pending";
-                }
+                className += " " + item.status;
             }
             if (item.type) {
                 className += " " + item.type;
@@ -1185,16 +1184,20 @@
                 if (that.itemsSelectedIds.hasOwnProperty(item.id)) {
                     input.className = "checked";
                 }
-                li.appendChild(input);
-
-                var label = label1.cloneNode(false);
-                label.innerText = title;
-                li.appendChild(label);
-            } else {
-                li.innerText = title;
+                li.append(input);
             }
 
-            fragment.appendChild(li);
+            if (item.avatarSmall) {
+                var img = img1.cloneNode(false);
+                img.setAttribute(i > listItemsCount ? "data-src" : "src", item.avatarSmall);
+                li.append(img);
+            }
+
+            var label = label1.cloneNode(false);
+            label.innerText = title;
+            li.append(label);
+
+            fragment.append(li);
         }
 
         return fragment;
@@ -1205,7 +1208,7 @@
 
         var height;
         if ((!that.options.canadd && that.options.showGroups) || that.options.isTempLoad) {
-            height = 177;//height for the items container without the creation of the new item
+            height = 184;//height for the items container without the creation of the new item
         }
 
         if (that.options.onechosen) {
@@ -1213,7 +1216,7 @@
         }
 
         if (!that.options.onechosen && that.options.canadd && !that.options.showGroups) {
-            height = 131;
+            height = 124;
         }
 
         if (that.options.height) {
@@ -1224,7 +1227,7 @@
         list.style.display = "none";
 
         var ul = document.createElement("ul");
-        ul.className = "advanced-selector-list";
+        ul.className = list.className;
         ul.appendChild(redraw.call(that, items));
 
         if (height) {
@@ -1234,8 +1237,33 @@
 
         jq(list).replaceWith(ul);
 
+        ul.addEventListener("scroll", loadImagesOnScroll);
+
         list.style.display = "";
     };
+
+    var loadImagesOnScroll = function () {
+        var list = jq(this),
+            listTop = list.offset().top,
+            listBottom = listTop + list.height();
+
+        list.find("img[data-src]").each(function () {
+            var img = jq(this),
+                imgTop = img.offset().top,
+                imgBottom = imgTop + img.height();
+
+            if (imgTop > listBottom) {
+                return false;
+            }
+
+            if (imgBottom < listTop) {
+                return true;
+            }
+
+            var src = img.attr("data-src");
+            img.removeAttr("data-src").attr("src", src);
+        });
+    }
 
     var advancedSelector = function (element, options) {
         this.$element = $(element);
@@ -1249,8 +1277,9 @@
         init: function () {
             var that = this;
 
-            that.heightListWithoutCreate = 225;
-            that.heightListChooseOne = 200;
+            that.heightListWithoutCreate = 226;
+            that.heightListChooseOne = 196;
+            that.heightListItem = 30;
             that.widthSelector = that.options.width ? that.options.width : 211;
             that.widthAddBlock = 216,
             that.items = [];
@@ -1350,7 +1379,7 @@
             var $btnContainer = $(btn).parents(".advanced-selector-btn-cnt");
             $btnContainer.find("button").removeClass("disable");
             $btnContainer.find(".advanced-selector-loader").remove();
-            this.$advancedSelector.find(".advanced-selector-add-new-block input").removeAttr("disabled");
+            this.$advancedSelector.find(".advanced-selector-add-new-block input").prop("disabled", false);
         },
         showErrorField: function (data) {
             $(data.field).addClass("error");
@@ -1374,7 +1403,7 @@
 
             if (profile.hasOwnProperty(tagName)) {
 
-                if ($.isArray(profile[tagName])) {
+                if (Array.isArray(profile[tagName])) {
                     ID = profile[tagName][0].id;
                 }
                 else {
@@ -1429,7 +1458,7 @@
             }
 
             var $searchFld = that.$advancedSelector.find(".advanced-selector-search-field"),
-                searchQuery = ($searchFld.length !== 0) ? $.trim($searchFld.val()) : "",
+                searchQuery = ($searchFld.length !== 0) ? $searchFld.val().trim() : "",
                 $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
 
             $noResult.hide();
@@ -1569,7 +1598,7 @@
             }
 
             if (that.options.onechosen) {
-                var height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate - 28; // 28 - height of the field "Select All"
+                var height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate - that.heightListItem; // height of the field "Select All"
                 that.$groupsListSelector.find(".advanced-selector-list").height(height);
             }
             pushItemsForGroup.call(that);

@@ -200,14 +200,31 @@ namespace ASC.Files.ThumbnailBuilder
 
             var fileExtension = file.ConvertedExtension;
             var docKey = DocumentServiceHelper.GetDocKey(file);
-            var thumbnail = new DocumentService.ThumbnailData
+
+            var thumbnailAspect = config.ThumbnailAspect;
+            var thumbnail = GetThumbnailData(thumbnailAspect);
+            var spreadsheetLayout = GetSpreadsheetLayout(thumbnailAspect);
+
+            var operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, null, thumbnail, spreadsheetLayout, false, out url);
+
+            operationResultProgress = Math.Min(operationResultProgress, 100);
+            return operationResultProgress == 100;
+        }
+
+        private DocumentService.ThumbnailData GetThumbnailData(int thumbnailAspect)
+        {
+            return new DocumentService.ThumbnailData
             {
-                Aspect = 2,
+                Aspect = thumbnailAspect,
                 First = true,
-                //Height = config.ThumbnaillHeight,
-                //Width = config.ThumbnaillWidth
+                Height = thumbnailAspect == 3 ? config.ThumbnaillHeight : 0,
+                Width = thumbnailAspect == 3 ? config.ThumbnaillWidth : 0,
             };
-            var spreadsheetLayout = new DocumentService.SpreadsheetLayout
+        }
+
+        private DocumentService.SpreadsheetLayout GetSpreadsheetLayout(int thumbnailAspect)
+        {
+            return new DocumentService.SpreadsheetLayout
             {
                 IgnorePrintArea = true,
                 //Orientation = "landscape", // "297mm" x "210mm"
@@ -222,16 +239,14 @@ namespace ASC.Files.ThumbnailBuilder
                     Bottom = "0mm",
                     Left = "0mm"
                 },
-                PageSize = new DocumentService.SpreadsheetLayout.LayoutPageSize
-                {
-                    Width = (config.ThumbnaillWidth * 1.5) + "mm", // 192 * 1.5 = "288mm",
-                    Height = (config.ThumbnaillHeight * 1.5) + "mm" // 128 * 1.5 = "192mm"
-                }
+                PageSize = thumbnailAspect == 3 ?
+                    new DocumentService.SpreadsheetLayout.LayoutPageSize() :
+                    new DocumentService.SpreadsheetLayout.LayoutPageSize
+                    {
+                        Width = (config.ThumbnaillWidth * 1.5) + "mm", // 192 * 1.5 = "288mm",
+                        Height = (config.ThumbnaillHeight * 1.5) + "mm" // 128 * 1.5 = "192mm"
+                    }
             };
-            var operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, thumbnail, spreadsheetLayout, false, out url);
-
-            operationResultProgress = Math.Min(operationResultProgress, 100);
-            return operationResultProgress == 100;
         }
 
         private void SaveThumbnail(IFileDao fileDao, File file, string thumbnailUrl)
@@ -248,7 +263,14 @@ namespace ASC.Files.ThumbnailBuilder
 
             using (var stream = new ResponseStream(req.GetResponse()))
             {
-                Crop(fileDao, file, stream);
+                if (config.ThumbnailAspect == 3)
+                {
+                    fileDao.SaveThumbnail(file, stream);
+                }
+                else
+                {
+                    Crop(fileDao, file, stream);
+                }
             }
 
             logger.DebugFormat("SaveThumbnail: FileId: {0}. Successfully saved.", file.ID);

@@ -57,7 +57,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             TariffPageLink = TenantExtra.GetTariffPageLink();
-            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
+            if (!SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
@@ -88,7 +88,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             BackupTimePeriod.Controls.Add(LoadControl(ChooseTimePeriod.Location));
 
-            if (!CoreContext.Configuration.Standalone && SetupInfo.IsVisibleSettings("Restore"))
+            if (SetupInfo.IsVisibleSettings("Restore"))
             {
                 RestoreHolder.Controls.Add(LoadControl(Restore.Location));
             }

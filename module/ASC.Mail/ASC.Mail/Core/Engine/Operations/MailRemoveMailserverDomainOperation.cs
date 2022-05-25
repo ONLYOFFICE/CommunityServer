@@ -57,12 +57,12 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(CurrentUser);
+                    SecurityContext.CurrentAccount = CurrentUser;
                 }
                 catch
                 {
                     // User was removed
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                 }
 
                 SetProgress((int?)MailOperationRemoveDomainProgress.RemoveFromDb, "Remove domain from Db");

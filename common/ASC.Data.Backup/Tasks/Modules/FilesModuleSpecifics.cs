@@ -36,6 +36,7 @@ namespace ASC.Data.Backup.Tasks.Modules
         private const string BunchRightNodeStartCrmOpportunity = "crm/opportunity/";
         private const string BunchRightNodeStartMy = "files/my/";
         private const string BunchRightNodeStartTrash = "files/trash/";
+        private ILog Log = LogManager.GetLogger("ASC");
 
         private readonly TableInfo[] _tables = new[]
             {
@@ -244,7 +245,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 }
                 catch (Exception err)
                 {
-                    LogManager.GetLogger("ASC").ErrorFormat("Can not prepare value {0}: {1}", value, err);
+                    Log.ErrorFormat("Can not prepare value {0}: {1}", value, err);
                     value = null;
                 }
                 return true;
@@ -275,7 +276,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC").ErrorFormat("Can not prepare data {0}: {1}", row[providerColumn] as string, ex);
+                        Log.ErrorFormat("Can not prepare data {0}: {1}", row[providerColumn] as string, ex);
                         data.Rows.Remove(row);
                         i--;
                     }

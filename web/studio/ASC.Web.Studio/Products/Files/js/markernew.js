@@ -26,7 +26,7 @@ window.ASC.Files.Marker = (function () {
 
             ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetNews, ASC.Files.Marker.onGetNews);
 
-            jq(document).click(function (event) {
+            jq(document).on("click", function (event) {
                 jq.dropdownToggle().registerAutoHide(event, ".is-new", "#filesNewsPanel");
             });
         }
@@ -292,7 +292,7 @@ window.ASC.Files.Marker = (function () {
             ASC.Files.Marker.markAsRead();
         });
 
-        jq("#filesNewsMarkRead").click(function () {
+        jq("#filesNewsMarkRead").on("click", function () {
             ASC.Files.Actions.hideAllActionPanels();
             var folderId = jq("#filesNewsPanel").attr("data-id");
             ASC.Files.Marker.markAsRead(folderId);

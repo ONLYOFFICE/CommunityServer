@@ -17,7 +17,7 @@
 
 PricingPageSettingsManager = new function () {
     this.Init = function () {
-        jq("#pricingPageSettingsBtn").click(PricingPageSettingsManager.Save);
+        jq("#pricingPageSettingsBtn").on("click", PricingPageSettingsManager.Save);
     };
 
     this.Save = function () {

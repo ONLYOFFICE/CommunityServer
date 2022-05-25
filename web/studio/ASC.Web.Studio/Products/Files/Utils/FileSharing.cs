@@ -45,10 +45,10 @@ namespace ASC.Web.Files.Utils
                 && (entry.RootFolderType == FolderType.COMMON && Global.IsAdministrator
                     || !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
                         && (entry.RootFolderType == FolderType.USER
-                            && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanEdit(entry))
+                            && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanShare(entry))
                             || entry.RootFolderType == FolderType.Privacy
                                 && entry is File
-                                && (Equals(entry.RootFolderId, Global.FolderPrivacy) || Global.GetFilesSecurity().CanEdit(entry))));
+                                && (Equals(entry.RootFolderId, Global.FolderPrivacy) || Global.GetFilesSecurity().CanShare(entry))));
         }
 
         public static List<AceWrapper> GetSharedInfo(FileEntry entry)
@@ -77,6 +77,11 @@ namespace ASC.Web.Files.Utils
                 if (r.Subject == FileConstant.ShareLinkId)
                 {
                     linkAccess = r.Share;
+                    continue;
+                }
+
+                if (r.Subject == FileConstant.DenyDownloadId || r.Subject == FileConstant.DenySharingId)
+                {
                     continue;
                 }
 
@@ -131,7 +136,7 @@ namespace ASC.Web.Files.Utils
                 var w = new AceWrapper
                 {
                     SubjectId = FileConstant.ShareLinkId,
-                    Link = FileShareLink.GetLink((File)entry),
+                    Link = FilesSettings.ExternalShare ? FileShareLink.GetLink((File)entry) : string.Empty,
                     SubjectGroup = true,
                     Share = linkAccess,
                     Owner = false
@@ -173,7 +178,8 @@ namespace ASC.Web.Files.Utils
                     };
                     result.Add(w);
                 }
-                if (result.All(w => w.SubjectId != Constants.GroupEveryone.ID))
+                var index = result.FindIndex(w => w.SubjectId == Constants.GroupEveryone.ID);
+                if (index == -1)
                 {
                     var w = new AceWrapper
                     {
@@ -186,18 +192,22 @@ namespace ASC.Web.Files.Utils
                     };
                     result.Add(w);
                 }
+                else
+                {
+                    result[index].DisableRemove = true;
+                }
             }
 
             return result;
         }
 
-        public static bool SetAceObject(List<AceWrapper> aceWrappers, FileEntry entry, bool notify, string message)
+        public static bool SetAceObject(List<AceWrapper> aceWrappers, FileEntry entry, bool notify, string message, AceAdvancedSettingsWrapper advancedSettings)
         {
             if (entry == null) throw new ArgumentNullException(FilesCommonResource.ErrorMassage_BadRequest);
             if (!CanSetAccess(entry)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
 
             var fileSecurity = Global.GetFilesSecurity();
-
+            var ownerId = entry.RootFolderType == FolderType.USER ? entry.RootFolderCreator : entry.CreateBy;
             var entryType = entry.FileEntryType;
             var recipients = new Dictionary<Guid, FileShare>();
             var usersWithoutRight = new List<Guid>();
@@ -207,7 +217,6 @@ namespace ASC.Web.Files.Utils
             {
                 var subjects = fileSecurity.GetUserSubjects(w.SubjectId);
 
-                var ownerId = entry.RootFolderType == FolderType.USER ? entry.RootFolderCreator : entry.CreateBy;
                 if (entry.RootFolderType == FolderType.COMMON && subjects.Contains(Constants.GroupAdmin.ID)
                     || ownerId == w.SubjectId)
                     continue;
@@ -227,7 +236,10 @@ namespace ASC.Web.Files.Utils
                     if (w.Share != FileShare.Restrict && !CoreContext.Configuration.Standalone && TenantExtra.GetTenantQuota().Trial && !FileUtility.CanWebView(entry.Title))
                         throw new SecurityException(FilesCommonResource.ErrorMassage_BadRequest);
 
-                    share = w.Share == FileShare.Restrict ? FileShare.None : w.Share;
+                    share = w.Share == FileShare.Restrict
+                            || !FilesSettings.ExternalShare
+                                ? FileShare.None
+                                : w.Share;
                 }
 
                 fileSecurity.Share(entry.ID, entryType, w.SubjectId, share);
@@ -294,6 +306,12 @@ namespace ASC.Web.Files.Utils
                 {
                     NotifyClient.SendShareNotice(entry, recipients, message);
                 }
+            }
+
+            if (advancedSettings != null && entryType == FileEntryType.File && ownerId == SecurityContext.CurrentAccount.ID && FileUtility.CanWebView(entry.Title) && !entry.ProviderEntry)
+            {
+                fileSecurity.Share(entry.ID, entryType, FileConstant.DenyDownloadId, advancedSettings.DenyDownload ? FileShare.Restrict : FileShare.None);
+                fileSecurity.Share(entry.ID, entryType, FileConstant.DenySharingId, advancedSettings.DenySharing ? FileShare.Restrict : FileShare.None);
             }
 
             usersWithoutRight.ForEach(userId => FileMarker.RemoveMarkAsNew(entry, userId));

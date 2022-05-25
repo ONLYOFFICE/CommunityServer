@@ -229,9 +229,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Administratorji</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Partnerski status</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Kakršna koli domena</value>
   </data>
@@ -892,9 +889,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Novo geslo je nepravilno. Vsebovati mora</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Mora vsebovati</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>številke</value>
   </data>
@@ -1047,9 +1041,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
   </data>
   <data name="HelpCenter" xml:space="preserve">
     <value>Center pomoči</value>
-  </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Namen programa je pravno oglaševanje ONLYOFFICE™ za prejemanje provizije od naročnin, ki jih kupijo posamezniki.</value>
   </data>
   <data name="Hide" xml:space="preserve">
     <value>Skrij</value>
@@ -1230,9 +1221,6 @@ Ste prepričani, da želite izbrisati {0} {!group}?</value>
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Migriraj tudi ONLYOFFICE™ Mail (ni priporočeno)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Postanite naš partner</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Uporabnike lahko še vedno dodajate kot goste, ali pa cenovni načrt spremenite na takega z večjim številom uporabnikov. </value>
@@ -2043,15 +2031,6 @@ Za registracijo vnesite e-naslov in pritisnite na Pošlji vabilo. E-sporočilo s
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Povabila so bila uspešno ponovno poslana</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Pošlji e-sporočilo</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Kontaktirajte nas, če želite odkriti posebne ponudbe</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Zmanjšaj zahtevan parameter ali izberi drug cenovni načrt.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Kupi zdaj</value>
   </data>
@@ -2063,18 +2042,6 @@ Za registracijo vnesite e-naslov in pritisnite na Pošlji vabilo. E-sporočilo s
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Izberite račun, ki je najbolj primeren za vaše potrebe. Priporočen načrt je označen spodaj.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Tega načrta ni mogoče izbrati</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Dovoljena količina shrambe: {0}. Trenutna količina shrambe: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Dovoljeno število uporabnikov portala: {0}. Trenutno število uporabnikov: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Tega načrta ne morete izbrati, saj količina skladišča ali število uporabnikov presega limite izbranega cenovnega načrta:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>ponavljajoča plačila so na</value>
@@ -2099,9 +2066,6 @@ Za registracijo vnesite e-naslov in pritisnite na Pošlji vabilo. E-sporočilo s
   </data>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Za preklič samodejnega plačila prosim pojdite na svoj Avangate račun.</value>
-  </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Ponudba je veljavna do {0}.</value>
   </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Plačilni načrti</value>

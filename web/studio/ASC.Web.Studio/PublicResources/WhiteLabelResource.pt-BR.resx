@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>Recurso de {0}Configurações do Logo do Portal{1} está disponível apenas para portais pagos.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo para a página Sobre/Login</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo para o título dos editores</value>
   </data>

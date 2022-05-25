@@ -29,10 +29,10 @@ namespace ASC.Api.MailServer
     public partial class MailServerApi
     {
         /// <summary>
-        ///    Returns ServerData for mail server associated with tenant
+        /// Returns the mail server associated with the current tenant.
         /// </summary>
-        /// <returns>ServerData for current tenant.</returns>
-        /// <short>Get mail server</short> 
+        /// <returns>Mail server data for the current tenant</returns>
+        /// <short>Get the mail server</short> 
         /// <category>Servers</category>
         [Read(@"server")]
         public ServerData GetMailServer()
@@ -42,10 +42,10 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Returns ServerData for mail server associated with tenant
+        /// Returns full information on the mail server associated with the current tenant.
         /// </summary>
-        /// <returns>ServerData for current tenant.</returns>
-        /// <short>Get mail server</short> 
+        /// <returns>Full mail server information for the current tenant</returns>
+        /// <short>Get the mail server information</short> 
         /// <category>Servers</category>
         [Read(@"serverinfo/get")]
         public ServerFullData GetMailServerFullInfo()
@@ -68,11 +68,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Get or generate free to any domain DNS records
+        /// Returns or generates free DNS records.
         /// </summary>
-        /// <returns>DNS records for current tenant and user.</returns>
-        /// <short>Get free DNS records</short>
-        /// <category>DnsRecords</category>
+        /// <returns>DNS records for the current tenant and user</returns>
+        /// <short>Get or create free DNS records</short>
+        /// <category>DNS records</category>
         [Read(@"freedns/get")]
         public ServerDomainDnsData GetUnusedDnsRecords()
         {

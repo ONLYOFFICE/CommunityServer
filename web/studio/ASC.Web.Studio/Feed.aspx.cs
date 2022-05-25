@@ -117,6 +117,15 @@ namespace ASC.Web.Studio
 
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
             {
+                ID = "emptyListPeople",
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
+                Header = UserControlsCommonResource.FeedEmptyPeopleHeader,
+                Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyPeopleDescription,
+                ButtonHTML = string.Empty
+            });
+
+            emptyScreensHolder.Controls.Add(new EmptyScreenControl
+            {
                 ID = "emptyListCrm",
                 ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", WebItemManager.CRMProductID),
                 Header = UserControlsCommonResource.FeedEmptyContactListHeader,

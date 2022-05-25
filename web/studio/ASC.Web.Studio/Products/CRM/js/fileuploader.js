@@ -24,7 +24,7 @@ ASC.CRM.FileUploader = (function () {
     };
 
     var onUploadDone = function (e, data) {
-        var res = jq.parseJSON(data.result);
+        var res = JSON.parse(data.result);
         ASC.CRM.FileUploader.fileIDs.push(res.Data);
         FileUploadManager._uploadDone(e, data);
     };

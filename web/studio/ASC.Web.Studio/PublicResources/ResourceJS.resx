@@ -53,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
     <value>Validation code field cannot be empty</value>
@@ -66,6 +66,12 @@
   </data>
   <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
     <value>Validation code field cannot be empty</value>
+  </data>
+  <data name="ActiveConnectionWasLoggedOut" xml:space="preserve">
+    <value>The active connection was logged out: {0}, {1}</value>
+  </data>
+  <data name="ActiveConnectionsWasLoggedOut" xml:space="preserve">
+    <value>Active connections was logged out</value>
   </data>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
@@ -114,6 +120,9 @@
   </data>
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
+  </data>
+  <data name="ConfirmLogoutFrom" xml:space="preserve">
+    <value>Log out from {0}, {1}</value>
   </data>
   <data name="ConfirmMessage" xml:space="preserve">
     <value>Do you want to continue?</value>
@@ -850,6 +859,12 @@
   <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
     <value>Unsubscribe from Tips&amp;Tricks</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
   <data name="UnsubscribeProductMessage" xml:space="preserve">
     <value>You are about to unsubscribe from all notifications of the "{0}" module. Are you sure you want to continue?</value>
   </data>
@@ -912,5 +927,56 @@
   </data>
   <data name="WizardCancelConfirmMessage" xml:space="preserve">
     <value>You haven't set up any password. You will be able to do it later using the 'Forgot your password?' link at the portal login page. Are you sure you want to continue?</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="UserSelectorAddWithAccessRights" xml:space="preserve">
+    <value>Add with access rights</value>
+  </data>
+  <data name="UserSelectorAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="UserSelectorCheckAllGroups" xml:space="preserve">
+    <value>Check all groups</value>
+  </data>
+  <data name="UserSelectorCheckAllUsers" xml:space="preserve">
+    <value>Check all users</value>
+  </data>
+  <data name="UserSelectorCheckCurrentUsers" xml:space="preserve">
+    <value>Check current users</value>
+  </data>
+  <data name="UserSelectorSearchPlaceholder" xml:space="preserve">
+    <value>User, Group, email</value>
+  </data>
+  <data name="UserSelectorSelectedCount" xml:space="preserve">
+    <value>{0} selected</value>
+  </data>
+  <data name="UserSelectorShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
+  <data name="UserSelectorUsersWithouthGroup" xml:space="preserve">
+    <value>Users withouth group</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="MailSendReceiptError" xml:space="preserve">
+    <value>A problem has occurred while trying to send receipt.</value>
+  </data>
+  <data name="ReadingConfirmedLabel" xml:space="preserve">
+    <value>Reading confirmed</value>
+  </data>
+  <data name="ReceiptSubjectLabel" xml:space="preserve">
+    <value>Read receipt for «{0}»</value>
+  </data>
+  <data name="ReceiptUserLabel" xml:space="preserve">
+    <value>confirmed receiving «{0}» message.</value>
+  </data>
+  <data name="SentRequestInfoLabel" xml:space="preserve">
+    <value>You sent the message and requested a read receipt:</value>
+  </data>
+  <data name="ErrorDuplicateMailbox" xml:space="preserve">
+    <value>You want to create a mailbox with an already existing address.</value>
   </data>
 </root>

@@ -63,12 +63,14 @@ using UrlShortener = ASC.Web.Core.Utility.UrlShortener;
 namespace ASC.Api.Portal
 {
     ///<summary>
-    /// Portal info access
+    /// Portal information access.
     ///</summary>
     public class PortalApi : IApiEntryPoint
     {
         private readonly IMobileAppInstallRegistrator mobileAppRegistrator;
         private readonly BackupAjaxHandler backupHandler = new BackupAjaxHandler();
+        private ILog Log = LogManager.GetLogger("ASC");
+        private ILog LogWeb = LogManager.GetLogger("ASC.Web");
 
 
         ///<summary>
@@ -90,10 +92,10 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the current portal
+        ///Returns the current portal.
         ///</summary>
         ///<short>
-        ///Current portal
+        ///Get the current portal
         ///</short>
         ///<returns>Portal</returns>
         [Read("")]
@@ -103,10 +105,10 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the user with specified userID from the current portal
+        ///Returns a user with the ID specified in the request from the current portal.
         ///</summary>
         ///<short>
-        ///User with specified userID
+        ///Get a user by ID
         ///</short>
         /// <category>Users</category>
         ///<returns>User</returns>
@@ -118,17 +120,17 @@ namespace ASC.Api.Portal
 
 
         ///<summary>
-        /// Returns invitational link to the portal
+        /// Returns an invitation link for joining the portal.
         ///</summary>
         ///<short>
-        /// Returns invitational link to the portal
+        /// Get an invitation link
         ///</short>
         /// <param name="employeeType">
-        ///  User or Visitor
+        ///  Employee type (User or Visitor)
         /// </param>
         ///<category>Users</category>
         ///<returns>
-        /// Invite link
+        /// Invitation link
         ///</returns>
         [Read("users/invite/{employeeType}")]
         public string GeInviteLink(EmployeeType employeeType)
@@ -142,10 +144,12 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Returns shorten link
+        /// Returns a shortened invitation link for joining the portal.
         /// </summary>
-        /// <param name="link">Link for shortening</param>
-        ///<returns>link</returns>
+        /// <short>Get a shortened invitation link</short>
+        /// <param name="link">Invitation link</param>
+        /// <category>Users</category>
+        ///<returns>Shortened invitation link</returns>
         ///<visible>false</visible>
         [Update("getshortenlink")]
         public String GetShortenLink(string link)
@@ -156,17 +160,17 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("getshortenlink", ex);
+                LogWeb.Error("getshortenlink", ex);
                 return link;
             }
         }
 
 
         ///<summary>
-        ///Returns the used space of the current portal
+        ///Returns the used space of the current portal.
         ///</summary>
         ///<short>
-        ///Used space of the current portal
+        ///Get the used portal space
         ///</short>
         /// <category>Quota</category>
         ///<returns>Used space</returns>
@@ -180,19 +184,28 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the users count of the current portal
+        ///Returns a number of portal users.
         ///</summary>
         ///<short>
-        ///Users count of the current portal
+        ///Get a number of portal users
         ///</short>
         /// <category>Users</category>
-        ///<returns>Users count</returns>
+        ///<returns>User count</returns>
         [Read("userscount")]
         public long GetUsersCount()
         {
             return CoreContext.Configuration.Personal ? 1 : CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
         }
 
+        ///<summary>
+        ///Uploads a portal license specified in the request.
+        ///</summary>
+        ///<short>
+        ///Upload a license
+        ///</short>
+        ///<param name="attachments">License attachments</param>
+        /// <category>Quota</category>
+        ///<returns>License</returns>
         ///<visible>false</visible>
         [Create("uploadlicense")]
         public FileUploadResult UploadLicense(IEnumerable<HttpPostedFileBase> attachments)
@@ -219,28 +232,36 @@ namespace ASC.Api.Portal
             }
             catch (LicenseExpiredException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorExpired;
             }
             catch (LicenseQuotaException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorQuota;
             }
             catch (LicensePortalException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorPortal;
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseError;
             }
 
             return result;
         }
 
+        ///<summary>
+        ///Activates a license for the portal.
+        ///</summary>
+        ///<short>
+        ///Activate a license
+        ///</short>
+        /// <category>Quota</category>
+        ///<returns>License</returns>
         ///<visible>false</visible>
         [Create("activatelicense")]
         public FileUploadResult ActivateLicense()
@@ -258,22 +279,22 @@ namespace ASC.Api.Portal
             }
             catch (BillingNotFoundException ex)
             {
-                LogManager.GetLogger("ASC").Error("License activate", ex);
+                Log.Error("License activate", ex);
                 result.Message = UserControlsCommonResource.LicenseKeyNotFound;
             }
             catch (BillingNotConfiguredException ex)
             {
-                LogManager.GetLogger("ASC").Error("License activate", ex);
+                Log.Error("License activate", ex);
                 result.Message = UserControlsCommonResource.LicenseKeyNotCorrect;
             }
             catch (BillingException ex)
             {
-                LogManager.GetLogger("ASC").Error("License activate", ex);
+                Log.Error("License activate", ex);
                 result.Message = UserControlsCommonResource.LicenseException;
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error("License activate", ex);
+                Log.Error("License activate", ex);
                 result.Message = ex.Message;
             }
 
@@ -281,6 +302,14 @@ namespace ASC.Api.Portal
         }
 
 
+        ///<summary>
+        ///Activates a trial license for the portal.
+        ///</summary>
+        ///<short>
+        ///Activate a trial license
+        ///</short>
+        /// <category>Quota</category>
+        ///<returns>Trial license</returns>
         ///<visible>false</visible>
         [Create("activatetrial")]
         public bool ActivateTrial()
@@ -322,6 +351,14 @@ namespace ASC.Api.Portal
             return true;
         }
 
+        ///<summary>
+        ///Returns an extra tenant license for the portal.
+        ///</summary>
+        ///<short>
+        ///Get an extra tenant license
+        ///</short>
+        /// <category>Quota</category>
+        ///<returns>Extra tenant license information</returns>
         ///<visible>false</visible>
         [Read("tenantextra")]
         public object GetTenantExtra()
@@ -345,10 +382,10 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the current tariff of the current portal
+        ///Returns the current portal tariff.
         ///</summary>
         ///<short>
-        ///Tariff of the current portal
+        ///Get a portal tariff
         ///</short>
         /// <category>Quota</category>
         ///<returns>Tariff</returns>
@@ -359,10 +396,10 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the current quota of the current portal
+        ///Returns the current portal quota.
         ///</summary>
         ///<short>
-        ///Quota of the current portal
+        ///Get a portal quota
         ///</short>
         /// <category>Quota</category>
         ///<returns>Quota</returns>
@@ -373,10 +410,10 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns the recommended quota of the current portal
+        ///Returns the recommended quota for the current portal.
         ///</summary>
         ///<short>
-        ///Quota of the current portal
+        ///Get the recommended quota
         ///</short>
         /// <category>Quota</category>
         ///<returns>Quota</returns>
@@ -394,12 +431,13 @@ namespace ASC.Api.Portal
         }
 
         ///<summary>
-        ///Returns path
+        ///Returns the full absolute path to the current portal.
         ///</summary>
         ///<short>
-        ///path
+        ///Get a path to the portal
         ///</short>
-        ///<returns>path</returns>
+        ///<param name="virtualPath">Portal virtual path</param>
+        ///<returns>Portal path</returns>
         ///<visible>false</visible>
         [Read("path")]
         public string GetFullAbsolutePath(string virtualPath)
@@ -407,6 +445,14 @@ namespace ASC.Api.Portal
             return CommonLinkUtility.GetFullAbsolutePath(virtualPath);
         }
 
+        ///<summary>
+        ///Returns a number of unread messages from the portal.
+        ///</summary>
+        ///<short>
+        ///Get a number of unread messages
+        ///</short>
+        ///<category>Talk</category>
+        ///<returns>Number of unread messages</returns>
         ///<visible>false</visible>
         [Read("talk/unreadmessages")]
         public int GetMessageCount()
@@ -421,6 +467,15 @@ namespace ASC.Api.Portal
             return 0;
         }
 
+        ///<summary>
+        ///Removes the XMPP connection specified in the request from the inner channel.
+        ///</summary>
+        ///<short>
+        ///<category>Talk</category>
+        ///Removes the XMPP connection
+        ///</short>
+        ///<param name="connectionId">Connection ID</param>
+        ///<returns>XMPP connection ID</returns>
         ///<visible>false</visible>
         [Delete("talk/connection")]
         public int RemoveXmppConnection(string connectionId)
@@ -435,6 +490,16 @@ namespace ASC.Api.Portal
             return 0;
         }
 
+        ///<summary>
+        ///Adds the XMPP connection to the inner channel.
+        ///</summary>
+        ///<short>
+        ///Add the XMPP connection
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="connectionId">Connection ID</param>
+        ///<param name="state">Service state</param>
+        ///<returns>Updated inner channel</returns>
         ///<visible>false</visible>
         [Create("talk/connection")]
         public byte AddXmppConnection(string connectionId, byte state)
@@ -449,6 +514,15 @@ namespace ASC.Api.Portal
             return 0;
         }
 
+        ///<summary>
+        ///Returns the service state for the user with the name specified in the request.
+        ///</summary>
+        ///<short>
+        ///Get a service state
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="userName">User name</param>
+        ///<returns>State</returns>
         ///<visible>false</visible>
         [Read("talk/state")]
         public int GetState(string userName)
@@ -463,6 +537,15 @@ namespace ASC.Api.Portal
             return 0;
         }
 
+        ///<summary>
+        ///Sends a service state specified in the request.
+        ///</summary>
+        ///<short>
+        ///Send a service state
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="state">Service state</param>
+        ///<returns>State</returns>
         ///<visible>false</visible>
         [Create("talk/state")]
         public byte SendState(byte state)
@@ -477,6 +560,16 @@ namespace ASC.Api.Portal
             return 4;
         }
 
+        ///<summary>
+        ///Sends a message to the user specified in the request.
+        ///</summary>
+        ///<short>
+        ///Send a message
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="to">User to whom a message will be sent</param>
+        ///<param name="text">Message text</param>
+        ///<param name="subject">Message subject</param>
         ///<visible>false</visible>
         [Create("talk/message")]
         public void SendMessage(string to, string text, string subject)
@@ -491,6 +584,14 @@ namespace ASC.Api.Portal
             }
         }
 
+        ///<summary>
+        ///Returns a dictionary of all the service states.
+        ///</summary>
+        ///<short>
+        ///Get service states
+        ///</short>
+        ///<category>Talk</category>
+        ///<returns>Dictionary of all the service states</returns>
         ///<visible>false</visible>
         [Read("talk/states")]
         public Dictionary<string, byte> GetAllStates()
@@ -506,6 +607,16 @@ namespace ASC.Api.Portal
             return new Dictionary<string, byte>();
         }
 
+        ///<summary>
+        ///Returns all the recent messages.
+        ///</summary>
+        ///<short>
+        ///Get recent messages
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="calleeUserName">Callee user name</param>
+        ///<param name="id">ID</param>
+        ///<returns>Recent messages</returns>
         ///<visible>false</visible>
         [Read("talk/recentMessages")]
         public MessageClass[] GetRecentMessages(string calleeUserName, int id)
@@ -538,6 +649,14 @@ namespace ASC.Api.Portal
             return new MessageClass[0];
         }
 
+        ///<summary>
+        ///Pings when a message is received.
+        ///</summary>
+        ///<short>
+        ///Ping
+        ///</short>
+        ///<category>Talk</category>
+        ///<param name="state">Service state</param>
         ///<visible>false</visible>
         [Create("talk/ping")]
         public void Ping(byte state)
@@ -551,6 +670,14 @@ namespace ASC.Api.Portal
             }
         }
 
+        ///<summary>
+        ///Registers the mobile app installation.
+        ///</summary>
+        ///<short>
+        ///Register the mobile app installation
+        ///</short>
+        ///<category>Mobile</category>
+        ///<param name="type">Mobile app type</param>
         ///<visible>false</visible>
         [Create("mobile/registration")]
         public void RegisterMobileAppInstall(MobileAppType type)
@@ -561,10 +688,11 @@ namespace ASC.Api.Portal
 
 
         /// <summary>
-        /// Returns the backup schedule of the current portal
+        /// Returns the backup schedule of the current portal.
         /// </summary>
+        /// <short>Get the backup schedule</short>
         /// <category>Backup</category>
-        /// <returns>Backup Schedule</returns>
+        /// <returns>Backup schedule</returns>
         [Read("getbackupschedule")]
         public BackupAjaxHandler.Schedule GetBackupSchedule()
         {
@@ -577,13 +705,14 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Create the backup schedule of the current portal
+        /// Creates the backup schedule of the current portal with the parameters specified in the request.
         /// </summary>
+        /// <short>Create the backup schedule</short>
         /// <param name="storageType">Storage type</param>
         /// <param name="storageParams">Storage parameters</param>
-        /// <param name="backupsStored">Max of the backup's stored copies</param>
+        /// <param name="backupsStored">Maximum number of backup stored copies</param>
         /// <param name="cronParams">Cron parameters</param>
-        /// <param name="backupMail">Include mail in the backup</param>
+        /// <param name="backupMail">Specifies if the mails will be included into the backup or not</param>
         /// <category>Backup</category>
         [Create("createbackupschedule")]
         public void CreateBackupSchedule(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, int backupsStored, BackupAjaxHandler.CronParams cronParams, bool backupMail)
@@ -604,8 +733,9 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Delete the backup schedule of the current portal
+        /// Deletes the backup schedule of the current portal.
         /// </summary>
+        /// <short>Delete the backup schedule</short>
         /// <category>Backup</category>
         [Delete("deletebackupschedule")]
         public void DeleteBackupSchedule()
@@ -626,13 +756,14 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Start a backup of the current portal
+        /// Starts the backup of the current portal with the parameters specified in the request.
         /// </summary>
-        /// <param name="storageType">Storage Type</param>
-        /// <param name="storageParams">Storage Params</param>
-        /// <param name="backupMail">Include mail in the backup</param>
+        /// <short>Start the backup</short>
+        /// <param name="storageType">Storage type</param>
+        /// <param name="storageParams">Storage parameters</param>
+        /// <param name="backupMail">Specifies if the mails will be included into the backup or not</param>
         /// <category>Backup</category>
-        /// <returns>Backup Progress</returns>
+        /// <returns>Backup progress</returns>
         [Create("startbackup")]
         public BackupProgress StartBackup(BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool backupMail)
         {
@@ -645,10 +776,11 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Returns the progress of the started backup
+        /// Returns the progress of the started backup.
         /// </summary>
+        /// <short>Get the backup progress</short>
         /// <category>Backup</category>
-        /// <returns>Backup Progress</returns>
+        /// <returns>Backup progress</returns>
         [Read("getbackupprogress")]
         public BackupProgress GetBackupProgress()
         {
@@ -661,10 +793,11 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Returns the backup history of the started backup
+        /// Returns the history of the started backup.
         /// </summary>
+        /// <short>Get the backup history</short>
         /// <category>Backup</category>
-        /// <returns>Backup History</returns>
+        /// <returns>Backup history</returns>
         [Read("getbackuphistory")]
         public List<BackupHistoryRecord> GetBackupHistory()
         {
@@ -677,8 +810,10 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Delete the backup with the specified id
+        /// Deletes the backup with the ID specified in the request.
         /// </summary>
+        /// <short>Delete the backup</short>
+        /// <param name="id">Backup ID</param>
         /// <category>Backup</category>
         [Delete("deletebackup/{id}")]
         public void DeleteBackup(Guid id)
@@ -692,10 +827,11 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Delete all backups of the current portal
+        /// Deletes the backup history of the current portal.
         /// </summary>
+        /// <short>Delete the backup history</short>
         /// <category>Backup</category>
-        /// <returns>Backup History</returns>
+        /// <returns>Backup history</returns>
         [Delete("deletebackuphistory")]
         public void DeleteBackupHistory()
         {
@@ -708,14 +844,15 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Start a data restore of the current portal
+        /// Starts the data restoring process of the current portal with the parameters specified in the request.
         /// </summary>
-        /// <param name="backupId">Backup Id</param>
-        /// <param name="storageType">Storage Type</param>
-        /// <param name="storageParams">Storage Params</param>
-        /// <param name="notify">Notify about backup to users</param>
+        /// <short>Start the restoring process</short>
+        /// <param name="backupId">Backup ID</param>
+        /// <param name="storageType">Storage type</param>
+        /// <param name="storageParams">Storage parameters</param>
+        /// <param name="notify">Notifies users about backup or not</param>
         /// <category>Backup</category>
-        /// <returns>Restore Progress</returns>
+        /// <returns>Restoring progress</returns>
         [Create("startrestore")]
         public BackupProgress StartBackupRestore(string backupId, BackupStorageType storageType, IEnumerable<ItemKeyValuePair<string, string>> storageParams, bool notify)
         {
@@ -728,10 +865,11 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        /// Returns the progress of the started restore
+        /// Returns the progress of the started restoring process.
         /// </summary>
+        /// <short>Get the restoring progress</short>
         /// <category>Backup</category>
-        /// <returns>Restore Progress</returns>
+        /// <returns>Restoring progress</returns>
         [Read("getrestoreprogress", true, false)]  //NOTE: this method doesn't check payment!!!
         public BackupProgress GetRestoreProgress()
         {
@@ -743,6 +881,12 @@ namespace ASC.Api.Portal
             return backupHandler.GetRestoreProgress();
         }
 
+        /// <summary>
+        /// Returns the path to the backup temporary directory.
+        /// </summary>
+        /// <short>Get the backup temporary path</short>
+        /// <category>Backup</category>
+        /// <returns>Backup temporary path</returns>
         ///<visible>false</visible>
         [Read("backuptmp")]
         public string GetTempPath(string alias)
@@ -755,7 +899,49 @@ namespace ASC.Api.Portal
             return backupHandler.GetTmpFolder();
         }
 
+        /// <summary>
+        /// Deletes the current portal immediately
+        /// </summary>
+        /// <short>Delete the current portal</short>
+        /// <returns></returns>
+        ///<visible>false</visible>
+        [Delete("deleteportalimmediately")]
+        public void DeletePortalImmediately()
+        {
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
 
+            if (SecurityContext.CurrentAccount.ID != tenant.OwnerId)
+            {
+                throw new Exception(Resource.ErrorAccessDenied);
+            }
+
+            CoreContext.TenantManager.RemoveTenant(tenant.TenantId);
+
+            if (!string.IsNullOrEmpty(ApiSystemHelper.ApiCacheUrl))
+            {
+                ApiSystemHelper.RemoveTenantFromCache(tenant.TenantAlias);
+            }
+
+            try
+            {
+                if (!SecurityContext.IsAuthenticated)
+                {
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
+                }
+                MessageService.Send(HttpContext.Current.Request, MessageAction.PortalDeleted);
+            }
+            finally
+            {
+                SecurityContext.Logout();
+            }
+        }
+
+        /// <summary>
+        /// Updates a portal name with a new one specified in the request.
+        /// </summary>
+        /// <short>Update a portal name</short>
+        /// <param name="alias">New portal name</param>
+        /// <returns>Message about renaming a portal</returns>
         ///<visible>false</visible>
         [Update("portalrename")]
         public object UpdatePortalName(string alias)
@@ -839,8 +1025,14 @@ namespace ASC.Api.Portal
 
         #endregion
 
+        /// <summary>
+        /// Sends congratulations to the user after registering the portal.
+        /// </summary>
+        /// <short>Send congratulations</short>
+        /// <param name="userid">User ID</param>
+        /// <param name="key">Email key</param>
         ///<visible>false</visible>
-        [Create("sendcongratulations", false)] //NOTE: this method doesn't requires auth!!!
+        [Create("sendcongratulations", false)] //NOTE: this method doesn't require auth!!!
         public void SendCongratulations(Guid userid, string key)
         {
             var authInterval = TimeSpan.FromHours(1);
@@ -872,6 +1064,14 @@ namespace ASC.Api.Portal
         }
 
 
+        /// <summary>
+        /// Removes a comment with the ID specified in the request.
+        /// </summary>
+        /// <short>Remove a comment</short>
+        /// <category>Comments</category>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="domain">Domain name</param>
+        /// <returns>Operation status</returns>
         ///<visible>false</visible>
         [Update("fcke/comment/removecomplete")]
         public object RemoveCommentComplete(string commentid, string domain)
@@ -887,6 +1087,15 @@ namespace ASC.Api.Portal
             }
         }
 
+        /// <summary>
+        /// Cancels editing a comment with the ID specified in the request.
+        /// </summary>
+        /// <short>Cancel comment editing</short>
+        /// <category>Comments</category>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="domain">Domain name</param>
+        /// <param name="isedit">Specifies if a comment was edited or not</param>
+        /// <returns>Operation status</returns>
         ///<visible>false</visible>
         [Update("fcke/comment/cancelcomplete")]
         public object CancelCommentComplete(string commentid, string domain, bool isedit)
@@ -906,6 +1115,16 @@ namespace ASC.Api.Portal
             }
         }
 
+        /// <summary>
+        /// Edits a comment with the ID specified in the request.
+        /// </summary>
+        /// <short>Edit a comment</short>
+        /// <category>Comments</category>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="domain">Domain name</param>
+        /// <param name="html">New comment in the HTML format</param>
+        /// <param name="isedit">Specifies if a comment was edited or not</param>
+        /// <returns>Operation status</returns>
         ///<visible>false</visible>
         [Update("fcke/comment/editcomplete")]
         public object EditCommentComplete(string commentid, string domain, string html, bool isedit)
@@ -922,6 +1141,15 @@ namespace ASC.Api.Portal
             }
         }
 
+        /// <summary>
+        /// Returns the promotion bar.
+        /// </summary>
+        /// <short>Get the promotion bar</short>
+        /// <category>Promotions</category>
+        /// <param name="domain">Domain name</param>
+        /// <param name="page">Page</param>
+        /// <param name="desktop">Specifies if the bar will be displayed in the desktop app or not</param>
+        /// <returns>Promotion bar</returns>
         ///<visible>false</visible>
         [Read("bar/promotions")]
         public string GetBarPromotions(string domain, string page, bool desktop)
@@ -972,11 +1200,17 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("GetBarTips", ex);
+                LogWeb.Error("GetBarTips", ex);
                 return null;
             }
         }
 
+        /// <summary>
+        /// Marks the promotion bar as read.
+        /// </summary>
+        /// <short>Mark the promotion bar as read</short>
+        /// <category>Promotions</category>
+        /// <param name="id">ID</param>
         ///<visible>false</visible>
         [Create("bar/promotions/mark/{id}")]
         public void MarkBarPromotion(string id)
@@ -996,10 +1230,20 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("MarkBarPromotion", ex);
+                LogWeb.Error("MarkBarPromotion", ex);
             }
         }
 
+        /// <summary>
+        /// Returns the promotion bar tips.
+        /// </summary>
+        /// <short>Get the promotion bar tips</short>
+        /// <category>Promotions</category>
+        /// <param name="domain">Domain name</param>
+        /// <param name="page">Page</param>
+        /// <param name="productAdmin">Product administator</param>
+        /// <param name="desktop">Specifies if the bar will be displayed in the desktop app or not</param>
+        /// <returns>Promotion bar tips</returns>
         ///<visible>false</visible>
         [Read("bar/tips")]
         public string GetBarTips(string domain, string page, bool productAdmin, bool desktop)
@@ -1041,11 +1285,17 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("GetBarTips", ex);
+                LogWeb.Error("GetBarTips", ex);
                 return null;
             }
         }
 
+        /// <summary>
+        /// Marks the promotion bar tips as read.
+        /// </summary>
+        /// <short>Mark the promotion bar tips as read</short>
+        /// <category>Promotions</category>
+        /// <param name="id">ID</param>
         ///<visible>false</visible>
         [Create("bar/tips/mark/{id}")]
         public void MarkBarTip(string id)
@@ -1067,10 +1317,15 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("MarkBarTip", ex);
+                LogWeb.Error("MarkBarTip", ex);
             }
         }
 
+        /// <summary>
+        /// Deletes the promotion bar tips.
+        /// </summary>
+        /// <short>Delete the promotion bar tips</short>
+        /// <category>Promotions</category>
         ///<visible>false</visible>
         [Delete("bar/tips")]
         public void DeleteBarTips()
@@ -1091,10 +1346,16 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("DeleteBarTips", ex);
+                LogWeb.Error("DeleteBarTips", ex);
             }
         }
 
+        /// <summary>
+        /// Returns the search settings.
+        /// </summary>
+        /// <short>Get the search settings</short>
+        /// <category>Search</category>
+        /// <returns>Search settings</returns>
         [Read("search")]
         public IEnumerable<object> GetSearchSettings()
         {
@@ -1108,6 +1369,12 @@ namespace ASC.Api.Portal
             });
         }
 
+        /// <summary>
+        /// Checks if the searching process is available or not.
+        /// </summary>
+        /// <short>Check the search availability</short>
+        /// <category>Search</category>
+        /// <returns>Search information</returns>
         [Read("search/state")]
         public object CheckSearchAvailable()
         {
@@ -1116,6 +1383,13 @@ namespace ASC.Api.Portal
             return FactoryIndexer.GetState();
         }
 
+        /// <summary>
+        /// Reindexes a page during the search process.
+        /// </summary>
+        /// <short>Reindex a page</short>
+        /// <category>Search</category>
+        /// <param name="name">Index name</param>
+        /// <returns>Search information</returns>
         [Create("search/reindex")]
         public object Reindex(string name)
         {
@@ -1125,6 +1399,12 @@ namespace ASC.Api.Portal
             return CheckSearchAvailable();
         }
 
+        /// <summary>
+        /// Sets the search settings specified in the request.
+        /// </summary>
+        /// <short>Set the search settings</short>
+        /// <category>Search</category>
+        /// <param name="items">Search settings</param>
         [Create("search")]
         public void SetSearchSettings(List<SearchSettingsItem> items)
         {
@@ -1134,14 +1414,15 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        ///    Get random password
+        /// Returns a random password.
         /// </summary>
-        /// <short>Get random password</short>
+        /// <short>Get a random password</short>
+        /// <returns>Random password</returns>
         ///<visible>false</visible>
         [Read(@"randompwd")]
         public string GetRandomPassword()
         {
-            var Noise = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk_-()=";
+            var Noise = "1234567890mnbasdflkjqwerpoiqweyuvcxnzhdkqpsdk_#()$";
 
             var ps = PasswordSettings.Load();
 
@@ -1175,9 +1456,11 @@ namespace ASC.Api.Portal
         }
 
         /// <summary>
-        ///    Get information by IP address
+        /// Returns the information about the IP address specified in the request.
         /// </summary>
-        /// <short>Get information by IP address</short>
+        /// <short>Get the IP information</short>
+        /// <param name="ipAddress">IP address</param>
+        /// <returns>IP information</returns>
         ///<visible>false</visible>
         [Read("ip/{ipAddress}")]
         public object GetIPInformation(string ipAddress)
@@ -1187,6 +1470,10 @@ namespace ASC.Api.Portal
 
         }
 
+        /// <summary>
+        /// Marks a gift message as read.
+        /// </summary>
+        /// <short>Mark a gift message as read</short>
         ///<visible>false</visible>
         [Create("gift/mark")]
         public void MarkGiftAsReaded()
@@ -1199,7 +1486,7 @@ namespace ASC.Api.Portal
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web").Error("MarkGiftAsReaded", ex);
+                LogWeb.Error("MarkGiftAsReaded", ex);
             }
         }
     }

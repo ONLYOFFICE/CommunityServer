@@ -121,7 +121,7 @@
                 isError = true;
             }
             if (isError) {
-                $addPanel.find(".error input").first().focus();
+                $addPanel.find(".error input").first().trigger("focus");
                 return;
             }
             teamlab.addPrjProject({}, newProject, {

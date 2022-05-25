@@ -33,7 +33,7 @@
  * MS	06-09-26	improved performance using StringBuilder
  * MS	07-04-24	added renderJsonCompliant serialization
  * MS	08-03-21	fixed DataTable client-side script
- * 
+ * MS	21-11-29	added check for custom type deserialization
  * 
  * 
  */
@@ -147,7 +147,10 @@ namespace AjaxPro
 			for (int i = 0; i < columns.Count; i++)
 			{
 				column = (JavaScriptArray)columns[i];
+
 				colType = Type.GetType(column[1].ToString(), true);
+				JavaScriptDeserializer.ThrowExceptionIfNotCustomTypeDeserializationAllowed(colType);
+
 				dt.Columns.Add(column[0].ToString(), colType);
 			}
 

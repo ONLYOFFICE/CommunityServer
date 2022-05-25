@@ -76,7 +76,7 @@ window.ASC.Sailfish = (function () {
             makeFakeFileList(fileInput, file);
         }
 
-        fileInputObj.change();
+        fileInputObj.trigger("change");
     };
 
     var init = function () {
@@ -102,7 +102,7 @@ window.ASC.Sailfish = (function () {
                 if (userAgent.includes("NeedEmulateUpload") && window.emulateUpload) {
                     window.emulateUpload(uploadBase64);
                 } else {
-                    jq("#fileupload").click();
+                    jq("#fileupload").trigger("click");
                 }
             });
         }

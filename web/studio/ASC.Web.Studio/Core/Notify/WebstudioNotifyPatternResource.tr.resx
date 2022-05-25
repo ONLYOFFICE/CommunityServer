@@ -158,19 +158,6 @@ ONLYOFFICE™ Destek Ekibi
 
 </value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı için şifre değişikliği talebi
-
-"${__VirtualRootPath}":"${__VirtualRootPath}" portalı için kullandığınız şifreyi değiştirme talebiniz ulaştı.
-
-Lütfen aşağıdaki linki takip ederek şifrenizi değiştirin:
-
-$GreenButton
-
-*Not*: bu link 7 gün boyunca geçerlidir. Lütfen bu süre zarfında şifre değiştirme işlemini tamamlayın.
-
-Şifrenizi değiştirmek istemiyorsanız ya da bu e-postanın hatalı olduğunu düşünüyorsanız "${__VirtualRootPath}":"${__VirtualRootPath}" portalı yöneticisi ile görüşün.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Cep telefonu numarası değişikliği
 
@@ -450,9 +437,6 @@ ONLYOFFICE Ekibi</value>
   </data>
   <data name="subject_backup_created" xml:space="preserve">
     <value>${LetterLogoText}.${__VirtualRootPath} portal yedeklemesi oluşturuldu</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} şifre yardımı</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Mobil telefon numarası değişikliği talebi</value>

@@ -78,7 +78,7 @@ namespace ASC.Web.People.Core.Import
         {
             Status = (int)Operation.Success;
             CoreContext.TenantManager.SetCurrentTenant((int)Id);
-            SecurityContext.AuthenticateMe(UserId);
+            SecurityContext.CurrentUser = UserId;
 
             if (!SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser))
             {
@@ -140,7 +140,7 @@ namespace ASC.Web.People.Core.Import
                         LastName = userData.LastName
                     };
 
-                    UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, isGuest);
+                    UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, isGuest, false, true, true);
 
                     var messageAction = isGuest ? MessageAction.GuestImported : MessageAction.UserImported;
                     MessageService.Send(httpHeaders, messageAction, MessageTarget.Create(userInfo.ID), string.Format("{0} ({1})", userInfo.DisplayUserName(false), userInfo.Email));
@@ -157,5 +157,6 @@ namespace ASC.Web.People.Core.Import
 
             IsCompleted = true;
         }
+
     }
 }

@@ -27,77 +27,77 @@ using ASC.Mail.Core.Dao.Expressions.Mailbox;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
 
+using CommandLine;
+
 namespace ASC.Mail.EmlDownloader
 {
     internal partial class Program
     {
         private static void Main(string[] args)
-        {
-            var options = new Options();
-
-            if (CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
-                                                                () => Console.WriteLine(@"Bad command line parameters.")))
-            {
-                try
-                {
-                    Console.WriteLine(@"Searching account with id {0}", options.MailboxId);
-
-                    if (string.IsNullOrEmpty(options.MessageUid))
+        {           
+            CommandLine.Parser.Default.ParseArguments<Options>(args)
+                .WithNotParsed(options => Console.WriteLine(@"Bad command line parameters."))
+                .WithParsed(options => {
+                    try
                     {
-                        Console.WriteLine(@"MessageUid not setup.");
-                        ShowAnyKey();
-                        return;
+                        Console.WriteLine(@"Searching account with id {0}", options.MailboxId);
+
+                        if (string.IsNullOrEmpty(options.MessageUid))
+                        {
+                            Console.WriteLine(@"MessageUid not setup.");
+                            ShowAnyKey();
+                            return;
+                        }
+
+                        var mailbox = GetMailBox(options.MailboxId);
+
+                        if (mailbox == null)
+                        {
+                            Console.WriteLine(@"Account not found.");
+                            ShowAnyKey();
+                            return;
+                        }
+
+                        if (mailbox.Imap)
+                        {
+                            var uidlStucture = ParserImapUidl(options.MessageUid);
+                            if (uidlStucture.folderId != FolderType.Inbox)
+                                throw new FormatException("Only inbox messages are supported for downloading.");
+
+                        }
+
+                        var certificatePermit = ConfigurationManagerExtension.AppSettings["mail.certificate-permit"] != null &&
+                                                Convert.ToBoolean(
+                                                    ConfigurationManagerExtension.AppSettings["mail.certificate-permit"]);
+
+                        string messageEml;
+                        using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: mailbox.IsTeamlab || certificatePermit))
+                        {
+                            var message = client.GetInboxMessage(options.MessageUid);
+                            messageEml = message.ToString();
+                        }
+
+                        Console.WriteLine(@"Try StoreToFile");
+
+                        var now = DateTime.UtcNow;
+
+                        var path = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Downloads"),
+                                           string.Format("uid_{0}_{1}.eml", options.MessageUid,
+                                                         now.ToString("dd_MM_yyyy_hh_mm")));
+
+
+                        var pathFile = StoreToFile(messageEml, path, true);
+
+                        Console.WriteLine(@"[SUCCESS] File was stored into path ""{0}""", pathFile);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
                     }
 
-                    var mailbox = GetMailBox(options.MailboxId);
 
-                    if (mailbox == null)
-                    {
-                        Console.WriteLine(@"Account not found.");
-                        ShowAnyKey();
-                        return;
-                    }
-
-                    if (mailbox.Imap)
-                    {
-                        var uidlStucture = ParserImapUidl(options.MessageUid);
-                        if (uidlStucture.folderId != FolderType.Inbox)
-                            throw new FormatException("Only inbox messages are supported for downloading.");
-
-                    }
-
-                    var certificatePermit = ConfigurationManagerExtension.AppSettings["mail.certificate-permit"] != null &&
-                                            Convert.ToBoolean(
-                                                ConfigurationManagerExtension.AppSettings["mail.certificate-permit"]);
-
-                    string messageEml;
-                    using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: mailbox.IsTeamlab || certificatePermit))
-                    {
-                        var message = client.GetInboxMessage(options.MessageUid);
-                        messageEml = message.ToString();
-                    }
-
-                    Console.WriteLine(@"Try StoreToFile");
-
-                    var now = DateTime.UtcNow;
-
-                    var path = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Downloads"),
-                                       string.Format("uid_{0}_{1}.eml", options.MessageUid,
-                                                     now.ToString("dd_MM_yyyy_hh_mm")));
-
-
-                    var pathFile = StoreToFile(messageEml, path, true);
-
-                    Console.WriteLine(@"[SUCCESS] File was stored into path ""{0}""", pathFile);
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-            }
-
-            ShowAnyKey();
+                });
         }
 
         private static void ShowAnyKey()

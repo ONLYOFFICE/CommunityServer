@@ -258,7 +258,7 @@ namespace ASC.Web.Studio.Core
 
             if (Tenant == null)
             {
-                LogManager.GetLogger("ASC").Warn("Warmup: tenant is null");
+                logger.Warn("Warmup: tenant is null");
                 return;
             }
 
@@ -301,7 +301,7 @@ namespace ASC.Web.Studio.Core
 
         private async Task MakeRequest(string url, string auth)
         {
-            LogManager.GetLogger("ASC").Debug(url);
+            logger.Debug(url);
             var handler = new HttpClientHandler
             {
                 PreAuthenticate = true,

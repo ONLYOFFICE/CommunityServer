@@ -19,7 +19,7 @@
            { %>
         <div id="<%= service.Title %>" class="auth-service-item">
             <div class="auth-service-name clearFix">
-                <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
+                <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLowerInvariant() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
                 <span class="sub-button">
                     <a id="switcherBtn<%= service.Name %>" class="on_off_button <%= service.CanSet ? "" : "disable" %> <%= (service.Props.All(r=> string.IsNullOrEmpty(r.Value))) ? "off" : "on" %>"></a>
                 </span>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="containerBodyBlock clearFix <% if (!SaveAvailable) {%> disable <% }%>">
 
-                    <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
+                    <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLowerInvariant() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
                     
                 <% if (!SaveAvailable)
                     { %>

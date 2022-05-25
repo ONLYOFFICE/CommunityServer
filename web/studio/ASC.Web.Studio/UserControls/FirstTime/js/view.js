@@ -77,7 +77,7 @@ ASC.Controls.FirstTimeView = new function() {
 
 
 jq(document).ready(function() {
-    jq(document).keyup(function (e) {
+    jq(document).on("keyup", function (e) {
     if (e.which == 13) {
         ASC.Controls.FirstTimeView.SaveRequiredStep();
         }

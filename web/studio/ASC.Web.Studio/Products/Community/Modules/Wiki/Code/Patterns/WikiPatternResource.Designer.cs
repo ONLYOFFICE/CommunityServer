@@ -112,6 +112,23 @@ namespace ASC.Web.Community.Modules.Wiki.Code.Patterns {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1.You were mentioned in comment to Wiki Page &quot;$PageName&quot;:&quot;$URL&quot;
+        ///
+        ///$Date &quot;$UserName&quot;:&quot;$UserURL&quot; mentioned you in the comment to the &quot;$PageName&quot;:&quot;$URL&quot; Wiki page:
+        ///
+        ///$CommentBody
+        ///
+        ///&quot;Read More&quot;:&quot;$URL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        /// </summary>
+        public static string pattern_MentionForWikiComment {
+            get {
+                return ResourceManager.GetString("pattern_MentionForWikiComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community. New Wiki page added: $PageName.
         /// </summary>
         public static string subject_1 {
@@ -162,6 +179,24 @@ namespace ASC.Web.Community.Modules.Wiki.Code.Patterns {
         public static string subject_3_tg {
             get {
                 return ResourceManager.GetString("subject_3_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. Mention in comment to Wiki page: $PageName.
+        /// </summary>
+        public static string subject_MentionForWikiComment {
+            get {
+                return ResourceManager.GetString("subject_MentionForWikiComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community. Mention in comment to Wiki page: [$PageName]($URL).
+        /// </summary>
+        public static string subject_MentionForWikiComment_tg {
+            get {
+                return ResourceManager.GetString("subject_MentionForWikiComment_tg", resourceCulture);
             }
         }
     }

@@ -3,9 +3,9 @@
 %global package_header_tag_url http://onlyoffice.com/
 %global package_header_tag_vendor Ascensio System SIA
 %global package_header_tag_packager Ascensio System SIA <support@onlyoffice.com>
-%global package_header_tag_requires mono-complete >= 6.8.0, nginx >= 1.9.5, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi, nodejs >= 12.0.0, redis >= 3.0.0, elasticsearch = 7.9.0-1, python3 >= 3.6, ffmpeg, jq
+%global package_header_tag_requires mono-complete >= 6.8.0, nginx >= 1.9.5, mysql-server >= 5.7.0, wget, mono-webserver-hyperfastcgi, nodejs >= 12.0.0, redis >= 3.0.0, elasticsearch = 7.10.0-1, python3 >= 3.6, ffmpeg, jq
 %global package_section_description "Community Server is a free open-source collaborative system developed to manage documents, projects, customer relationship and emails, all in one place."
-%global package_services god monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeThumb onlyofficeTelegram onlyofficeBackup onlyofficeFeed onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog onlyofficeMailCleaner onlyofficeStorageMigrate onlyofficeStorageEncryption onlyofficeUrlShortener onlyofficeRadicale onlyofficeThumbnailBuilder onlyofficeSsoAuth
+%global package_services god monoserve monoserveApiSystem onlyofficeSocketIO onlyofficeThumb onlyofficeTelegram onlyofficeBackup onlyofficeFeed onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog onlyofficeMailCleaner onlyofficeMailImap onlyofficeStorageMigrate onlyofficeStorageEncryption onlyofficeUrlShortener onlyofficeWebDav onlyofficeAutoCleanUp onlyofficeRadicale onlyofficeThumbnailBuilder onlyofficeSsoAuth
 
 %global package_sysname onlyoffice
 

@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -53,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Access" xml:space="preserve">
     <value>Access</value>
@@ -183,6 +242,9 @@
   </data>
   <data name="CommentRevertChanges" xml:space="preserve">
     <value>Restored from the document change of {0}</value>
+  </data>
+  <data name="CommentSubmitFillForm" xml:space="preserve">
+    <value>Submitted form</value>
   </data>
   <data name="CommentUpload" xml:space="preserve">
     <value>Uploaded</value>
@@ -482,6 +544,27 @@
   <data name="ProfileRemoved" xml:space="preserve">
     <value>{!User} removed</value>
   </data>
+  <data name="PvDesktopEditorsNotInstalledTextBlock" xml:space="preserve">
+    <value>Don’t have ONLYOFFICE Desktop Editors?</value>
+  </data>
+  <data name="PvDownloadNowButton" xml:space="preserve">
+    <value>Install now</value>
+  </data>
+  <data name="PvFileBlockingFileOpeningTextBlock" xml:space="preserve">
+    <value>If you have ONLYOFFICE Desktop Editors installed but can't open it from this page, your browser might be blocking it.{0}You can open this file from the desktop app's interface once your cloud is connected.</value>
+  </data>
+  <data name="PvOpenAppButton" xml:space="preserve">
+    <value>Open ONLYOFFICE Desktop Editors</value>
+  </data>
+  <data name="PvOpenAppTextBlock" xml:space="preserve">
+    <value>If you don’t see a dialog, click the button below.</value>
+  </data>
+  <data name="PvOpenDocumentTextBlock" xml:space="preserve">
+    <value>Click Open {0}ONLYOFFICE Desktop{1} in the browser dialog to work {2}with the encrypted documents.</value>
+  </data>
+  <data name="PvOpenDocumentTitle" xml:space="preserve">
+    <value>This document is encrypted</value>
+  </data>
   <data name="RemoveIsNew" xml:space="preserve">
     <value>Mark as Read</value>
   </data>
@@ -515,6 +598,9 @@
   <data name="ThirdPartyCorrect" xml:space="preserve">
     <value>Fill in to change</value>
   </data>
+  <data name="ThirdPartyFaqLinkText" xml:space="preserve">
+    <value>Can't log in with your current password?</value>
+  </data>
   <data name="ThirdPartyFolderTitle" xml:space="preserve">
     <value>Folder title</value>
   </data>
@@ -544,6 +630,9 @@
   </data>
   <data name="TitleRemoved" xml:space="preserve">
     <value>Deleted</value>
+  </data>
+  <data name="TitleRemovePermanently" xml:space="preserve">
+    <value>Will be permanently deleted on</value>
   </data>
   <data name="TitleSelectFile" xml:space="preserve">
     <value>Select</value>
@@ -583,5 +672,8 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>ver.</value>
+  </data>
+  <data name="AceStatusEnum_None" xml:space="preserve">
+    <value>None</value>
   </data>
 </root>

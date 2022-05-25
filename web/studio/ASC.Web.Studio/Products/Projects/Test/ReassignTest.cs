@@ -59,7 +59,7 @@ namespace ASC.Web.Projects.Test
 
             CoreContext.TenantManager.SetCurrentTenant(0);
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            SecurityContext.AuthenticateMe(tenant.OwnerId);
+            SecurityContext.CurrentUser = tenant.OwnerId; ;
 
             Scope = DIHelper.Resolve(true);
 

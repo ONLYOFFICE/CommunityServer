@@ -91,6 +91,15 @@
   <data name="MilestoneStatus_Open" xml:space="preserve">
     <value>Aktiv</value>
   </data>
+  <data name="PaymentStatus_Billed" xml:space="preserve">
+    <value>Ödənildi</value>
+  </data>
+  <data name="PaymentStatus_NotBilled" xml:space="preserve">
+    <value>Ödənilməyib</value>
+  </data>
+  <data name="PaymentStatus_NotChargeable" xml:space="preserve">
+    <value>Ödənişsiz</value>
+  </data>
   <data name="ProjectStatus_Closed" xml:space="preserve">
     <value>Qapalı</value>
   </data>
@@ -104,7 +113,7 @@
     <value>Yüksək</value>
   </data>
   <data name="TaskPriority_Low" xml:space="preserve">
-    <value>Alçaq</value>
+    <value>Aşağı</value>
   </data>
   <data name="TaskPriority_Normal" xml:space="preserve">
     <value>Normal</value>

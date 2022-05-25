@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -211,7 +212,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     Global.Logger.Debug("BoxApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
                     var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, null, null, false, out downloadUrl);
+                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUrl);
                     stream = null;
                 }
                 catch (Exception e)
@@ -327,9 +328,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     throw new Exception("Profile is null");
                 }
 
-                var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialApp);
+                CookiesManager.AuthenticateMeAndSetCookies(userInfo.Tenant, userInfo.ID, MessageAction.LoginSuccessViaSocialApp);
 
                 if (isNew)
                 {
@@ -485,7 +484,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                     userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
                 }
                 finally

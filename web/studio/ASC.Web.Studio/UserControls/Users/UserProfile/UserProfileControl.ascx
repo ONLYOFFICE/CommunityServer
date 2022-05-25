@@ -173,27 +173,20 @@
                                    } %>
                             </div>
                             <% } %>
+                            <% if (UserInfo.Status == EmployeeStatus.Terminated)
+                                { %>
+                            <div class="field terminated-date">
+                                <span class="field-title describe-text"><%= Resource.TerminateDate %>:</span>
+                                <span id="terminatedDateUserProfile" class="field-value">
+                                    <%= UserInfo.TerminatedDate == null ? UserInfo.LastModified.ToShortDateString() : UserInfo.TerminatedDate.Value.ToShortDateString() %>
+                                </span>
+                            </div>
+                            <% } %>
                             <% if (!String.IsNullOrEmpty(UserInfo.Location))
                                { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.Location %>:</span>
                                 <span id="locationUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Location) %></span>
-                            </div>
-                            <% } %>
-                            <% if (false && AffiliateHelper.ButtonAvailable(UserInfo) && !IsPersonal)
-                               { %>
-
-                            <div class="field">
-                                <span class="field-title describe-text"><%= Resource.AffilliateStatus %>:</span>
-                                <span id="affilliateStatusUserProfile" class="field-value">
-                                    <span id="joinToAffilliate" class="button gray"><%= Resource.JoinToAffilliateProgram %></span>
-                                    <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'HelpJoinToAffilliate'});"></span>
-                                    <br />
-                                    <span id="errorAffilliate" class="errorText"></span>
-                                </span>
-                                <div class="popup_helper" id="HelpJoinToAffilliate">
-                                    <p><%: Resource.HelpJoinToAffilliate %></p>
-                                </div>
                             </div>
                             <% } %>
                         </div>

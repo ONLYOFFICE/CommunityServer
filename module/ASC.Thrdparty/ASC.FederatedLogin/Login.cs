@@ -24,7 +24,6 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.Services;
-using System.Web.SessionState;
 
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
@@ -34,7 +33,7 @@ namespace ASC.FederatedLogin
 {
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
-    public class Login : IHttpHandler, IRequiresSessionState
+    public class Login : IHttpHandler
     {
         private Dictionary<string, string> _params;
 
@@ -172,12 +171,7 @@ namespace ASC.FederatedLogin
             if (useMinimalProfile)
                 profile = profile.GetMinimalProfile(); //Only id and provider
 
-            if (context.Session != null && !useMinimalProfile)
-            {
-                //Store in session
-                context.Response.Redirect(new Uri(ReturnUrl, UriKind.Absolute).AddProfileSession(profile, context).ToString(), true);
-            }
-            else if (HttpRuntime.Cache != null && !useMinimalProfile)
+            if (HttpRuntime.Cache != null && !useMinimalProfile)
             {
                 context.Response.Redirect(new Uri(ReturnUrl, UriKind.Absolute).AddProfileCache(profile).ToString(), true);
             }

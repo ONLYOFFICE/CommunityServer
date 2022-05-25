@@ -42,11 +42,11 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns lists of all mailboxes, aliases and groups for user.
+        /// Returns a list of all the user mailboxes, aliases and groups.
         /// </summary>
-        /// <param name="username" visible="false">User id</param>
-        /// <returns>Mailboxes, aliases and groups list</returns>
-        /// <short>Get mailboxes, aliases and groups list</short> 
+        /// <param name="username" visible="false">User name</param>
+        /// <returns>List of user mailboxes, aliases and groups</returns>
+        /// <short>Get user accounts</short> 
         /// <category>Accounts</category>
         [Read(@"accounts")]
         public IEnumerable<MailAccountData> GetAccounts(string username = "")
@@ -56,13 +56,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns the information about the account.
+        /// Returns the account information by the email address specified in the request.
         /// </summary>
         /// <param name="email">Account email address</param>
-        /// <returns>Account with specified email</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <returns>Account information</returns>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't found by email.</exception>
-        /// <short>Get account by email</short> 
+        /// <short>Get an account by email</short> 
         /// <category>Accounts</category>
         [Read(@"accounts/single")]
         public MailBoxData GetAccount(string email)
@@ -104,14 +104,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Creates an account based on email and password.
+        /// Creates an account based on the email address and password specified in the request.
         /// </summary>
-        /// <param name="email">Account email in string format like: name@domain</param>
-        /// <param name="password">Password as plain text.</param>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <param name="email">Account email address in the name@domain format</param>
+        /// <param name="password">Email password</param>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception contains text description of happened error.</exception>
         /// <returns>Created account</returns>
-        /// <short>Create new account by email and password</short> 
+        /// <short>Create an account by email and password</short> 
         /// <category>Accounts</category>
         [Create(@"accounts/simple")]
         public MailAccountData CreateAccountSimple(string email, string password)
@@ -162,28 +162,28 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Creates account using full information about mail servers.
+        /// Creates an account using full information about mail servers specified in the request.
         /// </summary>
         /// <param name="name">Account name in Teamlab</param>
-        /// <param name="email">Account email in string format like: name@domain.</param>
-        /// <param name="account">Login for imap or pop server.</param>
-        /// <param name="password">Password for imap or pop server</param>
-        /// <param name="port">Port for imap or pop server</param>
-        /// <param name="server">Imap or pop server address or IP.</param>
-        /// <param name="smtp_account">Login for smtp server</param>
-        /// <param name="smtp_password">Password for smtp server</param>
-        /// <param name="smtp_port">Smtp server port</param>
-        /// <param name="smtp_server">Smtp server adress or IP.</param>
-        /// <param name="smtp_auth">Flag is smtp server authentication needed. Value: true or false.</param>
-        /// <param name="imap">Flag is imap server using for incoming mails. Value: true or false.</param>
-        /// <param name="restrict">Flag is all mails needed for download. Value: true or false. If vslue true, it will be downloaded messages from last 30 days only.</param>
-        /// <param name="incoming_encryption_type">Specify encription type for imap or pop server. 0- None, 1 - SSL, 2- StartTLS</param>
-        /// <param name="outcoming_encryption_type">Specify encription type for smtp server. 0- None, 1 - SSL, 2- StartTLS</param>
-        /// <param name="auth_type_in">Specify authentication type for imap or pop server. 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
-        /// <param name="auth_type_smtp">Specify authentication type for imap or pop server. 0- None, 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
+        /// <param name="email">Account email address in the name@domain format</param>
+        /// <param name="account">IMAP or POP server login</param>
+        /// <param name="password">IMAP or POP server password</param>
+        /// <param name="port">IMAP or POP server port</param>
+        /// <param name="server">IMAP or POP server address or IP</param>
+        /// <param name="smtp_account">SMTP server login</param>
+        /// <param name="smtp_password">SMTP server password</param>
+        /// <param name="smtp_port">SMTP server port</param>
+        /// <param name="smtp_server">SMTP server address or IP</param>
+        /// <param name="smtp_auth">Specifies if the authentication is needed for the SMTP server or not</param>
+        /// <param name="imap">Specifies if the IMAP server is used for incoming mails or not</param>
+        /// <param name="restrict">Specifies if all the mails should be downloaded from the account (false) or not (true). If true, then messages from last 30 days only will be downloaded</param>
+        /// <param name="incoming_encryption_type">Encryption type for the IMAP or POP server: 0 - None, 1 - SSL, 2 - StartTLS</param>
+        /// <param name="outcoming_encryption_type">Encryption type for the SMTP server: 0 - None, 1 - SSL, 2 - StartTLS</param>
+        /// <param name="auth_type_in">Authentication type for the IMAP or POP server: 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
+        /// <param name="auth_type_smtp">Authentication type for the SMTP server: 0 - None, 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
         /// <returns>Created account</returns>
         /// <exception cref="Exception">Exception contains text description of happened error.</exception>
-        /// <short>Create account with custom mail servers.</short> 
+        /// <short>Create an account by custom mail servers</short> 
         /// <category>Accounts</category>
         [Create(@"accounts")]
         public MailAccountData CreateAccount(string name,
@@ -268,13 +268,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Creates Mail account with OAuth authentication. Only Google OAuth supported.
+        /// Creates a mail account with OAuth authentication (only Google OAuth is supported).
         /// </summary>
-        /// <param name="code">Oauth code</param>
-        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
-        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
+        /// <param name="code">OAuth code</param>
+        /// <param name="type">OAuth service type: 0 - Unknown, 1 - Google</param>
+        /// <exception cref="Exception">Exception contains text description of an error occurred.</exception>
         /// <returns>Created account</returns>
-        /// <short>Create OAuth account</short> 
+        /// <short>Create the OAuth account</short> 
         /// <category>Accounts</category>
         [Create(@"accounts/oauth")]
         public MailAccountData CreateAccountOAuth(string code, byte type)
@@ -295,14 +295,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Update Mail account with OAuth authentication. Only Google OAuth supported.
+        /// Updates a mail account with OAuth authentication (only Google OAuth is supported).
         /// </summary>
-        /// <param name="code">Oauth code</param>
-        /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
-        /// <param name="mailboxId">Mailbox ID to update</param>
-        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
+        /// <param name="code">New OAuth code</param>
+        /// <param name="type">New OAuth service type: 0 - Unknown, 1 - Google</param>
+        /// <param name="mailboxId">Mailbox ID</param>
+        /// <exception cref="Exception">Exception contains text description of an error occurred.</exception>
         /// <returns>Updated OAuth account</returns>
-        /// <short>Update OAuth account</short> 
+        /// <short>Update the OAuth account</short> 
         /// <category>Accounts</category>
         [Update(@"accounts/oauth")]
         public MailAccountData UpdateAccountOAuth(string code, byte type, int mailboxId)
@@ -328,27 +328,27 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Updates the existing account.
+        /// Updates an account with the name specified in the request.
         /// </summary>
         /// <param name="name">Account name in Teamlab</param>
-        /// <param name="email">Account email in string format like: name@domain.</param>
-        /// <param name="account">Login for imap or pop server.</param>
-        /// <param name="password">Password for imap or pop server</param>
-        /// <param name="port">Port for imap or pop server</param>
-        /// <param name="server">Imap or pop server address or IP.</param>
-        /// <param name="smtp_account">Login for smtp server</param>
-        /// <param name="smtp_password">Password for smtp server</param>
-        /// <param name="smtp_port">Smtp server port</param>
-        /// <param name="smtp_server">Smtp server adress or IP.</param>
-        /// <param name="smtp_auth">Flag is smtp server authentication needed. Value: true or false.</param>
-        /// <param name="restrict">Flag is all mails needed for download. Value: true or false. If vslue true, it will be downloaded messages from last 30 days only.</param>
-        /// <param name="incoming_encryption_type">Specify encription type for imap or pop server. 0- None, 1 - SSL, 2- StartTLS</param>
-        /// <param name="outcoming_encryption_type">Specify encription type for smtp server. 0- None, 1 - SSL, 2- StartTLS</param>
-        /// <param name="auth_type_in">Specify authentication type for imap or pop server. 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
-        /// <param name="auth_type_smtp">Specify authentication type for imap or pop server. 0- None, 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
+        /// <param name="email">New account email in the name@domain format</param>
+        /// <param name="account">New IMAP or POP server login</param>
+        /// <param name="password">New IMAP or POP server password</param>
+        /// <param name="port">New IMAP or POP server port</param>
+        /// <param name="server">New IMAP or POP server address or IP</param>
+        /// <param name="smtp_account">New SMTP server login</param>
+        /// <param name="smtp_password">New SMTP server password</param>
+        /// <param name="smtp_port">New SMTP server port</param>
+        /// <param name="smtp_server">New SMTP server address or IP</param>
+        /// <param name="smtp_auth">Specifies if the authentication is needed for the SMTP server or not</param>
+        /// <param name="restrict">Specifies if all the mails should be downloaded from the account (false) or not (true). If true, then messages from last 30 days only will be downloaded</param>
+        /// <param name="incoming_encryption_type">New encryption type for the IMAP or POP server: 0 - None, 1 - SSL, 2 - StartTLS</param>
+        /// <param name="outcoming_encryption_type">New encryption type for the SMTP server: 0 - None, 1 - SSL, 2 - StartTLS</param>
+        /// <param name="auth_type_in">New authentication type for the IMAP or POP server: 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
+        /// <param name="auth_type_smtp">New authentication type for the SMTP server: 0 - None, 1 - Login, 4 - CremdMd5, 5 - OAuth2</param>
         /// <returns>Updated account</returns>
-        /// <exception cref="Exception">Exception contains text description of happened error.</exception>
-        /// <short>Update account</short> 
+        /// <exception cref="Exception">Exception contains text description of an error occurred.</exception>
+        /// <short>Update an account</short> 
         /// <category>Accounts</category>
         [Update(@"accounts")]
         public MailAccountData UpdateAccount(string name,
@@ -432,13 +432,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Deletes account by email.
+        /// Deletes an account by email address specified in the request.
         /// </summary>
-        /// <param name="email">Email the account to delete</param>
-        /// <returns>MailOperationResult object</returns>
+        /// <param name="email">Account email address</param>
+        /// <returns>Operation status</returns>
         /// <exception cref="ArgumentException">Exception happens when some parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't found.</exception>
-        /// <short>Delete account</short> 
+        /// <short>Delete an account</short> 
         /// <category>Accounts</category>
         [Delete(@"accounts")]
         public MailOperationStatus DeleteAccount(string email)
@@ -460,14 +460,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Sets the state for the account specified in the request
+        /// Sets a state of an account with email address specified in the request.
         /// </summary>
-        /// <param name="email">Email of the account</param>
-        /// <param name="state">Account activity state. Value: true or false. True - enabled, False - disabled.</param>
-        /// <returns>Account mailbox id</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <param name="email">Account email address</param>
+        /// <param name="state">Account activity state: true - enabled, false - disabled</param>
+        /// <returns>Account mailbox ID</returns>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
-        /// <short>Set account state</short> 
+        /// <short>Set an account state</short> 
         /// <category>Accounts</category>
         [Update(@"accounts/state")]
         public int SetAccountEnable(string email, bool state)
@@ -509,14 +509,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Sets the default account specified in the request
+        /// Sets the default account with email address specified in the request.
         /// </summary>
-        /// <param name="email">Email of the account</param>
+        /// <param name="email">Account email address</param>
         /// <param name="isDefault">Set or reset account as default</param>
         /// <returns>Account email address</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
-        /// <short>Set default account</short> 
+        /// <short>Set the default account</short> 
         /// <category>Accounts</category>
         [Update(@"accounts/default")]
         public string SetDefaultAccount(string email, bool isDefault)
@@ -555,17 +555,17 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Gets the default settings for the account based on the email domain.
+        /// Returns the default settings for an account based on its email domain.
         /// </summary>
         /// <param name="email">Account email address</param>
-        /// <param name="action">This string parameter specifies action for default settings. Values:
-        /// "get_imap_pop_settings" - get imap or pop settings, imap settings are prior.
-        /// "get_imap_server" | "get_imap_server_full" - get imap settings
-        /// "get_pop_server" | "get_pop_server_full" - get pop settings
-        /// By default returns default imap settings.
+        /// <param name="action">Action for default settings:
+        /// "get_imap_pop_settings" - get IMAP or POP settings (IMAP settings are prior),
+        /// "get_imap_server" | "get_imap_server_full" - get IMAP settings,
+        /// "get_pop_server" | "get_pop_server_full" - get POP settings.
+        /// By default returns default IMAP settings
         /// </param>
         /// <returns>Account with default settings</returns>
-        /// <short>Get default account settings</short> 
+        /// <short>Get the default account settings</short> 
         /// <category>Accounts</category>
         [Read(@"accounts/setups")]
         public MailBoxData GetAccountDefaults(string email, string action)
@@ -593,14 +593,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Sets the state for the account specified in the request
+        /// Sets the account email in a folder with the ID specified in the request.
         /// </summary>
-        /// <param name="mailbox_id">Id of the account</param>
-        /// <param name="email_in_folder">Document's folder Id</param>
+        /// <param name="mailbox_id">Mailbox ID</param>
+        /// <param name="email_in_folder">Document folder ID</param>
         /// <returns>Account email address</returns>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
-        /// <short>Set account state</short> 
+        /// <short>Set the account email in a folder</short> 
         /// <category>Accounts</category>
         [Update(@"accounts/emailinfolder")]
         public void SetAccountEMailInFolder(int mailbox_id, string email_in_folder)
@@ -612,9 +612,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// UpdateUserActivity
+        /// Updates the user activity state.
         /// </summary>
-        /// <param name="userOnline"></param>
+        /// <short>Update the user activity state</short>
+        /// <param name="userOnline">Specifies if the user is online or not</param>
         /// <category>Accounts</category>
         [Update(@"accounts/updateuseractivity")]
         public void UpdateUserActivity(bool userOnline)

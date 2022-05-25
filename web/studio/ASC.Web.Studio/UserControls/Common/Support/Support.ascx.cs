@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Globalization;
 using System.Web.UI;
 
 using ASC.Core;
@@ -33,23 +32,14 @@ namespace ASC.Web.Studio.UserControls.Common.Support
             get { return "~/UserControls/Common/Support/Support.ascx"; }
         }
 
-        protected string SupportFeedbackLink
-        {
-            get
-            {
-                var settings = AdditionalWhiteLabelSettings.Instance;
-
-                if (!settings.FeedbackAndSupportEnabled || string.IsNullOrEmpty(settings.FeedbackAndSupportUrl))
-                    return null;
-
-                return CommonLinkUtility.GetRegionalUrl(settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
-            }
-        }
+        protected string SupportFeedbackLink { get; private set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (CoreContext.Configuration.Personal || CoreContext.Configuration.CustomMode)
                 return;
+
+            SupportFeedbackLink = CommonLinkUtility.GetFeedbackAndSupportLink();
 
             var quota = TenantExtra.GetTenantQuota();
             var isAdministrator = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID);
@@ -65,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Common.Support
 
             ProductDemo = !string.IsNullOrEmpty(SetupInfo.DemoOrder) && isAdministrator && showDemonstration;
 
-            BaseCondition = LiveChat || EmailSupport || RequestTraining || ProductDemo;
+            BaseCondition = AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportEnabled && (LiveChat || EmailSupport || RequestTraining || ProductDemo);
 
         }
 

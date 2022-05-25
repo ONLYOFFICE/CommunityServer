@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>该功能{0}设置门户网站标志{1}只提供给付费的门户网站。</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>关于/登录页面的标志</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>编辑器标题的标志</value>
   </data>

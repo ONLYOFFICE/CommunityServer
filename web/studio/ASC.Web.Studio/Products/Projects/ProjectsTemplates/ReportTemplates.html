@@ -12,12 +12,17 @@
     {{each check}}
     {{tmpl($item.data.check[$index]) 'projects_reportFilterCheck'}}
     {{/each}}
+    {{each checkcombo}}
+    {{tmpl($item.data.checkcombo[$index]) 'projects_reportFilterCombo'}}
+    {{/each}}
 </script>
 
 <script id="projects_reportFilterCombo" type="text/x-jquery-tmpl">
     <div class="filter-item-container {{if hidden}} display-none {{/if}}">
+        {{if describe.length }}
         <span class="describe-text">${describe}:</span>
         <span class="splitter"></span>
+        {{/if}}
         <span id="${id}" class="link dotline">${defaultText}</span>
     </div>
 </script>
@@ -29,7 +34,7 @@
 </script>
 
 <script id="projects_reportFilterCheck" type="text/x-jquery-tmpl">
-    <div class="filter-item-container">
+    <div class="filter-item-container {{if hidden}} display-none {{/if}} {{if withcombo}} with-combo {{/if}}">
         <input id="${id}" {{if checked}} checked="checked" {{/if}} type="checkbox">
         <label for="${id}">${describe}</label>
     </div>

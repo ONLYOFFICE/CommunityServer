@@ -22,13 +22,13 @@ using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Utils;
 using ASC.Mail.Core.Dao.Expressions.Message;
 using ASC.Mail.Core.Dao.Interfaces;
 using ASC.Mail.Core.DbSchema;
 using ASC.Mail.Core.DbSchema.Interfaces;
 using ASC.Mail.Core.DbSchema.Tables;
 using ASC.Mail.Enums;
-using ASC.Mail.Utils;
 
 namespace ASC.Mail.Core.Dao
 {
@@ -54,12 +54,12 @@ namespace ASC.Mail.Core.Dao
                 .InColumnValue(MailTable.Columns.Address, mail.Address)
                 .InColumnValue(MailTable.Columns.Uidl, mail.Uidl)
                 .InColumnValue(MailTable.Columns.Md5, mail.Md5)
-                .InColumnValue(MailTable.Columns.From, MailUtil.NormalizeStringForMySql(mail.From))
-                .InColumnValue(MailTable.Columns.To, MailUtil.NormalizeStringForMySql(mail.To))
+                .InColumnValue(MailTable.Columns.From, StringUtils.NormalizeStringForMySql(mail.From))
+                .InColumnValue(MailTable.Columns.To, StringUtils.NormalizeStringForMySql(mail.To))
                 .InColumnValue(MailTable.Columns.Reply, mail.Reply)
-                .InColumnValue(MailTable.Columns.Subject, MailUtil.NormalizeStringForMySql(mail.Subject))
-                .InColumnValue(MailTable.Columns.Cc, MailUtil.NormalizeStringForMySql(mail.Cc))
-                .InColumnValue(MailTable.Columns.Bcc, MailUtil.NormalizeStringForMySql(mail.Bcc))
+                .InColumnValue(MailTable.Columns.Subject, StringUtils.NormalizeStringForMySql(mail.Subject))
+                .InColumnValue(MailTable.Columns.Cc, StringUtils.NormalizeStringForMySql(mail.Cc))
+                .InColumnValue(MailTable.Columns.Bcc, StringUtils.NormalizeStringForMySql(mail.Bcc))
                 .InColumnValue(MailTable.Columns.Importance, mail.Importance)
                 .InColumnValue(MailTable.Columns.DateReceived, mail.DateReceived)
                 .InColumnValue(MailTable.Columns.DateSent, mail.DateSent)
@@ -75,7 +75,7 @@ namespace ASC.Mail.Core.Dao
                 .InColumnValue(MailTable.Columns.MimeMessageId, mail.MimeMessageId)
                 .InColumnValue(MailTable.Columns.MimeInReplyTo, mail.MimeInReplyTo)
                 .InColumnValue(MailTable.Columns.ChainId, mail.ChainId)
-                .InColumnValue(MailTable.Columns.Introduction, MailUtil.NormalizeStringForMySql(mail.Introduction))
+                .InColumnValue(MailTable.Columns.Introduction, StringUtils.NormalizeStringForMySql(mail.Introduction))
                 .InColumnValue(MailTable.Columns.ChainDate, mail.DateSent)
                 .InColumnValue(MailTable.Columns.IsTextBodyOnly, mail.IsTextBodyOnly)
                 .Identity(0, 0, true);
@@ -178,7 +178,8 @@ namespace ASC.Mail.Core.Dao
                 ChainDate = Convert.ToDateTime(r[31]),
                 IsTextBodyOnly = Convert.ToBoolean(r[32]),
                 HasParseError = Convert.ToBoolean(r[33]),
-                CalendarUid = Convert.ToString(r[34])
+                CalendarUid = Convert.ToString(r[34]),
+                ReadRequestStatus = Convert.ToBoolean(r[35])
             };
 
             return mail;

@@ -105,22 +105,22 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 
 "Зміна параметрів підписки":"$RecipientSubscriptionConfigURL" 
 
-Якщо у Вас є будь-які питання, Ви вільно можете звернутися до нас за адресою "support.onlyoffice.com":"http://support.onlyoffice.com" 
+Якщо у Вас є будь-які питання, Ви вільно можете звернутися до нас за адресою "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 З найкращими побажаннями, 
 Команда ONLYOFFICE™ 
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+"www.onlyoffice.com":"https://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ImportCompleted" xml:space="preserve">
     <value>CRM. Імпорт контактів успішно завершено
 
 Перейдіть до списку "Контакти":"$__VirtualRootPath/Products/CRM/".
 
-Якщо у вас виникли питання або потрібна допомога, не соромтеся звертатися до нас за адресою "support.onlyoffice.com":"http://support.onlyoffice.com"
+Якщо у вас виникли питання або потрібна допомога, не соромтеся звертатися до нас за адресою "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 З найкращими побажаннями,
 Команда підтримки ONLYOFFICE ™
-"Www.onlyoffice.com":"http://onlyoffice.com/"
+"Www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Ви отримуєте цей електронний лист, оскільки ви зареєстрований користувач порталу "${__VirtualRootPath}":"${__VirtualRootPath}". Щоб змінити тип сповіщення, будь ласка, керуйте своїми "параметрами підписки":"$RecipientSubscriptionConfigURL".^</value>
   </data>

@@ -36,22 +36,22 @@ namespace ASC.Api.Projects
     public partial class ProjectApi
     {
         ///<summary>
-        ///Returns the list with the detailed information about all the message matching the filter parameters specified in the request
+        ///Returns a list with the detailed information about all the messages matching the filter parameters specified in the request.
         ///</summary>
         ///<short>
-        /// Get message by filter
+        /// Get messages by filter
         ///</short>
         ///<category>Discussions</category>
         ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="tag" optional="true">Project Tag</param>
+        ///<param name="tag" optional="true">Project tag</param>
         ///<param name="departament" optional="true">Departament GUID</param>
         ///<param name="participant" optional="true">Participant GUID</param>
         ///<param name="createdStart" optional="true">Minimum value of message creation date</param>
         ///<param name="createdStop" optional="true">Maximum value of message creation date</param>
         ///<param name="lastId">Last message ID</param>
-        ///<param name="myProjects">Messages in my projects</param>
-        ///<param name="follow">Followed messages</param>
-        ///<param name="status"></param>
+        ///<param name="myProjects">Messages only from my projects or not</param>
+        ///<param name="follow">Messages only from followed discussions or not</param>
+        ///<param name="status">Message status</param>
         ///<returns>List of messages</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/filter")]
@@ -81,10 +81,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all the messages in the discussions within the project with the ID specified in the request
+        ///Returns a list of all the messages in the discussions within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Messages
+        ///Get messages
         ///</short>
         ///<category>Discussions</category>
         ///<param name="projectid">Project ID</param>
@@ -101,18 +101,18 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds a message to the selected discussion within the project with the ID specified in the request
+        ///Adds a message to the selected discussion within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Add message
+        ///Add a message
         ///</short>
         ///<category>Discussions</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="title">Discussion title</param>
         ///<param name="content">Message text</param>
-        ///<param name="participants">IDs (GUIDs) of users separated with ','</param>
-        ///<param name="notify">Notify participants</param>
-        ///<returns></returns>
+        ///<param name="participants">User IDs (GUIDs) separated with ','</param>
+        ///<param name="notify">Notifies participants about a message or not</param>
+        ///<returns>Message</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"{projectid:[0-9]+}/message")]
@@ -139,19 +139,19 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the selected message in the discussion within the project with the ID specified in the request
+        ///Updates the selected message in the discussion within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Update message
+        ///Update a message
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
         ///<param name="projectid">Project ID</param>
         ///<param name="title">Discussion title</param>
-        ///<param name="content">Message text</param>
-        ///<param name="participants">IDs (GUIDs) of users separated with ','</param>
-        ///<param name="notify">Notify participants</param>
-        ///<returns></returns>
+        ///<param name="content">New message text</param>
+        ///<param name="participants">New user IDs (GUIDs) separated with ','</param>
+        ///<param name="notify">Notifies participants about a message or not</param>
+        ///<returns>Updated message</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"message/{messageid:[0-9]+}")]
@@ -174,15 +174,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the selected message status
+        ///Updates the selected message status.
         ///</summary>
         ///<short>
-        ///Update message status
+        ///Update a message status
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
-        ///<param name="status">Project ID</param>
-        ///<returns></returns>
+        ///<param name="status">New message status</param>
+        ///<returns>Updated message</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"message/{messageid:[0-9]+}/status")]
@@ -200,14 +200,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes the message with the ID specified in the request from a project discussion
+        ///Deletes a message with the ID specified in the request from a project discussion.
         ///</summary>
         ///<short>
-        ///Delete message
+        ///Delete a message
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
-        ///<returns></returns>
+        ///<returns>Message</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"message/{messageid:[0-9]+}")]
         public MessageWrapper DeleteProjectMessage(int messageid)
@@ -231,10 +231,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed information about the message with the ID specified in the request
+        ///Returns the detailed information about a message with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Message
+        ///Get a message
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
@@ -252,14 +252,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed information about files attached to the message with the ID specified in the request
+        ///Returns the detailed information about files attached to the message with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Message files
+        ///Get message files
         ///</short>
         ///<category>Files</category>
         ///<param name="messageid">Message ID</param>
-        ///<returns> List of message files</returns>
+        ///<returns>List of message files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/{messageid:[0-9]+}/files")]
         public IEnumerable<FileWrapper> GetMessageFiles(int messageid)
@@ -273,14 +273,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Uploads the file specified in the request to the selected message
+        ///Uploads files specified in the request to the selected message.
         ///</summary>
         ///<short>
-        ///Upload file to message
+        ///Upload files to the message
         ///</short>
         ///<category>Files</category>
         ///<param name="messageid">Message ID</param>
-        ///<param name="files">File ID</param>
+        ///<param name="files">File IDs</param>
         ///<returns>Message</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"message/{messageid:[0-9]+}/files")]
@@ -307,10 +307,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Detaches the selected file from the message with the ID specified in the request
+        ///Detaches the selected file from a message with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Detach file from message
+        ///Detach a file from a message
         ///</short>
         ///<category>Files</category>
         ///<param name="messageid">Message ID</param>
@@ -334,10 +334,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Detaches the selected file from the message with the ID specified in the request
+        ///Detaches the selected files from a message with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Detach file from message
+        ///Detach files from a message
         ///</short>
         ///<category>Files</category>
         ///<param name="messageid">Message ID</param>
@@ -369,13 +369,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of latest messages in the discussions within the project with the ID specified in the request
+        ///Returns a list of the recent messages in the discussions within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Latest messages
+        ///Get recent messages
         ///</short>
         ///<category>Discussions</category>
-        ///<returns>List of messages</returns>
+        ///<returns>List of recent messages</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message")]
         public IEnumerable<MessageWrapper> GetProjectRecentMessages()
@@ -384,14 +384,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of comments to the messages in the discussions within the project with the ID specified in the request
+        ///Returns a list of comments for the discussion message within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Message comments
+        ///Get message comments
         ///</short>
         ///<category>Comments</category>
         ///<param name="messageid">Message ID</param>
-        ///<returns>Comments for message</returns>
+        ///<returns>Message comments</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/{messageid:[0-9]+}/comment")]
         public IEnumerable<CommentWrapper> GetProjectMessagesComments(int messageid)
@@ -403,16 +403,16 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds a comment to the selected message in a discussion within the project with the content specified in the request. The parent comment ID can also be selected.
+        ///Adds a comment to the selected message with the text specified in the request. The parent comment ID can be also selected.
         ///</summary>
         ///<short>
-        ///Add message comment
+        ///Add a message comment
         ///</short>
         ///<category>Comments</category>
         ///<param name="messageid">Message ID</param>
-        ///<param name="content">Comment content</param>
-        ///<param name="parentId">Parrent comment ID</param>
-        ///<returns></returns>
+        ///<param name="content">Comment text</param>
+        ///<param name="parentId">Parent comment ID</param>
+        ///<returns>Comment</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"message/{messageid:[0-9]+}/comment")]
         public CommentWrapper AddProjectMessagesComment(int messageid, string content, Guid parentId)
@@ -443,10 +443,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Subscribe to notifications about the actions performed with the task with the ID specified in the request
+        ///Subscribes to the notifications about the actions performed in the discussion with the selected message.
         ///</summary>
         ///<short>
-        ///Subscribe to message action
+        ///Subscribe to discussion
         ///</short>
         ///<category>Discussions</category>
         ///<returns>Discussion</returns>
@@ -467,13 +467,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Checks subscription to notifications about the actions performed with the discussion with the ID specified in the request
+        ///Checks subscription to the notifications about the actions performed in the discussion with the selected message.
         ///</summary>
         ///<short>
-        ///Check subscription to discussion action
+        ///Check subscription to discussion
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
+        ///<returns>Boolean value: True - subscibed, False - unsubscribed</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/{messageid:[0-9]+}/subscribe")]
         public bool IsSubscribedToMessage(int messageid)
@@ -488,13 +489,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Get subscribers
+        ///Returns a list of all the subscribers of the discussion with the selected message.
         ///</summary>
         ///<short>
         ///Get subscribers
         ///</short>
         ///<category>Discussions</category>
         ///<param name="messageid">Message ID</param>
+        ///<returns>List of subscibers</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"message/{messageid:[0-9]+}/subscribes")]
         public IEnumerable<EmployeeWraperFull> GetProjectMessageSubscribers(int messageid)
@@ -510,17 +512,18 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Get preview
+        ///Returns a preview of the discussion message.
         ///</summary>
         ///<short>
-        ///Get preview
+        ///Get a message preview
         ///</short>
         ///<category>Discussions</category>
-        ///<param name="htmltext">html to create preview</param>
+        ///<param name="htmltext">Message text in the HTML format</param>
+        ///<returns>Message preview</returns>
         [Create(@"message/discussion/preview")]
         public string GetPreview(string htmltext)
         {
-            return HtmlUtility.GetFull(htmltext);
+            return HtmlUtility.GetFull(htmltext, false);
         }
     }
 }

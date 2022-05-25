@@ -69,6 +69,7 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             public List<Action> Actions;
             public string ChangesUrl;
+            public string Filetype;
             public ForceSaveInitiator ForceSaveType;
             public object History;
             public string Key;
@@ -91,7 +92,8 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 Command = 0,
                 User = 1,
-                Timer = 2
+                Timer = 2,
+                UserSubmit = 3,
             }
         }
 
@@ -294,7 +296,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     Global.Logger.ErrorFormat("DocService saving file {0} ({1}) with key {2}", fileId, docKey, fileData.Key);
 
-                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
+                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), fileData.Filetype);
                     return new TrackResponse { Message = "Expected key " + docKey };
                 }
             }
@@ -302,7 +304,7 @@ namespace ASC.Web.Files.Services.DocumentService
             UserInfo user = null;
             try
             {
-                SecurityContext.AuthenticateMe(userId);
+                SecurityContext.CurrentUser = userId;
 
                 user = CoreContext.UserManager.GetUsers(userId);
                 var culture = string.IsNullOrEmpty(user.CultureName) ? CoreContext.TenantManager.GetCurrentTenant().GetCulture() : CultureInfo.GetCultureInfo(user.CultureName);
@@ -356,22 +358,26 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         case TrackerData.ForceSaveInitiator.Command:
                             forcesaveType = ForcesaveType.Command;
+                            comments.Add(FilesCommonResource.CommentAutosave);
                             break;
                         case TrackerData.ForceSaveInitiator.Timer:
                             forcesaveType = ForcesaveType.Timer;
+                            comments.Add(FilesCommonResource.CommentAutosave);
                             break;
                         case TrackerData.ForceSaveInitiator.User:
                             forcesaveType = ForcesaveType.User;
+                            comments.Add(FilesCommonResource.CommentForcesave);
+                            break;
+                        case TrackerData.ForceSaveInitiator.UserSubmit:
+                            forcesaveType = ForcesaveType.UserSubmit;
+                            comments.Add(FilesCommonResource.CommentSubmitFillForm);
                             break;
                     }
-                    comments.Add(fileData.ForceSaveType == TrackerData.ForceSaveInitiator.User
-                                     ? FilesCommonResource.CommentForcesave
-                                     : FilesCommonResource.CommentAutosave);
                 }
 
                 try
                 {
-                    file = EntryManager.SaveEditing(fileId, null, DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), null, string.Empty, string.Join("; ", comments), false, fileData.Encrypted, forcesaveType, true);
+                    file = EntryManager.SaveEditing(fileId, fileData.Filetype, DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), null, string.Empty, string.Join("; ", comments), false, fileData.Encrypted, forcesaveType, true);
                     saveMessage = fileData.Status == TrackerStatus.MustSave || fileData.Status == TrackerStatus.ForceSave ? null : "Status " + fileData.Status;
                 }
                 catch (Exception ex)
@@ -379,7 +385,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     Global.Logger.Error(string.Format("DocService save error. File id: '{0}'. UserId: {1}. DocKey '{2}'. DownloadUri: {3}", fileId, userId, fileData.Key, fileData.Url), ex);
                     saveMessage = ex.Message;
 
-                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url));
+                    StoringFileAfterError(fileId, userId.ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.Url), fileData.Filetype);
                 }
             }
 
@@ -393,6 +399,10 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 if (!forcesave)
                     SaveHistory(file, (fileData.History ?? "").ToString(), DocumentServiceConnector.ReplaceDocumentAdress(fileData.ChangesUrl));
+
+                if (fileData.Status == TrackerStatus.ForceSave
+                    && fileData.ForceSaveType == TrackerData.ForceSaveInitiator.UserSubmit)
+                    EntryManager.SubmitFillForm(file);
             }
 
             Global.SocketManager.FilesChangeEditors(fileId, !forcesave);
@@ -413,7 +423,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             try
             {
-                SecurityContext.AuthenticateMe(userId);
+                SecurityContext.CurrentUser = userId;
 
                 var user = CoreContext.UserManager.GetUsers(userId);
                 var culture = string.IsNullOrEmpty(user.CultureName) ? CoreContext.TenantManager.GetCurrentTenant().GetCulture() : CultureInfo.GetCultureInfo(user.CultureName);
@@ -524,13 +534,14 @@ namespace ASC.Web.Files.Services.DocumentService
         }
 
 
-        private static void StoringFileAfterError(string fileId, string userId, string downloadUri)
+        private static void StoringFileAfterError(string fileId, string userId, string downloadUri, string downloadType)
         {
             if (string.IsNullOrEmpty(downloadUri)) return;
 
             try
             {
-                var fileName = Global.ReplaceInvalidCharsAndTruncate(fileId + FileUtility.GetFileExtension(downloadUri));
+                if (string.IsNullOrEmpty(downloadType)) downloadType = FileUtility.GetFileExtension(downloadUri).Trim('.');
+                var fileName = Global.ReplaceInvalidCharsAndTruncate(fileId + "." + downloadType);
                 var path = string.Format(@"save_crash\{0}\{1}_{2}",
                                          DateTime.UtcNow.ToString("yyyy_MM_dd"),
                                          userId,

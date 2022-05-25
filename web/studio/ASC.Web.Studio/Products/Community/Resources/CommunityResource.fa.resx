@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Birthdays" xml:space="preserve">
-    <value>تولدها</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>وبلاگها</value>
   </data>

@@ -227,7 +227,7 @@ namespace ASC.Mail.Core.Dao
             var result = Db.ExecuteNonQuery(query);
         }
 
-        private const string INCR_VALUE_FORMAT = "{0}={0}+({1})";
+        private const string INCR_VALUE_FORMAT = "{0}=IF((-{0}<=({1})), {0}+({1}),(0))";
         private const string SET_VALUE_FORMAT = "{0}={1}";
 
         public int SetFolderCounters(uint folderId, int? unreadMess = null, int? totalMess = null,

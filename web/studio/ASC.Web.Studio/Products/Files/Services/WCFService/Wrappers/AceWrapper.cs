@@ -35,6 +35,9 @@ namespace ASC.Web.Files.Services.WCFService
 
         [DataMember(Name = "message", Order = 3, IsRequired = false)]
         public string Message { get; set; }
+
+        [DataMember(Name = "advancedSettings", Order = 4, IsRequired = false)]
+        public AceAdvancedSettingsWrapper AdvancedSettings { get; set; }
     }
 
     [DataContract(Name = "ace_wrapper", Namespace = "")]
@@ -114,5 +117,15 @@ namespace ASC.Web.Files.Services.WCFService
             }
             Permissions = permission;
         }
+    }
+
+    [DataContract(Name = "advancedSettings", Namespace = "")]
+    public class AceAdvancedSettingsWrapper
+    {
+        [DataMember(Name = "denyDownload")]
+        public bool DenyDownload { get; set; }
+
+        [DataMember(Name = "denySharing")]
+        public bool DenySharing { get; set; }
     }
 }

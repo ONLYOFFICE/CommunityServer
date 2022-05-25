@@ -64,6 +64,8 @@ namespace ASC.Web.Core.Calendars
 
         public virtual TimeZoneInfo TimeZone { get; set; }
 
+        public virtual bool HasAttachments { get; set; }
+
         #endregion
 
         #region ICloneable Members

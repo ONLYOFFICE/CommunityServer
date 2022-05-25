@@ -71,7 +71,7 @@ if (typeof Object.create !== 'function') {
                     var $button = $('<button/>').addClass((button.addClass) ? button.addClass : 'gray').html(button.text)
                         .appendTo(self.$bar.find('.noty_buttons'))
                         .bind('click', function () {
-                            if ($.isFunction(button.onClick)) {
+                            if (typeof button.onClick === "function") {
                                 button.onClick.call($button, self);
                             }
                         });
@@ -436,7 +436,7 @@ if (typeof Object.create !== 'function') {
         buttons:false
     };
 
-    $(window).resize(function () {
+    $(window).on("resize", function () {
         $.each($.noty.layouts, function (index, layout) {
             layout.container.style.apply($(layout.container.selector));
         });

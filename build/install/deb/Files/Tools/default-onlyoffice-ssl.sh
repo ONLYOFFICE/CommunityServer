@@ -3,7 +3,7 @@
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
 NGINX_CONF_DIR="/etc/nginx/sites-enabled";
 NGINX_ROOT_DIR="/etc/nginx";
-APP_SERVICES_ROOT_DIR="/var/www/onlyoffice/Services"
+APP_CONFIG_DIR="/etc/onlyoffice/communityserver"
 SSL_OCSP_CERTIFICATE_PATH="${ROOT_DIR}/stapling.trusted.crt";
 SSL_CERTIFICATE_PATH="${ROOT_DIR}/onlyoffice.crt";
 SSL_KEY_PATH="${ROOT_DIR}/onlyoffice.key";
@@ -54,7 +54,7 @@ else
         sed '/resolver_timeout/d' -i default-onlyoffice-ssl.conf;
 fi
 
-sed '/mail\.default-api-scheme/s/\(value\s*=\s*\"\).*\"/\1https\"/' -i ${APP_SERVICES_ROOT_DIR}/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe.config;
+sed 's_\(\"DefaultApiSchema":\).*,_\1 "https",_' -i ${APP_CONFIG_DIR}/mail.production.json
 
 mv -f default-onlyoffice-ssl.conf ${NGINX_CONF_DIR}/onlyoffice
 

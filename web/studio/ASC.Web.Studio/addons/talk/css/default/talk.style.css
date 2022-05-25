@@ -4382,6 +4382,11 @@ div#talkMainContainer div#talkDialogsContainer div.popupContainerClass div.conta
     height: 19px;
     display: inline-block;    
 }
+
+.layout-bottom-spacer {
+    display: none;
+}
+
 @media screen and (max-width: 900px) {
     
 }

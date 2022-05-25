@@ -40,6 +40,7 @@ namespace ASC.Web.Core.WhiteLabel
     public class TenantWhiteLabelSettings : BaseSettings<TenantWhiteLabelSettings>
     {
         public const string DefaultLogoText = "ONLYOFFICE";
+        private ILog Log = LogManager.GetLogger("ASC");
 
         #region Logos information: extension, isDefault, text for img auto generating
 
@@ -170,7 +171,7 @@ namespace ASC.Web.Core.WhiteLabel
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error(e);
+                Log.Error(e);
             }
 
             Save(tenantId, true);
@@ -188,7 +189,7 @@ namespace ASC.Web.Core.WhiteLabel
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC").Error(e);
+                    Log.Error(e);
                 }
             }
         }
@@ -213,7 +214,7 @@ namespace ASC.Web.Core.WhiteLabel
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC").Error(e);
+                    Log.Error(e);
                 }
             }
             #endregion
@@ -261,7 +262,7 @@ namespace ASC.Web.Core.WhiteLabel
                         }
                         catch (Exception ex)
                         {
-                            LogManager.GetLogger("ASC").Error(ex);
+                            Log.Error(ex);
                         }
                     }
                     else

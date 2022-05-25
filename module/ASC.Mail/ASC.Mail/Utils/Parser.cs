@@ -18,11 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using ASC.Mail.Data.Contracts;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 
 using MimeKit;
@@ -31,12 +31,8 @@ namespace ASC.Mail.Utils
 {
     public static class Parser
     {
-        private static readonly Regex RegxWhiteSpaces = new Regex(@"\s+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        private static readonly Regex RegxClean = new Regex(@"(\(((\\\))|[^)])*\))", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        //private static readonly Regex RegxEmail = new Regex("<(.|[.])*?>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex RegxDomain = new Regex(@"(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex RegxEmailLocalPart = new Regex(@"^([a-zA-Z0-9]+)([_\-\.\+][a-zA-Z0-9]+)*$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex RegxNoneAscii = new Regex(@"[^\x00-\x7F]+", RegexOptions.Compiled | RegexOptions.Singleline);
 
         /// <summary>
         /// Parses the address.
@@ -125,26 +121,6 @@ namespace ASC.Mail.Utils
         }
 
         /// <summary>
-        /// Removes the white spaces.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        internal static string RemoveWhiteSpaces(string input)
-        {
-            return RegxWhiteSpaces.Replace(input, "");
-        }
-
-        /// <summary>
-        /// Cleans the specified input.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        internal static string Clean(string input)
-        {
-            return RegxClean.Replace(input, "").Trim(' ');
-        }
-
-        /// <summary>
         /// Get valid password or throw exception.
         /// </summary>
         /// <param name="password">String contains valid password according to portal settings</param>
@@ -158,34 +134,12 @@ namespace ASC.Mail.Utils
 
             var pwdSettings = PasswordSettings.Load();
 
-            if (!PasswordSettings.CheckPasswordRegex(pwdSettings, trimPwd)
-                || RegxNoneAscii.IsMatch(trimPwd)
-                || RegxWhiteSpaces.IsMatch(trimPwd))
+            if (!PasswordSettings.CheckPasswordRegex(pwdSettings, trimPwd))
             {
-                throw new ArgumentException(GeneratePasswordErrorMessage(pwdSettings));
+                throw new ArgumentException(UserManagerWrapper.GetPasswordHelpMessage(pwdSettings));
             }
 
             return trimPwd;
-        }
-
-        internal static string GeneratePasswordErrorMessage(PasswordSettings passwordSettings)
-        {
-            var error = new StringBuilder();
-
-            error.AppendFormat("{0} ", Resource.ErrorPasswordMessage);
-            error.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
-
-            error.AppendFormat(", {0}", Resource.ErrorPasswordOnlyLatinLetters);
-            error.AppendFormat(", {0}", Resource.ErrorPasswordNoSpaces);
-
-            if (passwordSettings.UpperCase)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoUpperCase);
-            if (passwordSettings.Digits)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoDigits);
-            if (passwordSettings.SpecSymbols)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoSpecialSymbols);
-
-            return error.ToString();
         }
 
         public static List<MailAddress> ToMailAddresses(this List<string> addresses)

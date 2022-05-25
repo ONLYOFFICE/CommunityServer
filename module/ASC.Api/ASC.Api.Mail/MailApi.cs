@@ -19,15 +19,19 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.Linq;
 
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
+using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Mail.Core;
+using ASC.Mail.Core.Dao.Expressions.Mailbox;
 using ASC.Mail.Core.Engine.Operations.Base;
+using ASC.Mail.Core.Entities;
 using ASC.Web.Mail.Resources;
 
 namespace ASC.Api.Mail
@@ -42,6 +46,10 @@ namespace ASC.Api.Mail
 
         public const int DEFAULT_PAGE_SIZE = 25;
 
+        public const string RedisClientPrefix = "ASC.MailAction:";
+        public const string RedisClientQueuesKey = RedisClientPrefix + "Queues";
+
+
         ///<summary>
         /// Api name entry
         ///</summary>
@@ -52,12 +60,59 @@ namespace ASC.Api.Mail
 
         private EngineFactory MailEngineFactory
         {
-            get { return _engineFactory ?? (_engineFactory = new EngineFactory(TenantId, Username)); }
+            get { return _engineFactory ?? (_engineFactory = new EngineFactory(TenantId, Username, Logger)); }
+        }
+
+        private void SendUserAlive(int folder, IEnumerable<int> tags)
+        {
+            if (!IsSendUserActivity) return;
+
+            if (!(AscCache.Default is RedisCache cache)) return;
+
+            CachedTenantUserMailBox cashedTenantUserMailBox = new CachedTenantUserMailBox()
+            {
+                Tenant = TenantId,
+                UserName = Username,
+                Tags = tags,
+                Folder = folder
+            };
+
+            cache.Publish(cashedTenantUserMailBox, CacheNotifyAction.Insert);
+        }
+
+        private void SendUserActivity(List<int> ids, MailUserAction action = MailUserAction.StartImapClient, int destinationFolder = -1)
+        {
+            if (!IsSendUserActivity) return;
+
+            if (!(AscCache.Default is RedisCache cache)) return;
+
+            var exp = new UserMailboxesExp(TenantId, Username, onlyTeamlab: true);
+
+            var mailboxes = MailEngineFactory.MailboxEngine.GetMailboxDataList(exp);
+
+            var mailboxesOnlyoffice = mailboxes.ToList();
+
+            if (!mailboxesOnlyoffice.Any()) return;
+
+            string key = RedisClientPrefix + Username;
+
+            CashedMailUserAction cashedMailUserAction = new CashedMailUserAction()
+            {
+                Tenant = TenantId,
+                UserName = Username,
+                Uds = ids,
+                Action = action,
+                Destination = destinationFolder
+            };
+
+            cache.PushMailAction(key, cashedMailUserAction);
+
+            SendUserAlive(-1, null);
         }
 
         private ILog Logger
         {
-            get { return _log ?? (_log = LogManager.GetLogger("ASC.Api")); }
+            get { return _log ?? (_log = LogManager.GetLogger("ASC.Api.Mail")); }
         }
 
         private static int TenantId
@@ -100,6 +155,18 @@ namespace ASC.Api.Mail
             }
         }
 
+        private static bool IsSendUserActivity
+        {
+            get
+            {
+                if (ConfigurationManagerExtension.AppSettings["mail.send-user-activity"] == null)
+                    return false;
+
+                return Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.send-user-activity"]); ;
+            }
+        }
+
+
         /// <summary>
         /// Timeout in milliseconds
         /// </summary>
@@ -126,12 +193,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Returns all Mail runnung operations (only complex)
+        /// Returns all the running complex mail operations.
         /// </summary>
         /// <short>
-        /// Get all Mail running complex operations
+        /// Get running complex mail operations
         /// </short>
-        /// <returns>list of MailOperationResult</returns>
+        /// <category>Operations</category>
+        /// <returns>List of running mail operations</returns>
         [Read("operations")]
         public List<MailOperationStatus> GetMailOperations()
         {
@@ -140,13 +208,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Returns Mail complex operation status
+        /// Returns a status of complex mail operation with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Get Mail complex operation status
+        /// Get a status of complex mail operation
         /// </short>
-        /// <param name="operationId">Id of operation</param>
-        /// <returns>MailOperationResult</returns>
+        /// <category>Operations</category>
+        /// <param name="operationId">Operation ID</param>
+        /// <returns>Status of complex mail operation</returns>
         [Read("operations/{operationId}")]
         public MailOperationStatus GetMailOperation(string operationId)
         {
@@ -154,10 +223,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Method for translation mail operation statuses
+        /// Translates a mail operation status.
         /// </summary>
-        /// <param name="op">instance of DistributedTask</param>
-        /// <returns>translated status text</returns>
+        /// <short>Translate a mail operation status</short>
+        /// <category>Operations</category>
+        /// <param name="op">Instance of distributed task</param>
+        /// <returns>Translated status</returns>
         private static string TranslateMailOperationStatus(DistributedTask op)
         {
             var type = op.GetProperty<MailOperationType>(MailOperation.OPERATION_TYPE);

@@ -17,6 +17,7 @@
 
 using System;
 using System.Configuration;
+using System.Web;
 using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Common.Support
@@ -38,6 +39,8 @@ namespace ASC.Web.Studio.UserControls.Common.Support
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/UserControls/Common/Support/livechat.js"));
+            Page.RegisterInlineScript(string.Format("ASC.ZopimLiveChat.init('{0}');", SupportKey));
         }
     }
 }

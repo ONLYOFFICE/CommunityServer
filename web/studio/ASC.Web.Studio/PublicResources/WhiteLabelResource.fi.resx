@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Sivuston logo asetukset{1} ovat saatavilla vain maksullisille sivustoille.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo sisäänkirjautumisen sivulle</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo editorin ylätunnisteeseen</value>
   </data>

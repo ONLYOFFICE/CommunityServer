@@ -40,7 +40,7 @@
 
                     <div id="chkVisitorContainer" class="clearFix">
                         <input type="checkbox" id="chkVisitor" <%= EnableInviteLink && EnableInviteLinkVisitor ? "" : "disabled=\"disabled\"" %>  <%= EnableInviteLink ? "" : "checked=\"checked\"" %>/>
-                        <label for="chkVisitor" <%= EnableInviteLinkVisitor ? "" : IsFreeTariff ? "title=\""+ Resource.DisableAddGuest +"\" class=\"disable-help-block-right\"" : "title=\""+ Resource.MaxGuestExceeded +"\" class=\"disable-help-block-right\""%>"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %></label>
+                        <label for="chkVisitor" <%= EnableInviteLinkVisitor ? "" : IsFreeTariff ? "title=\""+ Resource.DisableAddGuest +"\" class=\"disable-help-block-right\"" : "title=\""+ Resource.MaxGuestExceeded +"\" class=\"disable-help-block-right\""%>><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators").HtmlEncode() %></label>
                          <% if (EnableInviteLinkVisitor) { %>
                         <input id="hiddenVisitorLink" type="hidden" value="<%= HttpUtility.HtmlEncode(GeneratedVisitorLink) %>" />
                          <% } %>

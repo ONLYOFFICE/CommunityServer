@@ -183,6 +183,10 @@ dt.confirm-remove-files {
 #filesNewsList .thumb-folder {
     margin: 0 12px 0 0;
 }
+#filesNewsList .thumb-encrypted {
+    bottom: -5px;
+    right: -5px;
+}
 #filesNewsMarkRead {
     display: inline-block;
     margin: 8px 0 8px 12px;

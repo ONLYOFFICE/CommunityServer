@@ -15,12 +15,6 @@
 */
 
 
-if (!String.prototype.trim) {
-    String.prototype.trim = function() {
-        return jq.trim(arguments.length ? arguments[0] : "");
-    };
-}
-
 if (!Object.assign) {
     Object.defineProperty(Object, 'assign', {
         enumerable: false,

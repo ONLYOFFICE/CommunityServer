@@ -210,7 +210,7 @@ window.accountsManager = (function($) {
         }
 
 
-        if (params.onSuccessOperationCallback && $.isFunction(params.onSuccessOperationCallback)) {
+        if (params.onSuccessOperationCallback && typeof params.onSuccessOperationCallback === "function") {
             params.onSuccessOperationCallback.call();
         }
     }

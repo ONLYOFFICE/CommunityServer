@@ -222,32 +222,6 @@ ONLYOFFICEはMicrosoft Office™文書形式と互換性で、作成されたオ
 敬具、
 ONLYOFFICEチーム</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart お好みのクラウドストレージをONLYOFFICEに接続します$PersonalHeaderEnd 
-
-お客様がクラウドオフィスを作成した時から一週間が経ったので、見逃したかもしれない有益な機能を明らかにしてあげる時が来たと信じています。
-
-ONLYOFFICEに*Dropbox*、*Google Drive*、*Box*、*OneDrive*、*Nextcloud*、*ownCloud*、*kDrive*、または*Yandex.Disc*を接続し、すべてのドキュメントに対して単一文書管理スペースを作成します。ONLYOFFICE で外部ファイルを編集し、保存しておくストレージに保存で切るようになります。ONLYOFFICEにファイルストレージを接続する方法は  "こちらです":"${__HelpLink}/tipstricks/add-resource.aspx". 
-
-ONLYOFFICE エディターを特定　”接続アプリ”":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn". を使用してGoogle Driveに統合する可能もあります。
-
-もっと多くの文書管理機能の必要がありますか？
-
-h3. "クラウド":"https://www.onlyoffice.com/cloud-office.aspx" または "サーバー":"https://www.onlyoffice.com/server-solutions.aspx" の業務用ONLYOFFICEを３０日の試用期間に登録して、以下のビジネスツールセットと共に拡大な文書管理機能を使用してみてください：
-
-－プロジェクト内のチーム文書を管理すること； 
-
-－ＣＲＭとメールと文書を統合すること；
-
-－ユーザのグループと文書を共有すること;
-
-－チームコミュニケーションツールを使用してワークフローを最適化 すること；
-
-興味がありますか？詳しい情報は、”業務用ONLYOFFICE”："http://www.onlyoffice.com/document-management.aspx"をクリックしてください。
-
-敬具、
-ONLYOFFICEチーム</value>
-  </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>今日は、
 
@@ -345,12 +319,6 @@ ONLYOFFICEチーム</value>
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>個人的なONLYOFFICEへようこそ</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>常用されるクラウドストレージをONLYOFFICEに接続します。</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>個人的なONLYOFFICE。パスワード アシスタンス</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>個人的なONLYOFFICE。メールアドレスの照合を行ってください。</value>

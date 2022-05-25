@@ -91,10 +91,10 @@ ASC.Projects.MilestoneContainer = (function () {
             $addTaskContainer.appendTo(parent);
             jq(parent).children(".addTaskContainer").hide();
             $addTaskContainer.show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq('body').click(function (event) {
+        jq('body').on("click", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             var panelId = "taskActionPanel";
@@ -232,7 +232,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
         $milestoneActionsPanel = jq("#milestoneActions");
 
         //milestone
-        $addMilestone.find("a").bind('click', function () {
+        $addMilestone.find("a").on('click', function () {
             milestoneContainer.hideAddTaskContainer();
             $addMilestoneContainer.hide();
             if ($addMilestoneContainer.hasClass('edit')) {
@@ -252,14 +252,14 @@ ASC.Projects.EditMilestoneContainer = (function () {
 
             $addMilestoneContainer.show();
 
-            jq("#newMilestoneTitle").focus();
+            jq("#newMilestoneTitle").trigger("focus");
         });
 
         jq("body").on('keydown', '#newMilestoneTitle', function (e) {
             $addMilestoneContainer.removeClass("red-border");
             var targetId = $addMilestoneContainer.attr('target');
             if (e.which === 13) {
-                $addMilestoneContainer.find(".button").click();
+                $addMilestoneContainer.find(".button").trigger("click");
             } else {
                 if (e.which === 27) {
                     jq(this).val("");
@@ -280,14 +280,14 @@ ASC.Projects.EditMilestoneContainer = (function () {
 
             $addMilestoneContainer.removeClass("red-border");
 
-            var text = jq.trim(milestoneTitle.val());
+            var text = milestoneTitle.val().trim();
             if (!text.length) {
                 alert(jq("#milestoneError").text());
                 return;
             }
             if ($addMilestoneContainer.hasClass('edit')) {
 
-                jq("#" + targetId + " .mainInfo .titleContainerEdit span").text(jq.trim(milestoneTitle.val()));
+                jq("#" + targetId + " .mainInfo .titleContainerEdit span").text(milestoneTitle.val().trim());
                 var days = $addMilestoneContainer.find("select option:selected").attr('value');
                 jq("#" + targetId + " .mainInfo .daysCount span").text(days);
                 jq("#" + targetId + " .mainInfo .daysCount").attr('value', days);
@@ -298,13 +298,13 @@ ASC.Projects.EditMilestoneContainer = (function () {
             } else {
                 milestoneCounter++;
                 var milestone = {
-                    title: jq.trim(milestoneTitle.val()), duration: $addMilestoneContainer.find("select option:selected").attr('value'),
+                    title: milestoneTitle.val().trim(), duration: $addMilestoneContainer.find("select option:selected").attr('value'),
                     tasks: [], number: milestoneCounter
                 };
 
                 jq.tmpl("projects_templatesEditMilestoneTmpl", milestone).appendTo("#listAddedMilestone");
                 milestoneTitle.val("");
-                milestoneTitle.focus();
+                milestoneTitle.trigger("focus");
             }
         });
 
@@ -321,8 +321,8 @@ ASC.Projects.EditMilestoneContainer = (function () {
             var val = jq(milestone).find(".daysCount").attr('value');
             $addMilestoneContainer.show();
             $addMilestoneContainer.find("#newMilestoneTitle").val(jq(milestone).children(".titleContainerEdit").text());
-            $addMilestoneContainer.find("select option[value = '" + val + "']").attr("selected", "selected");
-            $addMilestoneContainer.find("#newMilestoneTitle").focus();
+            $addMilestoneContainer.find("select option[value = '" + val + "']").prop("selected", true);
+            $addMilestoneContainer.find("#newMilestoneTitle").trigger("focus");
 
         });
         jq(document).on('click', ".milestone .mainInfo .addTask", function () {
@@ -334,10 +334,10 @@ ASC.Projects.EditMilestoneContainer = (function () {
             $addTaskContainer.attr("target", target);
             $addTaskContainer.show();
             jq(milestTasksCont).show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq("#milestoneActions .actionList #removeMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #removeMilestone").on('click', function () {
             milestoneContainer.hideAddTaskContainer();
             $addTaskContainer.appendTo("#noAssignTaskContainer");
             $milestoneActionsPanel.hide();
@@ -346,7 +346,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
             jq("#" + target).remove();
         });
 
-        jq("#milestoneActions .actionList #addTaskInMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #addTaskInMilestone").on('click', function () {
             $milestoneActionsPanel.hide();
             var target = jq(this).parents('.studio-action-panel').attr('target');
             jq("#" + target).removeClass("open");
@@ -358,10 +358,10 @@ ASC.Projects.EditMilestoneContainer = (function () {
             $addTaskContainer.show();
             jq(milestTasksCont).find(".addTaskContainer").hide();
             jq(milestTasksCont).show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq("#milestoneActions .actionList #editMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #editMilestone").on('click', function () {
             $milestoneActionsPanel.hide();
             milestoneContainer.hideAddMilestoneContainer();
             $addMilestoneContainer.addClass('edit');
@@ -374,8 +374,8 @@ ASC.Projects.EditMilestoneContainer = (function () {
             var val = jq(milestone).children(".daysCount").attr('value');
             $addMilestoneContainer.show();
             $addMilestoneContainer.find("#newMilestoneTitle").val(jq(milestone).children(".titleContainerEdit").text());
-            $addMilestoneContainer.find("select option[value = '" + val + "']").attr("selected", "selected");
-            $addMilestoneContainer.find("#newMilestoneTitle").focus();
+            $addMilestoneContainer.find("select option[value = '" + val + "']").prop("selected", true);
+            $addMilestoneContainer.find("#newMilestoneTitle").trigger("focus");
         });
 
         //task
@@ -397,15 +397,15 @@ ASC.Projects.EditMilestoneContainer = (function () {
             jq(target).hide();
             jq("#addTaskContainer #newTaskTitle").val(jq(target).children(".titleContainer").text());
             $addTaskContainer.show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq("#newTaskTitle").bind('keydown', function (e) {
+        jq("#newTaskTitle").on('keydown', function (e) {
             var taskContainer = $addTaskContainer;
             taskContainer.removeClass("red-border");
             var target = taskContainer.attr('target');
             if (e.which === 13) {
-                jq("#addTaskContainer .button").click();
+                jq("#addTaskContainer .button").trigger("click");
             } else {
                 if (e.which === 27) {
                     jq(this).val("");
@@ -426,7 +426,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
             var taskTitle = jq("#newTaskTitle");
             taskContainer.removeClass("red-border");
 
-            var text = jq.trim(taskTitle.val());
+            var text = taskTitle.val().trim();
             if (!text.length) {
                 alert(jq("#taskError").text());
                 return false;
@@ -438,11 +438,11 @@ ASC.Projects.EditMilestoneContainer = (function () {
                 jq("#" + target).show();
             } else {
                 taskCounter++;
-                var task = { title: jq.trim(taskTitle.val()), number: taskCounter };
+                var task = { title: taskTitle.val().trim(), number: taskCounter };
                 var tElem = target === 'noAssign' ? jq("#listNoAssignListTask") : jq(".listTasks[milestone='" + target + "']");
                 jq.tmpl("projects_templatesEditTaskTmpl", task).appendTo(tElem);
                 taskTitle.val("");
-                taskTitle.focus();
+                taskTitle.trigger("focus");
             }
 
             return true;
@@ -450,7 +450,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
 
         //task menu
 
-        jq("#taskActionPanel .actionList #removeTask").bind('click', function () {
+        jq("#taskActionPanel .actionList #removeTask").on('click', function () {
             $taskActionPanel.hide();
             var target = jq(this).parents('.studio-action-panel').attr('target');
             jq("#" + target).removeClass("open");
@@ -464,7 +464,7 @@ ASC.Projects.EditMilestoneContainer = (function () {
             }
         });
 
-        jq("#taskActionPanel .actionList #editTask").bind('click', function () {
+        jq("#taskActionPanel .actionList #editTask").on('click', function () {
             $taskActionPanel.hide();
             var target = jq(this).parents('.studio-action-panel').attr('target');
             var task = jq("#" + target);
@@ -475,14 +475,14 @@ ASC.Projects.EditMilestoneContainer = (function () {
             jq(task).hide();
             jq("#addTaskContainer #newTaskTitle").val(jq(task).children(".titleContainer").text());
             $addTaskContainer.show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
     };
 
     var showTmplStructure = function (tmpl) {
         var description = { tasks: [], milestones: [] };
         try {
-            description = jq.parseJSON(tmpl.description) || { tasks: [], milestones: [] };
+            description = JSON.parse(tmpl.description) || { tasks: [], milestones: [] };
         } catch (e) {
 
         }
@@ -666,13 +666,13 @@ ASC.Projects.CreateProjectStructure = (function () {
         dueDateContainer.datepicker().mask(ASC.Resources.Master.DatePatternJQ);
         dueDateContainer.datepicker({
             onSelect: function () {
-                jq("#newMilestoneTitle").focus();
+                jq("#newMilestoneTitle").trigger("focus");
             }
         });
         regionalFormatDate = jq("#dueDate").datepicker("option", "dateFormat");
        
 
-        jq("body").click(function (event) {
+        jq("body").on("click", function (event) {
             if (event.target.className !== "userName") {
                 if (!jq("#projectManagerSelector").attr("data-id")) {
                     pmId = null;
@@ -764,7 +764,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             }
 
             jq(member).text(name);
-            jq(target).find("input").last().focus();
+            jq(target).find("input").last().trigger("focus");
 
         });
 
@@ -796,10 +796,10 @@ ASC.Projects.CreateProjectStructure = (function () {
             $addMilestoneContainer.show();
             $addMilestoneContainer.find("#newMilestoneTitle").val(jq(milestone).children(".titleContainer").text());
             $addMilestoneContainer.find("#dueDate").datepicker('setDate', val);
-            $addMilestoneContainer.find("#newMilestoneTitle").focus();
+            $addMilestoneContainer.find("#newMilestoneTitle").trigger("focus");
         });
 
-        $addMilestone.find("a").bind('click', function () {
+        $addMilestone.find("a").on('click', function () {
             milestoneContainer.hideAddTaskContainer();
             $addMilestoneContainer.hide();
             if ($addMilestoneContainer.hasClass('edit')) {
@@ -828,14 +828,14 @@ ASC.Projects.CreateProjectStructure = (function () {
                 }
             }
             $addMilestoneContainer.show();
-            $addMilestoneContainer.find("#newMilestoneTitle").focus();
+            $addMilestoneContainer.find("#newMilestoneTitle").trigger("focus");
         });
 
         jq("body").on('keydown', '#newMilestoneTitle', function (e) {
             $addMilestoneContainer.removeClass("red-border");
             var targetId = $addMilestoneContainer.attr('target');
             if (e.which === 13) {
-                $addMilestoneContainer.find(".button").click();
+                $addMilestoneContainer.find(".button").trigger("click");
             } else {
                 if (e.which === 27) {
                     jq(this).val("");
@@ -856,7 +856,7 @@ ASC.Projects.CreateProjectStructure = (function () {
 
             $addMilestoneContainer.removeClass("red-border");
 
-            var text = jq.trim(milestoneTitle.val());
+            var text = milestoneTitle.val().trim();
             if (!text.length) {
                 alert(jq("#milestoneError").text());
                 return false;
@@ -866,7 +866,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             date = jq.datepicker.formatDate(regionalFormatDate, date);
             if ($addMilestoneContainer.hasClass('edit')) {
 
-                jq("#" + targetId + " .mainInfo .titleContainer span").text(jq.trim(milestoneTitle.val()));
+                jq("#" + targetId + " .mainInfo .titleContainer span").text(milestoneTitle.val().trim());
 
                 jq("#" + targetId + " .mainInfo .dueDate span").text(date);
                 $addMilestoneContainer.hide();
@@ -887,7 +887,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             } else {
                 milestoneCounter++;
                 var milestone = {
-                    title: jq.trim(milestoneTitle.val()),
+                    title: milestoneTitle.val().trim(),
                     date: date,
                     tasks: [],
                     number: milestoneCounter,
@@ -899,7 +899,7 @@ ASC.Projects.CreateProjectStructure = (function () {
 
                 jq.tmpl("projects_templatesCreateMilestoneTmpl", milestone).appendTo("#listAddedMilestone");
                 milestoneTitle.val("");
-                milestoneTitle.focus();
+                milestoneTitle.trigger("focus");
 
                 if (milestone.chooseRep.id) {
                     jq(document).trigger("chooseResp");
@@ -926,10 +926,10 @@ ASC.Projects.CreateProjectStructure = (function () {
                 jq("#addTaskContainer div:first-child").append(jq(".chooseResponsible:first").clone());
             }
             jq(milestTasksCont).show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq("#milestoneActions .actionList #removeMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #removeMilestone").on('click', function () {
             $addMilestone.after($addMilestoneContainer);
             $addTaskContainer.hide();
             $addTaskContainer.appendTo("#noAssignTaskContainer");
@@ -942,7 +942,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             }
         });
 
-        jq("#milestoneActions .actionList #addTaskInMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #addTaskInMilestone").on('click', function () {
             milestoneContainer.hideAddMilestoneContainer();
             var target = jq(this).parents('.studio-action-panel').attr('target');
             jq("#" + target).removeClass("open");
@@ -959,10 +959,10 @@ ASC.Projects.CreateProjectStructure = (function () {
 
             $addTaskContainer.show();
             jq(milestTasksCont).show();
-            jq("#addTaskContainer #newTaskTitle").focus();
+            jq("#addTaskContainer #newTaskTitle").trigger("focus");
         });
 
-        jq("#milestoneActions .actionList #editMilestone").bind('click', function () {
+        jq("#milestoneActions .actionList #editMilestone").on('click', function () {
             $milestoneActionsPanel.hide();
             milestoneContainer.hideAddMilestoneContainer();
             $addMilestoneContainer.addClass('edit');
@@ -982,7 +982,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             $addMilestoneContainer.show();
             $addMilestoneContainer.find("#newMilestoneTitle").val(jq(milestone).children(".titleContainer").text());
             $addMilestoneContainer.find("#dueDate").datepicker('setDate', val);
-            $addMilestoneContainer.find("#newMilestoneTitle").focus();
+            $addMilestoneContainer.find("#newMilestoneTitle").trigger("focus");
         });
 
         //task
@@ -1000,11 +1000,11 @@ ASC.Projects.CreateProjectStructure = (function () {
             editTask(jq(this).parents('.task'));
         });
 
-        jq("#newTaskTitle").bind('keydown', function (e) {
+        jq("#newTaskTitle").on('keydown', function (e) {
             $addTaskContainer.removeClass("red-border");
             var target = $addTaskContainer.attr('target');
             if (e.which === 13) {
-                jq("#addTaskContainer .button").click();
+                jq("#addTaskContainer .button").trigger("click");
             } else {
                 if (e.which === 27) {
                     jq(this).val("");
@@ -1023,7 +1023,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             var taskContainer = $addTaskContainer;
             var taskTitle = jq("#newTaskTitle");
             var target = taskContainer.attr('target');
-            var text = jq.trim(taskTitle.val());
+            var text = taskTitle.val().trim();
 
             taskContainer.removeClass("red-border");
 
@@ -1053,7 +1053,7 @@ ASC.Projects.CreateProjectStructure = (function () {
                 taskCounter++;
                 taskId = "t_" + taskCounter;
                 var task = {};
-                task.title = jq.trim(taskTitle.val());
+                task.title = taskTitle.val().trim();
                 task.number = taskCounter;
                 if (jq("#projectManagerSelector").attr("data-id") || teamContainer.find("tr").length) {
                     task.selectResp = true;
@@ -1070,7 +1070,7 @@ ASC.Projects.CreateProjectStructure = (function () {
                 jq.tmpl("projects_templatesCreateTaskTmpl", task).appendTo(tElem);
 
                 taskTitle.val("");
-                taskTitle.focus();
+                taskTitle.trigger("focus");
 
                 if (task.chooseRep && task.chooseRep.id) {
                     jq(document).trigger("chooseResp");
@@ -1081,7 +1081,7 @@ ASC.Projects.CreateProjectStructure = (function () {
 
         //task menu
 
-        jq("#taskActionPanel .actionList #removeTask").bind('click', function () {
+        jq("#taskActionPanel .actionList #removeTask").on('click', function () {
             $taskActionPanel.hide();
             var target = jq(this).parents('.studio-action-panel').attr('target');
             jq("#" + target).removeClass("open");
@@ -1099,7 +1099,7 @@ ASC.Projects.CreateProjectStructure = (function () {
             }
         });
 
-        jq("#taskActionPanel .actionList #editTask").bind('click', function () {
+        jq("#taskActionPanel .actionList #editTask").on('click', function () {
             $taskActionPanel.hide();
             editTask(jq("#" + jq(this).parents('.studio-action-panel').attr('target')));
         });
@@ -1160,8 +1160,8 @@ ASC.Projects.CreateProjectStructure = (function () {
         showProjStructure(templ);
 
         jq("#projectDescription").val("");
-        jq("#notifyManagerCheckbox").attr("disabled", "disabled");
-        prjTitleContainer.focus();
+        jq("#notifyManagerCheckbox").prop("disabled", true);
+        prjTitleContainer.trigger("focus");
     };
 
     function editTask (task) {
@@ -1176,13 +1176,13 @@ ASC.Projects.CreateProjectStructure = (function () {
         }
         jq("#addTaskContainer #newTaskTitle").val(jq(task).children(".titleContainer").text());
         $addTaskContainer.show();
-        jq("#addTaskContainer #newTaskTitle").focus();
+        jq("#addTaskContainer #newTaskTitle").trigger("focus");
     };
 
     function showProjStructure(tmpl) {
         var description = { tasks: [], milestones: [] };
         try {
-            description = jq.parseJSON(tmpl.description) || { tasks: [], milestones: [] };
+            description = JSON.parse(tmpl.description) || { tasks: [], milestones: [] };
         } catch (e) {
 
         }

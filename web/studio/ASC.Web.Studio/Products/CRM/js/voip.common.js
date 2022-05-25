@@ -178,7 +178,7 @@ ASC.CRM.Voip.CommonView = (function ($) {
 
         buttonObj.on("click", function (e) {
             e.preventDefault();
-            jq("#fileupload_" + audioType).click();
+            jq("#fileupload_" + audioType).trigger("click");
         });
 
         return inputObj;
@@ -421,7 +421,7 @@ ASC.CRM.Voip.CommonView = (function ($) {
     }
 
     function ringtoneUploadedHandler(e, data) {
-        var response = $.parseJSON(data.result);
+        var response = JSON.parse(data.result);
         if (!response.Success || !response.Data) {
             if (response.Message) {
                 toastrLocal.error(response.Message);

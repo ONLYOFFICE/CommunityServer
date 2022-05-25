@@ -208,7 +208,7 @@ window.mailCache = (function($) {
 
         return ids.length > 1
             ? (distinct
-                ? $.unique(ids.sort())
+                ? $.uniqueSort(ids.sort())
                 : ids.sort())
             : ids;
     }
@@ -265,7 +265,7 @@ window.mailCache = (function($) {
 
     function set(id, content) {
         if (!content.hasOwnProperty("messages") ||
-            !$.isArray(content.messages) ||
+            !Array.isArray(content.messages) ||
             content.messages.length === 0)
             return;
 
@@ -335,6 +335,15 @@ window.mailCache = (function($) {
             }
         }
     }
+
+    function setConfirmationSent(id) {
+        if (!id) return;
+        var message = getMessage(id);
+
+        if (message) {
+            message.readRequestStatus = false;
+        }
+    }    
 
     function setRead(ids, isRead) {
         if (!ids) return;
@@ -471,7 +480,8 @@ window.mailCache = (function($) {
         setFolder: setFolder,
         updateMessage: updateMessage,
         remove: remove,
-        clear: clear
+        clear: clear,
+        setConfirmationSent: setConfirmationSent
     };
 
 })(jQuery);

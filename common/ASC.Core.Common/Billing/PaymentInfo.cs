@@ -40,6 +40,8 @@ namespace ASC.Core.Billing
 
         public Decimal Price { get; set; }
 
+        public int Qty { get; set; }
+
         public string PaymentCurrency { get; set; }
 
         public string PaymentMethod { get; set; }

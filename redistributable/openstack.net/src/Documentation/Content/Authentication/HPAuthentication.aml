@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="182a1c50-9b73-4d72-abe3-b3578caedfa6" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <summary>
+      <para>
+        This page describes the process for authenticating against the HP Public Cloud.
+      </para>
+    </summary>
+
+    <introduction>
+      <para></para>
+    </introduction>
+
+    <section address="UsageNotes">
+      <title>Usage Notes</title>
+      <content>
+        <para>
+          Client authentication against the HP Cloud Identity Service requires the
+          following.
+        </para>
+        <list class="ordered">
+          <listItem>
+            <para>
+              Create an instance of <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+              and initialize its properties with the desired authentication credentials. The
+              <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+              credentials class allows the <codeInline>tenantName</codeInline> and <codeInline>tenantId</codeInline>
+              properties described in the HP documentation on <token>HpScopedTokens</token> to be defined.
+            </para>
+            <list class="bullet">
+              <listItem>
+                <para>
+                  To authenticate using access key credentials, specify the access key in the
+                  <codeEntityReference>P:net.openstack.Core.Domain.CloudIdentity.APIKey</codeEntityReference>
+                  property and the secret key in the
+                  <codeEntityReference>P:net.openstack.Core.Domain.CloudIdentity.Password</codeEntityReference>
+                  property.
+                </para>
+              </listItem>
+              <listItem>
+                <para>
+                  To authenticate using a username and password, set the
+                  <codeEntityReference>P:net.openstack.Core.Domain.CloudIdentity.Username</codeEntityReference>
+                  and <codeEntityReference>P:net.openstack.Core.Domain.CloudIdentity.Password</codeEntityReference>
+                  properties, leaving
+                  <codeEntityReference>P:net.openstack.Core.Domain.CloudIdentity.APIKey</codeEntityReference> unset.
+                </para>
+              </listItem>
+            </list>
+          </listItem>
+          <listItem>
+            <para>
+              Create an instance of <codeEntityReference>T:net.openstack.Providers.Hp.HpIdentityProvider</codeEntityReference>,
+              and pass the previously created credentials to the constructor.
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              When creating a service provider instance, such as <codeEntityReference>T:net.openstack.Providers.Rackspace.CloudFilesProvider</codeEntityReference>,
+              pass <markup>
+                <span class="input">null</span>
+              </markup> for the <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentity</codeEntityReference>
+              parameter and the identity provider from the previous step as the
+              <codeEntityReference>T:net.openstack.Core.Providers.IIdentityProvider</codeEntityReference>
+              parameter.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section address="Limitations">
+      <title>Limitations</title>
+      <content>
+        <para>
+          The <codeEntityReference>T:net.openstack.Providers.Hp.HpIdentityProvider</codeEntityReference> implementation
+          does not support all API operations implemented by the HP Cloud Identity Service. In addition, the current
+          implementation of this provider uses Identity Service v2 for authentication.
+        </para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <codeEntityReference>T:net.openstack.Core.Domain.CloudIdentityWithProject</codeEntityReference>
+      <codeEntityReference>T:net.openstack.Providers.Hp.HpIdentityProvider</codeEntityReference>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

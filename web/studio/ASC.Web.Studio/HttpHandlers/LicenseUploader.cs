@@ -32,6 +32,8 @@ namespace ASC.Web.Studio.HttpHandlers
 {
     internal class LicenseUploader : IFileUploadHandler
     {
+        private ILog Log = LogManager.GetLogger("ASC");
+
         public FileUploadResult ProcessUpload(HttpContext context)
         {
             var result = new FileUploadResult();
@@ -56,22 +58,22 @@ namespace ASC.Web.Studio.HttpHandlers
             }
             catch (LicenseExpiredException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorExpired;
             }
             catch (LicenseQuotaException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorQuota;
             }
             catch (LicensePortalException ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseErrorPortal;
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error("License upload", ex);
+                Log.Error("License upload", ex);
                 result.Message = Resource.LicenseError;
             }
 

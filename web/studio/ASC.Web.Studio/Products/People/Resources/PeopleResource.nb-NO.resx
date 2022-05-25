@@ -64,6 +64,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>Legg til</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Bursdager</value>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Avbryt</value>
   </data>

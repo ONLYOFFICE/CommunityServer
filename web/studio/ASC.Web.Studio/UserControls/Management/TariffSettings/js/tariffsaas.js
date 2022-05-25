@@ -57,7 +57,7 @@ var TariffSaas = new function () {
             rightPos: true,
         });
 
-        jq("#currencyHelpSwitcher").click(function () {
+        jq("#currencyHelpSwitcher").on("click", function () {
             jq(this).helper({ BlockHelperID: "currencyHelp" })
         });
 

@@ -83,7 +83,7 @@ $Date пользователем "$UserName":"$UserURL" добавлен нов�
 
 #end
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz xəbərlərin əlavə olunmasına dair bildirişlər almaq istəmirsinizdə, "abunəlik ayarlarını" dəyişdirə bilərsiniz:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz xəbərlərin əlavə olunmasına dair bildirişlər almaq istəmirsinizdə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirə bilərsiniz.^</value>
   </data>
   <data name="pattern_new_text_comment" xml:space="preserve">
     <value>h1.#if($FEED_TYPE == "poll")Sorğuya yeni şərh#end#if($FEED_TYPE == "feed")Xəbərlərə yeni şərh#end: "$Caption":"$URL"
@@ -94,12 +94,18 @@ $CommentBody
 
 "Ardını oxu":"$CommentURL"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu xəbərə dair yeni şərhlər almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Bu xəbərə dair yeni şərhlər almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^</value>
   </data>
   <data name="subject_new_text" xml:space="preserve">
     <value>İcma. #if($FEED_TYPE == "poll")Yeni sorğu əlavə olundu#end#if($FEED_TYPE == "feed")Yeni olay əlavə olundu#end: $Caption</value>
   </data>
   <data name="subject_new_text_comment" xml:space="preserve">
     <value>İcma. #if($FEED_TYPE == "poll")Sorğuya yeni şərh#end#if($FEED_TYPE == "feed")Xəbərlərə yeni şərh#end: $Caption</value>
+  </data>
+  <data name="subject_new_text_comment_tg" xml:space="preserve">
+    <value>İcma. #if($FEED_TYPE == "poll") Sorğuya yeni şərh#end#if($FEED_TYPE == "feed") Tədbirə yeni şərh:[$Caption]($CommentURL)</value>
+  </data>
+  <data name="subject_new_text_tg" xml:space="preserve">
+    <value>İcma. #if($FEED_TYPE == "poll")Yeni sorğu əlavə edildi#end#if($FEED_TYPE == "feed")Yeni tədbir əlavəedildi#end: [$Caption]($URL)</value>
   </data>
 </root>

@@ -206,8 +206,8 @@
         values = typeof values === 'string' && values.length > 0 ? values.split(';') : [];
         for (var i = 0, n = values.length; i < n; i++) {
             try {
-                filtervalue = $.parseJSON(values[i]);
-                filtervalue.params = $.parseJSON($.base64.decode(filtervalue.params));
+                filtervalue = JSON.parse(values[i]);
+                filtervalue.params = JSON.parse($.base64.decode(filtervalue.params));
             } catch (err) {
                 filtervalue = null;
             }
@@ -360,7 +360,7 @@
                   }
               })($container, $filteritem, filtervalue, onUserFilterDateSelectValue)
           })
-          .click(function (evt) {
+          .on("click", function (evt) {
               evt.stopPropagation();
           });
 
@@ -858,7 +858,7 @@
         }
 
         //onBodyClick();
-        jQuery(document.body).unbind('click', onBodyClick);
+        jQuery(document.body).off('click', onBodyClick);
 
         resizeControlContainer($container, $filteritem, $container.find('div.advansed-filter-groupselector-container:first'));
 
@@ -899,7 +899,7 @@
                 if (!filtervalue.isset && !filtervalue.bydefault) {
                     setTimeout(function() {
                         if ($filteritem.hasClass("default-value")) {
-                            $filteritem.find(".selector-wrapper").click();
+                            $filteritem.find(".selector-wrapper").trigger("click");
                         }
                     }, 0);
                 }
@@ -960,7 +960,7 @@
                 if (!filtervalue.isset && !filtervalue.bydefault) {
                     setTimeout(function() {
                         if ($filteritem.hasClass("default-value")) {
-                            $filteritem.find(".selector-wrapper").click();
+                            $filteritem.find(".selector-wrapper").trigger("click");
                         }
                     }, 0);
                 }
@@ -981,7 +981,7 @@
         }
 
         //onBodyClick();
-        jQuery(document.body).unbind('click', onBodyClick);
+        jQuery(document.body).off('click', onBodyClick);
 
         resizeControlContainer($container, $filteritem, $container.find('div.advansed-filter-userselector-container:first'));
         setTimeout(function () {
@@ -1057,7 +1057,7 @@
         }
 
         //onBodyClick(evt);
-        jQuery(document.body).unbind('click', onBodyClick);
+        jQuery(document.body).off('click', onBodyClick);
 
         var $datepicker = $dateselector.addClass('showed-datepicker').find('span.advansed-filter-datepicker-container:first').css('display', 'block');
 
@@ -1139,7 +1139,7 @@
 
         $select
           .advansedFilterCustomCombobox()
-          .change((function ($container, $filteritem, filtervalue, callback) {
+          .on("change", (function ($container, $filteritem, filtervalue, callback) {
               return function (evt) {
                   callback(this, $container, $filteritem, filtervalue);
               }
@@ -1148,7 +1148,7 @@
         if (!filtervalue.isset && value === null) {
             setTimeout(function () {
                 if ($filteritem.hasClass("default-value")) {
-                    $filteritem.find(".selector-wrapper .combobox-selector .combobox-title").click();
+                    $filteritem.find(".selector-wrapper .combobox-selector .combobox-title").trigger("click");
                 }
             }, 0);
         }
@@ -1251,7 +1251,7 @@
                 }
                 break;
             case 'combobox':
-                $filteritem.find('select').val(params.value).change();
+                $filteritem.find('select').val(params.value).trigger("change");
                 break;
             default:
                 filtervalue.hasOwnProperty('process') && typeof filtervalue.process === 'function' ? filtervalue.process($container, $filteritem, filtervalue, params, nonetrigger) : null;
@@ -1734,27 +1734,27 @@
             timeout = isFinite(+timeout) ? +timeout : defaultAnykeyTimeout;
             if (timeout > 0) {
                 filterInputKeyupTimeout = timeout;
-                $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputKeyupHelper).bind('keyup paste', onFilterInputKeyupHelper);
+                $container.find('input.advansed-filter-input:first').off('keyup paste', onFilterInputKeyupHelper).on('keyup paste', onFilterInputKeyupHelper);
             } else {
-                $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputKeyup).bind('keyup paste', onFilterInputKeyup);
+                $container.find('input.advansed-filter-input:first').off('keyup paste', onFilterInputKeyup).on('keyup paste', onFilterInputKeyup);
             }
         } else {
-            $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputEnter).bind('keyup paste', onFilterInputEnter);
+            $container.find('input.advansed-filter-input:first').off('keyup paste', onFilterInputEnter).on('keyup paste', onFilterInputEnter);
         }
-        $container.find('input.advansed-filter-input:first').unbind('keyup paste input', onKeyUp).bind('keyup paste input', onKeyUp);
+        $container.find('input.advansed-filter-input:first').off('keyup paste input', onKeyUp).on('keyup paste input', onKeyUp);
 
-        $container.find('.btn-start-filter:first').unbind('click', onStartFilter).bind('click', onStartFilter);
-        $container.find('label.btn-reset-filter:first').unbind('click', onResetFilter).bind('click', onResetFilter);
-        $container.find('ul.filter-list:first').unbind('click', onSelectFilter).bind('click', onSelectFilter);
-        $container.find('ul.sorter-list:first').unbind('click', onSelectSorter).bind('click', onSelectSorter);
-        $container.find('div.btn-show-filters:first').unbind('click', onShowFilters).bind('click', onShowFilters);
+        $container.find('.btn-start-filter:first').off('click', onStartFilter).on('click', onStartFilter);
+        $container.find('label.btn-reset-filter:first').off('click', onResetFilter).on('click', onResetFilter);
+        $container.find('ul.filter-list:first').off('click', onSelectFilter).on('click', onSelectFilter);
+        $container.find('ul.sorter-list:first').off('click', onSelectSorter).on('click', onSelectSorter);
+        $container.find('div.btn-show-filters:first').off('click', onShowFilters).on('click', onShowFilters);
 
-        $container.find('span.btn-toggle-sorter:first').unbind('click', onToggleSorter).bind('click', onToggleSorter);
-        $container.find('div.advansed-filter-sort-container:first span.title:first').unbind('click', onShowSorters).bind('click', onShowSorters);
+        $container.find('span.btn-toggle-sorter:first').off('click', onToggleSorter).on('click', onToggleSorter);
+        $container.find('div.advansed-filter-sort-container:first span.title:first').off('click', onShowSorters).on('click', onShowSorters);
 
-        $container.find('div.advansed-filter-filters:first').unbind('click', onUserFilterClick).bind('click', onUserFilterClick);
-        $container.find('div.advansed-filter-userselector:first').unbind('click', onUserSelectorClick).bind('click', onUserSelectorClick);
-        $container.find('div.advansed-filter-groupselector:first').unbind('click', onGroupSelectorClick).bind('click', onGroupSelectorClick);
+        $container.find('div.advansed-filter-filters:first').off('click', onUserFilterClick).on('click', onUserFilterClick);
+        $container.find('div.advansed-filter-userselector:first').off('click', onUserSelectorClick).on('click', onUserSelectorClick);
+        $container.find('div.advansed-filter-groupselector:first').off('click', onGroupSelectorClick).on('click', onGroupSelectorClick);
     }
 
     /* <callbacks> */
@@ -1767,7 +1767,7 @@
           ($target && $target.is('span.combobox-title') && $target.parents('div.hidden-filters-container:first').length > 0) ||
           ($target && $target.is('span.combobox-title-inner-text') && $target.parents('div.hidden-filters-container:first').length > 0)
         ) {
-            jQuery(document.body).unbind('click', arguments.callee);
+            jQuery(document.body).off('click', arguments.callee);
             jQuery(document.body).one('click', arguments.callee);
 
             jQuery('div.advansed-filter').find('span.advansed-filter-dateselector-date').removeClass('showed-datepicker').find('span.advansed-filter-datepicker-container').hide();
@@ -1802,7 +1802,7 @@
         }
 
         onBodyClick(evt);
-        jQuery(document.body).unbind('click', onBodyClick);
+        jQuery(document.body).off('click', onBodyClick);
         $filter.addClass('showed-filters').find('ul.filter-list:first').show();
         setTimeout(function () {
             jQuery(document.body).one('click', onBodyClick);
@@ -1816,7 +1816,7 @@
         }
 
         onBodyClick(evt);
-        jQuery(document.body).unbind('click', onBodyClick);
+        jQuery(document.body).off('click', onBodyClick);
         $container.addClass('showed-sorters').find('ul.sorter-list:first').show();
         setTimeout(function () {
             jQuery(document.body).one('click', onBodyClick);
@@ -1910,7 +1910,7 @@
             }
 
             onBodyClick(evt);
-            jQuery(document.body).unbind('click', onBodyClick);
+            jQuery(document.body).off('click', onBodyClick);
             $filter.addClass('showed-hidden-filters').find('div.hidden-filters-container:first').show();
             setTimeout(function () {
                 jQuery(document.body).one('click', onBodyClick);
@@ -2459,7 +2459,7 @@
         var popupId = Math.floor(Math.random() * 1000000);
         $container.find('div.advansed-filter-hint-popup:first').attr('id', popupId).html(hintHtml);
 
-        $container.addClass('has-hint').find('label.advansed-filter-hint:first').attr('data-popupid', popupId).click(function () {
+        $container.addClass('has-hint').find('label.advansed-filter-hint:first').attr('data-popupid', popupId).on("click", function () {
             jQuery(this).helper({ BlockHelperID: jQuery(this).attr('data-popupid') });
             // check position
             var $hint = jQuery('#' + jQuery(this).attr('data-popupid')),
@@ -2657,8 +2657,8 @@
         }
 
         customdata = { maxfilters: maxfilters };
-        filtervalues = extendItemValues(filtervalues, jQuery.parseJSON(jQuery.toJSON(filterValues)));
-        sortervalues = extendItemValues(sortervalues, jQuery.parseJSON(jQuery.toJSON(sorterValues)));
+        filtervalues = extendItemValues(filtervalues, JSON.parse(jQuery.toJSON(filterValues)));
+        sortervalues = extendItemValues(sortervalues, JSON.parse(jQuery.toJSON(sorterValues)));
 
         if (($containers = updateControlInputs($this, filtervalues, sortervalues, opts, customdata)).length === $this.length) {
             addReadyEvent(initAdvansedFilter, [opts, $containers, filtervalues, sortervalues, opts.nonetrigger]);

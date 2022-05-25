@@ -88,10 +88,10 @@ Arşiv indirmek için bu bağlantıyı izleyin: "exportdata.zip":"$EntityRelativ
 
 *Not*: Bu bağlantı sadece 24 saat boyunca geçerlidir. Lütfen bu süre içinde işlemi tamamlayın. 
 
-Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"http://support.onlyoffice.com"  
+Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"https://support.onlyoffice.com"  
 
 ONLYOFFICE™ destek ekibi 
-"www.onlyoffice.com":"http://onlyoffice.com/"  
+"www.onlyoffice.com":"https://onlyoffice.com/"  
 
 ^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı":"$RecipientSubscriptionConfigURL" değiştiriniz.^</value>
   </data>
@@ -100,10 +100,10 @@ ONLYOFFICE™ destek ekibi
 
 "Kişilere":"$__VirtualRootPath/Products/CRM/" gidin
 
-Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"http://support.onlyoffice.com"  
+Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"https://support.onlyoffice.com"  
 
 ONLYOFFICE™ destek ekibi 
-"www.onlyoffice.com":"http://onlyoffice.com/"  
+"www.onlyoffice.com":"https://onlyoffice.com/"  
 
 ^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
   </data>

@@ -25,6 +25,8 @@ using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.FederatedLogin;
+using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
 
 using Dropbox.Api.Files;
@@ -34,7 +36,7 @@ namespace ASC.Files.Thirdparty.Dropbox
     [DebuggerDisplay("{CustomerTitle}")]
     public class DropboxProviderInfo : IProviderInfo, IDisposable
     {
-        private readonly OAuth20Token _token;
+        private OAuth20Token _token;
         private readonly FolderType _rootFolderType;
         private readonly DateTime _createOn;
 
@@ -152,8 +154,24 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             var dropboxStorage = new DropboxStorage();
 
+            CheckToken();
+
             dropboxStorage.Open(_token);
             return dropboxStorage;
+        }
+
+        private void CheckToken()
+        {
+            if (_token == null) throw new UnauthorizedAccessException("Cannot create Dropbox session with given token");
+            if (_token.IsExpired)
+            {
+                _token = OAuth20TokenHelper.RefreshToken<DropboxLoginProvider>(_token);
+
+                using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
+                {
+                    dbDao.UpdateProviderInfo(ID, new AuthData(token: _token.ToJson()));
+                }
+            }
         }
 
 

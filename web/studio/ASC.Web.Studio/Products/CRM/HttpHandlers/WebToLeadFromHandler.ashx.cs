@@ -79,7 +79,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     var daoFactory = scope.Resolve<DaoFactory>();
                     _context = context;
 
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                     if (!CheckPermission())
                     {

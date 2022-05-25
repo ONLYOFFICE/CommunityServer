@@ -67,7 +67,7 @@ $PostText
 
 "Ardını oxu":"$PostURL"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz bu mövzulara dair yeni yazılar haqqında bildirişlər almaq istəmirsinizsə, lütfən, "abunəlik parametrlərini" dəyişdirin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz bu mövzulara dair yeni yazılar haqqında bildirişlər almaq istəmirsinizsə, lütfən, "abunəlik parametrlərini":"$RecipientSubscriptionConfigURL" dəyişdirin.^</value>
   </data>
   <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
     <value>h1.Forumlarda yeni mövzu: "$TopicTitle":"$TopicURL"
@@ -78,12 +78,18 @@ $PostText
 
 "Ardını oxu":"$PostURL"
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz forumlarda yaradılmış yeni mövzular haqqında bildirişlər almaq istəmirsinizsə, lütfən, "abunəlik parametrlərini" dəyişdirin:"$RecipientSubscriptionConfigURL".^</value>
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Əgər siz forumlarda yaradılmış yeni mövzular haqqında bildirişlər almaq istəmirsinizsə, lütfən, "abunəlik parametrlərini":"$RecipientSubscriptionConfigURL" dəyişdirin.^</value>
   </data>
   <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
     <value>İcma. Forum mövzusunda yeni yazı: $TopicTitle</value>
   </data>
+  <data name="subject_PostInTopicEmailPattern_tg" xml:space="preserve">
+    <value>İcma. Forum mövzularında yeni paylaşım: [$TopicTitle]($PostURL)</value>
+  </data>
   <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
     <value>İcma. Forumda yeni mövzu: $TopicTitle</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern_tg" xml:space="preserve">
+    <value>İcma. Forumlarda yeni mövzu: [$TopicTitle]($PostURL)</value>
   </data>
 </root>

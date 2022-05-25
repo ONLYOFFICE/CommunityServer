@@ -47,15 +47,7 @@ window.mailCalendar = (function ($) {
             }
         };
 
-        var newDescription = window.linkifyStr(text, options).trim();
-
-        newDescription = newDescription
-            .replace(/\\r\\n/g, "<br>")
-            .replace(/\r\n/g, "<br>")
-            .replace(/\\n/g, "<br>")
-            .replace(/\n/g, "<br>")
-            .replace(/\\r/g, "<br>")
-            .replace(/\r/g, "<br>");
+        var newDescription = window.linkifyHtml(text, options).trim();
 
         return newDescription;
     }
@@ -100,6 +92,16 @@ window.mailCalendar = (function ($) {
         if (srcEmail)
             srcAccount = accountsManager.getAccountByAddress(srcEmail);
 
+        var attachments = [];
+        var eventAttachments = vevent.getAllProperties("attach");
+
+        jq.each(eventAttachments, function (index, attachment) {
+            var attach = {};
+            attach.title = attachment.jCal[1].filename;
+            attach.fileUrl = attachment.jCal[3];
+            attachments.push(attach);
+        });
+
         var icalInfo = {
             method: comp.getFirstPropertyValue("method"),
             summary: event.summary,
@@ -119,6 +121,7 @@ window.mailCalendar = (function ($) {
                 };
             }),
             ics: data,
+            attachments: attachments,
             eventSequence: event.sequence,
             eventSummaryChanged: false,
             eventDateEventChanged: false,
@@ -436,7 +439,7 @@ window.mailCalendar = (function ($) {
 
                     var calendarView = $messageBody.find(".calendarView");
 
-                    calendarView.find('.goToWriter').off("click").click(function () {
+                    calendarView.find('.goToWriter').off("click").on("click", function () {
                         var $this = $(this);
                         return mailCalendar.composeFromCalendar($this.attr("title"), $this.attr("name"));
                     });
@@ -551,17 +554,17 @@ window.mailCalendar = (function ($) {
                                     });
                             }
 
-                            buttons.find("#request-accept").change(function () {
+                            buttons.find("#request-accept").on("change", function () {
                                 if ($(this).is(':checked')) {
                                     doReply("ACCEPTED");
                                 }
                             });
-                            buttons.find("#request-maybe").change(function () {
+                            buttons.find("#request-maybe").on("change", function () {
                                 if ($(this).is(':checked')) {
                                     doReply("TENTATIVE");
                                 }
                             });
-                            buttons.find("#request-decline").change(function () {
+                            buttons.find("#request-decline").on("change", function () {
                                 if ($(this).is(':checked')) {
                                     doReply("DECLINED");
                                 }
@@ -758,6 +761,8 @@ window.mailCalendar = (function ($) {
                             iCal.eventDisplayInfoClass = undefined;
                         }
 
+                        iCal.attachments = calEventInfo.attachments;
+
                         iCal.dateEvent = ASC.Mail.Utility.ToCalendarDateString(iCal.dtStart, iCal.dtEnd, iCal.dtStartAllDay, iCal.dtEndAllDay);
                         if (iCal.recurrence)
                             iCal.rruleText = ASC.Mail.Utility.ToCalendarRRuleString(iCal.recurrence, iCal.dtStart);
@@ -794,7 +799,7 @@ window.mailCalendar = (function ($) {
                     var mapEl = $.tmpl("mapLinkTmpl", icalInfo);
                     popup.find('.card_location .card_value').dotdotdot({ wrap: 'word', height: 18, fallbackToLetter: true, after: mapEl });
 
-                    popup.find('.goToWriter').off("click").click(function() {
+                    popup.find('.goToWriter').off("click").on("click", function() {
                         var $this = $(this);
                         return mailCalendar.composeFromCalendar($this.attr("title"), $this.attr("name"));
                     });

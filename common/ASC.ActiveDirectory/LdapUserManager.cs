@@ -126,7 +126,7 @@ namespace ASC.ActiveDirectory
 
                 _log.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", ldapUserInfo.GetUserInfoString());
 
-                portalUserInfo = CoreContext.UserManager.SaveUserInfo(ldapUserInfo);
+                portalUserInfo = CoreContext.UserManager.SaveUserInfo(ldapUserInfo, syncCardDav: true);
 
                 var passwordHash = LdapUtils.GeneratePassword();
 
@@ -175,7 +175,7 @@ namespace ASC.ActiveDirectory
 
                 _log.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", otherUser.GetUserInfoString());
 
-                CoreContext.UserManager.SaveUserInfo(otherUser);
+                CoreContext.UserManager.SaveUserInfo(otherUser, syncCardDav: true);
 
                 return true;
             }
@@ -525,7 +525,7 @@ namespace ASC.ActiveDirectory
                 {
                     _log.DebugFormat("CoreContext.UserManager.SaveUserInfo({0})", userToUpdate.GetUserInfoString());
 
-                    portlaUserInfo = CoreContext.UserManager.SaveUserInfo(userToUpdate);
+                    portlaUserInfo = CoreContext.UserManager.SaveUserInfo(userToUpdate, syncCardDav: true);
                 }
 
                 return true;
@@ -600,7 +600,7 @@ namespace ASC.ActiveDirectory
                         try
                         {
                             CoreContext.TenantManager.SetCurrentTenant(tenant);
-                            SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                            SecurityContext.CurrentAccount = Core.Configuration.Constants.CoreSystem;
 
                             var uInfo = SyncLDAPUser(ldapUserInfo.Item1);
 
@@ -613,7 +613,7 @@ namespace ASC.ActiveDirectory
                                     _log.DebugFormat("TryGetAndSyncLdapUserInfo(login: \"{0}\") disabling user {1} due to not being included in any ldap group", login, uInfo);
                                     uInfo.Status = EmployeeStatus.Terminated;
                                     uInfo.Sid = null;
-                                    CoreContext.UserManager.SaveUserInfo(uInfo);
+                                    CoreContext.UserManager.SaveUserInfo(uInfo, syncCardDav: true);
                                     CookiesManager.ResetUserCookie(uInfo.ID);
                                 }
                             }
@@ -655,7 +655,7 @@ namespace ASC.ActiveDirectory
         {
             try
             {
-                SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = Core.Configuration.Constants.CoreSystem;
 
                 userInfo = SyncLDAPUser(ldapUserInfo.Item1);
 
@@ -675,7 +675,7 @@ namespace ASC.ActiveDirectory
                 {
                     userInfo.Sid = null;
                     userInfo.Status = EmployeeStatus.Terminated;
-                    CoreContext.UserManager.SaveUserInfo(userInfo);
+                    CoreContext.UserManager.SaveUserInfo(userInfo, syncCardDav: true);
                     throw new Exception("The user did not pass the configuration check by ldap group settings");
                 }
 

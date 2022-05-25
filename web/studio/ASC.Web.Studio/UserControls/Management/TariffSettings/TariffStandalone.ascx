@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Core.Billing" %>
+<%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
@@ -13,7 +13,7 @@
 
     <br />
 
-    <% if (CurrentQuota.ActiveUsers != LicenseReader.MaxUserCount)
+    <% if (CurrentQuota.ActiveUsers != Constants.MaxEveryoneCount)
        { %>
     <br />
     <%= String.Format(Resource.TariffStatistics,
@@ -21,16 +21,6 @@
                            ? "<a class=\"link-black-14 bold\" href=\"" + CommonLinkUtility.GetEmployees() + "\">" + UsersCount + "</a>"
                            : "<span class=\"bold\">" + UsersCount + "</span>")
                       + "/" + CurrentQuota.ActiveUsers) %>
-    <% } %>
-
-    <% if (CurrentQuota.CountPortals > 0 && CurrentQuota.CountPortals != LicenseReader.MaxUserCount)
-       { %>
-    <br />
-    <%= String.Format(Resource.TariffPortalStatistics,
-                      (TenantExtra.EnableControlPanel
-                           ? "<a class=\"link-black-14 bold\" href=\"" + SetupInfo.ControlPanelUrl.TrimEnd('/') + "/multiportals" + "\" target=\"_blank\">" + TenantCount + "</a>"
-                           : "<span class=\"bold\">" + TenantCount + "</span>")
-                      + "/" + CurrentQuota.CountPortals) %>
     <% } %>
 </div>
 

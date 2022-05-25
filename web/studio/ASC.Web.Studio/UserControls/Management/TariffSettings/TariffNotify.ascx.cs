@@ -24,6 +24,7 @@ using AjaxPro;
 
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
@@ -109,7 +110,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private Tuple<string, string> GetTariffNotify()
         {
-            var hidePricingPage = !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() && TariffSettings.HidePricingPage;
+            var hidePricingPage = !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() && (TariffSettings.HidePricingPage || CoreContext.Configuration.Standalone);
 
             var tariff = TenantExtra.GetCurrentTariff();
 
@@ -138,6 +139,11 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 if (CoreContext.Configuration.Standalone)
                 {
+                    if (TenantControlPanelSettings.Instance.LimitedAccess)
+                    {
+                        return null;
+                    }
+
                     CanClose = true;
                     var text = String.Format(Resource.TariffLinkStandaloneLife,
                                              "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");

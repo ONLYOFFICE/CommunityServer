@@ -104,5 +104,15 @@ namespace ASC.FederatedLogin.LoginProviders
         }
 
         public abstract LoginProfile GetLoginProfile(string accessToken);
+
+        public virtual LoginProfile GetLoginProfile(OAuth20Token token)
+        {
+            return GetLoginProfile(token.AccessToken);
+        }
+
+        public OAuth20Token GetToken(string codeOAuth)
+        {
+            return OAuth20TokenHelper.GetAccessToken<T>(codeOAuth);
+        }
     }
 }

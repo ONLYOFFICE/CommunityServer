@@ -27,12 +27,13 @@
         <div class="content-box">
             <div class="feed-item">
                 <div class="header">
-                    <span class="action">${actionText}.</span>
+                    <span class="action">${actionText}</span>
                     <a href="${itemUrl}" class="title" target="_blank"
                        data-extra="${additionalInfo}" data-hintName="${hintName}"
                        data-extra2="${additionalInfo2}" data-hintName2="${hintName2}"
                        data-extra3="${additionalInfo3}" data-hintName3="${hintName3}"
-                       data-extra4="${additionalInfo4}" data-hintName4="${hintName4}">${title}
+                       data-extra4="${additionalInfo4}" data-hintName4="${hintName4}">
+                        ${title}
                     </a>
                     {{if groupedFeeds.length}}
                     <span class="grouped-feeds-count">
@@ -54,29 +55,48 @@
                     {{/if}}{{if extraLocation}}
                     <span class="extra-location">
                         <a href="${extraLocationUrl}" class="title" title="${extraLocation}" target="_blank">
-                            ${extraLocation}</a>.
+                            ${extraLocation}
+                        </a>.
                     </span>
                     {{/if}}
                 </div>
                 <div class="date">
-                    {{if isToday}}
-                    <span>${ASC.Resources.Master.FeedResource.TodayAt} ${displayCreatedTime}</span>
+                    {{if isTomorrow}}
+                    <span>${tomorrow} ${displayCreatedTime}</span>
+                    {{else isToday}}
+                    <span>${today} ${displayCreatedTime}</span>
                     {{else isYesterday}}
-                    <span>${ASC.Resources.Master.FeedResource.YesterdayAt} ${displayCreatedTime}</span>
+                    <span>${yesterday} ${displayCreatedTime}</span>
                     {{else}}
                     <span>${displayCreatedDate}</span>
+                    {{if displayCreatedTime}}
                     <span class="time">${displayCreatedTime}</span>
                     {{/if}}
+                    {{/if}}
                 </div>
-                {{if author && !excludeAuthorBox}}
+                {{if isAllDayEvent}}
+                <div>
+                    <span class="baseLinkAction" onclick="${linkOnClickAttr}">
+                        ${linkInnerText}
+                    </span>
+                </div>
+                {{else author && !excludeAuthorBox}}
                 <div class="author">
                     <span class="label">${ASC.Resources.Master.FeedResource.Author}:</span>
                     {{if !isGuest}}
                     <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>{{if author.title}},
                     <span class="author-title">
-                        ${author.title}</span>
+                        ${author.title}
+                    </span>
                     {{/if}}
                     {{/if}}
+                </div>
+                {{else isGuest}}
+                <div class="author">
+                    <span class="label">${ASC.Resources.Master.FeedResource.Author}:</span>
+                    <span class="author-title">
+                        ${ASC.Resources.Master.FeedResource.Anonymous}
+                    </span>
                 </div>
                 {{/if}}
                 <div class="body">

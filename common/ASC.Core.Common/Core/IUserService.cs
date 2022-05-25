@@ -38,6 +38,8 @@ namespace ASC.Core
 
         void RemoveUser(int tenant, Guid id);
 
+        IEnumerable<string> GetDavUserEmails(int tenant);
+
         byte[] GetUserPhoto(int tenant, Guid id);
 
         void SetUserPhoto(int tenant, Guid id, byte[] photo);

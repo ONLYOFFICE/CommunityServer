@@ -85,5 +85,6 @@ namespace ASC.Web.Core.Calendars
         SharingOptions SharingOptions { get; }
         EventStatus Status { get; }
         TimeZoneInfo TimeZone { get; }
+        bool HasAttachments { get; }
     }
 }

@@ -79,24 +79,6 @@ ASC.People.PeopleController = (function() {
 
     function getBithdayDaysLeft(birthdayApiString) {
 
-        function stringToDate(dateString) {
-            var offset = 0;
-
-            if (dateString.indexOf('Z') === -1) {
-                offset = dateString.substring(dateString.length - 5).split(':');
-                offset = (+offset[0] * 60 + +offset[1]) * (dateString.charAt(dateString.length - 6, 1) === '+' ? 1 : -1);
-            }
-
-            var parts = dateString.split('.')[0].split('T');
-            parts[0] = parts[0].split('-');
-            parts[1] = parts[1].split(':');
-
-            var date = new Date(parts[0][0], parts[0][1] - 1, parts[0][2], parts[1][0], parts[1][1], parts[1][2], 0);
-            date = new Date(date.getTime() - (offset * 60 * 1000));
-
-            return date;
-        }
-
         function isLeapYear(year) {
             if (year < 1 || year > 9999) {
                 throw new Error("ArgumentOutOfRange_Year");
@@ -134,7 +116,7 @@ ASC.People.PeopleController = (function() {
 
         if (!birthdayApiString) return -1;
 
-        var birthdayDate = stringToDate(birthdayApiString);
+        var birthdayDate = window.ServiceFactory.serializeUtcDate(birthdayApiString);
 
         return getDaysLeft(birthdayDate);
     };
@@ -236,7 +218,7 @@ ASC.People.PeopleController = (function() {
             var $this = jq(this),
                 id = jq(this).attr("data-id"),
                 $buttons = $this.find("td.info:first [id^='peopleEmailSwitcher'] .dropdown-item");
-            $buttons.bind("click", onButtonClick);
+            $buttons.on("click", onButtonClick);
 
             var emailToggleMenu = $this.find(".btn.email:first");
             if (emailToggleMenu.length == 1) {
@@ -342,7 +324,7 @@ ASC.People.PeopleController = (function() {
             jq("#emptyContentForPeopleFilter").removeClass("display-none");
         }
         //scroll on top
-        jq("#peopleHeaderMenu .on-top-link").click();
+        jq("#peopleHeaderMenu .on-top-link").trigger("click");
     };
 
     function onDeleteGroup(params, data) {
@@ -446,6 +428,8 @@ ASC.People.PeopleController = (function() {
         if (status == 1 && _tenantQuota.availableUsersCount == 0 && isVisitor == "false") {
             if (jq("#tariffLimitExceedUsersPanel").length) {
                 TariffLimitExceed.showLimitExceedUsers();
+            } else {
+                toastr.error(ASC.Resources.Master.ResourceJS.UserSelectorErrorLimitUsers);
             }
             return;
         }
@@ -926,11 +910,11 @@ ASC.People.PeopleController = (function() {
     var showGroupActionMenu = function() {
         jq("#peopleHeaderMenu").show();
         //call ScrolledGroupMenu.stickMenuToTheTop
-        jq(window).scroll();
+        jq(window).trigger("scroll");
     };
 
     var lockMainActions = function() {
-        jq("#peopleHeaderMenu").find(".menuChangeType, .menuChangeStatus, .menuSendInvite, .menuRemoveUsers, .menuWriteLetter").removeClass("unlockAction").unbind("click");
+        jq("#peopleHeaderMenu").find(".menuChangeType, .menuChangeStatus, .menuSendInvite, .menuRemoveUsers, .menuWriteLetter").removeClass("unlockAction").off("click");
         jq("#changeTypePanel, #changeStatusPanel").hide();
     };
 
@@ -1177,7 +1161,7 @@ ASC.People.PeopleController = (function() {
         initChangeTypeDialog(type);
         StudioBlockUIManager.blockUI("#changeTypeDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\".changeTypeDialogOk\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\".changeTypeDialogOk\").trigger('click');";
     };
 
     var initChangeTypeDialog = function(type) {
@@ -1275,13 +1259,13 @@ ASC.People.PeopleController = (function() {
         $containerBox.find("input[type=checkbox]").each(function (i, item) {
             var $checkbox = jq(item);
             if ($checkbox.attr("locked")) {
-                $checkbox.prop("checked", false).attr("disabled", true);
+                $checkbox.prop("checked", false).prop("disabled", true);
             } else {
                 if (quota > 0 && count < quota) {
-                    $checkbox.prop("checked", true).attr("disabled", false);
+                    $checkbox.prop("checked", true).prop("disabled", false);
                     count++;
                 } else {
-                    $checkbox.prop("checked", false).attr("disabled", true);
+                    $checkbox.prop("checked", false).prop("disabled", true);
                 }
             }
         });
@@ -1308,16 +1292,16 @@ ASC.People.PeopleController = (function() {
                 $inputs.each(function (i, item) {
                     var $item = jq(item);
                     if (!$item.is(":checked"))
-                        $item.attr("disabled", true);
+                        $item.prop("disabled", true);
                 });
             }
         } else {
             $inputs.each(function (i, item) {
                 var $item = jq(item);
                 if ($item.attr("locked")) {
-                    $item.prop("checked", false).attr("disabled", true);
+                    $item.prop("checked", false).prop("disabled", true);
                 } else {
-                    $item.attr("disabled", false);
+                    $item.prop("disabled", false);
                 }
             });
         }
@@ -1368,7 +1352,7 @@ ASC.People.PeopleController = (function() {
         initChangeStatusDialog(status);
         StudioBlockUIManager.blockUI("#changeStatusDialog", 650);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusOkBtn\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusOkBtn\").trigger('click');";
     };
 
     var initChangeStatusDialog = function(status) {
@@ -1441,15 +1425,15 @@ ASC.People.PeopleController = (function() {
         $containerBox.find("input[type=checkbox]").each(function (i, item) {
             var $checkbox = jq(item);
             if ($checkbox.attr("locked")) {
-                $checkbox.prop("checked", false).attr("disabled", true);
+                $checkbox.prop("checked", false).prop("disabled", true);
             } else {
                 if ($checkbox.attr("user-isvisitor") == "true") {
-                    $checkbox.prop("checked", true).attr("disabled", false);
+                    $checkbox.prop("checked", true).prop("disabled", false);
                 } else if (quota > 0 && count < quota) {
-                    $checkbox.prop("checked", true).attr("disabled", false);
+                    $checkbox.prop("checked", true).prop("disabled", false);
                     count++;
                 } else {
-                    $checkbox.prop("checked", false).attr("disabled", true);
+                    $checkbox.prop("checked", false).prop("disabled", true);
                 }
             }
         });
@@ -1484,16 +1468,16 @@ ASC.People.PeopleController = (function() {
                 $inputs.each(function (i, item) {
                     var $item = jq(item);
                     if (!$item.is(":checked") && $item.attr("user-isvisitor") != "true")
-                        $item.attr("disabled", true);
+                        $item.prop("disabled", true);
                 });
             }
         } else {
             $inputs.each(function (i, item) {
                 var $item = jq(item);
                 if ($item.attr("locked")) {
-                    $item.prop("checked", false).attr("disabled", true);
+                    $item.prop("checked", false).prop("disabled", true);
                 } else {
-                    $item.attr("disabled", false);
+                    $item.prop("disabled", false);
                 }
             });
         }
@@ -1542,7 +1526,7 @@ ASC.People.PeopleController = (function() {
         initResendInviteDialog();
         StudioBlockUIManager.blockUI("#resendInviteDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#resendInviteDialog .button.blue\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#resendInviteDialog .button.blue\").trigger('click');";
     };
 
     var initResendInviteDialog = function() {
@@ -1603,7 +1587,7 @@ ASC.People.PeopleController = (function() {
         initRemoveUsersDialog();
         StudioBlockUIManager.blockUI("#deleteUsersDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#deleteUsersDialog .button.blue\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#deleteUsersDialog .button.blue\").trigger('click');";
     };
 
     var initRemoveUsersDialog = function () {
@@ -1713,10 +1697,10 @@ ASC.People.PeopleController = (function() {
             $checkbox.attr("user-id", item.id);
             $checkbox.attr("user-isVisitor", item.isVisitor);
             if (item.locked) {
-                $checkbox.attr("locked", item.id).prop("checked", false).attr("disabled", true);
+                $checkbox.attr("locked", item.id).prop("checked", false).prop("disabled", true);
                 $label.addClass("gray-text");
             } else {
-                $checkbox.prop("checked", true).attr("disabled", false);
+                $checkbox.prop("checked", true).prop("disabled", false);
             }
             $label.html(item.displayName);
             $checkbox.prependTo($label);
@@ -1753,14 +1737,14 @@ ASC.People.PeopleController = (function() {
 
     var lockDialog = function(obj) {
         LoadingBanner.showLoaderBtn(obj);
-        jq(obj).find("input[type=checkbox]").attr("disabled", true);
+        jq(obj).find("input[type=checkbox]").prop("disabled", true);
     };
 
     var unlockDialog = function(obj) {
         LoadingBanner.hideLoaderBtn(obj);
         jq(obj).find("input[type=checkbox]").each(function() {
             if (!jq(this).attr("locked")) {
-                jq(this).attr("disabled", false);
+                jq(this).prop("disabled", false);
             }
         });
     };
@@ -1898,9 +1882,9 @@ ASC.People.PeopleController = (function() {
             ],
             filters: filters
         })
-            .bind("setfilter", ASC.People.PeopleController.setFilter)
-            .bind("resetfilter", ASC.People.PeopleController.resetFilter)
-            .bind("resetallfilters", ASC.People.PeopleController.resetAllFilters);
+            .on("setfilter", ASC.People.PeopleController.setFilter)
+            .on("resetfilter", ASC.People.PeopleController.resetFilter)
+            .on("resetallfilters", ASC.People.PeopleController.resetAllFilters);
 
         PeopleManager.SelectedCount = ASC.People.Resources.PeopleJSResource.SelectedCount;
         PeopleManager.UserLimit = ASC.People.Resources.PeopleJSResource.TariffActiveUserLimit;
@@ -2049,7 +2033,7 @@ ASC.People.PeopleController = (function() {
         });        
 
         // right mouse button click
-        jq("body").unbind("contextmenu").bind("contextmenu", function (event) {
+        jq("body").off("contextmenu").on("contextmenu", function (event) {
             var e = jq.fixEvent(event);
 
             if (typeof e == "undefined" || !e) {

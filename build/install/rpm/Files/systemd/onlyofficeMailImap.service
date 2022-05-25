@@ -1,0 +1,19 @@
+[Unit]
+Description=ONLYOFFICE MailImap Service
+After=network.target syslog.target mysqld.service redis-server.service
+Wants=mysqld.service redis-server.service
+
+[Service]
+Type=notify
+User=onlyoffice
+Group=onlyoffice
+WorkingDirectory=/var/www/onlyoffice/Services/MailImap/
+ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailImap/ASC.Mail.ImapSync.dll --urls=http://0.0.0.0:5026 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --'$STORAGE_ROOT'=/var/www/onlyoffice/Data --log:dir=/var/log/onlyoffice/mail --log:name=mail-imapsync --ENVIRONMENT=production
+TimeoutSec=600
+
+Restart=no
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target
+

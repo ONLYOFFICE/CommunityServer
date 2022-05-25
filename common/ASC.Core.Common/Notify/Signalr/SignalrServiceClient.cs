@@ -26,6 +26,7 @@ using System.Text;
 
 using ASC.Common.Logging;
 using ASC.Core.Common.Notify.Jabber;
+using ASC.Core.Common.Notify.Signalr;
 using ASC.Security.Cryptography;
 
 using Newtonsoft.Json;
@@ -195,7 +196,7 @@ namespace ASC.Core.Notify.Signalr
             }
         }
 
-        public void SendMailNotification(int tenant, string userId, int state)
+        public void SendMailNotification(int tenant, string userId, MailNotificationState state)
         {
             try
             {

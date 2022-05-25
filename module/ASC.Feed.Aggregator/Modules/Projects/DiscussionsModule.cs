@@ -254,7 +254,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 Module = Name,
                 Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                 Title = discussion.Title,
-                Description = HtmlUtility.GetFull(discussion.Description),
+                Description = HtmlUtility.GetFull(discussion.Description, false),
                 ExtraLocation = discussion.Project.Title,
                 ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
                 HasPreview = discussion.Description.Contains("class=\"asccut\""),

@@ -119,7 +119,7 @@ namespace ASC.Web.Files.HttpHandlers
             if (request.Type == ChunkedRequestType.Initiate)
             {
                 CoreContext.TenantManager.SetCurrentTenant(request.TenantId);
-                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(request.AuthKey));
+                SecurityContext.CurrentUser = request.AuthKey;
                 if (request.CultureInfo != null)
                     Thread.CurrentThread.CurrentUICulture = request.CultureInfo;
                 return true;
@@ -131,7 +131,7 @@ namespace ASC.Web.Files.HttpHandlers
                 if (uploadSession != null)
                 {
                     CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
-                    SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(uploadSession.UserId));
+                    SecurityContext.CurrentUser = uploadSession.UserId;
                     var culture = SetupInfo.GetPersonalCulture(uploadSession.CultureName).Value;
                     if (culture != null)
                         Thread.CurrentThread.CurrentUICulture = culture;
@@ -235,7 +235,10 @@ namespace ASC.Web.Files.HttpHandlers
 
             public string UploadId
             {
-                get { return _request["uid"]; }
+                get
+                {
+                    return Path.GetFileName(_request["uid"]);
+                }
             }
 
             public int TenantId

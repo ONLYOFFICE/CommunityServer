@@ -99,11 +99,11 @@ Lūdzu, sekojiet saitei, lai lejupielādētu arhīvu: "exportdata.zip":"${Entity
 *Piezīme*: Šī saite derīga tikai 24 stundas.
 
 Ja jums vēl ir kādi jautājumi vai ir vajadzīga palīdzība, lūdzu rakstiet mums uz
-"support.onlyoffice.com":"http://support.onlyoffice.com"
+"support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Ar cienu,
 ONLYOFFICE™ Klientu Apkalpošanas Komanda
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 
 ^Jūs saņemat šo e-pastu, jo esat reģistrēts lietotājs "${__VirtualRootPath}":"${__VirtualRootPath}" portāla. Ja jūs nevēlaties saņemt paziņojumus par datu eksportu, lūdzam, rediģējiet Jūsu "parakstīšanās iestatījumus":"$RecipientSubscriptionConfigURL".^</value>
@@ -113,11 +113,11 @@ ONLYOFFICE™ Klientu Apkalpošanas Komanda
 
 Doties uz sarakstu "Kontakti":"$__VirtualRootPath/Products/CRM/".
 
-Ja Jums ir kādi jautājumi vai nepieciešama palīdzība, lūdzu, sazinietier ar mums uz "support.onlyoffice.com":"http://support.onlyoffice.com"
+Ja Jums ir kādi jautājumi vai nepieciešama palīdzība, lūdzu, sazinietier ar mums uz "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Ar cieņu,
 ONLYOFFICE™ atbalsta komanda
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu ziņojumu veidu, lūdzu, labojiet savus "Abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
   </data>

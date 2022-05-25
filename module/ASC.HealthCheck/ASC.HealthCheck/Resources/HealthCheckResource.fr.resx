@@ -70,9 +70,6 @@
   <data name="AlreadyContainsPhone" xml:space="preserve">
     <value>Ce numéro de téléphone  a été déjà ajouté</value>
   </data>
-  <data name="AutoreplyServiceTitle" xml:space="preserve">
-    <value>Réponse automatique ONLYOFFICE </value>
-  </data>
   <data name="BackupServiceTitle" xml:space="preserve">
     <value>Sauvegarde de ONLYOFFICE</value>
   </data>

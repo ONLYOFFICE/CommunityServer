@@ -161,13 +161,13 @@ window.folderFilter = (function($) {
                 ]
             };
 
-            $('#FolderFilter').advansedFilter(options).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
+            $('#FolderFilter').advansedFilter(options).on('setfilter', onSetFilter).on('resetfilter', onResetFilter).on('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advansed filter plugin call - because
             // its replace target element with new markup
             filter = $('#FolderFilter');
 
-            filter.find('div.btn-show-filters:first').bind('click', onShowFilters);
+            filter.find('div.btn-show-filters:first').on('click', onShowFilters);
         }
     };
 

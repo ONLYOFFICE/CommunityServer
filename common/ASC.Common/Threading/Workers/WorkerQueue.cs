@@ -22,6 +22,7 @@ using System.Threading;
 
 using ASC.Common.Logging;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.Common.Threading.Workers
 {

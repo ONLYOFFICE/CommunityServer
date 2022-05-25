@@ -1,4 +1,6 @@
-﻿oWs.SetColumnWidth(2, 16);
+﻿writeInterval();
+
+oWs.SetColumnWidth(2, 16);
 oWs.SetColumnWidth(3, 16);
 
 var timeFormat = "[h]\\" + reportColumns[6] + " mm\\" + reportColumns[7];

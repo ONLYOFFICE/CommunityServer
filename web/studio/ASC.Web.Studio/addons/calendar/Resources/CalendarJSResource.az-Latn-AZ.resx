@@ -58,6 +58,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Qəbul edildi:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Poçt hesablarınızı əlaqələndirin</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>dəvətlər göndərin</value>
+  </data>
   <data name="calendar_newCalendarTitle" xml:space="preserve">
     <value>Təqvim</value>
   </data>
@@ -72,6 +81,12 @@
   </data>
   <data name="calendarAllDayText" xml:space="preserve">
     <value>bütün gün</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>Siyahı</value>
+  </data>
+  <data name="calendarButtonNewText_todo" xml:space="preserve">
+    <value>Tapşırıq</value>
   </data>
   <data name="calendarButtonText_day" xml:space="preserve">
     <value>gün</value>
@@ -102,6 +117,9 @@
   </data>
   <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
     <value>Təqvimi redaktə et</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Tədbirləri idxal edin</value>
   </data>
   <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
     <value>Qeyd et</value>
@@ -160,6 +178,12 @@
   <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
     <value>Bütün gün olayı</value>
   </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Ziyarətçilər:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Şəxsi, CRM kontaktlarından və ya portal istifadəçilərindən və ya digər e-poçtlardan e-poçt ünvanlarını və kontakt adlarını daxil etməklə tədbirinizə dəvətlər göndərin.</value>
+  </data>
   <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
     <value>Təqvim:</value>
   </data>
@@ -175,14 +199,41 @@
   <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
     <value>Açıqlama:</value>
   </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Detallar</value>
+  </data>
   <data name="calendarEventEditor_editButton" xml:space="preserve">
     <value>Redaktə et</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Tədbir</value>
   </data>
   <data name="calendarEventEditor_fromLabel" xml:space="preserve">
     <value>Bundan başlayaraq:</value>
   </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Yeni tədbir yaradın</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Tədbiri redaktə et</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Tədbirə baxın</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Məkan:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Ətraflı Məlumat</value>
+  </data>
   <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
     <value>Bu olay bütün günlük deyil.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>İstəyə görə</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Təşkilatçı:</value>
   </data>
   <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
     <value>Sahib:</value>
@@ -208,17 +259,62 @@
   <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
     <value>Hər il</value>
   </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Tələb olunur</value>
+  </data>
   <data name="calendarEventEditor_saveButton" xml:space="preserve">
     <value>Qeyd et</value>
   </data>
+  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
+    <value>Dəvət göndər</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Paylaşmaq üçün istifadəçilər</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>İstifadəçi Əlavə Et</value>
+  </data>
   <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
     <value>Bu olay paylaşılmayıb.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>LƏĞV EDİLDİ</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>TƏSDİQ EDİLDİ</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>MÜVƏQQƏTİ</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Tədbir adı:</value>
+  </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Vaxt:</value>
+  </data>
+  <data name="calendarEventEditor_todoButton" xml:space="preserve">
+    <value>Tapşırıq</value>
   </data>
   <data name="calendarEventEditor_toLabel" xml:space="preserve">
     <value>Qədər:</value>
   </data>
   <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
     <value>Abunəlikdən çıx</value>
+  </data>
+  <data name="calendarExportEvents_byLink" xml:space="preserve">
+    <value>Link vasitəsilə</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>Fayldan</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Link vasitəsilə təqvimlə sinxronizasiya edin</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>İdxal edin:</value>
   </data>
   <data name="calendarListView_noEventsMessage" xml:space="preserve">
     <value>Göstərilməli olay yoxdur</value>
@@ -231,6 +327,9 @@
   </data>
   <data name="calendarMoreEventsLabel" xml:space="preserve">
     <value>+%d olaylar</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Yeni təqvim</value>
   </data>
   <data name="calendarSharedList_addLink" xml:space="preserve">
     <value>Paylaşmaq üçün istifadəçi əlavə et</value>
@@ -265,11 +364,101 @@
   <data name="calendarTodayLabel" xml:space="preserve">
     <value>Bu gün</value>
   </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Tətbiq et</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Ləğv et</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
+    <value>Tapşırığı sil</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
+    <value>Silinmiş tapşırığı bərpa etmək mümkün deyil. Davam etmək istədiyinizə əminsiniz?</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Təsvir:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Tarix:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
+    <value>Tapşırıq yaradın</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
+    <value>Tapşırığı redaktə et</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Başlıq:</value>
+  </data>
+  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
+    <value>Yeni tapşırıq</value>
+  </data>
+  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
+    <value>yeni tapşırıq</value>
+  </data>
+  <data name="calendarTodoList_noDueDate" xml:space="preserve">
+    <value>Son tarix yoxdur</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Vaxtı keçib</value>
+  </data>
+  <data name="calendarTodoList_title" xml:space="preserve">
+    <value>Tapşırıq</value>
+  </data>
   <data name="calendarViewLabelText_calendar" xml:space="preserve">
     <value>Təqvim görüntüsü</value>
   </data>
   <data name="calendarViewLabelText_list" xml:space="preserve">
     <value>Siyahı görünüşü</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Tədbir ləğv edildi</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Qonaqlara dəvət göndərmək istəyirsiniz?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Dəvətlər göndərilir</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Göndərmə</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Göndər</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Yeni və Silinmiş Ziyarətçilər</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Hər kəs</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Mövcud qonaqlara ləğvetmə xəbərdarlığı göndərmək istəyirsiniz?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Ləğvlər göndərilir</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Bildiriş göndərilərkən xəta baş verdi</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Bildirişlər göndərildi</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Mövcud qonaqlara yeniliklər haqqında bildirişləri göndərmək istəyirsiniz?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Yeniliklər göndərilir</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Yeniləmələri kimə bildirmək istədiyinizi seçin: yalnız yeni və silinmiş ziyarətçilər və ya hər kəs. 'Göndərmə' seçimini etsəniz, heç bir bildiriş göndərilməyəcək.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Rədd edildi:</value>
   </data>
   <data name="deleteSettings_allLabel" xml:space="preserve">
     <value>Bütün olaylar seriyada</value>
@@ -286,14 +475,65 @@
   <data name="deleteSettings_header" xml:space="preserve">
     <value>Təkrarlanan olayı sil</value>
   </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Silinmiş tədbir bərpa edilə bilməz. Davam etmək istədiyinizə əminsiniz?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Tədbiri sil</value>
+  </data>
   <data name="deleteSettings_thisLabel" xml:space="preserve">
     <value>Bu sadəcə olaydır</value>
+  </data>
+  <data name="dialogCopyMessage" xml:space="preserve">
+    <value>Link mübadilə buferinə kopyalanıb</value>
+  </data>
+  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
+    <value>Adda aşağıdakı simvollar olmamalıdır: {0}</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Bütün sonrakı dəyişikliklər yalnız təqviminizə tətbiq ediləcək.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Tədbir ziyarətçiləri xəbərdar edilməyəcək. Bildirişlər göndərmək üçün öz təqviminizdən istifadə edin.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Ziyarətçilər:</value>
   </data>
   <data name="icalStream_browseBtn" xml:space="preserve">
     <value>Fayl seçin</value>
   </data>
   <data name="icalStream_closeBtn" xml:space="preserve">
     <value>Qapat</value>
+  </data>
+  <data name="icalStream_description" xml:space="preserve">
+    <value>Digər proqramlardan təqviminizə daxil olmaq üçün aşağıdakı ünvandan istifadə edin. Siz bu məlumatı iCal formatını dəstəkləyən istənilən təqvimə köçürə və daxil edə bilərsiniz. Siz məlumatları iCal formatında faylda saxlaya və hadisələri başqa təqvimə və ya proqrama ixrac edə bilərsiniz.</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Kopyalayın</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>Tədbirlərin bu təqvimdən başqa təqvimə ixracını konfiqurasiya etmək üçün müvafiq keçidi köçürün və tələb olunan təqvimə əlavə edin.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>İxrac və Sinxronizasiya edin</value>
+  </data>
+  <data name="icalStream_export_help" xml:space="preserve">
+    <value>Ətraflı təlimatlar əldə edin:</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Yardım Mərkəzi</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_todo_description" xml:space="preserve">
+    <value>Tapşırıqların başqa təqvimə ixracını konfiqurasiya etmək üçün müvafiq keçidi kopyalayın və lazımi təqvimə əlavə edin.</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Yenidən cəhd edin</value>
   </data>
   <data name="icalStream_exportLink" xml:space="preserve">
     <value>ONLYOFFICE™ təqvimindın layların eksport olunması</value>
@@ -304,8 +544,17 @@
   <data name="icalStream_fileSelected" xml:space="preserve">
     <value>fayl seçildi</value>
   </data>
+  <data name="icalStream_header" xml:space="preserve">
+    <value>Təqvim tədbirinin ixracı</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Tədbirləri idxal edin</value>
+  </data>
   <data name="icalStream_importExport" xml:space="preserve">
     <value>Import/Eksport</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>iCal faylını seçin</value>
   </data>
   <data name="icalStream_importtLink" xml:space="preserve">
     <value>ONLYOFFICE™ təqviminə olayların import edilməsi</value>
@@ -319,8 +568,23 @@
   <data name="icalStream_newLabel" xml:space="preserve">
     <value>iCal lentindən kalendar</value>
   </data>
+  <data name="icalStream_preparing_error_message" xml:space="preserve">
+    <value>Linkin hazırlanması alınmadı</value>
+  </data>
+  <data name="icalStream_preparing_message" xml:space="preserve">
+    <value>Linki ixraca hazırlamaq</value>
+  </data>
   <data name="icalStream_savedLinkLabel" xml:space="preserve">
     <value>iCal lentinə keçid:</value>
+  </data>
+  <data name="menuDeleteMarkedTodo" xml:space="preserve">
+    <value>Səhifə yüklənərkən tamamlanmış kimi qeyd olunan tapşırıqları gizlədin</value>
+  </data>
+  <data name="menuSyncLinks" xml:space="preserve">
+    <value>İxrac və Sinxronizasiya edin</value>
+  </data>
+  <data name="menuTodoInCalendar" xml:space="preserve">
+    <value>Təqvimdəki tapşırıqları göstərin</value>
   </data>
   <data name="repeatSetting_fromLabel" xml:space="preserve">
     <value>ilə başlayan</value>
@@ -399,5 +663,29 @@
   </data>
   <data name="repeatSettings_toLabel" xml:space="preserve">
     <value>son</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Bəlkə</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Xeyr</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Bəli</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Qoşulur</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_off" xml:space="preserve">
+    <value>Tamamlanmamış kimi qeyd edin</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_on" xml:space="preserve">
+    <value>Tamamlanmış kimi qeyd edin</value>
   </data>
 </root>

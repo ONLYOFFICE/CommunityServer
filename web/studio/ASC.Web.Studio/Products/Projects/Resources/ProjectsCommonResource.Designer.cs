@@ -160,6 +160,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Average project closing time (hour).
+        /// </summary>
+        public static string AverageProject {
+            get {
+                return ResourceManager.GetString("AverageProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Теamlab Projects.
         /// </summary>
         public static string BannerMobileProjects {

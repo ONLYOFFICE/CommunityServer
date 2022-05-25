@@ -32,6 +32,8 @@ using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 
+using Microsoft.Security.Application;
+
 using File = ASC.Web.UserControls.Wiki.Data.File;
 
 namespace ASC.Api.Community
@@ -41,26 +43,26 @@ namespace ASC.Api.Community
         private readonly WikiEngine _engine = new WikiEngine();
 
         /// <summary>
-        /// Creates a new wiki page with the page name and content specified in the request
+        /// Creates a new wiki page with the page name and content specified in the request.
         /// </summary>
-        /// <short>Create page</short>
+        /// <short>Create a page</short>
         /// <param name="name">Page name</param>
         /// <param name="body">Page content</param>
-        /// <returns>page info</returns>
+        /// <returns>Page information</returns>
         /// <category>Wiki</category>
         [Create("wiki")]
         public PageWrapper CreatePage(string name, string body)
         {
-            return new PageWrapper(_engine.CreatePage(new Page { PageName = name, Body = body }));
+            return new PageWrapper(_engine.CreatePage(new Page { PageName = name, Body = Sanitizer.GetSafeHtmlFragment(body) }));
         }
 
         /// <summary>
-        /// Returns the list of all pages in wiki or pages in wiki category specified in the request
+        /// Returns a list of all the pages from wiki or wiki category specified in the request.
         /// </summary>
-        /// <short>Pages</short>
+        /// <short>Get pages</short>
         /// <section>Pages</section>
         /// <param name="category">Category name</param>
-        /// <returns></returns>
+        /// <returns>Pages</returns>
         /// <category>Wiki</category>
         [Read("wiki")]
         public IEnumerable<PageWrapper> GetPages(string category)
@@ -71,13 +73,13 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Return the detailed information about the wiki page with the name and version specified in the request
+        /// Returns the detailed information about a wiki page with the name and version specified in the request.
         /// </summary>
-        /// <short>Page</short>
+        /// <short>Get a page</short>
         /// <section>Pages</section>
         /// <param name="name">Page name</param>
         /// <param name="version">Page version</param>
-        /// <returns>Page info</returns>
+        /// <returns>Page information</returns>
         /// <category>Wiki</category>
         [Read("wiki/{name}")]
         public PageWrapper GetPage(string name, int? version)
@@ -92,12 +94,12 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Returns the list of history changes for the wiki page with the name specified in the request
+        /// Returns a list of history changes for a wiki page with the name specified in the request.
         /// </summary>
-        /// <short>History</short>
+        /// <short>Get the page history</short>
         /// <section>Pages</section>
         /// <param name="page">Page name</param>
-        /// <returns>List of pages</returns>
+        /// <returns>List of history changes</returns>
         /// <category>Wiki</category>
         [Read("wiki/{page}/story")]
         public IEnumerable<PageWrapper> GetHistory(string page)
@@ -106,11 +108,11 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Returns the list of wiki pages with the name matching the search query specified in the request
+        /// Returns a list of wiki pages with the name matching the search query specified in the request.
         /// </summary>
-        /// <short>Search</short>
+        /// <short>Search pages by name</short>
         /// <section>Pages</section>
-        /// <param name="name">Part of the page name</param>
+        /// <param name="name">Search query</param>
         /// <returns>List of pages</returns>
         /// <category>Wiki</category>
         [Read("wiki/search/byname/{name}")]
@@ -120,11 +122,11 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Returns the list of wiki pages with the content matching the search query specified in the request
+        /// Returns a list of wiki pages with the content matching the search query specified in the request.
         /// </summary>
-        /// <short>Search</short>
+        /// <short>Search pages by content</short>
         /// <section>Pages</section>
-        /// <param name="content">Part of the page content</param>
+        /// <param name="content">Search query</param>
         /// <returns>List of pages</returns>
         /// <category>Wiki</category>
         [Read("wiki/search/bycontent/{content}")]
@@ -134,24 +136,24 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Updates the wiki page with the name and content specified in the request
+        /// Updates a wiki page with the name and content specified in the request.
         /// </summary>
-        /// <short>Update page</short>
+        /// <short>Update a page</short>
         /// <section>Pages</section>
-        /// <param name="name">Page name</param>
-        /// <param name="body">Page content</param>
-        /// <returns>Page info</returns>
+        /// <param name="name">New page name</param>
+        /// <param name="body">New page content</param>
+        /// <returns>Page information</returns>
         /// <category>Wiki</category>
         [Update("wiki/{name}")]
         public PageWrapper UpdatePage(string name, string body)
         {
-            return new PageWrapper(_engine.UpdatePage(new Page { PageName = name, Body = body }));
+            return new PageWrapper(_engine.UpdatePage(new Page { PageName = name, Body = Sanitizer.GetSafeHtmlFragment(body) }));
         }
 
         /// <summary>
-        /// Deletes the wiki page with the name specified in the request
+        /// Deletes a wiki page with the name specified in the request.
         /// </summary>
-        /// <short>Delete page</short>
+        /// <short>Delete a page</short>
         /// <section>Pages</section>
         /// <param name="name">Page name</param>
         /// <category>Wiki</category>
@@ -162,14 +164,14 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Creates the comment to the selected wiki page with the content specified in the request
+        /// Creates a comment on the selected wiki page with the content specified in the request.
         /// </summary>
-        /// <short>Create comment</short>
+        /// <short>Create a wiki comment</short>
         /// <section>Comments</section>
         /// <param name="page">Page name</param>
-        /// <param name="content">Comment content</param>
-        /// <param name="parentId">Comment parent id</param>
-        /// <returns>Comment info</returns>
+        /// <param name="content">Comment text</param>
+        /// <param name="parentId">Comment parent ID</param>
+        /// <returns>Comment information</returns>
         /// <category>Wiki</category>
         [Create("wiki/{page}/comment")]
         public CommentWrapper CreateComment(string page, string content, string parentId)
@@ -179,9 +181,9 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Returns the list of all comments to the wiki page with the name specified in the request
+        /// Returns a list of all the comments to the wiki page with the name specified in the request.
         /// </summary>
-        /// <short>All comments</short>
+        /// <short>Get the page comments</short>
         /// <section>Comments</section>
         /// <param name="page">Page name</param>
         /// <returns>List of comments</returns>
@@ -193,10 +195,10 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Uploads the selected files to the wiki 'Files' section
+        /// Uploads the selected files to the wiki 'Files' section.
         /// </summary>
         /// <short>Upload files</short>
-        /// <param name="files">List of files to upload</param>
+        /// <param name="files">List of files</param>
         /// <returns>List of files</returns>
         /// <category>Wiki</category>
         [Create("wiki/file")]
@@ -208,12 +210,12 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Returns the detailed file info about the file with the specified name in the wiki 'Files' section
+        /// Returns the detailed information about a file with the name specified in the request from the wiki 'Files' section.
         /// </summary>
-        /// <short>File</short>
+        /// <short>Get a file</short>
         /// <section>Files</section>
         /// <param name="name">File name</param>
-        /// <returns>File info</returns>
+        /// <returns>File information</returns>
         /// <category>Wiki</category>
         [Read("wiki/file/{name}")]
         public FileWrapper GetFile(string name)
@@ -222,9 +224,9 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Deletes the files with the specified name from the wiki 'Files' section
+        /// Deletes a file with the name specified in the request from the wiki 'Files' section.
         /// </summary>
-        /// <short>Delete file</short>
+        /// <short>Delete a file</short>
         /// <param name="name">File name</param>
         /// <category>Wiki</category>
         [Delete("wiki/file/{name}")]
@@ -234,13 +236,13 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Get comment preview with the content specified in the request
+        /// Returns a comment preview with the content specified in the request.
         /// </summary>
-        /// <short>Get comment preview</short>
+        /// <short>Get a comment preview</short>
         /// <section>Comments</section>
         /// <param name="commentid">Comment ID</param>
-        /// <param name="htmltext">Comment content</param>
-        /// <returns>Comment info</returns>
+        /// <param name="htmltext">Comment text in the HTML format</param>
+        /// <returns>Comment information</returns>
         /// <category>Wiki</category>
         [Create("wiki/comment/preview")]
         public CommentInfo GetWikiCommentPreview(string commentid, string htmltext)
@@ -257,12 +259,12 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        ///Remove comment with the id specified in the request
+        ///Removes a comment with the ID specified in the request.
         /// </summary>
-        /// <short>Remove comment</short>
+        /// <short>Remove a comment</short>
         /// <section>Comments</section>
         /// <param name="commentid">Comment ID</param>
-        /// <returns>Comment info</returns>
+        /// <returns>Comment ID</returns>
         /// <category>Wiki</category>
         [Delete("wiki/comment/{commentid}")]
         public string RemoveWikiComment(string commentid)
@@ -273,6 +275,15 @@ namespace ASC.Api.Community
 
 
 
+        /// <summary>
+        /// Adds a comment to the selected entity with the content specified in the request.
+        /// </summary>
+        /// <short>Add an entity comment</short>
+        /// <section>Comments</section>
+        /// <param name="parentcommentid">Comment parent ID</param>
+        /// <param name="entityid">Entity ID</param>
+        /// <param name="content">Comment text</param>
+        /// <returns>Comment information</returns>
         /// <category>Wiki</category>
         [Create("wiki/comment")]
         public CommentInfo AddWikiComment(string parentcommentid, string entityid, string content)
@@ -287,13 +298,13 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Updates the comment to the selected wiki page with the comment content specified in the request
+        /// Updates a comment on the selected wiki page with the content specified in the request.
         /// </summary>
-        /// <short>Update comment</short>
+        /// <short>Update a comment</short>
         /// <section>Comments</section>
         /// <param name="commentid">Comment ID</param>
-        /// <param name="content">Comment content</param>
-        /// <returns></returns>
+        /// <param name="content">New comment text</param>
+        /// <returns>Updated comment</returns>
         /// <category>Wiki</category>
         [Update("wiki/comment/{commentid}")]
         public string UpdateWikiComment(string commentid, string content)

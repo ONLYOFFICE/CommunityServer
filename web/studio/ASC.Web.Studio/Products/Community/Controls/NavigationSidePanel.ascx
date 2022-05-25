@@ -132,16 +132,6 @@
         </li>
         <% } %>
 
-        <%if (IsBirthdaysAvailable)
-            { %>
-            <li class="menu-item none-sub-list<%if(CurrentPage=="birthdays"){%> active currentCategory<%}%>">
-                <span class="menu-item-icon group"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/community-icons.svg#communityIconsgroup"></use></svg></span>
-                <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Birthdays/")%>" title="<%= CommunityResource.Birthdays%>">
-                    <%= CommunityResource.Birthdays%>
-                </a>
-            </li>
-        <%} %>
-
         <asp:PlaceHolder ID="InviteUserHolder" runat="server"/>
         <% if (IsAdmin && (IsForumsAvailable || IsFullAdministrator)) %>
         <% { %>

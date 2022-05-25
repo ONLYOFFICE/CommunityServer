@@ -30,6 +30,8 @@ namespace ASC.Files.Core
         public static readonly string DatabaseId = "files";
 
         public static readonly Guid ShareLinkId = new Guid("{D77BD6AF-828B-41f5-84ED-7FFE2565B13A}");
+        public static readonly Guid DenyDownloadId = new Guid("{EE7A7468-CDA5-4F8B-AFDB-F4E42C318EB6}");
+        public static readonly Guid DenySharingId = new Guid("{AAFD9C26-9686-4996-9665-35CA72721C4C}");
 
         public const string StartDocPath = "sample/";
         public const string NewDocPath = "new/";

@@ -29,13 +29,13 @@ namespace ASC.Api.MailServer
     public partial class MailServerApi
     {
         /// <summary>
-        ///    Create address for tenant notifications
+        /// Creates an address for the tenant notifications with the parameters specified in the request.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="password"></param>
-        /// <param name="domain_id"></param>
-        /// <returns>NotificationAddressData associated with tenant</returns>
-        /// <short>Create notification address</short> 
+        /// <param name="name">Address name</param>
+        /// <param name="password">Address password</param>
+        /// <param name="domain_id">Domain ID</param>
+        /// <returns>Notification address data associated with the tenant</returns>
+        /// <short>Create the notification address</short> 
         /// <category>Notifications</category>
         [Create(@"notification/address/add")]
         public ServerNotificationAddressData CreateNotificationAddress(string name, string password, int domain_id)
@@ -46,9 +46,10 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Deletes address for notification 
+        /// Deletes an address for the tenant notification specified in the request. 
         /// </summary>
-        /// <short>Remove mailbox from mail server</short> 
+        /// <param name="address">Address name</param>
+        /// <short>Remove the notification address</short> 
         /// <category>Notifications</category>
         [Delete(@"notification/address/remove")]
         public void RemoveNotificationAddress(string address)

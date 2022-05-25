@@ -221,6 +221,7 @@ namespace ASC.Core
                     {
                         currentQuota.ActiveUsers = tariff.Quantity;
                         currentQuota.MaxTotalSize *= currentQuota.ActiveUsers;
+                        currentQuota.Price *= currentQuota.ActiveUsers;
                     }
 
                     return currentQuota;

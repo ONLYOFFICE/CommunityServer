@@ -58,6 +58,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>Müzakirə üçün şərhə düzəliş edilib</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Bu tapşırıq üçün şərh redaktə edildi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl", "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığınaedilən şərhi redaktə etdi: 
+
+$AdditionalData
+
+"Ətraflı məlumat":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^ Siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız: Bu tapşırıqla bağlı bildirişlər almaq istəmirsinizsə "abunəlikdən çıxın": "${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
   <data name="pattern_EditMessage" xml:space="preserve">
     <value>h1.Müzakirə redaktə olundu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
@@ -84,9 +98,9 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_ImportData" xml:space="preserve">
-    <value>h1.Layihələr. Verilənlərin bazadan importu
+    <value>h1.Layihələr. Verilənlərin Basecamp-dan idxalı
 
-Yeni verilənlər uğurla import olundular
+Yeni verilənlər uğurla idxal olundular
 
 Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 
@@ -102,7 +116,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_LateMilestone" xml:space="preserve">
-    <value>h1.Yubanmış dönüş nöqtəsi bildirişi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Gecikmiş mərhələ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 Layihənin dönüş nöqtəsi ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] yubanıb: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
 
@@ -111,25 +125,14 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_MessageDeleted" xml:space="preserve">
-    <value>h1.Müzakirə silindi: "$EntityTitle" 
-
-$__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" müzakirəni sildi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID" bu layihədən "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
-
-
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
-
-Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
-
-Uğurlar, 
-ONLYOFFICE™ Komandası
-"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+    <value>h1.Müzakirə silinib</value>
   </data>
   <data name="pattern_MilestoneClosed" xml:space="preserve">
-    <value>h1.Dönüş nöqtəsi qapatıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+    <value>h1.Mərhələ bağlandı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" bu dönüş nöqtəsini qapatdı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" bu layihədə "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -138,11 +141,11 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_MilestoneCreated" xml:space="preserve">
-    <value>h1.Dönüş nöqtəsi yaradldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+    <value>h1.Mərhələ yaradldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" dönüş nöqtəsi əlavə etdi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" bu layihəyə "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -151,7 +154,7 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_MilestoneDeadline" xml:space="preserve">
-    <value>h1.Son tarix üzrə dönüş nöqtəsi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+    <value>h1.Son tarix üzrə mərhələ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
 
 Layihənin dönüş nöqtəsinin son vaxtına 48 saatdan az qalır ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
 
@@ -160,13 +163,13 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_MilestoneDeleted" xml:space="preserve">
-    <value>h1.Dönüş nöqtəsi silindi: "$EntityTitle" 
+    <value>h1.Mərhələ silindi: "$EntityTitle" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" dönüş nöqtəsini sildi "$EntityTitle" bu layihədən "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
 
 $AdditionalData 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -175,11 +178,11 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_MilestoneEdited" xml:space="preserve">
-    <value>h1.Dönüş nöqtəsi redaktə olundu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+    <value>h1.Mərhələ redaktə olundu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" dönüş nöqtəsini redaktə etdi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" bu layihədə "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -188,13 +191,13 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_MilestoneResumed" xml:space="preserve">
-    <value>h1.Dönüş nöqtəsinin davam etdirilməsi:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+    <value>h1.Mərhələnin davam etdirilməsi:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" dönüş nöqtəsini davam etdirdi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" bu layihədə "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
 
 $AdditionalData
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -229,13 +232,13 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_NewFileForDiscussion" xml:space="preserve">
-    <value>h1.Müzakirədə yeni fayl: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Müzakirə üün yeni fayl: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" müzakirəyə yeni fayl əlavə etdi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
 
 $AdditionalData
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -244,13 +247,13 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_NewFileForTask" xml:space="preserve">
-    <value>h1.Tapşırıqda yeni fayl: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+    <value>h1.Tapşırıq üçün yeni fayl: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" tapşırığa yeni fayl əlavə etdi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
 
 $AdditionalData
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -259,7 +262,7 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_NewMessage" xml:space="preserve">
-    <value>h1.Yeni müzakirə: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Yeni müzakirə yaradıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" yeni müzakirəni başladı:
 
@@ -288,7 +291,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" layihəni sildi "$EntityTitle".
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -296,8 +299,68 @@ Uğurlar,
 ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Layihə komandasına təyin edilmisiniz</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Müzakirə silinib: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Mərhələ bağlandı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Mərhələ yaradıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Mərhələ silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Mərhələ davam etdirildi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Yeni müzakirə: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Layihə. Layihə silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Sizə mərhələ təyin edildi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Siz layihə meneceri olaraq təyin edildiniz</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Sizə alt-tapşırıq təyin edildi: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Sizə tapşırıq təyin edildi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq bağlandı: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq yaradıldı: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq silindi: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq davam etdirildi: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq bağlandı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq yaradıldı: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq silindi: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq davam etdirildi: $EntityTitle</value>
+  </data>
   <data name="pattern_ReminderAboutTask" xml:space="preserve">
-    <value>h1.Tapşırığı xatırlat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Tapşırıq haqqında xatırlatma: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 "$__AuthorName":"$__AuthorUrl" Sizə tapşırığı xatırladır: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
 
@@ -322,7 +385,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
-    <value>h1.Tapşırıq xatırladan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Tapşırıq haqqında xatırlatma: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 Bu gün tapşırığın son möhlət günüdür: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
 
@@ -348,7 +411,7 @@ $__DateTime Siz artıq bu tapşırığa cavabdeh deyilsiniz: "$EntityTitle":"${_
 
 $AdditionalData.get_item("TaskDescription")
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -357,11 +420,11 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
-    <value>h1.Sizi dönüş nöqtəsinə cavabdeh təyin etdilər: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+    <value>h1.Sizə təyin olunan mərhələ: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" Sizi dönüş nöqtəsinə cavabdeh təyin etdi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" в проекте "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -381,7 +444,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
-    <value>h1.Sizə alt tapşırıq ayrıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Sizə alt tapşırıq təyin edildi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 "$__AuthorName":"$__AuthorUrl" Sizi alt tapşırığa "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" cavabdeh olaraq təyin etdi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
 
@@ -390,7 +453,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_ResponsibleForTask" xml:space="preserve">
-    <value>h1.Sizə tapşırıq ayrıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Sizə tapşırıq təyin edildi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 "$__AuthorName":"$__AuthorUrl" Sizi tapşırığa cavabdeh olaraq təyin etdi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
 
@@ -413,7 +476,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 "Edit subscription settings":"$RecipientSubscriptionConfigURL"</value>
   </data>
   <data name="pattern_SubTaskClosed" xml:space="preserve">
-    <value>h1.Alt tapşırıq qapadıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Alt tapşırıq bağlandı "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" tapşırıq üçün olan alt tapşırığı qapadı["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID"].
 
@@ -437,7 +500,7 @@ Sizin portal ünvanınız: "$__VirtualRootPath":"$__VirtualRootPath"
 
  $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" alt tapşırığı sildi: "$SubEntityTitle" bu tapşırıqdan "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -445,12 +508,30 @@ Uğurlar,
 ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Alt-tapşırıq redaktə edildi: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl", "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığının "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" alt-tapşırığını redaktə edib. 
+
+Alt-tapşırıq təyin edilib: "$Responsible". 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız. Bu tapşırıqla bağlı bildirişlər almaq istəmirsinizsə,"abunəlikdən çıxın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskMoved" xml:space="preserve">
+    <value>h1.Alt tapşırıq köçürüldü: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl", "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" alt-tapşırığını "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığına köçürdü.
+
+Alt-tapşırıq təyin edildi: "$Responsible". 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız. Bu tapşırıqla bağlı bildirişlər almaq istəmirsinizsə, "abunəlikdən çıxın":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
   <data name="pattern_SubTaskResumed" xml:space="preserve">
     <value>h1.Alt tapşırıq davam etdirildi: "$SubEntityTitle" 
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" alt tapşırığı davam etdirdi: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" bu tapşırıqğın "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -459,7 +540,7 @@ ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
   <data name="pattern_TaskClosed" xml:space="preserve">
-    <value>h1.Tapşırıq qapadıldı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+    <value>h1.Tapşırıq bağlandı: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" tapşırıq üçün olan alt tapşırığı qapadı ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
 
@@ -501,7 +582,7 @@ $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" tapşırığı sildi "$E
 
 $AdditionalData 
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -514,13 +595,29 @@ ONLYOFFICE™ Komandası
 
 $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" tapşırığı redaktə etdi  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" bu layihədə "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
 
-^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
 Uğurlar, 
 ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Tapşırıq köçürüldü: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl","$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığını "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" layihəsindəki"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mərhələsindən sildi.
+
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığı indi heç bir mərhələnin hissəsi deyil.
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız. Bildiriş növünü dəyişmək üçün, "abunəlik parametrlərinizi":"$RecipientSubscriptionConfigURL" idarə edin.^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Tapşırıq köçürüldü: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl", "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" tapşırığını "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" layihəsindəki "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mərhələsinə köçürüb . 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisi olduğunuz üçün bu e-məktubu alırsınız. Bildiriş növünü dəyişmək üçün "abunəlik ayarlarınızı":"$RecipientSubscriptionConfigURL" idarə edin.^</value>
   </data>
   <data name="pattern_TaskResumed" xml:space="preserve">
     <value>h1.Tapşırıq davam etdirildi:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
@@ -529,7 +626,7 @@ $__DateTime istifadəçi "$__AuthorName":"$__AuthorUrl" tapşırığı davam etd
 
 $AdditionalData
 
- ^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını" dəyişdirin:"$RecipientSubscriptionConfigURL".^ 
+^Portalda qeydiyyatdan keçdiyiniz üçün bu məktubu alırsınız  "${__VirtualRootPath}":"${__VirtualRootPath}". Bu və ya digər hadisələr haqqında bildirişlər almaq istəyirsinizsə, və ya ümumiyyətlə bildiriş almaq istəmirsinizsə, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" dəyişdirin.^ 
 
 Əgər hər hansı sualınız varsa, bizimlə rahat şəkildə bu ünvandan əlaqə saxlaya bilərsiniz:  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
 
@@ -537,106 +634,295 @@ Uğurlar,
 ONLYOFFICE™ Komandası
 "www.onlyoffice.com":"http://onlyoffice.com/"</value>
   </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Şərh müzakirə üçün redaktə edilib: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForMessage_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Müzakirənin şərhi redaktə edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq üçün şərh redaktə edildi: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırığın şərhi redaktə edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_EditMessage" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Müzakirə redakte edildi: $EntityTitle</value>
   </data>
+  <data name="subject_EditMessage_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Müzakirə redaktə edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_ImportData" xml:space="preserve">
-    <value>Layihələr. Verilənlərin Basecamp'dan importu</value>
+    <value>Layihələr. Verilənlərin Basecamp'dan idxalı</value>
   </data>
   <data name="subject_InviteToProject" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Layihə komandasına dəyişikliklər</value>
+    <value>Layihələr [$ProjectTitle]. Layihə komandasına təyin edilmisiniz</value>
+  </data>
+  <data name="subject_InviteToProject_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Layihə komandasına əlavə edilmisiniz</value>
   </data>
   <data name="subject_LateMilestone" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Yubanmış dönüş nöqtəsi bildirişi: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Gecikmiş mərhələ bildirişi: $EntityTitle</value>
   </data>
   <data name="subject_MessageDeleted" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Müzakirə silindi: $EntityTitle</value>
   </data>
+  <data name="subject_MessageDeleted_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Müzakirə silindi: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID)</value>
+  </data>
   <data name="subject_MilestoneClosed" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Layihələr qapatıldılar: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Layihələr bağlandı: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Mərhələ bağlandı: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID#status=closed)</value>
   </data>
   <data name="subject_MilestoneCreated" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Dönüş nöqtəsi yaradıldı: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Mərhələ yaradıldı: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Mərhələ yaradıldı: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_MilestoneDeadline" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Bildiriş tarixi üzrə dönüş nöqtəsi: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Bildiriş tarixi üzrə mərhələ: $EntityTitle</value>
   </data>
   <data name="subject_MilestoneDeleted" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Layihə silindi: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Mərhələ silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Mərhələ silindi: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_MilestoneEdited" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Layihə redaktə olundu: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Mərhələ redaktə olundu: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Mərhələ redaktə edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_MilestoneResumed" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Dönüş nöqtəi davam etdirildi: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Mərhələ davam etdirildi: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Mərhələ davam etdirildi: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_NewCommentForMessage" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Müzakirəyə yeni şərh: $EntityTitle</value>
   </data>
+  <data name="subject_NewCommentForMessage_tg" xml:space="preserve">
+    <value>LAyihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Müzakirəyə yeni şərh: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_NewCommentForTask" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırığa yeni şərh: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask_tg" xml:space="preserve">
+    <value>LAyihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırığa yeni şərh: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_NewFileForDiscussion" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Müzakirədə yeni fayl: $EntityTitle</value>
   </data>
+  <data name="subject_NewFileForDiscussion_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Müzakirə üçün yeni fayl: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_NewFileForTask" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırıqda yeni fayl: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq üçün yeni fayl: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_NewMessage" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Yeni müzakirə: $EntityTitle</value>
   </data>
+  <data name="subject_NewMessage_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Yeni müzakirə: [$EntityTitle](${__VirtualRootPath}/products/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_ProjectDeleted" xml:space="preserve">
     <value>Layihə. Layihə silindi: $EntityTitle</value>
   </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Layihə komandasına əlavə edilmisiniz</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Müzakirə silinib</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Mərhələ bağlanıb</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Yeni mərhələ</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Mərhələ silinib</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Mərhələ davam etdirilib</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Yeni müzakirə</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Layihələr. Layihə silindi</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Sizə mərhələ təyin edlib</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Layihə meneceri təyin edildiniz</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Sizə alt-tapşırıq təyin edildi.</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Sizə tapşırıq təyin edilib</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Alt-tapşırıq bağlandı</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Yeni alt-tapşırıq yaradıldı</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Alt-tapşırıq silinib</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Alt-tapşırıq davam etdirilib</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Tapşırıq bağlanıb</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Yeni tapşırıq yaradıldı</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Tapşırıq silinib</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Tapşırıq davam etdirilib</value>
+  </data>
   <data name="subject_ReminderAboutTask" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Tapşırığı xatırlat: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Tapşırıq haqqında xatırlatma: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTask_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırığı xatırlat: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Tapşırığı xatırlat: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Tapşırıq haqqında xatırlatma: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırığı xatırlat: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_RemoveFromProject" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Layihə komandasına dəyişikliklər</value>
+    <value>Layihələr [$ProjectTitle]. Layihə komandasından kənarlaşdırıldınız</value>
+  </data>
+  <data name="subject_RemoveFromProject_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Layihə komandasından kənarlaşdırılmısınız</value>
   </data>
   <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Siz bu tapşırığa görə daha cavabdeh deyilsiniz: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Bu tapşırıq artıq sizə təyin edilməyib: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask_tg" xml:space="preserve">
+    <value>LAyihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Artıq sizə tapşırıq təyin edilməyib: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_ResponsibleForMilestone" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Sizi bu dönüş nöqtəsinə cavabdeh təyin etdilər: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Sizə mərhələ təyin edildi: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Sizə mərhələ təyin edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/milestones.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_ResponsibleForProject" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Siz layihə meneceri olaraq təyin edildiniz</value>
   </data>
+  <data name="subject_ResponsibleForProject_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Layihə meneceri kimi təyin edildiniz</value>
+  </data>
   <data name="subject_ResponsibleForSubTask" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Sizə alt tapşırıq ayrıldı: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Sizə alt tapşırıq təyin edildi: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Sizə alt-tapşırıq təyin edildi: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_ResponsibleForTask" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Sizə tapşırıq ayrıldı: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Sizə tapşırıq təyin edildi: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Sizə tapşırıq təyin edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_SubTaskClosed" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Alt tapşırıq qapadıldı: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Alt tapşırıq bağlandı: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq bağlandı: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_SubTaskCreated" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Alt tapşırıq yaradıldı: $EntityTitle</value>
   </data>
+  <data name="subject_SubTaskCreated_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq yaradıldı: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_SubTaskDeleted" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Alt tapşırıq silindi: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq silindi: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq redaktə edildi: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq redaktə edildi: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_SubTaskMoved" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Alt-tapşırıq köçürüldü: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskMoved_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq köçürüldü: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_SubTaskResumed" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Alt tapşırıq davam etdirildi: $SubEntityTitle</value>
   </data>
+  <data name="subject_SubTaskResumed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Alt-tapşırıq davam etdirildi: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
   <data name="subject_TaskClosed" xml:space="preserve">
-    <value>Layihələr [$ProjectTitle]. Tapşırıq qapadıldı: $EntityTitle</value>
+    <value>Layihələr [$ProjectTitle]. Tapşırıq bağlandı: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq bağlandı: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subject_TaskCreated" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırıq yaradıldı: $EntityTitle</value>
   </data>
+  <data name="subject_TaskCreated_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq yaradıldı: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_TaskDeleted" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırıq silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq silindi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
   </data>
   <data name="subject_TaskEdited" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırıq redaktə edildi: $EntityTitle</value>
   </data>
+  <data name="subject_TaskEdited_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq redaktə edildi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq silindi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone_tg" xml:space="preserve">
+    <value> Layihələr[$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq silindi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle]. Tapşırıq köçürüldü: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq köçürüldü: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
   <data name="subject_TaskResumed" xml:space="preserve">
     <value>Layihələr [$ProjectTitle]. Tapşırıq davam etdirildi: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed_tg" xml:space="preserve">
+    <value>Layihələr [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tapşırıq davam etdirildi: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Heç kim</value>
   </data>
 </root>

@@ -24,7 +24,7 @@
   }
 
   function onBodyClick (evt) {
-    $(document.body).unbind('click', onBodyClick);
+    $(document.body).off('click', onBodyClick);
     jQuery('span.tl-combobox').addClass('un-showed').removeClass('showed-options').find('div.combobox-container:first').hide();
     setTimeout(function () {
       jQuery('span.tl-combobox').removeClass('un-showed');
@@ -181,7 +181,7 @@
       $target = jQuery(evt.target),
       value = $target.attr('data-value');
 
-    $select.val(value).change();
+    $select.val(value).trigger("change");
   }
 
   function setFocusedOption (helper) {
@@ -198,7 +198,7 @@
       value = $target.attr('data-value');
 
     if (value) {
-      $select.val(value).change();
+      $select.val(value).trigger("change");
     }
   }
 
@@ -264,7 +264,7 @@
             option.disabled === true ? ' display-none' : '',
           '"',
           ' data-value="' + datavalue + '"',
-          ' title="' + (Encoder.htmlEncode(jQuery.trim(option.title))  || '&nbsp;') + '"',
+          ' title="' + (Encoder.htmlEncode(option.title.trim()) || '&nbsp;') + '"',
         '>',
         option.title || '&nbsp;',
         '</li>'
@@ -290,7 +290,7 @@
 
     html = [
       '<div class="combobox-title">',
-        '<div class="inner-text combobox-title-inner-text" title="' + (Encoder.htmlEncode(jQuery.trim(selectoption.title)) || '&nbsp;') + '">',
+        '<div class="inner-text combobox-title-inner-text" title="' + (Encoder.htmlEncode(selectoption.title.trim()) || '&nbsp;') + '">',
           selectoption.title || '&nbsp;',
         '</div>',
       '</div>',
@@ -435,23 +435,23 @@
   function bindComboboxEvents ($select, $combobox) {
     //setTimeout((function ($select) {
     //  return function () {
-    //    $select.unbind('focus', onSelectFocus).bind('focus', onSelectFocus);
+    //    $select.off('focus', onSelectFocus).on('focus', onSelectFocus);
     //  };
     //})($select), 500);
     $select
-      //.blur(onSelectBlur)
-      //.focus(onSelectFocus)
-      .unbind('change', onSelectChange).bind('change', onSelectChange);
+      //.on("blur", onSelectBlur)
+      //.on("focus", onSelectFocus)
+      .off('change', onSelectChange).on('change', onSelectChange);
     $combobox.find('input')
-      .unbind('focus', onHelperFocus).bind('focus', onHelperFocus)
-      .unbind('keydown', onHelperKeypress).bind('keydown', onHelperKeypress)
-      .unbind('keyup', onHelperKeyup).bind('keyup', onHelperKeyup);
+      .off('focus', onHelperFocus).on('focus', onHelperFocus)
+      .off('keydown', onHelperKeypress).on('keydown', onHelperKeypress)
+      .off('keyup', onHelperKeyup).on('keyup', onHelperKeyup);
     $combobox.find('ul.combobox-options:first')
-      .unbind('click', onComboboxOptionClick).bind('click', onComboboxOptionClick)
+      .off('click', onComboboxOptionClick).on('click', onComboboxOptionClick)
       .find('li.option-item')
-        .unbind('hover', onComboboxOptionHover).bind('hover', onComboboxOptionHover);
+        .off('hover', onComboboxOptionHover).on('hover', onComboboxOptionHover);
     $combobox.find('div.combobox-title:first')
-      .unbind('click', onComboboxTitleClick).bind('click', onComboboxTitleClick);
+      .off('click', onComboboxTitleClick).on('click', onComboboxTitleClick);
   }
 
   $.fn.tlCombobox = $.fn.tlcombobox = function (params) {
@@ -467,9 +467,9 @@
       selectsInd = $selects.length;
       while (selectsInd--) {
         if (params === true) {
-          $($selects[selectsInd]).attr('disabled', false).parents('span.tl-combobox:first').removeClass('disabled');
+          $($selects[selectsInd]).prop("disabled", false).parents('span.tl-combobox:first').removeClass('disabled');
         } else {
-          $($selects[selectsInd]).attr('disabled', true).parents('span.tl-combobox:first').addClass('disabled');
+          $($selects[selectsInd]).prop("disabled", true).parents('span.tl-combobox:first').addClass('disabled');
         }
       }
       return $selects;

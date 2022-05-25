@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Rackspace</id>
+    <version>0.0.0</version>
+    <title>Rackspace .NET SDK</title>
+    <authors>carolynvs</authors>
+    <licenseUrl>https://github.com/rackspace/rackspace-net-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://rackspace.github.io/rackspace-net-sdk/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/rackspace/rackspace-net-sdk/master/build/rackspace-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Automating all things Rackspace</description>
+    <releaseNotes>https://github.com/rackspace/rackspace-net-sdk/releases/v$version$</releaseNotes>
+    <copyright>2015 Rackspace, Inc.</copyright>
+    <tags>openstack rackspace rackconnect</tags>
+    <dependencies>
+      <group targetFramework="4.5">
+        <dependency id="openstack.net" version="[1.5.0.1,2.0)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+
+    <!-- Runtime libraries -->
+    <file src="..\src\Rackspace\bin\$Configuration$\Rackspace.dll" target="lib\net45"/>
+    <file src="..\src\Rackspace\bin\$Configuration$\Rackspace.pdb" target="lib\net45"/>
+    <file src="..\artifacts\docs\api\Rackspace.xml" target="lib\net45"/>
+
+    <!-- Source code -->
+    <file src="..\src\**\*.cs" target="src" />
+
+  </files>
+</package>

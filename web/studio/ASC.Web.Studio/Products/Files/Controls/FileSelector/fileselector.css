@@ -57,7 +57,8 @@
 #fileSelectorDialog .menu-small,
 #fileSelectorDialog .file-lock,
 #fileSelectorDialog .favorite,
-#fileSelectorDialog .version {
+#fileSelectorDialog .version,
+#fileSelectorDialog .btn-row {
     display: none !important;
 }
 

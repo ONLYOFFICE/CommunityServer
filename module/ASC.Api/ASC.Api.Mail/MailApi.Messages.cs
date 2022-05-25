@@ -27,6 +27,7 @@ using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Mail;
 using ASC.Mail.Core.Engine;
+using ASC.Mail.Core.Entities;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
 using ASC.Mail.Exceptions;
@@ -42,25 +43,25 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns the filtered messages in case there were changes since last check date
+        /// Returns the messages with the parameters specified in the request if there were changes since last check date.
         /// </summary>
         /// <param optional="true" name="folder">Folder ID</param>
-        /// <param optional="true" name="unread">Message unread status</param>
-        /// <param optional="true" name="attachments">Message with attachments status</param>
-        /// <param optional="true" name="period_from">Period start date</param>
-        /// <param optional="true" name="period_to">Period end date</param>
-        /// <param optional="true" name="important">Message with importance flag</param>
-        /// <param optional="true" name="from_address">Address to find 'From' field</param>
-        /// <param optional="true" name="to_address">Address to find 'To' field</param>
-        /// <param optional="true" name="mailbox_id">Recipient mailbox id</param>
-        /// <param optional="true" name="tags">Message tags</param>
-        /// <param optional="true" name="search">Text to search in messages</param>
+        /// <param optional="true" name="unread">Message status: unread (true), read (false) or all (null) messages</param>
+        /// <param optional="true" name="attachments">Defines if a message has attachments or not: with attachments (true), without attachments (false) or all (null) messages</param>
+        /// <param optional="true" name="period_from">Start search period date</param>
+        /// <param optional="true" name="period_to">End search period date</param>
+        /// <param optional="true" name="important">Important message or not</param>
+        /// <param optional="true" name="from_address">Mail address from which a letter came</param>
+        /// <param optional="true" name="to_address">Mail address to which a letter came</param>
+        /// <param optional="true" name="mailbox_id">Recipient mailbox ID</param>
+        /// <param optional="true" name="tags">IDs of tags linked to the target message</param>
+        /// <param optional="true" name="search">Text to search in message body and subject</param>
         /// <param optional="true" name="page">Page number</param>
-        /// <param optional="true" name="with_calendar">Message has calendar flag. bool flag.</param>
-        /// <param optional="true" name="page_size">Number of messages on page</param>
-        /// <param optional="true" name="user_folder_id">id of user's folder</param>
-        /// <param name="sortorder">Sort order</param>
-        /// <returns>Messages list</returns>
+        /// <param optional="true" name="with_calendar">Message has a calendar or not</param>
+        /// <param optional="true" name="page_size">Count of messages on page</param>
+        /// <param optional="true" name="user_folder_id">User folder ID</param>
+        /// <param name="sortorder">Sort order by date: "ascending" - ascended, "descending" - descended</param>
+        /// <returns>List of filtered messages</returns>
         /// <short>Get filtered messages</short> 
         /// <category>Messages</category>
         [Read(@"messages")]
@@ -84,6 +85,8 @@ namespace ASC.Api.Mail
             var primaryFolder = user_folder_id.HasValue
                 ? FolderType.UserFolder
                 : folder.HasValue ? (FolderType)folder.Value : FolderType.Inbox;
+
+            SendUserAlive(folder ?? -1, tags);
 
             var filter = new MailSearchFilterData
             {
@@ -116,17 +119,17 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns the detailed information about message with the ID specified in the request
+        /// Returns the detailed information about a message with the ID specified in the request.
         /// </summary>
         /// <param name="id">Message ID</param>
-        /// <param optional="true" name="loadImages">Unblock suspicious content or not</param>
-        /// <param optional="true" name="needSanitize">Flag specifies is needed to prepare html for FCKeditor</param>
-        /// <param optional="true" name="markRead">Mark message as read</param>
-        /// <returns>MailMessageItem</returns>
-        /// <short>Get message</short>
+        /// <param optional="true" name="loadImages">Unblocks suspicious content or not</param>
+        /// <param optional="true" name="needSanitize">Specifies if HTML for the FCK editor needs to be prepared or not</param>
+        /// <param optional="true" name="markRead">Marks a message as read or not</param>
+        /// <returns>Message information</returns>
+        /// <short>Get a message</short>
         /// <category>Messages</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
-        /// <exception cref="ItemNotFoundException">Exception happens when message with specified id wasn't found.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ItemNotFoundException">Exception happens when message with the specified ID wasn't found.</exception>
         [Read(@"messages/{id:[0-9]+}")]
         public MailMessage GetMessage(int id, bool? loadImages, bool? needSanitize, bool? markRead)
         {
@@ -159,8 +162,12 @@ namespace ASC.Api.Mail
 
             if (item.WasNew && markRead.HasValue && markRead.Value)
             {
-                MailEngineFactory.MessageEngine.SetUnread(new List<int> { item.Id }, false);
+                var ids = new List<int> { item.Id };
+
+                MailEngineFactory.MessageEngine.SetUnread(ids, false);
                 item.IsNew = false;
+
+                SendUserActivity(ids, MailUserAction.SetAsRead);
             }
 
             if (needSanitizeHtml)
@@ -186,11 +193,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Reassigns drafts/templates to selected email.
+        /// Reassigns drafts/templates to the selected email.
         /// </summary>
-        /// <param name="folder">Folder id</param>
+        /// <param name="folder">Folder ID</param>
         /// <param name="email">Email to which messages will be reassigned</param>
-        /// <returns>none</returns>
         /// <short>Reassign drafts/templates</short> 
         /// <category>Messages</category>
         [Update(@"messages/reassign")]
@@ -240,27 +246,27 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Get previous or next message id. U
+        /// Returns the previous or next message ID filtered with the parameters specified in the request..
         /// </summary>
-        /// <param name="id">Head message id of current conversation.</param>
-        /// <param name="direction">String parameter for determine prev or next conversation needed. "prev" for previous, "next" for next.</param>
-        /// <param optional="true" name="folder">Folder ID - integer. 1 - inbox, 2 - sent, 5 - spam.</param>
-        /// <param optional="true" name="unread">Message unread status. bool flag. Search in unread(true), read(false) or all(null) messages.</param>
-        /// <param optional="true" name="attachments">Message attachments status. bool flag. Search messages with attachments(true), without attachments(false) or all(null) messages.</param>
-        /// <param optional="true" name="period_from">Begin search period date</param>
+        /// <param name="id">Head message ID of current conversation</param>
+        /// <param name="direction">Defines if the previous or next conversation is needed: "prev" for previous, "next" for next</param>
+        /// <param optional="true" name="folder">Folder type: 1 - inbox, 2 - sent, 5 - spam</param>
+        /// <param optional="true" name="unread">Message status: unread (true), read (false) or all (null) messages</param>
+        /// <param optional="true" name="attachments">Defines if a conversation has attachments or not: with attachments (true), without attachments (false) or all (null) messages</param>
+        /// <param optional="true" name="period_from">Start search period date</param>
         /// <param optional="true" name="period_to">End search period date</param>
-        /// <param optional="true" name="important">Message has importance flag. bool flag.</param>
-        /// <param optional="true" name="from_address">Address to find 'From' field</param>
-        /// <param optional="true" name="to_address">Address to find 'To' field</param>
-        /// <param optional="true" name="mailbox_id">Recipient mailbox id.</param>
-        /// <param optional="true" name="tags">Messages tags. Id of tags linked with target messages.</param>
-        /// <param optional="true" name="search">Text to search in messages body and subject.</param>
-        /// <param optional="true" name="page_size">Count on messages on page</param>
-        /// <param optional="true" name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param>
-        /// <param optional="true" name="with_calendar">Message has with_calendar flag. bool flag.</param>
-        /// <param optional="true" name="user_folder_id">id of user's folder</param>
-        /// <returns>Previous or next message id</returns>
-        /// <short>Get previous or next message id</short> 
+        /// <param optional="true" name="important">Important message or not</param>
+        /// <param optional="true" name="from_address">Mail address from which a letter came</param>
+        /// <param optional="true" name="to_address">Mail address to which a letter came</param>
+        /// <param optional="true" name="mailbox_id">Recipient mailbox ID</param>
+        /// <param optional="true" name="tags">IDs of tags linked to the target message</param>
+        /// <param optional="true" name="search">Text to search in message body and subject</param>
+        /// <param optional="true" name="page_size">Count of messages on page</param>
+        /// <param optional="true" name="sortorder">Sort order by date: "ascending" - ascended, "descending" - descended</param>
+        /// <param optional="true" name="with_calendar">Message has a calendar or not</param>
+        /// <param optional="true" name="user_folder_id">User folder ID</param>
+        /// <returns>Previous or next message ID</returns>
+        /// <short>Get the previous or next message ID</short> 
         /// <category>Messages</category>
         [Read(@"messages/{id:[0-9]+}/{direction:(next|prev)}")]
         public long GetPrevNextMessageId(int id,
@@ -314,14 +320,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Deletes the selected attachment from the message with the ID specified in the request
+        /// Deletes the selected attachment from the message with the ID specified in the request.
         /// </summary>
-        /// <param name="messageid">The message id which attachment will be removed.</param>
-        /// <param name="attachmentid">Specifies attachment id for deleting.</param>
-        /// <returns>The message id which removed an attachment</returns>
-        /// <short>Delete attachment from message</short> 
+        /// <param name="messageid">Message ID</param>
+        /// <param name="attachmentid">Attachment ID</param>
+        /// <returns>The message ID which attachment was removed</returns>
+        /// <short>Delete an attachment from the message</short> 
         /// <category>Messages</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Delete(@"messages/{messageid:[0-9]+}/attachments/{attachmentid:[0-9]+}")]
         public int DeleteMessageAttachment(int messageid, int attachmentid)
         {
@@ -338,12 +344,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Sets the status for messages specified by ids.
+        /// Sets a status to the messages with the IDs specified in the request.
         /// </summary>
-        /// <param name="ids">List of messages ids for status changing.</param>
-        /// <param name="status">String parameter specifies status for changing. Values: "read", "unread", "important" and "normal"</param>
+        /// <param name="ids">List of message IDs</param>
+        /// <param name="status">Message status: "read", "unread", "important" and "normal"</param>
         /// <returns>List of messages with changed status</returns>
-        /// <short>Set message status</short> 
+        /// <short>Set a message status</short> 
         /// <category>Messages</category>
         [Update(@"messages/mark")]
         public IEnumerable<int> MarkMessages(List<int> ids, string status)
@@ -351,33 +357,47 @@ namespace ASC.Api.Mail
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
+            MailUserAction mailUserAction = MailUserAction.Nothing;
+
             switch (status)
             {
                 case "read":
                     MailEngineFactory.MessageEngine.SetUnread(ids, false);
+                    mailUserAction = MailUserAction.SetAsRead;
                     break;
 
                 case "unread":
                     MailEngineFactory.MessageEngine.SetUnread(ids, true);
+                    mailUserAction = MailUserAction.SetAsUnread;
                     break;
 
                 case "important":
                     MailEngineFactory.MessageEngine.SetImportant(ids, true);
+                    mailUserAction = MailUserAction.SetAsImportant;
                     break;
 
                 case "normal":
                     MailEngineFactory.MessageEngine.SetImportant(ids, false);
+                    mailUserAction = MailUserAction.SetAsNotImpotant;
+                    break;
+
+                case "receiptProcessed":
+                    MailEngineFactory.MessageEngine.ReceiptStatus(ids, false);
+                    mailUserAction = MailUserAction.ReceiptStatusChanged;
                     break;
             }
+
+            SendUserActivity(ids, mailUserAction);
+
             return ids;
         }
 
         /// <summary>
-        ///    Restores the messages to their original folders
+        /// Restores the messages with the IDs specified in the request to their original folders.
         /// </summary>
-        /// <param name="ids">List of conversation ids for restore.</param>
-        /// <returns>List of restored messages ids</returns>
-        /// <short>Restore messages to original folders</short>
+        /// <param name="ids">List of message IDs</param>
+        /// <returns>List of restored message IDs</returns>
+        /// <short>Restore messages</short>
         /// <category>Messages</category>
         [Update(@"messages/restore")]
         public IEnumerable<int> RestoreMessages(List<int> ids)
@@ -393,13 +413,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Moves the messages to the specified folder
+        ///  Moves the messages to a folder with the ID specified in the request.
         /// </summary>
-        /// <param name="ids">List of mesasges ids.</param>
-        /// <param name="folder">Folder ID - integer. 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam.</param>
-        /// <param optional="true" name="userFolderId">User Folder Id</param>
-        /// <returns>List of moved messages ids.</returns>
-        /// <short>Move message to folder</short> 
+        /// <param name="ids">List of message IDs</param>
+        /// <param name="folder">Folder type: 1 - inbox, 2 - sent, 3 - drafts, 4 - trash, 5 - spam</param>
+        /// <param optional="true" name="userFolderId">User folder ID</param>
+        /// <returns>List of moved message IDs</returns>
+        /// <short>Move messages to the folder</short> 
         /// <category>Messages</category>
         [Update(@"messages/move")]
         public IEnumerable<int> MoveMessages(List<int> ids, int folder, uint? userFolderId = null)
@@ -414,6 +434,8 @@ namespace ASC.Api.Mail
 
             MailEngineFactory.MessageEngine.SetFolder(ids, toFolder, userFolderId);
 
+            SendUserActivity(ids, MailUserAction.MoveTo, folder);
+
             if (toFolder == FolderType.Spam || toFolder == FolderType.Sent || toFolder == FolderType.Inbox)
                 MailEngineFactory.OperationEngine.ApplyFilters(ids);
 
@@ -421,26 +443,26 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Sends the message with the ID specified in the request
+        /// Sends a message with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Message id which will be saved or 0.</param>
-        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
-        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
+        /// <param name="id">Message ID which will be sent or 0</param>
+        /// <param name="from">Mail address from which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="to">List of mail addresses to which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="mimeReplyToId">Message ID to which this message replies</param>
+        /// <param name="importance">Important message or not: true - important, false - not important</param>
         /// <param name="subject">Message subject</param>
-        /// <param name="tags">List of tags id added to message</param>
-        /// <param name="body">Message body as html string.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
-        /// <param name="fileLinksShareMode">Share mode for attached file links</param>
-        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
-        /// <param name="isAutoreply">Indicate that message is autoreply or not</param>
-        /// <param optional="true" name="requestReceipt">Add request Return-Receipt-To header</param>
-        /// <param optional="true" name="requestRead">Add request Disposition-Notification-To header</param>
-        /// <returns>message id</returns>
-        /// <short>Send message</short> 
+        /// <param name="tags">List of tag IDs added to the message</param>
+        /// <param name="body">Message body as HTML string</param>
+        /// <param name="attachments">List of message attachments</param>
+        /// <param name="fileLinksShareMode">Share mode for the links of attached files</param>
+        /// <param name="calendarIcs">Calendar event in the iCal format for sending</param>
+        /// <param name="isAutoreply">Specifies that this message is autoreply or not</param>
+        /// <param optional="true" name="requestReceipt">Adds a request with the Return-Receipt-To header</param>
+        /// <param optional="true" name="requestRead">Adds a request with the Disposition-Notification-To header</param>
+        /// <returns>Message ID</returns>
+        /// <short>Send a message</short> 
         /// <category>Messages</category>
         [Update(@"messages/send")]
         public long SendMessage(int id,
@@ -514,6 +536,56 @@ namespace ASC.Api.Mail
             }
         }
 
+        [Update(@"messages/simpleSend")]
+        public bool SimpleSend(
+            string from,
+            List<string> to,
+            string subject,
+            string body,
+            bool isReceipt)
+        {
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+            var daemonLabels =
+                    new DraftEngine.DeliveryFailureMessageTranslates(
+                        Defines.MailDaemonEmail,
+                        MailApiResource.DeliveryFailureSubject,
+                        MailApiResource.DeliveryFailureAutomaticMessage,
+                        MailApiResource.DeliveryFailureMessageIdentificator,
+                        MailApiResource.DeliveryFailureRecipients,
+                        MailApiResource.DeliveryFailureRecommendations,
+                        MailApiResource.DeliveryFailureBtn,
+                        MailApiResource.DeliveryFailureFAQInformation,
+                        MailApiResource.DeliveryFailureReason);
+
+            return MailEngineFactory.DraftEngine.SimpleSend(
+                from,
+                to,
+                subject,
+                body,
+                isReceipt,
+                daemonLabels);
+        }
+
+        /// <summary>
+        /// Saves a message with the ID specified in the request.
+        /// </summary>
+        /// <param name="id">Message ID which will be saved or 0</param>
+        /// <param name="from">Mail address from which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="to">List of mail addresses to which the letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="mimeReplyToId">Message ID to which this message replies</param>
+        /// <param name="importance">Important message or not: true - important, false - not important</param>
+        /// <param name="subject">Message subject</param>
+        /// <param name="tags">List of tag IDs added to the message</param>
+        /// <param name="body">Message body as HTML string</param>
+        /// <param name="attachments">List of message attachments</param>
+        /// <param name="calendarIcs">Calendar event in the iCal format for sending</param>
+        /// <returns>Saved message ID</returns>
+        /// <short>Save a message</short> 
+        /// <category>Messages</category>
         /// <visible>false</visible>
         [Obsolete]
         [Update(@"messages/save")]
@@ -545,22 +617,22 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Saves the message with the ID specified in the request
+        /// Saves a message with the ID specified in the request as a draft.
         /// </summary>
-        /// <param name="id">Message id which will be saved or 0.</param>
-        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
-        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
+        /// <param name="id">Message ID which will be saved or 0</param>
+        /// <param name="from">Mail address from which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="to">List of mail addresses to which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="mimeReplyToId">Message ID to which this message replies</param>
+        /// <param name="importance">Important message or not: true - important, false - not important</param>
         /// <param name="subject">Message subject</param>
-        /// <param name="tags">List of tags id added to message</param>
-        /// <param name="body">Message body as html string.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
-        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
-        /// <returns>Saved message id</returns>
-        /// <short>SaveToDraft message</short> 
+        /// <param name="tags">List of tag IDs added to the message</param>
+        /// <param name="body">Message body as HTML string</param>
+        /// <param name="attachments">List of message attachments</param>
+        /// <param name="calendarIcs">Calendar event in the iCal format for sending</param>
+        /// <returns>Saved message ID</returns>
+        /// <short>Save a message as a draft</short> 
         /// <category>Messages</category>
         [Update(@"drafts/save")]
         public MailMessage SaveMessage(int id,
@@ -618,22 +690,22 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Saves the template with the ID specified in the request
+        /// Saves a template with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Template id which will be saved.</param>
-        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="mimeReplyToId">Template id to which the reply answer</param>
-        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
-        /// <param name="subject">Template subject</param>
-        /// <param name="tags">List of tags id added to message</param>
-        /// <param name="body">Template body as html string.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
-        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
-        /// <returns>Saved template id</returns>
-        /// <short>SaveToTemplate message</short> 
+        /// <param name="id">Template ID which will be saved</param>
+        /// <param name="from">Mail address from which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="to">List of mail addresses to which a letter will be sent. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="cc">List of "cc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="bcc">List of "bcc" mail addresses. <![CDATA[Format: Name &lt;name@domain&gt;]]></param>
+        /// <param name="mimeReplyToId">Message ID to which this message replies</param>
+        /// <param name="importance">Important message or not: true - important, false - not important</param>
+        /// <param name="subject">Message subject</param>
+        /// <param name="tags">List of tag IDs added to the message</param>
+        /// <param name="body">Message body as HTML string</param>
+        /// <param name="attachments">List of message attachments</param>
+        /// <param name="calendarIcs">Calendar event in the iCal format for sending</param>
+        /// <returns>Saved template ID</returns>
+        /// <short>Save a message as a template</short> 
         /// <category>Templates</category>
         [Update(@"templates/save")]
         public MailMessage SaveTemplate(int id, string from, List<string> to, List<string> cc, List<string> bcc, string mimeReplyToId, bool importance, string subject,
@@ -678,10 +750,10 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Removes the selected messages
+        /// Removes messages with the IDs specified in the request.
         /// </summary>
-        /// <param name="ids">List of messages ids for remove.</param>
-        /// <returns>List of removed messages ids</returns>
+        /// <param name="ids">List of message IDs</param>
+        /// <returns>List of removed message IDs</returns>
         /// <short>Remove messages</short> 
         /// <category>Messages</category>
         [Update(@"messages/remove")]
@@ -692,14 +764,16 @@ namespace ASC.Api.Mail
 
             MailEngineFactory.MessageEngine.SetRemoved(ids);
 
+            SendUserActivity(ids, MailUserAction.SetAsDeleted);
+
             return ids;
         }
 
         /// <summary>
-        ///    Returns the message template. Message teplate - empty message JSON.
+        /// Returns a message template - empty message in the JSON format.
         /// </summary>
-        /// <returns>Empty MailMessageItem</returns>
-        /// <short>Get message template</short> 
+        /// <returns>Empty message in the JSON format</returns>
+        /// <short>Get a message template</short> 
         /// <category>Messages</category>
         [Read(@"messages/template")]
         public MailMessage GetMessageTemplate()
@@ -708,16 +782,16 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Attaches Teamlab document to the specified message
+        /// Attaches the Teamlab document to the message with the ID specified in the request.
         /// </summary>
-        /// <param name="id"> Message id for adding attachment</param>
-        /// <param name="fileId">Teamlab document id.</param>
+        /// <param name="id">Message ID</param>
+        /// <param name="fileId">Teamlab document ID</param>
         /// <param name="version">Teamlab document version</param>
-        /// <param name="needSaveToTemp">Need save to temp for templates</param>
-        /// <returns>Attached document as MailAttachment object</returns>
-        /// <short>Attach Teamlab document</short>
+        /// <param name="needSaveToTemp">Specifies if this message needs to be saved as a template or not</param>
+        /// <returns>Attached document</returns>
+        /// <short>Attach the Teamlab document</short>
         /// <category>Messages</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Create(@"messages/{id:[0-9]+}/document")]
         public MailAttachmentData AttachDocument(int id, string fileId, string version, bool needSaveToTemp)
         {
@@ -767,13 +841,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        /// Export mail to CRM relations history for some entities
+        /// Exports a mail to the CRM relation history for some entities.
         /// </summary>
-        /// <param name="id_message">Id of any messages from the chain</param>
-        /// <param name="crm_contact_ids">List of CrmContactEntity. List item format: {entity_id: 0, entity_type: 0}.
-        /// Entity types: 1 - Contact, 2 - Case, 3 - Opportunity.
+        /// <param name="id_message">ID of any message from the chain</param>
+        /// <param name="crm_contact_ids">List of CRM contact entity IDs in the following format: {entity_id: 0, entity_type: 0}.
+        /// Entity types: 1 - Contact, 2 - Case, 3 - Opportunity
         /// </param>
-        /// <returns>none</returns>
+        /// <short>Export a message to CRM</short>
         /// <category>Messages</category>
         [Update(@"messages/crm/export")]
         public void ExportMessageToCrm(int id_message, IEnumerable<CrmContactData> crm_contact_ids)

@@ -788,7 +788,7 @@ namespace ASC.Files.Core.Data
 
         #endregion
 
-        protected SqlQuery GetFolderQuery(Exp where, bool checkShare = true)
+        protected SqlQuery GetFolderQuery(Exp where, bool checkShare = true, bool checkDenyActions = true)
         {
             return Query("files_folder f")
                 .Select("f.id")
@@ -892,8 +892,9 @@ namespace ASC.Files.Core.Data
                 RootFolderType = ParseRootFolderType(r[10]),
                 RootFolderCreator = ParseRootFolderCreator(r[10]),
                 RootFolderId = ParseRootFolderId(r[10]),
-                Shared = Convert.ToBoolean(r[11]),
+                Shared = Convert.ToBoolean(r[11])
             };
+
             switch (f.FolderType)
             {
                 case FolderType.COMMON:

@@ -70,6 +70,9 @@ namespace ASC.Files.Core
         [DataMember(Name = "folder_url", EmitDefaultValue = false)]
         public string FolderUrl { get; set; }
 
+        [DataMember(Name = "folder_is_favorite", EmitDefaultValue = false)]
+        public bool IsFavorite { get; set; }
+
         public override bool IsNew
         {
             get { return Convert.ToBoolean(NewForMe); }

@@ -35,9 +35,7 @@
                     <xsl:attribute name="target">_blank</xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="href">
-                      #<xsl:value-of select="id"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="href">#<xsl:value-of select="id"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
                 <xsl:attribute name="title">
@@ -159,6 +157,14 @@
                 <a class="button middle gray account-cancel-link">
                   <resource name="FilesCommonResource.ButtonCancel"/>
                 </a>
+                <xsl:if test="faqUrl != ''">
+                  <a class="link underline red-text faq-link" target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="faqUrl"/>
+                      </xsl:attribute>
+                    <resource name="FilesCommonResource.ThirdPartyFaqLinkText"/>
+                  </a>
+                </xsl:if>
               </div>
             </div>
           </div>

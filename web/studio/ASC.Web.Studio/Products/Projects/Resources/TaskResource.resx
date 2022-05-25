@@ -88,6 +88,9 @@
   <data name="AssignedTo" xml:space="preserve">
     <value>Assigned to</value>
   </data>
+  <data name="AverageTask" xml:space="preserve">
+    <value>Average task completation time (hour)</value>
+  </data>
   <data name="BetterToReturn" xml:space="preserve">
     <value>The best way is to return and close subtasks manually, then retry to close the task</value>
   </data>

@@ -17,9 +17,9 @@
 
 CookieSettingsManager = new function () {
     this.Init = function () {
-        jq("#saveCookieSettingsBtn").click(CookieSettingsManager.Save);
+        jq("#saveCookieSettingsBtn").on("click", CookieSettingsManager.Save);
         
-        jq("#lifeTimeTxt").keydown(function (e) {
+        jq("#lifeTimeTxt").on("keydown", function (e) {
             // Allow: backspace, delete, tab, escape, enter and .
             if (jq.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 // Allow: Ctrl+A, Command+A

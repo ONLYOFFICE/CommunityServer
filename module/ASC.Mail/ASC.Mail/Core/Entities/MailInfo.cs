@@ -46,6 +46,7 @@ namespace ASC.Mail.Core.Entities
         public string Stream { get; set; }
         public string Uidl { get; set; }
         public bool IsRemoved { get; set; }
+        public bool ReadRequestStatus { get; set; }
         public string Intoduction { get; set; }
     }
 }

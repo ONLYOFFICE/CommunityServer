@@ -175,9 +175,9 @@ input[type="password" i] {
 
 
 #ldapMappingSettings .comboBox {
-    width: 170px;
-    height: 21px;
+    width: 164px;
     float: left;
+    height: 21px;
 }
 #ldapMappingSettings input {
     width: 164px;

@@ -238,9 +238,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Администраторите</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Състояние на партньорството</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Всички домейни</value>
   </data>
@@ -519,12 +516,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>Влизам</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Свържете услугата Bitly, за да съкратите връзките с покани за портала и споделените връзки в модула Документи.</value>
@@ -939,27 +930,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>Тайната на WordPress</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Клиентски идентификатор</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Клиентска тайна</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Активирайте приложението за импортиране на контакти в Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Добавянето на приложението за услуги на Yahoo ще ви позволи да добавите нови потребители на ONLYOFFICE портал от списъка с контакти.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Клиентски идентификатор</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Клиентска тайна</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Информация за връзка</value>
@@ -1489,9 +1459,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Паролата трябва да съдържа</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Паролата трябва да съдържа</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>цифри</value>
   </data>
@@ -1699,9 +1666,6 @@
   <data name="HelpCenter" xml:space="preserve">
     <value>Помощен център</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Целта на програмата е законно да рекламира ONLYOFFICE™, за да получи комисионна за абонаменти, закупени от посочените лица.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Крия</value>
   </data>
@@ -1855,9 +1819,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Импортиране от Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Импортиране от Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Изберете друг източник</value>
   </data>
@@ -1932,9 +1893,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Мигрирайте и ONLYOFFICE™ Mail (не се препоръчва)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Станете наш партньор</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Можете да продължите да добавяте потребителите като {!Guest) или да променяте ценовия план за този с по-голям брой потребители.</value>
@@ -3118,15 +3076,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Поканите бяха изпратени успешно</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Изпратете имейл</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Свържете се с нас, за да откриете специални оферти</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Намалете необходимия параметър или изберете друг план за ценообразуване.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Купи сега</value>
   </data>
@@ -3138,18 +3087,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Изберете план, който най-добре отговаря на вашите нужди. Препоръчителният план е подчертан по-долу.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Този план не може да бъде избран</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Позволен е размерът на пространството за съхранение: {0}. Текущо пространство за съхранение: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Брой позволени потребители на портала: {0}. Настоящ брой потребители: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Не можете да изберете този план, тъй като пространството за съхранение или броят на потребителите надхвърлят ограниченията на избрания план за ценообразуване:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Периодичните плащания са включени</value>
@@ -3178,9 +3115,6 @@
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Вашият ONLYOFFICE™ портал ще бъде блокиран {2}. Моля, {0} кликнете тук {1}, за да удължите съществуващия план или да го промените за подходящ.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Брой портали, които сте създали: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Планът за ценообразуване не е достъпен до края на платената година.</value>
   </data>
@@ -3193,14 +3127,8 @@
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>За да отмените повтарящите се плащания, моля, отворете профила си в Avangate.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Само до {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Ценови планове</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>За вашето удобство парите в руските рубли се изчисляват по фиксирания обменен курс {0} руски рубли за 1 щатски долар.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Плащания</value>

@@ -151,6 +151,9 @@
   <data name="EmptyScreenText" xml:space="preserve">
     <value>Əlfəcinlər yaradın, web resurslara keçidləri qeyd edərək faydalı informasiyanı saxlayıb onu həmkarlarınızla elə portalınızda paylaşın, bu, sizə sevimli səhifələrinizə asanlıqla qayıtmağınıza imkan verəcək.</value>
   </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>Faydalı məlumatları birbaşa portalda saxlamağa imkan verən əlfəcinlərə baxın. Veb resurslarına keçidləri yadda saxlayın və istədiyiniz zaman sevimli yerlərə daxil olun.</value>
+  </data>
   <data name="FavouritesNavigationItem" xml:space="preserve">
     <value>Seçilmişlər</value>
   </data>
@@ -168,6 +171,9 @@
   </data>
   <data name="RemoveButton" xml:space="preserve">
     <value>Yığışdır</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Əlfəcini silmək istədiyinizə əminsiniz?</value>
   </data>
   <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
     <value>Siz {0} əlfəcini seçilmişlər siyahısından çıxamraq istədiyinizə əminsiniz mi?</value>

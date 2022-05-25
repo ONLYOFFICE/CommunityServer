@@ -17,7 +17,7 @@
 
 var Encryption = function () {
     function init () {
-        jq("#saveEncryption").click(setStatus);
+        jq("#saveEncryption").on("click", setStatus);
     }
 
     function showStatusValue (data) {

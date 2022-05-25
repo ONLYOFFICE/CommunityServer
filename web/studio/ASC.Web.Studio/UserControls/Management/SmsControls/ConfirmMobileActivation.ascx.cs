@@ -54,19 +54,19 @@ namespace ASC.Web.Studio.UserControls.Management
         protected override void OnPreRender(EventArgs e)
         {
             if (Activation) return;
-            if (SecurityContext.IsAuthenticated) Response.Redirect(GetRefererURL());
+            if (SecurityContext.IsAuthenticated) Response.Redirect(Context.GetRefererURL());
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SecurityContext.IsAuthenticated && User.ID != SecurityContext.CurrentAccount.ID)
             {
-                Response.Redirect(GetRefererURL(), true);
+                Response.Redirect(Context.GetRefererURL(), true);
                 return;
             }
-            if (!Activation && (!StudioSmsNotificationSettings.IsVisibleSettings || !StudioSmsNotificationSettings.Enable))
+            if (!Activation && (!StudioSmsNotificationSettings.IsVisibleAndAvailableSettings || !StudioSmsNotificationSettings.Enable))
             {
-                Response.Redirect(GetRefererURL(), true);
+                Response.Redirect(Context.GetRefererURL(), true);
                 return;
             }
 
@@ -75,9 +75,8 @@ namespace ASC.Web.Studio.UserControls.Management
                 try
                 {
                     SmsManager.ValidateSmsCode(User, Request["phoneAuthcode"]);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSms);
 
-                    Response.Redirect(GetRefererURL(), true);
+                    Response.Redirect(Context.GetRefererURL(), true);
                 }
                 catch
                 {
@@ -155,17 +154,6 @@ namespace ASC.Web.Studio.UserControls.Management
             return user;
         }
 
-        private string GetRefererURL()
-        {
-            var refererURL = (string)Context.Session["refererURL"];
-            Context.Session["refererURL"] = null;
-
-            if (String.IsNullOrEmpty(refererURL))
-                refererURL = CommonLinkUtility.GetDefault();
-
-            return refererURL;
-        }
-
         #region AjaxMethod
 
         [SecurityPassthrough]
@@ -183,7 +171,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     phoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
                     confirm = mustConfirm,
-                    RefererURL = mustConfirm ? string.Empty : GetRefererURL()
+                    RefererURL = mustConfirm ? string.Empty : Context.GetRefererURL()
                 };
         }
 
@@ -211,7 +199,6 @@ namespace ASC.Web.Studio.UserControls.Management
             try
             {
                 SmsManager.ValidateSmsCode(user, code);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSms);
             }
             catch (Authorize.BruteForceCredentialException)
             {
@@ -224,7 +211,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw;
             }
 
-            return new { RefererURL = GetRefererURL() };
+            return new { RefererURL = Context.GetRefererURL() };
         }
 
         #endregion

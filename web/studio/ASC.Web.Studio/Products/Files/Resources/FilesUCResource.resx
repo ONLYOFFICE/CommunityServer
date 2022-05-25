@@ -1,5 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -53,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AceStatusEnum_Comment" xml:space="preserve">
     <value>Comment</value>
@@ -82,8 +141,20 @@
   <data name="AddAccount" xml:space="preserve">
     <value>Connect</value>
   </data>
+  <data name="AddMessage" xml:space="preserve">
+    <value>Add message</value>
+  </data>
   <data name="AdminSettings" xml:space="preserve">
     <value>Admin Settings</value>
+  </data>
+  <data name="AdvancedSettings" xml:space="preserve">
+    <value>Advanced settings</value>
+  </data>
+  <data name="AutomaticallyCleanUp" xml:space="preserve">
+    <value>Trash bin auto-clearing - Delete files older than</value>
+  </data>
+  <data name="AutomaticallyCleanUpInfo" xml:space="preserve">
+    <value>The files will be deleted some time after you activate the setting</value>
   </data>
   <data name="ButtonAddBoxNet" xml:space="preserve">
     <value>Add Box account</value>
@@ -97,6 +168,9 @@
   <data name="ButtonAddGoogle" xml:space="preserve">
     <value>Add Google account</value>
   </data>
+  <data name="ButtonAddLink" xml:space="preserve">
+    <value>Add link</value>
+  </data>
   <data name="ButtonAddNextcloud" xml:space="preserve">
     <value>Add Nextcloud account</value>
   </data>
@@ -106,6 +180,9 @@
   <data name="ButtonAddTemplate" xml:space="preserve">
     <value>Use as template</value>
   </data>
+  <data name="ButtonAddUsers" xml:space="preserve">
+    <value>Add users</value>
+  </data>
   <data name="ButtonAddWebDav" xml:space="preserve">
     <value>Other account</value>
   </data>
@@ -114,6 +191,9 @@
   </data>
   <data name="ButtonCancelAll" xml:space="preserve">
     <value>Cancel all</value>
+  </data>
+  <data name="ButtonChangeAccessRights" xml:space="preserve">
+    <value>Change access rights</value>
   </data>
   <data name="ButtonChangeOwner" xml:space="preserve">
     <value>Change owner</value>
@@ -190,6 +270,9 @@
   <data name="ButtonEmbedd" xml:space="preserve">
     <value>Embedding document</value>
   </data>
+  <data name="ButtonEmbeddingSettings" xml:space="preserve">
+    <value>Embedding settings</value>
+  </data>
   <data name="ButtonEmptyTrash" xml:space="preserve">
     <value>Empty Trash</value>
   </data>
@@ -247,17 +330,14 @@
   <data name="ButtonOverwrite" xml:space="preserve">
     <value>Overwrite with version update</value>
   </data>
+  <data name="ButtonRemove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="ButtonRemoveFavorite" xml:space="preserve">
     <value>Remove from Favorites</value>
   </data>
-  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
-    <value>Remove</value>
-  </data>
   <data name="ButtonRemoveTemplate" xml:space="preserve">
     <value>Remove from templates</value>
-  </data>
-  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
-    <value>Remove</value>
   </data>
   <data name="ButtonRename" xml:space="preserve">
     <value>Rename</value>
@@ -268,8 +348,26 @@
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ButtonSaveAndCopyLink" xml:space="preserve">
+    <value>Save and Copy direct link</value>
+  </data>
+  <data name="ButtonSaveAndSend" xml:space="preserve">
+    <value>Save and Send</value>
+  </data>
+  <data name="ButtonSaveWithoutNotification" xml:space="preserve">
+    <value>Save without notification</value>
+  </data>
   <data name="ButtonSelectAll" xml:space="preserve">
     <value>All</value>
+  </data>
+  <data name="ButtonSelectGroups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="ButtonSelectLinks" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="ButtonSelectUsers" xml:space="preserve">
+    <value>Users</value>
   </data>
   <data name="ButtonSendDocuSign" xml:space="preserve">
     <value>Sign with DocuSign</value>
@@ -285,6 +383,9 @@
   </data>
   <data name="ButtonShareAccessShort" xml:space="preserve">
     <value>Sharing Settings</value>
+  </data>
+  <data name="ButtonShortenLink" xml:space="preserve">
+    <value>Shorten the link</value>
   </data>
   <data name="ButtonShowVersions" xml:space="preserve">
     <value>Show version history</value>
@@ -367,6 +468,9 @@
   <data name="ConfirmDuplicateDescr" xml:space="preserve">
     <value>There will be two different files in the folder.</value>
   </data>
+  <data name="ConfirmExternalShare" xml:space="preserve">
+    <value>Enable external link access</value>
+  </data>
   <data name="ConfirmOverwrite" xml:space="preserve">
     <value>Overwrite confirmation</value>
   </data>
@@ -381,6 +485,9 @@
   </data>
   <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
     <value>Note: removal from your account can not be undone.</value>
+  </data>
+  <data name="ConfirmRemoveToContinue" xml:space="preserve">
+    <value>Are you sure you want to continue?</value>
   </data>
   <data name="ConfirmSkipDescr" xml:space="preserve">
     <value>No file will be copied. The original file will be retained in the destination folder.</value>
@@ -432,6 +539,12 @@
   </data>
   <data name="CorporateFiles" xml:space="preserve">
     <value>Common</value>
+  </data>
+  <data name="DenyDownload" xml:space="preserve">
+    <value>Can't print, download and copy file (for Read Only &amp; Comment)</value>
+  </data>
+  <data name="DenySharing" xml:space="preserve">
+    <value>Can't change sharing settings (for Full Access)</value>
   </data>
   <data name="DesktopDescr" xml:space="preserve">
     <value>You have just created your ONLYOFFICE portal.{0} Upload your offline files to the portal to collaborate on them without leaving the app.{0}{0} Open your portal in browser to find more features, including {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} and more.</value>
@@ -598,6 +711,60 @@
   <data name="Folders" xml:space="preserve">
     <value>Folders</value>
   </data>
+  <data name="FormFillingCollect" xml:space="preserve">
+    <value>Collect filled forms</value>
+  </data>
+  <data name="FormFillingDialogByDefault" xml:space="preserve">
+    <value>By default</value>
+  </data>
+  <data name="FormFillingDialogCollectIn" xml:space="preserve">
+    <value>Collect in</value>
+  </data>
+  <data name="FormFillingDialogCreateSubfolder" xml:space="preserve">
+    <value>Create subfolder</value>
+  </data>
+  <data name="FormFillingDialogCreateSubfolderExample" xml:space="preserve">
+    <value>Vacation applications 2021</value>
+  </data>
+  <data name="FormFillingDialogCreateUniqueSubfolder" xml:space="preserve">
+    <value>Create a subfolder for each type of form</value>
+  </data>
+  <data name="FormFillingDialogCreateUniqueSubfolderDscr" xml:space="preserve">
+    <value>The subfolder name will be inherited from the document name</value>
+  </data>
+  <data name="FormFillingDialogCustomize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
+  <data name="FormFillingDialogDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="FormFillingDialogDefaultTitleFormat" xml:space="preserve">
+    <value>Document Title - Username (MM/DD/YYYY) .docx</value>
+  </data>
+  <data name="FormFillingDialogEnableCollection" xml:space="preserve">
+    <value>Enable collection of filled forms</value>
+  </data>
+  <data name="FormFillingDialogFileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="FormFillingDialogTitleSetting" xml:space="preserve">
+    <value>Title setting</value>
+  </data>
+  <data name="FormFillingDialogUserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="FormFillingOwnerDialogBody" xml:space="preserve">
+    <value>At the moment, the collection of filled forms is configured in a folder where you do not have permission to view the content. Want to reset these settings?</value>
+  </data>
+  <data name="FormFillingOwnerDialogHeader" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="FormFillingOwnerDialogResetBtn" xml:space="preserve">
+    <value>Yes, reset</value>
+  </data>
+  <data name="FormFillingSettings" xml:space="preserve">
+    <value>Form filling settings</value>
+  </data>
   <data name="GetGreeAccountBtn" xml:space="preserve">
     <value>Start Now</value>
   </data>
@@ -660,6 +827,9 @@
   </data>
   <data name="MyFiles" xml:space="preserve">
     <value>My documents</value>
+  </data>
+  <data name="NotifyWithChangesInRights" xml:space="preserve">
+    <value>Notify with changes in rights and new ones.</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Preview</value>
@@ -742,11 +912,17 @@
   <data name="SharedForMe" xml:space="preserve">
     <value>Shared with me</value>
   </data>
+  <data name="ShareTo" xml:space="preserve">
+    <value>Share to</value>
+  </data>
   <data name="SharingLinkCaption" xml:space="preserve">
     <value>External link access</value>
   </data>
   <data name="SharingLinkDescr" xml:space="preserve">
     <value>Share via the link or embed</value>
+  </data>
+  <data name="SharingLinkEnableDescr" xml:space="preserve">
+    <value>Temporarily disabled on the portal by adminstration</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>Show more</value>
@@ -897,5 +1073,32 @@
   </data>
   <data name="ButtonMakeForm" xml:space="preserve">
     <value>Save as oform</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSetting" xml:space="preserve">
+    <value>Default access rights in sharing settings</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSettingCommentInfo" xml:space="preserve">
+    <value>If not, then "Read Only"</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSettingCustomFilterInfo" xml:space="preserve">
+    <value>Spreadsheet only</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSettingFillFormsInfo" xml:space="preserve">
+    <value>Forms only</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSettingReviewInfo" xml:space="preserve">
+    <value>Documents only</value>
+  </data>
+  <data name="DefaultSharingAccessRightsSettingSpecific" xml:space="preserve">
+    <value>Default access rights for a specific file type</value>
+  </data>
+  <data name="ConfirmExternalShareSocialMedia" xml:space="preserve">
+    <value>Show social media buttons for external sharing</value>
+  </data>
+  <data name="ConfirmExternalShareSocialMediaHelper" xml:space="preserve">
+    <value>Show or hide buttons to quickly share external links to your files in social networks, e.g. Twitter or Facebook</value>
+  </data>
+  <data name="SharingSettings" xml:space="preserve">
+    <value>Sharing settings</value>
   </data>
 </root>

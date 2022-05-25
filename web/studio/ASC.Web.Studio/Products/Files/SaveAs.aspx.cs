@@ -57,6 +57,11 @@ namespace ASC.Web.Files
             get { return Request[FilesLinkUtility.FileUri]; }
         }
 
+        private bool DisplayPrivacy
+        {
+            get { return !string.IsNullOrEmpty(Request["displayPrivacy"]); }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Master.Master.DisabledSidePanel = true;
@@ -84,9 +89,10 @@ namespace ASC.Web.Files
             }
 
             var script = new StringBuilder();
-            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", \"{1}\");",
+            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", \"{1}\", ({2} == true));",
                                 originForPost,
-                                (Request[FilesLinkUtility.FolderId] ?? "").Replace("\"", "\\\""));
+                                (Request[FilesLinkUtility.FolderId] ?? "").Replace("\"", "\\\""),
+                                DisplayPrivacy.ToString().ToLower());
             Page.RegisterInlineScript(script.ToString());
         }
 

@@ -124,9 +124,9 @@ namespace ASC.Feed.Aggregator.Modules.Community
                 Product = Product,
                 Module = Name,
                 Title = post.Subject,
-                Description = HtmlUtility.GetFull(post.Text),
+                Description = HtmlUtility.GetFull(post.Text, false),
                 Keywords = string.Format("{0} {1}", post.Subject, post.Text),
-                HasPreview = false,
+                HasPreview = post.Text.Contains("class=\"asccut\""),
                 CanComment = false,
                 GroupId = string.Format("{0}_{1}", item, post.ID)
             };

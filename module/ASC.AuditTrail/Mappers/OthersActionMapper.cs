@@ -17,25 +17,39 @@
 
 using System.Collections.Generic;
 
+using ASC.AuditTrail.Types;
 using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
-    internal class OthersActionsMapper
+    public class OthersActionsMapper : IProductActionMapper
     {
-        public static Dictionary<MessageAction, MessageMaps> GetMaps()
+        public ProductType Product { get; }
+        public List<IModuleActionMapper> Mappers { get; }
+
+        public OthersActionsMapper()
         {
-            return new Dictionary<MessageAction, MessageMaps>
-                {
-                    {
-                        MessageAction.ContactAdminMailSent, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "ContactAdminMailSent",
-                                ProductResourceName = "OthersProduct"
-                            }
-                    }
-                };
+            Product = ProductType.Others;
+            Mappers = new List<IModuleActionMapper>()
+            {
+                new OthersNoneModuleActionMapper()
+            };
+        }
+    }
+
+    public class OthersNoneModuleActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public OthersNoneModuleActionMapper()
+        {
+            Module = ModuleType.None;
+
+            Actions = new MessageMapsDictionary()
+            {
+                { ActionType.Send, new[] { MessageAction.ContactAdminMailSent } }
+            };
         }
     }
 }

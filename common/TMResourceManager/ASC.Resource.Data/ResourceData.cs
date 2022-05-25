@@ -295,7 +295,7 @@ namespace TMResourceData
                 var exist = new SqlQuery(ResDataTable + " rd3")
                     .Select("rd3.title")
                     .Where("rd3.fileid = rd1.fileid")
-                    .Where("rd3.title = concat('del_', rd1.title)")
+                    .Where("rd1.title = REPLACE(rd3.title, 'del_', '') and LOCATE('del_', rd3.title)")
                     .Where("rd3.cultureTitle = rd1.cultureTitle");
 
                 var sql = new SqlQuery(ResDataTable + " rd1")
@@ -307,7 +307,7 @@ namespace TMResourceData
                     .Where("rd1.cultureTitle", "Neutral")
                     .Where("rd1.flag != 4")
                     .Where("rd1.resourceType", "text")
-                    .Where(!Exp.Like("rd1.title", @"del\_", SqlLike.StartWith) & !Exp.Exists(exist))
+                    .Where(!Exp.Like("rd1.title", @"del\_", SqlLike.StartWith) & !Exp.Like("rd1.title", @".del\_", SqlLike.AnyWhere) & !Exp.Exists(exist))
                     .OrderBy("rd1.id", true);
 
                 if (!String.IsNullOrEmpty(search))

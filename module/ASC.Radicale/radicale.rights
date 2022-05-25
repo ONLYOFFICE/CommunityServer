@@ -1,11 +1,11 @@
 [admin]
-user: admin@ascsystem@.+
+user: admin@radicale@.+
 collection: .*
 permissions: RWrw
 
-[allow-shared-read]
+[allow-readonly]
 user: .+
-collection: %(user)s/.+-shared$
+collection: %(user)s/.+-readonly$
 permissions: Rr
 
 [owner-write]

@@ -101,11 +101,11 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 
 *Обратите внимание*: эта ссылка действительна только в течение 24 часов.
 
-Если у Вас есть какие-либо вопросы, Вы всегда можете обратиться к нам по адресу "support.onlyoffice.com":"http://support.onlyoffice.com" 
+Если у Вас есть какие-либо вопросы, Вы всегда можете обратиться к нам по адресу "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 С уважением, 
 Служба поддержки ONLYOFFICE™ 
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}". Чтобы изменить тип оповещения, пожалуйста, настройте "параметры подписки":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -114,11 +114,11 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
 
 Перейти к списку "контактов":"$__VirtualRootPath/Products/CRM/".
 
-Если у Вас есть какие-либо вопросы, Вы всегда можете обратиться к нам по адресу "support.onlyoffice.com":"http://support.onlyoffice.com"
+Если у Вас есть какие-либо вопросы, Вы всегда можете обратиться к нам по адресу "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 С уважением,
 Служба поддержки ONLYOFFICE™
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}". Чтобы изменить тип оповещения, пожалуйста, настройте "параметры подписки":"$RecipientSubscriptionConfigURL".^</value>
   </data>

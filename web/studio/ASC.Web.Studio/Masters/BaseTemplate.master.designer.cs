@@ -123,6 +123,15 @@ namespace ASC.Web.Studio.Masters
         protected global::ASC.Web.Studio.Controls.Common.FeedControl feadControl;
 
         /// <summary>
+        /// FirstScripts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::ASC.Web.Studio.Masters.FirstScripts FirstScripts;
+
+        /// <summary>
         /// Form control.
         /// </summary>
         /// <remarks>
@@ -166,15 +175,6 @@ namespace ASC.Web.Studio.Masters
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder InvitePanelHolder;
-
-        /// <summary>
-        /// BannerHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BannerHolder;
 
         /// <summary>
         /// SmallChatHolder control.

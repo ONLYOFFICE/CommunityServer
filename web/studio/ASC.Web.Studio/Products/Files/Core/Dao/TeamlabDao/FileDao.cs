@@ -830,7 +830,11 @@ namespace ASC.Files.Core.Data
             if (uploadSession.File.ID != null)
             {
                 var file = GetFile(uploadSession.File.ID);
-                file.Version++;
+
+                if (!uploadSession.KeepVersion) {
+                    file.Version++;
+                }
+
                 file.ContentLength = uploadSession.BytesTotal;
                 file.ConvertedType = null;
                 file.Comment = FilesCommonResource.CommentUpload;
@@ -1011,8 +1015,8 @@ namespace ASC.Files.Core.Data
                                 Version = Convert.ToInt32(r[1]),
                                 VersionGroup = Convert.ToInt32(r[2]),
                                 ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
-                                ModifiedBy = new EditHistoryAuthor { Id = new Guid((string)r[4]) },
-                                ChangesString = (string)(r[5]),
+                                ModifiedBy = new EditHistoryAuthor { Id = (string)r[4] },
+                                ChangesString = (string)r[5],
                             };
 
                             item.Key = DocumentServiceHelper.GetDocKey(item.ID, item.Version, TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6])));
@@ -1063,6 +1067,40 @@ namespace ASC.Files.Core.Data
             return storage.GetReadStream(string.Empty, path);
         }
 
+        public EntryProperties GetProperties(object fileId)
+        {
+            var query = Query("files_properties")
+                .Select("data")
+                .Where("entry_id", fileId);
+
+            return dbManager
+                .ExecuteList(Query("files_properties")
+                .Select("data")
+                .Where(Exp.Eq("entry_id", fileId)))
+                .ConvertAll(r =>
+                    {
+                        return EntryProperties.Parse((string)r[0]);
+                    })
+                .SingleOrDefault();
+        }
+
+        public void SaveProperties(object fileId, EntryProperties entryProperties)
+        {
+            string data;
+            if (entryProperties == null
+                || string.IsNullOrEmpty(data = EntryProperties.Serialize(entryProperties)))
+            {
+                dbManager.ExecuteNonQuery(
+                    Delete("files_properties")
+                    .Where("entry_id", fileId));
+                return;
+            }
+
+            dbManager.ExecuteNonQuery(Insert("files_properties")
+                .InColumnValue("entry_id", fileId)
+                .InColumnValue("data", data));
+        }
+
         #endregion
 
         private File ToFile(object[] r)
@@ -1090,6 +1128,8 @@ namespace ASC.Files.Core.Data
                 ThumbnailStatus = (Thumbnail)Enum.Parse(typeof(Thumbnail), r[16].ToString()),
                 IsFillFormDraft = Convert.ToBoolean(r[17])
             };
+
+            SetEntryDenyProperties(result, (string)r[18]);
 
             return result;
         }

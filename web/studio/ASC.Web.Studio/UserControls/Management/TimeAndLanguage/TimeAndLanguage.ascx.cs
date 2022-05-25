@@ -55,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            ShowHelper = !(CoreContext.Configuration.Standalone && !CompanyWhiteLabelSettings.Instance.IsDefault);
+            ShowHelper = !CoreContext.Configuration.CustomMode && CompanyWhiteLabelSettings.Instance.IsDefault;
         }
 
         protected string RenderLanguageSelector()

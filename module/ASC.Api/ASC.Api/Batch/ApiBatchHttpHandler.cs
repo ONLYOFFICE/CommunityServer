@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 
@@ -43,7 +44,7 @@ namespace ASC.Api.Batch
         {
         }
 
-        protected override void DoProcess(HttpContextBase context)
+        protected override async Task DoProcess(HttpContextBase context)
         {
             //Read body
             var batch = context.Request["batch"];
@@ -71,7 +72,7 @@ namespace ASC.Api.Batch
                 try
                 {
                     Log.Debug("processing batch started");
-                    ProcessBatch(context, requests);
+                    await ProcessBatch(context, requests);
                     Log.Debug("processing batch finished");
                 }
                 catch (Exception e)
@@ -91,15 +92,21 @@ namespace ASC.Api.Batch
             RespondTo(null, context);
         }
 
-        private void ProcessBatch(HttpContextBase context, IEnumerable<ApiBatchRequest> requests)
+        private async Task ProcessBatch(HttpContextBase context, IEnumerable<ApiBatchRequest> requests)
         {
-            var resonse = requests.OrderBy(x => x.Order).Select(x => ProcessBatchRequest(context, x)).ToList();
+            var response = new List<ApiBatchResponse>();
 
-            ApiResponce.Response = resonse;
-            PostProcessResponse(context, resonse);
+            foreach (ApiBatchRequest request in requests.OrderBy(x => x.Order))
+            {
+                response.Add(await ProcessBatchRequest(context, request));
+            }
+
+
+            ApiResponce.Response = response;
+            PostProcessResponse(context, response);
         }
 
-        internal ApiBatchResponse ProcessBatchRequest(HttpContextBase context, ApiBatchRequest apiBatchRequest)
+        internal async Task<ApiBatchResponse> ProcessBatchRequest(HttpContextBase context, ApiBatchRequest apiBatchRequest)
         {
             if (context.Request == null) throw new InvalidOperationException("Request is empty");
             if (context.Request.Url == null) throw new InvalidOperationException("Url is empty");
@@ -130,7 +137,7 @@ namespace ASC.Api.Batch
                 if (routeData != null)
                 {
                     //Construct new context
-                    Container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), routeData)).Process(newContext);
+                    await Container.BeginLifetimeScope().Resolve<ApiHttpAsyncHandler>(new TypedParameter(typeof(RouteData), routeData)).ProcessRequestAsync(workContext);
                     newContext.Response.Flush();
 
                     //Form response

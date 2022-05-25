@@ -25,7 +25,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using System.Xml;
 
 using ASC.Common.Logging;
 using ASC.Core;
@@ -155,24 +154,6 @@ namespace ASC.Mail.Utils
             }
 
             return subject.Trim();
-        }
-
-        /// <summary>
-        /// Removes control characters and other non-UTF-8 characters
-        /// </summary>
-        /// <param name="inString">The string to process</param>
-        /// <return>A string with no control characters or entities above 0x00FD</return>
-        public static string NormalizeStringForMySql(string inString)
-        {
-            if (string.IsNullOrEmpty(inString))
-                return inString;
-
-            var newString = new StringBuilder(inString.Length);
-
-            foreach (var ch in inString.Where(XmlConvert.IsXmlChar))
-                newString.Append(ch);
-
-            return newString.ToString();
         }
 
         public static T[] SubArray<T>(this T[] data, int index, int length)

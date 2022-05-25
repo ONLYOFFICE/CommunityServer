@@ -176,7 +176,7 @@ window.SmtpSettingsView = function ($) {
         $mailserverSettingsRadio.on("change", $.proxy(switchToMailserverSettingsBox, this));
         $customSettingsBox.on("change", "#customSettingsAuthenticationRequired", changeSettingsAuthenticationRequired);
 
-        $view.find("#saveSettingsBtn").unbind("click").bind("click", function (e) {
+        $view.find("#saveSettingsBtn").off("click").on("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -185,7 +185,7 @@ window.SmtpSettingsView = function ($) {
 
             return false;
         });
-        $view.find("#saveDefaultCustomSettingsBtn").unbind("click").bind("click", function (e) {
+        $view.find("#saveDefaultCustomSettingsBtn").off("click").on("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -194,7 +194,7 @@ window.SmtpSettingsView = function ($) {
 
             return false;
         });
-        $view.find("#sendTestMailBtn").unbind("click").bind("click", function (e) {
+        $view.find("#sendTestMailBtn").off("click").on("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -345,8 +345,8 @@ window.SmtpSettingsView = function ($) {
             $loginEl = $customSettingsBox.find(".host-login"),
             $passwordEl = $customSettingsBox.find(".host-password");
 
-        $loginEl.find(".textEdit").attr("disabled", !checked);
-        $passwordEl.find(".textEdit").attr("disabled", !checked);
+        $loginEl.find(".textEdit").prop("disabled", !checked);
+        $passwordEl.find(".textEdit").prop("disabled", !checked);
 
         $loginEl.toggleClass('requiredField', checked);
         $passwordEl.toggleClass('requiredField', checked);
@@ -363,7 +363,7 @@ window.SmtpSettingsView = function ($) {
         if (!$btn)
             return;
 
-        $btn.toggleClass("disable", disable).attr('disabled', disable);
+        $btn.toggleClass("disable", disable).prop('disabled', disable);
     }
 
     function blockControls(disable) {
@@ -389,17 +389,17 @@ window.SmtpSettingsView = function ($) {
                 $passwordEl = $customSettingsBox.find(".host-password .textEdit"),
                 $sslCheckbox = $customSettingsBox.find("#customSettingsEnableSsl");
 
-            $hostEl.attr("disabled", disable);
-            $portEl.attr("disabled", disable);
-            $authCheckbox.attr("disabled", disable);
+            $hostEl.prop("disabled", disable);
+            $portEl.prop("disabled", disable);
+            $authCheckbox.prop("disabled", disable);
 
-            $loginEl.attr("disabled", disable);
-            $passwordEl.attr("disabled", disable);
+            $loginEl.prop("disabled", disable);
+            $passwordEl.prop("disabled", disable);
 
-            $senderNameEl.attr("disabled", disable);
-            $senderAddressEl.attr("disabled", disable);
+            $senderNameEl.prop("disabled", disable);
+            $senderAddressEl.prop("disabled", disable);
 
-            $sslCheckbox.attr("disabled", disable);
+            $sslCheckbox.prop("disabled", disable);
 
             if (!disable)
                 changeSettingsAuthenticationRequired();
@@ -408,10 +408,10 @@ window.SmtpSettingsView = function ($) {
             $senderAddressEl = $mailserverSettingsBox.find(".email-address .textEdit");
             var $domainSelectEl = $mailserverSettingsBox.find("#notificationDomain");
 
-            $senderNameEl.attr("disabled", disable);
-            $senderAddressEl.attr("disabled", disable);
+            $senderNameEl.prop("disabled", disable);
+            $senderAddressEl.prop("disabled", disable);
 
-            $domainSelectEl.attr("disabled", disable);
+            $domainSelectEl.prop("disabled", disable);
         }
 
         if (!disable) {
@@ -660,6 +660,19 @@ window.SmtpSettingsView = function ($) {
         var useMailServer = currentHostUseMailserver();
 
         window.async.waterfall([
+            function (cb) {
+                Teamlab.isMailServerAddressExists(null, mailserverSettings.login, mailserverSettings.domainId, {
+                    success: function (params, exist) {
+                        if (exist) {
+                            return cb(ASC.Resources.Master.ResourceJS.ErrorDuplicateMailbox);
+                        }
+                        cb(null);
+                    },
+                    error: function (params, err) {
+                        return cb(err[0]);
+                    }
+                });
+            },
             function (cb) {
                 if (!useMailServer) {
                     cb(null);

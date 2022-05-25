@@ -66,7 +66,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         File GetFile(String fileId, int version);
 
-        File CreateNewFile(String parentId, String fileTitle, string templateId);
+        File CreateNewFile(String parentId, String fileTitle, string templateId, bool enableExternalExt);
 
         File FileRename(String fileId, String title);
 
@@ -101,6 +101,10 @@ namespace ASC.Web.Files.Services.WCFService
         ItemList<EditHistory> RestoreVersion(String fileId, int version, String url, String doc = null);
 
         Web.Core.Files.DocumentService.FileLink GetPresignedUri(String fileId);
+
+        EntryProperties GetFileProperties(String fileId);
+
+        EntryProperties SetFileProperties(String fileId, EntryProperties fileProperties);
 
         #endregion
 
@@ -155,6 +159,12 @@ namespace ASC.Web.Files.Services.WCFService
         bool DisplayTemplates(bool value);
 
         bool ChangeDeleteConfrim(bool update);
+
+        AutoCleanUpData ChangeAutomaticallyCleanUp(bool set, DateToAutoCleanUp gap);
+
+        AutoCleanUpData GetSettingsAutomaticallyCleanUp();
+
+        List<FileShare> ChangeDafaultAccessRights(List<FileShare> value);
 
         ICompress ChangeDownloadTarGz(bool update);
 

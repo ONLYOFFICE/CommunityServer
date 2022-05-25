@@ -184,8 +184,8 @@
                     _registerAutoHide(e, allSwitcherSelectors, "#" + options.dropdownID, options.hideFunction);
 
                 };
-                jq(document).unbind("click", hideFunc);
-                jq(document).bind("click", hideFunc);
+                jq(document).off("click", hideFunc);
+                jq(document).on("click", hideFunc);
             }
 
             return {

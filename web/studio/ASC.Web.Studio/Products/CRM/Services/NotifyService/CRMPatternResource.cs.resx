@@ -102,11 +102,11 @@ Prosím, klikněte na tento odkaz pro stažení archivu: "exportdata.zip":"${Ent
 
 *Poznámka*: Tento odkaz je platný pouze 24 hodin.
 
-Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support.onlyoffice.com":"http://support.onlyoffice.com"
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 S pozdravem
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Tento e-mail jste obdržel, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Chcete-li změnit tyl oznámení, prosím upravte Vaše "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -115,11 +115,11 @@ ONLYOFFICE™ Support Team
 
 Přejděte na seznam "Kontaktů":"$__VirtualRootPath/Products/CRM/"
 
-Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support.onlyoffice.com":"http://support.onlyoffice.com"
+Pokud máte nějaké dotazy nebo potřebujete pomoc, neváhejte nás kontaktovat na "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 S pozdravem,
 ONLYOFFICE™ Support Team
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Tento e-mail jste obdržel, protože jste registrovaným uživatelem "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Chcete-li změnit typ oznámení, prosím upravte si Vaše  "nastavení odběru":"$RecipientSubscriptionConfigURL".^</value>
   </data>

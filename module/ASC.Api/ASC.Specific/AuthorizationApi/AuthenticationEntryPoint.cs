@@ -35,10 +35,12 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
+using ASC.Web.Core;
 using ASC.Web.Core.Sms;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
@@ -55,15 +57,16 @@ using SecurityContext = ASC.Core.SecurityContext;
 namespace ASC.Specific.AuthorizationApi
 {
     /// <summary>
-    /// Authorization for api
+    /// Authorization for api.
     /// </summary>
     public class AuthenticationEntryPoint : IApiEntryPoint
     {
         private static readonly ICache Cache = AscCache.Memory;
+        private ILog Log = LogManager.GetLogger("ASC.Web");
 
 
         /// <summary>
-        /// Entry point name
+        /// Entry point name.
         /// </summary>
         public string Name
         {
@@ -76,24 +79,25 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Gets authentication token for use in api authorization
+        /// Returns the authentication token for use in api authorization.
         /// </summary>
         /// <short>
-        /// Get token
+        /// Get the authentication token
         /// </short>
-        /// <param name="userName">user name or email</param>
-        /// <param name="password">password</param>
-        /// <param name="provider">social media provider type</param>
-        /// <param name="accessToken">provider token</param>
-        /// <returns>tokent to use in 'Authorization' header when calling API methods</returns>
-        /// <exception cref="AuthenticationException">Thrown when not authenticated</exception>
-        [Create(@"", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
-        public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken)
+        /// <param name="userName">User name or email</param>
+        /// <param name="password">Password</param>
+        /// <param name="provider">Social media provider type</param>
+        /// <param name="accessToken">Provider token</param>
+        /// <param name="codeOAuth">Code for take token</param>
+        /// <returns>Authentication token to use in the 'Authorization' header when calling API methods</returns>
+        /// <exception cref="AuthenticationException">Thrown when not authenticated.</exception>
+        [Create(@"", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
+        public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string codeOAuth)
         {
             bool viaEmail;
-            var user = GetUser(userName, password, provider, accessToken, out viaEmail);
+            var user = GetUser(userName, password, provider, accessToken, out viaEmail, codeOAuth);
 
-            if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+            if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
             {
                 if (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)
                     return new AuthenticationTokenData
@@ -128,9 +132,8 @@ namespace ASC.Specific.AuthorizationApi
 
             try
             {
-                var token = SecurityContext.AuthenticateMe(user.ID);
-
-                MessageService.Send(Request, viaEmail ? MessageAction.LoginSuccessViaApi : MessageAction.LoginSuccessViaApiSocialAccount);
+                var action = viaEmail ? MessageAction.LoginSuccessViaApi : MessageAction.LoginSuccessViaApiSocialAccount;
+                var token = CookiesManager.AuthenticateMeAndSetCookies(user.Tenant, user.ID, action);
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 var expires = TenantCookieSettings.GetExpiresTime(tenant);
@@ -153,15 +156,16 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Set mobile phone for user
+        /// Sets a mobile phone for the user with the name specified in the request.
         /// </summary>
-        /// <param name="userName">user name or email</param>
-        /// <param name="password">password</param>
-        /// <param name="provider">social media provider type</param>
-        /// <param name="accessToken">provider token</param>
-        /// <param name="mobilePhone">new mobile phone</param>
-        /// <returns>mobile phone</returns>
-        [Create(@"setphone", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        /// <short>Set a mobile phone</short>
+        /// <param name="userName">User name or email</param>
+        /// <param name="password">Password</param>
+        /// <param name="provider">Social media provider type</param>
+        /// <param name="accessToken">Provider token</param>
+        /// <param name="mobilePhone">New mobile phone</param>
+        /// <returns>Mobile phone</returns>
+        [Create(@"setphone", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public AuthenticationTokenData SaveMobilePhone(string userName, string password, string provider, string accessToken, string mobilePhone)
         {
             bool viaEmail;
@@ -178,14 +182,15 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Send sms code again
+        /// Sends sms with the authentication code.
         /// </summary>
-        /// <param name="userName">user name or email</param>
-        /// <param name="password">password</param>
-        /// <param name="provider">social media provider type</param>
-        /// <param name="accessToken">provider token</param>
-        /// <returns>mobile phone</returns>
-        [Create(@"sendsms", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        /// <short>Send sms code</short>
+        /// <param name="userName">User name or email</param>
+        /// <param name="password">Password</param>
+        /// <param name="provider">Social media provider type</param>
+        /// <param name="accessToken">Provider token</param>
+        /// <returns>Mobile phone</returns>
+        [Create(@"sendsms", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public AuthenticationTokenData SendSmsCode(string userName, string password, string provider, string accessToken)
         {
             bool viaEmail;
@@ -201,36 +206,37 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Gets two-factor authentication token for use in api authorization
+        /// Returns the two-factor authentication token for use in api authorization.
         /// </summary>
         /// <short>
-        /// Get token
+        /// Get the two-factor authentication token
         /// </short>
-        /// <param name="userName">user name or email</param>
-        /// <param name="password">password</param>
-        /// <param name="provider">social media provider type</param>
-        /// <param name="accessToken">provider token</param>
-        /// <param name="code">two-factor authentication code</param>
-        /// <returns>tokent to use in 'Authorization' header when calling API methods</returns>
-        [Create(@"{code}", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
-        public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string code)
+        /// <param name="userName">User name or email</param>
+        /// <param name="password">Password</param>
+        /// <param name="provider">Social media provider type</param>
+        /// <param name="accessToken">Provider token</param>
+        /// <param name="code">Two-factor authentication code</param>
+        /// <param name="codeOAuth">Code for take token</param>
+        /// <returns>Two-factor authentication token to use in 'Authorization' header when calling API methods</returns>
+        [Create(@"{code}", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
+        public AuthenticationTokenData AuthenticateMe(string userName, string password, string provider, string accessToken, string code, string codeOAuth)
         {
             bool viaEmail;
-            var user = GetUser(userName, password, provider, accessToken, out viaEmail);
+            var user = GetUser(userName, password, provider, accessToken, out viaEmail, codeOAuth);
 
             var sms = false;
             try
             {
-                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
+                if (StudioSmsNotificationSettings.IsVisibleAndAvailableSettings && StudioSmsNotificationSettings.Enable)
                 {
                     sms = true;
-                    SmsManager.ValidateSmsCode(user, code);
+                    SmsManager.ValidateSmsCode(user, code, true);
                 }
                 else if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
                 {
-                    if (user.ValidateAuthCode(code))
+                    if (user.ValidateAuthCode(code, true, true))
                     {
-                        MessageService.Send(HttpContext.Current.Request, MessageAction.UserConnectedTfaApp, MessageTarget.Create(user.ID));
+                        MessageService.Send(Request, MessageAction.UserConnectedTfaApp, MessageTarget.Create(user.ID));
                     }
                 }
                 else
@@ -238,10 +244,7 @@ namespace ASC.Specific.AuthorizationApi
                     throw new SecurityException("Auth code is not available");
                 }
 
-                var token = SecurityContext.AuthenticateMe(user.ID);
-
-                MessageService.Send(Request, sms ? MessageAction.LoginSuccessViaApiSms : MessageAction.LoginSuccessViaApiTfa);
-
+                var token = CookiesManager.AuthenticateMeAndSetCookies(user.Tenant, user.ID, MessageAction.LoginSuccess);
                 var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 var expires = TenantCookieSettings.GetExpiresTime(tenant);
 
@@ -278,14 +281,15 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Request of invitation by email on personal.onlyoffice.com
+        /// Requests an invitation by email on personal.onlyoffice.com.
         /// </summary>
+        /// <short>Register a user on the Personal portal</short>
         /// <param name="email">Email address</param>
         /// <param name="lang">Culture</param>
         /// <param name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
-        /// <param name="recaptchaResponse">recaptcha token</param>
+        /// <param name="recaptchaResponse">ReCAPTCHA token</param>
         /// <visible>false</visible>
-        [Create(@"register", false)] //NOTE: this method doesn't requires auth!!!
+        [Create(@"register", false)] //NOTE: This method doesn't require auth!!!
         public string RegisterUserOnPersonal(string email, string lang, bool spam, string recaptchaResponse)
         {
             if (!CoreContext.Configuration.Personal) throw new MethodAccessException("Method is only available on personal.onlyoffice.com");
@@ -328,7 +332,7 @@ namespace ASC.Specific.AuthorizationApi
 
                     try
                     {
-                        SecurityContext.AuthenticateMe(Constants.CoreSystem);
+                        SecurityContext.CurrentAccount = Constants.CoreSystem;
                         CoreContext.UserManager.DeleteUser(newUserInfo.ID);
                     }
                     finally
@@ -347,12 +351,12 @@ namespace ASC.Specific.AuthorizationApi
                                                    .InColumnValue("email", email.ToLowerInvariant())
                                                    .InColumnValue("reason", "personal")
                                 );
-                            LogManager.GetLogger("ASC.Web").Debug(String.Format("Write to template_unsubscribe {0}", email.ToLowerInvariant()));
+                            Log.Debug(String.Format("Write to template_unsubscribe {0}", email.ToLowerInvariant()));
                         }
                     }
                     catch (Exception ex)
                     {
-                        LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, email.ToLowerInvariant()));
+                        Log.Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, email.ToLowerInvariant()));
                     }
                 }
                 StudioNotifyService.Instance.SendInvitePersonal(email);
@@ -365,14 +369,15 @@ namespace ASC.Specific.AuthorizationApi
         }
 
         /// <summary>
-        /// Check userName and password
+        /// Checks user name and password when logging.
         /// </summary>
-        /// <param name="userName">user name or email</param>
-        /// <param name="password">password</param>
-        /// <param name="key"></param>
-        /// <exception cref="AuthenticationException">Thrown when not authenticated</exception>
+        /// <short>Log in</short>
+        /// <param name="userName">User name or email</param>
+        /// <param name="password">Password</param>
+        /// <param name="key">Email key</param>
+        /// <exception cref="AuthenticationException">Thrown when not authenticated.</exception>
         /// <visible>false</visible>
-        [Create(@"login", false, false)] //NOTE: this method doesn't requires auth!!!  //NOTE: this method doesn't check payment!!!
+        [Create(@"login", false, false)] //NOTE: This method doesn't require auth!!!  //NOTE: This method doesn't check payment!!!
         public bool AuthenticateMe(string userName, string password, string key)
         {
             var authInterval = TimeSpan.FromMinutes(5);
@@ -384,7 +389,7 @@ namespace ASC.Specific.AuthorizationApi
             return user != null;
         }
 
-        private static UserInfo GetUser(string userName, string password, string provider, string accessToken, out bool viaEmail)
+        private static UserInfo GetUser(string userName, string password, string provider, string accessToken, out bool viaEmail, string codeOAuth = null)
         {
             viaEmail = true;
             var action = MessageAction.LoginFailViaApi;
@@ -430,10 +435,15 @@ namespace ASC.Specific.AuthorizationApi
                 }
                 else
                 {
+                    if (!(CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth))
+                    {
+                        throw new Exception(Resource.ErrorNotAllowedOption);
+                    }
                     viaEmail = false;
 
                     action = MessageAction.LoginFailViaApiSocialAccount;
-                    var thirdPartyProfile = ProviderManager.GetLoginProfile(provider, accessToken);
+
+                    var thirdPartyProfile = ProviderManager.GetLoginProfile(provider, accessToken, codeOAuth);
                     userName = thirdPartyProfile.EMail;
 
                     user = LoginWithThirdParty.GetUserByThirdParty(thirdPartyProfile);
@@ -464,8 +474,9 @@ namespace ASC.Specific.AuthorizationApi
         {
             get
             {
-                if ((!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
-                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
+                if (!CoreContext.Configuration.Standalone
+                    && (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString())
+                        || !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
                 {
                     return false;
                 }

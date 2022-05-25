@@ -66,7 +66,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
-                SecurityContext.AuthenticateMe(CurrentUser);
+                SecurityContext.CurrentAccount = CurrentUser;
 
                 SetProgress((int?)MailOperationApplyFilterProgress.Filtering, "Filtering");
 

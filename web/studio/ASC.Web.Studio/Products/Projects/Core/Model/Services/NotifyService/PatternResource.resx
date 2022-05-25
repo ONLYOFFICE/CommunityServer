@@ -755,4 +755,54 @@ $AdditionalData
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>Nobody</value>
   </data>
+  <data name="pattern_SubTaskMoved" xml:space="preserve">
+    <value>h1.Subtask moved: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has moved the "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" subtask to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task. 
+
+The subtask is assigned to "$Responsible". 
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_SubTaskMoved" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Subtask moved: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskMoved_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Subtask moved: [$SubEntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="pattern_MentionForTaskComment" xml:space="preserve">
+    <value>h1.You were mentioned in comment to task: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" mentioned you in the comment to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
+
+$AdditionalData
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about this task, please "unsubscribe":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_MentionForTaskComment" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Mention in comment to task: $EntityTitle</value>
+  </data>
+  <data name="subject_MentionForTaskComment_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID).  Mention in comment to task: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
+  <data name="pattern_MentionForMessageComment" xml:space="preserve">
+    <value>h1.You were mentioned in comment to discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" mentioned you in the comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="subject_MentionForMessageComment" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Mention in comment to discussion: $EntityTitle</value>
+  </data>
+  <data name="subject_MentionForMessageComment_tg" xml:space="preserve">
+    <value>Projects [$ProjectTitle](${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID). Mention in comment to discussion: [$EntityTitle](${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
+  </data>
 </root>

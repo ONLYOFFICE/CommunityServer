@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
@@ -40,6 +41,8 @@ namespace ASC.Web.People.UserControls
         protected bool CurrentUserFullAdmin;
         protected bool CurrentUserAdmin;
         protected bool EnableAddVisitors;
+        protected string CurrentPage { get; set; }
+        protected bool IsBirthdaysAvailable { get; set; }
 
         public static string Location
         {
@@ -49,6 +52,8 @@ namespace ASC.Web.People.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             InitData();
+            InitPermission();
+            InitCurrentPage();
 
             var help = (HelpCenter)LoadControl(HelpCenter.Location);
             help.IsSideBar = true;
@@ -65,6 +70,36 @@ namespace ASC.Web.People.UserControls
             CurrentUserFullAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             CurrentUserAdmin = CurrentUserFullAdmin || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
             EnableAddVisitors = CoreContext.Configuration.Standalone || TenantStatisticsProvider.GetVisitorsCount() < TenantExtra.GetTenantQuota().ActiveUsers * Constants.CoefficientOfVisitors;
+        }
+
+        private void InitPermission()
+        {
+            IsBirthdaysAvailable = WebItemManager.Instance.GetSubItems(PeopleProduct.ID).Any(item => item.ID == WebItemManager.BirthdaysProductID);
+        }
+
+        private void InitCurrentPage()
+        {
+            var currentPath = HttpContext.Current.Request.Path;
+            if (currentPath.IndexOf("Default.aspx", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                CurrentPage = "people";
+            }
+            else if (currentPath.IndexOf("Birthdays.aspx", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                CurrentPage = "birthdays";
+            }
+            else if (currentPath.IndexOf("Help.aspx", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                CurrentPage = "help";
+            }
+            else if (currentPath.IndexOf("CardDavSettings.aspx", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                CurrentPage = "carddav";
+            }
+            else
+            {
+                CurrentPage = "people";
+            }
         }
     }
 }

@@ -257,6 +257,9 @@ Are you sure you want to continue anyway?</value>
   <data name="ErrorMessage_SaveImageError" xml:space="preserve">
     <value>An error occurred while uploading the image to the server</value>
   </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Cannot delete the file because it is opened for editing</value>
+  </data>
   <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
     <value>No fields corresponding to the 'Opportunity Title', 'Opportunity Responsible' could be found</value>
   </data>

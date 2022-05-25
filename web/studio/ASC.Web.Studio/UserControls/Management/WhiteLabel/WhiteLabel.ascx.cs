@@ -35,7 +35,7 @@ namespace ASC.Web.UserControls.WhiteLabel
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.Standalone || !TenantLogoManager.WhiteLabelEnabled)
+            if (!TenantLogoManager.WhiteLabelEnabled)
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
@@ -71,7 +71,7 @@ namespace ASC.Web.UserControls.WhiteLabel
             }
         }
 
-        protected bool WhiteLabelEnabledForPaid = TenantLogoManager.WhiteLabelPaid;
+        protected bool WhiteLabelEnabledForPaid = CoreContext.Configuration.Standalone || TenantLogoManager.WhiteLabelPaid;
 
         private void RegisterScript()
         {

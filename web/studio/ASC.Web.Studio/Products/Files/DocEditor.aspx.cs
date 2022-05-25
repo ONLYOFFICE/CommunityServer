@@ -27,6 +27,7 @@ using System.Web;
 
 using ASC.Core;
 using ASC.Files.Core;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
@@ -35,6 +36,7 @@ using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core.Entries;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.ThirdPartyApp;
@@ -42,7 +44,11 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls;
+using ASC.Web.Studio.UserControls.DeepLink;
 using ASC.Web.Studio.Utility;
+
+using Newtonsoft.Json;
 
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
@@ -148,9 +154,7 @@ namespace ASC.Web.Files
             if (_valideShareLink)
                 return;
 
-            var refererURL = Request.GetUrlRewriter().AbsoluteUri;
-            Session["refererURL"] = refererURL;
-            Response.Redirect("~/Auth.aspx");
+            Response.Redirect(Request.AppendRefererURL("~/Auth.aspx"));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -159,7 +163,10 @@ namespace ASC.Web.Files
             PageLoad();
             InitScript();
 
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            Response.AppendHeader("Pragma", "no-cache");
+            Response.AppendHeader("Expires", "0");
+
             DocServiceApiUrl += (DocServiceApiUrl.Contains("?") ? "&" : "?") + "ver=" + HttpUtility.UrlEncode(ClientSettings.ResetCacheKey + ResetCacheKey);
 
             if (_configuration != null && !string.IsNullOrEmpty(_configuration.DocumentType))
@@ -187,6 +194,7 @@ namespace ASC.Web.Files
                         if (_valideShareLink)
                         {
                             _configuration.Document.SharedLinkKey += RequestShareLinkKey;
+                            _configuration.Document.Info.Favorite = null;
 
                             if (CoreContext.Configuration.Personal && !SecurityContext.IsAuthenticated)
                             {
@@ -208,6 +216,7 @@ namespace ASC.Web.Files
 
                         _configuration.Document.Url = app.GetFileStreamUrl(file);
                         _configuration.EditorConfig.Customization.GobackUrl = string.Empty;
+                        _configuration.Document.Info.Favorite = null;
                     }
                 }
                 else
@@ -235,6 +244,7 @@ namespace ASC.Web.Files
                     _editByUrl = true;
 
                     _configuration.Document.Url = fileUri;
+                    _configuration.Document.Info.Favorite = null;
                 }
                 ErrorMessage = _configuration.ErrorMessage;
             }
@@ -244,6 +254,46 @@ namespace ASC.Web.Files
                 ErrorMessage = ex.Message;
                 return;
             }
+
+            var userAgent = Request.UserAgent.ToString().ToLower();
+            HttpCookie deeplinkCookie = Request.Cookies.Get("deeplink");
+            var deepLink = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"];
+
+            if (!_valideShareLink
+                && deepLink != null && MobileDetector.IsMobile
+                && ((!userAgent.Contains("version/") && userAgent.Contains("android")) || !userAgent.Contains("android")) &&    //check webkit
+                ((Request[DeepLinking.WithoutDeeplinkRedirect] == null && deeplinkCookie == null) ||
+                        Request[DeepLinking.WithoutDeeplinkRedirect] == null && deeplinkCookie != null && deeplinkCookie.Value == "app"))
+            {
+
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                DeepLinkData deepLinkData = new DeepLinkData
+                {
+                    Email = currentUser.Email,
+                    Portal = CoreContext.TenantManager.GetCurrentTenant().TenantDomain,
+                    File = new DeepLinkDataFile
+                    {
+                        Id = file.ID.ToString(),
+                        Title = file.Title,
+                        Extension = file.ConvertedExtension
+
+                    },
+                    Folder = new DeepLinkDataFolder
+                    {
+                        Id = file.FolderID.ToString(),
+                        ParentId = file.RootFolderId.ToString(),
+                        RootFolderType = (int)file.RootFolderType
+                    },
+                    OriginalUrl = Request.GetUrlRewriter().ToString()
+                };
+
+                var jsonDeeplinkData = JsonConvert.SerializeObject(deepLinkData);
+                string base64DeeplinkData = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonDeeplinkData));
+
+                Response.Redirect("~/DeepLink.aspx?data=" + HttpUtility.UrlEncode(base64DeeplinkData));
+
+            }
+
 
             if (_configuration.EditorConfig.ModeWrite && FileConverter.MustConvert(file))
             {
@@ -366,6 +416,15 @@ namespace ASC.Web.Files
 
                 FileMarker.RemoveMarkAsNew(file);
                 if (!file.Encrypted && !file.ProviderEntry) EntryManager.MarkAsRecent(file);
+
+                if (RequestView)
+                {
+                    FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.FileReaded, file.Title);
+                }
+                else
+                {
+                    FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.FileOpenedForChange, file.Title);
+                }
             }
 
             if (SecurityContext.IsAuthenticated)
@@ -435,6 +494,7 @@ namespace ASC.Web.Files
                 OpeninigDate = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
                 ShareLinkParam = string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
                 ServerErrorMessage = ErrorMessage,
+                DefaultType = (IsMobile ? Services.DocumentService.Configuration.EditorType.Mobile : Services.DocumentService.Configuration.EditorType.Desktop).ToString().ToLower(),
                 TabId = _tabId.ToString(),
                 ThirdPartyApp = _thirdPartyApp,
                 CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal,
@@ -446,11 +506,6 @@ namespace ASC.Web.Files
                 docServiceParams.FileId = _configuration.Document.Info.File.ID.ToString();
                 docServiceParams.FileProviderKey = _configuration.Document.Info.File.ProviderKey;
                 docServiceParams.FileVersion = _configuration.Document.Info.File.Version;
-
-                if (!string.IsNullOrEmpty(FileUtility.SignatureSecret))
-                {
-                    _configuration.EditorConfig.CallbackUrl = DocumentServiceTracker.GetCallbackUrl(_configuration.Document.Info.File.ID.ToString());
-                }
 
                 _configuration.Token = DocumentServiceHelper.GetSignature(_configuration);
             }

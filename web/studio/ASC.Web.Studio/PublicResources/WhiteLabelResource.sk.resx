@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Nastavenie loga portálu{1} je dostupné len pre platené portály</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo pre stránky O nás/Prihlásenie </value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo pre hlavičku editora</value>
   </data>

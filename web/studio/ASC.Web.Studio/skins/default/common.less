@@ -176,6 +176,7 @@ input,textarea, select {
 #studio_sidePanel {
     overflow: hidden;
     .textOverflowEllipsis();
+    .noneSelect();
     width: 240px;
 }
 
@@ -363,10 +364,26 @@ input,textarea, select {
 textarea {
     border: 1px solid #c7c7c7;
     font-size: 12px;
+    resize: vertical;
+    scrollbar-width: thin;
+    scrollbar-color: #BFBFBF #F5F5F5;
+
+    &::-webkit-resizer {
+        background-image: url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%229%22%20viewBox%3D%220%200%209%209%22%20fill%3D%22%23657077%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%222%22%20height%3D%2210.2007%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.6272%201.41418)%22%20fill%3D%22%23C4C4C4%22%2F%3E%0A%3Crect%20width%3D%222%22%20height%3D%223.13727%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.63062%206.41077)%22%20fill%3D%22%23C4C4C4%22%2F%3E%0A%3C%2Fsvg%3E");
+        background-position: right bottom;
+        background-repeat: no-repeat;
+    }
+
+    &:hover {
+        &::-webkit-resizer {
+            background-image: url("data:image/svg+xml,%3Csvg%20width%3D%229%22%20height%3D%229%22%20viewBox%3D%220%200%209%209%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%222%22%20height%3D%2210.2007%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.6272%201.41418)%22%20fill%3D%22%23657077%22%2F%3E%0A%3Crect%20width%3D%222%22%20height%3D%223.13727%22%20rx%3D%221%22%20transform%3D%22matrix(-0.707107%20-0.707107%20-0.707107%200.707107%208.63062%206.41077)%22%20fill%3D%22%23657077%22%2F%3E%0A%3C%2Fsvg%3E");
+        }
+    }
 }
 
 .comboBox {
     border: solid 1px #c7c7c7;
+    font-size: 12px;
 }
 select.comboBox {
      height: 23px;

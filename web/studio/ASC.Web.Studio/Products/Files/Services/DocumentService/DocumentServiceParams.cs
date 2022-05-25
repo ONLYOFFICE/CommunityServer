@@ -58,6 +58,9 @@ namespace ASC.Web.Files.Services.DocumentService
         [DataMember(Name = "serverErrorMessage")]
         public string ServerErrorMessage;
 
+        [DataMember(Name = "defaultType")]
+        public string DefaultType;
+
         [DataMember(Name = "shareLinkParam")]
         public string ShareLinkParam;
 

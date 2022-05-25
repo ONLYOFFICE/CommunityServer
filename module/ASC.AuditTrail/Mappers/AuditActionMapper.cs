@@ -23,29 +23,27 @@ using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
-    public class AuditActionMapper
+    public static class AuditActionMapper
     {
-        private static readonly Dictionary<MessageAction, MessageMaps> actions;
+        public static List<IProductActionMapper> Mappers { get; }
 
         static AuditActionMapper()
         {
-            actions = new Dictionary<MessageAction, MessageMaps>();
-
-            actions = actions
-                .Union(LoginActionsMapper.GetMaps())
-                .Union(ProjectsActionsMapper.GetMaps())
-                .Union(CrmActionMapper.GetMaps())
-                .Union(PeopleActionMapper.GetMaps())
-                .Union(DocumentsActionMapper.GetMaps())
-                .Union(SettingsActionsMapper.GetMaps())
-                .Union(OthersActionsMapper.GetMaps())
-                .ToDictionary(x => x.Key, x => x.Value);
+            Mappers = new List<IProductActionMapper>()
+            {
+                new CrmActionMapper(),
+                new DocumentsActionMapper(),
+                new LoginActionsMapper(),
+                new OthersActionsMapper(),
+                new PeopleActionMapper(),
+                new ProjectsActionsMapper(),
+                new SettingsActionsMapper()
+            };
         }
 
-        public static string GetActionText(AuditEvent evt)
+        public static string GetActionText(this MessageMaps action, AuditEvent evt)
         {
-            var action = (MessageAction)evt.Action;
-            if (!actions.ContainsKey(action))
+            if (action == null)
             {
                 //log.Error(string.Format("There is no action text for \"{0}\" type of event", action));
                 return string.Empty;
@@ -53,7 +51,7 @@ namespace ASC.AuditTrail.Mappers
 
             try
             {
-                var actionText = actions[(MessageAction)evt.Action].GetActionText();
+                var actionText = action.GetActionText();
 
                 if (evt.Description == null || !evt.Description.Any()) return actionText;
 
@@ -71,10 +69,9 @@ namespace ASC.AuditTrail.Mappers
             }
         }
 
-        public static string GetActionText(LoginEvent evt)
+        public static string GetActionText(this MessageMaps action, LoginEvent evt)
         {
-            var action = (MessageAction)evt.Action;
-            if (!actions.ContainsKey(action))
+            if (action == null)
             {
                 //log.Error(string.Format("There is no action text for \"{0}\" type of event", action));
                 return string.Empty;
@@ -82,7 +79,7 @@ namespace ASC.AuditTrail.Mappers
 
             try
             {
-                var actionText = actions[(MessageAction)evt.Action].GetActionText();
+                var actionText = action.GetActionText();
 
                 if (evt.Description == null || !evt.Description.Any()) return actionText;
 
@@ -99,34 +96,42 @@ namespace ASC.AuditTrail.Mappers
             }
         }
 
-        public static string GetActionTypeText(AuditEvent evt)
+        public static string GetActionTypeText(this MessageMaps action)
         {
-            var action = (MessageAction)evt.Action;
-            return !actions.ContainsKey(action)
+            return action == null
                        ? string.Empty
-                       : actions[(MessageAction)evt.Action].GetActionTypeText();
+                       : action.GetActionTypeText();
         }
 
-        public static string GetProductText(AuditEvent evt)
+        public static string GetProductText(this MessageMaps action)
         {
-            var action = (MessageAction)evt.Action;
-            return !actions.ContainsKey(action)
+            return action == null
                        ? string.Empty
-                       : actions[(MessageAction)evt.Action].GetProduct();
+                       : action.GetProductText();
         }
 
-        public static string GetModuleText(AuditEvent evt)
+        public static string GetModuleText(this MessageMaps action)
         {
-            var action = (MessageAction)evt.Action;
-            return !actions.ContainsKey(action)
+            return action == null
                        ? string.Empty
-                       : actions[(MessageAction)evt.Action].GetModule();
+                       : action.GetModuleText();
         }
 
         private static string ToLimitedText(string text)
         {
             if (text == null) return null;
             return text.Length < 50 ? text : string.Format("{0}...", text.Substring(0, 47));
+        }
+
+        public static MessageMaps GetMessageMaps(int actionInt)
+        {
+            var action = (MessageAction)actionInt;
+            var mapper = Mappers.SelectMany(m => m.Mappers).FirstOrDefault(m => m.Actions.ContainsKey(action));
+            if (mapper != null)
+            {
+                return mapper.Actions[action];
+            }
+            return null;
         }
     }
 }

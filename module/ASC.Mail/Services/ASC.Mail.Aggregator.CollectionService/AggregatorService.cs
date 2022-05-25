@@ -800,7 +800,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     uidl, mailbox.MailBoxId, mailbox.EMail);
 
                 CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
-                SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+                SecurityContext.CurrentUser = new Guid(mailbox.UserId);
 
                 var message = MessageEngine.Save(mailbox, mimeMessage, uidl, folder, null, unread, log);
 
@@ -1005,7 +1005,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     factory
                         .CalendarEngine
                         .UploadIcsToCalendar(mailbox, message.CalendarId, message.CalendarUid, message.CalendarEventIcs,
-                            message.CalendarEventCharset, message.CalendarEventMimeType, mailbox.EMail.Address,
+                            message.CalendarEventCharset, message.CalendarEventMimeType, message.Attachments, mimeMessage.Attachments, mailbox.EMail.Address,
                             _tasksConfig.DefaultApiSchema);
                 }
 

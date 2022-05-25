@@ -165,32 +165,6 @@ Szerkesztheti offline is a dokumentumait az "asztali editorokkal":"https://www.o
 Baráti üdvözlettel,
 Az ONLYOFFICE team</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Csatlakoztassa kedvenc felhőtárolóját az  ONLYOFFICE-hoz! $PersonalHeaderEnd
-
-Egy hete vette használatba felhőirodáját, így úgy gondoltuk, ideje fellebbenteni a fátylat néhány hasznos képességről, amelyeket eddig lehet nem fedezett még fel.
- 
-Csatlakoztassa *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* or *Yandex.Disk* fiókját az ONLYOFFICE-hoz és hozzon létre egységes teret dokumentumai számára. Szerkesztheti a külső fájlokat ONLYOFFICE-ban és mentheti őket a abba tárba, ahol tárolja a dokumentumokat. Olvasson többet a fájltárolók ONLYOFFICE-hoz csatlakoztatásáról "itt":"${__HelpLink}/tipstricks/add-resource.aspx".
-
-Az ONLYOFFICE editorok Google Drive-hoz csatlakoztatásához használja a "csatlakoztató alkalmazásunkat":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Többet szeretne tudni a dokumentumkezelésről?
-
-h3.Próbálja ki a vállalati ONLYOFFICE-t "a felhőben":"https://www.onlyoffice.com/cloud-office.aspx", vagy "a saját szerverén":"https://www.onlyoffice.com/server-solutions.aspx" 30 napig ingyenesen és vegye szemügyre a kiterjesztett dokumentumkezelési lehetőségeket a hozzá biztosított üzleti eszköztárral:
-
-- kezelje a csapatdokumentumait projektekben;
-
-- Integrálja a dokumentumokat a CRM-mel és az Email-lal;
-
-- Osszon meg fájlokat a felhasználók csoportjával;
-
-- Optimalizálja munkafolyamatát a csapatkommunikációs eszközökkel.
-
-Érdekli? Tudjon meg többet az "üzleti ONLYOFFICE-ról":"http://www.onlyoffice.com/document-management.aspx".
-
-Barátsággal,
-az ONLYOFFICE team</value>
-  </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Üdvözöljük!
 
@@ -237,9 +211,6 @@ A törlés következtében szabaddá vált:
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Üdvözöljük az ONLYOFFICE Personal-ban</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Csatlakoztassa kedvenc felhőszolgáltatóját az ONLYOFFICE-hez.</value>
   </data>
   <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
     <value>${LetterLogoText}. Felhasználó adatainak eltávolítása sikeres</value>

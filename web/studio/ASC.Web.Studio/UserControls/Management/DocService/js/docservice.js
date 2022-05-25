@@ -53,6 +53,13 @@ jq(function () {
 
         jq("#scripDocServiceAddress").remove();
 
+        var docServiceUrlApi = jq("#docServiceUrl").val();
+
+        if (!docServiceUrlApi) {
+            saveUrls();
+            return;
+        }
+
         var js = document.createElement("script");
         js.setAttribute("type", "text/javascript");
         js.setAttribute("id", "scripDocServiceAddress");
@@ -62,37 +69,34 @@ jq(function () {
 
         scriptAddress.on("load", testApiResult).on("error", testApiResult);
 
-        var docServiceUrlApi = jq("#docServiceUrl").val();
-        if (docServiceUrlApi) {
-            if (docServiceUrlApi.indexOf("/") == 0) {
-                docServiceUrlApi = docServiceUrlApi.substring(1);
-            } else {
-                docServiceUrlApi += "/";
-                if (!new RegExp('(^https?:\/\/)|^\/', 'i').test(docServiceUrlApi)) {
-                    docServiceUrlApi = "http://" + docServiceUrlApi;
-                }
+        if (docServiceUrlApi.indexOf("/") == 0) {
+            docServiceUrlApi = docServiceUrlApi.substring(1);
+        } else {
+            docServiceUrlApi += "/";
+            if (!new RegExp('(^https?:\/\/)|^\/', 'i').test(docServiceUrlApi)) {
+                docServiceUrlApi = "http://" + docServiceUrlApi;
             }
-            docServiceUrlApi += "web-apps/apps/api/documents/api.js";
         }
+        docServiceUrlApi += "web-apps/apps/api/documents/api.js";
 
         scriptAddress.attr("src", docServiceUrlApi);
     };
 
-    jq("#docServiceButtonSave").click(function () {
+    jq("#docServiceButtonSave").on("click", function () {
         jq("#docServiceBlock").block();
         testDocServiceApi();
 
         return false;
     });
 
-    jq("#docServiceButtonReset").click(function () {
+    jq("#docServiceButtonReset").on("click", function () {
         jq("#docServiceUrl,#docServiceUrlInternal,#docServiceUrlPortal").val("");
-        jq("#docServiceButtonSave").click();
+        jq("#docServiceButtonSave").trigger("click");
     });
 
-    jq(".doc-service-value").bind(jq.browser.msie ? "keydown" : "keypress", function (e) {
+    jq(".doc-service-value").on(jq.browser.msie ? "keydown" : "keypress", function (e) {
         if ((e.keyCode || e.which) == 13) {
-            jq("#docServiceButtonSave").click();
+            jq("#docServiceButtonSave").trigger("click");
         }
     });
 });

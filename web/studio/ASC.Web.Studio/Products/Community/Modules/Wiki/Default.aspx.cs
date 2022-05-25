@@ -301,7 +301,7 @@ namespace ASC.Web.Community.Wiki
                     if (jq('#WikiActionsMenuPanel .dropdown-content a').length == 0) {
                         jq('span.menu-small').hide();
                     }
-                    jq('input[id$=txtPageName]').focus();";
+                    jq('input[id$=txtPageName]').trigger('focus');";
 
             if (Action == ActionOnPage.AddNew || Action == ActionOnPage.Edit)
                 script += "jq.confirmBeforeUnload(window.checkUnloadFunc);";

@@ -22,7 +22,7 @@ window.ASC.Files.ConfrimConvert = (function () {
         if (isInit === false) {
             isInit = true;
 
-            jq(".store-original").change(function () {
+            jq(".store-original").on("change", function () {
                 storeOriginalFiles(this);
             });
         }

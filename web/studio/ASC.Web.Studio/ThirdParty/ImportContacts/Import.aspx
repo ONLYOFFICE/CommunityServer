@@ -52,10 +52,6 @@
             background: #ffffff url("image/google.png") no-repeat center center;
         }
 
-        .buttons div.yahoo {
-            background: #ffffff url("image/yahoo.png") no-repeat center center;
-        }
-
     </style>
 </head>
 <body>
@@ -65,13 +61,6 @@
                { %>
             <div class="google" onclick="window.master.open('<%= ASC.Web.Studio.ThirdParty.ImportContacts.Google.Location %>');"
                 title="<%= Resource.ImportFromGoogle %>">
-            </div>
-            <% } %>
-
-            <% if (ASC.Web.Studio.ThirdParty.ImportContacts.Yahoo.Enable)
-               { %>
-            <div class="yahoo" onclick="window.master.open('<%= ASC.Web.Studio.ThirdParty.ImportContacts.Yahoo.Location %>');"
-                title="<%= Resource.ImportFromYahoo %>">
             </div>
             <% } %>
         </div>

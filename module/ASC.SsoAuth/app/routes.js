@@ -774,6 +774,8 @@ module.exports = function (app, config, logger) {
     * @desc Route to load metadata
     */
   app.post(config.routes.loadmetadata, onLoadMetadata);
+  
+  app.get('/isLife', (req, res) => { res.sendStatus(200); });
     
   /**
    * @desc Catch any untracked routes

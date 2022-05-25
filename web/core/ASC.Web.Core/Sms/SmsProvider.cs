@@ -335,11 +335,23 @@ namespace ASC.Web.Core.Sms
     {
         protected override string Key
         {
-            get { return this["twilioAccountSid"]; }
+            get { return this["twilioKeySid"]; }
             set { }
         }
 
         protected override string Secret
+        {
+            get { return this["twilioKeySecret"]; }
+            set { }
+        }
+
+        protected string AccountSid
+        {
+            get { return this["twilioAccountSid"]; }
+            set { }
+        }
+
+        protected string AuthToken
         {
             get { return this["twilioAuthToken"]; }
             set { }
@@ -356,13 +368,14 @@ namespace ASC.Web.Core.Sms
             return
                 !string.IsNullOrEmpty(Key)
                 && !string.IsNullOrEmpty(Secret)
+                && !string.IsNullOrEmpty(AccountSid)
                 && !string.IsNullOrEmpty(Sender);
         }
 
         public override bool SendMessage(string number, string message)
         {
             if (!number.StartsWith("+")) number = "+" + number;
-            var twilioRestClient = new TwilioRestClient(Key, Secret);
+            var twilioRestClient = new TwilioRestClient(Key, Secret, AccountSid);
 
             try
             {
@@ -396,7 +409,7 @@ namespace ASC.Web.Core.Sms
         {
             try
             {
-                new VoipService.Twilio.TwilioProvider(Key, Secret).GetExistingPhoneNumbers();
+                new VoipService.Twilio.TwilioProvider(AccountSid, AuthToken).GetExistingPhoneNumbers();
                 return true;
             }
             catch (Exception)
@@ -407,9 +420,9 @@ namespace ASC.Web.Core.Sms
 
         public void ClearOldNumbers()
         {
-            if (string.IsNullOrEmpty(Key) || string.IsNullOrEmpty(Secret)) return;
+            if (string.IsNullOrEmpty(AccountSid) || string.IsNullOrEmpty(AuthToken)) return;
 
-            var provider = new VoipService.Twilio.TwilioProvider(Key, Secret);
+            var provider = new VoipService.Twilio.TwilioProvider(AccountSid, AuthToken);
 
             var dao = new CachedVoipDao(CoreContext.TenantManager.GetCurrentTenant().TenantId);
             var numbers = dao.GetNumbers();

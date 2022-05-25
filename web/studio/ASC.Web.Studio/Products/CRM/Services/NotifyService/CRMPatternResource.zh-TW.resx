@@ -102,11 +102,11 @@ $ contactInfo：$ AdditionalData.get_item（$ contactInfo）
 
 *注意*：此連結僅在24小時內有效。
 
-如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ http://support.onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ https://support.onlyoffice.com”
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+“ www.onlyoffice.com”：“ https://onlyoffice.com/”
 
 ^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
   </data>
@@ -116,11 +116,11 @@ h1。客戶關係管理。數據導入成功完成
 
 轉到“聯繫人”：“ $ __ VirtualRootPath / Products / CRM /”列表。
 
-如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ http://support.onlyoffice.com”
+如果您有任何疑問或需要幫助，請隨時通過“ support.onlyoffice.com”與我們聯繫：“ https://support.onlyoffice.com”
 
 最好的祝福，
 ONLYOFFICE™支持團隊
-“ www.onlyoffice.com”：“ http://onlyoffice.com/”
+“ www.onlyoffice.com”：“ https://onlyoffice.com/”
 
 ^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
   </data>

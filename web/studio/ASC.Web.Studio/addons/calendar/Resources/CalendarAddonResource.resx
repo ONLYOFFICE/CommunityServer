@@ -70,4 +70,7 @@
   <data name="EventAlertSubscription" xml:space="preserve">
     <value>Event reminders</value>
   </data>
+  <data name="WholeCalendarModule" xml:space="preserve">
+    <value>Whole Calendar module</value>
+  </data>
 </root>

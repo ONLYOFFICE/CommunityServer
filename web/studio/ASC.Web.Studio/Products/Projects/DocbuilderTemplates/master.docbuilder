@@ -84,6 +84,18 @@ function writeMeta() {
 	currentRow += 3;
 };
 
+function writeInterval()
+{
+	if(reportInfo.TimeInterval)
+	{
+		range = oWs.GetRange("B3");
+		range.SetFontColor(grayFontColor);
+		range.SetBold(true);
+		range.SetAlignHorizontal("left");
+		range.SetValue(reportInfo.TimeInterval);
+	}
+}
+
 function writeText(value, textStyle = defaultText, newLine = true) {
 	let range = oWs.GetRange(currentColumn + currentRow);
 	

@@ -93,7 +93,7 @@ jq(document).ready(function () {
         addTop: 8,
         addLeft: 0,
         afterShowFunction: function () {
-            jq("#studio_search").focus();
+            jq("#studio_search").trigger("focus");
 
             var w = jq(window),
                 scrWidth = w.width(),
@@ -107,7 +107,7 @@ jq(document).ready(function () {
         }
     });
 
-    jq("#studio_search").keydown(function (event) {
+    jq("#studio_search").on("keydown", function (event) {
         var code;
 
         if (!e) {
@@ -139,7 +139,7 @@ jq(document).ready(function () {
     var $aboutBtn = jq("#studio_myStaffPopupPanel .dropdown-about-btn:first");
     jq.tmpl("template-blockUIPanel", {
         id: "aboutCompanyPopup",
-        headerTest: jq.trim($aboutBtn.text())
+        headerTest: $aboutBtn.text().trim()
     })
     .insertAfter($aboutBtn)
     .addClass("confirmation-popup");
@@ -156,7 +156,7 @@ jq(document).ready(function () {
         var $appsBtn = jq("#studio_productListPopupPanel .apps .dropdown-item:first");
         jq.tmpl("template-blockUIPanel", {
             id: "appsPopup",
-            headerTest: jq.trim($appsBtn.text())
+            headerTest: $appsBtn.text().trim()
         })
         .insertAfter($appsBtn)
         .addClass("confirmation-popup");
@@ -174,7 +174,7 @@ jq(document).ready(function () {
         var $debugBtn = jq("#studio_myStaffPopupPanel .dropdown-debuginfo-btn:first");
         jq.tmpl("template-blockUIPanel", {
             id: "debugInfoPopUp",
-            headerTest: jq.trim($debugBtn.text()),
+            headerTest: $debugBtn.text().trim(),
             innerHtmlText: ["<div style=\"height: 500px; overflow-y: scroll;\">", jq("#debugInfoPopUpBody").val().replace(/\n\r/g, "<br/>").replace(/\n/g, "<br/>"), "</div>"].join(''),
             OKBtn: 'Ok',
         })
@@ -386,6 +386,10 @@ var UnreadMailManager = new function () {
 
             hideLoaderMail(isListEmpty);
             dropMailList.scrollTop(0);
+            if (dropMailList.prop('scrollHeight') > dropMailList.prop('clientHeight')) {
+                $dropMailBox.addClass("scrollbar-popup");
+                dropMailList.addClass("scrollbar-popup-list");
+            }
             return;
         }
     }

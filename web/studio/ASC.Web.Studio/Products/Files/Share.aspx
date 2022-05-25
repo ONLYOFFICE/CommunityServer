@@ -6,8 +6,28 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
     <style type="text/css">
+        body {
+          overflow: hidden;
+        }
+        #studioPageContent {
+            min-width: auto;
+        }
         #studioPageContent .page-content {
             overflow: visible;
+            margin: 0;
+            padding: 0;
+        }
+        #studioPageContent .paging-content {
+            display: none;
+        }
+        #studioPageContent .layout-bottom-spacer {
+          padding: 12px 0;
+        }
+        @media (min-width: 1200px) {
+            #studioPageContent main {
+                height: calc(100vh - 24px);
+                height: calc(var(--vh, 1vh) * 100 - 24px);
+            }
         }
     </style>
 </asp:Content>

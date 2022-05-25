@@ -39,6 +39,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         List<Project> GetOpenProjectsWithTasks(Guid participantId);
 
+        List<Tuple<Guid, int>> GetByFilterAverageTime(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         DateTime GetMaxLastModified();
 
@@ -89,8 +90,11 @@ namespace ASC.Projects.Core.DataInterfaces
 
         List<Project> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess);
 
+        List<Project> GetByFilterForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
+
         int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess);
 
+        int GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess);
 
         List<Project> GetByContactID(int contactID);
 

@@ -30,6 +30,7 @@ namespace ASC.Api.Calendar.iCalParser
 {
     class DDayICalParser
     {
+        public static ILog Log = LogManager.GetLogger("ASC.Calendar");
         public static Ical.Net.CalendarCollection DeserializeCalendar(string iCalCalendarString)
         {
             if (string.IsNullOrEmpty(iCalCalendarString)) return null;
@@ -43,7 +44,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -56,7 +57,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -66,11 +67,12 @@ namespace ASC.Api.Calendar.iCalParser
             try
             {
                 var serializer = new Ical.Net.Serialization.CalendarSerializer();
-                return serializer.SerializeToString(calendar);
+
+                return StringUtils.NormalizeStringForMySql(serializer.SerializeToString(calendar));
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -91,7 +93,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -119,7 +121,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -140,7 +142,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -154,7 +156,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }
@@ -168,7 +170,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Calendar").Error(ex);
+                Log.Error(ex);
                 return null;
             }
         }

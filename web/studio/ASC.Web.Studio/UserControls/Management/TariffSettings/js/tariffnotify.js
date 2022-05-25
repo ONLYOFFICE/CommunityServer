@@ -16,7 +16,7 @@
 
 
 jq(function () {
-    jq("#tariffNotifyClose").click(function () {
+    jq("#tariffNotifyClose").on("click", function () {
         jq("#tariffNotifyPanel").remove();
 
         TariffNotifyController.HideNotify({},

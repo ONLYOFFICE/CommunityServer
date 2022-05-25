@@ -100,11 +100,11 @@ Voit ladata arkistotiedoston täältä: "exportdata.zip":"${EntityRelativeURL}".
 
 *Huomio*: Tämä linkki toimii vain 24 tuntia.
 
-Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"http://support.onlyoffice.com" 
+Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 Terveisin, 
 ONLYOFFICE™ Asiakastuki 
-"www.onlyoffice.com":"http://onlyoffice.com/" 
+"www.onlyoffice.com":"https://onlyoffice.com/" 
 
 ^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "Tilauksen asetuksiasi":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -113,11 +113,11 @@ ONLYOFFICE™ Asiakastuki
 
 Löydät uudet kontaktit täältä:"$__VirtualRootPath/Products/CRM/" 
 
-Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"http://support.onlyoffice.com" 
+Jos sinulla on kysymyksiä tai tarvitset apua, ota yhteyttä meihin englanniksi osoitteessa "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 Terveisin, 
 ONLYOFFICE™ Asiakastuki 
-"www.onlyoffice.com":"http://onlyoffice.com/" 
+"www.onlyoffice.com":"https://onlyoffice.com/" 
 
 ^Sait tämän sähköpostin, koska olet portaalin "${__VirtualRootPath}":"${__VirtualRootPath}" rekisteröity käyttäjä. Jos et halua vastaanottaa näitä ilmoituksia, muuta "Tilausten asetuksia":"$RecipientSubscriptionConfigURL".^</value>
   </data>

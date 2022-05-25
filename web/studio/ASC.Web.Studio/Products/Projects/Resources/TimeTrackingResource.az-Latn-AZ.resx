@@ -64,11 +64,29 @@
   <data name="Date" xml:space="preserve">
     <value>Tarix</value>
   </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>Sərf olunan vaxtı silin</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>Bu birdəfəlik ödənişləri silmək istədiyinizə əminsiniz?</value>
+  </data>
   <data name="DescrEmptyListTimersFilter" xml:space="preserve">
     <value>Bu bölmədə filtrə uyğun vaxtölçən yoxdur</value>
   </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>Bütün seçimləri ləğv et</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>Yuxarıda</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>Hamısını seç</value>
+  </data>
   <data name="Hours" xml:space="preserve">
     <value>saat</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>Sizin üçün uyğun tapşırıq yoxdur. Zəhmət olmasa, tapşırıq yaradın, sonra taymeri qoşun.</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>dəqiqə</value>
@@ -85,6 +103,15 @@
   <data name="OpenTasks" xml:space="preserve">
     <value>Açıq</value>
   </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Fakturalı</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Fakturalı  deyil</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Ödəniş edilə bilməz</value>
+  </data>
   <data name="ShortHours" xml:space="preserve">
     <value>s</value>
   </data>
@@ -96,6 +123,12 @@
   </data>
   <data name="TimeSpentForTask" xml:space="preserve">
     <value>Tapşırığa sərf olunmuş ümumi vaxt</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>fakturalı:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>ümumi:</value>
   </data>
   <data name="TotalTimeNote" xml:space="preserve">
     <value>Filtrə görə fəaliyyətə sərf olunmuş ümumi vaxt:</value>

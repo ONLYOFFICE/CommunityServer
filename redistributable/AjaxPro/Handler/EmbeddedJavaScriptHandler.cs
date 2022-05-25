@@ -104,7 +104,7 @@ namespace AjaxPro
 				}
 			}
 
-			etag = MD5Helper.GetHash(System.Text.Encoding.Default.GetBytes(fileName));
+			etag = Hash5Helper.GetHash(System.Text.Encoding.Default.GetBytes(fileName));
 
 			DateTime now = DateTime.Now;
 			DateTime lastMod = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second); //.ToUniversalTime();
@@ -116,7 +116,7 @@ namespace AjaxPro
 			context.Response.Cache.SetLastModified(lastMod);
 
 			context.Response.Write(@"//--------------------------------------------------------------
-// Copyright (C) 2006 Michael Schwarz (http://www.ajaxpro.info).
+// Copyright (C) 2021 Michael Schwarz (http://www.ajaxpro.info).
 // All rights reserved.
 //--------------------------------------------------------------
 
@@ -138,14 +138,16 @@ namespace AjaxPro
 
 					if (s != null)
 					{
-						System.IO.StreamReader sr = new System.IO.StreamReader(s);
+						string content = "";
+
+						using (System.IO.StreamReader sr = new System.IO.StreamReader(s))
+						{
+							content = sr.ReadToEnd();
+						}
 
 						context.Response.Write("// " + files[i] + ".js\r\n");
-
-						context.Response.Write(sr.ReadToEnd());
+						context.Response.Write(content.Replace("{AssemblyVersion}", Constant.AssemblyVersion));
 						context.Response.Write("\r\n");
-
-						sr.Close();
 
 						if (files[i] == "prototype" && AjaxPro.Utility.Settings.OldStyle.Contains("objectExtendPrototype"))
 						{

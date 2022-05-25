@@ -14,8 +14,8 @@
   </pattern>
   <pattern id="ExportCompleted" sender="telegram.sender">
     <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-      [${EntityRelativeURL}](${EntityRelativeURL})
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">
+[${EntityRelativeURL}](${EntityRelativeURL})
     </body>
   </pattern>
   <pattern id="ExportCompletedCustomMode" sender="email.sender">
@@ -40,7 +40,7 @@
   </pattern>
   <pattern id="ImportCompleted" sender="telegram.sender">
     <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile"></body>
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile"></body>
   </pattern>
   <pattern id="ImportCompletedCustomMode" sender="email.sender">
     <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
@@ -69,7 +69,7 @@
   </pattern>
   <pattern id="TaskReminder" sender="telegram.sender">
     <subject resource="|subject_TaskReminder_tg|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">
       #if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
 
       $AdditionalData.get_item("TaskDescription")
@@ -95,7 +95,7 @@
   </pattern>
   <pattern id="ResponsibleForTask" sender="telegram.sender">
     <subject resource="|subject_ResponsibleForTask_tg|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">
       #if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
 
       $AdditionalData.get_item("TaskDescription")
@@ -122,11 +122,11 @@
   </pattern>
   <pattern id="ResponsibleForOpportunity" sender="telegram.sender">
     <subject resource="|subject_ResponsibleForOpportunity_tg|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-      #if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
 
-      $AdditionalData.get_item("OpportunityDescription")
-      #end
+$AdditionalData.get_item("OpportunityDescription")
+#end
     </body>
   </pattern>
   
@@ -158,21 +158,21 @@
   </pattern>
   <pattern id="AddRelationshipEvent" sender="telegram.sender">
     <subject resource="|subject_AddRelationshipEvent_tg|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">
 
-      $AdditionalData.get_item("EventContent")
+$AdditionalData.get_item("EventContent")
 
-      #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
 
-      #beforeall
+#beforeall
 
-      ----------------------------------------
+----------------------------------------
 
-      #each
+#each
 
-      "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
 
-      #end
+#end
     </body>
   </pattern>
 
@@ -189,7 +189,7 @@
   </pattern>
   <pattern id="SetAccess" sender="telegram.sender">
     <subject resource="|subject_SetAccess_tg|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile"></body>
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile"></body>
   </pattern>
 
   <!-- Create new contact from web form -->
@@ -205,7 +205,7 @@
   </pattern>
   <pattern id="CreateNewContact" sender="telegram.sender">
     <subject resource="|subject_CreateNewContact|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile"></body>
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile"></body>
   </pattern>
 
 

@@ -29,7 +29,7 @@ ServiceHealthCheckerManager = new function () {
             setTimeout(arguments.callee, UPDATE_TABLE_TIMEOUT);
         }, UPDATE_TABLE_TIMEOUT);
 
-        jq('#clearCacheBtn').click(clearCacheBtnCallback);
+        jq('#clearCacheBtn').on("click", clearCacheBtnCallback);
     };
 
     function updateServiceStatusTable() {
@@ -51,18 +51,18 @@ ServiceHealthCheckerManager = new function () {
         row.removeClass('__close');
         button.removeClass('__play');
         button.removeClass('__update');
-        button.unbind();
+        button.off();
         button.removeClass('disable');
 
         if (service.status == STATUS_RUNNING) {
             button.addClass('__update');
-            button.click(function () {
+            button.on("click", function () {
                 restartService(service.name);
             });
             row.addClass('__open');
         } else if (service.status == STATUS_STOPPED) {
             button.addClass('__play');
-            button.click(function() {
+            button.on("click", function() {
                 startService(service.name);
             });
             row.addClass('__close');

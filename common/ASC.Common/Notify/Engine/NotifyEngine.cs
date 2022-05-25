@@ -28,6 +28,8 @@ using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
+
 namespace ASC.Notify.Engine
 {
     public class NotifyEngine : INotifyEngine

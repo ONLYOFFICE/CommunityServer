@@ -40,11 +40,11 @@ window.editMailboxModal = (function($) {
         var html = $.tmpl('editMailboxTmpl', { mailbox: mailbox, domain: domain });
         var $html = $(html);
         $html.find('.mailbox_aliases').toggleClass('empty_list', mailbox.aliases.length == 0);
-        $html.find('.cancel').unbind('click').bind('click', window.PopupKeyUpActionProvider.CloseDialog);
-        $html.find('.addAlias').unbind('click').bind('click', addAlias);
-        $html.find('.delete_entity').unbind('click').bind('click', deleteAlias);
+        $html.find('.cancel').off('click').on('click', window.PopupKeyUpActionProvider.CloseDialog);
+        $html.find('.addAlias').off('click').on('click', addAlias);
+        $html.find('.delete_entity').off('click').on('click', deleteAlias);
         
-        $html.find('.save').unbind('click').bind('click', function() {
+        $html.find('.save').off('click').on('click', function() {
             saveInfo()
                 .then(function() {
                         events.trigger('onupdatemailbox', mailbox);
@@ -217,7 +217,7 @@ window.editMailboxModal = (function($) {
 
         var html = $.tmpl('mailboxAliasTableRowTmpl', alias);
         var $html = $(html);
-        $html.find('.delete_entity').unbind('click').bind('click', deleteAlias);
+        $html.find('.delete_entity').off('click').on('click', deleteAlias);
         $('#mail_server_edit_mailbox').find('.mailbox_aliases table').append(html);
         needSaveAliases.push(alias);
         $('#mail_server_edit_mailbox').find('.aliasName').val('');
@@ -244,7 +244,7 @@ window.editMailboxModal = (function($) {
     }
 
     function setFocusToInput() {
-        $('#mail_server_edit_mailbox').find('.aliasName').focus();
+        $('#mail_server_edit_mailbox').find('.aliasName').trigger("focus");
     }
 
     return {

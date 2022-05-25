@@ -51,7 +51,7 @@ ASC.ProductQuotes = (function () {
 
         jq(".tabs-content").on("click", ".moreBox .link", showMore);
 
-        $recalculateButton.click(function () {
+        $recalculateButton.on("click", function () {
             if ($recalculateButton.hasClass(disableClass)) return;
 
             teamlab.recalculateQuota({}, { success: onRecalculate });

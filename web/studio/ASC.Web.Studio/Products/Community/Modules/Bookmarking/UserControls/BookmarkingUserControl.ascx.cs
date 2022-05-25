@@ -650,7 +650,7 @@ namespace ASC.Web.UserControls.Bookmarking
         private void InitScripts()
         {
             var jsResource = new StringBuilder();
-            jsResource.Append("jq('#tableForNavigation select').val(" + BookmarkPageCounter + ").change(function(evt) {changeBookmarksCountOfRows(this.value);}).tlCombobox();");
+            jsResource.Append("jq('#tableForNavigation select').val(" + BookmarkPageCounter + ").on('change', function(evt) {changeBookmarksCountOfRows(this.value);}).tlCombobox();");
             Page.RegisterInlineScript(jsResource.ToString(), true);
         }
     }

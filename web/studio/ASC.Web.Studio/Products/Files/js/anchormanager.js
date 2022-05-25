@@ -123,7 +123,7 @@ window.ASC.Files.Anchor = (function () {
                     var hash = ASC.Files.MediaPlayer.getPlayHash(fileId);
                     ASC.Files.Anchor.move(hash, true);
                 },
-                downloadAction: ASC.Files.Utility.GetFileDownloadUrl,
+                downloadAction: ASC.Files.Utility.GetFileViewUrl,
                 canDelete: function (fileId) {
                     var entryObj = ASC.Files.UI.getEntryObject("file", fileId);
                     if (entryObj.length <= 0) {

@@ -58,14 +58,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Qonaqlar və “deaktiv” statuslu istifadəçilər istisna olmaqla, aktiv istifadəçilər portal üzvləridir</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Anket seçimi əlavə edin</value>
+  </data>
   <data name="AddEmployees" xml:space="preserve">
     <value>{!User} əlavə et</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Yeni sosial profil əlavə edin</value>
   </data>
   <data name="AddShareMessage" xml:space="preserve">
     <value>Mesaj əlavə et</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Səslərin ümumi sayı</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Sorğu Seçimləri</value>
   </data>
   <data name="AttachFiles" xml:space="preserve">
     <value>Faylları yapışdırın</value>
@@ -75,6 +90,18 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Layihənin sənədindən faylı yapışdırın</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Bitly istifadə edərək portal dəvəti bağlantılarını və paylaşılan sənədlər üçün keçidləri qısaldın</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Sosial hesablarınızdan istifadə edərək portala daxil olun və kontaktları axtarın</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Sevimli bulud saxlama xidmətlərini birləşdirin və bütün fayllarınızı bir yerdə saxlayın</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>{0}ONLYOFFICE Twilio{1} inteqrasiyası sayəsində müştərilərinizə birbaşa CRM-dən zəng edin</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -94,11 +121,23 @@
   <data name="CancelButton" xml:space="preserve">
     <value>Ləğv</value>
   </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Daha sonra portalın "Parametrlər" bölməsindən istifadə edərək domen adını dəyişə bilərsiniz.</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Şirkət ölçüsü</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Şirkət</value>
+  </data>
   <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
     <value>Həmçinin sənədləri original formatda endir</value>
   </data>
   <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
-    <value>Tez redaktə olunmaq üçün yüklədiyiniz bütün sənədlər {0}Office Open XML daxili formata{1} çevriləcəklər.</value>
+    <value>Tez redaktə olunmaq üçün yüklədiyiniz bütün sənədlər Office Open XML daxili formata çevriləcəklər.</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>Dəstək ilə əlaqə</value>
   </data>
   <data name="DeleteFile" xml:space="preserve">
     <value>Faylı sil</value>
@@ -112,8 +151,17 @@
   <data name="EmptyListDocumentsDescr" xml:space="preserve">
     <value>Faylları öz portalınızda {0}yaradın{1} və ya onları buraya {2}yükləyin{3} ki, Siz onları ONLYOFFICE™ redaktorunun köməyi ilə {4}aça{5} və {6}redaktə edə{7} biləsiniz.</value>
   </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>Faylları birbaşa portalınıza {2}yükləyin{3}.</value>
+  </data>
   <data name="EmptyListDocumentsHead" xml:space="preserve">
     <value>Sənədlərin siyahısı boşdur</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Sorğu üçün sualınızı daxil edin</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Sorğu seçimini seçin</value>
   </data>
   <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
     <value>Başlıq aşağıdakı xarakterlərdən heç birini içərə bilməz:</value>
@@ -121,14 +169,83 @@
   <data name="Everyone" xml:space="preserve">
     <value>Hər kəs</value>
   </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Post əlavə edin</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Əlfəcin əlavə edin</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Sənədlərə keçin</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Yeni şirkət yaradın</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Yeni şəxs yaradın</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Yeni layihə yaradın</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>İcma moduluna əlavə edilən hər şey burada göstəriləcək. İstifadəçilər maraqlı məlumat, düşüncə və təcrübələrini başqaları ilə bölüşə, öz fikirlərini bildirə, başqalarının şərhlərindən rəy əldə edə bilərlər.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Hələ heç bir tədbir əlavə olunmayıb</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Sizin üçün mövcud olan CRM modulu üçün hadisələr burada göstəriləcək. Əlavə edilmiş yeni şirkətlər və şəxslər və ya mövcud redaktə edilmiş, yeni hallar, yaradılan imkanlar və tapşırıqlar - CRM ilə bağlı hər şey bu taba keçəcək.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Hələ heç bir CRM hadisəsi əlavə edilməmişdir</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Sizin üçün mövcud olan Layihələr modulunda dəyişikliklər burada göstəriləcək. Üzvü və ya izləyicisi olduğunuz layihələr, yeni tapşırıqlarınız və ya mövcud olanlara edilən dəyişikliklər heç nəyi nəzərdən qaçırmamağınıza kömək edəcək.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Hələ heç bir layihə əlavə olunmayıb</value>
+  </data>
+  <data name="FeedEmptyPeopleDescription" xml:space="preserve">
+    <value>İnsanlar moduluna əlavə edilən hər şey burada göstəriləcək. İstifadəçilər maraqlı məlumat, düşüncə və təcrübələrini başqaları ilə bölüşə, öz fikirlərini bildirə, başqalarının şərhlərindən rəy əldə edə bilərlər.</value>
+  </data>
+  <data name="FeedEmptyPeopleHeader" xml:space="preserve">
+    <value>Hələ heç bir İnsanlar tədbiri əlavə olunmayıb</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Sizin üçün mövcud olan portal sənədlərinə edilən dəyişikliklər burada göstəriləcək. Sizinlə paylaşılan yeni sənədlər, giriş əldə etdiyiniz mövcud sənədlərə edilən dəyişikliklər, bütün portal istifadəçiləri üçün ümumi olan sənədlər burada göstərilir.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Tədbir əlavə edin</value>
+  </data>
   <data name="FeedTitle" xml:space="preserve">
     <value>Lent</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Bu sorğu sualı üçün çoxsaylı seçimə icazə verin</value>
   </data>
   <data name="FilterNoNews" xml:space="preserve">
     <value>Filtrə uyğun xəbər yoxdur</value>
   </data>
   <data name="FilterNoNewsDescription" xml:space="preserve">
     <value>Bu bölmədəki filtrə uyğun olan heç bir xəbər yoxdur.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Bu filtrə uyğun zəng yoxdur</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Filtrinizə uyğun gələn zənglər bu bölmədə göstərilə bilməz.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Portal istifadəçiləri üçün link</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>ONLYOFFICE portalınız üçün ödəniş etmək istəyirsinizsə, İndi Al düyməsini klikləyin.</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Lütfən, ONLYOFFICE üçün ödəniş edin və əldə edin:</value>
   </data>
   <data name="LblFilter" xml:space="preserve">
     <value>Filtr:</value>
@@ -148,8 +265,119 @@
   <data name="LblTo" xml:space="preserve">
     <value>Qədər</value>
   </data>
+  <data name="LicenseActivateAndGetV11" xml:space="preserve">
+    <value>Abunəliyi yeniləyərək əldə edin:</value>
+  </data>
+  <data name="LicenseActivateButtonV11" xml:space="preserve">
+    <value>Aktivləşdirmək</value>
+  </data>
+  <data name="LicenseActivateDescrV11" xml:space="preserve">
+    <value>Əgər siz artıq yeniləməni satın almısınızsa, lisenziya faylını yükləyin və Aktivləşdir düyməsini basın.</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Bu qutunu işarələyərək siz {0}Lisenziya Müqavilələrinin{1} şərtlərini qəbul edirsiniz</value>
+  </data>
+  <data name="LicensedUnderApache" xml:space="preserve">
+    <value>Bu proqram təminatı {0}Apache License, Version 2.0{1} əsasında lisenziyalaşdırılıb.</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Lisenziyanın müddəti bitib və ya istifadəçi kvotası lisenziyaya uyğun gəlmir</value>
+  </data>
+  <data name="LicenseKeyBuyDescrV11" xml:space="preserve">
+    <value>Yeniləməni indi satın alın. Qeyd edək ki, siz Avangate-ə yönləndiriləcəksiniz.</value>
+  </data>
+  <data name="LicenseKeyBuyLabelV11" xml:space="preserve">
+    <value>Lisenziya almaq</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Lisenziya Aktivləşdirmə Faylı</value>
+  </data>
+  <data name="LicenseKeyLabelV11" xml:space="preserve">
+    <value>Lisenziyanı Yüklə</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Lisenziya açarı düzgün deyil</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Lisenziya açarını daxil etməlisiniz</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Modulları və Alətləri:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Onlayn Sənəd Redaktorları{1}{0}Sənəd İdarəetməsi{1}{0}Poçt{1}{0}Layihələr{1}{0}CRM{1}{0}Təqvim{1}{0}İcma{1}</value>
+  </data>
+  <data name="LicenseModulesMobileV11" xml:space="preserve">
+    <value>mobil veb redaktorları,</value>
+  </data>
+  <data name="LicenseModulesPrivateV11" xml:space="preserve">
+    <value>Şifrələnmiş əməkdaşlıq üçün Şəxsi Otaq,</value>
+  </data>
+  <data name="LicenseModulesProV11" xml:space="preserve">
+    <value>Pro xüsusiyyətləri olan ONLYOFFICE redaktorları,</value>
+  </data>
+  <data name="LicenseModulesSupportV11" xml:space="preserve">
+    <value>1 illik peşəkar texniki dəstək xidməti.</value>
+  </data>
+  <data name="LicenseModulesUpdatesV11" xml:space="preserve">
+    <value>1 il ərzində müntəzəm funksionallıq və təhlükəsizlik yeniləmələri,</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktiv istifadəçi</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktiv istifadəçi</value>
+  </data>
   <data name="LogoutButton" xml:space="preserve">
     <value>Çıx</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>Faktiki Ölçü</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Bağla</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>Tam ekran</value>
+  </data>
+  <data name="MediaViewerMute" xml:space="preserve">
+    <value>Səssiz</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>Növbəti</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>Oynat</value>
+  </data>
+  <data name="MediaViewerPrevious" xml:space="preserve">
+    <value>Əvvəlki</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>Sola Çevirin</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>Sağa Fırladın</value>
+  </data>
+  <data name="MediaViewerZoomIn" xml:space="preserve">
+    <value>Yaxınlaşdır</value>
+  </data>
+  <data name="MediaViewerZoomOut" xml:space="preserve">
+    <value>Uzaqlaşdır</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Nömrəni daxil edin</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Portala giriş kodu ilə SMS {0}{1}{2} mobil telefon nömrənizə göndərildi.{5}Lütfən kodu daxil edin və "{3}" düyməsini klikləyin. 3 dəqiqədən çox müddət heç bir mesaj gəlməzsə, "{4}" düyməsini klikləyin.</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Cari mobil telefon nömrəniz: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Mobil telefon nömrəsi daxil edin</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Əlavə portal təhlükəsizliyini təmin etmək üçün iki faktorlu autentifikasiya işə salınıb. Portalda işə davam etmək üçün mobil telefon nömrənizi daxil edin. Mobil telefon nömrəsi ölkə kodu ilə beynəlxalq formatda daxil edilməlidir.</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>Daha çox</value>
@@ -166,14 +394,47 @@
   <data name="NewsNotFoundDescription" xml:space="preserve">
     <value>Bu bölmədə portalın bütün fəaliyyəti əka olunub. İndiki zamana görə əka olunmağa heç bir hadisə yoxdur. Portalı istifadə etməyə başlayın, onu kontent ilə doldurun və bütün xəbərlər bu səhifədə göstəriləcək.</value>
   </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Növbəti</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Şərhsiz</value>
+  </data>
   <data name="NotBeUndone" xml:space="preserve">
     <value>Qeyd: Bu əyləm ediləndən sonra geri qaytarıla bilməz.</value>
+  </data>
+  <data name="NotSupportedBrowser" xml:space="preserve">
+    <value>Medianı oynatmaq üçün brauzerinizi ən son versiyaya yeniləməlisiniz.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Bu sorğu sualı üçün yalnız bir seçimə icazə verin</value>
+  </data>
+  <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
+    <value>Yaddaş yeri kvotasını keçdiyiniz üçün faylı əlavə etmək mümkün olmadı. Köhnə faylları silin və ya əlavə məlumat üçün dəstək komandamızla əlaqə saxlayın.</value>
+  </data>
+  <data name="PersonalStorageLimitExceededHeader" xml:space="preserve">
+    <value>Kvota keçib</value>
+  </data>
+  <data name="PersonalStorageLimitExceededSubHeader" xml:space="preserve">
+    <value>Yaddaş sahəsi kvotası keçildi</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Sorğu Sualı</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Sorğu Növü</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Əvvəlki</value>
   </data>
   <data name="QuestionDeleteFile" xml:space="preserve">
     <value>Bu faylı silmək istədiyinizə əminsiniz mi?</value>
   </data>
   <data name="QuickLinksDeleteLink" xml:space="preserve">
     <value>Sil</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Qeyri-kommersiya istifadəsi haqqında oxuyun</value>
   </data>
   <data name="RemoveFromList" xml:space="preserve">
     <value>Bu siyahıdan sil</value>
@@ -184,14 +445,425 @@
   <data name="ResetFilter" xml:space="preserve">
     <value>Filtri sıfırla</value>
   </data>
+  <data name="SaasTariffBackButton" xml:space="preserve">
+    <value>Planlara geri dönüş</value>
+  </data>
+  <data name="SaasTariffBenefits" xml:space="preserve">
+    <value>Faydaları</value>
+  </data>
+  <data name="SaasTariffBusiness" xml:space="preserve">
+    <value>Biznes</value>
+  </data>
+  <data name="SaasTariffBusinessCost" xml:space="preserve">
+    <value>{0} istifadəçi/ay</value>
+  </data>
+  <data name="SaasTariffBusinessFeature1" xml:space="preserve">
+    <value>Portal üzrə 1000-ə qədər istifadəçi</value>
+  </data>
+  <data name="SaasTariffBusinessFeature2" xml:space="preserve">
+    <value>hər komanda yoldaşı üçün 10 Gb</value>
+  </data>
+  <data name="SaasTariffBusinessFeature3" xml:space="preserve">
+    <value>Limitsiz sayda eyni vaxtlı əlaqə</value>
+  </data>
+  <data name="SaasTariffBusinessFeature4" xml:space="preserve">
+    <value>Brendləşdirmə və fərdiləşdirmə</value>
+  </data>
+  <data name="SaasTariffBusinessFeature5" xml:space="preserve">
+    <value>LDAP/SSO</value>
+  </data>
+  <data name="SaasTariffBusinessFeature6" xml:space="preserve">
+    <value>Məlumatların ehtiyat nüsxələri və bərpası</value>
+  </data>
+  <data name="SaasTariffBusinessFeature7" xml:space="preserve">
+    <value>İstifadəçilərin giriş və hərəkətlərini izləmək</value>
+  </data>
+  <data name="SaasTariffBusinessFeature8" xml:space="preserve">
+    <value>Pro inteqrasiyaları: Twilio, DocuSign</value>
+  </data>
+  <data name="SaasTariffBusinessFeature9" xml:space="preserve">
+    <value>Poçt Serveri</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderBusiness" xml:space="preserve">
+    <value>ONLYOFFICE Business buluduna abunəliyi yeniləyin</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderStartup" xml:space="preserve">
+    <value>Biznes planı yenidən aktivləşdirin?</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionHeaderTrial" xml:space="preserve">
+    <value>ONLYOFFICE Business bulud abunəliyini alın</value>
+  </data>
+  <data name="SaasTariffBuyBusinessSubscriptionSubHeader" xml:space="preserve">
+    <value>Hər istifadəçi üçün aylıq {0} qiymətindən</value>
+  </data>
+  <data name="SaasTariffChangePlanBtn" xml:space="preserve">
+    <value>Planı dəyişdirin</value>
+  </data>
+  <data name="SaasTariffChoosePlan" xml:space="preserve">
+    <value>Komandanıza uyğun olan planı seçin</value>
+  </data>
+  <data name="SaasTariffContactSales" xml:space="preserve">
+    <value>Satışlarla əlaqə</value>
+  </data>
+  <data name="SaasTariffError" xml:space="preserve">
+    <value>{0} aktiv istifadəçiniz var. Daha az almaq üçün {1}İnsanlar modulunda{2} istifadəçiləri deaktiv edin</value>
+  </data>
+  <data name="SaasTariffErrorAdmins" xml:space="preserve">
+    <value>Adminlərin sayı {0}-dən çox olmamalıdır.</value>
+  </data>
+  <data name="SaasTariffErrorAutoBackup" xml:space="preserve">
+    <value>Zəhmət olmasa, avtomatik ehtiyat nüsxələrini deaktiv edin.</value>
+  </data>
+  <data name="SaasTariffErrorDomain" xml:space="preserve">
+    <value>Zəhmət olmasa, Portal parametrlərində DNS-i deaktiv edin.</value>
+  </data>
+  <data name="SaasTariffErrorExpired" xml:space="preserve">
+    <value>{0} aktiv istifadəçiniz var. Daha az almaq üçün {1}satışla əlaqə saxlayın{2}</value>
+  </data>
+  <data name="SaasTariffErrorGuests" xml:space="preserve">
+    <value>Qonaqların sayı {0}-dan çox olmamalıdır.</value>
+  </data>
+  <data name="SaasTariffErrorInvalidNumberOfActiveUsers" xml:space="preserve">
+    <value>Aktiv istifadəçilərin yanlış sayı.</value>
+  </data>
+  <data name="SaasTariffErrorLdap" xml:space="preserve">
+    <value>Zəhmət olmasa LDAP-ı deaktiv edin.</value>
+  </data>
+  <data name="SaasTariffErrorMinMax" xml:space="preserve">
+    <value>{0} - {1} arasında aktiv istifadəçilərin sayını seçin.</value>
+  </data>
+  <data name="SaasTariffErrorMonthTariffNotFound" xml:space="preserve">
+    <value>Ay tarifi tapılmadı.</value>
+  </data>
+  <data name="SaasTariffErrorOauth" xml:space="preserve">
+    <value>Zəhmət olmasa, bütün sosial şəbəkələri ayırın.</value>
+  </data>
+  <data name="SaasTariffErrorRegionNotFound" xml:space="preserve">
+    <value>Region tapılmadı</value>
+  </data>
+  <data name="SaasTariffErrorSso" xml:space="preserve">
+    <value>Zəhmət olmasa SSO-nu deaktiv edin.</value>
+  </data>
+  <data name="SaasTariffErrorStartupTariffNotFound" xml:space="preserve">
+    <value>Başlanğıc tarifi tapılmadı.</value>
+  </data>
+  <data name="SaasTariffErrorStorage" xml:space="preserve">
+    <value>İstifadə olunan yaddaş ölçüsü {0}-dən çox olmamalıdır.</value>
+  </data>
+  <data name="SaasTariffErrorTariffNotFound" xml:space="preserve">
+    <value>Tarif tapılmadı.</value>
+  </data>
+  <data name="SaasTariffErrorThirparty" xml:space="preserve">
+    <value>Zəhmət olmasa, bütün 3-cü tərəf xidmətlərini deaktiv edin.</value>
+  </data>
+  <data name="SaasTariffErrorThreeYearsTariffNotFound" xml:space="preserve">
+    <value>3 illik tarif tapılmadı.</value>
+  </data>
+  <data name="SaasTariffErrorTrial" xml:space="preserve">
+    <value>Yalnız sınaq tarifi başlanğıc tarifinə dəyişdirilə bilər.</value>
+  </data>
+  <data name="SaasTariffErrorUsers" xml:space="preserve">
+    <value>Aktiv istifadəçilərin sayı {0}-dan çox olmamalıdır.</value>
+  </data>
+  <data name="SaasTariffErrorWhiteLabel" xml:space="preserve">
+    <value>Ağ Etiket parametrləri standart olaraq təyin edilməlidir.</value>
+  </data>
+  <data name="SaasTariffErrorYearTariffNotFound" xml:space="preserve">
+    <value>İl tarifi tapılmadı.</value>
+  </data>
+  <data name="SaasTariffInfoExpiresOnDate" xml:space="preserve">
+    <value>Abunəlik {0} tarixində bitir.</value>
+  </data>
+  <data name="SaasTariffInfoFreeDaysLeft" xml:space="preserve">
+    <value>Qalan ödənişsiz günlər</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpace" xml:space="preserve">
+    <value>Yaddaş sahəsi</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpaceTitle" xml:space="preserve">
+    <value>İstifadə olunmuş saxlama sahəsi</value>
+  </data>
+  <data name="SaasTariffInfoStorageSpaceValue" xml:space="preserve">
+    <value>{0} ({1}% dolu)</value>
+  </data>
+  <data name="SaasTariffInfoUsersCount" xml:space="preserve">
+    <value>İstifadəçilər</value>
+  </data>
+  <data name="SaasTariffInfoUsersCountTitle" xml:space="preserve">
+    <value>Aktiv istifadəçilərin / ödənişli istifadəçilərin sayı</value>
+  </data>
+  <data name="SaasTariffMainHeaderBusiness" xml:space="preserve">
+    <value>ONLYOFFICE Biznes buludundan istifadə edirsiniz</value>
+  </data>
+  <data name="SaasTariffMainHeaderBusinessExpired" xml:space="preserve">
+    <value>Biznes planınızın müddəti başa çatıb</value>
+  </data>
+  <data name="SaasTariffMainHeaderStartup" xml:space="preserve">
+    <value>Ödənişsiz Başlatma planından istifadə edirsiniz</value>
+  </data>
+  <data name="SaasTariffMainHeaderTrial" xml:space="preserve">
+    <value>30 günlük ödənişsiz ONLYOFFICE biznes buludunuz var</value>
+  </data>
+  <data name="SaasTariffMainHeaderTrialExpired" xml:space="preserve">
+    <value>ONLYOFFICE Biznes bulud üçün sınaq müddətiniz bitdi</value>
+  </data>
+  <data name="SaasTariffOneMonth" xml:space="preserve">
+    <value>1 ay</value>
+  </data>
+  <data name="SaasTariffOneYear" xml:space="preserve">
+    <value>1 il</value>
+  </data>
+  <data name="SaasTariffReActivateBusiness" xml:space="preserve">
+    <value>Biznesi yenidən aktivləşdirin</value>
+  </data>
+  <data name="SaasTariffSale" xml:space="preserve">
+    <value>{0}% Yadda saxla</value>
+  </data>
+  <data name="SaasTariffSelectedTariffDetails" xml:space="preserve">
+    <value>Tarif təfərrüatlarınız</value>
+  </data>
+  <data name="SaasTariffSelectedTariffLength" xml:space="preserve">
+    <value>Hesablaşma dövrü</value>
+  </data>
+  <data name="SaasTariffSelectedTariffPrice" xml:space="preserve">
+    <value>İstifadəçi üçün qiymət</value>
+  </data>
+  <data name="SaasTariffSelectedTariffPriceValue" xml:space="preserve">
+    <value>aylıq {0}</value>
+  </data>
+  <data name="SaasTariffSelectNumberOfUsers" xml:space="preserve">
+    <value>İstifadəçilərin sayını seçin</value>
+  </data>
+  <data name="SaasTariffStartup" xml:space="preserve">
+    <value>Başla</value>
+  </data>
+  <data name="SaasTariffStartupCost" xml:space="preserve">
+    <value>{0} istifadəçi/ay</value>
+  </data>
+  <data name="SaasTariffStartupFeature1" xml:space="preserve">
+    <value>maksimum 5 istifadəçi</value>
+  </data>
+  <data name="SaasTariffStartupFeature2" xml:space="preserve">
+    <value>Portal üçün 2 Gb</value>
+  </data>
+  <data name="SaasTariffStartupFeature3" xml:space="preserve">
+    <value>10 eynivaxtlı əlaqə</value>
+  </data>
+  <data name="SaasTariffStartupFeature4" xml:space="preserve">
+    <value>Əl ilə ehtiyat nüsxələri</value>
+  </data>
+  <data name="SaasTariffStartupFeature5" xml:space="preserve">
+    <value>Poçt toplayıcısı</value>
+  </data>
+  <data name="SaasTariffTContactSupport" xml:space="preserve">
+    <value>Sınaq müddətinin uzadılması və satış sualları üçün bizimlə {0}{1}{2} əlaqə saxlayın</value>
+  </data>
+  <data name="SaasTariffTContactUs" xml:space="preserve">
+    <value>Suallarınız var? {0}Bizimlə əlaqə saxlayın{1}</value>
+  </data>
+  <data name="SaasTariffThreeYears" xml:space="preserve">
+    <value>3 il</value>
+  </data>
+  <data name="SaasTariffTotalPrice" xml:space="preserve">
+    <value>Yekun</value>
+  </data>
+  <data name="SalesQuestionsV11" xml:space="preserve">
+    <value>Satınalma ilə bağlı hər hansı sualınız üçün bizimlə {0} əlaqə saxlayın</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Yadda saxla</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>Axtar</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Modulda axtar</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Hamısını seç</value>
+  </data>
   <data name="SendShareNotify" xml:space="preserve">
     <value>Bildiriş göndər</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>İstifadəçilər və ya qruplar əlavə edin və onlara müvafiq giriş hüquqlarını verin.</value>
   </data>
   <data name="SharingSettingsTitle" xml:space="preserve">
     <value>Paylaşma ayarları</value>
   </data>
   <data name="ShowNextNews" xml:space="preserve">
     <value>Növbəti xəbərləri göstər</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Veb-sayt</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Mənbə kodu {0}GitHub{1}-da mövcuddur</value>
+  </data>
+  <data name="SubscribeSite" xml:space="preserve">
+    <value>Mən ONLYOFFICE xəbər bülleteninə abunə olmaq istəyirəm</value>
+  </data>
+  <data name="SupportQuestionsV11" xml:space="preserve">
+    <value>Texniki problemləri həll etmək üçün {0} istifadə edin</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Əsas qiymət</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Valyutaların tam siyahısı üçün Avangate-ə baxın</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Qiymət planınızda fayl ölçüsü üçün əsas məhdudiyyətlər var.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Böyük fayl ölçüsü</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Ödənişsiz</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Tam qiymət siyahısını açın</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Yeni qiymət planı seçmək istərdinizmi?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Vaxt məhdudiyyəti olan təklif</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Bəli, planı yeniləyin</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Aylıq{2}{1} Abunəlik</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 İllik{2}{1} Abunəlik</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 İllik{1} Abunəlik</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Siz qeyri-kommersiya təşkilatı üçün plan istifadə edirsiniz.</value>
+  </data>
+  <data name="TariffNotPaidStandalone2" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}Lisenziyanız üçün dəstək və yeniləmələr artıq mövcud deyil{1}.</value>
+  </data>
+  <data name="TariffNotPaidStandaloneSupport" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}Lisenziyanız üçün dəstək artıq mövcud deyil{1}.</value>
+  </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0}Portal üçün ödənişinvaxtı keçib.{1} {2}ONLYOFFICE əməkdaşlıq funksiyalarından istifadə etməyə davam etmək üçün {2}cari qiymət planını uzadın və ya başqa plan seçin.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Portal ödənişinizin vaxtı keçib.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Siz {0} - {1} aktiv istifadəçi planından istifadə edirsiniz. {2}Ödənişin vaxtı keçib.{3}{4} ONLYOFFICE-dən istifadə etməyə davam etmək üçün mövcud planı uzadın və ya aşağıdakı cədvəldən istifadə edərək onu dəyişdirin.</value>
+  </data>
+  <data name="TariffOverdueStandalone2" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}{2}{1} tarixindən etibarən lisenziyanız üçün dəstək və yeniləmələr daha əlçatan deyil.</value>
+  </data>
+  <data name="TariffOverdueStandaloneSupport" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}{2}{1} tarixindən etibarən lisenziyanız üçün dəstək daha əlçatan deyil.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Siz {0} - {1} aktiv istifadəçi planından istifadə edirsiniz.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition-dən istifadə edirsiniz.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>ay</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>il</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 il</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Təklif yalnız illik abunəçilər üçün əlçatandır.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Ən Populyar Abunəlik</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Yeni portalın əlavə edilməsi cari qiymət planınızın icazə verdiyi portalların maksimum sayını keçəcək.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>{0} Yadda saxla</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>İstifadəçi /ay üzrə {0}</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Tələbinizi göndərin</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Məzmunu tələb edin</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Zəhmət olmasa sorğunuzun təfərrüatlarını burada təsvir edin</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Zəhmət olmasa mesajınızı bura yazın</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Portalın yaddaş sahəsi keçilib</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Lütfən, portaldan bütün köhnəlmiş məzmunu silin və ya cari qiymət planını daha böyük yaddaş sahəsi olan biri ilə dəyişdirin.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Kifayət qədər boş yaddaş sahəsi yoxdur</value>
+  </data>
+  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
+    <value>Siz ONLYOFFICE Enterprise Edition istifadə edirsiniz. {0}Cari quraşdırma müvafiq lisenziya təqdim edilmədən yenilənib.{1}{2} ONLYOFFICE Enterprise Edition istifadə etməyə davam etmək üçün yenilənmiş lisenziyanı yükləyin.</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Komanda yoldaşlarınızın sayını seçin</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Sizə neçə istifadəçi lazımdır?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Komandanıza uyğun plan {0}{2} - {3} aktiv istifadəçilər{7} + {4}{1} Disk Yaddaşıdır</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Yeni istifadəçilər əlavə etmək mümkün deyil</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Yeni istifadəçilərin əlavə edilməsi cari qiymət planınızın icazə verdiyi portal üzvlərinin maksimum sayını keçəcək.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Yeni istifadəçilərin əlavə edilməsi</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>{0}-dən çox aktiv istifadəçinin{1} olduğu qiymət planları yalnız sorğu əsasında mövcuddur.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Siz qiymət planını əvvəlki versiyaya keçirə bilməzsiniz.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>Ardını oxu</value>
+  </data>
+  <data name="TariffVisitorLimitReason" xml:space="preserve">
+    <value>Yeni qonağın əlavə edilməsi cari qiymət planınızın icazə verdiyi portal qonaqlarının maksimum sayını keçəcək.</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>Tətbiqinizdən 6 rəqəmli yaradılmış kodu daxil edin. Telefonunuza girişiniz yoxdursa, ehtiyat kodlarınızdan istifadə edə bilərsiniz.</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>Autentifikator tətbiqinizi konfiqurasiya edin</value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>Tətbiqi qoşun</value>
+  </data>
+  <data name="TfaAppDescription" xml:space="preserve">
+    <value>Əlavə portal təhlükəsizliyini təmin etmək üçün iki faktorlu autentifikasiya işə salınıb. Portalda işə davam etmək üçün autentifikator tətbiqinizi konfiqurasiya edin. Məsələn, {1} üçün {0} və {4} üçün {2} və ya {3} istifadə edə bilərsiniz.</value>
+  </data>
+  <data name="TfaAppHowTo" xml:space="preserve">
+    <value>Tətbiqinizə qoşulmaq üçün QR kodunu skan edin və ya gizli açarınızı əl ilə daxil edin {0}, sonra aşağıdakı sahəyə tətbiqinizdən 6 rəqəmli kodu daxil edin.</value>
   </data>
   <data name="TooltipCreate" xml:space="preserve">
     <value>Siz sənədlər ({0}), cədvəllər ({1}), təqdimatlar ({2}) yarada və onları ən geniş yayılmış formatlarda endirə bilərsiniz.</value>
@@ -205,11 +877,125 @@
   <data name="TooltipUpload" xml:space="preserve">
     <value>Siz istənilən faylları Sənədlərə yükləyə bilərsiniz.</value>
   </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Qiymət planını yeniləyin</value>
+  </data>
   <data name="UploadFile" xml:space="preserve">
     <value>Fayl yüklə</value>
   </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Seçim</value>
+  </data>
   <data name="Version" xml:space="preserve">
     <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Burada göstərmək üçün heç nə yoxdur</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Burada göstərmək üçün heç nə yoxdur</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Səs</value>
+  </data>
+  <data name="WelcomeDashboardApps" xml:space="preserve">
+    <value>Məhsuldar iş üçün sizə lazım olan proqramlar</value>
+  </data>
+  <data name="WelcomeDashboardAppsFirstLine" xml:space="preserve">
+    <value>Korporativ poçt qutuları yaratmaq, ləqəblər/poçt qrupları əlavə etmək üçün {0}ONLYOFFICE Poçt Serverindən istifadə edin{1}.</value>
+  </data>
+  <data name="WelcomeDashboardAppsSecondLine" xml:space="preserve">
+    <value>{0}DocuSign ilə sənədləri imzalayın{1}. Elektron imza üçün sənədləri birbaşa portalınızdan göndərin və imzalanmış PDF fayllarını qəbul edin.</value>
+  </data>
+  <data name="WelcomeDashboardAppsThirdLine" xml:space="preserve">
+    <value>{0} Twilio vasitəsilə müştərilərinizə zəng edin{1} . Virtual nömrələrdən istifadə edərək birbaşa veb brauzerinizdən zənglər edin və qəbul edin.</value>
+  </data>
+  <data name="WelcomeDashboardBackUp" xml:space="preserve">
+    <value>ONLYOFFICE-i yedəkləyin</value>
+  </data>
+  <data name="WelcomeDashboardConnectNow" xml:space="preserve">
+    <value>İndi qoşun</value>
+  </data>
+  <data name="WelcomeDashboardCustomizeNow" xml:space="preserve">
+    <value>İndi fərdiləşdirin</value>
+  </data>
+  <data name="WelcomeDashboardEnableNow" xml:space="preserve">
+    <value>İndi aktivləşdirin</value>
+  </data>
+  <data name="WelcomeDashboardGoToDns" xml:space="preserve">
+    <value>DNS parametrlərinə keçin</value>
+  </data>
+  <data name="WelcomeDashboardHeader" xml:space="preserve">
+    <value>ONLYOFFICE Biznes buluda xoş gəlmisiniz</value>
+  </data>
+  <data name="WelcomeDashboardImportNow" xml:space="preserve">
+    <value>İndi idxal edin</value>
+  </data>
+  <data name="WelcomeDashboardIntegration" xml:space="preserve">
+    <value>İnfrastrukturunuzla asan inteqrasiya</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationFirstLine" xml:space="preserve">
+    <value>Serverinizdən (məsələn, OpenLDAP Server və ya Microsoft Active Directory) istifadəçiləri  {0}və qrupları asanlıqla idxal etmək üçün LDAP-dan istifadə edin{1}.</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationSecondLine" xml:space="preserve">
+    <value>İstifadəçilərə mövcud kredensiallar ilə daxil olmağa icazə vermək üçün {0}Tək Girişi aktiv edin{1}.</value>
+  </data>
+  <data name="WelcomeDashboardIntegrationThirdLine" xml:space="preserve">
+    <value>Portal ünvanınız kimi {0}öz domen adınızdan istifadə edin{1}.</value>
+  </data>
+  <data name="WelcomeDashboardInviteUsers" xml:space="preserve">
+    <value>İstifadəçiləri dəvət edin</value>
+  </data>
+  <data name="WelcomeDashboardSetUpNow" xml:space="preserve">
+    <value>İndi quraşdır</value>
+  </data>
+  <data name="WelcomeDashboardStartEditing" xml:space="preserve">
+    <value>Redaktə etməyə başla</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloud" xml:space="preserve">
+    <value>Ehtiyaclarınıza uyğunlaşdırılmış bulud</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudFirstLine" xml:space="preserve">
+    <value>{0}Sizə nə qədər istifadəçi lazım olduğunu seçin{1}, adminlərin sayını təyin edin.</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudSecondLine" xml:space="preserve">
+    <value>{0}onlayn ofisi brendinizə uyğun üsluba uyğunlaşdırın{1}.</value>
+  </data>
+  <data name="WelcomeDashboardTailoredCloudThirdLine" xml:space="preserve">
+    <value>{0}Eyni vaxtda qeyri-məhdud sayda sənəd{1}, iş vərəqi və slayd redaktə edin.</value>
+  </data>
+  <data name="WelcomeDashboardTrackNow" xml:space="preserve">
+    <value>İndi izləyin</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurity" xml:space="preserve">
+    <value>Son təhlükəsizlik</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurityFirstLine" xml:space="preserve">
+    <value>{0}A2F{1} seçimini aktiv etdikdən sonra parol parametrlərini təyin edib etibarlı IP və e-poçt domenlərini seçin.</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecuritySecondLine" xml:space="preserve">
+    <value>{0}Avtomatik ehtiyat nüsxələri konfiqurasiya edin{1} və əl ilə yedəkləmələri həyata keçirin.</value>
+  </data>
+  <data name="WelcomeDashboardUltimateSecurityThirdLine" xml:space="preserve">
+    <value>{0}İstifadəçi girişlərini{1} və digər əməliyyatları izləyin.</value>
+  </data>
+  <data name="WelcomeDashboardСonfigureNow" xml:space="preserve">
+    <value>İndi konfiqurasiya edin</value>
+  </data>
+  <data name="WelcomeDashboardСreatingBusinessСloud" xml:space="preserve">
+    <value>Demo sifariş edin</value>
+  </data>
+  <data name="WelcomeDashboardСreatingBusinessСloudFirstLine" xml:space="preserve">
+    <value>Komandamız əsas funksiyalar və modullar vasitəsilə sizə bələdçilik etməyə hazırdır.</value>
+  </data>
+  <data name="WelcomeDashboardСreatingBusinessСloudSecondLine" xml:space="preserve">
+    <value>Zoom vasitəsilə ödənişsiz təqdimat tələb edin</value>
   </data>
   <data name="WhatsNew" xml:space="preserve">
     <value>Yeniliklər</value>

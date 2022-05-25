@@ -46,5 +46,18 @@
             </div>
         </div>
         <asp:PlaceHolder ID="_phTipsSettingsView" runat="server" />
+
+        <div id="connectionsBlockContainer" class="user-block">
+            <div class="tabs-section">
+                <span class="header-base"><%= PeopleResource.LblActiveConnections %></span>
+                <span id="switcherConnectionsButton" class="toggle-button"
+                      data-switcher="1" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
+                    <%= Resource.Show %>
+                </span>
+            </div>
+            <div id="connectionsContainer" style="display: none;" class="tabs-content">
+                <asp:PlaceHolder ID="_phConnectionsView" runat="server" />
+            </div>
+        </div>
     <% } %>
 </asp:Content>

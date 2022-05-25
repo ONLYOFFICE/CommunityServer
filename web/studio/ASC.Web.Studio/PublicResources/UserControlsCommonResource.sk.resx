@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Aktívni používatelia sú členovia portálu s výnimkou hostí a používateľov so stavom "zakázaný"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Pridať voľbu ankety</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Pripojte súbor z dokumentov projektu</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Skráťte odkazy na portálové pozvánky a odkazy na zdieľané dokumenty pomocou služby Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Prihlásiť sa na portál pomocou Vašich účtov zo sociálnych sietí a vyhľadať kontakty</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Pripojte svoje obľúbené cloudové služby a skladujte všetky súbory na jednom mieste</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Zdrojový kód je k dispozícii na {0}GitHub{1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Základná cena</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Zobraziť Avangate pre úplný zoznam mien</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Zadarmo</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Otvorený kompletný cenník</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Chcete si vybrať nový cenový plán?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Časovo obmedzená ponuka</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Áno, aktualizovať plán</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Rok{2}{1} Predplatné</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Roky{1} Predplatné</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Používate plán neziskovej organizácie.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 roky</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Ponuka je k dispozícii len pre ročných zákazníkov.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Najobľúbenejšie predplatné</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Pridanie nového portálu prekročí maximálny počet portálov, ktoré váš aktuálny cenový plán povoľuje.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Uložiť {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} na používateľa/mesiac</value>

@@ -528,7 +528,11 @@ namespace ASC.Mail.Core.Engine
                             !string.IsNullOrEmpty(account.MailboxOAuthToken),
                             account.MailboxEmailInFolder,
                             account.MailboxIsTeamlabMailbox,
-                            account.ServerDomainTenant == Defines.SHARED_TENANT_ID);
+                            account.ServerDomainTenant == Defines.SHARED_TENANT_ID
+                            )
+                        {
+                            DateCreated = account.DateCreated.HasValue ? account.DateCreated.Value : (DateTime?)null
+                        };
 
                         if (group != null) accountInfo.Groups.Add(group);
 

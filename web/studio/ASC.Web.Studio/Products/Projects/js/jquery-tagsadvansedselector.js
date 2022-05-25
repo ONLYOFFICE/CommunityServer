@@ -63,7 +63,7 @@
 
             if (!newTag.data) {
                 that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ProjectsJSResource.TagsSelectorEmptyTitleError });
-                $addPanel.find(".error input").first().focus();
+                $addPanel.find(".error input").first().trigger("focus");
                 return;
             }
             

@@ -200,8 +200,9 @@ var LdapSettings = new function () {
         ldapMappingOptions = buildMappingOptions(ldapMappingRes);
         ldapSecurityOptions = buildMappingOptions(ldapSecurityRes);
 
-        parseMappings($ldapMappingSettings, ldapMappingRes, ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions);
-        parseMappings($ldapMappingSecurity, ldapSecurityRes, ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+        parseMappings($ldapMappingSettings, ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions);
+        //parseMappings($ldapMappingSettings, ldapMappingRes, ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions);
+        //parseMappings($ldapMappingSecurity, ldapSecurityRes, ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
 
         currentSettings = getSettings();
 
@@ -209,8 +210,8 @@ var LdapSettings = new function () {
         $studioPageContent.on('click', '.selectBox .option', selectOption);
 
         if ($ldapSettingsBtn.hasClass("off")) {
-            $ldapSettingsMainContainer.find("input").attr("disabled", true);
-            $ldapSettingsMainContainer.find("textarea").attr("disabled", true);
+            $ldapSettingsMainContainer.find("input").prop("disabled", true);
+            $ldapSettingsMainContainer.find("textarea").prop("disabled", true);
             $ldapSettingsMainContainer.find(".selectBox:not(.locked)").addClass("disabled");
             $ldapMappingAddBtn.addClass("disable");
             $ldapMappingAddAccess.addClass("disabled");
@@ -222,24 +223,24 @@ var LdapSettings = new function () {
             $ldapSettingsAuthBtn.addClass("disable")
 
         } else {
-            $ldapSettingsUserContainer.find("input").attr("disabled", false);
-            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            $ldapSettingsUserContainer.find("input").prop("disabled", false);
+            $ldapSettingsUserContainer.find("textarea").prop("disabled", false);
             if ($ldapSettingsGroupContainer.hasClass("ldap-settings-disabled")) {
-                $ldapSettingsGroupContainer.find("input").attr("disabled", true);
-                $ldapSettingsGroupContainer.find("textarea").attr("disabled", true);
+                $ldapSettingsGroupContainer.find("input").prop("disabled", true);
+                $ldapSettingsGroupContainer.find("textarea").prop("disabled", true);
                 $ldapMappingAddAccess.addClass("disabled");
                 $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
             } else {
-                $ldapSettingsGroupContainer.find("input").attr("disabled", false);
-                $ldapSettingsGroupContainer.find("textarea").attr("disabled", false);
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
+                $ldapSettingsGroupContainer.find("textarea").prop("disabled", false);
                 $ldapMappingAddAccess.removeClass("disabled");
                 $ldapMappingSecurity.find(".ldap-mapping-remove-row").removeClass("disable");
             }
 
             if ($ldapSettingsAuthContainer.hasClass("ldap-settings-disabled")) {
-                $ldapSettingsAuthContainer.find("input").attr("disabled", true);
+                $ldapSettingsAuthContainer.find("input").prop("disabled", true);
             } else {
-                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
             }
         }
 
@@ -268,14 +269,14 @@ var LdapSettings = new function () {
             }
         });
 
-        $ldapMappingAddBtn.click(function () {
+        $ldapMappingAddBtn.on("click", function () {
             if (jq(this).hasClass("disable")) return;
-            addMappingRow($ldapMappingSettings, "", "", "", ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin);
+            addMappingRow($ldapMappingSettings, "", "", "", ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin);
         });
 
-        $ldapMappingAddAccess.click(function () {
+        $ldapMappingAddAccess.on("click", function () {
             if (jq(this).hasClass("disable")) return;
-            addMappingRow($ldapMappingSecurity, "", "", "", ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+            addMappingRow($ldapMappingSecurity, "", "", "", ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
         });
 
         $ldapSettingsTurnOffDialog.on("click", ".ldap-settings-ok", function () {
@@ -309,7 +310,7 @@ var LdapSettings = new function () {
 
 
 
-        $ldapSettingsSslCheckbox.click(function () {
+        $ldapSettingsSslCheckbox.on("click", function () {
             var self = jq(this);
 
             if (self.is(":checked")) {
@@ -322,7 +323,7 @@ var LdapSettings = new function () {
             refreshButtons();
         });
 
-        $ldapSettingsStartTlsCheckbox.click(function () {
+        $ldapSettingsStartTlsCheckbox.on("click", function () {
             var self = jq(this);
             if (self.hasClass("disabled"))
                 return;
@@ -338,29 +339,29 @@ var LdapSettings = new function () {
         $ldapSettingsAutoSyncBtn.on("click", onAutoSyncEnabled);
         jq("#ldapCronEditLink").on("click", function (e) { onAutoSyncEnabled(e, true); });
 
-        $ldapSettingsSendWelcomeEmailCheckbox.click(function () {
+        $ldapSettingsSendWelcomeEmailCheckbox.on("click", function () {
             if (jq(this).is(":checked")) {
                 jq(this).removeClass("off").addClass("on");
             } else {
                 jq(this).removeClass("on").addClass("off");
             }
         });
-        $ldapSettingsGroupBtn.click(function () {
+        $ldapSettingsGroupBtn.on("click", function () {
 
             if (jq(this).hasClass("disable")) return;
 
             if (jq(this).hasClass("off")) {
                 jq(this).removeClass("off").addClass("on");
-                $ldapSettingsGroupContainer.find("input").removeAttr("disabled");
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
                 $ldapSettingsGroupContainer.removeClass("ldap-settings-disabled");
             } else {
                 jq(this).removeClass("on").addClass("off");
-                $ldapSettingsGroupContainer.find("input").attr("disabled", "");
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
                 $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             }
         });
 
-        $ldapSettingsAuthBtn.click(function () {
+        $ldapSettingsAuthBtn.on("click", function () {
 
             var $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container");
 
@@ -368,11 +369,11 @@ var LdapSettings = new function () {
 
             if (jq(this).hasClass("off")) {
                 jq(this).removeClass("off").addClass("on");
-                $ldapSettingsAuthContainer.find("input").removeAttr("disabled");
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
                 $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");
             } else {
                 jq(this).removeClass("on").addClass("off");
-                $ldapSettingsAuthContainer.find("input").attr("disabled", "");
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
                 $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
             }
         });
@@ -409,13 +410,13 @@ var LdapSettings = new function () {
         $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-ok", continueSaveSettings);
         $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-cancel", cancelDialog);
         $ldapSettingsImportUserLimitPanel.on("click", ".cancelButton", cancelDialog);
-        jq(document).keyup(function (e) {
+        jq(document).on("keyup", function (e) {
             /* Escape Key */
             if (!$ldapSettingsImportUserLimitPanel.is(":hidden") && e.keyCode == 27) {
                 cancelDialog();
             }
         });
-        jq(".ldap-settings-main-container input").change(function () {
+        jq(".ldap-settings-main-container input").on("change", function () {
             isRestoreDefault = false;
             if ($ldapSettingsSaveBtn.hasClass("disable")) {
                 $ldapSettingsSaveBtn.removeClass("disable");
@@ -426,7 +427,7 @@ var LdapSettings = new function () {
                 $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
             }
         });
-        jq(".ldap-settings-main-container .textEdit").keyup(function () {
+        jq(".ldap-settings-main-container .textEdit").on("keyup", function () {
             isRestoreDefault = false;
             if ($ldapSettingsSaveBtn.hasClass("disable")) {
                 $ldapSettingsSaveBtn.removeClass("disable");
@@ -506,9 +507,9 @@ var LdapSettings = new function () {
             $ldapMappingAddBtn.removeClass("disable");
 
             $ldapMappingAddAccess.addClass("disabled");
-            $ldapSettingsUserContainer.find("input").attr("disabled", false);
+            $ldapSettingsUserContainer.find("input").prop("disabled", false);
 
-            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            $ldapSettingsUserContainer.find("textarea").prop("disabled", false);
             $ldapSettingsUserContainer.find(".selectBox:not(.locked)").removeClass("disabled");
             $ldapMappingSettings.find(".ldap-mapping-remove-row").removeClass("disable");
             $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
@@ -519,16 +520,16 @@ var LdapSettings = new function () {
             $ldapSettingsSecurityContainer.removeClass("ldap-settings-disabled");
             $ldapSettingsAdvancedContainer.removeClass("ldap-settings-disabled");
 
-            $ldapSettingsStartTlsCheckbox.attr("disabled", false);
-            $ldapSettingsSslCheckbox.attr("disabled", false);
+            $ldapSettingsStartTlsCheckbox.prop("disabled", false);
+            $ldapSettingsSslCheckbox.prop("disabled", false);
 
-            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", false);
+            $ldapSettingsSendWelcomeEmailCheckbox.prop("disabled", false);
 
             $ldapSettingsAutoSyncBtn.addClass("disable");
 
             if ($ldapSettingsGroupBtn.hasClass("on")) {
-                $ldapSettingsGroupContainer.find("input").removeAttr("disabled");
-                $ldapSettingsGroupContainer.find("textarea").removeAttr("disabled");
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
+                $ldapSettingsGroupContainer.find("textarea").prop("disabled", false);
                 $ldapSettingsGroupContainer.removeClass("ldap-settings-disabled");
                 $ldapMappingAddAccess.removeClass("disabled");
                 $ldapMappingSecurity.find(".ldap-mapping-remove-row").removeClass("disable");
@@ -536,14 +537,14 @@ var LdapSettings = new function () {
             $ldapSettingsAuthBtn.removeClass("disable");
 
             if ($ldapSettingsAuthBtn.hasClass("on")) {
-                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
                 $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");
             }
         } else {
             $ldapSettingsBtn.removeClass("on").addClass("off");
             $ldapMappingAddBtn.addClass("disable");
 
-            $ldapSettingsCronContainer.find("input").attr("disabled", true);
+            $ldapSettingsCronContainer.find("input").prop("disabled", true);
             $ldapSettingsCronContainer.find(".on_off_button").addClass("disabled");
 
             $ldapMappingAddAccess.addClass("disabled");
@@ -552,15 +553,15 @@ var LdapSettings = new function () {
 
             $ldapSettingsAuthBtn.addClass("disable");
 
-            $ldapSettingsMainContainer.find("input").attr("disabled", true);
-            $ldapSettingsMainContainer.find("textarea").attr("disabled", true);
+            $ldapSettingsMainContainer.find("input").prop("disabled", true);
+            $ldapSettingsMainContainer.find("textarea").prop("disabled", true);
             $ldapSettingsUserContainer.find(".selectBox:not(.locked)").addClass("disabled");
             $ldapMappingSettings.find(".ldap-mapping-remove-row").addClass("disable");
             $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
             $ldapSettingsStartTlsCheckbox.addClass("disabled");
             $ldapSettingsSslCheckbox.addClass("disabled");
 
-            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", true);
+            $ldapSettingsSendWelcomeEmailCheckbox.prop("disabled", true);
 
             $ldapSettingsAutoSyncBtn.removeClass("disable");
             $ldapSettingsUserContainer.addClass("ldap-settings-disabled");
@@ -728,9 +729,9 @@ var LdapSettings = new function () {
 
     function enableMailCheckboxes(on) {
         if (on) {
-            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", false);
+            $ldapSettingsSendWelcomeEmailCheckbox.prop("disabled", false);
         } else {
-            $ldapSettingsSendWelcomeEmailCheckbox.prop('checked', false).attr("disabled", true); 
+            $ldapSettingsSendWelcomeEmailCheckbox.prop('checked', false).prop("disabled", true);
         }
     }
 
@@ -738,7 +739,7 @@ var LdapSettings = new function () {
         $ldapSettingsBtn.toggleClass("off", !on).toggleClass("on", on);
 
         if (on && $ldapSettingsSpoiler.hasClass("display-none")) {
-            $ldapSettingsSpoilerLink.click();
+            $ldapSettingsSpoilerLink.trigger("click");
         }
 
         enableInputs(on);
@@ -789,7 +790,8 @@ var LdapSettings = new function () {
 
 
         $ldapMappingSettings.children().each(function () {
-            var select = (jq(this).children("div").attr("data-value") || "").trim();
+
+            var select = (jq(this).children("select").val() || "").trim();
             var input = (jq(this).children("input").val() || "").trim();
 
             if (!select || !input) return;
@@ -836,21 +838,18 @@ var LdapSettings = new function () {
             Login: login,
             Password: password
         };
-
         return settings;
     }
 
-
-    function parseMappings(elem, res, options, placeholder, required) {
+    function parseMappings(elem, options, placeholder, required) {
         var data_val = elem.attr("data-value");
         if (!data_val) return;
         var data = JSON.parse(data_val);
-        elem.removeAttr("data-value");
 
         if (required) {
             for (var i = 0; i < required.length; i++) {
                 var value = data[required[i]];
-                addMappingRow(elem, required[i], value ? value : "", res[required[i]], options, placeholder, true);
+                addMappingRow(elem, required[i], value ? value : "", options[required[i]], options, placeholder, true);
             }
         }
 
@@ -863,62 +862,116 @@ var LdapSettings = new function () {
                 if (data[key].includes(",")) {
                     var split = data[key].split(",");
                     for (var i = 0; i < split.length; i++) {
-                        addMappingRow(elem, key, split[i], res[key], options, placeholder);
+                        addMappingRow(elem, key, split[i], options[key], options, placeholder);
                     }
                 } else {
-                    addMappingRow(elem, key, data[key], res[key], options, placeholder);
+                    addMappingRow(elem, key, data[key], options[key], options, placeholder);
                 }
             }
         }
     }
 
-    function refreshMappingOptions(el, options) {
+    function addMappingRow(el, key, value, humanKey, options, placeholder, required) {
 
+        var mappingRow = document.createElement("div");
+        mappingRow.className = "ldap-mapping-row clear-fix requiredField";
+
+        var mappingInput = document.createElement("input");
+        mappingInput.className = "textEdit";
+        mappingInput.type = "text"; 
+        mappingInput.value = value;
+        mappingInput.placeholder = placeholder;
+
+        jq(mappingInput).on("change", refreshButtons)
+            .on("keyup", refreshButtons)
+            .on("paste", refreshButtons);
+
+        var mappingErrorSpan = document.createElement("span");
+        mappingErrorSpan.className = "requiredErrorText";
+        mappingErrorSpan.innerHTML = ASC.Resources.Master.ResourceJS.LdapSettingsEmptyField;
+
+        var removeBtn = document.createElement("div");
+        removeBtn.className = "ldap-mapping-remove-row remove-btn-icon";
+        var spanIcon =  document.createElement("span");
+        spanIcon.className = "menu-item-icon";
+        spanIcon.innerHTML = "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\">"
+            + "<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM7.96899 12.9723C10.7133 12.9913 12.9533 10.782 12.9723 8.03775C12.9913 5.29348 10.7821 3.0534 8.03779 3.0344C5.29352 3.0154 3.05345 5.22467 3.03445 7.96894C3.01545 10.7132 5.22472 12.9533 7.96899 12.9723Z\" />"
+            + "<path d=\"M5.5 5.5L10.5 10.5\" stroke-width=\"2\" />"
+            + "<path d=\"M5.5 10.5L10.5 5.5\" stroke-width=\"2\" />"
+            + "</svg >";
+        removeBtn.append(spanIcon)
+
+        var s = document.createElement("select");
+        s.className = "comboBox";
+        if (required) s.setAttribute("disabled", true);
+        s.setAttribute("data-default", key);
+
+        var occupiedAttributeKeys = [];
+        if (!key) {
+            var currentSelect = jq(el).find("select");
+            for (var i = 0; i < currentSelect.length; i++) {
+                if (currentSelect[i].value.endsWith("Attribute")) occupiedAttributeKeys.push(currentSelect[i].value);
+            }
+        }
+        for(var k in options)
+        {
+            if (key || occupiedAttributeKeys.indexOf(k) === -1) {
+                var option = document.createElement("option");
+                if (key == k) option.setAttribute("selected", true);
+                option.setAttribute("value", k);
+                option.append(options[k]);
+                s.append(option);
+            }
+        }
+
+        jq(s).on("change", onSettingsChanged);
+        jq(s).on("change", function () { refreshMappingOptions(el, options); });
+
+        mappingRow.append(s);
+        mappingRow.append(mappingInput);
+        mappingRow.append(mappingErrorSpan);
+
+        if (!required) mappingRow.append(removeBtn);
+        el.append(mappingRow);
+
+        el.find(".ldap-mapping-remove-row").last().on("click", function () { removeMappingRow(el, jq(this), options); });
+
+        refreshMappingOptions(el, options);
+    }
+
+    function refreshMappingOptions(el, options) {
         var uniqueKeys = [];
-        var selects = el.find(".selectBox");
+        var selects = el.find(".comboBox");
+
         selects.each(function () {
-            var val = jq(this).attr("data-value");
+            var val = jq(this)[0].value;
             if (val.endsWith("Attribute"))
                 uniqueKeys.push(val);
         }).each(function () {
-            var sel = jq(this).attr("data-value");
+            var sel = jq(this)[0].value;
+            this.innerHTML = "";
 
-            var currentOptions = jq(this).find(".selectOptionsInnerBox").html(options).children();
-            currentOptions.filter(function () { return jq(this).attr("data-value") === sel }).addClass("selected");
-            currentOptions.filter(function () {
-                return !(uniqueKeys.indexOf(jq(this).attr("data-value")) < 0) && jq(this).attr("data-value") !== sel;
-            }).remove();
+            for (var k in options) {
+                var option = document.createElement("option");
+
+                option.setAttribute("value", k);
+                option.append(options[k]);
+                jq(this).append(option);
+            }
+            var currentOptions = this.options;
+            
+            var myOptions = Array.prototype.slice.call(currentOptions);
+
+            myOptions.filter(function (number) {return number.value === sel })[0].setAttribute("selected", true);
+
+            var t = myOptions.filter(function (number) {
+                return (!(uniqueKeys.indexOf(number.value) < 0) && number.value !== sel);
+            });
+
+            t.forEach(function (item, i, arr) {
+                jq(item).remove();
+            });
         });
-    }
-
-    function addMappingRow(el, key, value, humanKey, options, placeholder, required) {
-        key = key || "";
-        value = value || "";
-
-        jq("#ldapMappingFieldTmpl")
-            .tmpl({ key: key, value: value, humanKey: humanKey, options: options, placeholder: placeholder, required: required }).appendTo(el);
-
-        el.find(".ldap-mapping-remove-row").last().click(function () { removeMappingRow(el, jq(this), options); });
-        var select = el.find(".selectBox").last();
-        select.on("valueChanged", onSettingsChanged);
-        select.on("valueChanged", function () { refreshMappingOptions(el, options); });
-
-        if (required) {
-            select.addClass("locked").addClass("disabled");
-        }
-
-        var input = el.find("input").last();
-        input.change(refreshButtons)
-            .keyup(refreshButtons)
-            .on("paste", refreshButtons);
-
-        refreshMappingOptions(el, options);
-        if (!key) {
-            var val = select.find(".selectOptionsInnerBox").children().first();
-            select.attr("data-value", val.attr("data-value"));
-            select.children(".selectBoxValue").text(val.text());
-            refreshMappingOptions(el, options);
-        }
     }
 
     function removeMappingRow(el, self, options) {
@@ -978,7 +1031,7 @@ var LdapSettings = new function () {
     function showSelectOptions() {
         var $selector = jq(this);
 
-        if ($selector.attr("disabled") || $selector.hasClass("disabled"))
+        if ($selector.prop("disabled") || $selector.hasClass("disabled"))
             return;
 
         var $options = $selector.find('.selectOptionsBox');
@@ -1152,13 +1205,13 @@ var LdapSettings = new function () {
         $ldapSettingsRestoreDefaultSettings.addClass("disable");
         jq(".ldap-settings-sync-users").addClass("disable");
         $ldapSettingsMainContainer.addClass("ldap-settings-disabled-all");
-        $ldapSettingsMainContainer.find("input").attr("disabled", "");
+        $ldapSettingsMainContainer.find("input").prop("disabled", false);
         $ldapSettingsMainContainer.off("click", ".ldap-settings-save");
         $ldapSettingsMainContainer.off("click", ".ldap-settings-restore-default-settings");
         $ldapSettingsMainContainer.off("click", ".ldap-settings-sync-users");
 
         $ldapMappingSettings.find(".ldap-mapping-remove-row").addClass("disable");
-        $ldapMappingAddBtn.attr("disabled", true).addClass("disable");
+        $ldapMappingAddBtn.prop("disabled", true).addClass("disable");
 
         enableRestoreDefault(false);
         enableSave(false);
@@ -1171,34 +1224,34 @@ var LdapSettings = new function () {
             refreshButtons();
         }
         $ldapSettingsMainContainer.removeClass("ldap-settings-disabled-all");
-        $ldapSettingsBtn.attr("disabled", false).removeClass("disable");
+        $ldapSettingsBtn.prop("disabled", false).removeClass("disable");
         if ($ldapSettingsBtn.hasClass("on")) {
-            $ldapSettingsStartTlsCheckbox.removeClass("disabled").attr("disabled", false);
-            $ldapSettingsSslCheckbox.removeClass("disabled").attr("disabled", false);
-            $ldapSettingsUserContainer.find("input").attr("disabled", false);
-            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            $ldapSettingsStartTlsCheckbox.removeClass("disabled").prop("disabled", false);
+            $ldapSettingsSslCheckbox.removeClass("disabled").prop("disabled", false);
+            $ldapSettingsUserContainer.find("input").prop("disabled", false);
+            $ldapSettingsUserContainer.find("textarea").prop("disabled", false);
             $ldapSettingsUserContainer.find(".selectBox:not(.locked)").removeClass("disabled");
             $ldapSettingsUserContainer.find(".on-off-button").removeClass("disable");
             $ldapSettingsAutoSyncBtn.removeClass("disable");
             $ldapSettingsGroupBtn.removeClass("disable");
 
-            $ldapMappingAddBtn.attr("disable", false).removeClass("disable");
+            $ldapMappingAddBtn.prop("disable", false).removeClass("disable");
             $ldapMappingSettings.find(".ldap-mapping-remove-row").removeClass("disable");
 
             if ($ldapSettingsGroupBtn.hasClass("on")) {
-                $ldapSettingsGroupContainer.find("input").attr("disabled", false);
-                $ldapSettingsGroupContainer.find("textarea").attr("disabled", false);
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
+                $ldapSettingsGroupContainer.find("textarea").prop("disabled", false);
                 $ldapSettingsGroupContainer.find(".selectBox:not(.locked)").removeClass("disabled");
                 $ldapSettingsGroupContainer.find(".on-off-button").removeClass("disable");
-                $ldapMappingAddAccess.attr("disabled", false).removeClass("disabled");
+                $ldapMappingAddAccess.prop("disabled", false).removeClass("disabled");
             }
             $ldapSettingsAuthBtn.removeClass("disable");
             if ($ldapSettingsAuthBtn.hasClass("on")) {
-                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
                 $ldapSettingsAuthContainer.find(".on-off-button").removeClass("disable");
             }
             if ($ldapSettingsAutoSyncBtn.hasClass("on")) {
-                $ldapSettingsAutoSync.find("input").attr("disabled", false);
+                $ldapSettingsAutoSync.find("input").prop("disabled", false);
                 $ldapSettingsAutoSync.find(".selectBox:not(.locked)").removeClass("disabled");
             }
         }
@@ -1241,7 +1294,8 @@ var LdapSettings = new function () {
 
         var validateKeyValuePairs = function () {
             var $input = jq(this).children("input");
-            var select = (jq(this).children("div").attr("data-value") || "").trim();
+
+            var select = (jq(this).children("select").val() || "").trim();
             var input = ($input.val() || "").trim();
             if (!select || !input) {
                 jq(this).children(".requiredErrorText").text(ASC.Resources.Master.ResourceJS.LdapSettingsEmptyField);
@@ -1690,14 +1744,14 @@ var LdapSettings = new function () {
             clearAllMappingRows($ldapMappingSettings);
             if (ldapMapping) {
                 for (var key in ldapMapping) {
-                    addMappingRow($ldapMappingSettings, key, ldapMapping[key], ldapMappingRes[key], ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions.indexOf(key) !== -1);
+                    addMappingRow($ldapMappingSettings, key, ldapMapping[key], ldapMappingRes[key], ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions.indexOf(key) !== -1);
                 }
             }
 
             clearAllMappingRows($ldapMappingSecurity);
             if (accessRights) {
                 for (var key in accessRights) {
-                    addMappingRow($ldapMappingSecurity, key, ldapMapping[key], ldapSecurityRes[key], ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+                    addMappingRow($ldapMappingSecurity, key, ldapMapping[key], ldapSecurityRes[key], ldapMappingRes, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
                 }
             }
 
@@ -1736,18 +1790,18 @@ var LdapSettings = new function () {
 
     function disableNeededBlocks(enableLdapAuthentication, groupMembership, authentication) {
         if (!enableLdapAuthentication) {
-            $ldapSettingsMainContainer.find("input:not(#ldapSettingsCheckbox)").attr("disabled", "");
+            $ldapSettingsMainContainer.find("input:not(#ldapSettingsCheckbox)").prop("disabled", false);
             jq(".ldap-settings-label-checkbox:not(.ldap-settings-never-disable)").addClass("ldap-settings-disabled");
             $ldapSettingsUserContainer.addClass("ldap-settings-disabled");
             $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
         } else {
             if (!groupMembership) {
-                $ldapSettingsGroupContainer.find("input").attr("disabled", "");
+                $ldapSettingsGroupContainer.find("input").prop("disabled", false);
                 $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             }
             if (!authentication) {
-                $ldapSettingsAuthContainer.find("input").attr("disabled", "");
+                $ldapSettingsAuthContainer.find("input").prop("disabled", false);
                 $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
             }
         }

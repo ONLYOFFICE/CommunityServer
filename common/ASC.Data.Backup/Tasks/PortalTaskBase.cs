@@ -17,10 +17,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 using ASC.Common.Data;
@@ -61,6 +63,20 @@ namespace ASC.Data.Backup.Tasks
             TenantId = tenantId;
             ConfigPath = configPath;
             ProcessStorage = true;
+        }
+
+        protected string RegisterDatabase(int id, string connectionString)
+        {
+            connectionString = connectionString + ";convert zero datetime=True";
+            var connectionSettings = new ConnectionStringSettings("mailservice-" + id, connectionString, "MySql.Data.MySqlClient");
+
+            if (DbRegistry.IsDatabaseRegistered(connectionSettings.Name))
+            {
+                DbRegistry.UnRegisterDatabase(connectionSettings.Name);
+            }
+
+            DbRegistry.RegisterDatabase(connectionSettings.Name, connectionSettings);
+            return connectionSettings.Name;
         }
 
         public void IgnoreModule(ModuleName moduleName)
@@ -220,14 +236,15 @@ namespace ASC.Data.Backup.Tasks
             return result;
         }
 
-        protected async Task RunMysqlFile(Stream stream, string delimiter = ";")
+        protected async Task RunMysqlFile(Stream stream, string db, string delimiter = ";")
         {
-            using (var dbManager = DbManager.FromHttpContext("default", 100000))
+            using (var dbManager = DbManager.FromHttpContext(db, 100000))
             using (var tr = dbManager.BeginTransaction())
             {
+                await dbManager.ExecuteNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;");
                 if (stream == null) return;
 
-                using (var reader = new StreamReader(stream, Encoding.UTF8))
+                using (var reader = new StreamReader(stream))
                 {
                     string commandText;
 
@@ -235,6 +252,7 @@ namespace ASC.Data.Backup.Tasks
                     {
                         while ((commandText = await reader.ReadLineAsync()) != null)
                         {
+                            var firstText = commandText;
                             while (!commandText.EndsWith(delimiter))
                             {
                                 var newline = await reader.ReadLineAsync();
@@ -247,11 +265,78 @@ namespace ASC.Data.Backup.Tasks
 
                             try
                             {
+                                commandText = commandText.Replace("\\r", "\r").Replace("\\n", "\n");
                                 await dbManager.ExecuteNonQueryAsync(commandText, null);
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
-                                Logger.Error("Restore", e);
+                                try
+                                {
+                                    if (commandText.StartsWith("REPLACE INTO"))
+                                    {
+                                        var innerValues = commandText.Split(',').ToList();
+                                        for (int i = 0; i < innerValues.Count(); i++)
+                                        {
+                                            var flag1 = false;
+                                            var flag2 = false;
+                                            if (innerValues[i].StartsWith("("))
+                                            {
+                                                flag1 = true;
+                                                innerValues[i] = innerValues[i].TrimStart('(');
+                                            }
+                                            else if (innerValues[i].EndsWith(")") && !innerValues[i].StartsWith("'")
+                                                || innerValues[i].EndsWith("')") && innerValues[i] != "')")
+                                            {
+                                                flag2 = true;
+                                                innerValues[i] = innerValues[i].TrimEnd(')');
+                                            }
+                                            if (i == innerValues.Count() - 1)
+                                            {
+                                                innerValues[i] = innerValues[i].Remove(innerValues[i].Length - 2, 2);
+                                            }
+                                            if (innerValues[i].StartsWith("\'") && ((!innerValues[i].EndsWith("\'") || innerValues[i] == "'")
+                                                || i != innerValues.Count() - 1 && (!innerValues[i + 1].StartsWith("\'") && innerValues[i + 1].EndsWith("\'") && !innerValues[i + 1].StartsWith("(\'") || innerValues[i + 1] == "'")))
+                                            {
+                                                innerValues[i] += "," + innerValues[i + 1];
+                                                innerValues.RemoveAt(i + 1);
+                                            }
+                                            if (innerValues[i].StartsWith("\'") && innerValues[i].EndsWith("\'"))
+                                            {
+                                                if (innerValues[i] != "''")
+                                                {
+                                                    var sw = new StringWriter();
+                                                    sw.Write("0x");
+                                                    foreach (var b in Encoding.UTF8.GetBytes(innerValues[i].Trim('\'')))
+                                                        sw.Write("{0:x2}", b);
+                                                    innerValues[i] = string.Format("CONVERT({0} USING utf8)", sw.ToString());
+                                                }
+                                            }
+                                            if (flag1)
+                                            {
+                                                innerValues[i] = "(" + innerValues[i];
+                                            }
+                                            else if (flag2)
+                                            {
+                                                innerValues[i] = innerValues[i] + ")";
+                                            }
+                                            if (i == innerValues.Count() - 1)
+                                            {
+                                                innerValues[i] = innerValues[i] + ");";
+                                            }
+                                        }
+                                        commandText = string.Join(",", innerValues).ToString();
+                                        await dbManager.ExecuteNonQueryAsync(commandText, null);
+                                    }
+                                    else
+                                    {
+                                        Thread.Sleep(1000);//avoiding deadlock
+                                        await dbManager.ExecuteNonQueryAsync(commandText, null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.Error("Restore", ex);
+                                }
                             }
                         }
                     }

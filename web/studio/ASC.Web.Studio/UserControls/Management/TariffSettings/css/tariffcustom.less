@@ -15,12 +15,422 @@
 */
 
 
+.current-tariff-desc {
+    margin-bottom: 40px;
+}
+/****************************************\
+    Tarifs slider
+\****************************************/
+.tariff-header {
+    display: none;
+    margin: 35px 0;
+    text-align: center;
+}
+
+.ui-slider {
+    height: 100%;
+    position: relative;
+    width: 100%;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+    outline: medium none;
+}
+
+.ui-slider ol, .ui-slider li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-slider ol {
+    position: relative;
+    width: 100%;
+}
+
+.ui-slider li {
+    position: absolute;
+    overflow: visible;
+}
+
+.borderRadius (@value: 3px) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
+}
+
+.borderRadiusLeft (@value: 8px) {
+    border-bottom-left-radius: @value;
+    border-top-left-radius: @value;
+    -moz-border-radius-bottomleft: @value;
+    -moz-border-radius-topleft: @value;
+    -webkit-border-top-left-radius: @value;
+    -webkit-border-bottom-left-radius: @value;
+}
+
+.borderRadiusRight (@value: 8px) {
+    border-bottom-right-radius: @value;
+    border-top-right-radius: @value;
+    -moz-border-radius-bottomright: @value;
+    -moz-border-radius-topright: @value;
+    -webkit-border-top-right-radius: @value;
+    -webkit-border-bottom-right-radius: @value;
+}
+
+.baseHorizontalSlider() {
+    overflow: visible !important;
+    z-index: 99;
+
+    .ui-slider {
+        background-color: #fff;
+        border: none;
+
+        li {
+            background-color: #fff;
+            border: 0 none;
+            padding: 0;
+
+            &.darkGrey {
+                background-color: #ccc;
+            }
+
+            &.blue {
+                background-color: #5aa6ce;
+            }
+
+            &.leftRadius {
+                .borderRadiusLeft(3px);
+            }
+
+            &.rightRadius {
+                .borderRadiusRight(3px);
+            }
+
+            &.withVertLine {
+                &:after {
+                    border-right: 2px solid #e9e9e9;
+                    content: " ";
+                    height: 6px;
+                    position: absolute;
+                    right: -1px;
+                    text-align: right;
+                    top: 0;
+                    z-index: 1;
+                }
+            }
+        }
+
+        .ui-slider-handle {
+            background: #fff;
+            border: 2px solid #5aa6ce;
+            cursor: pointer;
+            height: 50px;
+            width: 50px;
+            top: -10px !important;
+            margin-bottom: 0;
+            margin-left: -26px;
+            overflow: visible !important;
+            position: absolute;
+            z-index: 2;
+            .borderRadius(50px);
+
+            .ui-slider-handle-text {
+                font-family: "Open Sans",sans-serif,Arial;
+                font-size: 18px;
+                font-weight: 700;
+                color: #3d4a6b;
+                line-height: 50px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .ui-slider-handle-q {
+                height: 1px;
+                left: 50%;
+                margin: 0;
+                position: relative;
+                top: -100%;
+                padding: 0;
+                width: 0;
+            }
+        }
+    }
+}
+
+.tariff-user-question {
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    position: absolute;
+    right: 58px;
+    top: -32px;
+    white-space: nowrap;
+
+    &:after {
+        background: url("img/line_helper.png") 0 0 no-repeat transparent;
+        content: ' ';
+        display: block;
+        height: 27px;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 2px;
+        right: -58px;
+        vertical-align: top;
+        width: 58px;
+    }
+
+    &.tariff-user-question-right {
+        left: 58px;
+        right: auto;
+
+        &:after {
+            left: -58px;
+            right: auto;
+            -webkit-transform: scaleX(-1);
+            -moz-transform: scaleX(-1);
+            -ms-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+    }
+}
+
+.tariff-slider-container {
+    background-color: #e9e9e9;
+    height: 34px;
+    margin: 49px auto 38px;
+    padding: 0 15px;
+    .borderRadius(15px);
+}
+
+#pricingPlanSlider {
+    .baseHorizontalSlider();
+    height: 34px;
+    margin: 0;
+    padding: 0;
+
+    .ui-slider ol {
+        padding: 14px 0;
+        background-color: #e9e9e9;
+        cursor: pointer;
+
+        li {
+            margin: 0;
+        }
+    }
+
+    &.warn-slider {
+        li.blue {
+            background-color: #D34002;
+        }
+
+        .ui-slider-handle {
+            border-color: #D34002;
+        }
+    }
+}
+
+.tariff-user-panel {
+    margin: 0 auto;
+    width: 750px;
+
+    .header-base {
+    }
+}
+
+.tariff-user-descr {
+    color: #3d4a6b;
+    font-size: 15px;
+}
+
+.tariff-user-descr-item,
+.tariff-user-warn-min,
+.tariff-user-warn-max {
+    display: none;
+}
+
+.tariff-user-descr-item.tariff-user-descr-item-selected {
+    display: block;
+}
+
+/****************************************\
+    Tarifs panel
+\****************************************/
+.tariffs-panel {
+    cursor: default;
+    display: none;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+
+    thead td {
+        color: #3D4A6B;
+        height: 60px;
+        vertical-align: bottom;
+    }
+}
+
+.tariffs-header {
+    font-size: 13px;
+    padding-bottom: 15px;
+}
+
+.tariffs-header-month,
+.tariffs-body-month {
+    background-color: #eee;
+    border: 1px solid #E9E9E9;
+}
+
+.tariffs-header-month {
+    border-bottom: none;
+    padding-top: 25px;
+}
+
+.tariffs-header-year,
+.tariffs-body-year {
+    border: 2px solid #5AA6CE;
+}
+
+.tariffs-header-year {
+    border-bottom: none;
+}
+
+.tariffs-pop {
+    color: #333;
+    font-size: 12px;
+    height: 12px;
+    line-height: 12px;
+    margin: 8px 0 20px;
+}
+
+.tariffs-name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26px;
+}
+
+.tariffs-header-month,
+.tariffs-body-month {
+    margin-right: 2px;
+}
+
+.tariffs-body {
+    border-top: none;
+}
+
 .tariffs-body-month {
     height: 210px;
 }
+
 .tariffs-body-year {
     height: 220px;
 }
+
+.tariff-item {
+    display: none;
+    margin: 0 24px;
+    padding: 10px 0;
+    vertical-align: top;
+
+    &.tariff-item-selected {
+        display: table-row;
+    }
+}
+
+.tariffs-price-dscr {
+    background-color: #AFAFAF;
+    border-top: 1px solid #AFAFAF;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    height: 28px;
+    line-height: 15px;
+    padding: 10px 0 3px;
+}
+
+.tariffs-price-dscr .price-string {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.tariffs-body-year .tariffs-price-dscr {
+    background-color: #5aa6ce;
+    border-top-color: #5aa6ce;
+}
+
+.tariffs-body-month .tariffs-price-dscr {
+    margin: 0 -1px;
+}
+
+.tariffs-price {
+    font-size: 45px;
+    font-weight: 600;
+    height: 75px;
+    padding-top: 18px;
+
+    .tariff-price-cur {
+        font-size: 21px;
+    }
+}
+
+.tariffs-body .tariffs-buy-action {
+    margin-top: 17px;
+}
+
+/*****************************\
+    Tariff request
+\*****************************/
 .tariff-request-panel {
     display: block;
+    text-align: center;
+}
+
+.request-form {
+    text-align: left;
+    margin: 0 auto;
+    width: 350px;
+
+    .text-edit {
+        .borderRadius(3px);
+        border: solid 1px #c7c7c7;
+        color: #434341;
+        font-size: 14px;
+        margin-bottom: 8px;
+        width: 96%;
+    }
+
+    input.text-edit,
+    .text-edit-csize {
+        height: 34px;
+        padding: 0 6px;
+    }
+
+    .text-edit-csize option {
+        padding: 0 9px;
+    }
+
+    .text-edit-csize {
+        width: 100%;
+    }
+
+    .phoneControlInputContainer .text-edit-phone {
+        padding: 7px 10px 7px 5px;
+    }
+
+    .text-edit-phone.phoneControlInput {
+        width: 282px;
+    }
+
+    #phoneControlDropDown ul.dropdown-content {
+        max-width: 334px;
+    }
+
+    textarea.text-edit {
+        padding: 6px;
+    }
 }

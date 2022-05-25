@@ -17,13 +17,21 @@
 
 window.ASC.Files.FileChoice = (function () {
     var isInit = false;
+    var isTriggered = false;
 
-    var init = function (folderId, onlyFolder, thirdParty, fromEditor, originForPost) {
+    var init = function (folderId, onlyFolder, thirdParty, fromEditor, originForPost, displayPrivacy) {
         if (fromEditor) {
             thirdParty = undefined;
         }
         if (isInit === false) {
             isInit = true;
+
+            if (!displayPrivacy && ASC.Files.FileSelector.fileSelectorTree) {
+                var privacyFolderData = ASC.Files.FileSelector.fileSelectorTree.getFolderData(ASC.Files.Constants.FOLDER_ID_PRIVACY);
+                if (privacyFolderData) {
+                    privacyFolderData.entryObject.addClass("privacy-node");
+                }
+            }
 
             if (typeof thirdParty == "string") {
                 if (thirdParty == "") {
@@ -123,6 +131,12 @@ window.ASC.Files.FileChoice = (function () {
                 window.parent.postMessage(message, originForPost);
             };
 
+            jq(document).on("keyup", function (event) {
+                if (event.keyCode == 27) {
+                    ASC.Files.FileSelector.onCancel();
+                }
+            });
+
             if (!thirdParty) {
                 callback();
             }
@@ -130,11 +144,18 @@ window.ASC.Files.FileChoice = (function () {
     };
 
     var eventAfter = function () {
+        console.log("ASC.Files.FileChoice.eventAfter");
+        isTriggered = true;
+    };
+
+    var isEventAfterTriggered = function () {
+        return isTriggered;
     };
 
     return {
         init: init,
-        eventAfter:eventAfter
+        eventAfter: eventAfter,
+        isEventAfterTriggered: isEventAfterTriggered
     };
 })();
 

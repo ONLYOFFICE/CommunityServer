@@ -107,7 +107,7 @@ namespace ASC.Web.CRM.Controls.Common
             privatePanel.CheckBoxLabel = CRMDealResource.PrivatePanelCheckBoxLabel;
             privatePanel.IsPrivateItem = false;
 
-            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser") };
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode() };
             privatePanel.UsersWhoHasAccess = usersWhoHasAccess;
             privatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };
             privatePanel.HideNotifyPanel = true;
@@ -155,7 +155,7 @@ namespace ASC.Web.CRM.Controls.Common
             privatePanel.CheckBoxLabel = CRMCasesResource.PrivatePanelCheckBoxLabel;
             privatePanel.IsPrivateItem = false;
 
-            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser") };
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode() };
 
             privatePanel.UsersWhoHasAccess = usersWhoHasAccess;
             privatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };

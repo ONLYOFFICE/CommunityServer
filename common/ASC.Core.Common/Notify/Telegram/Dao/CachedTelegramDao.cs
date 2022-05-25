@@ -90,7 +90,7 @@ namespace ASC.Core.Common.Notify.Telegram
             return users;
         }
 
-        public void RegisterUser(Guid userId, int tenantId, int telegramId)
+        public void RegisterUser(Guid userId, int tenantId, long telegramId)
         {
             tgDao.RegisterUser(userId, tenantId, telegramId);
 

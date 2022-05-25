@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Os usuários ativos são os membros do portal com a exceção de convidados e usuários som status "desabilitado"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Adicionar opção de enquete</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Anexar arquivo de documentos do projeto</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Abrevie links de convite do portal e links para documentos compartilhados usando o Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Login no portal usando suas contas sociais e pesquisa por contatos</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Conecte seus serviços de armazenamento em nuvem favoritos e armazene todos os seus arquivos em um único lugar</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Ligue para seus clientes diretamente do CRM graças à integração do {0}ONLYOFFICE Twilio{1}.</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -700,9 +685,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>Para resolver problemas técnicos, use {0}.</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Preço básico</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Ver Avangate para a lista completa de moedas</value>
   </data>
@@ -715,14 +697,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Grátis</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Abrir lista de preço completa</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Gostaria de escolher um novo plano de preço?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Oferta de tempo limitado</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Sim, atualizar plano</value>
@@ -732,9 +708,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Ano{2}{1} Assinatura</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Anos{1} Assinatura</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Você está usando um plano para organização sem fins lucrativos.</value>
@@ -775,17 +748,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 anos</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>A oferta está disponível apenas para assinantes de planos anuais.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Assinatura mais popular</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Adicionar um novo portal vai exceder o número máximo de portais permitidos pelo plano de preço atual.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Salvar {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} por usuário/mês</value>
@@ -810,9 +774,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Não há espaço de armazenamento suficiente livre</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>Você está usando a ONLYOFFICE Enterprise Edition. {0}A instalação atual foi atualizada sem uma licença apropriada fornecida.{1}{2} Favor carregar a licença atualizada para continuar usando a ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Escolha o número de seus colegas de equipe</value>

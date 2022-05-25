@@ -121,7 +121,7 @@ namespace ASC.TelegramService.Core
             return parsedParams.ToArray();
         }
 
-        public async Task HandleCommand(Message msg, TelegramBotClient client, int tenantId)
+        public async Task HandleCommand(Message msg, ITelegramBotClient client, int tenantId)
         {
             try
             {

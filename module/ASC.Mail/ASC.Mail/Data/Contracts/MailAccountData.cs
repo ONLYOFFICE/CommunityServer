@@ -68,5 +68,8 @@ namespace ASC.Mail.Data.Contracts
 
         [DataMember(IsRequired = true, Name = "isSharedDomainMailbox")]
         public bool IsSharedDomainMailbox { get; set; }
+
+        [DataMember(IsRequired = true, Name = "dateCreated")]
+        public DateTime? DateCreated { get; set; }
     }
 }

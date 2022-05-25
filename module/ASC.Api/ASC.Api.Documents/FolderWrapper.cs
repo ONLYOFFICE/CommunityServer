@@ -54,6 +54,11 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public bool IsFavorite { get; set; }
+
+        /// <summary>
+        /// </summary>
         /// <param name="folder"></param>
         public FolderWrapper(Folder folder)
             : base(folder)
@@ -75,6 +80,7 @@ namespace ASC.Api.Documents
             FilesCount = folder.TotalFiles;
             FoldersCount = folder.TotalSubFolders;
             IsShareable = folder.Shareable;
+            IsFavorite = folder.IsFavorite;
         }
 
         private FolderWrapper()

@@ -44,7 +44,7 @@
         <div class="headerPanelSmall">
             <%= MessageResource.MessageContent %>
         </div>
-        <textarea id="ckEditor" name="ckEditor" style="width: 100%;height: 400px;"><%=Text %></textarea>
+        <textarea id="ckEditor" name="ckEditor" style="width: 100%;height: 400px;"><%:Text %></textarea>
     </div>
             </td>
             <% if (!MobileDetector.IsMobile)

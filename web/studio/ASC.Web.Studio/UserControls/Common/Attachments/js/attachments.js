@@ -35,7 +35,7 @@ window.Attachments = (function () {
         return str.replace(characterRegExp, '_');
     };
     var checkCharacter = function(input) {
-        jq(input).unbind("keyup").bind("keyup", function() {
+        jq(input).off("keyup").on("keyup", function() {
             var str = jq(this).val();
             if (str.search(characterRegExp) != -1) {
                 jq(this).val(replaceSpecCharacter(str));
@@ -177,7 +177,7 @@ window.Attachments = (function () {
             });
         }
 
-        jq('#questionWindowAttachments #noButton').bind('click', function() {
+        jq('#questionWindowAttachments #noButton').on('click', function() {
             jq.unblockUI();
             return false;
         });
@@ -191,7 +191,7 @@ window.Attachments = (function () {
             showQuestionWindow(fileId);
             return false;
         });
-        jq("#storeOriginalFileFlag").change(function() {
+        jq("#storeOriginalFileFlag").on("change", function() {
             onChangeStoreFlag();
         });
     };
@@ -283,10 +283,10 @@ window.Attachments = (function () {
     };
 
     var showQuestionWindow = function(fileId) {
-        jq('#questionWindowAttachments #okButton').unbind('click');
+        jq('#questionWindowAttachments #okButton').off('click');
         StudioBlockUIManager.blockUI("#questionWindowAttachments", 400);
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#okButton\").click();";
-        jq('#questionWindowAttachments #okButton').bind('click', function() {
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#okButton\").trigger('click');";
+        jq('#questionWindowAttachments #okButton').on('click', function() {
             jq.unblockUI();
             jq(document).trigger("deleteFile", fileId);
             return false;
@@ -308,7 +308,7 @@ window.Attachments = (function () {
         var htmlNewDoc = jq.tmpl("template-newFile", tmpl);
         jq("#attachmentsContainer tbody").prepend(htmlNewDoc);
         jq("#attachmentsContainer tr.newDoc").show();
-        jq("#newDocTitle").focus().select();
+        jq("#newDocTitle").trigger("focus").trigger("select");
     };
     var removeNewDocument = function() {
         jq("#attachmentsContainer tr.newDoc").remove();
@@ -322,7 +322,7 @@ window.Attachments = (function () {
         hWindow.document.close();
 
         var title = jq("#newDocTitle").val();
-        if (jq.trim(title) == "") {
+        if (title.trim() == "") {
             title = jq("#newDocTitle").attr("data");
         }
         var ext = jq(".createFile").attr("id");
@@ -396,7 +396,7 @@ window.Attachments = (function () {
     var isAddedFile = function(title, fileId) {
         var listAttachFiles = jq("#attachmentsContainer tbody tr td:first-child");
         for (var i = 0, n = listAttachFiles.length; i < n; i++) {
-            var fileName = jq.trim(jq(listAttachFiles[i]).children("a").children(".attachmentsTitle").text());
+            var fileName = jq(listAttachFiles[i]).children("a").children(".attachmentsTitle").text().trim();
             var id = jq(listAttachFiles[i]).attr("id").split("_")[1];
             if (fileName == title && id == fileId) {
                 return listAttachFiles[i];
@@ -494,7 +494,7 @@ window.Attachments = (function () {
 
     var events = [];
     var bind = function(eventName, handler) {
-        jq(document).bind(eventName, handler);
+        jq(document).on(eventName, handler);
         events.push(eventName);
     };
 
@@ -502,7 +502,7 @@ window.Attachments = (function () {
         var $doc = jq(document);
         while (events.length) {
             var item = events.shift();
-            $doc.unbind(item);
+            $doc.off(item);
         }
     };
 

@@ -535,6 +535,15 @@ namespace ASC.Files.Thirdparty.Box
             return Task.FromResult(IsExistOnStorage(file));
         }
 
+        public EntryProperties GetProperties(object fileId)
+        {
+            return null;
+        }
+
+        public void SaveProperties(object fileId, EntryProperties entryProperties)
+        {
+        }
+
         #endregion
     }
 }

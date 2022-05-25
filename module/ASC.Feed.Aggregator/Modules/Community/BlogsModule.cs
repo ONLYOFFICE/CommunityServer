@@ -186,7 +186,7 @@ namespace ASC.Feed.Aggregator.Modules.Community
                 Module = Name,
                 Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                 Title = post.Title,
-                Description = HtmlUtility.GetFull(post.Content),
+                Description = HtmlUtility.GetFull(post.Content, false),
                 HasPreview = post.Content.Contains("class=\"asccut\""),
                 CanComment = true,
                 CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),

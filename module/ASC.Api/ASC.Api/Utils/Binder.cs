@@ -185,7 +185,8 @@ namespace ASC.Api.Utils
                        {
                            name,
                            StringUtils.ToCamelCase(name),
-                           name.ToLower()
+                           name.ToLower(),
+                           name.ToLowerInvariant()
                        };
         }
 
@@ -210,8 +211,9 @@ namespace ASC.Api.Utils
 
         private static readonly ConcurrentDictionary<string, Regex> CollectionPrefixCache = new ConcurrentDictionary<string, Regex>();
 
-        private static void BindCollection(string prefix, IList collection, NameValueCollection values)
+        private static bool BindCollection(string prefix, IList collection, NameValueCollection values)
         {
+            var isBinded = false;
             Regex parse = GetParseRegex(prefix);
 
             //Parse values related to collection
@@ -220,6 +222,7 @@ namespace ASC.Api.Utils
                        let match = parse.Match(key)
                        group key by string.IsNullOrEmpty(match.Groups["pos"].Value) ? (match.Groups["arrleft"].Success ? string.Empty : simple) : match.Groups["pos"].Value into key
                        select key;
+
             foreach (var key in keys)
             {
                 int index;
@@ -239,7 +242,6 @@ namespace ASC.Api.Utils
 
                 if (genericType != null)
                 {
-
                     var newprefix = simple.Equals(key.Key) ? prefix : prefix + "[" + (indexed ? index.ToString(CultureInfo.InvariantCulture) : "") + "]";
                     if (IsSimple(genericType))
                     {
@@ -250,19 +252,23 @@ namespace ASC.Api.Utils
                             foreach (var collectionValue in collectionValues)
                             {
                                 collection.Add(ConvertUtils.GetConverted(collectionValue, genericType));
+                                isBinded = true;
                             }
                         }
-
                     }
                     else
                     {
                         var constructed = Bind(genericType, values, newprefix);
                         if (constructed != null)
+                        {
                             collection.Insert(index, constructed);
+                            isBinded = true;
+                        }
                     }
                 }
             }
 
+            return isBinded;
         }
 
         private static Regex GetParseRegex(string prefix)

@@ -88,7 +88,7 @@ namespace ASC.Data.Reassigns
                 Status = ProgressStatus.Started;
 
                 CoreContext.TenantManager.SetCurrentTenant(_tenantId);
-                SecurityContext.AuthenticateMe(Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = Core.Configuration.Constants.CoreSystem;
 
                 logger.InfoFormat("reassignment of data from {0} to {1}", _fromUserId, _toUserId);
 
@@ -135,7 +135,7 @@ namespace ASC.Data.Reassigns
             {
                 logger.Info("data reassignment is complete");
                 IsCompleted = true;
-                SecurityContext.AuthenticateMe(_currentUserId);
+                SecurityContext.CurrentUser = _currentUserId;
             }
         }
 

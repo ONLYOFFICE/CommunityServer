@@ -61,7 +61,7 @@ using SortedByType = ASC.Files.Core.SortedByType;
 namespace ASC.Api.Documents
 {
     /// <summary>
-    /// Provides access to documents
+    /// Provides access to documents.
     /// </summary>
     public class DocumentsApi : Interfaces.IApiEntryPoint
     {
@@ -87,21 +87,16 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        ///
+        /// Returns all the sections matching the parameters specified in the request.
         /// </summary>
-        /// <short>List of Sections</short>
+        /// <short>Get sections</short>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true">Filter type</param>
-        /// <param name="withsubfolders"></param>
-        /// <param name="withoutTrash"></param>
-        /// <param name="withoutAdditionalFolder"></param>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
+        /// <param name="withsubfolders">Root folders with or without subfolders</param>
+        /// <param name="withoutTrash">Root folders with or without trash</param>
+        /// <param name="withoutAdditionalFolder">Root folders with or without additional folders</param>
         /// <category>Folders</category>
-        /// <returns></returns>
+        /// <returns>Sections</returns>
         [Read("@root")]
         public IEnumerable<FolderContentWrapper> GetRootFolders(Guid userIdOrGroupId, FilterType filterType, bool withsubfolders, bool withoutTrash, bool withoutAdditionalFolder)
         {
@@ -148,7 +143,7 @@ namespace ASC.Api.Documents
                 result.Add(Global.FolderCommon);
             }
 
-            if(Global.FolderProjects != null)
+            if (Global.FolderProjects != null)
             {
                 result.Add(Global.FolderProjects);
             }
@@ -170,16 +165,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the current user My section
+        /// Returns the detailed list of files and folders located in the "My documents" section.
         /// </summary>
-        /// <short>Section My</short>
+        /// <short>Get my section</short>
         /// <category>Folders</category>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>My folder contents</returns>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <returns>My documents section contents</returns>
         [Read("@my")]
         public FolderContentWrapper GetMyFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -187,16 +179,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the current user Projects section
+        /// Returns the detailed list of files and folders located in the "Projects" section.
         /// </summary>
-        /// <short>Section Projects</short>
+        /// <short>Get project section</short>
         /// <category>Folders</category>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Projects folder contents</returns>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <returns>Project section contents</returns>
         [Read("@projects")]
         public FolderContentWrapper GetProjectsFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -205,16 +194,13 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the Common section
+        /// Returns the detailed list of files and folders located in the "Common" section.
         /// </summary>
-        /// <short>Section Common</short>
+        /// <short>Get common section</short>
         /// <category>Folders</category>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Common folder contents</returns>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <returns>Common section contents</returns>
         [Read("@common")]
         public FolderContentWrapper GetCommonFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -222,16 +208,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the Shared with Me section
+        /// Returns the detailed list of files and folders located in the "Shared with Me" section.
         /// </summary>
-        /// <short>Section Shared</short>
+        /// <short>Get shared section</short>
         /// <category>Folders</category>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Shared folder contents</returns>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <returns>Shared section contents</returns>
         [Read("@share")]
         public FolderContentWrapper GetShareFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -239,18 +222,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of recent files
+        /// Returns the detailed list of files located in the "Recent" section.
         /// </summary>
-        /// <short>Section Recent</short>
+        /// <short>Get recent section</short>
         /// <category>Folders</category>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true">Filter type</param>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Recent contents</returns>
+        /// <returns>Recent section contents</returns>
         [Read("@recent")]
         public FolderContentWrapper GetRecentFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -258,18 +236,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of favorites files
+        /// Returns the detailed list of files located in the "Favorites" section.
         /// </summary>
-        /// <short>Section Favorite</short>
+        /// <short>Get favorite section</short>
         /// <category>Folders</category>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true">Filter type</param>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Favorites contents</returns>
+        /// <returns>Favorite section contents</returns>
         [Read("@favorites")]
         public FolderContentWrapper GetFavoritesFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -277,18 +250,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of templates files
+        /// Returns the detailed list of files located in the "Templates" section.
         /// </summary>
-        /// <short>Section Template</short>
+        /// <short>Get template section</short>
         /// <category>Folders</category>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true">Filter type</param>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Templates contents</returns>
+        /// <returns>Template section contents</returns>
         [Read("@templates")]
         public FolderContentWrapper GetTemplatesFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -296,16 +264,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the Recycle Bin
+        /// Returns the detailed list of files and folders located in the "Trash" section.
         /// </summary>
-        /// <short>Section Trash</short>
+        /// <short>Get trash section</short>
         /// <category>Folders</category>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
-        /// <returns>Trash folder contents</returns>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <returns>Trash section contents</returns>
         [Read("@trash")]
         public FolderContentWrapper GetTrashFolder(Guid userIdOrGroupId, FilterType filterType)
         {
@@ -313,20 +278,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed list of files and folders located in the folder with the ID specified in the request
+        /// Returns the detailed list of files and folders located in the folder with the ID specified in the request.
         /// </summary>
         /// <short>
-        /// Folder by ID
+        /// Get a folder by ID
         /// </short>
         /// <category>Folders</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true">Filter type</param>
-        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
-        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
-        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
-        /// <param name="count" optional="true">Number of the elements returned.</param>
-        /// <param name="filterValue">Filter value.</param>
         /// <returns>Folder contents</returns>
         [Read("{folderId}")]
         public FolderContentWrapper GetFolder(String folderId, Guid userIdOrGroupId, FilterType filterType)
@@ -336,22 +296,22 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Uploads the file specified with single file upload or standart multipart/form-data method to My section
+        /// Uploads a file specified in the request to the "My documents" section by single file uploading or standart multipart/form-data method.
         /// </summary>
-        /// <short>Upload to My</short>
+        /// <short>Upload a file to my section</short>
         /// <category>Uploads</category>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="contentType" visible="false">Content-Type header</param>
+        /// <param name="contentDisposition" visible="false">Content-Disposition header</param>
+        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <remarks>
         /// <![CDATA[
         ///  Upload can be done in 2 different ways:
         ///  <ol>
-        /// <li>Single file upload. You should set Content-Type &amp; Content-Disposition header to specify filename and content type, and send file in request body</li>
-        /// <li>Using standart multipart/form-data method</li>
+        /// <li>Using single file upload. You should set the Content-Type &amp; Content-Disposition headers to specify the file name and content type, and send the file to the request body.</li>
+        /// <li>Using standart multipart/form-data method.</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="contentType" visible="false">Content-Type Header</param>
-        /// <param name="contentDisposition" visible="false">Content-Disposition Header</param>
-        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <returns>Uploaded file</returns>
         [Create("@my/upload")]
         public object UploadFileToMy(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
@@ -360,22 +320,22 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Uploads the file specified with single file upload or standart multipart/form-data method to Common section
+        /// Uploads a file specified in the request to the "Common" section by single file uploading or standart multipart/form-data method.
         /// </summary>
-        /// <short>Upload to Common</short>
+        /// <short>Upload a file to the common section</short>
         /// <category>Uploads</category>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="contentType" visible="false">Content-Type header</param>
+        /// <param name="contentDisposition" visible="false">Content-Disposition header</param>
+        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <remarks>
         /// <![CDATA[
         ///  Upload can be done in 2 different ways:
         ///  <ol>
-        /// <li>Single file upload. You should set Content-Type &amp; Content-Disposition header to specify filename and content type, and send file in request body</li>
-        /// <li>Using standart multipart/form-data method</li>
+        /// <li>Using single file upload. You should set the Content-Type &amp; Content-Disposition headers to specify the file name and content type, and send the file to the request body.</li>
+        /// <li>Using standart multipart/form-data method.</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="contentType" visible="false">Content-Type Header</param>
-        /// <param name="contentDisposition" visible="false">Content-Disposition Header</param>
-        /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <returns>Uploaded file</returns>
         [Create("@common/upload")]
         public object UploadFileToCommon(Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files)
@@ -385,26 +345,26 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Uploads the file specified with single file upload or standart multipart/form-data method to the selected folder
+        /// Uploads a file specified in the request to the selected folder by single file uploading or standart multipart/form-data method.
         /// </summary>
-        /// <short>Upload file</short>
+        /// <short>Upload a file</short>
         /// <category>Uploads</category>
         /// <remarks>
         /// <![CDATA[
         ///  Upload can be done in 2 different ways:
         ///  <ol>
-        /// <li>Single file upload. You should set Content-Type &amp; Content-Disposition header to specify filename and content type, and send file in request body</li>
-        /// <li>Using standart multipart/form-data method</li>
+        /// <li>Using single file upload. You should set the Content-Type &amp; Content-Disposition headers to specify the file name and content type, and send the file to the request body.</li>
+        /// <li>Using standart multipart/form-data method.</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param name="folderId">Folder ID to upload to</param>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="contentType" visible="false">Content-Type Header</param>
-        /// <param name="contentDisposition" visible="false">Content-Disposition Header</param>
+        /// <param name="folderId">Folder ID</param>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="contentType" visible="false">Content-Type header</param>
+        /// <param name="contentDisposition" visible="false">Content-Disposition header</param>
         /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
-        /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
-        /// <param name="storeOriginalFileFlag" visible="false">If True, upload documents in original formats as well</param>
-        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
+        /// <param name="createNewIfExist" visible="false">Creates a new file if it already exists or not</param>
+        /// <param name="storeOriginalFileFlag" visible="false">If true, uploads documents in the original formats as well</param>
+        /// <param name="keepConvertStatus" visible="false">Keeps converting status after finishing or not</param>
         /// <returns>Uploaded file</returns>
         [Create("{folderId}/upload")]
         public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool? createNewIfExist, bool? storeOriginalFileFlag, bool keepConvertStatus = false)
@@ -439,15 +399,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Uploads the file specified with single file upload to Common section
+        /// Inserts a file specified in the request to the "My documents" section by single file uploading.
         /// </summary>
-        /// <short>Insert to My</short>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="title">Name of file which has to be uploaded</param>
-        /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
-        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
+        /// <short>Insert a file to my section</short>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="title">File name</param>
+        /// <param name="createNewIfExist" visible="false">Creates a new file if it already exists or not</param>
+        /// <param name="keepConvertStatus" visible="false">Keeps converting status after finishing or not</param>
         /// <category>Uploads</category>
-        /// <returns></returns>
+        /// <returns>Inserted file</returns>
         [Create("@my/insert")]
         public FileWrapper InsertFileToMy(Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
@@ -455,15 +415,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Uploads the file specified with single file upload to Common section
+        /// Inserts a file specified in the request to the "Common" section by single file uploading.
         /// </summary>
-        /// <short>Insert to Common</short>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="title">Name of file which has to be uploaded</param>
-        /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
-        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
+        /// <short>Insert a file to the common section</short>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="title">File name</param>
+        /// <param name="createNewIfExist" visible="false">Creates a new file if it already exists or not</param>
+        /// <param name="keepConvertStatus" visible="false">Keeps converting status after finishing or not</param>
         /// <category>Uploads</category>
-        /// <returns></returns>
+        /// <returns>Inserted file</returns>
         [Create("@common/insert")]
         public FileWrapper InsertFileToCommon(Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
@@ -471,15 +431,16 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Uploads the file specified with single file upload
+        /// Inserts a file specified in the request to the selected folder by single file uploading.
         /// </summary>
-        /// <param name="folderId">Folder ID to upload to</param>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="title">Name of file which has to be uploaded</param>
-        /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
-        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
+        /// <short>Insert a file</short>
+        /// <param name="folderId">Folder ID</param>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="title">File name</param>
+        /// <param name="createNewIfExist" visible="false">Creates a new file if it already exists or not</param>
+        /// <param name="keepConvertStatus" visible="false">Keeps converting status after finishing or not</param>
         /// <category>Uploads</category>
-        /// <returns></returns>
+        /// <returns>Inserted file</returns>
         [Create("{folderId}/insert")]
         public FileWrapper InsertFile(string folderId, Stream file, string title, bool? createNewIfExist, bool keepConvertStatus = false)
         {
@@ -499,14 +460,16 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Update file content
+        /// Updates the content of a file with the ID specified in the request.
         /// </summary>
+        /// <short>Update file content</short>
         /// <category>Files</category>
-        /// <param name="file">Stream of file</param>
+        /// <param name="file">File stream</param>
         /// <param name="fileId">File ID</param>
         /// <param name="fileExtension">File extension</param>
-        /// <param name="encrypted" visible="false"></param>
-        /// <param name="forcesave" visible="false"></param>
+        /// <param name="encrypted" visible="false">Encrypts a file or not</param>
+        /// <param name="forcesave" visible="false">Forcibly saves a file or not</param>
+        /// <returns>Updated file</returns>
         [Update("{fileId}/update")]
         public FileWrapper UpdateFileStream(Stream file, string fileId, string fileExtension, bool encrypted = false, bool forcesave = false)
         {
@@ -523,17 +486,17 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Save file 
+        /// Saves editing of a file with the ID specified in the request.
         /// </summary>
-        /// <short>Editing save</short>
+        /// <short>Save editing</short>
         /// <param name="fileId">File ID</param>
-        /// <param name="fileExtension"></param>
-        /// <param name="downloadUri"></param>
-        /// <param name="stream"></param>
-        /// <param name="doc"></param>
-        /// <param name="forcesave"></param>
+        /// <param name="fileExtension">File extension</param>
+        /// <param name="downloadUri">URI for downloading</param>
+        /// <param name="stream">File stream</param>
+        /// <param name="doc">Shared token</param>
+        /// <param name="forcesave">Forcibly saves a file or not</param>
         /// <category>Files</category>
-        /// <returns></returns>
+        /// <returns>Saved file</returns>
         [Update("file/{fileId}/saveediting")]
         public FileWrapper SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, bool forcesave)
         {
@@ -541,12 +504,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Lock file when editing
+        /// Informs about opening a file with the ID specified in the request for editing locking it from deletion or movement (this method is called by the mobile editors).
         /// </summary>
-        /// <short>Editing start</short>
+        /// <short>Start editing</short>
         /// <param name="fileId">File ID</param>
-        /// <param name="editingAlone" visible="false"></param>
-        /// <param name="doc" visible="false"></param>
+        /// <param name="editingAlone" visible="false">Shares a file with other users for editing or not</param>
+        /// <param name="doc" visible="false">Shared token</param>
         /// <category>Files</category>
         /// <returns>File key for Document Service</returns>
         [Create("file/{fileId}/startedit")]
@@ -556,16 +519,16 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Continue to lock file when editing
+        /// Tracks file changes when editing.
         /// </summary>
-        /// <short>Editing track</short>
+        /// <short>Track editing</short>
         /// <param name="fileId">File ID</param>
-        /// <param name="tabId" visible="false"></param>
-        /// <param name="docKeyForTrack" visible="false"></param>
-        /// <param name="doc" visible="false"></param>
-        /// <param name="isFinish">for unlock</param>
+        /// <param name="tabId" visible="false">Tab ID</param>
+        /// <param name="docKeyForTrack" visible="false">Document key for tracking</param>
+        /// <param name="doc" visible="false">Shared token</param>
+        /// <param name="isFinish">Finishes file editing or not</param>
         /// <category>Files</category>
-        /// <returns></returns>
+        /// <returns>File changes</returns>
         [Read("file/{fileId}/trackeditfile")]
         public KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String doc, bool isFinish)
         {
@@ -573,24 +536,22 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Get initialization configuration for open editor
+        /// Returns the initialization configuration to open the editor.
         /// </summary>
-        /// <short>Editing open</short>
+        /// <short>Open the editor</short>
         /// <param name="fileId">File ID</param>
         /// <param name="version">File version</param>
-        /// <param name="doc" visible="false"></param>
+        /// <param name="doc" visible="false">Shared token</param>
         /// <category>Files</category>
         /// <returns>Configuration</returns>
-        [Read("file/{fileId}/openedit", false)] //NOTE: this method doesn't requires auth!!!
+        [Read("file/{fileId}/openedit", false)] // NOTE: This method doesn't require auth!!!
         public Configuration OpenEdit(String fileId, int version, String doc)
         {
             Configuration configuration;
-            DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
+            var file = DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
             configuration.Type = Configuration.EditorType.External;
 
-            configuration.EditorConfig.CallbackUrl = DocumentServiceTracker.GetCallbackUrl(configuration.Document.Info.File.ID.ToString());
-
-            if (configuration.Document.Info.File.RootFolderType == FolderType.Privacy
+            if (file.RootFolderType == FolderType.Privacy
                 && PrivacyRoomSettings.Enabled)
             {
                 var keyPair = EncryptionKeyPair.GetKeyPair();
@@ -604,7 +565,7 @@ namespace ASC.Api.Documents
                 }
             }
 
-            if (!configuration.Document.Info.File.Encrypted && !configuration.Document.Info.File.ProviderEntry) EntryManager.MarkAsRecent(configuration.Document.Info.File);
+            if (!file.Encrypted && !file.ProviderEntry) EntryManager.MarkAsRecent(file);
 
             configuration.Token = DocumentServiceHelper.GetSignature(configuration);
             return configuration;
@@ -612,34 +573,34 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Creates session to upload large files in multiple chunks.
+        /// Creates a session to upload large files in multiple chunks to the folder with the ID specified in the request.
         /// </summary>
         /// <short>Chunked upload</short>
         /// <category>Uploads</category>
-        /// <param name="folderId">Id of the folder in which file will be uploaded</param>
-        /// <param name="fileName">Name of file which has to be uploaded</param>
-        /// <param name="fileSize">Length in bytes of file which has to be uploaded</param>
-        /// <param name="relativePath">Relative folder from folderId</param>
-        /// <param name="encrypted" visible="false"></param>
+        /// <param name="folderId">Folder ID</param>
+        /// <param name="fileName">File name</param>
+        /// <param name="fileSize">File length in bytes</param>
+        /// <param name="relativePath">Folder which is relative to the selected folder</param>
+        /// <param name="encrypted" visible="false">Encrypts a file or not</param>
         /// <remarks>
         /// <![CDATA[
-        /// Each chunk can have different length but its important what length is multiple of <b>512</b> and greater or equal than <b>10 mb</b>. Last chunk can have any size.
-        /// After initial request respond with status 200 OK you must obtain value of 'location' field from the response. Send all your chunks to that location.
-        /// Each chunk must be sent in strict order in which chunks appears in file.
-        /// After receiving each chunk if no errors occured server will respond with current information about upload session.
-        /// When number of uploaded bytes equal to the number of bytes you send in initial request server will respond with 201 Created and will send you info about uploaded file.
+        /// Each chunk can have different length but the length should be multiple of <b>512</b> and greater or equal to <b>10 mb</b>. Last chunk can have any size.
+        /// After the initial response to the request with the <b>200 OK</b> status, you must get the <em>location</em> field value from the response. Send all your chunks to this location.
+        /// Each chunk must be sent in the exact order the chunks appear in the file.
+        /// After receiving each chunk, the server will respond with the current information about the upload session if no errors occurred.
+        /// When the number of bytes uploaded is equal to the number of bytes you sent in the initial request, the server responds with the <b>201 Created</b> status and sends you information about the uploaded file.
         /// ]]>
         /// </remarks>
         /// <returns>
         /// <![CDATA[
-        /// Information about created session. Which includes:
+        /// Information about created session which includes:
         /// <ul>
-        /// <li><b>id:</b> unique id of this upload session</li>
-        /// <li><b>created:</b> UTC time when session was created</li>
-        /// <li><b>expired:</b> UTC time when session will be expired if no chunks will be sent until that time</li>
-        /// <li><b>location:</b> URL to which you must send your next chunk</li>
-        /// <li><b>bytes_uploaded:</b> If exists contains number of bytes uploaded for specific upload id</li>
-        /// <li><b>bytes_total:</b> Number of bytes which has to be uploaded</li>
+        /// <li><b>id:</b> unique ID of this upload session</li>
+        /// <li><b>created:</b> UTC time when the session was created</li>
+        /// <li><b>expired:</b> UTC time when the session will expire if no chunks are sent before that time</li>
+        /// <li><b>location:</b> URL where you should send your next chunk</li>
+        /// <li><b>bytes_uploaded:</b> number of bytes uploaded for the specific upload ID</li>
+        /// <li><b>bytes_total:</b> total number of bytes which will be uploaded</li>
         /// </ul>
         /// ]]>
         /// </returns>
@@ -648,9 +609,31 @@ namespace ASC.Api.Documents
         {
             var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist, relativePath);
 
+            return CreateUploadSession(file, encrypted);
+        }
+
+        /// <summary>
+        /// Creates a session to edit the existing file with multiple chunks (needed for WebDAV).
+        /// </summary>
+        /// <short>Create the editing session</short>
+        /// <category>Files</category>
+        /// <param name="fileId">File ID</param>
+        /// <param name="fileSize">File size in bytes</param>
+        /// <returns>Upload session</returns>
+        /// <visible>false</visible>
+        [Create("file/{fileId}/edit_session")]
+        public object CreateEditSession(object fileId, long fileSize)
+        {
+            var file = FileUploader.VerifyChunkedUploadForEditing(fileId, fileSize);
+
+            return CreateUploadSession(file, false, true);
+        }
+
+        private object CreateUploadSession(Files.Core.File file, bool encrypted, bool keepVersion = false)
+        {
             if (FilesLinkUtility.IsLocalFileUploader)
             {
-                var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength, encrypted);
+                var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength, encrypted, keepVersion);
 
                 var response = ChunkedUploaderHandler.ToResponseObject(session, true);
                 return new
@@ -686,9 +669,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates a text (.txt) file in My section with the title and contents sent in the request
+        /// Creates a text (.txt) file in the "My documents" section with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create txt in My</short>
+        /// <short>Create a txt file in my section</short>
         /// <category>Files</category>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
@@ -701,9 +684,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates a text (.txt) file in Common Documents section with the title and contents sent in the request
+        /// Creates a text (.txt) file in the "Common" section with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create txt in Common</short>
+        /// <short>Create a txt file in the common section</short>
         /// <category>Files</category>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
@@ -716,9 +699,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates a text (.txt) file in the selected folder with the title and contents sent in the request
+        /// Creates a text (.txt) file in the selected folder with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create txt</short>
+        /// <short>Create a txt file</short>
         /// <category>Files</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="title">File title</param>
@@ -753,9 +736,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates an html (.html) file in the selected folder with the title and contents sent in the request
+        /// Creates an html (.html) file in the selected folder with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create html</short>
+        /// <short>Create an html file</short>
         /// <category>Files</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="title">File title</param>
@@ -770,9 +753,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates an html (.html) file in My section with the title and contents sent in the request
+        /// Creates an html (.html) file in the "My documents" section with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create html in My</short>
+        /// <short>Create an html file in my section</short>
         /// <category>Files</category>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
@@ -786,9 +769,9 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Creates an html (.html) file in Common section with the title and contents sent in the request
+        /// Creates an html (.html) file in the common section with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create html in Common</short>
+        /// <short>Create an html file in the common section</short>
         /// <category>Files</category>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
@@ -802,14 +785,14 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Creates a new folder with the title sent in the request. The ID of a parent folder can be also specified.
+        /// Creates a new folder with the title specified in the request. The parent folder ID can be also specified.
         /// </summary>
         /// <short>
-        /// Create folder
+        /// Create a folder
         /// </short>
         /// <category>Folders</category>
         /// <param name="folderId">Parent folder ID</param>
-        /// <param name="title">Title of new folder</param>
+        /// <param name="title">Folder title</param>
         /// <returns>New folder contents</returns>
         [Create("folder/{folderId}")]
         public FolderWrapper CreateFolder(string folderId, string title)
@@ -819,41 +802,42 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Creates a new file in the My section with the title sent in the request
+        /// Creates a new file in the "My documents" section with the title specified in the request.
         /// </summary>
-        /// <short>Create file in My</short>
+        /// <short>Create a file in my section</short>
         /// <category>Files</category>
         /// <param name="title" remark="Allowed values: the file must have one of the following extensions: DOCX, XLSX, PPTX">File title</param>
-        /// <remarks>In case the extension for the file title differs from DOCX/XLSX/PPTX and belongs to one of the known text, spreadsheet or presentation formats, it will be changed to DOCX/XLSX/PPTX accordingly. If the file extension is not set or is unknown, the DOCX extension will be added to the file title.</remarks>
-        /// <returns>New file info</returns>
+        /// <remarks>In case an extension for the file title differs from DOCX/XLSX/PPTX and belongs to one of the known text, spreadsheet or presentation formats, it will be changed to DOCX/XLSX/PPTX accordingly. If the file extension is not set or is unknown, the DOCX extension will be added to the file title.</remarks>
+        /// <returns>New file information</returns>
         [Create("@my/file")]
         public FileWrapper CreateFile(string title)
         {
-            return CreateFile(Global.FolderMy.ToString(), title, null);
+            return CreateFile(Global.FolderMy.ToString(), title, null, false);
         }
 
         /// <summary>
-        /// Creates a new file in the specified folder with the title sent in the request
+        /// Creates a new file in the specified folder with the title specified in the request.
         /// </summary>
-        /// <short>Create file</short>
+        /// <short>Create a file</short>
         /// <category>Files</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="title" remark="Allowed values: the file must have one of the following extensions: DOCX, XLSX, PPTX">File title</param>
-        /// <param name="templateId">File ID for using as template</param>
-        /// <remarks>In case the extension for the file title differs from DOCX/XLSX/PPTX and belongs to one of the known text, spreadsheet or presentation formats, it will be changed to DOCX/XLSX/PPTX accordingly. If the file extension is not set or is unknown, the DOCX extension will be added to the file title.</remarks>
-        /// <returns>New file info</returns>
+        /// <param name="templateId">Template file ID</param>
+        /// <param name="enableExternalExt">The ability to create files of any extension</param>
+        /// <remarks>In case an extension for the file title differs from DOCX/XLSX/PPTX and belongs to one of the known text, spreadsheet or presentation formats, it will be changed to DOCX/XLSX/PPTX accordingly. If the file extension is not set or is unknown, the DOCX extension will be added to the file title.</remarks>
+        /// <returns>New file information</returns>
         [Create("{folderId}/file")]
-        public FileWrapper CreateFile(string folderId, string title, string templateId)
+        public FileWrapper CreateFile(string folderId, string title, string templateId, bool enableExternalExt)
         {
-            var file = _fileStorageService.CreateNewFile(folderId, title, templateId);
+            var file = _fileStorageService.CreateNewFile(folderId, title, templateId, enableExternalExt);
             return new FileWrapper(file);
         }
 
         /// <summary>
-        /// Renames the selected folder to the new title specified in the request
+        /// Renames the selected folder with a new title specified in the request.
         /// </summary>
         /// <short>
-        /// Rename folder
+        /// Rename a folder
         /// </short>
         /// <category>Folders</category>
         /// <param name="folderId">Folder ID</param>
@@ -867,11 +851,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns a detailed information about the folder with the ID specified in the request
+        /// Returns the detailed information about a folder with the ID specified in the request.
         /// </summary>
-        /// <short>Folder information</short>
+        /// <short>Get the folder information</short>
+        /// <param name="folderId">Folder ID</param>
         /// <category>Folders</category>
-        /// <returns>Folder info</returns>
+        /// <returns>Folder information</returns>
         [Read("folder/{folderId}")]
         public FolderWrapper GetFolderInfo(string folderId)
         {
@@ -881,12 +866,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns parent folders
+        /// Returns a path to the folder with the ID specified in the request.
         /// </summary>
-        /// <short>Folder path</short>
-        /// <param name="folderId"></param>
+        /// <short>Get the folder path</short>
+        /// <param name="folderId">Folder ID</param>
         /// <category>Folders</category>
-        /// <returns>Parent folders</returns>
+        /// <returns>Folder path</returns>
         [Read("folder/{folderId}/path")]
         public IEnumerable<FolderWrapper> GetFolderPath(string folderId)
         {
@@ -894,11 +879,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns a detailed information about the file with the ID specified in the request
+        /// Returns the detailed information about a file with the ID specified in the request.
         /// </summary>
-        /// <short>File information</short>
+        /// <short>Get the file information</short>
+        /// <param name="fileId">File ID</param>
+        /// <param name="version">File version</param>
         /// <category>Files</category>
-        /// <returns>File info</returns>
+        /// <returns>File information</returns>
         [Read("file/{fileId}")]
         public FileWrapper GetFileInfo(string fileId, int version = -1)
         {
@@ -907,7 +894,7 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Copies (and converts, if possible) an existing file to a new file.
+        /// Copies (and converts, if possible) an existing file to a new file.
         /// </summary>
         /// <short>Copy file</short>
         /// <category>Files</category>
@@ -924,7 +911,7 @@ namespace ASC.Api.Documents
 
             if (ext == destExt)
             {
-                return CreateFile(destFolderId, destTitle, fileId);
+                return CreateFile(destFolderId, destTitle, fileId, true);
             }
 
             using (var fileStream = FileConverter.Exec(file, destExt))
@@ -934,14 +921,14 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///     Updates the information of the selected file with the parameters specified in the request
+        /// Updates the information of the selected file with the parameters specified in the request.
         /// </summary>
-        /// <short>Update file info</short>
+        /// <short>Update a file</short>
         /// <category>Files</category>
         /// <param name="fileId">File ID</param>
-        /// <param name="title">New title</param>
+        /// <param name="title">New file title</param>
         /// <param name="lastVersion">File last version number</param>
-        /// <returns>File info</returns>
+        /// <returns>File information</returns>
         [Update("file/{fileId}")]
         public FileWrapper UpdateFile(String fileId, String title, int lastVersion)
         {
@@ -955,13 +942,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Deletes the file with the ID specified in the request
+        /// Deletes a file with the ID specified in the request.
         /// </summary>
-        /// <short>Delete file</short>
+        /// <short>Delete a file</short>
         /// <category>Operations</category>
         /// <param name="fileId">File ID</param>
-        /// <param name="deleteAfter">Delete after finished</param>
-        /// <param name="immediately">Don't move to the Recycle Bin</param>
+        /// <param name="deleteAfter">Deletes after finished</param>
+        /// <param name="immediately">Doesn't move a file to the recycle bin</param>
         /// <returns>Operation result</returns>
         [Delete("file/{fileId}")]
         public IEnumerable<FileOperationWraper> DeleteFile(String fileId, bool deleteAfter, bool immediately)
@@ -970,11 +957,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///  Start conversion operation
+        /// Starts a conversion operation of a file with the ID specified in the request.
         /// </summary>
-        /// <short>Convert start</short>
+        /// <short>Start file converting</short>
         /// <category>Operations</category>
-        /// <param name="fileId"></param>
+        /// <param name="fileId">File ID</param>
         /// <returns>Operation result</returns>
         [Update("file/{fileId}/checkconversion")]
         public IEnumerable<ConversationResult> StartConversion(String fileId)
@@ -983,12 +970,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///  Check conversion status
+        /// Checks a status of converting a file with the ID specified in the request.
         /// </summary>
-        /// <short>Convert status</short>
+        /// <short>Get converting status</short>
         /// <category>Operations</category>
-        /// <param name="fileId"></param>
-        /// <param name="start"></param>
+        /// <param name="fileId">File ID</param>
+        /// <param name="start">Starts a conversion operation or not</param>
         /// <returns>Operation result</returns>
         [Read("file/{fileId}/checkconversion")]
         public IEnumerable<ConversationResult> CheckConversion(String fileId, bool start)
@@ -1018,13 +1005,27 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Deletes the folder with the ID specified in the request
+        /// Returns a link to download a file with the ID specified in the request.
         /// </summary>
-        /// <short>Delete folder</short>
+        /// <short>Get file download link</short>
+        /// <category>Files</category>
+        /// <param name="fileId">File ID</param>
+        /// <returns>File download link</returns>
+        [Read("file/{fileId}/presigneduri")]
+        public string GetPresignedUri(String fileId)
+        {
+            var file = _fileStorageService.GetFile(fileId, -1);
+            return PathProvider.GetFileStreamUrl(file);
+        }
+
+        /// <summary>
+        /// Deletes a folder with the ID specified in the request.
+        /// </summary>
+        /// <short>Delete a folder</short>
         /// <category>Operations</category>
         /// <param name="folderId">Folder ID</param>
-        /// <param name="deleteAfter">Delete after finished</param>
-        /// <param name="immediately">Don't move to the Recycle Bin</param>
+        /// <param name="deleteAfter">Deletes after finished</param>
+        /// <param name="immediately">Doesn't move a folder to the recycle bin</param>
         /// <returns>Operation result</returns>
         [Delete("folder/{folderId}")]
         public IEnumerable<FileOperationWraper> DeleteFolder(String folderId, bool deleteAfter, bool immediately)
@@ -1033,13 +1034,14 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Checking for conflicts
+        /// Checks a batch of files and folders for conflicts when moving or copying them to the folder with the ID specified in the request.
         /// </summary>
+        /// <short>Check files and folders for conflicts</short>
         /// <category>Operations</category>
         /// <param name="destFolderId">Destination folder ID</param>
-        /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileIds">File ID list</param>
-        /// <returns>Conflicts file ids</returns>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <returns>Conflict file IDs</returns>
         [Read("fileops/move")]
         public IEnumerable<FileWrapper> MoveOrCopyBatchCheck(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
@@ -1055,15 +1057,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Moves all the selected files and folders to the folder with the ID specified in the request
+        /// Moves all the selected files and folders to the folder with the ID specified in the request.
         /// </summary>
-        /// <short>Move to folder</short>
+        /// <short>Move to a folder</short>
         /// <category>Operations</category>
         /// <param name="destFolderId">Destination folder ID</param>
-        /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileIds">File ID list</param>
-        /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
-        /// <param name="deleteAfter">Delete after finished</param>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <param name="conflictResolveType">Overwriting behavior: skip (0), overwrite (1) or duplicate (2)</param>
+        /// <param name="deleteAfter">Deletes after finished</param>
         /// <returns>Operation result</returns>
         [Update("fileops/move")]
         public IEnumerable<FileOperationWraper> MoveBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType, bool deleteAfter)
@@ -1077,15 +1079,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Copies all the selected files and folders to the folder with the ID specified in the request
+        /// Copies all the selected files and folders to the folder with the ID specified in the request.
         /// </summary>
-        /// <short>Copy to folder</short>
+        /// <short>Copy to a folder</short>
         /// <category>Operations</category>
         /// <param name="destFolderId">Destination folder ID</param>
-        /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileIds">File ID list</param>
-        /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
-        /// <param name="deleteAfter">Delete after finished</param>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <param name="conflictResolveType">Overwriting behavior: skip (0), overwrite (1) or duplicate (2)</param>
+        /// <param name="deleteAfter">Deletes after finished</param>
         /// <returns>Operation result</returns>
         [Update("fileops/copy")]
         public IEnumerable<FileOperationWraper> CopyBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType, bool deleteAfter)
@@ -1099,10 +1101,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Marks all files and folders as read
+        /// Marks the files and folders with the IDs specified in the request as read.
         /// </summary>
         /// <short>Mark as read</short>
         /// <category>Operations</category>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
         /// <returns>Operation result</returns>
         [Update("fileops/markasread")]
         public IEnumerable<FileOperationWraper> MarkAsRead(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
@@ -1116,9 +1120,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///  Finishes all the active Operations
+        /// Finishes all the active operations.
         /// </summary>
-        /// <short>Finish all</short>
+        /// <short>Finish all operations</short>
         /// <category>Operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/terminate")]
@@ -1129,9 +1133,9 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        ///  Returns the list of all active Operations
+        ///  Returns a list of all the active operations.
         /// </summary>
-        /// <short>Operations list</short>
+        /// <short>Get operations</short>
         /// <category>Operations</category>
         /// <returns>Operation result</returns>
         [Read("fileops")]
@@ -1141,12 +1145,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Start downlaod process of files and folders with ID
+        /// Starts the download process of files and folders with the IDs specified in the request.
         /// </summary>
-        /// <short>Finish Operations</short>
-        /// <param name="fileConvertIds" visible="false">File ID list for download with convert to format</param>
-        /// <param name="fileIds">File ID list</param>
-        /// <param name="folderIds">Folder ID list</param>
+        /// <short>Bulk download</short>
+        /// <param name="fileConvertIds" visible="false">List of file IDs which will be converted</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <param name="folderIds">List of folder IDs</param>
         /// <category>Operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/bulkdownload")]
@@ -1176,12 +1180,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Deletes the files and folders with the IDs specified in the request
+        /// Deletes the files and folders with the IDs specified in the request.
         /// </summary>
-        /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileIds">File ID list</param>
-        /// <param name="deleteAfter">Delete after finished</param>
-        /// <param name="immediately">Don't move to the Recycle Bin</param>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <param name="deleteAfter">Deletes after finished</param>
+        /// <param name="immediately">Doesn't move the files and folders to the recycle bin</param>
         /// <short>Delete files and folders</short>
         /// <category>Operations</category>
         /// <returns>Operation result</returns>
@@ -1197,7 +1201,7 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Deletes all files and folders from the recycle bin
+        /// Deletes all the files and folders from the recycle bin.
         /// </summary>
         /// <short>Clear recycle bin</short>
         /// <category>Operations</category>
@@ -1209,9 +1213,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed information about all the available file versions with the ID specified in the request
+        /// Returns the detailed information about all the available file versions with the ID specified in the request.
         /// </summary>
-        /// <short>File versions</short>
+        /// <short>Get file versions</short>
         /// <category>Files</category>
         /// <param name="fileId">File ID</param>
         /// <returns>File information</returns>
@@ -1223,13 +1227,14 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Change version history
+        /// Changes version history of a file with the ID specified in the request.
         /// </summary>
+        /// <short>Change history</short>
         /// <param name="fileId">File ID</param>
-        /// <param name="version">Version of history</param>
-        /// <param name="continueVersion">Mark as version or revision</param>
+        /// <param name="version">History version</param>
+        /// <param name="continueVersion">Marks as version or revision</param>
         /// <category>Files</category>
-        /// <returns></returns>
+        /// <returns>File history</returns>
         [Update("file/{fileId}/history")]
         public IEnumerable<FileWrapper> ChangeHistory(string fileId, int version, bool continueVersion)
         {
@@ -1238,9 +1243,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed information about shared file with the ID specified in the request
+        /// Returns the detailed information about the shared file with the ID specified in the request.
         /// </summary>
-        /// <short>File sharing</short>
+        /// <short>Get the shared file information</short>
         /// <category>Sharing</category>
         /// <param name="fileId">File ID</param>
         /// <returns>Shared file information</returns>
@@ -1252,9 +1257,9 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Returns the detailed information about shared folder with the ID specified in the request
+        /// Returns the detailed information about the shared folder with the ID specified in the request.
         /// </summary>
-        /// <short>Folder sharing</short>
+        /// <short>Get the shared folder information</short>
         /// <param name="folderId">Folder ID</param>
         /// <category>Sharing</category>
         /// <returns>Shared folder information</returns>
@@ -1266,16 +1271,16 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Sets sharing settings for the file with the ID specified in the request
+        /// Sets the sharing settings to a file with the ID specified in the request.
         /// </summary>
         /// <param name="fileId">File ID</param>
-        /// <param name="share">Collection of sharing rights</param>
-        /// <param name="notify">Should notify people</param>
-        /// <param name="sharingMessage">Sharing message to send when notifying</param>
-        /// <short>Share file</short>
+        /// <param name="share">Collection of sharing parameters</param>
+        /// <param name="notify">Notifies users about the shared file</param>
+        /// <param name="sharingMessage">Message to send when notifying about the shared file</param>
+        /// <short>Share a file</short>
         /// <category>Sharing</category>
         /// <remarks>
-        /// Each of the FileShareParams must contain two parameters: 'ShareTo' - ID of the user with whom we want to share and 'Access' - access type which we want to grant to the user (Read, ReadWrite, etc) 
+        /// Each of the "share" parameters must contain two values: 'ShareTo' - ID of the user with whom we want to share the file and 'Access' - access type which we want to grant to the user (Read, ReadWrite, etc).
         /// </remarks>
         /// <returns>Shared file information</returns>
         [Update("file/{fileId}/share")]
@@ -1296,15 +1301,15 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Sets sharing settings for the folder with the ID specified in the request
+        /// Sets the sharing settings to a folder with the ID specified in the request.
         /// </summary>
-        /// <short>Share folder</short>
+        /// <short>Share a folder</short>
         /// <param name="folderId">Folder ID</param>
-        /// <param name="share">Collection of sharing rights</param>
-        /// <param name="notify">Should notify people</param>
-        /// <param name="sharingMessage">Sharing message to send when notifying</param>
+        /// <param name="share">Collection of sharing parameters</param>
+        /// <param name="notify">Notifies users about the shared file</param>
+        /// <param name="sharingMessage">Message to send when notifying about the shared file</param>
         /// <remarks>
-        /// Each of the FileShareParams must contain two parameters: 'ShareTo' - ID of the user with whom we want to share and 'Access' - access type which we want to grant to the user (Read, ReadWrite, etc) 
+        /// Each of the "share" parameters must contain two values: 'ShareTo' - ID of the user with whom we want to share the folder and 'Access' - access type which we want to grant to the user (Read, ReadWrite, etc). 
         /// </remarks>
         /// <category>Sharing</category>
         /// <returns>Shared folder information</returns>
@@ -1327,10 +1332,10 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Removes sharing rights for the group with the ID specified in the request
+        /// Removes the sharing rights for the group with the ID specified in the request.
         /// </summary>
-        /// <param name="folderIds">Folders ID</param>
-        /// <param name="fileIds">Files ID</param>
+        /// <param name="folderIds">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
         /// <short>Remove group sharing rights</short>
         /// <category>Sharing</category>
         /// <returns>Shared file information</returns>
@@ -1348,11 +1353,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Returns the external link to the shared file with the ID specified in the request
+        /// Returns an external link to the shared file with the ID specified in the request.
         /// </summary>
-        /// <short>Shared link</short>
+        /// <short>Get the shared link</short>
         /// <param name="fileId">File ID</param>
-        /// <param name="share">Access right</param>
+        /// <param name="share">Sharing rights</param>
         /// <category>Sharing</category>
         /// <returns>Shared file link</returns>
         [Update("{fileId}/sharedlink")]
@@ -1386,12 +1391,67 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Get a list of available providers
+        /// Returns file properties of the specified file.
         /// </summary>
-        /// <category>Third-Party Integration</category>
-        /// <returns>List of provider key</returns>
-        /// <remarks>List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
-        /// <returns></returns>
+        /// <short>Get file properties</short>
+        /// <param name="fileId">File ID</param>
+        /// <category>Files</category>
+        /// <returns>File properties</returns>
+        [Read("{fileId}/properties")]
+        public EntryProperties GetProperties(string fileId)
+        {
+            return _fileStorageService.GetFileProperties(fileId);
+        }
+
+        /// <summary>
+        /// Saves file properties to the specified file.
+        /// </summary>
+        /// <short>Save file properties to a file</short>
+        /// <param name="fileId">File ID</param>
+        /// <param name="fileProperties">File properties</param>
+        /// <category>Files</category>
+        /// <returns>File properties</returns>
+        [Update("{fileId}/properties")]
+        public EntryProperties SetProperties(string fileId, EntryProperties fileProperties)
+        {
+            return _fileStorageService.SetFileProperties(fileId, fileProperties);
+        }
+
+        /// <summary>
+        /// Saves file properties to the specified files.
+        /// </summary>
+        /// <short>Save file properties to files</short>
+        /// <param name="filesId">IDs of files</param>
+        /// <param name="createSubfolder">Creates a subfolder or not</param>
+        /// <param name="fileProperties">File properties</param>
+        /// <category>Files</category>
+        /// <returns>List of file properties</returns>
+        [Update("batch/properties")]
+        public List<EntryProperties> SetProperties(string[] filesId, bool createSubfolder, EntryProperties fileProperties)
+        {
+            var result = new List<EntryProperties>();
+
+            foreach (var fileId in filesId)
+            {
+                if (createSubfolder)
+                {
+                    var file = _fileStorageService.GetFile(fileId, -1).NotFoundIfNull("File not found");
+                    fileProperties.FormFilling.CreateFolderTitle = Path.GetFileNameWithoutExtension(file.Title);
+                }
+
+                result.Add(_fileStorageService.SetFileProperties(fileId, fileProperties));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a list of the available providers.
+        /// </summary>
+        /// <short>Get providers</short>
+        /// <category>Third-party integration</category>
+        /// <returns>List of provider keys</returns>
+        /// <remarks>List of provider keys: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive.</remarks>
+        /// <returns>List of the available providers</returns>
         [Read("thirdparty/capabilities")]
         public List<List<string>> Capabilities()
         {
@@ -1443,20 +1503,20 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Saves the third party file storage service account
+        /// Saves the storage service account of the third-party file.
         /// </summary>
-        /// <short>Save third party account</short>
-        /// <param name="url">Connection url for SharePoint</param>
+        /// <short>Save a third-party account</short>
+        /// <param name="url">Connection URL for the share point</param>
         /// <param name="login">Login</param>
         /// <param name="password">Password</param>
         /// <param name="token">Authentication token</param>
-        /// <param name="isCorporate"></param>
-        /// <param name="customerTitle">Title</param>
-        /// <param name="providerKey">Provider Key</param>
+        /// <param name="isCorporate">Corporate account or not</param>
+        /// <param name="customerTitle">Customer title</param>
+        /// <param name="providerKey">Provider key</param>
         /// <param name="providerId">Provider ID</param>
-        /// <category>Third-Party Integration</category>
+        /// <category>Third-party integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks>List of provider key: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive</remarks>
+        /// <remarks>List of provider keys: DropboxV2, Box, WebDav, Yandex, OneDrive, SharePoint, GoogleDrive.</remarks>
         /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderWrapper SaveThirdParty(
@@ -1484,10 +1544,10 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///    Returns the list of all connected third party services
+        /// Returns a list of all the connected third-party services.
         /// </summary>
-        /// <category>Third-Party Integration</category>
-        /// <short>Third party list</short>
+        /// <category>Third-party integration</category>
+        /// <short>Get third-party services</short>
         /// <returns>Connected providers</returns>
         [Read("thirdparty")]
         public IEnumerable<ThirdPartyParams> GetThirdPartyAccounts()
@@ -1496,11 +1556,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///    Returns the list of third party services connected in the Common section
+        /// Returns a list of the third-party services connected to the common section.
         /// </summary>
-        /// <category>Third-Party Integration</category>
-        /// <short>Third party folder</short>
-        /// <returns>Connected providers folder</returns>
+        /// <category>Third-party integration</category>
+        /// <short>Get common third-party services</short>
+        /// <returns>Common third-party folders</returns>
         [Read("thirdparty/common")]
         public IEnumerable<Folder> GetCommonThirdPartyFolders()
         {
@@ -1509,14 +1569,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///   Removes the third party file storage service account with the ID specified in the request
+        /// Removes the storage service account of the third-party file with the ID specified in the request.
         /// </summary>
-        /// <param name="providerId">Provider ID. Provider id is part of folder id.
-        /// Example, folder id is "sbox-123", then provider id is "123"
-        /// </param>
-        /// <short>Remove third party account</short>
-        /// <category>Third-Party Integration</category>
-        /// <returns>Folder id</returns>
+        /// <param name="providerId">Provider ID. It is a part of the folder ID. Example: folder ID is "sbox-123", then provider ID is "123".</param>
+        /// <short>Remove a third-party account</short>
+        /// <category>Third-party integration</category>
+        /// <returns>Folder ID</returns>
         ///<exception cref="ArgumentException"></exception>
         [Delete("thirdparty/{providerId:[0-9]+}")]
         public object DeleteThirdParty(int providerId)
@@ -1526,9 +1584,11 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Search files
+        /// Searches for files and folders by the query specified in the request.
         /// </summary>
-        /// <param name="query">Queary string</param>
+        /// <short>Search files and folders</short>
+        /// <category>Operations</category>
+        /// <param name="query">Query string</param>
         /// <returns>Files and folders</returns>
         [Read(@"@search/{query}")]
         public IEnumerable<FileEntryWrapper> Search(string query)
@@ -1541,13 +1601,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Adding files to favorite list
+        /// Adds files and folders with the IDs specified in the request to the favorite list.
         /// </summary>
-        /// <short>Favorite add</short>
+        /// <short>Add favorite files and folders</short>
         /// <category>Files</category>
-        /// <param name="folderIds" visible="false"></param>
-        /// <param name="fileIds">File IDs</param>
-        /// <returns></returns>
+        /// <param name="folderIds" visible="false">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <returns>Bool value: true if the operation is successful</returns>
         [Create("favorites")]
         public bool AddFavorites(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
@@ -1556,13 +1616,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Removing files from favorite list
+        /// Removes files and folders with the IDs specified in the request from the favorite list.
         /// </summary>
-        /// <short>Favorite delete</short>
+        /// <short>Delete favorite files and folders</short>
         /// <category>Files</category>
-        /// <param name="folderIds" visible="false"></param>
-        /// <param name="fileIds">File IDs</param>
-        /// <returns></returns>
+        /// <param name="folderIds" visible="false">List of folder IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <returns>Bool value: true if the operation is successful</returns>
         [Delete("favorites")]
         public bool DeleteFavorites(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
@@ -1571,12 +1631,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Adding files to template list
+        /// Adds files with the IDs specified in the request to the template list.
         /// </summary>
-        /// <short>Template add</short>
+        /// <short>Add template files</short>
         /// <category>Files</category>
-        /// <param name="fileIds">File IDs</param>
-        /// <returns></returns>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <returns>Bool value: true if the operation is successful</returns>
         [Create("templates")]
         public bool AddTemplates(IEnumerable<String> fileIds)
         {
@@ -1585,12 +1645,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Removing files from template list
+        /// Removes files with the IDs specified in the request from the template list.
         /// </summary>
-        /// <short>Template delete</short>
+        /// <short>Delete template files</short>
         /// <category>Files</category>
-        /// <param name="fileIds">File IDs</param>
-        /// <returns></returns>
+        /// <param name="fileIds">List of file IDs</param>
+        /// <returns>Bool value: true if the operation is successful</returns>
         [Delete("templates")]
         public bool DeleteTemplates(IEnumerable<String> fileIds)
         {
@@ -1600,11 +1660,12 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Store file in original formats when upload and convert
+        /// Stores files in the original formats when uploading and converting.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Store original formats</short>
+        /// <param name="set">Sets the parameter on or off</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"storeoriginal")]
         public bool StoreOriginal(bool set)
         {
@@ -1612,12 +1673,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Do not show the confirmation dialog
+        /// Hides the confirmation dialog.
         /// </summary>
-        /// <param name="save"></param>
+        /// <short>Hide the confirmation dialog</short>
+        /// <param name="save">Defines if it is for saving or not</param>
         /// <category>Settings</category>
         /// <visible>false</visible>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"hideconfirmconvert")]
         public bool HideConfirmConvert(bool save)
         {
@@ -1625,11 +1687,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Update the file version if the same name is exist
+        /// Updates a file version if a file with such a name already exists.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Update a file version if exists</short>
+        /// <param name="set">Sets the parameter on or off</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"updateifexist")]
         public bool UpdateIfExist(bool set)
         {
@@ -1637,11 +1700,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Display recent folder
+        /// Displays the recent folder.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Display recent folder</short>
+        /// <param name="set">Sets the parameter on or off</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"displayRecent")]
         public bool DisplayRecent(bool set)
         {
@@ -1649,11 +1713,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Display favorite folder
+        /// Displays the favorite folder.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Display favorite folder</short>
+        /// <param name="set">Sets the parameter on or off</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"settings/favorites")]
         public bool DisplayFavorite(bool set)
         {
@@ -1661,11 +1726,12 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Display template folder
+        /// Displays the template folder.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Display template folder</short>
+        /// <param name="set">Sets the parameter on or off</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Bool value: true if the parameter is enabled</returns>
         [Update(@"settings/templates")]
         public bool DisplayTemplates(bool set)
         {
@@ -1673,11 +1739,51 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// 
+        /// Updates the auto cleanup setting.
         /// </summary>
-        /// <param name="set"></param>
+        /// <short>Update the auto cleanup setting</short>
+        /// <param name="set">Enables the auto cleanup or not</param>
+        /// <param name="gap">A time interval when the auto cleanup will be performed (one week, two weeks, one month, two months, three months)</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>The auto cleanup setting properties</returns>
+        [Update(@"settings/autocleanup")]
+        public AutoCleanUpData ChangeAutomaticallyCleanUp(bool set, DateToAutoCleanUp gap)
+        {
+            return _fileStorageService.ChangeAutomaticallyCleanUp(set, gap);
+        }
+
+        /// <summary>
+        /// Returns the auto cleanup setting properties.
+        /// </summary>
+        /// <short>Get the auto cleanup setting properties</short>
+        /// <category>Settings</category>
+        /// <returns>The auto cleanup setting properties</returns>
+        [Read(@"settings/autocleanup")]
+        public AutoCleanUpData GetSettingsAutomaticallyCleanUp()
+        {
+            return _fileStorageService.GetSettingsAutomaticallyCleanUp();
+        }
+
+        /// <summary>
+        /// Changes the default access rights in sharing settings
+        /// </summary>
+        /// <short>Change the default access rights</short>
+        /// <param name="value">Default access rights</param>
+        /// <category>Settings</category>
+        /// <returns>Default access rights</returns>
+        [Update(@"settings/dafaultaccessrights")]
+        public List<FileShare> ChangeDafaultAccessRights(List<FileShare> value)
+        {
+            return _fileStorageService.ChangeDafaultAccessRights(value);
+        }
+
+        /// <summary>
+        /// Changes the archive format for downloading from zip to tar.gz.
+        /// </summary>
+        /// <short>Change the archive format</short>
+        /// <param name="set">Sets the parameter on or off</param>
+        /// <category>Settings</category>
+        /// <returns>Archive</returns>
         [Update(@"settings/downloadtargz")]
         public ICompress ChangeDownloadZip(bool set)
         {
@@ -1685,13 +1791,14 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        ///  Checking document service location
+        /// Checks the document service location.
         /// </summary>
-        /// <param name="docServiceUrl">Document editing service Domain</param>
-        /// <param name="docServiceUrlInternal">Document command service Domain</param>
-        /// <param name="docServiceUrlPortal">Community Server Address</param>
+        /// <short>Check the document service URL</short>
+        /// <param name="docServiceUrl">Document editing service domain</param>
+        /// <param name="docServiceUrlInternal">Document command service domain</param>
+        /// <param name="docServiceUrlPortal">Community Server address</param>
         /// <category>Settings</category>
-        /// <returns></returns>
+        /// <returns>Document service information</returns>
         [Update("docservice")]
         public IEnumerable<string> CheckDocServiceUrl(string docServiceUrl, string docServiceUrlInternal, string docServiceUrlPortal)
         {
@@ -1720,10 +1827,11 @@ namespace ASC.Api.Documents
 
 
         /// <summary>
-        /// Get the address of connected editors
+        /// Returns the address of the connected editors.
         /// </summary>
+        /// <short>Get the document service URL</short>
         /// <category>Settings</category>
-        /// <param name="version" visible="false"></param>
+        /// <param name="version" visible="false">Specifies version or not</param>
         /// <returns>Address</returns>
         [Read("docservice")]
         public object GetDocServiceUrl(bool version)
@@ -1744,13 +1852,13 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        /// Create thumbnails for files with the IDs specified in the request
+        /// Creates thumbnails for the files with the IDs specified in the request.
         /// </summary>
         /// <short>Create thumbnails</short>
         /// <category>Files</category>
-        /// <param name="fileIds">File IDs</param>
+        /// <param name="fileIds">List of file IDs</param>
         /// <visible>false</visible>
-        /// <returns></returns>
+        /// <returns>List of file IDs</returns>
         [Create("thumbnails")]
         public IEnumerable<String> CreateThumbnails(IEnumerable<String> fileIds)
         {
@@ -1793,6 +1901,12 @@ namespace ASC.Api.Documents
 
         #region wordpress
 
+        /// <summary>
+        /// Returns the WordPress plugin information.
+        /// </summary>
+        /// <short>Get the WordPress information</short>
+        /// <category>WordPress</category>
+        /// <returns>WordPress information</returns>
         /// <visible>false</visible>
         [Read("wordpress-info")]
         public object GetWordpressInfo()
@@ -1821,6 +1935,12 @@ namespace ASC.Api.Documents
             };
         }
 
+        /// <summary>
+        /// Deletes the WordPress plugin information.
+        /// </summary>
+        /// <short>Delete the WordPress information</short>
+        /// <category>WordPress</category>
+        /// <returns>Object with the bool value: true if the operation is successful</returns>
         /// <visible>false</visible>
         [Read("wordpress-delete")]
         public object DeleteWordpressInfo()
@@ -1840,6 +1960,13 @@ namespace ASC.Api.Documents
             };
         }
 
+        /// <summary>
+        /// Saves the user WordPress information at login.
+        /// </summary>
+        /// <short>Save the user WordPress information</short>
+        /// <param name="code">Authorization code</param>
+        /// <category>WordPress</category>
+        /// <returns>User WordPress information</returns>
         /// <visible>false</visible>
         [Create("wordpress-save")]
         public object WordpressSave(string code)
@@ -1880,6 +2007,16 @@ namespace ASC.Api.Documents
             }
         }
 
+        /// <summary>
+        /// Creates a WordPress post with the parameters specified in the request.
+        /// </summary>
+        /// <short>Create a WordPress post</short>
+        /// <param name="code">Authorization code</param>
+        /// <param name="title">Post title</param>
+        /// <param name="content">Post content</param>
+        /// <param name="status">Operation status</param>
+        /// <category>WordPress</category>
+        /// <returns>WordPress post</returns>
         /// <visible>false</visible>
         [Create("wordpress")]
         public bool CreateWordpressPost(string code, string title, string content, int status)
@@ -1909,6 +2046,14 @@ namespace ASC.Api.Documents
 
         #region easybib
 
+        /// <summary>
+        /// Returns the EasyBib citation list.
+        /// </summary>
+        /// <short>Get the EasyBib citation list</short>
+        /// <param name="source">Citation source: book (0), journal (1) or website (2)</param>
+        /// <param name="data">Citation data</param>
+        /// <category>EasyBib</category>
+        /// <returns>EasyBib citation list</returns>
         /// <visible>false</visible>
         [Read("easybib-citation-list")]
         public object GetEasybibCitationList(int source, string data)
@@ -1932,6 +2077,12 @@ namespace ASC.Api.Documents
 
         }
 
+        /// <summary>
+        /// Returns the EasyBib styles.
+        /// </summary>
+        /// <short>Get the EasyBib styles</short>
+        /// <category>EasyBib</category>
+        /// <returns>List of EasyBib styles</returns>
         /// <visible>false</visible>
         [Read("easybib-styles")]
         public object GetEasybibStyles()
@@ -1954,6 +2105,13 @@ namespace ASC.Api.Documents
             }
         }
 
+        /// <summary>
+        /// Returns the EasyBib citation book.
+        /// </summary>
+        /// <short>Get the EasyBib citation</short>
+        /// <param name="citationData">Citation data</param>
+        /// <category>EasyBib</category>
+        /// <returns>EasyBib citation</returns>
         /// <visible>false</visible>
         [Create("easybib-citation")]
         public object EasyBibCitationBook(string citationData)
@@ -1990,13 +2148,13 @@ namespace ASC.Api.Documents
         #endregion
 
         /// <summary>
-        /// Result of file conversation operation.
+        /// Result of the file conversion operation.
         /// </summary>
         [DataContract(Name = "operation_result", Namespace = "")]
         public class ConversationResult
         {
             /// <summary>
-            /// Operation Id.
+            /// Operation ID.
             /// </summary>
             [DataMember(Name = "id")]
             public string Id { get; set; }
@@ -2026,7 +2184,7 @@ namespace ASC.Api.Documents
             public FileWrapper File { get; set; }
 
             /// <summary>
-            /// Error during conversation.
+            /// Error during conversion.
             /// </summary>
             [DataMember(Name = "error")]
             public string Error { get; set; }

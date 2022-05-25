@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 
@@ -123,7 +124,10 @@ namespace ASC.Mail.Extensions
                 mimeMessage.Bcc.AddRange(draft.Bcc.ConvertAll(MailboxAddress.Parse));
 
             if (draft.Important)
+            {
                 mimeMessage.Importance = MessageImportance.High;
+                mimeMessage.XPriority = XMessagePriority.Highest;
+            }
 
             if (!string.IsNullOrEmpty(draft.MimeReplyToId))
                 mimeMessage.InReplyTo = draft.MimeReplyToId;
@@ -450,17 +454,39 @@ namespace ASC.Mail.Extensions
 
             var doc = new HtmlDocument();
             doc.LoadHtml(draft.HtmlBody);
-            var linkNodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + baseAttachmentFolder + "'))]");
+            var linkNodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + baseAttachmentFolder + "') or @x-mail-embedded)]");
             if (linkNodes == null) return;
 
             foreach (var linkNode in linkNodes)
             {
                 var link = linkNode.Attributes["src"].Value;
                 log.InfoFormat("ChangeEmbededAttachmentLinks() Embeded attachment link for changing to cid: {0}", link);
-                var fileLink = HttpUtility.UrlDecode(link.Substring(baseAttachmentFolder.Length));
+
+                var isExternal = link.IndexOf(baseAttachmentFolder) == -1;
+
+                var fileLink = isExternal
+                    ? link
+                    : HttpUtility.UrlDecode(link.Substring(baseAttachmentFolder.Length));
                 var fileName = Path.GetFileName(fileLink);
 
                 var attach = CreateEmbbededAttachment(fileName, link, fileLink, draft.Mailbox.UserId, draft.Mailbox.TenantId, draft.Mailbox.MailBoxId, draft.StreamId);
+
+                if (isExternal)
+                {
+                    using (var webClient = new WebClient())
+                    {
+                        //webClient.Headers.Add("Authorization", GetPartnerAuthHeader(actionUrl));
+                        try
+                        {
+                            attach.data = webClient.DownloadData(fileLink);
+                        }
+                        catch (WebException we)
+                        {
+                            log.Error(we);
+                            continue;
+                        }
+                    }
+                }
                 draft.AttachmentsEmbedded.Add(attach);
                 linkNode.SetAttributeValue("src", "cid:" + attach.contentId);
                 log.InfoFormat("ChangeEmbededAttachmentLinks() Attachment cid: {0}", attach.contentId);

@@ -67,6 +67,9 @@
   <data name="Case" xml:space="preserve">
     <value>Tədbir</value>
   </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>İcazələr yaratdığınız hərəkətlər üçün müəyyən ediləcək</value>
+  </data>
   <data name="CasesByStatus" xml:space="preserve">
     <value>Status</value>
   </data>
@@ -174,6 +177,9 @@
   </data>
   <data name="ShowCaseProfile" xml:space="preserve">
     <value>Profilə keç</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Yeni paneldə açın</value>
   </data>
   <data name="StartImport" xml:space="preserve">
     <value>İmporta başla</value>

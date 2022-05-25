@@ -101,11 +101,11 @@ Veuillez suivre ce lien pour télécharger l'archive: "exportdata.zip":"${Entity
 
 *Remarque*: Ce lien n'est valable que pour une durée de 24 heures.
 
-Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter à "support.onlyoffice.com":"http://support.onlyoffice.com"
+Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter à "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Meilleures salutations,
 Equipe d'assistance technique ONLYOFFICE™
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}". Pour changer le type de notification, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -114,11 +114,11 @@ Equipe d'assistance technique ONLYOFFICE™
 
 Allez à la liste des "Contacts":"$__VirtualRootPath/Products/CRM/".
 
-Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse "support.onlyoffice.com":"http://support.onlyoffice.com"
+Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter à l'adresse "support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Meilleures salutations, 
 Equipe de support technique ONLYOFFICE™ 
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Vous recevez ce message car vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}" . Pour changer le type de notification, gérez vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
   </data>

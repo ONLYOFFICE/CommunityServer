@@ -235,9 +235,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>管理员</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>附属地位</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>任意域</value>
   </data>
@@ -498,12 +495,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>比特利</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>登录</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>连接Bitly服务，以缩短文档模块中的门户网站邀请链接和共享链接。</value>
@@ -873,27 +864,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>WordPress机密</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>客户ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>客户秘钥</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>启用雅虎联系人导入的应用程序。</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>添加雅虎服务应用程序，您可以从联系人列表中添加ONLYOFFICE门户网站新用户。</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>客户ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>客户秘钥</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>联系人信息</value>
@@ -1400,9 +1370,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>密码格式不正确。新密码必须包含</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>它必须包含</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>数字</value>
   </data>
@@ -1605,9 +1572,6 @@
   <data name="HelpCenter" xml:space="preserve">
     <value>帮助中心</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>该计划的目的是合法宣传ONLYOFFICE™，以接受由推荐个人购买订阅的佣金。</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>隐藏</value>
   </data>
@@ -1752,9 +1716,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>从Google导入</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>从Yahoo导入</value>
-  </data>
   <data name="ImportTextDelimiter" xml:space="preserve">
     <value>文本分隔符</value>
   </data>
@@ -1823,9 +1784,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>也迁移ONLYOFFICE™邮件（不推荐）</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>成为我们的关联人</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>您可以继续添加用户为 {!guests}，或更改具有较大用户数量用户的定价方案。</value>
@@ -2976,15 +2934,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>已经成功重发邀请信</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>发送电​​子邮件</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>联系我们，以了解特价优惠</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>减少所需参数或选择其他定价方案。</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>立即购买</value>
   </data>
@@ -2996,18 +2945,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>选择最适合您需求的计划。建议的计划如下。</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>此计划无法选择</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>允许的存储空间大小：{0}。 当前存储空间：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>允许的门户网站数量：{0}。 当前用户数：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>您无法选择此计划，因为存储空间或用户数量超出了所选定价方案的限制：</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>经常性付款位于</value>
@@ -3033,9 +2970,6 @@
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>您的ONLYOFFICE™门户将被阻止{2}。请{0}点击此处{1}续期现有计划，或将其更改为适当的计划。</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>您创建的门户数：{0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>定价计划在付费年度结束之前不可用。</value>
   </data>
@@ -3048,14 +2982,8 @@
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>要取消定期付款，请访问您的Avangate帐户。</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>最多只允许{0}。</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>定价计划</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>为了您的方便，俄罗斯卢布的付款使用固定汇率计算，{0}俄罗斯卢布为1美元。</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>附加服务</value>

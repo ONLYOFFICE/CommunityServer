@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -23,6 +24,8 @@ using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Utils;
+
+using MimeKit;
 
 namespace ASC.Mail.Core.Engine
 {
@@ -36,7 +39,7 @@ namespace ASC.Mail.Core.Engine
         }
 
         public void UploadIcsToCalendar(MailBoxData mailBoxData, int calendarId, string calendarEventUid, string calendarIcs,
-            string calendarCharset, string calendarContentType, string calendarEventReceiveEmail, string httpContextScheme)
+            string calendarCharset, string calendarContentType, List<MailAttachmentData> mailAttachments, IEnumerable<MimeEntity> mimeAttachments, string calendarEventReceiveEmail, string httpContextScheme)
         {
             try
             {
@@ -50,13 +53,14 @@ namespace ASC.Mail.Core.Engine
                 if (calendar == null)
                     return;
 
+                var eventObj = calendar.Events[0];
                 var alienEvent = true;
 
-                var organizer = calendar.Events[0].Organizer;
+                var organizer = eventObj.Organizer;
 
                 if (organizer != null)
                 {
-                    var orgEmail = calendar.Events[0].Organizer.Value.ToString()
+                    var orgEmail = eventObj.Organizer.Value.ToString()
                         .ToLowerInvariant()
                         .Replace("mailto:", "");
 
@@ -70,7 +74,7 @@ namespace ASC.Mail.Core.Engine
 
                 if (alienEvent)
                 {
-                    if (calendar.Events[0].Attendees.Any(
+                    if (eventObj.Attendees.Any(
                         a =>
                             a.Value.ToString()
                                 .ToLowerInvariant()
@@ -85,12 +89,12 @@ namespace ASC.Mail.Core.Engine
                     return;
 
                 CoreContext.TenantManager.SetCurrentTenant(mailBoxData.TenantId);
-                SecurityContext.AuthenticateMe(new Guid(mailBoxData.UserId));
+                SecurityContext.CurrentUser = new Guid(mailBoxData.UserId);
 
                 using (var ms = new MemoryStream(EncodingTools.GetEncodingByCodepageName(calendarCharset).GetBytes(calendarIcs)))
                 {
                     var apiHelper = new ApiHelper(httpContextScheme, Log);
-                    apiHelper.UploadIcsToCalendar(calendarId, ms, "calendar.ics", calendarContentType);
+                    apiHelper.UploadIcsToCalendar(calendarId, ms, "calendar.ics", calendarContentType, eventObj, mimeAttachments, mailAttachments);
                 }
 
                 Log.Info("CalendarEngine->UploadIcsToCalendar() has been succeeded");

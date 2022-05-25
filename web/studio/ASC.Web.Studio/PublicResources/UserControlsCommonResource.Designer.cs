@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.PublicResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UserControlsCommonResource {
@@ -57,15 +57,6 @@ namespace ASC.Web.Studio.PublicResources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The active users are the portal members with the exception of guests and users with the &quot;disabled&quot; status.
-        /// </summary>
-        public static string ActiveUserDescr {
-            get {
-                return ResourceManager.GetString("ActiveUserDescr", resourceCulture);
             }
         }
         
@@ -160,47 +151,29 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shorten portal invitation links and links for shared documents using Bitly.
-        /// </summary>
-        public static string BannerBitly {
-            get {
-                return ResourceManager.GetString("BannerBitly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in to the portal using your social accounts and search for contacts.
-        /// </summary>
-        public static string BannerSocial {
-            get {
-                return ResourceManager.GetString("BannerSocial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect your favorite cloud storage services and store all your files in one place.
-        /// </summary>
-        public static string BannerStorage {
-            get {
-                return ResourceManager.GetString("BannerStorage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Call your customers directly from the CRM thanks to {0}ONLYOFFICE Twilio{1} integration.
-        /// </summary>
-        public static string BannerTwilio2 {
-            get {
-                return ResourceManager.GetString("BannerTwilio2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ....
         /// </summary>
         public static string BtnHiddenFilter {
             get {
                 return ResourceManager.GetString("BtnHiddenFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancel {
+            get {
+                return ResourceManager.GetString("ButtonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Log out.
+        /// </summary>
+        public static string ButtonConfirmLogout {
+            get {
+                return ResourceManager.GetString("ButtonConfirmLogout", resourceCulture);
             }
         }
         
@@ -241,6 +214,24 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string ButtonLogout {
+            get {
+                return ResourceManager.GetString("ButtonLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out and Change Password.
+        /// </summary>
+        public static string ButtonLogoutAndChangePassword {
+            get {
+                return ResourceManager.GetString("ButtonLogoutAndChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CancelButton {
@@ -277,6 +268,42 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out from active connection.
+        /// </summary>
+        public static string ConfirmLogoutFromActiveConnection {
+            get {
+                return ResourceManager.GetString("ConfirmLogoutFromActiveConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out from all active connections.
+        /// </summary>
+        public static string ConfirmLogoutFromAllActiveConnections {
+            get {
+                return ResourceManager.GetString("ConfirmLogoutFromAllActiveConnections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note. All active connections except this connection will be logged out, as it is currently in use..
+        /// </summary>
+        public static string ConfirmLogoutFromAllActiveConnectionsNote {
+            get {
+                return ResourceManager.GetString("ConfirmLogoutFromAllActiveConnectionsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For more security, you need to change your password..
+        /// </summary>
+        public static string ConfirmLogoutFromAllActiveConnectionsSecurity {
+            get {
+                return ResourceManager.GetString("ConfirmLogoutFromAllActiveConnectionsSecurity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save the file copy in the original format as well.
         /// </summary>
         public static string ConfirmStoreOriginalUploadCbxLabelTextAC {
@@ -300,6 +327,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ContactSupportBtn {
             get {
                 return ResourceManager.GetString("ContactSupportBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current connection.
+        /// </summary>
+        public static string CurrentConnection {
+            get {
+                return ResourceManager.GetString("CurrentConnection", resourceCulture);
             }
         }
         
@@ -507,6 +543,24 @@ namespace ASC.Web.Studio.PublicResources {
         public static string FeedEmptyListProjHeader {
             get {
                 return ResourceManager.GetString("FeedEmptyListProjHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anything added to the People module will be shown here. Users can share interesting information, thoughts and experiences with others, express their opinions, get feedback from the others&apos; comments..
+        /// </summary>
+        public static string FeedEmptyPeopleDescription {
+            get {
+                return ResourceManager.GetString("FeedEmptyPeopleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No People events have added yet.
+        /// </summary>
+        public static string FeedEmptyPeopleHeader {
+            get {
+                return ResourceManager.GetString("FeedEmptyPeopleHeader", resourceCulture);
             }
         }
         
@@ -862,6 +916,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out from all active connections.
+        /// </summary>
+        public static string LogoutFromAllActiveConnectionsButton {
+            get {
+                return ResourceManager.GetString("LogoutFromAllActiveConnectionsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Size.
         /// </summary>
         public static string MediaViewerActualSize {
@@ -1065,6 +1128,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string NoComments {
             get {
                 return ResourceManager.GetString("NoComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no data.
+        /// </summary>
+        public static string NoData {
+            get {
+                return ResourceManager.GetString("NoData", resourceCulture);
             }
         }
         
@@ -1988,15 +2060,6 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Basic price.
-        /// </summary>
-        public static string TariffBasicPrice {
-            get {
-                return ResourceManager.GetString("TariffBasicPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to See Avangate for the full list of currencies.
         /// </summary>
         public static string TariffCurrencyHelp {
@@ -2033,29 +2096,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open full price list.
-        /// </summary>
-        public static string TariffFullPrice {
-            get {
-                return ResourceManager.GetString("TariffFullPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Would you like to choose a new pricing plan?.
         /// </summary>
         public static string TariffLimitDecision {
             get {
                 return ResourceManager.GetString("TariffLimitDecision", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Time limited offer.
-        /// </summary>
-        public static string TariffLimitedPrice {
-            get {
-                return ResourceManager.GetString("TariffLimitedPrice", resourceCulture);
             }
         }
         
@@ -2083,15 +2128,6 @@ namespace ASC.Web.Studio.PublicResources {
         public static string TariffNameSYear {
             get {
                 return ResourceManager.GetString("TariffNameSYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}3 Year{1} Subscription.
-        /// </summary>
-        public static string TariffNameSYear3 {
-            get {
-                return ResourceManager.GetString("TariffNameSYear3", resourceCulture);
             }
         }
         
@@ -2213,38 +2249,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The offer is available for annual subscribers only. .
-        /// </summary>
-        public static string TariffPerYearOnly {
-            get {
-                return ResourceManager.GetString("TariffPerYearOnly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Most Popular Subscription.
         /// </summary>
         public static string TariffPop {
             get {
                 return ResourceManager.GetString("TariffPop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adding a new portal will exceed the maximum number of portals allowed by your current pricing plan..
-        /// </summary>
-        public static string TariffPortalLimitHeaer {
-            get {
-                return ResourceManager.GetString("TariffPortalLimitHeaer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save {0}.
-        /// </summary>
-        public static string TariffPriceOffer {
-            get {
-                return ResourceManager.GetString("TariffPriceOffer", resourceCulture);
             }
         }
         
@@ -2317,15 +2326,6 @@ namespace ASC.Web.Studio.PublicResources {
         public static string TariffStorageLimitTitle {
             get {
                 return ResourceManager.GetString("TariffStorageLimitTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You are using ONLYOFFICE Enterprise Edition. {0}The current installation has been updated without a proper license provided.{1}{2} Please upload the updated license to continue using ONLYOFFICE Enterprise Edition..
-        /// </summary>
-        public static string TariffUpdateWithoutLicense {
-            get {
-                return ResourceManager.GetString("TariffUpdateWithoutLicense", resourceCulture);
             }
         }
         

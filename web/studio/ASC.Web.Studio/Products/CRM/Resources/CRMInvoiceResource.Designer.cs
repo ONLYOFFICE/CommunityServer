@@ -1276,6 +1276,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Price must contain 1-8 characters.
+        /// </summary>
+        public static string PriceTip {
+            get {
+                return ResourceManager.GetString("PriceTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
         public static string Print {

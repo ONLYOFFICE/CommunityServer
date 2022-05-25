@@ -1,6 +1,6 @@
-/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+﻿/**
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 CKEDITOR.editorConfig = function( config ) {
@@ -21,10 +21,38 @@ CKEDITOR.editorConfig = function( config ) {
     CKEDITOR.config.entities_latin = false;
     CKEDITOR.config.entities_greek = false;
     CKEDITOR.config.entities_processNumerical = false;
+    CKEDITOR.config.magicline_color = '#2F80ED';
     CKEDITOR.config.fillEmptyBlocks = function () {
             return true;
     };
-    
+
+    CKEDITOR.config.mentions = [{
+        feed: function (opts, callback) {
+            var users = window.CKEDITOR_mentionsFeed ? window.CKEDITOR_mentionsFeed : UserManager.getAllUsers(true);
+            var data = [];
+            jQuery.each(users, function (key, user) {
+                var displayName = Encoder.htmlDecode(user.displayName);
+                if (displayName.toLowerCase().indexOf(opts.query.toLowerCase()) != -1) {
+                    data.push({
+                        id: user.id,
+                        email: user.email,
+                        displayName: displayName,
+                        profileUrl: user.profileUrl
+                    });
+                }
+                return data.length < 50;
+            });
+            callback(data);
+        },
+        itemTemplate: '<li data-id="{id}" class="mention_form" title="{displayName}">' + '<span>{displayName}</span>' + '</li>',
+        itemsLimit: 50,
+        outputTemplate: '<a mention="true" href="{profileUrl}" data-uid="{id}">@{email}</a><span>&nbsp;</span>',
+        marker:'@',
+        minChars: 0,
+        pattern: /\@[\w^\S]{0,}$/
+    }
+    ];
+ 
     CKEDITOR.config.allowedContent = true; // don't filter my data
 
     //--------main settings
@@ -62,7 +90,7 @@ CKEDITOR.editorConfig = function( config ) {
         return value;
     });
 
-    config.toolbar_Mail = jq.map(this.getBaseConfig(), function(value) {
+    config.toolbar_Mail = jq.map(this.getBaseConfig(), function (value) {
         if (value.name == "paragraph") {
             value.items.splice(4, 0, 'Outdent', 'Indent'); // Add 'Outdent', 'Indent'
         }
@@ -73,7 +101,7 @@ CKEDITOR.editorConfig = function( config ) {
         return value;
     });
 
-    config.toolbar_MailSignature = jq.map(this.getBaseConfig(), function(value) {
+    config.toolbar_MailSignature = jq.map(this.getBaseConfig(), function (value) {
         if (value.name == "basic") {
             value.items.splice(0, 3); // Remove 'Undo', 'Redo', '-'
         }
@@ -89,14 +117,28 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.toolbar_PrjMessage =
         config.toolbar_ComBlog =
-            jq.map(this.getBaseConfig(), function(value) {
-                if (value.name == "insert") {
-                    value.items.splice(5, 0, "Source"); // Add 'Source'
-                    value.items.splice(4, 0, 'TeamlabCut'); // Add 'TeamlabCut'
-                }
-                return value;
-            });
+        jq.map(this.getBaseConfig(), function (value) {
+            if (value.name == "insert") {
+                value.items.splice(5, 0, "Source"); // Add 'Source'
+                value.items.splice(4, 0, 'TeamlabCut'); // Add 'TeamlabCut'
+            }
+            return value;
+        });
 
+    config.toolbar_Calendar = jq.map(this.getBaseConfig(), function(value) {
+        if (value.name == "basic") {
+            value.items.splice(2, 3); // Delete '-', 'Font', 'FontSize'
+            value.items.splice(6, 2); // Delete 'TextColor', 'BGColor'
+        }
+        if (value.name == "paragraph") {
+            value.items.splice(0, 4); // Delete 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'
+        }
+        if (value.name == "insert") {
+            value.items.splice(0, 2); // Delete 'Image', 'Smiley'
+        }
+        return value;
+    });
+    
     //-------Full toolbar
     config.toolbar_Full =
     [
@@ -172,7 +214,6 @@ CKEDITOR.editorConfig = function( config ) {
         '@='
     ];
     config.smiley_columns = 5;
-
 
     var fonts = config.font_names.split(";");
     fonts.push("Open Sans/Open Sans, sans-serif");

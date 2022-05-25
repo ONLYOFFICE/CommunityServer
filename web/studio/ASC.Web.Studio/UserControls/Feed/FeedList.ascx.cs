@@ -41,6 +41,7 @@ namespace ASC.Web.Studio.UserControls.Feed
         {
             return string.Join(",",
                     WebItemSecurity.IsAvailableForMe(WebItemManager.CommunityProductID).ToString(),
+                    WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID).ToString(),
                     WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID).ToString(),
                     WebItemSecurity.IsAvailableForMe(WebItemManager.ProjectsProductID).ToString(),
                     WebItemSecurity.IsAvailableForMe(WebItemManager.DocumentsProductID).ToString()

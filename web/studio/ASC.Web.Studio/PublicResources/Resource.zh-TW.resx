@@ -243,9 +243,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>系統管理者</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>會員狀態</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>任何域</value>
   </data>
@@ -1076,9 +1073,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>密碼必須包含</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>密碼必須包含</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>數字</value>
   </data>
@@ -1312,9 +1306,6 @@
   <data name="HelpCenter" xml:space="preserve">
     <value>輔助說明中心</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>該計劃的目的是合法地宣傳ONLYOFFICE™，以收取推薦人購買的訂閱的佣金。</value>
-  </data>
   <data name="HelpPrivacyRoomSettings" xml:space="preserve">
     <value>啟用此選項可創建用於文檔編輯和共同創作的安全環境。使用AES-256加密算法將加密存儲在Private Room中的所有文檔以及進行共同編輯時的數據傳輸，以防止存取您的數據。{0} Private Room可通過{3} ONLYOFFICE Desktop Editors {4}訪問。 。首先，用戶必須在其“連接到雲端”部分中登錄ONLYOFFICE雲。連接後，他們會自動獲得一對加密密鑰。在{5}此處{6}了解其工作原理。</value>
   </data>
@@ -1471,9 +1462,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>自Google匯入</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>自Yahoo匯入</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>選擇其他來源</value>
   </data>
@@ -1549,9 +1537,6 @@
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>也遷移ONLYOFFICE™郵件（不推薦）</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>成為我們的會員</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>您可以繼續將用戶添加為{！guests}或更改具有更大用戶數量的用戶的定價計劃。</value>
@@ -2817,15 +2802,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>邀請已成功發送</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>發送電子郵件</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>聯繫我們以查找特別優惠</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>減少所需的參數或選擇其他定價計劃。</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>
 立即購買</value>
@@ -2838,18 +2814,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>選擇最適合您需求的計劃。建議的計劃在下面突出顯示。</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>無法選擇該計劃</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>允許的存儲空間大小：{0}。當前存儲空間：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>允許的門戶網站用戶數：{0}。當前用戶數：{1}。</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>您無法選擇此計劃，因為存儲空間或用戶數超出了所選定價計劃的限制：</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>定期付款已開始</value>
@@ -2881,9 +2845,6 @@
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>您的ONLYOFFICE™門戶將被禁止{2}。請{0}單擊此處{1}以延長現有計劃或將其更改為適當的計劃。</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>您創建的門戶數量：{0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>定價計劃要到支付年度結束後才能使用。</value>
   </data>
@@ -2896,14 +2857,8 @@
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>要取消定期付款，請轉到您的Avangate帳戶。</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>最多只能為{0}。</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>定價方案</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>為方便起見，使用固定匯率{0}俄羅斯盧布對1美元的匯率計算俄羅斯盧布的匯率。</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>付款</value>

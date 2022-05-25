@@ -17,332 +17,96 @@
 
 using System.Collections.Generic;
 
+using ASC.AuditTrail.Types;
 using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
-    internal class PeopleActionMapper
+    public class PeopleActionMapper : IProductActionMapper
     {
-        public static Dictionary<MessageAction, MessageMaps> GetMaps()
+        public List<IModuleActionMapper> Mappers { get; }
+        public ProductType Product { get; }
+
+        public PeopleActionMapper()
         {
-            return new Dictionary<MessageAction, MessageMaps>
+            Product = ProductType.People;
+
+            Mappers = new List<IModuleActionMapper>()
+            {
+                new UsersActionMapper(),
+                new GroupsActionMapper()
+            };
+        }
+    }
+
+    public class UsersActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public UsersActionMapper()
+        {
+            Module = ModuleType.Users;
+
+            Actions = new MessageMapsDictionary(ProductType.People, Module)
+            {
                 {
+                    EntryType.User, new Dictionary<ActionType, MessageAction[]>()
                     {
-                        MessageAction.UserCreated, new MessageMaps
+                        { ActionType.Create,  new[] { MessageAction.UserCreated, MessageAction.GuestCreated, MessageAction.UserCreatedViaInvite, MessageAction.GuestCreatedViaInvite }  },
+                        {
+                            ActionType.Update,  new[]
                             {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "UserCreated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
+                                MessageAction.UserActivated, MessageAction.GuestActivated, MessageAction.UserUpdated,
+                                MessageAction.UserUpdatedMobileNumber, MessageAction.UserUpdatedLanguage, MessageAction.UserAddedAvatar,
+                                MessageAction.UserUpdatedAvatarThumbnails, MessageAction.UserUpdatedEmail, MessageAction.UsersUpdatedType,
+                                MessageAction.UsersUpdatedStatus, MessageAction.UsersSentActivationInstructions,
                             }
+                        },
+                        { ActionType.Delete, new[] { MessageAction.UserDeletedAvatar, MessageAction.UserDeleted, MessageAction.UsersDeleted, MessageAction.UserDataRemoving } },
+                        { ActionType.Import, new[] { MessageAction.UserImported, MessageAction.GuestImported } },
+                        { ActionType.Logout, new[] { MessageAction.UserLogoutActiveConnections, MessageAction.UserLogoutActiveConnection, MessageAction.UserLogoutActiveConnectionsForUser } },
                     },
+                    new Dictionary<ActionType, MessageAction>()
                     {
-                        MessageAction.GuestCreated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "GuestCreated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserCreatedViaInvite, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "UserCreatedViaInvite",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.GuestCreatedViaInvite, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "GuestCreatedViaInvite",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserActivated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserActivated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.GuestActivated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "GuestActivated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdatedMobileNumber, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdatedMobileNumber",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdatedLanguage, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdatedLanguage",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserAddedAvatar, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserAddedAvatar",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserDeletedAvatar, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "UserDeletedAvatar",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdatedAvatarThumbnails, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdatedAvatarThumbnails",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserLinkedSocialAccount, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "LinkActionType",
-                                ActionTextResourceName = "UserLinkedSocialAccount",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUnlinkedSocialAccount, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UnlinkActionType",
-                                ActionTextResourceName = "UserUnlinkedSocialAccount",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserSentActivationInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "UserSentActivationInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserSentEmailChangeInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "UserSentEmailInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserSentPasswordChangeInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "UserSentPasswordInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserSentDeleteInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "UserSentDeleteInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdatedEmail, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdatedEmail",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserUpdatedPassword, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UserUpdatedPassword",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "UserDeleted",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UsersUpdatedType, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UsersUpdatedType",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UsersUpdatedStatus, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "UsersUpdatedStatus",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UsersSentActivationInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "UsersSentActivationInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UsersDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "UsersDeleted",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.SentInviteInstructions, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "SendActionType",
-                                ActionTextResourceName = "SentInviteInstructions",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserImported, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "ImportActionType",
-                                ActionTextResourceName = "UserImported",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.GuestImported, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "ImportActionType",
-                                ActionTextResourceName = "GuestImported",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.GroupCreated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "CreateActionType",
-                                ActionTextResourceName = "GroupCreated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "GroupsModule"
-                            }
-                    },
-                    {
-                        MessageAction.GroupUpdated, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "UpdateActionType",
-                                ActionTextResourceName = "GroupUpdated",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "GroupsModule"
-                            }
-                    },
-                    {
-                        MessageAction.GroupDeleted, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "GroupDeleted",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "GroupsModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserDataReassigns, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "ReassignsActionType",
-                                ActionTextResourceName = "UserDataReassigns",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserDataRemoving, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "UserDataRemoving",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserConnectedTfaApp, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "LinkActionType",
-                                ActionTextResourceName = "UserTfaGenerateCodes",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
-                    },
-                    {
-                        MessageAction.UserDisconnectedTfaApp, new MessageMaps
-                            {
-                                ActionTypeTextResourceName = "DeleteActionType",
-                                ActionTextResourceName = "UserTfaDisconnected",
-                                ProductResourceName = "PeopleProduct",
-                                ModuleResourceName = "UsersModule"
-                            }
+                        { ActionType.Reassigns, MessageAction.UserDataReassigns }
                     }
-                };
+                },
+                { MessageAction.UserLinkedSocialAccount, ActionType.Link },
+                { MessageAction.UserUnlinkedSocialAccount, ActionType.Unlink },
+                {
+                    ActionType.Send, new[] { MessageAction.UserSentActivationInstructions, MessageAction.UserSentDeleteInstructions, MessageAction.SentInviteInstructions }
+                },
+                { MessageAction.UserUpdatedPassword, ActionType.Update }
+            };
+
+            Actions.Add(MessageAction.UserSentEmailChangeInstructions, new MessageMaps("UserSentEmailInstructions", ActionType.Send, ProductType.People, Module, EntryType.User));
+            Actions.Add(MessageAction.UserSentPasswordChangeInstructions, new MessageMaps("UserSentPasswordInstructions", ActionType.Send, ProductType.People, Module, EntryType.User));
+            Actions.Add(MessageAction.UserConnectedTfaApp, new MessageMaps("UserTfaGenerateCodes", ActionType.Link, ProductType.People, Module, EntryType.User));
+            Actions.Add(MessageAction.UserDisconnectedTfaApp, new MessageMaps("UserTfaDisconnected", ActionType.Delete, ProductType.People, Module, EntryType.User));
+        }
+    }
+
+    public class GroupsActionMapper : IModuleActionMapper
+    {
+        public ModuleType Module { get; }
+        public IDictionary<MessageAction, MessageMaps> Actions { get; }
+
+        public GroupsActionMapper()
+        {
+            Module = ModuleType.Groups;
+
+            Actions = new MessageMapsDictionary(ProductType.People, Module)
+            {
+                {
+                    EntryType.Group, new Dictionary<ActionType, MessageAction>()
+                    {
+                        { ActionType.Create, MessageAction.GroupCreated },
+                        { ActionType.Update, MessageAction.GroupUpdated },
+                        { ActionType.Delete, MessageAction.GroupDeleted }
+                    }
+                }
+            };
         }
     }
 }

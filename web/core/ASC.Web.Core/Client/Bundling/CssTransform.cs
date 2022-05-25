@@ -24,7 +24,7 @@ using System.Web.Optimization;
 using dotless.Core;
 using dotless.Core.configuration;
 
-using Microsoft.Ajax.Utilities;
+using NUglify;
 
 namespace ASC.Web.Core.Client.Bundling
 {
@@ -59,7 +59,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             var urlRegex = new Regex(@"url\((.*?)\)", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
             input = urlRegex.Replace(input, m => ResolveUrlPath(includedVirtualPath, m));
-            return minify ? new Minifier().MinifyStyleSheet(input) : input;
+            return minify ? Uglify.Css(input).Code : input;
         }
 
         private string ResolveImportLessPath(string virtualPath, Match m)

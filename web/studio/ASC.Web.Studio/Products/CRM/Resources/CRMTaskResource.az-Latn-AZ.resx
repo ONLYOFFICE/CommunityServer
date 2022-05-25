@@ -139,6 +139,9 @@
   <data name="MyTasksFilter" xml:space="preserve">
     <value>Tapşırıqlarım</value>
   </data>
+  <data name="Never" xml:space="preserve">
+    <value>heç vaxt</value>
+  </data>
   <data name="OnlyClosedTasks" xml:space="preserve">
     <value>Qapalı</value>
   </data>
@@ -147,6 +150,24 @@
   </data>
   <data name="OverdueTasksFilter" xml:space="preserve">
     <value>Gecikmiş</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 dəqiqə</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 dəqiqə</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>yarım saat</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>bir saat</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>bir gün</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 saat</value>
   </data>
   <data name="Responsible" xml:space="preserve">
     <value>Cavabdeh</value>
@@ -243,6 +264,9 @@
   </data>
   <data name="TooltipCategories" xml:space="preserve">
     <value>Nail olmaq istədiyiniz məqsəddən asılı olaraq, tapşırıqlar kateqoriyası tapşırıqlarınızı qruplara bölməyə kömək edir. Standart tapşırıq kateqoriyaları bunlardır - telefon zəngi, saziş, demo, elektron poçt, faks, icra yoxlanışı, nahar, görüş, qeyd, çatdırılma, sosial şəbəkələr, təşəkkür bildirişi. Onları redaktə etmək üçün administrator hüquqları olmalıdır.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Bütün tapşırıqlar</value>
   </data>
   <data name="Week" xml:space="preserve">
     <value>Həftə</value>

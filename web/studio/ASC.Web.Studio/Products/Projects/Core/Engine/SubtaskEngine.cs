@@ -187,6 +187,38 @@ namespace ASC.Projects.Engine
             return SaveOrUpdate(subtask, task);
         }
 
+        public Subtask Move(Subtask subtask, Task fromTask, Task toTask, IEnumerable<Participant> toTaskTeam)
+        {
+            if (subtask == null) throw new Exception("subtask.Task");
+            if (subtask.Status == TaskStatus.Closed) throw new Exception("subtask can't be closed");
+            if (fromTask == null) throw new ArgumentNullException("task");
+            if (fromTask.Status == TaskStatus.Closed) throw new Exception("task can't be closed");
+            if (toTask == null) throw new ArgumentNullException("task");
+            if (toTask.Status == TaskStatus.Closed) throw new Exception("task can't be closed");
+
+            ProjectSecurity.DemandEdit(fromTask, subtask);
+            ProjectSecurity.DemandCreateSubtask(toTask);
+
+            var oldResponsible = subtask.Responsible;
+
+            if (oldResponsible != Guid.Empty && !toTaskTeam.Any(r => r.ID == oldResponsible))
+            {
+                subtask.Responsible = Guid.Empty;
+            }
+
+            subtask.Task = toTask.ID;
+
+            subtask = DaoFactory.SubtaskDao.Save(subtask);
+
+            var senders = GetSubscribers(toTask);
+
+            if (!DisableNotifications && senders.Count != 0) {
+                NotifyClient.Instance.SendAboutSubTaskMoved(senders, toTask, subtask);
+            }
+
+            return subtask;
+        }
+
         private void NotifySubtask(Task task, Subtask subtask, bool isNew, Guid oldResponsible)
         {
             //Don't send anything if notifications are disabled

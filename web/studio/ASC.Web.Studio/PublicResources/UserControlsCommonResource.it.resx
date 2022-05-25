@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Gli utenti attivi sono i membri del portale ad accezione degli ospiti e degli utenti dallo status "disattivato"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Aggiungi risposta</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Allega file dai Documenti del progetto</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Link abbreviati per gli inviti e link per i documenti condivisi usando Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Accedi al portale usando i tuoi account social e cercare così i contatti</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Collega i tuoi servizi cloud preferiti e conserva tutti i tuoi file in un'unica posizione</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Chiama i tuoi clienti direttamente dal CRM grazie all'integrazione di {0}ONLYOFFICE Twilio{1}</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -496,9 +481,6 @@
   <data name="SubscribeSite" xml:space="preserve">
     <value>Desidero ricevere Newsletter di ONLYOFFICE </value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Prezzo basico</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Per l'elenco completo delle valute vedere Avangate</value>
   </data>
@@ -511,14 +493,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Gratuito</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Aprire il listino prezzi completo</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Desideri selezionare un nuovo piano tariffario?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Offerta a tempo limitato</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Sì, cambiare il mio piano tariffario</value>
@@ -528,9 +504,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Anno{2}{1} Abbonamento</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Anno{1} Abbonamento</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Stai usando un piao per le organizzazioni non-profit.</value>
@@ -562,17 +535,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>di 3 anni</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>L'offerta è accessibile solo per i sottoscrittori all'anno.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Abbonamento Più Popolare</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Aggiungendo un nuovo portale verrà superato il numero massimo di portali consentiti nel tuo piano tariffario attuale.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Risparmia {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per utente/mese</value>
@@ -597,9 +561,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Spazio gratuito insufficiente</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>Stai usando ONLYOFFICE® Enterprise Edition. {0}L'installazione corrente è stata aggiornata senza una corretta licenza fornita.{1}{2} Carica la licenza aggiornata per continuare a utilizzare ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Selezioni il numero di membri della Sua squadra</value>

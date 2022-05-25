@@ -114,9 +114,9 @@ window.ASC.Files.ImageViewer = (function () {
             onError(ASC.Files.FilesJSResource.PreviewError.format(currentFileName));
         });
 
-        jq(window).bind("resize.ImageViewer", calculateDimensions);
-        jq(document).bind("mousewheel.ImageViewer", mouseWheelEvent);
-        jq(document).bind("touchmove.ImageViewer", multiTouchEvent);
+        jq(window).on("resize.ImageViewer", calculateDimensions);
+        jq(document).on("mousewheel.ImageViewer", mouseWheelEvent);
+        jq(document).on("touchmove.ImageViewer", multiTouchEvent);
 
         zoomInBtn.on("click", function () { zoomImage(true); });
         zoomOutBtn.on("click", function () { zoomImage(false); });
@@ -132,8 +132,8 @@ window.ASC.Files.ImageViewer = (function () {
         scalingInProcess = false;
         onLock(false);
 
-        jq(document).unbind("mousemove.ImageViewer");
-        jq(document).unbind("mouseup.ImageViewer");
+        jq(document).off("mousemove.ImageViewer");
+        jq(document).off("mouseup.ImageViewer");
 
         imgRef.off("dblclick", mouseDoubleClickEvent);
         imgRef.off("mousedown", mouseDownEvent);
@@ -141,9 +141,9 @@ window.ASC.Files.ImageViewer = (function () {
         imgRef.off("touchend", touchEndEvent);
         imgRef.off("load", imageOnLoad);
 
-        jq(window).unbind("resize.ImageViewer");
-        jq(document).unbind("mousewheel.ImageViewer");
-        jq(document).unbind("touchmove.ImageViewer");
+        jq(window).off("resize.ImageViewer");
+        jq(document).off("mousewheel.ImageViewer");
+        jq(document).off("touchmove.ImageViewer");
 
         zoomInBtn.off("click");
         zoomOutBtn.off("click");
@@ -319,11 +319,11 @@ window.ASC.Files.ImageViewer = (function () {
 
         mouseOffset = { x: event.pageX - imgRef.offset().left, y: event.pageY - imgRef.offset().top };
 
-        jq(document).unbind("mouseup.ImageViewer");
-        jq(document).bind("mouseup.ImageViewer", mouseUpEvent);
+        jq(document).off("mouseup.ImageViewer");
+        jq(document).on("mouseup.ImageViewer", mouseUpEvent);
 
-        jq(document).unbind("mousemove.ImageViewer");
-        jq(document).bind("mousemove.ImageViewer", mouseMoveEvent);
+        jq(document).off("mousemove.ImageViewer");
+        jq(document).on("mousemove.ImageViewer", mouseMoveEvent);
 
         document.ondragstart = function () {
             return false;
@@ -454,8 +454,8 @@ window.ASC.Files.ImageViewer = (function () {
 
     var mouseUpEvent = function () {
         imgRef.css("cursor", "move");
-        jq(document).unbind("mouseup.ImageViewer");
-        jq(document).unbind("mousemove.ImageViewer");
+        jq(document).off("mouseup.ImageViewer");
+        jq(document).off("mousemove.ImageViewer");
 
         imgRef[0].ondragstart = null;
         document.ondragstart = null;

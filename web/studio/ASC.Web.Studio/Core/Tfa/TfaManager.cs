@@ -28,6 +28,7 @@ using ASC.Common.Caching;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Studio.PublicResources;
@@ -82,7 +83,7 @@ namespace ASC.Web.Studio.Core.TFA
             return Tfa.GenerateSetupCode(SetupInfo.TfaAppSender, user.Email, GenerateAccessToken(user), false, 4);
         }
 
-        public static bool ValidateAuthCode(this UserInfo user, string code, bool checkBackup = true)
+        public static bool ValidateAuthCode(this UserInfo user, string code, bool checkBackup = true, bool isEntryPoint = false)
         {
             if (!TfaAppAuthSettings.IsVisibleSettings
                 || !TfaAppAuthSettings.Enable)
@@ -120,8 +121,8 @@ namespace ASC.Web.Studio.Core.TFA
 
             if (!SecurityContext.IsAuthenticated)
             {
-                var cookiesKey = SecurityContext.AuthenticateMe(user.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
+                var action = isEntryPoint ? MessageAction.LoginSuccessViaApiTfa : MessageAction.LoginSuccesViaTfaApp;
+                CookiesManager.AuthenticateMeAndSetCookies(user.Tenant, user.ID, action);
             }
 
             if (!TfaAppUserSettings.EnableForUser(user.ID))

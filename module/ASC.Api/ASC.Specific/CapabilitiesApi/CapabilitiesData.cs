@@ -29,6 +29,9 @@ namespace ASC.Specific.CapabilitiesApi
         public bool LdapEnabled { get; set; }
 
         [DataMember]
+        public bool OauthEnabled { get; set; }
+
+        [DataMember]
         public List<string> Providers { get; set; }
 
         [DataMember]

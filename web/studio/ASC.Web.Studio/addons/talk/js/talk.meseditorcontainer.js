@@ -437,14 +437,14 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         iframe.parentNode.removeChild(iframe);
 
         jQuery(textarea)
-          .keydown(function (evt) {
+          .on("keydown", function (evt) {
             if (evt.target.tagName.toLowerCase() === 'textarea') {
               evt.originalEvent.stopPropagation ? evt.originalEvent.stopPropagation() : evt.originalEvent.cancelBubble = true;
             }
           })
-          .keyup(ASC.TMTalk.meseditorContainer.keyUp)
-          .focusout(ASC.TMTalk.meseditorContainer.setRange)
-          .keypress(ASC.TMTalk.meseditorContainer.keyPress);
+          .on("keyup", ASC.TMTalk.meseditorContainer.keyUp)
+          .on("focusout", ASC.TMTalk.meseditorContainer.setRange)
+          .on("keypress", ASC.TMTalk.meseditorContainer.keyPress);
 
         ASC.TMTalk.meseditorContainer.startIntrevalSendButton();
       };
@@ -503,10 +503,12 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         iframe.contentWindow.document.designMode = 'on';
 
         jQuery(iframe.contentWindow.document)
-          .keydown(ASC.TMTalk.meseditorContainer.keyDown)
-          .keyup(ASC.TMTalk.meseditorContainer.keyUp)
-          .keypress(ASC.TMTalk.meseditorContainer.keyPress)
-          .blur(TMTalk.blur).focus(TMTalk.focus).click(parent.TMTalk.clickcallback);
+          .on("keydown", ASC.TMTalk.meseditorContainer.keyDown)
+          .on("keyup", ASC.TMTalk.meseditorContainer.keyUp)
+          .on("keypress", ASC.TMTalk.meseditorContainer.keyPress)
+          .on("blur", TMTalk.blur)
+          .on("focus", TMTalk.focus)
+          .on("click", parent.TMTalk.clickcallback);
       }
         
       ASC.TMTalk.meseditorContainer.startIntrevalSendButton();
@@ -1196,7 +1198,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
             $input = $(this).find('div.filtering-container div.textfield input');
         
         if ($filteringPanel.hasClass('show')) {
-            $input.focus();
+            $input.trigger("focus");
         } else {
             $filteringPanel.addClass('close');
         }
@@ -1350,7 +1352,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
               if (nodes.length > 0) {
                   searchinput = nodes[0];
               }
-              $(searchinput).focus();
+              $(searchinput).trigger("focus");
           }
       }
   };
@@ -1389,14 +1391,14 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 (function ($) {
   $(function () {
     if ($.browser.safari) {
-      $('#talkMeseditorToolbarContainer div.toolbar:first div.button-container').not('.send-file').not('.emotions').mousedown(function () {
+      $('#talkMeseditorToolbarContainer div.toolbar:first div.button-container').not('.send-file').not('.emotions').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
         return false;
       });
 
-      $('#talkSendMenu').mousedown(function () {
+      $('#talkSendMenu').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
@@ -1404,7 +1406,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       });
     }
 
-    $(document).mousedown(!$.browser.msie ? null : function () {
+    $(document).on("mousedown", !$.browser.msie ? null : function () {
       ASC.TMTalk.meseditorContainer.setRange();
     });
 
@@ -1426,17 +1428,17 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
 
     TMTalk.createFileUploader();
 
-    $('#talkMeseditorToolbarContainer div.button-talk.create-massend:first').click(function() {
+    $('#talkMeseditorToolbarContainer div.button-talk.create-massend:first').on("click", function() {
       TMTalk.showDialog('create-mailing', null, {mailingname : ''});
     });
 
-   // $('#talkMeseditorToolbarContainer div.button-talk.create-conference:first').click(function() {
+   // $('#talkMeseditorToolbarContainer div.button-talk.create-conference:first').on("click", function() {
    //   TMTalk.showDialog('create-room', null, {roomname : '', temproomchecked : true});
    // });
     
     
     
-    $('#talkMeseditorToolbarContainer div.button-talk.emotions:first').click(function () {
+    $('#talkMeseditorToolbarContainer div.button-talk.emotions:first').on("click", function () {
       var $container = null;
       if(($container = $('#talkMeseditorToolbarContainer div.button-container.emotions:first div.container:first')).is(':hidden')) {
         $container.show('fast', function () {
@@ -1450,7 +1452,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       }
     });
 
-    $('#talkMeseditorToolbarContainer ul.smiles:first').click(function (evt) {
+    $('#talkMeseditorToolbarContainer ul.smiles:first').on("click", function (evt) {
       var $target = $(evt.target);
       if ($target.hasClass('smile')) {
         var
@@ -1464,7 +1466,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       }
     });
 
-    $('#talkMeseditorToolbarContainer div.button-talk.history:first').click(function() {
+    $('#talkMeseditorToolbarContainer div.button-talk.history:first').on("click", function() {
         var currentRoomData = ASC.TMTalk.roomsManager.getRoomData();
         
       if (currentRoomData !== null && currentRoomData.type === 'chat') {
@@ -1479,11 +1481,11 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       }
     });
 
-    $('#talkMeseditorToolbarContainer div.button-talk.toggle-sendbutton:first').click(function() {
+    $('#talkMeseditorToolbarContainer div.button-talk.toggle-sendbutton:first').on("click", function() {
       ASC.TMTalk.properties.item('sndbyctrlentr', $('#talkMeseditorToolbarContainer div.button-container.toggle-sendbutton:first').toggleClass('send-by-ctrlenter').hasClass('send-by-ctrlenter') ? '1' : '0', true);
     });
 
-    $('#talkSendMenu div.button-talk.send-message:first').click(function() {
+    $('#talkSendMenu div.button-talk.send-message:first').on("click", function() {
         ASC.TMTalk.meseditorContainer.sendMessage();
         var currentRoom = jQuery('div#talkRoomsContainer ul.rooms li.room.current');
         if ((currentRoom.hasClass('conference') || currentRoom.hasClass('mailing')) && !currentRoom.hasClass('minimized')) {
@@ -1492,7 +1494,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         ASC.TMTalk.meseditorContainer.setCursor();
     });
 
-    $('#talkDialogsContainer').click(function (evt) {
+    $('#talkDialogsContainer').on("click", function (evt) {
         var $target = $(evt.target);
         if ($target.hasClass('button-talk') && $target.hasClass('create-room')) {
             

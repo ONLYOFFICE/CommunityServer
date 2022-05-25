@@ -29,11 +29,11 @@ ASC.Settings.ProductsAndInstruments = new function() {
         disableElements: function (disable) {
             if (disable) {
                 LoadingBanner.displayLoading();
-                jq(".web-item-list input[type=checkbox]").attr("disabled", true);
+                jq(".web-item-list input[type=checkbox]").prop("disabled", true);
                 jq("#btnSaveSettings").addClass("disable");
             } else {
                 LoadingBanner.hideLoading();
-                jq(".web-item-list input[type=checkbox]").removeAttr("disabled");
+                jq(".web-item-list input[type=checkbox]").prop("disabled", false);
                 jq("#btnSaveSettings").removeClass("disable");
             }
         },
@@ -70,6 +70,7 @@ ASC.Settings.ProductsAndInstruments = new function() {
                 var cbx = jq(this).find(".web-item-header input[type=checkbox]");
                 var itemId = jq(cbx).attr("data-id");
                 var itemEnabled = jq(cbx).is(":checked");
+                var itemProduct = jq(cbx).attr("id");
 
                 var subItemList = jq(this).find(".web-item-subitem-list");
                 if(subItemList.length > 0 && itemEnabled) {
@@ -87,7 +88,7 @@ ASC.Settings.ProductsAndInstruments = new function() {
                         });
                     });
                     
-                    if (!hasEnabledSubitems) itemEnabled = false;
+                    if (!hasEnabledSubitems && itemProduct != 'cbx_people') itemEnabled = false;
                 }
 
                 data.items.push({
@@ -119,11 +120,11 @@ ASC.Settings.ProductsAndInstruments = new function() {
 (function ($) {
     $(function () {
 
-        jq(".web-item-header input[type=checkbox]").change(function () {
+        jq(".web-item-header input[type=checkbox]").on("change", function () {
             ASC.Settings.ProductsAndInstruments.changeSubItems(this);
         });
         
-        jq("#btnSaveSettings").click(function () {
+        jq("#btnSaveSettings").on("click", function () {
             if (jq(this).hasClass("disable")) return;
             ASC.Settings.ProductsAndInstruments.saveSettings();
         });

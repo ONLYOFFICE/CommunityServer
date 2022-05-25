@@ -34,7 +34,6 @@ BEGIN
     END IF;
 
     UPDATE `tenants_quota` SET `features` = 'domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom' WHERE `tenant` = -1 and `name` NOT LIKE '%saas%';
-    UPDATE `tenants_quota` SET `features` = 'docs,domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom' WHERE tenant = -1000;
 
     CREATE TABLE IF NOT EXISTS `telegram_users` (
         `portal_user_id` VARCHAR(38) NOT NULL,

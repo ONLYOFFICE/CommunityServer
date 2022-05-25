@@ -28,6 +28,7 @@ namespace ASC.Mail.Data.Contracts
         public bool IsAutoreplied { get; set; }
         public bool RequestReceipt { get; set; }
         public bool RequestRead { get; set; }
+        public bool IsReceipt { get; set; }
 
         public MailDraftData(int id, MailBoxData mailBoxData, string from, List<string> to, List<string> cc,
             List<string> bcc,

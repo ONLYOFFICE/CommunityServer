@@ -19,7 +19,7 @@ namespace ASC.Web.Projects.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ReportResource {
@@ -151,6 +151,24 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Closing projects.
+        /// </summary>
+        public static string ClosingProjects {
+            get {
+                return ResourceManager.GetString("ClosingProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completing tasks.
+        /// </summary>
+        public static string CompletingTasks {
+            get {
+                return ResourceManager.GetString("CompletingTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Template.
         /// </summary>
         public static string CrteateTemplate {
@@ -165,6 +183,15 @@ namespace ASC.Web.Projects.Resources {
         public static string CsvColumnUserName {
             get {
                 return ResourceManager.GetString("CsvColumnUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From {0} to {1}.
+        /// </summary>
+        public static string CustomInterval {
+            get {
+                return ResourceManager.GetString("CustomInterval", resourceCulture);
             }
         }
         
@@ -340,6 +367,33 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projects Closed.
+        /// </summary>
+        public static string ProjectsClosed {
+            get {
+                return ResourceManager.GetString("ProjectsClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Projects created.
+        /// </summary>
+        public static string ProjectsCreated {
+            get {
+                return ResourceManager.GetString("ProjectsCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects paused.
+        /// </summary>
+        public static string ProjectsPaused {
+            get {
+                return ResourceManager.GetString("ProjectsPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed Tasks Report.
         /// </summary>
         public static string ReportClosedTasks {
@@ -448,7 +502,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}{2}The Project List report will display a list of projects.{3}{2}To view all active projects with their respective manager, number of tasks, milestones, and team members, click the Generate Report button right away.{3}{2}To view projects of a particular group and/or view both active and closed projects, configure the report parameters below, and then click the Generate Report button.{3}{1}.
+        ///   Looks up a localized string similar to {0}{2}The Project List report will display a list of projects.{3}{2}To view all active projects with their respective manager, number of tasks, milestones, and team members, click the Generate Report button right away.{3}{2}To view projects of a particular group and/or view active, closed projects, and calculate the total number, configure the report parameters below, and then click the Generate Report button.{3}{1}.
         /// </summary>
         public static string ReportProjectList_Description {
             get {
@@ -714,6 +768,24 @@ namespace ASC.Web.Projects.Resources {
         public static string ViewClosedProjects {
             get {
                 return ResourceManager.GetString("ViewClosedProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show average time:.
+        /// </summary>
+        public static string ViewProjectsAverageTime {
+            get {
+                return ResourceManager.GetString("ViewProjectsAverageTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show average time of completing tasks.
+        /// </summary>
+        public static string ViewProjectsAverageTimeCompletingTasks {
+            get {
+                return ResourceManager.GetString("ViewProjectsAverageTimeCompletingTasks", resourceCulture);
             }
         }
         

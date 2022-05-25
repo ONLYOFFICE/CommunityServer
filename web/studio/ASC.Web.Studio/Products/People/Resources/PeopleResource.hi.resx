@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>सदस्यों को जोड़ें</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>जन्मदिन</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>निष्क्रिय करें</value>
   </data>

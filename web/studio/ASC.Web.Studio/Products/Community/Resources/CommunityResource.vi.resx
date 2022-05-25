@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>Thông báo</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Sinh nhật</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blog</value>
   </data>

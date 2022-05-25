@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Aktif kullanıcılar ziyaretçi ayrıcalığına sahip portal üyeleri ve "devre dışı" statüsündeki kullanıcılardır</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Anket seçimi ekle</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Proje dökümanlarından dosya ekle</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Bitly ile portal daveti linklerini ve paylaşılan belge linklerini kısaltın</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Sosyal medya hesaplarınızla portala girin ve kişilerinizi arayın</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Favori bulut depolama hizmetine bağlan ve tüm dosyalarını tek bir yerde sakla</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Kaynak kodu {0}GitHub'da{1} mevcut</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Temel fiyat</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Tüm para birimleri için Avangate inceleyin</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Ücretsiz</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Tam fiyat listesini aç</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Yeni fiyat planı mı seçmek istiyorsunuz?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Sınırlı süreli teklif</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Evet, planı yükselt</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Yıllık{2}{1} Abonelik</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Yıllık{1} Abonelik</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Kar amacı gütmeyen kuruluş planını kullanıyorsunuz.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 yıl</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Teklif yalnızca yıllık abonelikler için geçerlidir.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>En Popüler Abonelik</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Yeni bir portal eklediğiniz takdirde mevcut ödeme planınızda izin verilen portal sayısı aşılacaktır.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Kaydet {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>Kullanıcı/ay başına {0}</value>

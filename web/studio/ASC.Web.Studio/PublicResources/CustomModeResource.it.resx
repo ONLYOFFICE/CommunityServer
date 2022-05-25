@@ -232,47 +232,27 @@ Puoi anche modificare i documenti offline con i nostri "editor desktop" gratuiti
 Cordiali saluti,
 il team ONLYOFFICE</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Collega il tuo archivio cloud preferito a ONLYOFFICE $PersonalHeaderEnd
+  <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua email sul tuo account di cloud office?
 
-È trascorsa una settimana da quando hai creato il tuo cloud office, quindi crediamo sia giunto il momento di svelare alcune funzionalità utili che potresti aver perso.
-
-Collega * Dropbox *, * Google Drive *, * Box *, * OneDrive *, * Nextcloud *, * ownCloud *, * kDrive * o * Yandex.Disk * a ONLYOFFICE e crea un unico spazio di gestione dei documenti per tutti i tuoi documenti. Sarai in grado di modificare i file esterni in ONLYOFFICE e salvarli nella memoria in cui tieni i documenti. Leggi i dettagli sulla connessione di archivi di file a ONLYOFFICE "qui":"${__HelpLink}/tipstricks/add-resource.aspx".
-
-È possibile anche integrare gli editor di ONLYOFFICE in Google Drive utilizzando la nostra "app connettore":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Hai bisogno di più gestione dei documenti?
-
-h3.Try ONLYOFFICE for business "nel cloud":"https://www.onlyoffice.com/cloud-office.aspx" o "sul tuo server":"https://www.onlyoffice.com/server-solutions .aspx "gratuitamente per 30 giorni e controlla le opportunità di gestione estesa dei documenti insieme a un set di strumenti aziendali:
-
-- Gestire i documenti del team nei progetti;
-
-- Integrare documenti con CRM ed e-mail;
-
-- Condividi file con gruppi di utenti;
-
-- Ottimizza il flusso di lavoro con gli strumenti di comunicazione del team.
-
-Ti interessa? Ulteriori informazioni su "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
-
-Cordiali saluti,
-La squadra di ONLYOFFICE</value>
-  </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Salve,
-
-È stata richiesta la modifica della password utilizzata per accedere al portale "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Fare click sul link qui di seguito per modificare la password:
+Clicca sul pulsante qui sotto per fare il login* al tuo cloud.
 
 $GreenButton
 
-*Nota*: Questo link è valido solamente per 7 giorni. Si prega di completare la procedura di cambio password entro il periodo indicato.
+Il link è valido per 7 giorni.
 
-Se non si desidera modificare la password o questo messaggio è stato ricevuto per errore, si prega di ignorarlo.
+*Se non hai effettuato l'accesso al ONLYOFFICE in questo browser, ti serve usare la tua email precedente per la conferma.
 
-Cordialmente,
-Il team ONLYOFFICE</value>
+Non vuoi cambiare la tua email? Allora puoi semplicemente ignorare questo messaggio.</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password_v115" xml:space="preserve">
+    <value>Vuoi cambiare la tua password sul tuo account di cloud office? Clicca sul pulsante qui sotto per confermarlo.
+
+$GreenButton 
+
+Il link è valido per 7 giorni.
+
+Non vuoi cambiare la tua password? Allora puoi semplicemente ignorare questo messaggio.</value>
   </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Salve,
@@ -369,12 +349,6 @@ La procedura di rimozione dei dati dall'utente "$FromUserName":"$FromUserLink" �
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Benvenuto su ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Collega il tuo cloud storage preferito a ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal assistenza per password</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Si prega di attivare il tuo indirizzo email</value>

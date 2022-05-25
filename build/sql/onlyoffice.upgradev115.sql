@@ -29,7 +29,6 @@ BEGIN
 
     INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) values ('Currency_MongolianTugrik', 'MNT', '₮', 'MN', 0, 0);
 
-    UPDATE `tenants_quota` SET `features` = 'docs,domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom,restore,contentsearch' WHERE tenant = -1000;
     UPDATE `tenants_quota` SET `features` = 'domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom,restore,contentsearch' WHERE `tenant` = -1 and `name` NOT LIKE '%saas%';
 
 END DLM00

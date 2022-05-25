@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -46,10 +47,17 @@ namespace ASC.Data.Backup.Service
         private static int limit;
         private static string upgradesPath;
 
+        static BackupWorker()
+        {
+            TempFolder = Path.Combine(TempPath.GetTempPath(), "backup");
+            if (!Directory.Exists(TempFolder))
+            {
+                Directory.CreateDirectory(TempFolder);
+            }
+        }
+
         public static void Start(BackupConfigurationSection config)
         {
-            TempFolder = TempPath.GetTempPath();
-
             limit = config.Limit;
             upgradesPath = config.UpgradesPath;
             currentRegion = config.WebConfigs.CurrentRegion;
@@ -438,7 +446,7 @@ namespace ASC.Data.Backup.Service
                         restoredTenant = CoreContext.TenantManager.GetTenant(columnMapper.GetTenantMapping());
                         restoredTenant.SetStatus(TenantStatus.Active);
                         restoredTenant.TenantAlias = tenant.TenantAlias;
-                        restoredTenant.PaymentId = string.Empty;
+                        restoredTenant.PaymentId = string.IsNullOrEmpty(restoredTenant.PaymentId) ? ConfigurationManagerExtension.AppSettings["core.payment-region"] + TenantId : restoredTenant.PaymentId;
                         if (string.IsNullOrEmpty(restoredTenant.MappedDomain) && !string.IsNullOrEmpty(tenant.MappedDomain))
                         {
                             restoredTenant.MappedDomain = tenant.MappedDomain;

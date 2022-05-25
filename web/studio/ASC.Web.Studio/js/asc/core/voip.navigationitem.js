@@ -26,7 +26,7 @@ ASC.VoipNavigationItem = (function () {
         jq(".studio-top-panel .voip").removeClass("display-none");
         isInit = true;
 
-        jq(".voipActiveBox").click(function () {
+        jq(".voipActiveBox").on("click", function () {
             open();
         });
     }

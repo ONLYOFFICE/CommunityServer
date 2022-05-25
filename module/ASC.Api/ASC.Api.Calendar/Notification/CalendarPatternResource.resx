@@ -93,7 +93,7 @@ Calendar. Access granted to calendar: $CalendarName
 Calendar. Access granted to event: $EventName
 #end</value>
   </data>
-  <data name="EventAlertEmailPattern" xml:space="preserve">
+  <data name="EventAlertEmailPatternWithAttachments" xml:space="preserve">
     <value>h1.Reminder about the Event: $EventName
  
  
@@ -105,19 +105,31 @@ The $EventName event is appointed for $EventStartDate #if($EventEndDate!="")- $E
 $EventDescription
 #end
  
- 
+#if($EventAttachmentsBody!="")
+$EventAttachmentsHeader
+$EventAttachmentsBody
+#end
+
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you do not want to receive the event reminders, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
-  <data name="EventAlertJabberPattern" xml:space="preserve">
+  <data name="EventAlertJabberPatternWithAttachments" xml:space="preserve">
     <value>The $EventName event is appointed for $EventStartDate #if($EventEndDate!="")- $EventEndDate #end
 #if($EventDescription!="")
  
  Event Description:
  
 $EventDescription
+#end
+
+#if($EventAttachmentsBody!="")
+$EventAttachmentsHeader
+$EventAttachmentsBody
 #end</value>
   </data>
   <data name="EventAlertSubject" xml:space="preserve">
     <value>Calendar. Reminder about the event: $EventName</value>
+  </data>
+  <data name="EventAttachments" xml:space="preserve">
+    <value>Attachments:</value>
   </data>
 </root>

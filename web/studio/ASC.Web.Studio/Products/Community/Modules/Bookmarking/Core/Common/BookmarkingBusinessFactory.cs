@@ -15,73 +15,52 @@
 */
 
 
-using System.Web;
+using System;
+
+using ASC.Common.Caching;
+using ASC.Core;
 
 namespace ASC.Bookmarking.Common
 {
 
     public static class BookmarkingBusinessFactory
     {
+        private static readonly ICache CacheAsc = AscCache.Memory;
         public static T GetObjectFromSession<T>() where T : class, new()
         {
             T obj;
-            var key = typeof(T).ToString();
-            if (HttpContext.Current.Session != null)
+            var key = typeof(T).ToString() + SecurityContext.CurrentAccount.ID.ToString();
+            obj = CacheAsc.Get<T>(key);
+            if (obj == null)
             {
-                obj = (T)HttpContext.Current.Session[key];
-                if (obj == null)
-                {
-                    obj = new T();
-                    HttpContext.Current.Session[key] = obj;
-                }
-            }
-            else
-            {
-                obj = (T)HttpContext.Current.Items[key];
-                if (obj == null)
-                {
-                    obj = new T();
-                    HttpContext.Current.Items[key] = obj;
-                }
+                obj = new T();
+                CacheAsc.Insert(key, obj, TimeSpan.FromMinutes(15));
             }
             return obj;
+
         }
 
         public static void UpdateObjectInSession<T>(T obj) where T : class, new()
         {
-            var key = typeof(T).ToString();
-            if (HttpContext.Current.Session != null)
-            {
-                HttpContext.Current.Session[key] = obj;
-            }
-            else
-            {
-                HttpContext.Current.Items[key] = obj;
-            }
+            var key = typeof(T).ToString() + SecurityContext.CurrentAccount.ID.ToString();
+            CacheAsc.Insert(key, obj, TimeSpan.FromMinutes(15));
         }
 
         public static void UpdateDisplayMode(BookmarkDisplayMode mode)
         {
-            var key = typeof(BookmarkDisplayMode).Name;
+            var key = typeof(BookmarkDisplayMode).Name + SecurityContext.CurrentAccount.ID.ToString();
 
-            if (HttpContext.Current != null && HttpContext.Current.Session != null)
-            {
-                HttpContext.Current.Session.Add(key, mode);
-            }
+            CacheAsc.Insert(key, mode, TimeSpan.FromMinutes(15));
         }
 
         public static BookmarkDisplayMode GetDisplayMode()
         {
-            var key = typeof(BookmarkDisplayMode).Name;
+            var key = typeof(BookmarkDisplayMode).Name + SecurityContext.CurrentAccount.ID.ToString();
 
-            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            var value = CacheAsc.Get<object>(key);
+            if (value != null)
             {
-                var value = HttpContext.Current.Session[key];
-
-                if (value != null)
-                {
-                    return (BookmarkDisplayMode)value;
-                }
+                return (BookmarkDisplayMode)value;
             }
 
             return BookmarkDisplayMode.AllBookmarks;

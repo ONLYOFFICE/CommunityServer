@@ -155,49 +155,46 @@
   </ProjectExtensions>
   <ItemGroup>
     <PackageReference Include="AjaxPro.2">
-      <Version>2.9.17.2</Version>
+      <Version>21.12.22.2</Version>
     </PackageReference>
     <PackageReference Include="AppLimit.CloudComputing.SharpBox">
-      <Version>1.1.0.452</Version>
+      <Version>1.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Autofac">
-      <Version>5.1.2</Version>
+      <Version>6.2.0</Version>
     </PackageReference>
     <PackageReference Include="BouncyCastle-PCL">
       <Version>1.0.0.6</Version>
     </PackageReference>
     <PackageReference Include="Box.V2">
-      <Version>3.23.0</Version>
+      <Version>3.26.0</Version>
     </PackageReference>
     <PackageReference Include="Dropbox.Api">
-      <Version>4.9.4</Version>
+      <Version>6.13.0</Version>
     </PackageReference>
     <PackageReference Include="dotless.Core">
       <Version>1.6.7</Version>
     </PackageReference>
     <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
+      <Version>2.0.9</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.25</Version>
+      <Version>8.0.29</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>2.0.3</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="Nito.AsyncEx">
-      <Version>2.1.3</Version>
+      <Version>5.1.0</Version>
     </PackageReference>
     <PackageReference Include="SelectelSharp">
       <Version>0.8.5</Version>
     </PackageReference>
     <PackageReference Include="UAParser">
-      <Version>3.1.44</Version>
-    </PackageReference>
-    <PackageReference Include="Ubiety.Dns.Core">
-      <Version>2.4.1</Version>
+      <Version>3.1.47</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />

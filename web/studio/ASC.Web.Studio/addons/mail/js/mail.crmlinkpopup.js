@@ -90,11 +90,11 @@ window.crmLinkPopup = (function($) {
         function addRow() {
             //Add unlink handler
             if (isExport) {
-                linkedTableRow.find('.unlink_entity').unbind('click').bind('click', function() {
+                linkedTableRow.find('.unlink_entity').off('click').on('click', function() {
                     exportAndLinkUnlinkWorkflow($(this));
                 });
             } else {
-                linkedTableRow.find('.unlink_entity').unbind('click').bind('click', function() {
+                linkedTableRow.find('.unlink_entity').off('click').on('click', function() {
                     var data = exportAndLinkUnlinkWorkflow($(this));
                     if (!data.delete_from_new_status) {
                         needDeleteContactIds.push(data.data);
@@ -267,7 +267,7 @@ window.crmLinkPopup = (function($) {
             }
         });
 
-        html.find('.buttons .link_btn').unbind('click').bind('click', function() {
+        html.find('.buttons .link_btn').off('click').on('click', function() {
             var messageId;
             if (needAddContactIds.length > 0) {
                 messageId = getMessageId();
@@ -315,9 +315,9 @@ window.crmLinkPopup = (function($) {
         html.find('.buttons .link_btn').prop('disabled', true).addClass('disable');
         html.find('.buttons .unlink_all').prop('disabled', true).addClass('disable');
 
-        html.find('.buttons .unlink_all').unbind('click').bind('click', function() {
+        html.find('.buttons .unlink_all').off('click').on('click', function() {
             var htmlTmpl = $.tmpl('crmUnlinkAllPopupTmpl');
-            htmlTmpl.find('.buttons .unlink').bind('click', function() {
+            htmlTmpl.find('.buttons .unlink').on('click', function() {
                 if (selectedContactIds.length > 0) {
                     var messageId = getMessageId();
                     serviceManager.unmarkChainAsCrmLinked(messageId, selectedContactIds, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
@@ -355,7 +355,7 @@ window.crmLinkPopup = (function($) {
 
         addAutocomplete(html, true);
 
-        html.find('.buttons .link_btn').unbind('click').bind('click', function () {
+        html.find('.buttons .link_btn').off('click').on('click', function () {
             serviceManager.exportMessageToCrm(getMessageId(), needAddContactIds, {},
             {
                 success: onExportMessageToCrm,

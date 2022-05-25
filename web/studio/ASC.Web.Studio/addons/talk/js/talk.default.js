@@ -415,7 +415,7 @@ window.TMTalk = (function ($) {
             $('#txtRoomName').val(data.roomname);
           }
           if (data.hasOwnProperty('temproomchecked')) {
-            $('#cbxTemporaryRoom').attr('checked', data.temproomchecked);
+            $('#cbxTemporaryRoom').prop('checked', data.temproomchecked);
           }
           break;
         case 'remove-room' :
@@ -456,7 +456,7 @@ window.TMTalk = (function ($) {
         .animate({opacity : 1}, $.browser.msie && $.browser.version < 9 ? 0 : 'middle', function () {
           // TODO:
           var $block = $(this);
-          $block.find('div.textfield:first input:first').focus();
+          $block.find('div.textfield:first input:first').trigger("focus");
           if ($.browser.msie && $.browser.version < 9 && $block.length !== 0) {
             var
               prefix = ' ',
@@ -509,7 +509,7 @@ window.TMTalk = (function ($) {
 
       buttonObj.on("click", function (e) {
           e.preventDefault();
-          jq("#fileupload").click();
+          jq("#fileupload").trigger("click");
       });
 
       return inputObj;
@@ -546,7 +546,7 @@ window.TMTalk = (function ($) {
                 }
             })
             .bind("fileuploaddone", function (e, data) {
-                var res = jq.parseJSON(data.result);
+                var res = JSON.parse(data.result);
                 ASC.TMTalk.meseditorContainer.onSendFileComplete(res);
                 TMTalk.disableFileUploader(false);
                 jq("#pop").addClass("has-files");
@@ -554,7 +554,7 @@ window.TMTalk = (function ($) {
             .bind("fileuploadfail", function (e, data) {
                 var msg = data.errorThrown || data.textStatus;
                 if (data.jqXHR && data.jqXHR.responseText)
-                    msg = jq.parseJSON(data.jqXHR.responseText).Message;
+                    msg = JSON.parse(data.jqXHR.responseText).Message;
 
                 ASC.TMTalk.meseditorContainer.onSendFileError(msg);
                 TMTalk.disableFileUploader(false);
@@ -716,12 +716,12 @@ window.TMTalk = (function ($) {
     ASC.TMTalk.properties.item(constants.propertyMeseditorHeight, meseditorContainer.offsetHeight, true);
     //ASC.TMTalk.properties.item(constants.propertyMeseditorHeight, $meseditorContainer.height(), true);
     $meseditorContainer.removeClass('blocked');
-    $window.focus();
+    $window.trigger("focus");
 
-    $(document).unbind('dragstart', onDragStart);
-    $(document).unbind('mouseup', onMouseUpVertSlider);
-    $(document).unbind('mousemove', onMouseMoveVertSlider);
-    $(document.body).unbind('selectstart', onSelectStart);
+    $(document).off('dragstart', onDragStart);
+    $(document).off('mouseup', onMouseUpVertSlider);
+    $(document).off('mousemove', onMouseMoveVertSlider);
+    $(document.body).off('selectstart', onSelectStart);
     return false;
   }
 
@@ -730,10 +730,10 @@ window.TMTalk = (function ($) {
     //offsetMeseditorContainer = document.body.offsetHeight - evt.pageY - $meseditorContainer.height();
     $meseditorContainer.addClass('blocked');
 
-    $(document).bind('dragstart', onDragStart);
-    $(document).bind('mouseup', onMouseUpVertSlider);
-    $(document).bind('mousemove', onMouseMoveVertSlider);
-    $(document.body).bind('selectstart', onSelectStart);
+    $(document).on('dragstart', onDragStart);
+    $(document).on('mouseup', onMouseUpVertSlider);
+    $(document).on('mousemove', onMouseMoveVertSlider);
+    $(document.body).on('selectstart', onSelectStart);
     return false;
   }
 //-------------------------------------------------------------------------------------------
@@ -758,12 +758,12 @@ window.TMTalk = (function ($) {
     ASC.TMTalk.properties.item(constants.propertySidebarWidth, sidebarContainer.offsetWidth, true);
     //ASC.TMTalk.properties.item(constants.propertySidebarWidth, $sidebarContainer.width(), true);
     $meseditorContainer.removeClass('blocked');
-    $window.focus();
+    $window.trigger("focus");
 
-    $(document).unbind('dragstart', onDragStart);
-    $(document).unbind('mouseup', onMouseUpHorSlider);
-    $(document).unbind('mousemove', onMouseMoveHorSlider);
-    $(document.body).unbind('selectstart', onSelectStart);
+    $(document).off('dragstart', onDragStart);
+    $(document).off('mouseup', onMouseUpHorSlider);
+    $(document).off('mousemove', onMouseMoveHorSlider);
+    $(document.body).off('selectstart', onSelectStart);
     return false;
   }
 
@@ -772,15 +772,15 @@ window.TMTalk = (function ($) {
     //offsetSidebarContainer = document.body.offsetWidth - evt.pageX - $sidebarContainer.width();
     $meseditorContainer.addClass('blocked');
 
-    $(document).bind('dragstart', onDragStart);
-    $(document).bind('mouseup', onMouseUpHorSlider);
-    $(document).bind('mousemove', onMouseMoveHorSlider);
-    $(document.body).bind('selectstart', onSelectStart);
+    $(document).on('dragstart', onDragStart);
+    $(document).on('mouseup', onMouseUpHorSlider);
+    $(document).on('mousemove', onMouseMoveHorSlider);
+    $(document.body).on('selectstart', onSelectStart);
     return false;
   }
 //-------------------------------------------------------------------------------------------
-  $(window).keyup(TMTalk.keyup).blur(TMTalk.blur).focus(TMTalk.focus);
-  $(document).click(TMTalk.click);
+  $(window).on("keyup", TMTalk.keyup).on("blur", TMTalk.blur).on("focus", TMTalk.focus);
+  $(document).on("click", TMTalk.click);
 
   $(function () {
     //$(document.body).addClass('focused');
@@ -905,7 +905,7 @@ window.TMTalk = (function ($) {
     ASC.TMTalk.properties.item('hidscd', '1', true);
 
     if ($.browser.safari) {
-      $('#talkStartSplash').mousedown(function () {
+      $('#talkStartSplash').on("mousedown", function () {
         if (window.getSelection) {
           window.getSelection().removeAllRanges();
         }
@@ -926,18 +926,18 @@ window.TMTalk = (function ($) {
 
     //switch (ASC.TMTalk.properties.item('hidnd')) {
     //  case '0' :
-    //    $('#cbxToggleNotificationsDialog').attr('checked', false);
+    //    $('#cbxToggleNotificationsDialog').prop('checked', false);
     //    break;
     //  case '1' :
-    //    $('#cbxToggleNotificationsDialog').attr('checked', true);
+    //    $('#cbxToggleNotificationsDialog').prop('checked', true);
     //    break;
     //  default :
-    //    $('#cbxToggleNotificationsDialog').attr('checked', true);
+    //    $('#cbxToggleNotificationsDialog').prop('checked', true);
     //    ASC.TMTalk.properties.item('hidnd', '1', true);
     //    break;
     //}
 
-    $(document).keydown($.support.touch ? null : function (evt) {
+    $(document).on("keydown", $.support.touch ? null : function (evt) {
       // shift + tab
       if (evt.shiftKey === true && evt.keyCode === 9) {
         // TODO :
@@ -961,13 +961,13 @@ window.TMTalk = (function ($) {
     });
 
     $(window)
-      .keypress(function (evt) {
+      .on("keypress", function (evt) {
         if (evt.ctrlKey && evt.charCode === 119 && ASC.TMTalk.connectionManager.connected()) {
           ASC.TMTalk.connectionManager.terminate();
         }
       })
       .on("beforeunload", ASC.TMTalk.connectionManager.terminate)
-      .resize(function () {
+      .on("resize", function () {
         var windowHeight = $window.height();
         if (windowHeight < minPageHeight) {
           windowHeight = minPageHeight;
@@ -1046,26 +1046,26 @@ window.TMTalk = (function ($) {
             }
         }
         if ((($('#talkContentContainer').width() + $('#talkSidebarContainer').width()) > $('#talkMainContainer').width())) {
-            $(window).resize();
+            $(window).trigger("resize");
         }
       });
 
-    $('#talkHorSlider').mousedown(function (evt) {
+    $('#talkHorSlider').on("mousedown", function (evt) {
       return dragHorSlider(evt);
     });
 
-    $('#talkVertSlider').mousedown(function (evt) {
+    $('#talkVertSlider').on("mousedown", function (evt) {
       return dragVertSlider(evt);
     });
 
     $('#talkDialogsContainer')
-      .keydown(function (evt) {
+      .on("keydown", function (evt) {
         evt.originalEvent.stopPropagation ? evt.originalEvent.stopPropagation() : evt.originalEvent.cancelBubble = true;
       })
-      .keypress(function (evt) {
+      .on("keypress", function (evt) {
         switch (evt.keyCode) {
           case 13 :
-              $('#talkDialogsContainer').find('div.dialog:visible:first div.toolbar:first div.button-talk:first').click();
+              $('#talkDialogsContainer').find('div.dialog:visible:first div.toolbar:first div.button-talk:first').trigger("click");
             return false;
           case 27 :
             TMTalk.hideDialog();
@@ -1076,14 +1076,14 @@ window.TMTalk = (function ($) {
             }
         }
       })
-      .click(function (evt) {
+      .on("click", function (evt) {
         var $target = $(evt.target);
         if ($target.hasClass('button-talk') && $target.hasClass('close-dialog')) {
           TMTalk.hideDialog();
         }
       });
 
-    //$('#cbxToggleNotifications').click(function (evt) {
+    //$('#cbxToggleNotifications').on("click", function (evt) {
     //  var $target = $(evt.target);
       //  if ($target.hasClass('button-talk')) {
     //    var $this = $(this);
@@ -1103,10 +1103,10 @@ window.TMTalk = (function ($) {
     //  }
     //});
 
-    //$('#cbxToggleNotificationsDialog').click(function (evt) {
+    //$('#cbxToggleNotificationsDialog').on("click", function (evt) {
     //  ASC.TMTalk.properties.item('hidnd', $(this).is(':checked') ? '1' : '0', true);
       //});
     //hack for resizing
-    jq(window).resize();
+    jq(window).trigger("resize");
   });
 })(jQuery);

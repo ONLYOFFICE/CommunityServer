@@ -34,6 +34,7 @@ namespace ASC.Bookmarking.Common
 
         public const string BookmarkCreatedID = "new bookmark created";
         public const string BookmarkCommentCreatedID = "new bookmark comment created";
+        public const string MentionForBookmarkComment = "mention for bookmark comment";
 
         #endregion
 
@@ -45,6 +46,7 @@ namespace ASC.Bookmarking.Common
 
         public static INotifyAction NotifyActionNewComment = new NotifyAction(BookmarkCommentCreatedID, "new-bookmark-comment");
         internal static Guid NotifyActionNewCommentID = Guid.NewGuid();
+        public static INotifyAction NotifyActionMentionForBookmarkComment = new NotifyAction(MentionForBookmarkComment, "mention-for-bookmark-comment");
 
         public const string SubscriptionRecentBookmarkID = null;
 

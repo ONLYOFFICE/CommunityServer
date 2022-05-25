@@ -22,7 +22,7 @@
             <b><%=ForumUCResource.Message%>:</b>
         </div>
         <div>
-            <textarea id="ckEditor" name="forum_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%=_text%></textarea>
+            <textarea id="ckEditor" name="forum_text" style="width:100%; height:400px;visibility:hidden;" autocomplete="off"><%:_text%></textarea>
         </div>
     </div>
     <%if (PostAction == PostAction.Edit)%>

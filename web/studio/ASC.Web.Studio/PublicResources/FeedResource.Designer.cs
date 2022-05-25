@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.PublicResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FeedResource {
@@ -79,11 +79,56 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Anonymous.
+        /// </summary>
+        public static string Anonymous {
+            get {
+                return ResourceManager.GetString("Anonymous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
             get {
                 return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birthday.
+        /// </summary>
+        public static string Birthday {
+            get {
+                return ResourceManager.GetString("Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Your Greetings.
+        /// </summary>
+        public static string BirthdayCongratulateLinkTitle {
+            get {
+                return ResourceManager.GetString("BirthdayCongratulateLinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birthdays.
+        /// </summary>
+        public static string Birthdays {
+            get {
+                return ResourceManager.GetString("Birthdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birthdays.
+        /// </summary>
+        public static string BirthdaysModule {
+            get {
+                return ResourceManager.GetString("BirthdaysModule", resourceCulture);
             }
         }
         
@@ -484,6 +529,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New employee.
+        /// </summary>
+        public static string NewEmployee {
+            get {
+                return ResourceManager.GetString("NewEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to new.
         /// </summary>
         public static string NewFeedIndicator {
@@ -561,6 +615,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string ParticipantCreatedText {
             get {
                 return ResourceManager.GetString("ParticipantCreatedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People.
+        /// </summary>
+        public static string PeopleProduct {
+            get {
+                return ResourceManager.GetString("PeopleProduct", resourceCulture);
             }
         }
         
@@ -781,20 +844,38 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Today.
-        /// </summary>
-        public static string Today {
-            get {
-                return ResourceManager.GetString("Today", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Today at.
         /// </summary>
         public static string TodayAt {
             get {
                 return ResourceManager.GetString("TodayAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tomorrow.
+        /// </summary>
+        public static string Tomorrow {
+            get {
+                return ResourceManager.GetString("Tomorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tomorrow at.
+        /// </summary>
+        public static string TomorrowAt {
+            get {
+                return ResourceManager.GetString("TomorrowAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Profile.
+        /// </summary>
+        public static string ViewProfile {
+            get {
+                return ResourceManager.GetString("ViewProfile", resourceCulture);
             }
         }
         

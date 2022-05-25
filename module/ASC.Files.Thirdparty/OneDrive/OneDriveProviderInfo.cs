@@ -203,16 +203,7 @@ namespace ASC.Files.Thirdparty.OneDrive
             CacheNotify.Subscribe<OneDriveCacheItem>((i, action) =>
                 {
                     if (action != CacheNotifyAction.Remove) return;
-                    if (i.ResetAll)
-                    {
-                        CacheChildItems.Remove(new Regex("^onedrivei-" + i.Key + ".*"));
-                        CacheItem.Remove(new Regex("^onedrive-" + i.Key + ".*"));
-                    }
-                    else
-                    {
-                        CacheChildItems.Remove(new Regex("onedrivei-" + i.Key));
-                        CacheItem.Remove("onedrive-" + i.Key);
-                    }
+                    ResetMemoryCache(i);
                 });
         }
 
@@ -243,15 +234,32 @@ namespace ASC.Files.Thirdparty.OneDrive
         internal void CacheReset(string onedriveId = null)
         {
             var key = ID + "-";
+            var item = new OneDriveCacheItem { Key = key };
+
             if (string.IsNullOrEmpty(onedriveId))
             {
-                CacheNotify.Publish(new OneDriveCacheItem { ResetAll = true, Key = key }, CacheNotifyAction.Remove);
+                item.ResetAll = true;
             }
             else
             {
-                key += onedriveId;
+                item.Key += onedriveId;
+            }
 
-                CacheNotify.Publish(new OneDriveCacheItem { Key = key }, CacheNotifyAction.Remove);
+            ResetMemoryCache(item);
+            CacheNotify.Publish(item, CacheNotifyAction.Remove);
+        }
+
+        private static void ResetMemoryCache(OneDriveCacheItem item)
+        {
+            if (item.ResetAll)
+            {
+                CacheChildItems.Remove(new Regex("^onedrivei-" + item.Key + ".*"));
+                CacheItem.Remove(new Regex("^onedrive-" + item.Key + ".*"));
+            }
+            else
+            {
+                CacheChildItems.Remove(new Regex("onedrivei-" + item.Key));
+                CacheItem.Remove("onedrive-" + item.Key);
             }
         }
 

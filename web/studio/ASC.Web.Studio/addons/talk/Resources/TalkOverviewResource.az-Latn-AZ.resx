@@ -61,8 +61,41 @@
   <data name="AutoupdateContactListDescription" xml:space="preserve">
     <value>Əlaqə siyahısı, çalışanlar siyahısına şəxslər əlavə olunub silindikcə avtomatik olaraq yenilənir, bu səbəbdən siyahını əl ilə kontrol etməli deyilsiniz.</value>
   </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Brauzerdə bildiriş</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Söhbət otağı</value>
+  </data>
   <data name="ChatTabs" xml:space="preserve">
     <value>Söhbət nişanları</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Parametrlərlə birlikdə Kontakt Siyahısı</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Defolt olaraq bütün bildirişlər həm e-poçt ünvanınıza, həm də Talk-a göndəriləcək. Onları konfiqurasiya edə bilərsiniz:</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Göndərilən faylları silin</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Qrupa daxil olan kontaktların siyahısı</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>burada</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Oflayn kontaktları gizlədin</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Poçt</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Bildirişlər haqqında ətraflı məlumat mövcuddur {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Bildiriş Konfiqurasiyası</value>
   </data>
   <data name="OverviewContent" xml:space="preserve">
     <value>Söhbət həmkarlar arasında indiki zamanda bir-birinə ani mətnli mesajlar göndərmək üçün korporativ sistemdir.</value>
@@ -76,10 +109,28 @@
   <data name="OverviewWebClientDescription" xml:space="preserve">
     <value>Heç bir ayarlama etmədən elə indicə söhbət etmək üçün web klientimizi başlayın.</value>
   </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profil səhifəsi</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Ctrl + Enter ilə mesaj göndərin</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Giriş sahəsinin parametrləri</value>
+  </data>
   <data name="StartWebClientLink" xml:space="preserve">
     <value>Web klienti başlat</value>
   </data>
   <data name="StartWebClientLinkDescription" xml:space="preserve">
     <value>Ekstra ayar yoxdur! Web klienti başlatmaq və elə indi danışmağa başlamaq üçün basın</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>{0} Abunəlik Bölməsi</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Növ:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Tədbir səsləri</value>
   </data>
 </root>

@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Pridėti dalyvių</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Gimtadieniai</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Išjungta</value>
   </data>

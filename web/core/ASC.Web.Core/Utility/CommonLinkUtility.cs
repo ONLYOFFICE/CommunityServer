@@ -483,14 +483,24 @@ namespace ASC.Web.Studio.Utility
         public static string GetHelpLink(bool inCurrentCulture = true)
         {
             if (!AdditionalWhiteLabelSettings.Instance.HelpCenterEnabled)
-                return String.Empty;
+                return string.Empty;
 
             var url = AdditionalWhiteLabelSettings.DefaultHelpCenterUrl;
 
-            if (String.IsNullOrEmpty(url))
-                return String.Empty;
+            if (string.IsNullOrEmpty(url))
+                return string.Empty;
 
             return GetRegionalUrl(url, inCurrentCulture ? CultureInfo.CurrentCulture.TwoLetterISOLanguageName : null);
+        }
+
+        public static string GetFeedbackAndSupportLink(bool inCurrentCulture = true)
+        {
+            var settings = AdditionalWhiteLabelSettings.Instance;
+
+            if (!settings.FeedbackAndSupportEnabled || string.IsNullOrEmpty(settings.FeedbackAndSupportUrl))
+                return string.Empty;
+
+            return GetRegionalUrl(settings.FeedbackAndSupportUrl, inCurrentCulture ? CultureInfo.CurrentCulture.TwoLetterISOLanguageName : null);
         }
 
         public static string GetRegionalUrl(string url, string lang)

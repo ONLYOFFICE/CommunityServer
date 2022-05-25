@@ -39,8 +39,8 @@
         border-bottom: @border-style;
         display: -ms-grid;
         display: grid;
-        -ms-grid-columns: 24px @row-height @row-height*6 1fr 40px @row-height*2 @row-height*2;
-        grid-template-columns: 24px @row-height @row-height*6 1fr 40px @row-height*2 @row-height*2;
+        -ms-grid-columns: 24px @row-height @row-height*6 1fr 20px 28px @row-height*2 @row-height*2;
+        grid-template-columns: 24px @row-height @row-height*6 1fr 20px 28px @row-height*2 @row-height*2;
         -ms-touch-action: auto;
         touch-action: auto;
 
@@ -154,8 +154,20 @@
             }
         }
 
-        .attachment {
+        .readReq {
             -ms-grid-column: 5;
+            padding-right: 0px;
+            .a-mixin();
+            .centered-childs();
+
+            > a > .readReq-svg {
+                margin-top: floor((@row-height - @icon-height) / 2);
+                fill: #83888d;
+            }
+        }
+
+        .attachment {
+            -ms-grid-column: 6;
             .a-mixin();
             .centered-childs();
 
@@ -175,7 +187,7 @@
         }
 
         .date {
-            -ms-grid-column: 6;
+            -ms-grid-column: 7;
         }
 
         .date,
@@ -188,7 +200,7 @@
 
         .time {
             padding-right: floor((@row-height - @icon-height) / 2);
-            -ms-grid-column: 7;
+            -ms-grid-column: 8;
         }
     }
 }
@@ -196,8 +208,8 @@
 #checkFilterResults {
     .messages {
         .row {
-            -ms-grid-columns: @row-height @row-height*6 1fr @row-height*2 40px @row-height*2 @row-height*2;
-            grid-template-columns: @row-height @row-height*6 1fr @row-height*2 40px @row-height*2 @row-height*2;
+            -ms-grid-columns: @row-height @row-height*6 1fr @row-height*2 20px 28px @row-height*2 @row-height*2;
+            grid-template-columns: @row-height @row-height*6 1fr @row-height*2 20px 28px @row-height*2 @row-height*2;
         }
     }
 }

@@ -24,7 +24,6 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.Security.Cryptography;
 
 namespace ASC.Core.Data
 {
@@ -47,18 +46,11 @@ namespace ASC.Core.Data
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
         }
 
+
         public UserInfo GetUser(int tenant, string email)
         {
             var q = GetUserQuery(tenant, default(DateTime))
                 .Where("email", email)
-                .Where("removed", false);
-            return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
-        }
-
-        public UserInfo GetUserByUserName(int tenant, string userName)
-        {
-            var q = GetUserQuery(tenant, default(DateTime))
-                .Where("userName", userName)
                 .Where("removed", false);
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
         }
@@ -70,15 +62,10 @@ namespace ASC.Core.Data
             Guid userId;
             if (Guid.TryParse(login, out userId))
             {
-                RegeneratePassword(tenant, userId);
-
                 var q = GetUserQuery()
                     .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
                     .Where("u.id", userId)
-                    .Where(Exp.Or(
-                        Exp.Eq("s.pwdhash", GetPasswordHash(userId, passwordHash)),
-                        Exp.Eq("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256)) //todo: remove old scheme
-                               ))
+                    .Where(Exp.Eq("s.pwdhash", GetPasswordHash(userId, passwordHash)))
                     .Where("u.removed", false);
                 if (tenant != Tenant.DEFAULT_TENANT)
                 {
@@ -97,30 +84,17 @@ namespace ASC.Core.Data
                 }
 
                 var users = ExecList(q).ConvertAll(ToUser);
-                UserInfo result = null;
                 foreach (var user in users)
                 {
-                    RegeneratePassword(tenant, user.ID);
-
                     q = new SqlQuery("core_usersecurity s")
                         .SelectCount()
                         .Where("s.userid", user.ID)
-                        .Where(Exp.Or(
-                            Exp.Eq("s.pwdhash", GetPasswordHash(user.ID, passwordHash)),
-                            Exp.Eq("s.pwdhash", Hasher.Base64Hash(passwordHash, HashAlg.SHA256)) //todo: remove old scheme
-                                   ));
+                        .Where(Exp.Eq("s.pwdhash", GetPasswordHash(user.ID, passwordHash)));
                     var count = ExecScalar<int>(q);
-                    if (count > 0)
-                    {
-                        if (tenant != Tenant.DEFAULT_TENANT) return user;
-
-                        //need for regenerate all passwords only
-                        //todo: remove with old scheme
-                        result = user;
-                    }
+                    if (count > 0) return user;
                 }
 
-                return result;
+                return null;
             }
         }
 
@@ -130,26 +104,6 @@ namespace ASC.Core.Data
                 .Where(Exp.In("id", userIds.ToArray()))
                 .Where("removed", false);
             return ExecList(q).ConvertAll(ToUser);
-        }
-
-        //todo: remove
-        private void RegeneratePassword(int tenant, Guid userId)
-        {
-            var q = new SqlQuery("core_usersecurity")
-                .Select("tenant", "pwdhashsha512")
-                .Where("userid", userId.ToString());
-            if (tenant != Tenant.DEFAULT_TENANT)
-            {
-                q.Where("tenant", tenant);
-            }
-            var result = ExecList(q)
-                .ConvertAll(r => new Tuple<int, string>(Convert.ToInt32(r[0]), (string)r[1]))
-                .FirstOrDefault();
-            if (result == null || string.IsNullOrEmpty(result.Item2)) return;
-
-            var password = Crypto.GetV(result.Item2, 1, false);
-            var passwordHash = PasswordHasher.GetClientPassword(password);
-            SetUserPasswordHash(result.Item1, userId, passwordHash);
         }
 
         public UserInfo SaveUser(int tenant, UserInfo user)
@@ -286,8 +240,8 @@ namespace ASC.Core.Data
             var i = Insert("core_usersecurity", tenant)
                 .InColumnValue("userid", id.ToString())
                 .InColumnValue("pwdhash", h1)
-                .InColumnValue("pwdhashsha512", null) //todo: remove
-                ;
+                .InColumnValue("LastModified", DateTime.UtcNow);
+
             ExecNonQuery(i);
         }
 
@@ -541,5 +495,28 @@ namespace ASC.Core.Data
                 Tenant = Convert.ToInt32(r[5])
             };
         }
+
+        public UserInfo GetUserByUserName(int tenant, string userName)
+        {
+            var q = GetUserQuery(tenant, default(DateTime))
+                .Where("userName", userName)
+                .Where("removed", false);
+            return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
+        }
+
+        #region Dav/methods
+
+        public IEnumerable<string> GetDavUserEmails(int tenant)
+        {
+            var query = new SqlQuery("core_userdav dav")
+                .Select("u.email")
+                .InnerJoin("core_user u", Exp.EqColumns("u.tenant", "dav.tenant_id") & Exp.EqColumns("u.id", "dav.user_id"))
+                .Where("dav.tenant_id", tenant)
+                .Distinct();
+
+            return ExecList(query).ConvertAll(r => (string)r[0]);
+        }
+
+        #endregion
     }
 }

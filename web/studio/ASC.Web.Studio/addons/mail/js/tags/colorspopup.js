@@ -24,7 +24,7 @@ window.tagsColorsPopup = (function($) {
     function init() {
         panel = $('#tagsColorsPanel');
 
-        panel.find('div[colorstyle]').bind('click', function() {
+        panel.find('div[colorstyle]').on('click', function() {
             var style = $(this).attr('colorstyle');
             callback(obj, style);
         });
@@ -38,7 +38,7 @@ window.tagsColorsPopup = (function($) {
         var y = $obj.offset().top + $obj.height();
         panel.css({ left: x - 2, top: y, display: 'block', 'z-index': 2001 });
 
-        $('body').bind('click.tagsColorsPopup', function(event) {
+        $('body').on('click.tagsColorsPopup', function(event) {
             var elt = (event.target) ? event.target : event.srcElement;
             if (!($(elt).is('.square') || $(elt).is('.square *') || $(elt).is('.leftRow span'))) {
                 hide();
@@ -48,7 +48,7 @@ window.tagsColorsPopup = (function($) {
 
     function hide() {
         panel.hide();
-        $('body').unbind("click.tagsColorsPopup");
+        $('body').off("click.tagsColorsPopup");
     }
 
     return {

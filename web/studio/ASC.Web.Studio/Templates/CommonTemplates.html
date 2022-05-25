@@ -260,7 +260,7 @@
                                                 <tr>
                                                     <td style="vertical-align: top; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px; color: rgb(153, 153, 153);">${ASC.Resources.Master.TemplateResource.MailIcsCalendarDescriptionLabel}:</td>
                                                     <td style="vertical-align: top; padding-left: 8px; padding-bottom: 8px; font-family: 'Open Sans', Tahoma, Arial; font-size: 12px;">
-                                                        ${description}
+                                                        {{html description}}
                                                     </td>
                                                 </tr>
                                                 {{/if}}
@@ -282,6 +282,39 @@
                     </p>
                 </td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script id="template-mailReceipt" type="text/x-jquery-tmpl">
+    <div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;">
+        <table cellspacing="0" cellpadding="0" style="font-family: 'Open Sans', Tahoma, Arial; font-style: normal; font-weight: 400; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;">
+            <tbody>
+                <tr border="0" cellspacing="0" cellpadding="0">
+                    <td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;">
+                        <div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;">
+                            <a href="http://www.onlyoffice.com/" style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;" target= "blank">
+                                <img src="${ASC.Resources.Master.LogoDarkUrl}" x-mail-embedded="true" style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;"/>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr border="0" cellspacing="0" cellpadding="0">
+                    <td colspan="3" style="margin: 0; padding: 15px 30px 15px; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;">
+                        <div style="font-family: 'Open Sans', Tahoma, Arial; font-style: normal; font-weight: 400; font-size: 14px; color: #333; margin: 0; padding: 0; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;">
+                            <h1 style="color: #333333; font-size: 28px; font-weight: bold; margin: 0">
+                                ${receiptLabel}
+                            </h1>
+                            <br>${user}&nbsp;&lt;<a href="mailto:${mailTo}">${mailTo}</a>&gt;&nbsp;${receiptUserLabel}
+                            <br>${dateNow}
+                            <br><br>
+                            <hr style="color: #C4C4C4;">
+                            <br>${sentRequestInfoLabel}
+                            <br>${dateSent}<br><br>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

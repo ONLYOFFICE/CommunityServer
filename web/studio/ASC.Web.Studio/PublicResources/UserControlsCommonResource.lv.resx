@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Aktīvie lietotāji ir portāla dalībnieki, izņemot viesus un lietotājus ar statusu "atspējots"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Pievienot atbildes variantu</value>
   </data>
@@ -90,15 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Pievienot failu no projekta dokumentiem</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Saīsiniet portāla uzaicinājuma saites un saites dokumentu kopīgošanai ar Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Ieejiet portālā ar saviem sociālo tīklu kontiem un atrodiet kontaktus</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Pievienojiet savus iecienītākos mākoņu glabāšanas pakalpojumus un uzglabājiet visus savus failus vienuviet</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -382,9 +370,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Pirmkods ir pieejams {0}GitHub{1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Pamatcena</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Pilnais valūtu saraksts ir pieejams Avangate</value>
   </data>
@@ -397,14 +382,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Bezmaksas</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Atvērt pilno cenu sarakstu</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Vai jūs vēlaties izvēlēties jaunu cenu plānu?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Ierobežots piedāvājums</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Jā, uzlabot plānu</value>
@@ -414,9 +393,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 gadu{2}{1} abonements</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 gadu{1} abonements</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Jūs izmantojat plānu bezpeļņas organizācijai.</value>
@@ -442,17 +418,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 gadi</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Piedāvājums ir pieejams vienīgi ikgadējiem abonentiem</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Populārākais abonements</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Jauna portāla pievienošana paaugstinās maksimālo portālu skaitu, ko pieļauj jūsu šībrīža cenu plāns</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Saglabāt {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} no lietotāja mēnesī</value>

@@ -14,6 +14,7 @@
  *
 */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -57,7 +58,8 @@ namespace ASC.Web.Files.Core.Compress
         /// The record name is created (the name of a separate file in the archive)
         /// </summary>
         /// <param name="title">File name with extension, this name will have the file in the archive</param>
-        public void CreateEntry(string title) => compress.CreateEntry(title);
+        /// <param name="lastModification">Set the datetime of last modification of the entry.</param>
+        public void CreateEntry(string title, DateTime? lastModification = null) => compress.CreateEntry(title, lastModification);
 
         /// <summary>
         /// Transfer the file itself to the archive

@@ -98,6 +98,16 @@ namespace ASC.Api.Documents
         [DataMember(Order = 57, EmitDefaultValue = false)]
         public int ProviderId { get; set; }
 
+        /// <summary>
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public bool DenyDownload { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public bool DenySharing { get; set; }
+
 
         /// <summary>
         /// 
@@ -117,6 +127,8 @@ namespace ASC.Api.Documents
             ProviderItem = entry.ProviderEntry;
             ProviderKey = entry.ProviderKey;
             ProviderId = entry.ProviderId;
+            DenyDownload = entry.DenyDownload;
+            DenySharing = entry.DenySharing;
         }
 
         /// <summary>

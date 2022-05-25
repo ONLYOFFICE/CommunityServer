@@ -31,7 +31,7 @@ window.filterModal = (function($) {
         window.StudioBlockUIManager.blockUI(message, width, { bindEvents: false });
 
         $('#manageWindow .cancelButton').css('cursor', 'pointer');
-        $('.containerBodyBlock .buttons .cancel').unbind('click').bind('click', function () {
+        $('.containerBodyBlock .buttons .cancel').off('click').on('click', function () {
             $.unblockUI();
             return false;
         });
@@ -87,11 +87,11 @@ window.filterModal = (function($) {
 
         blockUi(523, wnd);
 
-        window.PopupKeyUpActionProvider.EnterAction = "jq('#filterWnd .containerBodyBlock .buttons .button.blue:visible').click();";
+        window.PopupKeyUpActionProvider.EnterAction = "jq('#filterWnd .containerBodyBlock .buttons .button.blue:visible').trigger('click');";
 
         wnd.find('.buttons .cancel')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     hide();
                     return false;
@@ -106,8 +106,8 @@ window.filterModal = (function($) {
         show(filter, 'apply');
 
         wnd.find('.buttons .save')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     hide();
                     options.onSuccess(filter);
@@ -122,8 +122,8 @@ window.filterModal = (function($) {
         show(filter, 'delete');
 
         wnd.find('.buttons .del')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     hide();
                     options.onSuccess(filter);
@@ -136,16 +136,16 @@ window.filterModal = (function($) {
         show(filter, 'confirm');
 
         wnd.find('.buttons .confirm')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     hide();
                     options.onConfirm(filter);
                 });
 
         wnd.find('.buttons .change')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function() {
                     hide();
                     options.onChange(filter);

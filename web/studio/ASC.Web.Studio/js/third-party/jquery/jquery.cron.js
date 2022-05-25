@@ -51,7 +51,7 @@ var jqCronDefaultSettings = {
 			if($.isPlainObject(src[i])) {
 				dst[i] = extend(dst[i] && $.isPlainObject(dst[i]) ? dst[i] : {}, src[i]);
 			}
-			else if($.isArray(src[i])) {
+			else if(Array.isArray(src[i])) {
 				dst[i] = src[i].slice(0);
 			}
 			else if(src[i] !== undefined) {
@@ -410,7 +410,7 @@ var jqCronDefaultSettings = {
 			_$blocks.append(_$blockTIME);
 
 			// various binding
-			_$cross.click(function(){
+			_$cross.on("click", function(){
 				_self.isDisabled() || _self.clear();
 			});
 
@@ -515,7 +515,7 @@ var jqCronDefaultSettings = {
 			}
 
 			// close all selectors when we click in body
-			$('body').click(function(){
+			$('body').on("click", function(){
 				var i, n = _selectors.length;
 				for(i = 0; i < n; i++){
 					_selectors[i].close();
@@ -695,7 +695,7 @@ var jqCronDefaultSettings = {
 		// set the selected value(s) of the list
 		this.setValue = function(keys){
 			var i, newKeys = [], saved = _value.join(' ');
-			if(!$.isArray(keys)) keys = [keys];
+			if(!Array.isArray(keys)) keys = [keys];
 			_$list.find('li').removeClass('selected');
 			keys = array_unique(keys);
 			keys.sort(function(a, b){
@@ -766,7 +766,7 @@ var jqCronDefaultSettings = {
 			var $item = $('<li>' + value + '</li>');
 			_$list.append($item);
 			_values[key] = $item;
-			$item.click(function(){
+			$item.on("click", function(){
 				if(_multiple && $(this).hasClass('selected')) {
 					_self.removeValue(key);
 				}
@@ -803,13 +803,13 @@ var jqCronDefaultSettings = {
 		.bind('selector:change', function(){
 			_$title.html(_self.getTitleText());
 		})
-		.click(function(e){
+		.on("click", function(e){
 			e.stopPropagation();
 		})
 		.trigger('selector:change')
 		;
 		$.fn.disableSelection && _$selector.disableSelection(); // only work with jQuery UI
-		_$title.click(function(e){
+		_$title.on("click", function(e){
 			(_self.isOpened() || _cron.isDisabled()) ? _self.close() : _self.open();
 		});
 		_self.close();
@@ -846,7 +846,7 @@ var jqCronDefaultSettings = {
  * Extends jQuery selectors with new block selector
  */
 (function($){
-	$.extend($.expr[':'], {
+	$.extend($.expr.pseudos, {
 		container: function(a) {
 			return (a.tagName+'').toLowerCase() in {
 				a:1,

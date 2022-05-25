@@ -91,6 +91,13 @@ namespace ASC.Data.Backup
             return files;
         }
 
+        public IEnumerable<string> GetDirectories(string key)
+        {
+            var path = Path.Combine(tmpdir, key);
+            var files = Directory.EnumerateDirectories(path);
+            return files;
+        }
+
         public void Dispose()
         {
             if (Directory.Exists(tmpdir))

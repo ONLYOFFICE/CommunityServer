@@ -32,18 +32,18 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///   Creates an opportunity stage with the parameters (title, description, success probability, etc.) specified in the request
+        /// Creates an opportunity stage with the parameters (title, description, success probability, etc.) specified in the request.
         /// </summary>
-        /// <param name="title">Title</param>
-        /// <param name="description">Description</param>
-        /// <param name="color">Color</param>
-        /// <param name="successProbability">Success probability</param>
-        /// <param name="stageType" remark="Allowed values: 0 (Open), 1 (ClosedAndWon),2 (ClosedAndLost)">Stage type</param>
-        /// <short>Create opportunity stage</short> 
+        /// <param name="title">Stage title</param>
+        /// <param name="description">Stage description</param>
+        /// <param name="color">Stage color</param>
+        /// <param name="successProbability">Stage success probability</param>
+        /// <param name="stageType" remark="Allowed values: 0 (Open), 1 (ClosedAndWon), 2 (ClosedAndLost)">Stage type</param>
+        /// <short>Create an opportunity stage</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
-        ///    Opportunity stage
+        /// Opportunity stage
         /// </returns>
         [Create(@"opportunity/stage")]
         public DealMilestoneWrapper CreateDealMilestone(
@@ -75,20 +75,20 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected opportunity stage with the parameters (title, description, success probability, etc.) specified in the request
+        /// Updates the selected opportunity stage with the parameters (title, description, success probability, etc.) specified in the request.
         /// </summary>
         /// <param name="id">Opportunity stage ID</param>
-        /// <param name="title">Title</param>
-        /// <param name="description">Description</param>
-        /// <param name="color">Color</param>
-        /// <param name="successProbability">Success probability</param>
-        /// <param name="stageType" remark="Allowed values: Open, ClosedAndWon, ClosedAndLost">Stage type</param>
-        /// <short>Update opportunity stage</short> 
+        /// <param name="title">New stage title</param>
+        /// <param name="description">New stage description</param>
+        /// <param name="color">New stage color</param>
+        /// <param name="successProbability">New stage success probability</param>
+        /// <param name="stageType" remark="Allowed values: Open, ClosedAndWon, ClosedAndLost">New stage type</param>
+        /// <short>Update an opportunity stage by parameters</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Opportunity stage
+        /// Updated opportunity stage
         /// </returns>
         [Update(@"opportunity/stage/{id:[0-9]+}")]
         public DealMilestoneWrapper UpdateDealMilestone(
@@ -125,16 +125,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected opportunity stage with the color specified in the request
+        /// Updates the selected opportunity stage with the color specified in the request.
         /// </summary>
         /// <param name="id">Opportunity stage ID</param>
-        /// <param name="color">Color</param>
-        /// <short>Update opportunity stage color</short> 
+        /// <param name="color">New stage color</param>
+        /// <short>Update an opportunity stage color</short> 
         /// <category>Opportunities</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Opportunity stage
+        /// Opportunity stage with the updated color
         /// </returns>
         [Update(@"opportunity/stage/{id:[0-9]+}/color")]
         public DealMilestoneWrapper UpdateDealMilestoneColor(int id, string color)
@@ -155,15 +155,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the available opportunity stages order with the list specified in the request
+        /// Updates the available order of opportunity stages with a list specified in the request.
         /// </summary>
         /// <short>
-        ///    Update opportunity stages order
+        /// Update the order of opportunity stages
         /// </short>
-        /// <param name="ids">Opportunity stage ID list</param>
+        /// <param name="ids">List of opportunity stage IDs</param>
         /// <category>Opportunities</category>
         /// <returns>
-        ///    Opportunity stages
+        /// Opportunity stages in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -186,15 +186,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the opportunity stage with the ID specified in the request
+        /// Deletes an opportunity stage with the ID specified in the request.
         /// </summary>
-        /// <short>Delete opportunity stage</short> 
+        /// <short>Delete an opportunity stage</short> 
         /// <category>Opportunities</category>
         /// <param name="id">Opportunity stage ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Opportunity stage
+        /// Opportunity stage
         /// </returns>
         [Delete(@"opportunity/stage/{id:[0-9]+}")]
         public DealMilestoneWrapper DeleteDealMilestone(int id)
@@ -215,13 +215,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Creates a new history category with the parameters (title, description, etc.) specified in the request
+        /// Creates a new history category with the parameters (title, description, etc.) specified in the request.
         /// </summary>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="sortOrder">Order</param>
-        ///<param name="imageName">Image name</param>
-        ///<short>Create history category</short> 
+        ///<param name="title">History category title</param>
+        ///<param name="description">History category description</param>
+        ///<param name="sortOrder">History category order</param>
+        ///<param name="imageName">Image name of the history category</param>
+        ///<short>Create a history category</short> 
         /// <category>History</category>
         ///<returns>History category</returns>
         ///<exception cref="ArgumentException"></exception>
@@ -247,16 +247,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Updates the selected history category with the parameters (title, description, etc.) specified in the request
+        /// Updates the selected history category with the parameters (title, description, etc.) specified in the request.
         /// </summary>
         ///<param name="id">History category ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="sortOrder">Order</param>
-        ///<param name="imageName">Image name</param>
-        ///<short>Update history category</short> 
+        ///<param name="title">New history category title</param>
+        ///<param name="description">New history category description</param>
+        ///<param name="sortOrder">New history category order</param>
+        ///<param name="imageName">New image name of the history category </param>
+        ///<short>Update a history category</short> 
         ///<category>History</category>
-        ///<returns>History category</returns>
+        ///<returns>Updated history category</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"history/category/{id:[0-9]+}")]
@@ -285,16 +285,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the icon of the selected history category
+        /// Updates an icon of a history category with the ID specified in the request.
         /// </summary>
         /// <param name="id">History category ID</param>
-        /// <param name="imageName">icon name</param>
-        /// <short>Update history category icon</short> 
+        /// <param name="imageName">New icon name of the history category</param>
+        /// <short>Update a history category icon</short> 
         /// <category>History</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    History category
+        /// History category with the updated icon
         /// </returns>
         [Update(@"history/category/{id:[0-9]+}/icon")]
         public HistoryCategoryWrapper UpdateHistoryCategoryIcon(int id, string imageName)
@@ -315,15 +315,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the history categories order with the list specified in the request
+        /// Updates the order of the history categories with a list specified in the request.
         /// </summary>
         /// <short>
-        ///    Update history categories order
+        /// Update the order of history categories
         /// </short>
-        /// <param name="titles">History category title list</param>
+        /// <param name="titles">List of history category titles</param>
         /// <category>History</category>
         /// <returns>
-        ///    History categories
+        /// History categories in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -344,9 +344,9 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the selected history category with the ID specified in the request
+        /// Deletes a history category with the ID specified in the request.
         /// </summary>
-        /// <short>Delete history category</short> 
+        /// <short>Delete a history category</short> 
         /// <category>History</category>
         /// <param name="id">History category ID</param>
         /// <exception cref="ArgumentException"></exception>
@@ -378,19 +378,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Creates a new task category with the parameters (title, description, etc.) specified in the request
+        /// Creates a new task category with the parameters (title, description, etc.) specified in the request.
         /// </summary>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="sortOrder">Order</param>
-        ///<param name="imageName">Image name</param>
-        ///<short>Create task category</short> 
+        ///<param name="title">Task category title</param>
+        ///<param name="description">Task category description</param>
+        ///<param name="sortOrder">Task category order</param>
+        ///<param name="imageName">Image name of task category</param>
+        ///<short>Create a task category</short> 
         ///<category>Tasks</category>
         ///<returns>Task category</returns>
         ///<exception cref="ArgumentException"></exception>
-        ///<returns>
-        ///    Task category
-        ///</returns>
         [Create(@"task/category")]
         public TaskCategoryWrapper CreateTaskCategory(string title, string description, string imageName, int sortOrder)
         {
@@ -411,22 +408,19 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Updates the selected task category with the parameters (title, description, etc.) specified in the request
+        /// Updates the selected task category with the parameters (title, description, etc.) specified in the request.
         /// </summary>
         ///<param name="id">Task category ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="sortOrder">Order</param>
-        ///<param name="imageName">Image name</param>
-        ///<short>Update task category</short> 
+        ///<param name="title">New task category title</param>
+        ///<param name="description">New task category description</param>
+        ///<param name="sortOrder">New task category order</param>
+        ///<param name="imageName">New image name of task category</param>
+        ///<short>Update a task category</short> 
         ///<category>Tasks</category>
-        ///<returns>Task category</returns>
+        ///<returns>Updated task category</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         /// <exception cref="SecurityException"></exception>
-        ///<returns>
-        ///    Task category
-        ///</returns>
         [Update(@"task/category/{id:[0-9]+}")]
         public TaskCategoryWrapper UpdateTaskCategory(int id, string title, string description, string imageName, int sortOrder)
         {
@@ -453,16 +447,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the icon of the task category with the ID specified in the request
+        /// Updates an icon of the task category with the ID specified in the request.
         /// </summary>
         /// <param name="id">Task category ID</param>
-        /// <param name="imageName">icon name</param>
-        /// <short>Update task category icon</short> 
+        /// <param name="imageName">New icon name of task category</param>
+        /// <short>Update a task category icon</short> 
         /// <category>Tasks</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Task category
+        /// Task category with the updated icon
         /// </returns>
         [Update(@"task/category/{id:[0-9]+}/icon")]
         public TaskCategoryWrapper UpdateTaskCategoryIcon(int id, string imageName)
@@ -483,15 +477,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the task categories order with the list specified in the request
+        /// Updates the order of the task categories with a list specified in the request.
         /// </summary>
         /// <short>
-        ///    Update task categories order
+        /// Update the order of task categories
         /// </short>
-        /// <param name="titles">Task category title list</param>
+        /// <param name="titles">List of task category titles</param>
         /// <category>Tasks</category>
         /// <returns>
-        ///    Task categories
+        /// Task categories in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -512,12 +506,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the task category with the ID specified in the request
+        /// Deletes a task category with the ID specified in the request.
         /// </summary>
-        /// <short>Delete task category</short> 
+        /// <short>Delete a task category</short> 
         /// <category>Tasks</category>
         /// <param name="categoryid">Task category ID</param>
-        /// <param name="newcategoryid">Task category ID for replace in task with current category stage</param>
+        /// <param name="newcategoryid">Task category ID to replace the deleted category in the tasks with the current task category</param>
+        /// <returns>Task category</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="SecurityException"></exception>
@@ -544,19 +539,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Creates a new contact status with the parameters (title, description, etc.) specified in the request
+        /// Creates a new contact status with the parameters (title, description, etc.) specified in the request.
         /// </summary>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="color">Color</param>
-        ///<param name="sortOrder">Order</param>
+        ///<param name="title">Contact status title</param>
+        ///<param name="description">Contact status description</param>
+        ///<param name="color">Contact status color</param>
+        ///<param name="sortOrder">Contact status sort order</param>
         ///<returns>Contact status</returns>
-        /// <short>Create contact status</short> 
+        /// <short>Create a contact status</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
-        /// <returns>
-        ///    Contact status
-        /// </returns>
         [Create(@"contact/status")]
         public ContactStatusWrapper CreateContactStatus(string title, string description, string color, int sortOrder)
         {
@@ -577,22 +569,19 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Updates the selected contact status with the parameters (title, description, etc.) specified in the request
+        /// Updates the selected contact status with the parameters (title, description, etc.) specified in the request.
         /// </summary>
         ///<param name="id">Contact status ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="color">Color</param>
-        ///<param name="sortOrder">Order</param>
-        ///<returns>Contact status</returns>
-        /// <short>Update contact status</short> 
+        ///<param name="title">New contact status title</param>
+        ///<param name="description">New contact status description</param>
+        ///<param name="color">New contact status color</param>
+        ///<param name="sortOrder">New contact status sort order</param>
+        ///<returns>Updated contact status</returns>
+        /// <short>Update a contact status</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         /// <exception cref="SecurityException"></exception>
-        /// <returns>
-        ///    Contact status
-        /// </returns>
         [Update(@"contact/status/{id:[0-9]+}")]
         public ContactStatusWrapper UpdateContactStatus(int id, string title, string description, string color, int sortOrder)
         {
@@ -619,16 +608,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the color of the selected contact status with the new color specified in the request
+        /// Updates a color of the selected contact status with a new color specified in the request.
         /// </summary>
         /// <param name="id">Contact status ID</param>
-        /// <param name="color">Color</param>
-        /// <short>Update contact status color</short> 
+        /// <param name="color">New contact status color</param>
+        /// <short>Update a contact status color</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    Contact status
+        /// Contact status with the new color
         /// </returns>
         [Update(@"contact/status/{id:[0-9]+}/color")]
         public ContactStatusWrapper UpdateContactStatusColor(int id, string color)
@@ -649,15 +638,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the contact statuses order with the list specified in the request
+        /// Updates the order of the contact statuses with a list specified in the request.
         /// </summary>
         /// <short>
-        ///    Update contact statuses order
+        /// Update the order of contact statuses
         /// </short>
-        /// <param name="titles">Contact status title list</param>
+        /// <param name="titles">List of contact status titles</param>
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact statuses
+        /// Contact statuses in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -678,16 +667,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the contact status with the ID specified in the request
+        /// Deletes a contact status with the ID specified in the request.
         /// </summary>
-        /// <short>Delete contact status</short> 
+        /// <short>Delete a contact status</short> 
         /// <category>Contacts</category>
         /// <param name="contactStatusid">Contact status ID</param>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="SecurityException"></exception>
         /// <returns>
-        ///  Contact status
+        /// Contact status
         /// </returns>
         [Delete(@"contact/status/{contactStatusid:[0-9]+}")]
         public ContactStatusWrapper DeleteContactStatus(int contactStatusid)
@@ -714,11 +703,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Returns the status of the contact for the ID specified in the request
+        /// Returns a contact status with the ID specified in the request.
         /// </summary>
         /// <param name="contactStatusid">Contact status ID</param>
         /// <returns>Contact status</returns>
-        /// <short>Get contact status</short> 
+        /// <short>Get a contact status</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -734,17 +723,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Creates a new contact type with the parameters (title, etc.) specified in the request
+        /// Creates a new contact type with the parameters (title, etc.) specified in the request.
         /// </summary>
-        ///<param name="title">Title</param>
-        ///<param name="sortOrder">Order</param>
+        ///<param name="title">Contact type title</param>
+        ///<param name="sortOrder">Contact type sort order</param>
         ///<returns>Contact type</returns>
-        /// <short>Create contact type</short> 
+        /// <short>Create a contact type</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
-        /// <returns>
-        ///    Contact type
-        /// </returns>
         [Create(@"contact/type")]
         public ContactTypeWrapper CreateContactType(string title, int sortOrder)
         {
@@ -764,20 +750,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Updates the selected contact type with the parameters (title, description, etc.) specified in the request
+        /// Updates the selected contact type with the parameters (title, description, etc.) specified in the request.
         /// </summary>
         ///<param name="id">Contact type ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="sortOrder">Order</param>
-        ///<returns>Contact type</returns>
-        /// <short>Update contact type</short> 
+        ///<param name="title">New contact type title</param>
+        ///<param name="sortOrder">New contact type order</param>
+        ///<returns>Updated contact type</returns>
+        /// <short>Update a contact type</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         /// <exception cref="SecurityException"></exception>
-        /// <returns>
-        ///    Contact type
-        /// </returns>
         [Update(@"contact/type/{id:[0-9]+}")]
         public ContactTypeWrapper UpdateContactType(int id, string title, int sortOrder)
         {
@@ -802,15 +785,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the contact types order with the list specified in the request
+        /// Updates the order of the contact types with a list specified in the request.
         /// </summary>
         /// <short>
-        ///    Update contact types order
+        /// Update the order of contact types
         /// </short>
-        /// <param name="titles">Contact type title list</param>
+        /// <param name="titles">List of contact type titles</param>
         /// <category>Contacts</category>
         /// <returns>
-        ///    Contact types
+        /// Contact types in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -831,16 +814,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Deletes the contact type with the ID specified in the request
+        /// Deletes a contact type with the ID specified in the request.
         /// </summary>
-        /// <short>Delete contact type</short> 
+        /// <short>Delete a contact type</short> 
         /// <category>Contacts</category>
         /// <param name="contactTypeid">Contact type ID</param>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="SecurityException"></exception>
         /// <returns>
-        ///  Contact type
+        /// Contact type
         /// </returns>
         [Delete(@"contact/type/{contactTypeid:[0-9]+}")]
         public ContactTypeWrapper DeleteContactType(int contactTypeid)
@@ -867,11 +850,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Returns the type of the contact for the ID specified in the request
+        /// Returns a contact type with the ID specified in the request.
         /// </summary>
         /// <param name="contactTypeid">Contact type ID</param>
         /// <returns>Contact type</returns>
-        /// <short>Get contact type</short> 
+        /// <short>Get a contact type</short> 
         /// <category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -887,11 +870,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Returns the stage of the opportunity with the ID specified in the request
+        /// Returns an opportunity stage with the ID specified in the request.
         /// </summary>
         /// <param name="stageid">Opportunity stage ID</param>
         /// <returns>Opportunity stage</returns>
-        /// <short>Get opportunity stage</short> 
+        /// <short>Get an opportunity stage</short> 
         /// <category>Opportunities</category>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="ArgumentException"></exception>
@@ -907,11 +890,11 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the category of the task with the ID specified in the request
+        /// Returns a task category with the ID specified in the request.
         /// </summary>
         /// <param name="categoryid">Task category ID</param>
         /// <returns>Task category</returns>
-        /// <short>Get task category</short> 
+        /// <short>Get a task category</short> 
         /// <category>Tasks</category>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="ArgumentException"></exception>
@@ -927,12 +910,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all history categories available on the portal
+        /// Returns a list of all the history categories available on the portal.
         /// </summary>
         /// <short>Get all history categories</short> 
         /// <category>History</category>
         /// <returns>
-        ///    List of all history categories
+        /// List of all the history categories
         /// </returns>
         [Read(@"history/category")]
         public IEnumerable<HistoryCategoryWrapper> GetHistoryCategoryWrapper()
@@ -950,12 +933,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all task categories available on the portal
+        /// Returns a list of all the task categories available on the portal.
         /// </summary>
         /// <short>Get all task categories</short> 
         /// <category>Tasks</category>
         /// <returns>
-        ///    List of all task categories
+        /// List of all the task categories
         /// </returns>
         [Read(@"task/category")]
         public IEnumerable<TaskCategoryWrapper> GetTaskCategories()
@@ -973,12 +956,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all contact statuses available on the portal
+        /// Returns a list of all the contact statuses available on the portal.
         /// </summary>
         /// <short>Get all contact statuses</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    List of all contact statuses
+        ///List of all the contact statuses
         /// </returns>
         [Read(@"contact/status")]
         public IEnumerable<ContactStatusWrapper> GetContactStatuses()
@@ -996,12 +979,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all contact types available on the portal
+        /// Returns a list of all the contact types available on the portal.
         /// </summary>
         /// <short>Get all contact types</short> 
         /// <category>Contacts</category>
         /// <returns>
-        ///    List of all contact types
+        /// List of all the contact types
         /// </returns>
         [Read(@"contact/type")]
         public IEnumerable<ContactTypeWrapper> GetContactTypes()
@@ -1020,12 +1003,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all opportunity stages available on the portal
+        /// Returns a list of all the opportunity stages available on the portal.
         /// </summary>
         /// <short>Get all opportunity stages</short> 
         /// <category>Opportunities</category>
         /// <returns>
-        ///   List of all opportunity stages
+        /// List of all the opportunity stages
         /// </returns>
         [Read(@"opportunity/stage")]
         public IEnumerable<DealMilestoneWrapper> GetDealMilestones()

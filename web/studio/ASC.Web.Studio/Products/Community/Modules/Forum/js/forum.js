@@ -42,7 +42,7 @@ var ForumManager = new function() {
         var subject = '';
 
         if (jq('#forum_postType').val() != 0)
-            subject = jq.trim(jq('#forum_subject').val());
+            subject = jq('#forum_subject').val().trim();
 
         if (subject == '' && jq('#forum_postType').val() != 0) {
             if (jq('#forum_postType').val() == 2) {
@@ -54,7 +54,7 @@ var ForumManager = new function() {
                 ShowRequiredError(jq("input[name$='forum_subject']"));
             }
 
-            jq('#forum_subject').focus();
+            jq('#forum_subject').trigger("focus");
             return;
         }
 
@@ -62,7 +62,7 @@ var ForumManager = new function() {
             jq('#forum_subject').val(subject);
 
         var html = ForumManager.forumEditor.getData();
-        if (jq.trim(html) == "") {
+        if (html.trim() == "") {
             toastr.error(this.TextEmptyMessage);
             return;
         }
@@ -117,14 +117,14 @@ var ForumManager = new function() {
     }
 
     this.SaveEditTopic = function() {
-        var subject = jq.trim(jq('#forum_subject').val());
+        var subject = jq('#forum_subject').val().trim();
 
         if (subject == '') {
             if (jq('#forum_topicType').val() == 1)
                 jq('#forum_errorMessage').html('<div class="errorBox">' + this.QuestionEmptyMessage + '</div>');
             else
                 jq('#forum_errorMessage').html('<div class="errorBox">' + this.SubjectEmptyMessage + '</div>');
-            jq('#forum_subject').focus();
+            jq('#forum_subject').trigger("focus");
             jq('#forum_errorMessage').scrollTo();
             return;
         }
@@ -358,7 +358,7 @@ var ForumManager = new function() {
 
         jq('#forum_mf').attr('class', 'tintLight cornerAll borderBase');
 
-        jq('body').click(function(event) {
+        jq('body').on("click", function(event) {
 
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
@@ -616,11 +616,11 @@ jq(document).ready(function() {
         }
     });
     resizeContent();
-    jq(window).resize(function () {
+    jq(window).on("resize", function () {
         resizeContent();
     });
     
     var textInput = jq("#forum_subject");
     if (textInput.length)
-        textInput.focus();
+        textInput.trigger("focus");
 });

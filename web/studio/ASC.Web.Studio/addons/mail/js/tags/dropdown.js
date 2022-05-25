@@ -78,7 +78,7 @@ window.tagsDropdown = (function($) {
         var cbx = popup.find("#markallrecipients");
         cbx.prop('checked', false);
         cbx.show();
-        cbx.unbind('click').bind('click', manageCrmTags);
+        cbx.off('click').on('click', manageCrmTags);
 
         var cbxLbl = popup.find("#markallrecipientsLabel");
         cbxLbl.show();
@@ -172,7 +172,7 @@ window.tagsDropdown = (function($) {
         popup.find(".existsTags").html(tagContent);
 
         var $tag = popup.find(".tag.inactive");
-        $tag.unbind('click').bind('click', function (e) {
+        $tag.off('click').on('click', function (e) {
             var el = $(this);
 
             if (el.hasClass("disabled")) return;
@@ -186,7 +186,7 @@ window.tagsDropdown = (function($) {
         });
 
         $tag = popup.find(".tag.tagArrow");
-        $tag.unbind('click').bind('click', function (e) {
+        $tag.off('click').on('click', function (e) {
             var el = $(this);
 
             if (el.hasClass("disabled")) return;
@@ -217,8 +217,8 @@ window.tagsDropdown = (function($) {
         dropdown.regScroll(draw);
 
         popup.find('.entertag_button')
-            .unbind('click')
-            .bind('click',
+            .off('click')
+            .on('click',
                 function () {
                     createLabel(options);
                 });
@@ -229,7 +229,7 @@ window.tagsDropdown = (function($) {
         tagsColorsPopup.hide();
         dropdown.unregHide(filteredHide);
         dropdown.unregHide(draw);
-        popup.find('.entertag_button').unbind('click');
+        popup.find('.entertag_button').off('click');
     }
 
     return {

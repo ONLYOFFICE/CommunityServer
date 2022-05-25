@@ -21,6 +21,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 
@@ -35,7 +36,7 @@ using Autofac;
 
 namespace ASC.Api.Impl
 {
-    public abstract class ApiHttpHandlerBase : IApiHttpHandler
+    public abstract class ApiHttpHandlerBase : ApiHttpAsyncHandler
     {
         public ILog Log { get; set; }
 
@@ -47,13 +48,9 @@ namespace ASC.Api.Impl
 
         protected IApiMethodCall Method { get; private set; }
 
-
         public IApiStandartResponce ApiResponce { get; private set; }
 
         public ApiContext ApiContext { get; private set; }
-
-
-
 
         protected ApiHttpHandlerBase(RouteData routeData)
         {
@@ -111,7 +108,7 @@ namespace ASC.Api.Impl
             }
         }
 
-        public void Process(HttpContextBase context)
+        public async Task Process(HttpContextBase context)
         {
             using (Container)
             {
@@ -126,25 +123,25 @@ namespace ASC.Api.Impl
 
                 Method = ApiManager.GetMethod(((Route)RouteData.Route).Url, context.Request.RequestType); //Set method
 
-                DoProcess(context);
+                await DoProcess(context);
             }
         }
 
         protected RequestContext RouteContext { get; private set; }
 
-        protected abstract void DoProcess(HttpContextBase context);
+        protected abstract Task DoProcess(HttpContextBase context);
 
-        public void ProcessRequest(HttpContext context)
+        public override async Task ProcessRequestAsync(HttpContext context)
         {
             var contextWrapper = new HttpContextWrapper(context);
-            ProcessInternal(contextWrapper);
+            await ProcessInternal(contextWrapper);
         }
 
-        private void ProcessInternal(HttpContextWrapper contextWrapper)
+        private async Task ProcessInternal(HttpContextWrapper contextWrapper)
         {
             try
             {
-                Process(contextWrapper);
+                await Process(contextWrapper);
             }
             catch (ThreadAbortException e)
             {
@@ -160,7 +157,7 @@ namespace ASC.Api.Impl
             }
         }
 
-        public bool IsReusable
+        public override bool IsReusable
         {
             get { return false; }
         }

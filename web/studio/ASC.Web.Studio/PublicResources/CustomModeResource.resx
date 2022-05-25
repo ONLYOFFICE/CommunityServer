@@ -231,32 +231,6 @@ You can also edit documents offline with our free "desktop editors":"https://www
 Sincerely,
 ONLYOFFICE team</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Connect your favorite cloud storage to ONLYOFFICE $PersonalHeaderEnd
-
-It has been a week since you created your cloud office, so we believe it's time to unveil some beneficial features you might have missed.
-
-Connect *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* or *Yandex.Disk* to ONLYOFFICE and create a single document management space for all your documents. You'll be able to edit external files in ONLYOFFICE and save them to the storage you keep documents in. Read details about connecting file storages to ONLYOFFICE "here":"${__HelpLink}/tipstricks/add-resource.aspx".
-
-You can also integrate ONLYOFFICE editors into Google Drive using our "connector app":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Need more of document management?
-
-h3.Try ONLYOFFICE for business "in the cloud":"https://www.onlyoffice.com/cloud-office.aspx" or "on your server":"https://www.onlyoffice.com/server-solutions.aspx" for free for 30 days and check out extended document management opportunities together with a business toolset:
-
-- Manage team documents in projects;
-
-- Integrate documents with CRM and Email;
-
-- Share files to groups of users;
-
-- Optimize your workflow with team communication tools.
-
-Interested? Learn more about "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
-
-Sincerely,
-ONLYOFFICE team</value>
-  </data>
   <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
     <value>Want to change the email on your cloud office account?
 
@@ -270,19 +244,14 @@ The link is valid for 7 days.
 
 Don’t want to change your email? Just ignore this message.</value>
   </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
-
-Please follow the link below to change your password:
+  <data name="pattern_personal_custom_mode_change_password_v115" xml:space="preserve">
+    <value>Want to change the password on your cloud office account? Click the button below to confirm.
 
 $GreenButton
 
-*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
+The link is valid for 7 days.
 
-If you do not want to change your password or received this email by mistake, please ignore it.
-
-Sincerely,
-ONLYOFFICE team</value>
+Don’t want to change your password? Just ignore this message.</value>
   </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Hello,
@@ -381,12 +350,6 @@ The deletion of personal data allowed to free:
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Welcome to ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Connect your favorite cloud storage to ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal password assistance</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Please activate your email address</value>

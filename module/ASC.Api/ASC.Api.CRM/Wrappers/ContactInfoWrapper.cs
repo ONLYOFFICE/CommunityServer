@@ -18,6 +18,7 @@
 using System;
 using System.Runtime.Serialization;
 
+using ASC.Common.Logging;
 using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
 
@@ -38,15 +39,22 @@ namespace ASC.Api.CRM.Wrappers
         public Address(ContactInfo contactInfo)
         {
             if (contactInfo.InfoType != ContactInfoType.Address) throw new ArgumentException();
-
-            City = JObject.Parse(contactInfo.Data)["city"].Value<String>();
-            Country = JObject.Parse(contactInfo.Data)["country"].Value<String>();
-            State = JObject.Parse(contactInfo.Data)["state"].Value<String>();
-            Street = JObject.Parse(contactInfo.Data)["street"].Value<String>();
-            Zip = JObject.Parse(contactInfo.Data)["zip"].Value<String>();
-            Category = contactInfo.Category;
-            CategoryName = contactInfo.CategoryToString();
-            IsPrimary = contactInfo.IsPrimary;
+            try
+            {
+                var jResult = JObject.Parse(contactInfo.Data);
+                City = jResult["city"].Value<String>();
+                Country = jResult["country"].Value<String>();
+                State = jResult["state"].Value<String>();
+                Street = jResult["street"].Value<String>();
+                Zip = jResult["zip"].Value<String>();
+                Category = contactInfo.Category;
+                CategoryName = contactInfo.CategoryToString();
+                IsPrimary = contactInfo.IsPrimary;
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Api").Error(ex);
+            }
         }
 
         public static bool TryParse(ContactInfo contactInfo, out Address res)
@@ -65,8 +73,9 @@ namespace ASC.Api.CRM.Wrappers
                 res.IsPrimary = contactInfo.IsPrimary;
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.GetLogger("ASC.Api").Error(ex);
                 res = null;
                 return false;
             }

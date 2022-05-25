@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2021
  * 
@@ -47,5 +47,7 @@ namespace ASC.MessagingSystem
         public MessageTarget Target { get; set; }
 
         public string UAHeader { get; set; }
+
+        public bool Active { get; set; }
     }
 }

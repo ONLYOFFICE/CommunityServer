@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Dodaj člane</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Rojstni dnevi</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Onemogočeno</value>
   </data>

@@ -745,6 +745,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ethiopian Birr.
+        /// </summary>
+        public static string Currency_EthiopianBirr {
+            get {
+                return ResourceManager.GetString("Currency_EthiopianBirr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Euro.
         /// </summary>
         public static string Currency_Euro {

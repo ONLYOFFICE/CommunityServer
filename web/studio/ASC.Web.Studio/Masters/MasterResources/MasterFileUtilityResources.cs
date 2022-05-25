@@ -68,10 +68,13 @@ namespace ASC.Web.Studio.Masters.MasterResources
                             ParamVersion = FilesLinkUtility.Version,
                             ParamOutType = FilesLinkUtility.OutType,
                             FilesLinkUtility.FileDownloadUrlString,
+                            FilesLinkUtility.FileViewUrlString,
                             FilesLinkUtility.FileWebViewerUrlString,
                             FilesLinkUtility.FileWebViewerExternalUrlString,
                             FilesLinkUtility.FileWebEditorUrlString,
                             FilesLinkUtility.FileWebEditorExternalUrlString,
+                            FilesLinkUtility.FileCustomProtocolEditorUrlString,
+                            FilesLinkUtility.OpenPrivateString,
                             FilesLinkUtility.FileRedirectPreviewUrlString,
                             FilesLinkUtility.FileThumbnailUrlString,
                         })

@@ -242,19 +242,6 @@ El enlace es válido durante 7 días.
 
 ¿No desea cambiar su correo electrónico? Simplemente ignore este mensaje.</value>
   </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Solicitud de Cambio de Contraseña para Portal "${__VirtualRootPath}":"${__VirtualRootPath}"
-
-Hay una solicitud de cambio de contraseña utilizada para entrar en el portal "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Por favor, siga el siguiente enlace para cambiar su contraseña:
-
-$GreenButton
-
-*Note*: este enlace tiene una validez sólo de 7 días. Por favor, complete el proceso de cambio de contraseña dentro de ese período.
-
-Si no quiere cambiar su contraseña o ha recibido este mensaje por error, por favor, ignórelo o póngase en contacto con el administrador del portal "${__VirtualRootPath}":"${__VirtualRootPath}" para más detalles.</value>
-  </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Solicitud de Cambio de Móvil
  
@@ -1017,20 +1004,6 @@ El enlace es válido durante 7 días.
 
 ¿No desea cambiar su correo electrónico? Simplemente ignore este mensaje.</value>
   </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>Ha habido una solicitud para cambiar su contraseña utilizada para ingresar al portal "${__VirtualRootPath}":"${__VirtualRootPath}".
-
-Por favor, siga el siguiente enlace para cambiar su contraseña:
-
-$GreenButton
-
-*Nota*: este enlace es válido solo durante 7 días. Complete el proceso de cambio de contraseña dentro de ese período.
-
-Si no desea cambiar su contraseña o recibió este correo electrónico por error, ignórelo.
-
-Sinceramente,
-Equipo ONLYOFFICE</value>
-  </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>Hola,
 
@@ -1744,9 +1717,6 @@ El enlace es válido solo durante 7 días.</value>
   <data name="subject_change_email_v115" xml:space="preserve">
     <value>Confirme el cambio de su correo electrónico</value>
   </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText}asistencia de contraseña</value>
-  </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Solicitud de cambio de móvil</value>
   </data>
@@ -1894,9 +1864,6 @@ El enlace es válido solo durante 7 días.</value>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Conecte su almacenaje de la nube preferido con ONLYOFFICE</value>
   </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal ayuda de contraseña</value>
-  </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Por favor, active su correo electrónico</value>
   </data>
@@ -2025,5 +1992,26 @@ El enlace es válido solo durante 7 días.</value>
   </data>
   <data name="subject_user_ldap_activation" xml:space="preserve">
     <value>Usted está invitado/a a unirse a ${__VirtualRootPath}</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>¿Quieres cambiar la contraseña de tu cuenta de ONLYOFFICE? Haz clic en el botón de abajo para confirmar.
+
+$GreenButton
+
+El enlace es válido durante 7 días.
+
+¿No quieres cambiar tu contraseña? Ignora este mensaje.</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>¿Quieres cambiar la contraseña de tu cuenta de ONLYOFFICE Personal? Haz clic en el botón de abajo para confirmar.
+
+$GreenButton 
+
+El enlace es válido durante 7 días.
+
+¿No quieres cambiar tu contraseña? Ignora este mensaje</value>
+  </data>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Confirma el cambio de tu correo electrónico</value>
   </data>
 </root>

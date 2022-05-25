@@ -174,8 +174,7 @@
         }
     }
 
-    .short-view
-    {
+    .short-view {
         &.new {
             .from,
             .content {
@@ -183,14 +182,11 @@
             }
         }
 
-        &.loading
-        {
-            .message_short
-            {
+        &.loading {
+            .message_short {
                 background-color: @full-view-row-bg;
 
-                &:hover
-                {
+                &:hover {
                     cursor: default;
                 }
             }
@@ -199,21 +195,19 @@
         @border-style: @messages-border-style;
         @spliter-width: @row-height / 4;
         @darken-text-color: #83888D;
-        
+
         table {
             width: 100%;
             table-layout: fixed;
             border-top: @border-style;
         }
 
-        .message_short
-        {
+        .message_short {
             background-color: @short-view-row-bg;
             height: @row-height;
-            td
-            {
-                span
-                {
+
+            td {
+                span {
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
@@ -221,38 +215,33 @@
                     display: inline-block;
                 }
             }
-            &:hover
-            {
+
+            &:hover {
                 cursor: pointer;
             }
-            .from_label
-            {
+
+            .from_label {
                 padding-left: @message-spliter-width;
                 color: @darken-text-color;
                 width: 48px;
             }
 
-            .from
-            {
+            .from {
                 width: 25%;
             }
 
-            .content
-            {
+            .content {
                 padding-left: @spliter-width;
 
-                span
-                {
+                span {
                     color: @darken-text-color;
                 }
             }
 
-            .load_box
-            {
+            .load_box {
                 width: @row-height - 7;
 
-                .loader
-                {
+                .loader {
                     padding-left: 0;
                     width: @row-height / 2;
                     height: @row-height / 2;
@@ -260,21 +249,18 @@
                 }
             }
 
-            .icon
-            {
+            .icon {
                 padding-left: 0;
                 width: @row-height / 2;
             }
 
-            .date-time
-            {
+            .date-time {
                 padding-left: @spliter-width;
                 width: @row-height * 3;
                 text-align: center;
             }
 
-            .time
-            {
+            .time {
                 width: @row-height * 2;
                 padding-right: @message-spliter-width;
                 text-align: center;
@@ -307,7 +293,7 @@
         vertical-align: baseline;
         overflow-y: hidden;
         overflow-x: auto;
-        width: 100%;
+        width: auto;
         padding-bottom: 8px;
         padding-top: 8px;
 
@@ -667,25 +653,63 @@
 }
 
 .newMessageWrap {
+
     .importance {
         cursor: pointer;
+        padding-top: 5.0px;
+        padding-left: 12px;
+        padding-right: 10px;
+
+        .importance-svg {
+            fill: #cecece;
+        }
+
+        .importance-svg:hover {
+            fill: #83888d;
+        }
+    }
+
+    .importance.on {
+        .importance-svg {
+            fill: #cc3300;
+        }
     }
 
     .requestReceipt {
         cursor: pointer;
+        padding-top: 3px;
 
         .requestReceipt-svg {
             fill: #cecece;
         }
 
-            .requestReceipt-svg:hover {
-                fill: #83888d;
-            }
+        .requestReceipt-svg:hover {
+            fill: #83888d;
+        }
     }
 
-        .requestReceipt.on {
-            .requestReceipt-svg {
-                fill: #cc3300;
-            }
+    .requestReceipt.on {
+        .requestReceipt-svg {
+            fill: #cc3300;
         }
+    }
+
+    .requestRead {
+        cursor: pointer;
+        padding-top: 4.0px;
+
+        .requestRead-svg {
+            fill: #cecece;
+        }
+
+        .requestRead-svg:hover {
+            fill: #83888d;
+        }
+    }
+
+    .requestRead.on {
+        .requestRead-svg {
+            fill: #cc3300;
+        }
+    }
 }

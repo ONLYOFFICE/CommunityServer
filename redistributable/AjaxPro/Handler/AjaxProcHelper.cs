@@ -36,6 +36,8 @@
  * MS	06-06-11	removed WebEvent because of SecurityPermissions not available in medium trust environments
  * MS	06-10-04	set UTF-8 encoding for XML documents
  * MS	07-04-24	fixed Ajax token
+ * MS	21-10-27	added allowed customized types for JSON deserialization
+ * 
  * 
  */
 using System;
@@ -43,7 +45,8 @@ using System.Reflection;
 using System.Web;
 using System.Web.Caching;
 using System.IO;
-#if(NET20)
+using System.Collections.Generic;
+#if (NET20)
 using System.Web.Management;
 using System.Diagnostics;
 #endif
@@ -115,25 +118,6 @@ namespace AjaxPro
 				object[] po = null;
 				object res = null;
 
-				#region Retreive Parameters from the HTTP Request
-
-				try
-				{
-					// The IAjaxProcessor will read the values either form the 
-					// request URL or the request input stream.
-
-					po = p.RetreiveParameters();
-				}
-				catch(Exception ex)
-				{
-					p.SerializeObject(ex);
-
-					if(p.Context.Trace.IsEnabled) p.Context.Trace.Write(Constant.AjaxID, "End ProcessRequest");
-					return;
-				}
-
-				#endregion 
-
 				// Check if we have the same request already in our cache. The 
 				// cacheKey will be the type and a hashcode from the parameter values.
 
@@ -150,6 +134,23 @@ namespace AjaxPro
 					if(p.Context.Trace.IsEnabled) p.Context.Trace.Write(Constant.AjaxID, "End ProcessRequest");
 					return;
 				}
+
+				#region Retreive Parameters from the HTTP Request
+
+				try
+				{
+					// The IAjaxProcessor will read the values either form the 
+					// request URL or the request input stream.
+
+					po = p.RetreiveParameters();
+				}
+				catch (Exception ex)
+				{
+					ReturnException(ex);
+					return;
+				}
+
+				#endregion
 
 				#region Reflection part of Ajax.NET
 
@@ -330,6 +331,14 @@ namespace AjaxPro
 				if(token != IntPtr.Zero)
 					winctx.Undo();
 			}
+		}
+
+		private void ReturnException(Exception ex)
+		{
+			p.SerializeObject(ex);
+
+			if (p.Context.Trace.IsEnabled) p.Context.Trace.Write(Constant.AjaxID, "End ProcessRequest");
+			return;
 		}
 	}
 }

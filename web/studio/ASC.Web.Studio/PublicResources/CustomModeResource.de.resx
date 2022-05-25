@@ -229,32 +229,6 @@ Sie können Dokumente auch offline mit unseren kostenlosen "Desktop Editoren":"h
 Mit freundlichen Grüßen,
 ONLYOFFICE Team</value>
   </data>
-  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
-    <value>$PersonalHeaderStart Verbinden Sie Ihren bevorzugten Cloud-Speicher mit ONLYOFFICE $PersonalHeaderEnd
-
-Es ist nun schon eine Woche her, dass Sie Ihr Cloud-Büro eingerichtet haben, daher glauben wir, dass es an der Zeit ist, einige nützliche Funktionen zu aufzuzeigen, die Sie vielleicht noch nicht kennen.
-
-Verbinden Sie *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* oder *Yandex.Disk* mit ONLYOFFICE und erstellen Sie einen einzigen Bereich zur Dokumentenverwaltung für all Ihre Dokumente. Damit können Sie externe Dateien in ONLYOFFICE bearbeiten und sie auf dem Speicherplatz speichern, auf dem Sie Ihre Dokumente aufbewahren. Lesen Sie "hier":"${__HelpLink}/tipstricks/add-resource.aspx" Einzelheiten über das Verbinden von Dateispeichern mit ONLYOFFICE.
-
-Sie können die ONLYOFFICE-Editoren auch über unsere "Connector-App" in Google Drive integrieren: "https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
-
-Wollen Sie tiefer in die Dokumentenverwaltung einsteigen?
-
-h3. Testen Sie ONLYOFFICE for business "in der Cloud":"https://www.onlyoffice.com/cloud-office.aspx" oder "auf Ihrem eigenen Server":"https://www.onlyoffice.com/server-solutions.aspx" 30 Tage lang kostenlos und testen Sie erweiterte Möglichkeiten der Dokumentenverwaltung zusammen mit einem Business-Toolset:
-
-- Verwalten Sie Dokumente eines Teams in Projekten;
-
-- Integrieren Sie Dokumente in CRM und E-Mail;
-
-- Dateien für Benutzergruppen freigeben;
-
-- Optimieren Sie Ihren Workflow mit Team-Kommunikationstools.
-
-Interessiert? Erfahren Sie mehr über "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
-
-Mit freundlichen Grüßen,
-ONLYOFFICE-Team</value>
-  </data>
   <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
     <value>Möchten Sie Ihre E-Mail im Cloud-Konto ändern?
 
@@ -267,20 +241,6 @@ Der Link ist 7 Tage gültig.
 *Wenn Sie in diesem Browser bei ONLYOFFICE nicht angemeldet sind, müssen Sie Ihre alte E-Mail-Adresse zur Bestätigung verwenden.
 
 Möchten Sie Ihre E-Mail-Adresse nicht ändern? Ignorieren Sie einfach diese Nachricht.</value>
-  </data>
-  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
-    <value>Sie haben Änderung Ihres Kennworts angefordert, das zum Einloggen auf das Portal "${__VirtualRootPath}":"${__VirtualRootPath}" verwendet wird.
-
-Bitte folgen Sie dem Link unten, um Ihr Kennwort zu ändern:
-
-$GreenButton
-
-*Bitte beachten*: Dieser Link ist nur 7 Tage gültig. Bitte schließen Sie den Prozess der Passwortänderung innerhalb dieses Zeitraums ab.
-
-Ignorieren Sie diese Nachricht, falls Sie Ihr Kennwort nicht ändern möchten oder diese E-Mail versehentlich erhalten haben.
-
-Mit freundlichen Grüßen,
-ONLYOFFICE Team</value>
   </data>
   <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
     <value>Hallo,
@@ -379,12 +339,6 @@ Beim Entfernen persönlicher Daten es wurde freigegeben:
   </data>
   <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>Willkommen bei ONLYOFFICE Personal</value>
-  </data>
-  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
-    <value>Verbinden Sie Ihren bevorzugten Cloud-Speicher mit ONLYOFFICE</value>
-  </data>
-  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
-    <value>ONLYOFFICE Personal-Passworthilfe</value>
   </data>
   <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Personal. Bitte aktivieren Sie Ihre E-Mail-Adresse</value>

@@ -705,8 +705,15 @@ namespace ASC.Data.Storage.GoogleCloud
 
             using (var mStream = new MemoryStream(Encoding.UTF8.GetBytes(_json ?? "")))
             {
+                TimeSpan signDuration;
+
+                if (expires.Date == DateTime.MinValue)
+                    signDuration = expires.TimeOfDay;
+                else
+                    signDuration = expires.Subtract(DateTime.UtcNow);
+
                 var preSignedURL = UrlSigner.FromServiceAccountData(mStream)
-                                .Sign(_bucket, MakePath(domain, path), expires, null);
+                                .Sign(_bucket, MakePath(domain, path), signDuration, null);
 
                 //TODO: CNAME!
                 return preSignedURL;
@@ -855,11 +862,6 @@ namespace ASC.Data.Storage.GoogleCloud
         #endregion
 
         public override string GetUploadForm(string domain, string directoryPath, string redirectTo, long maxUploadSize, string contentType, string contentDisposition, string submitLabel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GetUploadedUrl(string domain, string directoryPath)
         {
             throw new NotImplementedException();
         }

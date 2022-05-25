@@ -83,6 +83,8 @@ namespace ASC.CRM.Core.Dao
 
     public class TaskDao : AbstractDao
     {
+        private ILog Log = LogManager.GetLogger("ASC.CRM");
+
         #region Constructor
 
         public TaskDao(int tenantID)
@@ -326,7 +328,7 @@ namespace ASC.CRM.Core.Dao
 
             int result = 0;
 
-            LogManager.GetLogger("ASC.CRM").DebugFormat("Starting GetTasksCount: {0}", DateTime.Now.ToString());
+            Log.DebugFormat("Starting GetTasksCount: {0}", DateTime.Now.ToString());
 
             var cacheKey = TenantID.ToString(CultureInfo.InvariantCulture) +
                            "tasks" +
@@ -341,7 +343,7 @@ namespace ASC.CRM.Core.Dao
 
             if (!String.IsNullOrEmpty(_cache.Get<String>(cacheKey)))
             {
-                LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. From cache", DateTime.Now.ToString());
+                Log.DebugFormat("End GetTasksCount: {0}. From cache", DateTime.Now.ToString());
 
                 return Convert.ToInt32(_cache.Get<String>(cacheKey));
             }
@@ -412,7 +414,7 @@ namespace ASC.CRM.Core.Dao
 
                     taskIds = Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList();
 
-                    LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. count tasks without entityId and only open contacts", DateTime.Now.ToString());
+                    Log.DebugFormat("End GetTasksCount: {0}. count tasks without entityId and only open contacts", DateTime.Now.ToString());
 
 
                     sqlQuery = Query("crm_task tbl_tsk")
@@ -440,7 +442,7 @@ namespace ASC.CRM.Core.Dao
                     // count tasks with entityId and only close contacts
                     taskIds.AddRange(Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList());
 
-                    LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. count tasks with entityId and only close contacts", DateTime.Now.ToString());
+                    Log.DebugFormat("End GetTasksCount: {0}. count tasks with entityId and only close contacts", DateTime.Now.ToString());
 
                     sqlQuery = Query("crm_task tbl_tsk")
                               .Select("tbl_tsk.id")
@@ -467,7 +469,7 @@ namespace ASC.CRM.Core.Dao
                     // count tasks with entityId and only close contacts
                     taskIds.AddRange(Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList());
 
-                    LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. count tasks with entityId and only close contacts", DateTime.Now.ToString());
+                    Log.DebugFormat("End GetTasksCount: {0}. count tasks with entityId and only close contacts", DateTime.Now.ToString());
 
 
                     sqlQuery = Query("crm_task tbl_tsk")
@@ -493,7 +495,7 @@ namespace ASC.CRM.Core.Dao
                     // count tasks with entityId and without contact
                     taskIds.AddRange(Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList());
 
-                    LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. count tasks with entityId and without contact", DateTime.Now.ToString());
+                    Log.DebugFormat("End GetTasksCount: {0}. count tasks with entityId and without contact", DateTime.Now.ToString());
 
                     sqlQuery = Query("crm_task tbl_tsk")
                                 .Select("tbl_tsk.id")
@@ -520,9 +522,9 @@ namespace ASC.CRM.Core.Dao
 
                     result = taskIds.Distinct().Count();
 
-                    LogManager.GetLogger("ASC.CRM").DebugFormat("End GetTasksCount: {0}. count tasks with entityId and without contact", DateTime.Now.ToString());
+                    Log.DebugFormat("End GetTasksCount: {0}. count tasks with entityId and without contact", DateTime.Now.ToString());
 
-                    LogManager.GetLogger("ASC.CRM").Debug("Finish");
+                    Log.Debug("Finish");
 
                 }
             }

@@ -32,7 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuditEventWrapper.cs" />
+    <Compile Include="AuditReportCreator.cs" />
     <Compile Include="LoginEventWrapper.cs" />
+    <Compile Include="ModelTypes.cs" />
     <Compile Include="SecurityApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +54,10 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.AuditTrail\ASC.AuditTrail.csproj">
       <Project>{2c111161-b7c5-4869-9f52-ea725e64ba40}</Project>
@@ -74,8 +80,14 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CsvHelper">
+      <Version>27.1.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

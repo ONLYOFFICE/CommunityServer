@@ -232,9 +232,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Administratori</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Biedra statuss</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Jebkurš domēns</value>
   </data>
@@ -487,12 +484,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>pieteikties</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Pievienojiet Bitly pakalpojumu, lai saīsinātu portāla ielūgumu saites un Dokumentu moduļa koplietošanas saites.</value>
@@ -793,27 +784,6 @@
   </data>
   <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
     <value>Slepenā marķiera piekļuve</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Klienta ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Iespējot lietotni Yahoo kontaktu importēšanai.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Yahoo pakalpojumu lietotnes pievienošana ļaus jums pievienot ONLYOFFICE portālam jaunus lietotājus no kontaktu saraksta.</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Klienta ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Secret</value>
   </data>
   <data name="ContactInformation" xml:space="preserve">
     <value>Kontaktinformācija</value>
@@ -1298,9 +1268,6 @@ Vai esat pārliecināti, ka vēlaties dzēst {0} {!group}?</value>
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Parolei ir jāsatur</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Tā jābūt</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>cipari</value>
   </data>
@@ -1481,9 +1448,6 @@ Lai piemērotu veiktās izmaiņas izmantojiet {1}Saglabāt{2} pogu sadaļā apak
   <data name="HelpCenter" xml:space="preserve">
     <value>Palīdzības centrs</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Programmas mērķis ir legāli reklamēt ONLYOFFICE™, lai saņemtu komisiju par iegādātajiem abonementem, kurus iegādājuši piesaistītas personas.</value>
-  </data>
   <data name="Hide" xml:space="preserve">
     <value>Paslēpt</value>
   </data>
@@ -1607,9 +1571,6 @@ Lai piemērotu veiktās izmaiņas izmantojiet {1}Saglabāt{2} pogu sadaļā apak
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Importēšana no Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Importēšana no Yahoo</value>
-  </data>
   <data name="ImportUserLimitHeader" xml:space="preserve">
     <value>Jūsu šībrīža cenu plāns ļauj pievienot {0} lietotājus.</value>
   </data>
@@ -1672,9 +1633,6 @@ Lai piemērotu veiktās izmaiņas izmantojiet {1}Saglabāt{2} pogu sadaļā apak
   </data>
   <data name="IsMailMigration" xml:space="preserve">
     <value>Pārnest arī ONLYOFFICE™ pastu (nav ieteicams)</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Kļūstiet par sadarbības partneri</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Jūs varat pievienot lietotājus kā viesus ar statusu {!guests} vai mainīt cenu plānu pret kādu ar lielāķu lietotāju skaitu.</value>
@@ -2750,15 +2708,6 @@ Attīrīt sarakstu{1}</value>
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Uzaicinājumi ir veiksmīgi pārsutīti</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Sūtīt e-pastu</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Sazinieties ar mums, lai uzzinātu par īpašiem piedāvājumiem</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Samaziniet nepieciešamo parametru vai izvēlieties citu cenu plānu.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Pirkt tagad</value>
   </data>
@@ -2770,18 +2719,6 @@ Attīrīt sarakstu{1}</value>
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Izvēlieties plānu, kas vislabāk atbilst jūsu vajadzībām. Ieteicams plāns ir izcelts zemāk.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Šo plānu nevar izvēlēties</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Atļauts glabāšanas telpas lielums: {0}. Pašreizējais glabāšanas telpas lielums: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Atļauts portāla lietotāju skaits: {0}. Pašreizējais lietotāju skaits: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Jūs nevarat izvēlēties šo plānu, jo diska vieta vai lietotāju skaits pārsniedz izvēlētā cenu plāna ierobežojumus:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Regulārie maksājumi ir ieslēgti</value>
@@ -2810,9 +2747,6 @@ Attīrīt sarakstu{1}</value>
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Jūsu ONLYOFFICE™ portāls tiks bloķēts {2}. Lūdzu, {0}spiediet šeit{1}, lai paildzinātu esošo plānu vai mainītu to pret atbilstošāku.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Jūsu izveidoto portālu skaits: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Cenu plānu nav pieejams, līdz apmaksātā gada beigām.</value>
   </data>
@@ -2825,14 +2759,8 @@ Attīrīt sarakstu{1}</value>
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Lai atceltu regulārus maksājumus, lūdzu, dodieties uz savu Avangate kontu.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Tikai līdz {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Maksājumu plāni</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Jūsu ērtības labad maksājumi Krievijas rubļos tiek aprēķināti ar fiksētu valūtas kursu {0} Krievijas rubļu pret 1 ASV dolāru.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Maksājumi</value>

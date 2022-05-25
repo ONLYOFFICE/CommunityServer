@@ -42,6 +42,7 @@ namespace ASC.Web.Studio.Core.Notify
     public static class NotifyConfiguration
     {
         private static bool configured;
+        private static ILog Log = LogManager.GetLogger("ASC");
         private static readonly object locker = new object();
         private static readonly Regex urlReplacer = new Regex(@"(<a [^>]*href=(('(?<url>[^>']*)')|(""(?<url>[^>""]*)""))[^>]*>)|(<img [^>]*src=(('(?<url>(?![data:|cid:])[^>']*)')|(""(?<url>(?![data:|cid:])[^>""]*)""))[^/>]*/?>)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex textileLinkReplacer = new Regex(@"""(?<text>[\w\W]+?)"":""(?<link>[^""]+)""", RegexOptions.Singleline | RegexOptions.Compiled);
@@ -182,7 +183,7 @@ namespace ASC.Web.Studio.Core.Notify
                      }
                      catch (Exception error)
                      {
-                         LogManager.GetLogger("ASC").Error(error);
+                         Log.Error(error);
                      }
                      return false;
                  });
@@ -213,7 +214,7 @@ namespace ASC.Web.Studio.Core.Notify
                      }
                      catch (Exception error)
                      {
-                         LogManager.GetLogger("ASC").Error(error);
+                         Log.Error(error);
                      }
                      return false;
                  });
@@ -305,7 +306,7 @@ namespace ASC.Web.Studio.Core.Notify
                 }
                 catch (Exception error)
                 {
-                    LogManager.GetLogger("ASC").Error(error);
+                    Log.Error(error);
                 }
             }
 

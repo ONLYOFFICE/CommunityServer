@@ -64,6 +64,9 @@
   <data name="Actions" xml:space="preserve">
     <value>اجراءات</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>اعياد الميلاد</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>معطل</value>
   </data>

@@ -140,7 +140,7 @@ window.ASC.Files.CreateMenu = (function () {
             createFile.call(this);
         });
 
-        jq("#emptyContainer .empty-folder-create a").click(function () {
+        jq("#emptyContainer .empty-folder-create a").on("click", function () {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.typeNewDoc = (
                 jq(this).hasClass("empty-folder-create-document")

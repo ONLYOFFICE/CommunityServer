@@ -16,16 +16,16 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
+using ASC.Common.Radicale;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.MessagingSystem;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.PublicResources;
@@ -65,7 +65,7 @@ namespace ASC.Web.Studio.Core.Users
             return Equals(foundUser, Constants.LostUser) || foundUser.ID == userId;
         }
 
-        public static UserInfo AddUser(UserInfo userInfo, string passwordHash, bool afterInvite = false, bool notify = true, bool isVisitor = false, bool fromInviteLink = false, bool makeUniqueName = true)
+        public static UserInfo AddUser(UserInfo userInfo, string passwordHash, bool afterInvite = false, bool notify = true, bool isVisitor = false, bool fromInviteLink = false, bool makeUniqueName = true, bool isCardDav = false)
         {
             if (userInfo == null) throw new ArgumentNullException("userInfo");
 
@@ -88,8 +88,12 @@ namespace ASC.Web.Studio.Core.Users
                 userInfo.ActivationStatus = !afterInvite ? EmployeeActivationStatus.Pending : EmployeeActivationStatus.Activated;
             }
 
-            var newUserInfo = CoreContext.UserManager.SaveUserInfo(userInfo, isVisitor);
+
+            var newUserInfo = CoreContext.UserManager.SaveUserInfo(userInfo, isVisitor, isCardDav);
             SecurityContext.SetUserPasswordHash(newUserInfo.ID, passwordHash);
+
+
+
 
             if (CoreContext.Configuration.Personal)
             {
@@ -136,8 +140,10 @@ namespace ASC.Web.Studio.Core.Users
                 CoreContext.UserManager.AddUserIntoGroup(newUserInfo.ID, Constants.GroupVisitor.ID);
             }
 
+
             return newUserInfo;
         }
+
 
         #region Password
 
@@ -149,7 +155,7 @@ namespace ASC.Web.Studio.Core.Users
             var passwordSettingsObj = PasswordSettings.Load();
 
             if (!PasswordSettings.CheckPasswordRegex(passwordSettingsObj, password))
-                throw new Exception(GenerateErrorMessage(passwordSettingsObj));
+                throw new Exception(GetPasswordHelpMessage(passwordSettingsObj));
         }
 
         public static string SendUserPassword(string email)
@@ -184,9 +190,6 @@ namespace ASC.Web.Studio.Core.Users
 
             StudioNotifyService.Instance.UserPasswordChange(userInfo);
 
-            var displayUserName = userInfo.DisplayUserName(false);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentPasswordChangeInstructions, displayUserName);
-
             return null;
         }
 
@@ -195,36 +198,28 @@ namespace ASC.Web.Studio.Core.Users
             return Guid.NewGuid().ToString();
         }
 
-        internal static string GenerateErrorMessage(PasswordSettings passwordSettings)
+        public static string GetPasswordHelpMessage(PasswordSettings passwordSettings)
         {
-            var error = new StringBuilder();
+            var text = new StringBuilder();
 
-            error.AppendFormat("{0} ", Resource.ErrorPasswordMessage);
-            error.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
+            text.AppendFormat("{0} ", Resource.ErrorPasswordMessage);
+            text.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
+            text.AppendFormat(", {0}", Resource.ErrorPasswordOnlyLatinLetters);
+            text.AppendFormat(", {0}", Resource.ErrorPasswordNoSpaces);
+
             if (passwordSettings.UpperCase)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoUpperCase);
+                text.AppendFormat(", {0}", Resource.ErrorPasswordNoUpperCase);
             if (passwordSettings.Digits)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoDigits);
+                text.AppendFormat(", {0}", Resource.ErrorPasswordNoDigits);
             if (passwordSettings.SpecSymbols)
-                error.AppendFormat(", {0}", Resource.ErrorPasswordNoSpecialSymbols);
+                text.AppendFormat(", {0}", Resource.ErrorPasswordNoSpecialSymbols);
 
-            return error.ToString();
+            return text.ToString();
         }
 
         public static string GetPasswordHelpMessage()
         {
-            var info = new StringBuilder();
-            var passwordSettings = PasswordSettings.Load();
-            info.AppendFormat("{0} ", Resource.ErrorPasswordMessageStart);
-            info.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
-            if (passwordSettings.UpperCase)
-                info.AppendFormat(", {0}", Resource.ErrorPasswordNoUpperCase);
-            if (passwordSettings.Digits)
-                info.AppendFormat(", {0}", Resource.ErrorPasswordNoDigits);
-            if (passwordSettings.SpecSymbols)
-                info.AppendFormat(", {0}", Resource.ErrorPasswordNoSpecialSymbols);
-
-            return info.ToString();
+            return GetPasswordHelpMessage(PasswordSettings.Load());
         }
 
         #endregion
@@ -237,5 +232,7 @@ namespace ASC.Web.Studio.Core.Users
             const RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
             return new Regex(pattern, options).IsMatch(email);
         }
+
+
     }
 }

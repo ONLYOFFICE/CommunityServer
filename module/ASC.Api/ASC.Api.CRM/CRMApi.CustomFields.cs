@@ -35,13 +35,13 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///    Returns the list of descriptions for all existing user fields
+        /// Returns a list of descriptions for all the existing custom fields.
         /// </summary>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Type</param>
-        /// <short>Get user field list</short> 
-        /// <category>User fields</category>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
+        /// <short>Get custom fields</short> 
+        /// <category>Custom fields</category>
         ///<returns>
-        ///    User field list
+        /// List of custom fields
         /// </returns>
         ///<exception cref="ArgumentException"></exception>
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/customfield/definitions")]
@@ -51,13 +51,13 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Returns the list of all user field values using the entity type and entity ID specified in the request
+        /// Returns a list of all the custom fields for the entity type and ID specified in the request.
         /// </summary>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Type</param>
-        /// <param name="entityid">ID</param>
-        /// <short>Get user field values</short> 
-        /// <category>User fields</category>
-        /// <returns></returns>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
+        /// <param name="entityid">Entity ID</param>
+        /// <short>Get entity custom fields</short> 
+        /// <category>Custom fields</category>
+        /// <returns>List of entity custom fields</returns>
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/{entityid:[0-9]+}/customfield")]
         public IEnumerable<CustomFieldBaseWrapper> GetCustomFieldForSubject(string entityType, int entityid)
         {
@@ -65,16 +65,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Sets the new user field value using the entity type, ID, field ID and value specified in the request
+        /// Sets the selected custom field to the entity with type and ID specified in the request.
         /// </summary>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Type</param>
-        /// <param name="entityid">ID</param>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
+        /// <param name="entityid">Entity ID</param>
         /// <param name="fieldid">Field ID</param>
-        /// <param name="fieldValue">Field Value</param>
-        /// <short>Set user field value</short> 
-        /// <category>User fields</category>
+        /// <param name="fieldValue">Field value</param>
+        /// <short>Set an entity custom field</short> 
+        /// <category>Custom fields</category>
         /// <returns>
-        ///    User field
+        /// Custom field
         /// </returns>
         [Create(@"{entityType:(contact|person|company|opportunity|case)}/{entityid:[0-9]+}/customfield/{fieldid:[0-9]+}")]
         public CustomFieldBaseWrapper SetEntityCustomFieldValue(string entityType, int entityid, int fieldid, string fieldValue)
@@ -92,61 +92,61 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Creates a new user field with the parameters (entity type, field title, type, etc.) specified in the request
+        /// Creates a new custom field with the parameters (entity type, field title, type, etc.) specified in the request.
         /// </summary>
-        /// <param optional="false" name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Entity type</param>
+        /// <param optional="false" name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
         /// <param optional="false" name="label">Field title</param>
         /// <param name="fieldType" 
         /// remark="Allowed values: TextField, TextArea, SelectBox, CheckBox, Heading or Date">
-        ///   User field value
+        ///  Custom field type
         /// </param>
         /// <param optional="true" name="position">Field position</param>
-        /// <param optional="true" name="mask" remark="Sent in json format only" >Mask</param>
-        /// <short>Create user field</short> 
-        /// <category>User fields</category>
+        /// <param optional="true" name="mask" remark="Sent in JSON format only" >Mask</param>
+        /// <short>Create a custom field</short> 
+        /// <category>Custom fields</category>
         /// <returns>
-        ///    User field
+        /// Custom field
         /// </returns>
         ///<example>
         /// <![CDATA[
         /// 
         /// Data transfer in application/json format:
         /// 
-        /// 1) Creation of a user field of  TextField type
+        /// 1) Creation of the TextField custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
         ///    label: "Sample TextField",
         ///    fieldType: 0,
         ///    position: 0,
-        ///    mask: {"size":"40"}        - this is the text field size. All other values are ignored.
+        ///    mask: {"size":"40"}  // This is the TextField size. All other values are ignored.
         /// }
         /// 
         /// 
-        /// 2) Creation of a user field of TextArea type
+        /// 2) Creation of the TextArea custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
         ///    label: "Sample TextArea",
         ///    fieldType: 1,
         ///    position: 1,
-        ///    mask: '{"rows":"2","cols":"30"}'        - this is the TextArea size. All other values are ignored.
+        ///    mask: '{"rows":"2","cols":"30"}' // This is the TextArea size. All other values are ignored.
         /// }
         /// 
         /// 
-        /// 3) Creation of a user field of   SelectBox type
+        /// 3) Creation of the SelectBox custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
         ///    label: "Sample SelectBox",
         ///    fieldType: 2,
         ///    position: 0,
-        ///    mask: ["1","2","3"]   - SelectBox values.
+        ///    mask: ["1","2","3"]  // These are the SelectBox values.
         /// }
         /// 
         /// 
         /// 
-        /// 4) Creation of a user field of  CheckBox type
+        /// 4) Creation of the CheckBox custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
@@ -158,7 +158,7 @@ namespace ASC.Api.CRM
         /// 
         /// 
         /// 
-        /// 5) Creation of a user field of   Heading type
+        /// 5) Creation of the Heading custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
@@ -170,7 +170,7 @@ namespace ASC.Api.CRM
         /// 
         /// 
         /// 
-        /// 6) Creation of a user field of   Date type
+        /// 6) Creation of the Date custom field:
         /// 
         /// data: {
         ///    entityType: "contact",
@@ -198,25 +198,25 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates the selected user field with the parameters (entity type, field title, type, etc.) specified in the request
+        /// Updates the selected custom field with the parameters (entity type, field title, type, etc.) specified in the request.
         /// </summary>
-        /// <param name="id">User field id</param>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Entity type</param>
-        /// <param optional="false" name="label">Field title</param>
+        /// <param name="id">Custom field ID</param>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">New entity type</param>
+        /// <param optional="false" name="label">New field title</param>
         /// <param name="fieldType" 
-        /// remark="Allowed values: 0 (TextField),1 (TextArea),2 (SelectBox),3 (CheckBox),4 (Heading) or 5 (Date)">
-        ///   User field value
+        /// remark="Allowed values: 0 (TextField), 1 (TextArea), 2 (SelectBox), 3 (CheckBox), 4 (Heading) or 5 (Date)">
+        ///  New custom field type
         /// </param>
-        /// <param optional="true" name="position">Field position</param>
-        /// <param optional="true" name="mask" remark="Sent in json format only" >Mask</param>
-        /// <short> Updates the selected user field</short> 
-        /// <category>User fields</category>
+        /// <param optional="true" name="position">New field position</param>
+        /// <param optional="true" name="mask" remark="Sent in json format only" >New mask</param>
+        /// <short>Update a custom field</short> 
+        /// <category>Custom fields</category>
         /// <returns>
-        ///    User field
+        /// Updated custom field
         /// </returns>
         ///<remarks>
         /// <![CDATA[
-        ///  You can update field if there is no related elements. If such elements exist there will be updated only label and mask, other parameters will be ignored.
+        ///  You can update field if there are no related elements. If such elements exist, only label and mask will be updated. Other parameters will be ignored.
         /// ]]>
         /// </remarks>
         /// <exception cref="ArgumentException"></exception>
@@ -250,16 +250,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Deletes the user field with the ID specified in the request
+        /// Deletes a custom field with the ID specified in the request.
         /// </summary>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Type</param>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
         /// <param name="fieldid">Field ID</param>
-        /// <short>Delete user field</short> 
-        /// <category>User fields</category>
+        /// <short>Delete a custom field</short> 
+        /// <category>Custom fields</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    User field
+        /// Custom field
         /// </returns>
         [Delete(@"{entityType:(contact|person|company|opportunity|case)}/customfield/{fieldid:[0-9]+}")]
         public CustomFieldWrapper DeleteCustomField(string entityType, int fieldid)
@@ -282,13 +282,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Updates user fields order
+        /// Updates the custom field order with the custom field list specified in the request.
         /// </summary>
-        /// <param name="fieldids">User field ID list</param>
-        /// <param name="entityType" remark="Allowed values: contact,person,company,opportunity,case">Entity type</param>
-        /// <category>User fields</category>
+        /// <param name="fieldids">List of custom field IDs</param>
+        /// <param name="entityType" remark="Allowed values: contact, person, company, opportunity, case">Entity type</param>
+        /// <short>Update the custom field order</short> 
+        /// <category>Custom fields</category>
         /// <returns>
-        ///    User fields
+        /// Custom fields in the new order
         /// </returns>
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>

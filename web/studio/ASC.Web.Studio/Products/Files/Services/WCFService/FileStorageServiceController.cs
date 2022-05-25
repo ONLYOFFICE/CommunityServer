@@ -79,9 +79,9 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             {
                 var folder = folderDao.GetFolder(folderId);
-
                 ErrorIf(folder == null, FilesCommonResource.ErrorMassage_FolderNotFound);
                 ErrorIf(!FileSecurity.CanRead(folder), FilesCommonResource.ErrorMassage_SecurityException_ReadFolder);
+                EntryManager.SetIsFavoriteFolder(folder);
 
                 return folder;
             }
@@ -245,6 +245,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
 
             EntryManager.SetFileStatus(entries.OfType<File>().Where(r => r.ID != null).ToList());
+            EntryManager.SetIsFavoriteFolders(entries.OfType<Folder>().Where(r => r.ID != null).ToList());
 
             return new ItemList<FileEntry>(entries);
         }
@@ -313,6 +314,8 @@ namespace ASC.Web.Files.Services.WCFService
                     && !Equals(folder.RootFolderCreator, SecurityContext.CurrentAccount.ID)
                     && !Global.GetFilesSecurity().CanRead(folderDao.GetFolder(folder.ParentFolderID)))
                     folder.FolderIdDisplay = Global.FolderShare;
+
+                EntryManager.SetIsFavoriteFolder(folder);
 
                 return folder;
             }
@@ -421,7 +424,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("folders-files-createfile"), HttpGet]
-        public File CreateNewFile(String parentId, String title, String templateId)
+        public File CreateNewFile(String parentId, String title, String templateId, bool enableExternalExt = false)
         {
             using (var fileDao = GetFileDao())
             using (var folderDao = GetFolderDao())
@@ -453,7 +456,7 @@ namespace ASC.Web.Files.Services.WCFService
                 }
 
                 var fileExt = FileUtility.GetFileExtension(title);
-                if (fileExt != FileUtility.MasterFormExtension)
+                if (!enableExternalExt && fileExt != FileUtility.MasterFormExtension)
                 {
                     fileExt = FileUtility.GetInternalExtension(title);
                     if (!FileUtility.InternalExtension.Values.Contains(fileExt))
@@ -485,10 +488,21 @@ namespace ASC.Web.Files.Services.WCFService
                     try
                     {
                         var pathNew = path + "new" + fileExt;
-                        using (var stream = storeTemplate.GetReadStream("", pathNew))
+
+                        if (!enableExternalExt)
                         {
-                            file.ContentLength = stream.CanSeek ? stream.Length : storeTemplate.GetFileSize(pathNew);
-                            file = fileDao.SaveFile(file, stream);
+                            using (var stream = storeTemplate.GetReadStream("", pathNew))
+                            {
+                                file.ContentLength = stream.CanSeek ? stream.Length : storeTemplate.GetFileSize(pathNew);
+                                file = fileDao.SaveFile(file, stream);
+                            }
+                        }
+                        else
+                        {
+                            using (var stream = new MemoryStream())
+                            {
+                                file = fileDao.SaveFile(file, stream);
+                            }
                         }
 
                         var pathThumb = path + fileExt.Trim('.') + "." + Global.ThumbnailExtension;
@@ -896,8 +910,7 @@ namespace ASC.Web.Files.Services.WCFService
         {
             using (var fileDao = GetFileDao())
             {
-                File file;
-                var readLink = FileShareLink.Check(doc, true, fileDao, out file);
+                var readLink = FileShareLink.Check(doc, true, fileDao, out File file, out FileShare linkShare);
                 if (file == null)
                     file = fileDao.GetFile(fileId);
 
@@ -914,8 +927,7 @@ namespace ASC.Web.Files.Services.WCFService
         {
             using (var fileDao = GetFileDao())
             {
-                File file;
-                var readLink = FileShareLink.Check(doc, true, fileDao, out file);
+                var readLink = FileShareLink.Check(doc, true, fileDao, out File file, out FileShare linkShare);
 
                 if (file != null)
                 {
@@ -936,6 +948,7 @@ namespace ASC.Web.Files.Services.WCFService
 
                 var result = new EditHistoryData
                 {
+                    FileType = file.ConvertedExtension.Trim('.'),
                     Key = DocumentServiceHelper.GetDocKey(file),
                     Url = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(file, doc)),
                     Version = version,
@@ -945,12 +958,14 @@ namespace ASC.Web.Files.Services.WCFService
                 {
                     string previouseKey;
                     string sourceFileUrl;
+                    string sourceExt;
                     if (file.Version > 1)
                     {
                         var previousFileStable = fileDao.GetFileStable(file.ID, file.Version - 1);
                         ErrorIf(previousFileStable == null, FilesCommonResource.ErrorMassage_FileNotFound);
 
                         sourceFileUrl = PathProvider.GetFileStreamUrl(previousFileStable, doc);
+                        sourceExt = previousFileStable.ConvertedExtension;
 
                         previouseKey = DocumentServiceHelper.GetDocKey(previousFileStable);
                     }
@@ -971,16 +986,18 @@ namespace ASC.Web.Files.Services.WCFService
 
                         sourceFileUrl = storeTemplate.GetUri("", path).ToString();
                         sourceFileUrl = CommonLinkUtility.GetFullAbsolutePath(sourceFileUrl);
+                        sourceExt = fileExt.Trim('.');
 
                         previouseKey = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
                     }
 
                     result.Previous = new EditHistoryUrl
                     {
+                        FileType = sourceExt.Trim('.'),
                         Key = previouseKey,
                         Url = DocumentServiceConnector.ReplaceCommunityAdress(sourceFileUrl),
                     };
-                    result.ChangesUrl = PathProvider.GetFileChangesUrl(file, doc);
+                    result.ChangesUrl = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileChangesUrl(file, doc));
                 }
 
                 result.Token = DocumentServiceHelper.GetSignature(result);
@@ -1031,6 +1048,104 @@ namespace ASC.Web.Files.Services.WCFService
             return result;
         }
 
+        public EntryProperties GetFileProperties(String fileId)
+        {
+            using (var fileDao = GetFileDao())
+            {
+                fileDao.InvalidateCache(fileId);
+
+                var file = fileDao.GetFile(fileId);
+                ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
+                ErrorIf(!FileSecurity.CanRead(file), FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+
+                var properties = fileDao.GetProperties(fileId) ?? new EntryProperties();
+
+                if (properties.FormFilling != null)
+                {
+                    if (!FileSharing.CanSetAccess(file)
+                        || !FileUtility.CanWebRestrictedEditing(file.Title))
+                    {
+                        properties.FormFilling = null;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(properties.FormFilling.ToFolderId))
+                        {
+                            using (var folderDao = GetFolderDao())
+                            {
+                                var folder = folderDao.GetFolder(properties.FormFilling.ToFolderId);
+
+                                if (folder == null)
+                                {
+                                    properties.FormFilling.ToFolderId = null;
+                                }
+                                else if (FileSecurity.CanCreate(folder))
+                                {
+                                    properties.FormFilling.ToFolderPath = null;
+                                    var breadCrumbs = EntryManager.GetBreadCrumbs(folder.ID, folderDao);
+                                    properties.FormFilling.ToFolderPath = string.Join("/", breadCrumbs.Select(f => f.Title));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return properties;
+            }
+        }
+
+        public EntryProperties SetFileProperties(String fileId, EntryProperties fileProperties)
+        {
+            using (var fileDao = GetFileDao())
+            {
+                var file = fileDao.GetFile(fileId);
+                if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
+                if (!Global.GetFilesSecurity().CanEdit(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_RenameFile);
+                if (EntryManager.FileLockedForMe(file.ID)) throw new Exception(FilesCommonResource.ErrorMassage_LockedFile);
+                if (file.ProviderEntry) throw new Exception(FilesCommonResource.ErrorMassage_BadRequest);
+                if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
+
+                var currentProperies = fileDao.GetProperties(fileId) ?? new EntryProperties();
+                if (fileProperties != null)
+                {
+                    if (fileProperties.FormFilling != null)
+                    {
+                        if (!FileSharing.CanSetAccess(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException);
+                        if (!FileUtility.CanWebRestrictedEditing(file.Title)) throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
+
+                        if (currentProperies.FormFilling == null)
+                        {
+                            currentProperies.FormFilling = new EntryProperties.FormFillingProperties();
+                        }
+
+                        currentProperies.FormFilling.CollectFillForm = fileProperties.FormFilling.CollectFillForm;
+
+                        if (!string.IsNullOrEmpty(fileProperties.FormFilling.ToFolderId))
+                        {
+                            using (var folderDao = GetFolderDao())
+                            {
+                                var folder = folderDao.GetFolder(fileProperties.FormFilling.ToFolderId);
+
+                                ErrorIf(folder == null, FilesCommonResource.ErrorMassage_FolderNotFound);
+                                ErrorIf(!FileSecurity.CanCreate(folder), FilesCommonResource.ErrorMassage_SecurityException_Create);
+
+                                currentProperies.FormFilling.ToFolderId = folder.ID.ToString();
+                            }
+                        }
+
+                        currentProperies.FormFilling.CreateFolderTitle = Global.ReplaceInvalidCharsAndTruncate(fileProperties.FormFilling.CreateFolderTitle);
+
+                        currentProperies.FormFilling.CreateFileMask = fileProperties.FormFilling.CreateFileMask;
+                        currentProperies.FormFilling.FixFileMask();
+                    }
+
+                    fileDao.SaveProperties(file.ID, currentProperies);
+                }
+
+                return currentProperies;
+            }
+        }
+
         #endregion
 
         #region News
@@ -1075,7 +1190,7 @@ namespace ASC.Web.Files.Services.WCFService
             List<object> filesId;
             ParseArrayItems(items, out foldersId, out filesId);
 
-            return fileOperations.MarkAsRead(foldersId, filesId);
+            return fileOperations.MarkAsRead(foldersId, filesId, GetHttpHeaders());
         }
 
         #endregion
@@ -1116,11 +1231,11 @@ namespace ASC.Web.Files.Services.WCFService
                 var providersInfo = providerDao.GetProvidersInfo((FolderType)folderType);
 
                 var folders = providersInfo.Select(providerInfo =>
-                    {
-                        var folder = EntryManager.GetFakeThirdpartyFolder(providerInfo);
-                        folder.NewForMe = folder.RootFolderType == FolderType.COMMON ? 1 : 0;
-                        return folder;
-                    });
+                {
+                    var folder = EntryManager.GetFakeThirdpartyFolder(providerInfo);
+                    folder.NewForMe = folder.RootFolderType == FolderType.COMMON ? 1 : 0;
+                    return folder;
+                });
 
                 return new ItemList<Folder>(folders);
             }
@@ -1236,7 +1351,7 @@ namespace ASC.Web.Files.Services.WCFService
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
 
             FilesSettings.EnableThirdParty = enable;
-            FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsThirdPartySettingsUpdated);
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsThirdPartySettingsUpdated);
 
             return FilesSettings.EnableThirdParty;
         }
@@ -1383,6 +1498,8 @@ namespace ASC.Web.Files.Services.WCFService
         [ActionName("moveorcopy"), HttpPost]
         public ItemList<FileOperationResult> MoveOrCopyItems([FromBody] ItemList<string> items, string destFolderId, FileConflictResolveType resolve, bool ic, bool deleteAfter = false)
         {
+            ErrorIf(resolve == FileConflictResolveType.Overwrite && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(), FilesCommonResource.ErrorMassage_SecurityException);
+
             ItemList<FileOperationResult> result;
             if (items.Count != 0)
             {
@@ -1419,7 +1536,7 @@ namespace ASC.Web.Files.Services.WCFService
                 var foldersId = folderDao.GetFolders(trashId).Select(f => f.ID).ToList();
                 var filesId = fileDao.GetFiles(trashId).ToList();
 
-                return fileOperations.Delete(foldersId, filesId, false, true, false, GetHttpHeaders());
+                return fileOperations.Delete(foldersId, filesId, false, true, false, GetHttpHeaders(), true);
             }
         }
 
@@ -1652,6 +1769,10 @@ namespace ASC.Web.Files.Services.WCFService
                 var tags = entries.Select(entry => Tag.Favorite(SecurityContext.CurrentAccount.ID, entry));
 
                 tagDao.SaveTags(tags);
+                foreach (var entry in entries)
+                {
+                    FilesMessageService.Send(entry, HttpContext.Current.Request, MessageAction.FileMarkedAsFavorite, entry.Title);
+                }
 
                 return new ItemList<FileEntry>(entries);
             }
@@ -1676,6 +1797,11 @@ namespace ASC.Web.Files.Services.WCFService
                 var tags = entries.Select(entry => Tag.Favorite(SecurityContext.CurrentAccount.ID, entry));
 
                 tagDao.RemoveTags(tags);
+
+                foreach (var entry in entries)
+                {
+                    FilesMessageService.Send(entry, HttpContext.Current.Request, MessageAction.FileRemovedFromFavorite, entry.Title);
+                }
 
                 return new ItemList<FileEntry>(entries);
             }
@@ -1901,12 +2027,16 @@ namespace ASC.Web.Files.Services.WCFService
 
                     try
                     {
-                        var changed = FileSharing.SetAceObject(aceCollection.Aces, entry, notify, aceCollection.Message);
+                        var changed = FileSharing.SetAceObject(aceCollection.Aces, entry, notify, aceCollection.Message, aceCollection.AdvancedSettings);
                         if (changed)
                         {
-                            FilesMessageService.Send(entry, GetHttpHeaders(),
-                                                     entryType == FileEntryType.Folder ? MessageAction.FolderUpdatedAccess : MessageAction.FileUpdatedAccess,
-                                                     entry.Title);
+                            foreach (var ace in aceCollection.Aces)
+                            {
+                                var name = ace.SubjectGroup ? CoreContext.UserManager.GetGroupInfo(ace.SubjectId).Name : CoreContext.UserManager.GetUsers(ace.SubjectId).DisplayUserName(false);
+                                FilesMessageService.Send(entry, GetHttpHeaders(),
+                                                     entryType == FileEntryType.Folder ? MessageAction.FolderUpdatedAccessFor : MessageAction.FileUpdatedAccessFor,
+                                                     entry.Title, name, GetAccessString(ace.Share));
+                            }
                         }
                     }
                     catch (Exception e)
@@ -1943,6 +2073,17 @@ namespace ASC.Web.Files.Services.WCFService
                 entries.AddRange(foldersId.Select(folderDao.GetFolder));
 
                 FileSharing.RemoveAce(entries);
+                foreach (var entry in entries)
+                {
+                    if (entry.FileEntryType == FileEntryType.File)
+                    {
+                        FilesMessageService.Send(entry, GetHttpHeaders(), MessageAction.FileRemovedFromList, entry.Title);
+                    }
+                    else
+                    {
+                        FilesMessageService.Send(entry, GetHttpHeaders(), MessageAction.FolderRemovedFromList, entry.Title);
+                    }
+                }
             }
         }
 
@@ -1987,11 +2128,10 @@ namespace ASC.Web.Files.Services.WCFService
 
             try
             {
-
-                var changed = FileSharing.SetAceObject(aces, file, false, null);
+                var changed = FileSharing.SetAceObject(aces, file, false, null, null);
                 if (changed)
                 {
-                    FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdatedAccess, file.Title);
+                    FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileExternalLinkAccessUpdated, file.Title, GetAccessString(share));
                 }
             }
             catch (Exception e)
@@ -2106,8 +2246,14 @@ namespace ASC.Web.Files.Services.WCFService
                                     }
                             };
 
-                        showSharingSettings |= FileSharing.SetAceObject(aces, file, false, null);
-
+                        showSharingSettings |= FileSharing.SetAceObject(aces, file, false, null, null);
+                        if (showSharingSettings)
+                        {
+                            foreach (var ace in aces)
+                            {
+                                FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdatedAccessFor, file.Title, CoreContext.UserManager.GetUsers(ace.SubjectId).DisplayUserName(false), GetAccessString(ace.Share));
+                            }
+                        }
                         recipients.Add(recipient.ID);
                     }
                     catch (Exception e)
@@ -2119,11 +2265,6 @@ namespace ASC.Web.Files.Services.WCFService
                 {
                     recipients.Add(recipient.ID);
                 }
-            }
-
-            if (showSharingSettings)
-            {
-                FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdatedAccess, file.Title);
             }
 
             var fileLink = FilesLinkUtility.GetFileWebEditorUrl(file.ID);
@@ -2152,6 +2293,35 @@ namespace ASC.Web.Files.Services.WCFService
 
             var fileKeyPair = EncryptionKeyPair.GetKeyPair(fileId);
             return new ItemList<EncryptionKeyPair>(fileKeyPair);
+        }
+
+        [ActionName("external"), HttpGet]
+        public bool ChangeExternalShareSettings(bool enable)
+        {
+            ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
+
+            FilesSettings.ExternalShare = enable;
+
+            if (!enable)
+            {
+                FilesSettings.ExternalShareSocialMedia = false;
+            }
+
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsExternalShareSettingsUpdated);
+
+            return FilesSettings.ExternalShare;
+        }
+
+        [ActionName("externalsocialmedia"), HttpGet]
+        public bool ChangeExternalShareSocialMediaSettings(bool enable)
+        {
+            ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
+
+            FilesSettings.ExternalShareSocialMedia = FilesSettings.ExternalShare && enable;
+
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsExternalShareSettingsUpdated);
+
+            return FilesSettings.ExternalShareSocialMedia;
         }
 
         #endregion
@@ -2222,6 +2392,8 @@ namespace ASC.Web.Files.Services.WCFService
                         newFolder = folderDao.GetFolder(newFolderID);
                         newFolder.Access = folderAccess;
 
+                        EntryManager.SetIsFavoriteFolder(folder);
+
                         FilesMessageService.Send(newFolder, GetHttpHeaders(), MessageAction.FileChangeOwner, new[] { newFolder.Title, userInfo.DisplayUserName(false) });
                     }
                     entries.Add(newFolder);
@@ -2289,7 +2461,7 @@ namespace ASC.Web.Files.Services.WCFService
         public bool StoreOriginal(bool set)
         {
             FilesSettings.StoreOriginalFiles = set;
-            FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsUploadingFormatsSettingsUpdated);
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsUploadingFormatsSettingsUpdated);
 
             return FilesSettings.StoreOriginalFiles;
         }
@@ -2311,8 +2483,10 @@ namespace ASC.Web.Files.Services.WCFService
         [ActionName("updateifexist"), HttpGet]
         public bool UpdateIfExist(bool set)
         {
+            ErrorIf(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(), FilesCommonResource.ErrorMassage_SecurityException);
+
             FilesSettings.UpdateIfExist = set;
-            FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsOverwritingSettingsUpdated);
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsOverwritingSettingsUpdated);
 
             return FilesSettings.UpdateIfExist;
         }
@@ -2321,7 +2495,7 @@ namespace ASC.Web.Files.Services.WCFService
         public bool Forcesave(bool set)
         {
             FilesSettings.Forcesave = set;
-            FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsForcesave);
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsForcesave);
 
             return FilesSettings.Forcesave;
         }
@@ -2332,7 +2506,7 @@ namespace ASC.Web.Files.Services.WCFService
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
 
             FilesSettings.StoreForcesave = set;
-            FilesMessageService.Send(GetHttpHeaders(), MessageAction.DocumentsStoreForcesave);
+            MessageService.Send(GetHttpHeaders(), MessageAction.DocumentsStoreForcesave);
 
             return FilesSettings.StoreForcesave;
         }
@@ -2370,6 +2544,26 @@ namespace ASC.Web.Files.Services.WCFService
             FilesSettings.ConfirmDelete = set;
 
             return FilesSettings.ConfirmDelete;
+        }
+
+        public AutoCleanUpData ChangeAutomaticallyCleanUp(bool set, DateToAutoCleanUp gap)
+        {
+            FilesSettings.AutomaticallyCleanUp = new AutoCleanUpData() { IsAutoCleanUp = set, Gap = gap };
+
+            return FilesSettings.AutomaticallyCleanUp;
+        }
+
+        [ActionName("autocleanup"), HttpGet]
+        public AutoCleanUpData GetSettingsAutomaticallyCleanUp()
+        {
+            return FilesSettings.AutomaticallyCleanUp;
+        }
+
+        public List<FileShare> ChangeDafaultAccessRights(List<FileShare> value)
+        {
+            FilesSettings.DefaultSharingAccessRights = value;
+
+            return FilesSettings.DefaultSharingAccessRights;
         }
 
         [ActionName("downloadtargz"), HttpGet]
@@ -2485,6 +2679,24 @@ namespace ASC.Web.Files.Services.WCFService
                 return headers;
             }
             return null;
+        }
+
+        private static string GetAccessString(FileShare fileShare)
+        {
+            switch (fileShare)
+            {
+                case FileShare.Read:
+                case FileShare.ReadWrite:
+                case FileShare.CustomFilter:
+                case FileShare.Review:
+                case FileShare.FillForms:
+                case FileShare.Comment:
+                case FileShare.Restrict:
+                case FileShare.None:
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_" + fileShare.ToString());
+                default:
+                    return string.Empty;
+            }
         }
 
         #endregion

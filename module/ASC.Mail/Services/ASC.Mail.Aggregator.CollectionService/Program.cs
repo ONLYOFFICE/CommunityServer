@@ -35,9 +35,10 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             if (args.Any())
             {
-                Parser.Default.ParseArgumentsStrict(args, options,
-                                                                 () =>
-                                                                 Console.WriteLine(@"Bad command line parameters."));
+
+                Parser.Default.ParseArguments<Options>(args)
+                    .WithNotParsed(x => Console.WriteLine(@"Bad command line parameters."))
+                    .WithParsed(x => options = x);
             }
 
             if (Environment.UserInteractive || options.IsConsole)

@@ -33,10 +33,10 @@ namespace ASC.Api.MailServer
     public partial class MailServerApi
     {
         /// <summary>
-        ///    Returns list of the web domains associated with tenant
+        /// Returns a list of all the web domains associated with the current tenant.
         /// </summary>
-        /// <returns>List of WebDomainData for current tenant</returns>
-        /// <short>Get tenant web domain list</short> 
+        /// <returns>List of web domains for the current tenant</returns>
+        /// <short>Get web domains</short> 
         /// <category>Domains</category>
         [Read(@"domains/get")]
         public List<ServerDomainData> GetDomains()
@@ -54,9 +54,9 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Returns the common web domain
+        /// Returns the common web domain.
         /// </summary>
-        /// <returns>WebDomainData for common web domain</returns>
+        /// <returns>Common web domain</returns>
         /// <short>Get common web domain</short> 
         /// <category>Domains</category>
         [Read(@"domains/common")]
@@ -67,12 +67,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Associate a web domain with tenant
+        /// Adds a web domain to the current tenant.
         /// </summary>
-        /// <param name="name">web domain name</param>
-        /// <param name="id_dns"></param>
-        /// <returns>WebDomainData associated with tenant</returns>
-        /// <short>Add domain to mail server</short> 
+        /// <param name="name">Web domain name</param>
+        /// <param name="id_dns">DNS ID</param>
+        /// <returns>Web domain data associated with the tenant</returns>
+        /// <short>Add a domain to the mail server</short> 
         /// <category>Domains</category>
         [Create(@"domains/add")]
         public ServerDomainData AddDomain(string name, int id_dns)
@@ -83,11 +83,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Deletes the selected web domain
+        /// Deletes a web domain with the ID specified in the request from the mail server.
         /// </summary>
-        /// <param name="id">id of web domain</param>
-        /// <returns>MailOperationResult object</returns>
-        /// <short>Remove domain from mail server</short> 
+        /// <param name="id">Web domain ID</param>
+        /// <returns>Operation status</returns>
+        /// <short>Remove a domain from the mail server</short> 
         /// <category>Domains</category>
         [Delete(@"domains/remove/{id}")]
         public MailOperationStatus RemoveDomain(int id)
@@ -98,12 +98,12 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Returns dns records associated with domain
+        /// Returns DNS records related to the domain with the ID specified in the request.
         /// </summary>
-        /// <param name="id">id of domain</param>
-        /// <returns>Dns records associated with domain</returns>
-        /// <short>Returns dns records</short>
-        /// <category>DnsRecords</category>
+        /// <param name="id">Domain ID</param>
+        /// <returns>DNS records associated with the domain</returns>
+        /// <short>Get DNS records by domain ID</short>
+        /// <category>DNS records</category>
         [Read(@"domains/dns/get")]
         public ServerDomainDnsData GetDnsRecords(int id)
         {
@@ -113,11 +113,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Check web domain name existance
+        /// Checks if the web domain name specified in the request already exists or not.
         /// </summary>
-        /// <param name="name">web domain name</param>
-        /// <returns>True if domain name already exists.</returns>
-        /// <short>Is domain name exists.</short> 
+        /// <param name="name">Web domain name</param>
+        /// <returns>Boolean value: True - domain name exists, False - domain name does not exist</returns>
+        /// <short>Check the domain name existence</short> 
         /// <category>Domains</category>
         [Read(@"domains/exists")]
         public bool IsDomainExists(string name)
@@ -128,11 +128,11 @@ namespace ASC.Api.MailServer
         }
 
         /// <summary>
-        ///    Check web domain name ownership over txt record in dns
+        /// Checks if the web domain specified in the request belongs to the current user or not.
         /// </summary>
-        /// <param name="name">web domain name</param>
-        /// <returns>True if user is owner of this domain.</returns>
-        /// <short>Check domain ownership.</short> 
+        /// <param name="name">Web domain name</param>
+        /// <returns>Boolean value: True - current user is the domain owner, False - current user is not the domain owner</returns>
+        /// <short>Check the domain ownership</short> 
         /// <category>Domains</category>
         [Read(@"domains/ownership/check")]
         public bool CheckDomainOwnership(string name)

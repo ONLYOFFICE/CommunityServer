@@ -70,9 +70,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}Pengaturan Logo Portal{1} ​​fitur hanya tersedia untuk portal berbayar.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo untuk halaman Tentang/Login</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo untuk header editor</value>
   </data>

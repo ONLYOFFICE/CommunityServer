@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>The active users are the portal members with the exception of guests and users with the "disabled" status</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Add poll choice</value>
   </data>
@@ -91,20 +88,20 @@
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Attach a file from project documents</value>
   </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Shorten portal invitation links and links for shared documents using Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Log in to the portal using your social accounts and search for contacts</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Connect your favorite cloud storage services and store all your files in one place</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Call your customers directly from the CRM thanks to {0}ONLYOFFICE Twilio{1} integration</value>
-  </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonConfirmLogout" xml:space="preserve">
+    <value>Confirm Log out</value>
+  </data>
+  <data name="ButtonLogoutAndChangePassword" xml:space="preserve">
+    <value>Log out and Change Password</value>
+  </data>
+  <data name="ButtonLogout" xml:space="preserve">
+    <value>Log out</value>
   </data>
   <data name="ButtonCreatePresentation" xml:space="preserve">
     <value>Create Presentation</value>
@@ -130,6 +127,18 @@
   <data name="CompanyTitle" xml:space="preserve">
     <value>Company</value>
   </data>
+  <data name="ConfirmLogoutFromAllActiveConnections" xml:space="preserve">
+    <value>Log out from all active connections</value>
+  </data>
+  <data name="ConfirmLogoutFromAllActiveConnectionsNote" xml:space="preserve">
+    <value>Note. All active connections except this connection will be logged out, as it is currently in use.</value>
+  </data>
+  <data name="ConfirmLogoutFromAllActiveConnectionsSecurity" xml:space="preserve">
+    <value>For more security, you need to change your password.</value>
+  </data>
+  <data name="ConfirmLogoutFromActiveConnection" xml:space="preserve">
+    <value>Log out from active connection</value>
+  </data>
   <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
     <value>Save the file copy in the original format as well</value>
   </data>
@@ -138,6 +147,9 @@
   </data>
   <data name="ContactSupportBtn" xml:space="preserve">
     <value>Contact support</value>
+  </data>
+  <data name="CurrentConnection" xml:space="preserve">
+    <value>Current connection</value>
   </data>
   <data name="DeleteFile" xml:space="preserve">
     <value>Delete File</value>
@@ -193,8 +205,14 @@
   <data name="FeedEmptyCommunityDescription" xml:space="preserve">
     <value>Anything added to the Community module will be shown here. Users can share interesting information, thoughts and experiences with others, express their opinions, get feedback from the others' comments.</value>
   </data>
+  <data name="FeedEmptyPeopleDescription" xml:space="preserve">
+    <value>Anything added to the People module will be shown here. Users can share interesting information, thoughts and experiences with others, express their opinions, get feedback from the others' comments.</value>
+  </data>
   <data name="FeedEmptyCommunityHeader" xml:space="preserve">
     <value>No events have been added yet</value>
+  </data>
+  <data name="FeedEmptyPeopleHeader" xml:space="preserve">
+    <value>No People events have added yet</value>
   </data>
   <data name="FeedEmptyContactListDescription" xml:space="preserve">
     <value>The events for the CRM module available to you will be shown here. New companies and persons added or the existing edited, new cases, opportunities and tasks created - everything concerning CRM will go to this tab.</value>
@@ -325,6 +343,9 @@
   <data name="LogoutButton" xml:space="preserve">
     <value>Sign Out</value>
   </data>
+  <data name="LogoutFromAllActiveConnectionsButton" xml:space="preserve">
+    <value>Log out from all active connections</value>
+  </data>
   <data name="MediaViewerActualSize" xml:space="preserve">
     <value>Actual Size</value>
   </data>
@@ -393,6 +414,9 @@
   </data>
   <data name="NoComments" xml:space="preserve">
     <value>No comments</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>There is no data</value>
   </data>
   <data name="NotBeUndone" xml:space="preserve">
     <value>Note: this action cannot be undone.</value>
@@ -701,9 +725,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>For solving technical issues, use {0}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Basic price</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>See Avangate for the full list of currencies</value>
   </data>
@@ -716,14 +737,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Free</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Open full price list</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Would you like to choose a new pricing plan?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Time limited offer</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Yes, upgrade plan</value>
@@ -733,9 +748,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Year{2}{1} Subscription</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Year{1} Subscription</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>You are using a plan for nonprofit organization.</value>
@@ -776,17 +788,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 year</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>The offer is available for annual subscribers only. </value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Most Popular Subscription</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Adding a new portal will exceed the maximum number of portals allowed by your current pricing plan.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Save {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per user/mo</value>
@@ -811,9 +814,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Not enough free storage space</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>You are using ONLYOFFICE Enterprise Edition. {0}The current installation has been updated without a proper license provided.{1}{2} Please upload the updated license to continue using ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Choose the number of your teammates</value>

@@ -71,8 +71,8 @@ window.userFoldersPanel = (function($) {
             });
 
         createFolderLink = $("#userFoldersManage .link")
-            .unbind("click")
-            .bind("click", createFolder);
+            .off("click")
+            .on("click", createFolder);
 
         userFoldersManager.bind(userFoldersManager.events.OnCreate, onCreated);
         userFoldersManager.bind(userFoldersManager.events.OnUpdate, onEdited);
@@ -240,7 +240,7 @@ window.userFoldersPanel = (function($) {
         var nodeId = idPrefix + id;
 
         if (stateReady)
-            container.unbind("select_node.jstree");
+            container.off("select_node.jstree");
 
         unmarkAll();
 
@@ -252,7 +252,7 @@ window.userFoldersPanel = (function($) {
         selectedId = id;
 
         if (stateReady)
-            container.bind("select_node.jstree", onSelectNode);
+            container.on("select_node.jstree", onSelectNode);
     }
 
     function unmarkAll() {

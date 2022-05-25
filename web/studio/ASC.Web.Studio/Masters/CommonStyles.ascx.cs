@@ -54,6 +54,7 @@ namespace ASC.Web.Studio.Masters
                         "~/skins/default/jquery-advansedfilter-fix.less",
                         "~/skins/default/jquery-advansedselector.less",
                         "~/skins/default/jquery-emailadvansedselector.css",
+                        "~/skins/default/userselector.less",
                         "~/skins/default/codestyle.css");
         }
     }

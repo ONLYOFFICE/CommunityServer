@@ -62,5 +62,15 @@ namespace ASC.Feed.Aggregator.Modules
         {
             get { return "documents"; }
         }
+
+        public static Guid PeopleProductID
+        {
+            get { return WebItemManager.PeopleProductID; }
+        }
+
+        public static string PeopleProductName
+        {
+            get { return "people"; }
+        }
     }
 }

@@ -58,6 +58,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Əməliyyatlar</value>
+  </data>
   <data name="AddParticipants" xml:space="preserve">
     <value>Abonentləri idarə et</value>
   </data>
@@ -65,10 +68,13 @@
     <value>Bütün</value>
   </data>
   <data name="AllDepartments" xml:space="preserve">
-    <value>Bütün{!groups}</value>
+    <value>Bütün {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Əlaqəli tapşırıqlarla köçür</value>
   </data>
   <data name="AllUsers" xml:space="preserve">
-    <value>Bütün{!users}</value>
+    <value>Bütün {!users}</value>
   </data>
   <data name="AutoTimer" xml:space="preserve">
     <value>Xronometri Başla/Dayandır</value>
@@ -85,17 +91,104 @@
   <data name="AutoTimerStart" xml:space="preserve">
     <value>Başla</value>
   </data>
+  <data name="AverageProject" xml:space="preserve">
+    <value>LAyihənin orta bağlanma müddəti (saat)</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Layihələri</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Mobil tətbiqi sına</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Ləğv</value>
   </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Rəngi dəyişin</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Statuslar yalnız tapşırıqları yaradan istifadəçi üçün əlçatan olacaq</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>İkonu Dəyişin</value>
+  </data>
   <data name="Collapse" xml:space="preserve">
     <value>Gizlət</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Ümumi Parametrlər</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopyalayın</value>
   </data>
   <data name="CreateNewButton" xml:space="preserve">
     <value>Yaradın</value>
   </data>
   <data name="CreateProjectButtonText" xml:space="preserve">
     <value>Yeni bir layihəyə başla</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kateqoriya</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Təsvir</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Tapşırıq statusları üçün lazımi qayda təyin edin. Hər kateqoriyada ən azı bir status olmalıdır.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Yeni Status</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>Layihə strukturunu hazırlayın</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>Layihə və mərhələlər yaradın.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>Tapşırıqlar/alt-tapşırıqlar təyin edin. Fərdi statuslarla tapşırıqları qeyd edin.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>Son təhvil tarixlərini və prioritetləri təyin edin</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Giriş hüquqlarını idarəedin</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>Şəxsi layihələr yaradın</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>Mərhələlərə, tapşırıqlara, sənədlərə, müzakirələrə girişi məhdudlaşdırın</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>Layihələri kimin yaradacağını qərarlaşdırın - adminlər və ya bütün izləyicilər</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>Vaxt və gedişatı izləyin</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>Layihənizi Gantt Qrafiki ilə planlaşdırın</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>Xüsusi tapşırıqlara sərf edilmiş vaxtı izləyin.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>Avtomatik yaradın</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Daha çox vasitədən istifadə et</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>Müzakirələr və layihə şablonları yaradın.</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Sənədlər əlavə edin,</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>Layihələrinizi iOS cihazlarınızda işləyin.</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Tarix</value>
@@ -120,6 +213,9 @@
   </data>
   <data name="EmptyScreenContasctsHeader" xml:space="preserve">
     <value>Kontakt siyahısı boşdur</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Hər statusun başlığı olmalıdır</value>
   </data>
   <data name="Filter_NoProjects" xml:space="preserve">
     <value>Bu filtrə uyğun heç bir layihə yoxdur</value>
@@ -166,6 +262,9 @@
   <data name="Hide" xml:space="preserve">
     <value>Gizlət</value>
   </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Dayandırılmış Layihələrdə Elementləri Gizlədin</value>
+  </data>
   <data name="hintSubscribersPrivateProject" xml:space="preserve">
     <value>Bu istifadəçi müzakirəyə dair bildiriş almır, çünki bu layihə şəxsidir və istifadəçi layihə komandasının iştirakçısı deyil.</value>
   </data>
@@ -193,6 +292,9 @@
   <data name="ModuleName" xml:space="preserve">
     <value>Layihələr</value>
   </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Tapşırığı köçürün</value>
+  </data>
   <data name="NewCommentForMessage" xml:space="preserve">
     <value>Müzakirələrdə yeni şərhlər</value>
   </data>
@@ -204,6 +306,15 @@
   </data>
   <data name="NoData" xml:space="preserve">
     <value>Verilənlər yoxdur</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Tapşırıq başqa tapşırıqlarla əlaqələndirilib, onu silsəniz, bütün linklər silinəcək.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Linkləri silib köçürün</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Şəxsi Parametrlər</value>
   </data>
   <data name="PopupNoteUndone" xml:space="preserve">
     <value>Qeyd: Bu əyləm ediləndən sonra geri qaytarıla bilməz.</value>
@@ -219,6 +330,9 @@
   </data>
   <data name="ProductDescriptionEx" xml:space="preserve">
     <value>Komanda qurub tapşırıqları ayırın. Pillə planlayın, layihə çərçivəsində fəaliyyəti izləyin və hesabatlar yaradın.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Komanda yaradıb, tapşırıqları təyin edin. Layihə mərhələlərini planlaşdırın, layihə çərçivəsində fəaliyyəti izləyin və hesabatlar yaradın.</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>Layihələr</value>
@@ -237,6 +351,12 @@
   </data>
   <data name="RemoveMemberFromTeam" xml:space="preserve">
     <value>İstifadəçini komandadan sil</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Əvəz edin</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Qovluğu bildir</value>
   </data>
   <data name="ReportsModuleTitle" xml:space="preserve">
     <value>Hesabatlar</value>
@@ -262,14 +382,23 @@
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
   </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>İstənilən istifadəçi layihə yarada bilər</value>
+  </data>
   <data name="Show" xml:space="preserve">
     <value>Göstər</value>
   </data>
   <data name="ShowOnPage" xml:space="preserve">
     <value>Səhifədə göstər</value>
   </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>İstifadə olunmuş vaxt hesablanıb</value>
+  </data>
   <data name="SpentTotally" xml:space="preserve">
     <value>Xərclənən vaxt</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Başlanğıc Səhifə</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
@@ -279,6 +408,18 @@
   </data>
   <data name="TaskAddedMessage" xml:space="preserve">
     <value>Tapşırıq əlavə olundu</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Başlanğıc tarix bitmə tarixindən əvvəl olmalıdır</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Köçürmək istədiyiniz tapşırıq digər tapşırıqlarla əlaqəlidir.{0}Əməliyyatlardan birini seçin:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Tapşırıq Statusları</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Linkləri silib güncəlləyin</value>
   </data>
   <data name="TeamlabCutText" xml:space="preserve">
     <value>Siçan ilə əsas hissəni seçin və "Text Cut" basın ki, müzakirələr siyahısı olan səhifədə və xəbər lentində müzakirənin başlanğıcı görünsün.</value>
@@ -309,6 +450,12 @@
   </data>
   <data name="UnSubscribeOnNewComment" xml:space="preserve">
     <value>Şərhlərə abunəliyi ləğv et</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Son təhvil tarixini güncəllə</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Güncəlləmək istədiyiniz tapşırıq digər tapşırıqlarla əlaqəlidir.{0} Əməliyyatlardan birini seçin: </value>
   </data>
   <data name="WatermarkHours" xml:space="preserve">
     <value>ss</value>

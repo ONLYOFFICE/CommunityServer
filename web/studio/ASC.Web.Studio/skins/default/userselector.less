@@ -1,0 +1,348 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2021
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+.us-popup-dialog {
+    position: absolute;
+    border: 1px solid #D1D1D1;
+    background: #FFFFFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.35);
+    padding: 16px;
+    display: none;
+    width: 430px;
+    z-index: 2;
+}
+
+.us-dialog {
+    padding: 10px 10px 14px 10px;
+
+    .access-rights-container {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #ECECEC;
+        position: relative;
+
+        .access-rights-link {
+            margin-left: 8px;
+            position: relative;
+            cursor: pointer;
+
+            .access-rights-linktext {
+                margin: 0 24px 0 0;
+                border-bottom: 1px dotted;
+            }
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid;
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 9px;
+                margin-top: -2px;
+            }
+        }
+    }
+
+    .small-button-container {
+        margin-top: 12px;
+
+        .gray-text {
+            float: right;
+        }
+    }
+}
+
+.us-list-parent {
+    height: 240px;
+    overflow: auto;
+    user-select: none;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #BFBFBF transparent;
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .us-list {
+    }
+
+    .us-show-more-row {
+        height: 32px;
+        padding-left: 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    .us-name {
+        height: 32px;
+        padding-left: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        .us-avatar {
+            background-image: url(./images/svg/share/user_avatar.svg);
+            background-position: left center;
+            background-repeat: no-repeat;
+            background-size: 24px;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            border-radius: 12px;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .us-name-text {
+            overflow: hidden;
+            position: relative;
+            padding-right: 30px;
+            flex: 1;
+
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: inline-block;
+                width: 100%;
+            }
+        }
+
+        .us-access {
+            margin-left: auto;
+            position: relative;
+            width: 36px;
+            height: 24px;
+
+            &:not(.uneditable):after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 5px solid #696969;
+                border-bottom: none;
+                content: "";
+                position: absolute;
+                top: 10px;
+                right: 4px;
+            }
+        }
+
+        input[type=checkbox] {
+            margin-right: 8px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        &:not(.disabled):not(.selected):not(.unselectable):hover {
+            .us-avatar:before {
+                width: 24px;
+                height: 24px;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0.2;
+                background: #000;
+                border-radius: 12px;
+            }
+
+            .us-avatar:after {
+                border-right: 2px solid #fff;
+                border-bottom: 2px solid #fff;
+                opacity: 0.7;
+                width: 4px;
+                height: 8px;
+                transform: rotate(45deg);
+                content: "";
+                position: absolute;
+                top: 6px;
+                left: 10px;
+            }
+
+            .us-avatar:hover:before {
+                opacity: 0.4;
+            }
+        }
+
+        &.disabled {
+            cursor: default;
+            opacity: 0.5;
+        }
+
+        &.selected {
+            .us-avatar:before {
+                width: 24px;
+                height: 24px;
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0.5;
+                background: #000;
+                border-radius: 12px;
+            }
+
+            .us-avatar:after {
+                border-right: 2px solid #fff;
+                border-bottom: 2px solid #fff;
+                width: 4px;
+                height: 8px;
+                transform: rotate(45deg);
+                content: "";
+                position: absolute;
+                top: 6px;
+                left: 10px;
+            }
+        }
+
+        &.us-groupname {
+            .us-avatar {
+                background-image: url(./images/svg/share/group_avatar.svg);
+            }
+        }
+    }
+
+    .us-group {
+        .us-group-items {
+            padding-left: 22px;
+            display: none;
+        }
+    }
+
+    &:not(.rootonly) {
+        .us-group {
+            .us-groupname:not(.unopenable) .us-name-text:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 5px solid #696969;
+                border-bottom: none;
+                content: "";
+                position: absolute;
+                top: 6px;
+                right: 16px;
+            }
+
+            &.opened:not(.unopenable) {
+                .us-group-items {
+                    display: block;
+                }
+
+                .us-groupname .us-name-text:after {
+                    border-top: none;
+                    border-bottom: 5px solid #696969;
+                }
+            }
+        }
+    }
+}
+
+.us-access-rights-dialog {
+
+    .access-rights-item {
+        cursor: pointer;
+
+        &:hover {
+            background: #E9E9E9;
+        }
+
+        div {
+            padding-left: 32px;
+            padding-right: 8px;
+            height: 24px;
+            line-height: 24px;
+            background-position: 4px center;
+        }
+    }
+}
+
+.us-access {
+    background-image: url(./images/svg/share/access_owner.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+
+    &.uneditable {
+        cursor: default;
+    }
+
+    &.access-1 {
+        background-image: url(./images/svg/share/access_full.svg);
+    }
+
+    &.access-2 {
+        background-image: url(./images/svg/share/access_read.svg);
+    }
+
+    &.access-3 {
+        background-image: url(./images/svg/share/access_deny.svg);
+    }
+
+    &.access-4 {
+        background-image: url(./images/svg/share/access_varies.svg);
+    }
+
+    &.access-5 {
+        background-image: url(./images/svg/share/access_review.svg);
+    }
+
+    &.access-6 {
+        background-image: url(./images/svg/share/access_comment.svg);
+    }
+
+    &.access-7 {
+        background-image: url(./images/svg/share/access_form.svg);
+    }
+
+    &.access-8 {
+        background-image: url(./images/svg/share/access_filter.svg);
+    }
+}
+
+.us-search {
+    margin-bottom: 12px;
+    position: relative;
+
+    .textEdit {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 4px 24px 4px 4px;
+        height: 24px;
+        border-radius: 3px;
+    }
+
+    .clear-search {
+        background-image: url(./images/svg/share/close.svg);
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        display: none;
+        position: absolute;
+        background-repeat: no-repeat;
+        right: 6px;
+        top: 5px;
+        cursor: pointer;
+    }
+
+    &.active {
+        .clear-search {
+            display: block;
+        }
+    }
+}

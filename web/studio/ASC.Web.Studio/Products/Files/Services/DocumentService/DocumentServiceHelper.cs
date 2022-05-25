@@ -32,9 +32,11 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 
 using JWT;
+using JWT.Algorithms;
 
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
+using FileSecurity = ASC.Files.Core.Security.FileSecurity;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files.Services.DocumentService
@@ -231,6 +233,8 @@ namespace ASC.Web.Files.Services.DocumentService
                 EntryManager.SetFileStatus(file);
             }
 
+            var rightToDownload = CanDownload(fileSecurity, file, linkRight);
+
             configuration = new Configuration(file)
             {
                 Document =
@@ -244,7 +248,9 @@ namespace ASC.Web.Files.Services.DocumentService
                                     FillForms = rightToFillForms && lastVersion,
                                     Comment = rightToComment && lastVersion,
                                     ChangeHistory = rightChangeHistory,
-                                    ModifyFilter = rightModifyFilter
+                                    ModifyFilter = rightModifyFilter,
+                                    Print = rightToDownload,
+                                    Download = rightToDownload
                                 }
                         },
                 EditorConfig =
@@ -263,12 +269,40 @@ namespace ASC.Web.Files.Services.DocumentService
         }
 
 
+        private static bool CanDownload(FileSecurity fileSecurity, File file, FileShare linkRight)
+        {
+            if (!file.DenyDownload) return true;
+
+            var canDownload = linkRight != FileShare.Restrict && linkRight != FileShare.Read && linkRight != FileShare.Comment;
+
+            if (canDownload || SecurityContext.CurrentAccount.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID))
+            {
+                return canDownload;
+            }
+
+            if (linkRight == FileShare.Read || linkRight == FileShare.Comment)
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    file = fileDao.GetFile(file.ID); // reset Access prop
+                }
+            }
+
+            canDownload = fileSecurity.CanDownload(file);
+
+            return canDownload;
+        }
+
         public static string GetSignature(object payload)
         {
             if (string.IsNullOrEmpty(FileUtility.SignatureSecret)) return null;
 
-            JsonWebToken.JsonSerializer = new Web.Core.Files.DocumentService.JwtSerializer();
-            return JsonWebToken.Encode(payload, FileUtility.SignatureSecret, JwtHashAlgorithm.HS256);
+            var encoder = new JwtEncoder(new HMACSHA256Algorithm(),
+                                         new Web.Core.Files.DocumentService.JwtSerializer(),
+                                         new JwtBase64UrlEncoder());
+
+
+            return encoder.Encode(payload, FileUtility.SignatureSecret);
         }
 
 

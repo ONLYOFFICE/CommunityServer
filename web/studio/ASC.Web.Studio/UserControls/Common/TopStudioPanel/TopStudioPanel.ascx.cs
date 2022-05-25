@@ -25,6 +25,7 @@ using System.Web.UI;
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
@@ -89,7 +90,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 var width = TenantWhiteLabelSettings.logoDarkSize.Width / 2;
 
-                if (TenantLogoManager.WhiteLabelEnabled)
+                if (CoreContext.Configuration.Standalone && TenantLogoManager.WhiteLabelEnabled)
                 {
                     return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
                                          height, width, TenantLogoManager.GetLogoDark(general));
@@ -180,7 +181,8 @@ namespace ASC.Web.Studio.UserControls.Common
                 || !TenantExtra.EnableTariffSettings
                 || CoreContext.Configuration.Personal
                 || CurrentUser.IsVisitor()
-                || (!CurrentUser.IsAdmin() && (TariffSettings.HidePricingPage || CoreContext.Configuration.Standalone)))
+                || (!CurrentUser.IsAdmin() && (TariffSettings.HidePricingPage || CoreContext.Configuration.Standalone))
+                || (CurrentUser.IsAdmin() && CoreContext.Configuration.Standalone && TenantControlPanelSettings.Instance.LimitedAccess))
             {
                 DisableTariff = true;
             }

@@ -29,15 +29,6 @@ namespace ASC.Mail.EmlDownloader
 
             [Option('u', "uid", Required = false, HelpText = "Message uid for download.")]
             public string MessageUid { get; set; }
-
-            [ParserState]
-            public IParserState LastParserState { get; set; }
-
-            [HelpOption]
-            public string GetUsage()
-            {
-                return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-            }
         }
     }
 }

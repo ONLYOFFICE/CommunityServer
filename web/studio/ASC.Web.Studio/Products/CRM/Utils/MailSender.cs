@@ -154,7 +154,7 @@ namespace ASC.Web.CRM.Classes
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(_currUser));
+                SecurityContext.CurrentUser = _currUser;
 
                 smtpClient = GetSmtpClient();
 

@@ -388,7 +388,7 @@ namespace ASC.Mail.Core.Engine
                         log.Info("RemoveTeamlabMailbox()");
 
                         CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
-                        SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                        SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                         RemoveTeamlabMailbox(mailbox, log);
                     }

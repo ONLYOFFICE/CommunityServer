@@ -23,7 +23,7 @@ TransferManager = new function() {
 
         var $mainBlock = jq("#migrationPortal");
         if ($mainBlock.hasClass("disable")) {
-            $mainBlock.find("select, input").attr("disabled", "disabled");
+            $mainBlock.find("select, input").prop("disabled", true);
             $mainBlock.find(".button").addClass("disable");
         }
 

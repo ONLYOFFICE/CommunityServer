@@ -382,7 +382,7 @@ namespace ASC.Web.Projects.Test
             FactoryIndexer<ProjectsWrapper>.Delete(r => r.Match(a => a.Title, searchText));
 
             CoreContext.TenantManager.SetCurrentTenant(tenant.TenantId);
-            SecurityContext.AuthenticateMe(tenant.OwnerId);
+            SecurityContext.CurrentUser = tenant.OwnerId;;
 
             FactoryIndexer<ProjectsWrapper>.TrySelectIds(s => s.MatchAll(searchText), out result);
             CollectionAssert.IsEmpty(result);

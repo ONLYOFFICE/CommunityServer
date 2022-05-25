@@ -26,7 +26,7 @@ namespace ASC.Core.Tenants
         private static readonly Regex ValidDomain = new Regex("^[a-z0-9]([a-z0-9-]){1,98}[a-z0-9]$",
                                                               RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
-        private static readonly int MinLength;
+        public static readonly int MinLength;
         private const int MaxLength = 100;
 
         static TenantDomainValidator()

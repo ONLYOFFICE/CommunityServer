@@ -70,6 +70,9 @@
   <data name="AccessRightsSettings" xml:space="preserve">
     <value>Portala giriş hüququ</value>
   </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Qiymət əlavə et</value>
+  </data>
   <data name="AddNewTaskTemplate" xml:space="preserve">
     <value>Yeni tapşırıq şablonu əlavə et</value>
   </data>
@@ -79,8 +82,14 @@
   <data name="AddOption" xml:space="preserve">
     <value>Seçənək əlavə et</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Ünvan</value>
+  </data>
   <data name="AddTagInProgressing" xml:space="preserve">
     <value>Etiket əlavə et</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Kontaktların Əlaqələndirilməsi dialoqunu yenidən göstərməyin</value>
   </data>
   <data name="AddTaskTemplateContainer" xml:space="preserve">
     <value>Tapşırıq  şablonu konteyneri əlavə et</value>
@@ -93,6 +102,9 @@
   </data>
   <data name="AddThisCategory" xml:space="preserve">
     <value>Qeyd et</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Yadda saxla</value>
   </data>
   <data name="AddThisDealMilestone" xml:space="preserve">
     <value>Qeyd et</value>
@@ -115,14 +127,23 @@
   <data name="Authentication" xml:space="preserve">
     <value>Autentifikasiya</value>
   </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Əsas məlumat</value>
+  </data>
   <data name="BothPersonAndCompany" xml:space="preserve">
     <value>Şəxs və şirkət</value>
   </data>
   <data name="ChangeColor" xml:space="preserve">
     <value>Rəngi dəyiş</value>
   </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Kontaktların Əlaqələndirilməsi dialoqunu yenidən göstərməyin</value>
+  </data>
   <data name="ChangeIcon" xml:space="preserve">
     <value>İkonanı dəyişdir</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Loqonu dəyişin</value>
   </data>
   <data name="CheckBox" xml:space="preserve">
     <value>Yoxlama qutusu</value>
@@ -133,11 +154,17 @@
   <data name="CommonSettings" xml:space="preserve">
     <value>Ümumi ayarlar</value>
   </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Kontakt Növləri</value>
+  </data>
   <data name="CreateCategoryInProgressing" xml:space="preserve">
     <value>Kateqoriyanın yaradılması</value>
   </data>
   <data name="CreateContactStageInProgressing" xml:space="preserve">
     <value>Növün yaradılması</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Kontakt növü yaradılır</value>
   </data>
   <data name="CreateCustomField" xml:space="preserve">
     <value>Yeni istifadəçi sahəsi yaradın</value>
@@ -153,6 +180,12 @@
   </data>
   <data name="CreateNewCategoryListButton" xml:space="preserve">
     <value>Yeni kateqoriya</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Yeni kontakt növü yaradın</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Yeni Kontakt Növü</value>
   </data>
   <data name="CreateNewDealMilestone" xml:space="preserve">
     <value>Yeni mərhələ yarat</value>
@@ -178,8 +211,14 @@
   <data name="CreateNewTagListButton" xml:space="preserve">
     <value>Yeni etiket</value>
   </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Valyuta məzənnəsi</value>
+  </data>
   <data name="CurrencySettings" xml:space="preserve">
     <value>Valyuta ayarları</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Defolt valyutanı seçin ki, portalınızdakı CRM modulunda bütün imkanlar üçün "Yekun məbləğ" hesablana bilsin. Konvertasiya dərəcələri yalnız siyahıdakı valyutalar üçün etibarlıdır və "The Money Converter.com" saytından götürülmüşdür.{0}Bu valyuta faktura üçün istifadə olunacaq Məhsul və Xidmətlər kataloqunuzun valyutası olacaq.</value>
   </data>
   <data name="CustomFields" xml:space="preserve">
     <value>İstifadəçi sahələri</value>
@@ -202,14 +241,23 @@
   <data name="DeleteContactStage" xml:space="preserve">
     <value>Növü sil</value>
   </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Kontakt növünü silin</value>
+  </data>
   <data name="DeleteCustomField" xml:space="preserve">
     <value>Sahəni sil</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Seçilmiş sahə bütün məlumatlar ilə birlikdə bütün kontaktlardan silinəcək. Davam etmək istədiyinizə əminsiniz?</value>
   </data>
   <data name="DeleteDealMilestone" xml:space="preserve">
     <value>Mərhələni sil</value>
   </data>
   <data name="DeleteTag" xml:space="preserve">
     <value>Etiketi sil</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Kateqoriyanın silinməsinin təsdiqi</value>
   </data>
   <data name="DeleteTaskTemplate" xml:space="preserve">
     <value>Tapşırıq şablonunu sil</value>
@@ -228,6 +276,12 @@
   </data>
   <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
     <value>Verilən tipin kontaktı olmadığı halda kontakt tipini redaktə etmək və ya silmək mümkündür.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Kontakt növləri kontaktlarınızı şirkətdəki rollarına xarakterizə etməyə imkan verir. Əvvəlcədən təyin edilmiş kontakt növləri aşağıdakılardır: "Müştəri", "Rəqib", "Tərəfdaş", "Provayder".</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Siz kontakt növünü yalnız belə kontaktlar olmadıqda redaktə edə və ya silə bilərsiniz.</value>
   </data>
   <data name="DescriptionTextDealMilestone" xml:space="preserve">
     <value>Saziş mərhələləri anlaşmanın tammamlanması üçün gərəkli addımları təyin etməyinizi sağlayır. Örnək olaraq, "Kommersiya təklifi", "Öncədən ödəmə", "İcra" olaraq saziş mərhələləri əlavə edə bilərsiniz. Daşıyaraq saziş mərhələləri üçün lazımlıq sırasını ayarlayın.</value>
@@ -265,6 +319,9 @@
   <data name="EditContactStage" xml:space="preserve">
     <value>Növü redaktə et</value>
   </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Kontakt növünü redaktə edin</value>
+  </data>
   <data name="EditCustomField" xml:space="preserve">
     <value>Sahəni redaktə et</value>
   </data>
@@ -276,6 +333,9 @@
   </data>
   <data name="EditSelectedContactStage" xml:space="preserve">
     <value>«{0}» kontakt növünü redaktə et</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>"{0}" kontakt növünü redaktə edin</value>
   </data>
   <data name="EditSelectedDealMilestone" xml:space="preserve">
     <value>«{0}» saziş mərhələsini redaktə et</value>
@@ -364,6 +424,9 @@
   <data name="GenerateForm" xml:space="preserve">
     <value>Forma yarat</value>
   </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Defolt ayarları əldə edin</value>
+  </data>
   <data name="Heading" xml:space="preserve">
     <value>Başlıq</value>
   </data>
@@ -406,6 +469,9 @@
   <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
     <value>Konteynerin başlanğıcından say</value>
   </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Faktura loqosu</value>
+  </data>
   <data name="OtherFields" xml:space="preserve">
     <value>Digər sahələr</value>
   </data>
@@ -414,6 +480,9 @@
   </data>
   <data name="RemoveOption" xml:space="preserve">
     <value>Seçənəyi sil</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Defolta qaytarın</value>
   </data>
   <data name="ReturnURL" xml:space="preserve">
     <value>Yenidən yönləndirmə URL'i</value>
@@ -433,6 +502,9 @@
   <data name="SelectOptions" xml:space="preserve">
     <value>Seçimlər</value>
   </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Tapşırıqlarda cari kateqoriya ilə əvəz olunacaq kateqoriya seçin</value>
+  </data>
   <data name="SenderDisplayName" xml:space="preserve">
     <value>Göndərənin göstərilən adı</value>
   </data>
@@ -442,11 +514,20 @@
   <data name="SettingCustomFields" xml:space="preserve">
     <value>İstifadəçi sahələrini düzənlə</value>
   </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Fakturanıza yerləşdiriləcək təşkilatın faktura ünvanını göstərin. Siyahıdan {0}Ölkə{1} seçin və {0}Ünvan{1}, {0}Şəhər{1}, {0}Ştat{1} və {0}Poçt Kodu{1} sahələrini doldurun.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Təşkilatınızın defolt {0}loqosu{1} {0}fakturalarınızda{1} göstəriləcək. {3}Loqonu dəyişmək üçün "Loqonu dəyişdir" linkinə klikləyin və kompüterinizdə saxlanılan şəkli seçib portalınıza yükləyin. Nəzərə alın ki, siz {0}{4}x{5} pikseldən{1} böyük şəkil yükləyə bilməzsiniz, əks halda ölçü dəyişməsi qüvvəyə minəcək. Maksimum şəkil ölçüsü {0}{2}{1} olmalıdır.</value>
+  </data>
   <data name="Size" xml:space="preserve">
     <value>Ölçü</value>
   </data>
   <data name="SubmitFormData" xml:space="preserve">
     <value>Göndərilmiş verilənlər</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Bu başlıqda etiket artıq mövcuddur</value>
   </data>
   <data name="TaskTemplates" xml:space="preserve">
     <value>Tapşırıq şablonları</value>

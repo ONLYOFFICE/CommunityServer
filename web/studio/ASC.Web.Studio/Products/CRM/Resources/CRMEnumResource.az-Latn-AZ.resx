@@ -58,6 +58,105 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressCategory_Billing" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="AddressCategory_Home" xml:space="preserve">
+    <value>Ana səhifə</value>
+  </data>
+  <data name="AddressCategory_Office" xml:space="preserve">
+    <value>Ofis</value>
+  </data>
+  <data name="AddressCategory_Other" xml:space="preserve">
+    <value>Başqa</value>
+  </data>
+  <data name="AddressCategory_Postal" xml:space="preserve">
+    <value>Çatdırılma</value>
+  </data>
+  <data name="AddressCategory_Work" xml:space="preserve">
+    <value>İş</value>
+  </data>
+  <data name="AddressPart_City" xml:space="preserve">
+    <value>Şəhər</value>
+  </data>
+  <data name="AddressPart_Country" xml:space="preserve">
+    <value>Ölkə</value>
+  </data>
+  <data name="AddressPart_State" xml:space="preserve">
+    <value>Ştat</value>
+  </data>
+  <data name="AddressPart_Street" xml:space="preserve">
+    <value>Küçə</value>
+  </data>
+  <data name="AddressPart_Zip" xml:space="preserve">
+    <value>İndeks</value>
+  </data>
+  <data name="ContactInfoBaseCategory_Home" xml:space="preserve">
+    <value>Ana səhifə</value>
+  </data>
+  <data name="ContactInfoBaseCategory_Other" xml:space="preserve">
+    <value>Digər</value>
+  </data>
+  <data name="ContactInfoBaseCategory_Work" xml:space="preserve">
+    <value>İş</value>
+  </data>
+  <data name="ContactInfoType_Address" xml:space="preserve">
+    <value>Ünvan</value>
+  </data>
+  <data name="ContactInfoType_AIM" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="ContactInfoType_Blogger" xml:space="preserve">
+    <value>Bloqqer</value>
+  </data>
+  <data name="ContactInfoType_Email" xml:space="preserve">
+    <value>E-poçt</value>
+  </data>
+  <data name="ContactInfoType_Facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ContactInfoType_GMail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="ContactInfoType_ICQ" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="ContactInfoType_Jabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="ContactInfoType_LinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ContactInfoType_LiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="ContactInfoType_MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="ContactInfoType_MySpace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="ContactInfoType_Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="ContactInfoType_Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="ContactInfoType_Twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ContactInfoType_VK" xml:space="preserve">
+    <value>VK</value>
+  </data>
+  <data name="ContactInfoType_Website" xml:space="preserve">
+    <value>Veb sayt</value>
+  </data>
+  <data name="ContactInfoType_Yahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ContactListViewType_All" xml:space="preserve">
+    <value>Bütün şirkət və şəxslər</value>
+  </data>
   <data name="ContactListViewType_Company" xml:space="preserve">
     <value>Şirkətlər</value>
   </data>
@@ -67,6 +166,24 @@
   <data name="ContactListViewType_WithOpportunity" xml:space="preserve">
     <value>Mümkün sazişlərlə</value>
   </data>
+  <data name="CustomFieldType_CheckBox" xml:space="preserve">
+    <value>İşarələ</value>
+  </data>
+  <data name="CustomFieldType_Date" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="CustomFieldType_Heading" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="CustomFieldType_SelectBox" xml:space="preserve">
+    <value>Açılan siyahı</value>
+  </data>
+  <data name="CustomFieldType_TextArea" xml:space="preserve">
+    <value>Mətn sahəsi</value>
+  </data>
+  <data name="CustomFieldType_TextField" xml:space="preserve">
+    <value>Mətn sahəsi</value>
+  </data>
   <data name="DealMilestoneStatus_ClosedAndLost" xml:space="preserve">
     <value>Uğursuz şəkildə qapatıldı</value>
   </data>
@@ -75,5 +192,77 @@
   </data>
   <data name="DealMilestoneStatus_Open" xml:space="preserve">
     <value>Açıq</value>
+  </data>
+  <data name="EntityType_Case" xml:space="preserve">
+    <value>Əməliyyat</value>
+  </data>
+  <data name="EntityType_Company" xml:space="preserve">
+    <value>Şirkət</value>
+  </data>
+  <data name="EntityType_Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="EntityType_File" xml:space="preserve">
+    <value>Fayl</value>
+  </data>
+  <data name="EntityType_Invoice" xml:space="preserve">
+    <value>Faktura</value>
+  </data>
+  <data name="EntityType_Opportunity" xml:space="preserve">
+    <value>İmkan</value>
+  </data>
+  <data name="EntityType_Person" xml:space="preserve">
+    <value>Şəxs</value>
+  </data>
+  <data name="EntityType_RelationshipEvent" xml:space="preserve">
+    <value>Tarixçə</value>
+  </data>
+  <data name="EntityType_Task" xml:space="preserve">
+    <value>Tapşırıq</value>
+  </data>
+  <data name="HistoryCategorySystem_FilesUpload" xml:space="preserve">
+    <value>Fayllar yüklənir</value>
+  </data>
+  <data name="HistoryCategorySystem_MailMessage" xml:space="preserve">
+    <value>Poçt Mesajı</value>
+  </data>
+  <data name="HistoryCategorySystem_TaskClosed" xml:space="preserve">
+    <value>Tapşırıq bağlanıb</value>
+  </data>
+  <data name="InvoiceStatus_Archived" xml:space="preserve">
+    <value>Arxiv edin</value>
+  </data>
+  <data name="InvoiceStatus_Draft" xml:space="preserve">
+    <value>Qaralama</value>
+  </data>
+  <data name="InvoiceStatus_Overdue" xml:space="preserve">
+    <value>Vaxtı keçib</value>
+  </data>
+  <data name="InvoiceStatus_Paid" xml:space="preserve">
+    <value>Ödənişli</value>
+  </data>
+  <data name="InvoiceStatus_Rejected" xml:space="preserve">
+    <value>Rədd edildi</value>
+  </data>
+  <data name="InvoiceStatus_Sent" xml:space="preserve">
+    <value>Fakturalı</value>
+  </data>
+  <data name="PhoneCategory_Direct" xml:space="preserve">
+    <value>Birbaşa</value>
+  </data>
+  <data name="PhoneCategory_Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="PhoneCategory_Home" xml:space="preserve">
+    <value>Ana səhifə</value>
+  </data>
+  <data name="PhoneCategory_Mobile" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+  <data name="PhoneCategory_Other" xml:space="preserve">
+    <value>Digər</value>
+  </data>
+  <data name="PhoneCategory_Work" xml:space="preserve">
+    <value>İş</value>
   </data>
 </root>

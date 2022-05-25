@@ -1,0 +1,410 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2021
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+
+
+/*******************************************************************************
+    shareaccess
+*******************************************************************************/
+
+#sharingDialog {
+    width: 480px;
+}
+
+#sharingDialog.flat {
+    width: auto;
+}
+
+#sharingDialog.flat .top-button-container {
+    position: relative;
+}
+
+#sharingDialog.flat .us-popup-dialog {
+    width: calc(100vw - 48px);
+}
+
+#sharingDialog.flat .us-list-parent {
+    height: 40vh;
+}
+
+#sharingDialog.flat .dialog-content-container .content-list {
+    height: calc(100vh - 172px);
+    height: calc(var(--vh, 1vh) * 100 - 172px);
+}
+
+#sharingDialog.flat .dialog-content-container .content-list .us-name .us-name-text {
+    max-width: calc(100vw - 172px);
+}
+
+#sharingDialog .containerHeaderBlock td:first-of-type {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .user-button {
+    padding: 4px 10px 5px 30px;
+    background-image: url(./images/user.svg);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .user-button.disable {
+    background-blend-mode: hard-light;
+}
+
+
+#sharingDialog .dialog-content-container .top-button-container .link-button {
+    padding: 4px 10px 5px 33px;
+    background-image: url(./images/link.svg);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+#sharingDialog .dialog-content-container .top-button-container .link-button.disable {
+    background-blend-mode: hard-light;
+}
+
+
+#sharingDialog .dialog-content-container .us-hot-search {
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .dialog-content-container .us-hot-search .us-popup-dialog {
+    padding: 10px;
+}
+
+#sharingDialog .dialog-content-container .group-actions {
+    display: none;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .dialog-content-container .group-actions .contentMenu {
+    padding: 1px 0 2px 0;
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#sharingDialog .dialog-content-container .group-actions .menuActionClose {
+    font-size: 18px;
+    cursor: pointer;
+    float: right;
+    user-select: none;
+}
+
+#sharingDialog .dialog-content-container .content-list {
+    height: 310px;
+    overflow-y: scroll;
+    overflow-x: auto;
+    margin-right: -16px;
+    padding-right: 0;
+}
+
+@-moz-document url-prefix() {
+    #sharingDialog .dialog-content-container .content-list {
+        margin-right: -16px;
+        padding-right: 8px;
+    }
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text {
+    flex: unset;
+    line-height: 16px;
+    max-width: 320px;
+    display: flex;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-groupname .us-name-text span,
+#sharingDialog .dialog-content-container .content-list .us-name.changeable .us-name-text span {
+    border-bottom: 1px dotted transparent;
+}
+
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-groupname:not(.disabled):not(.unopenable):hover .us-name-text span,
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-linkname:not(.disabled) .us-name-text span,
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-name.changeable:not(.disabled):hover .us-name-text span {
+    border-bottom: 1px dotted;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text span {
+    width: auto;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name .us-name-text i {
+    font-size: 11px;
+    font-style: normal;
+    margin-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
+    display: none;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname.shortened .us-name-text i,
+#sharingDialog .dialog-content-container .content-list .us-name.individual .us-name-text i {
+    display: inline;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname {
+    border-bottom: 1px solid #ECECEC;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-linkname .us-avatar {
+    background-image: url(./images/link.svg);
+    background-size: 18px 18px;
+    background-position: 3px center;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name {
+    cursor: default;
+}
+
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-linkname:not(.disabled),
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-groupname:not(.disabled):not(.unopenable),
+#sharingDialog .dialog-content-container .content-list:not(.rootonly) .us-name.changeable:not(.disabled) .us-name-text span {
+    cursor: pointer;
+}
+
+#sharingDialog .dialog-content-container .content-list .us-name:not(.disabled) .us-avatar,
+#sharingDialog .dialog-content-container .content-list .us-name:not(.disabled):not(.uneditable) .us-access {
+    cursor: pointer;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-access-rights-dialog {
+    right: 8px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-action-dialog {
+    left: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog {
+    left: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-around input {
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-left: 4px;
+    background-color: #ccc;
+    background-image: url("images/link_via.png");
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a:hover {
+    background-color: #83888d;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.mail {
+    background-position-x: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.facebook {
+    background-position-x: -44px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-social a.twitter {
+    background-position-x: -66px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-share-dialog .link-share-action-block .link-share-actions .link {
+    margin-left: 6px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog {
+    left: 0;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog th {
+    font-weight: normal;
+    padding-bottom: 4px;
+    text-align: left;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-space {
+    width: 65px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item {
+    cursor: pointer;
+    margin-right: 2px;
+    padding: 2px 6px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item:hover {
+    background-color: #e5e5e5;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item.selected {
+    background-color: #f2f2f2;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-item.selected span {
+    border-bottom: none;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .embed-size-custom {
+    padding: 3px;
+    width: 45px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around input {
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .dialog-content-container .content-list .link-embed-dialog .link-embed-around .link {
+    margin: 0 6px;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-tooltip-dialog {
+    width: 330px;
+    left: 36px;
+}
+
+#sharingDialog .dialog-content-container .content-list .item-tooltip-dialog .UserInfoBlock {
+    margin: 0px;
+    padding: 0px;
+}
+
+#sharingDialog .dialog-content-container .empty-list {
+    margin-top: -150px;
+    text-align: center;
+}
+
+#sharingDialog .bottom-button-container .button.blue:first-child,
+#sharingDialog .bottom-button-container .button.gray {
+    padding-left: 18px;
+    padding-right: 18px;
+    height: 24px;
+    box-sizing: border-box;
+}
+
+#sharingDialog .bottom-button-container .button.main-part {
+    border-radius: 3px 0 0 3px;
+}
+
+#sharingDialog .bottom-button-container .button.arrow-part {
+    position: relative;
+    padding: 0;
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 0 3px 3px 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+}
+
+#sharingDialog .bottom-button-container .button.arrow-part::after {
+    border-top: none;
+    border-bottom: 4px solid #FFFFFF;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    position: absolute;
+    right: 8px;
+    top: 10px;
+}
+
+#sharingDialog .bottom-button-container .settings-link {
+    float: right;
+    padding: 3px 0 4px 20px;
+    background-image: url(./images/settings.svg);
+    background-position: 4px center;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    user-select: none;
+}
+
+#sharingDialog .bottom-button-container .settings-link.disable {
+    opacity: 0.5;
+}
+
+#sharingDialog .bottom-button-container .settings-link.disable .link {
+    cursor: default;
+}
+
+#sharingDialog .save-action-dialog {
+    bottom: 28px;
+}
+
+#sharingDialog .message-dialog {
+    bottom: -12px;
+}
+
+#sharingDialog .message-dialog textarea {
+    height: 70px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    resize: none;
+}
+
+#sharingDialog .advanced-settings-dialog {
+    bottom: 40px;
+}
+
+#sharingDialog .advanced-settings-dialog .advanced-settings-dialog-hdr {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+#sharingDialog .advanced-settings-dialog label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#sharingDialog .advanced-settings-dialog label input[type=checkbox] {
+    margin: 0 8px 0 0;
+    vertical-align: middle;
+}

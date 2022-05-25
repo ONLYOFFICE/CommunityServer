@@ -87,7 +87,7 @@
             if (typeof e == "undefined" || !e) {
                 return true;
             }
-            $(window).click(); // initiate global event for other dropdowns close
+            $(window).trigger("click"); // initiate global event for other dropdowns close
 
             var target = $(e.srcElement || e.target),
                 id = target.is(".entity-menu") ? target.attr("data_id") : target.closest(".row").attr("data_id");
@@ -115,6 +115,8 @@
             var $this = $(this),
                 amData = $this.data('actionMenu');
 
+            if (!amData) return;
+
             amData['hide']();
             $this.removeData('actionMenu');
         }
@@ -123,7 +125,7 @@
     var showActionMenu = function(dropdownItemId, items, id) {
 
         items.forEach(function(item) {
-            $(item.selector).unbind("click").bind("click", function(event) {
+            $(item.selector).off("click").on("click", function(event) {
                 if ($(this).hasClass('disable')) {
                     event.stopPropagation();
                     return;

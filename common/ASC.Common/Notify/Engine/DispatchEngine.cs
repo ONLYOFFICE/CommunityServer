@@ -21,6 +21,8 @@ using System.Configuration;
 using ASC.Common.Logging;
 using ASC.Notify.Messages;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
+
 namespace ASC.Notify.Engine
 {
     public class DispatchEngine

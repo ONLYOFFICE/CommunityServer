@@ -772,6 +772,11 @@ namespace ASC.Projects.Engine
             if (!CanEdit(task, subtask)) throw CreateSecurityException();
         }
 
+        public void DemandCreateSubtask(Task task)
+        {
+            if (!CanCreateSubtask(task)) throw CreateSecurityException();
+        }
+
         public void DemandDelete<T>(T entity) where T : DomainObject<int>
         {
             if (!CanDelete(entity)) throw CreateSecurityException();

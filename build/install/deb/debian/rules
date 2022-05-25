@@ -15,6 +15,8 @@ override_dh_systemd_enable:
 	dh_systemd_enable --name={{package_sysname}}Telegram
 	dh_systemd_enable --name={{package_sysname}}Thumb
 	dh_systemd_enable --name={{package_sysname}}UrlShortener
+	dh_systemd_enable --name={{package_sysname}}AutoCleanUp
+	dh_systemd_enable --name={{package_sysname}}WebDav
 	dh_systemd_enable --name={{package_sysname}}Radicale
 	dh_systemd_enable --name={{package_sysname}}Index
 	dh_systemd_enable --name={{package_sysname}}Notify
@@ -24,6 +26,7 @@ override_dh_systemd_enable:
 	dh_systemd_enable --name={{package_sysname}}MailAggregator
 	dh_systemd_enable --name={{package_sysname}}MailWatchdog
 	dh_systemd_enable --name={{package_sysname}}MailCleaner
+	dh_systemd_enable --name={{package_sysname}}MailImap
 	dh_systemd_enable --name={{package_sysname}}ThumbnailBuilder
 	dh_systemd_enable --name={{package_sysname}}SsoAuth
 	dh_systemd_enable --name=god
@@ -36,6 +39,8 @@ override_dh_installinit:
 	dh_installinit --name={{package_sysname}}Telegram
 	dh_installinit --name={{package_sysname}}Thumb
 	dh_installinit --name={{package_sysname}}UrlShortener
+	dh_installinit --name={{package_sysname}}AutoCleanUp
+	dh_installinit --name={{package_sysname}}WebDav
 	dh_installinit --name={{package_sysname}}Radicale
 	dh_installinit --name={{package_sysname}}Index
 	dh_installinit --name={{package_sysname}}Notify
@@ -45,6 +50,7 @@ override_dh_installinit:
 	dh_installinit --name={{package_sysname}}MailAggregator
 	dh_installinit --name={{package_sysname}}MailWatchdog
 	dh_installinit --name={{package_sysname}}MailCleaner
+	dh_installinit --name={{package_sysname}}MailImap
 	dh_installinit --name={{package_sysname}}ThumbnailBuilder
 	dh_installinit --name={{package_sysname}}SsoAuth
 	dh_installinit --name=god
@@ -57,6 +63,8 @@ override_dh_systemd_start:
 	dh_systemd_start --name={{package_sysname}}Telegram
 	dh_systemd_start --name={{package_sysname}}Thumb
 	dh_systemd_start --name={{package_sysname}}UrlShortener
+	dh_systemd_start --name={{package_sysname}}AutoCleanUp
+	dh_systemd_start --name={{package_sysname}}WebDav
 	dh_systemd_start --name={{package_sysname}}Radicale
 	dh_systemd_start --name={{package_sysname}}Index
 	dh_systemd_start --name={{package_sysname}}Notify
@@ -66,6 +74,7 @@ override_dh_systemd_start:
 	dh_systemd_start --name={{package_sysname}}MailAggregator
 	dh_systemd_start --name={{package_sysname}}MailWatchdog
 	dh_systemd_start --name={{package_sysname}}MailCleaner
+	dh_systemd_start --name={{package_sysname}}MailImap
 	dh_systemd_start --name={{package_sysname}}ThumbnailBuilder
 	dh_systemd_start --name={{package_sysname}}SsoAuth
 	dh_systemd_start --name=god

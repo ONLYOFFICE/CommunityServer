@@ -168,11 +168,11 @@ namespace ASC.Feed.Aggregator.Modules.Community
                 Product = Product,
                 Module = Name,
                 Title = post.Topic.Title,
-                Description = HtmlUtility.GetFull(post.Text),
+                Description = HtmlUtility.GetFull(post.Text, false),
                 ExtraLocation = post.Topic.ThreadTitle,
                 ExtraLocationUrl = CommonLinkUtility.ToAbsolute(threadUrl),
                 Keywords = string.Format("{0} {1}", post.Topic.Title, post.Text),
-                HasPreview = false,
+                HasPreview = post.Text.Contains("class=\"asccut\""),
                 CanComment = false,
                 GroupId = GetGroupId(item, post.Topic.PosterID, post.Topic.ThreadID.ToString(CultureInfo.InvariantCulture))
             };

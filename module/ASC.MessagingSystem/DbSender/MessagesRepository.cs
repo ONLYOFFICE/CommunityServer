@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 
@@ -37,39 +38,75 @@ namespace ASC.MessagingSystem.DbSender
     internal class MessagesRepository
     {
         private const string MessagesDbId = "default";
-        private static DateTime lastSave = DateTime.UtcNow;
-        private static readonly TimeSpan CacheTime;
-        private static readonly IDictionary<string, EventMessage> Cache;
-        private static Parser Parser { get; set; }
-        private static readonly Timer Timer;
-        private static bool timerStarted;
+        private DateTime lastSave = DateTime.UtcNow;
+        private readonly TimeSpan CacheTime;
+        private readonly int CacheLimit;
+        private readonly IDictionary<string, EventMessage> Cache;
+        private readonly Timer Timer;
+        private bool timerStarted;
 
         private const string LoginEventsTable = "login_events";
         private const string AuditEventsTable = "audit_events";
-        private static readonly Timer ClearTimer;
+        private readonly Timer ClearTimer;
 
-        static MessagesRepository()
+        public MessagesRepository()
         {
-            CacheTime = TimeSpan.FromMinutes(1);
             Cache = new Dictionary<string, EventMessage>();
-            Parser = Parser.GetDefault();
             Timer = new Timer(FlushCache);
             timerStarted = false;
 
             ClearTimer = new Timer(DeleteOldEvents);
             ClearTimer.Change(new TimeSpan(0), TimeSpan.FromDays(1));
+
+            var minutes = ConfigurationManagerExtension.AppSettings["messaging.CacheTimeFromMinutes"];
+            var limit = ConfigurationManagerExtension.AppSettings["messaging.CacheLimit"];
+
+            CacheTime = Int32.TryParse(minutes, out var cacheTime) ? TimeSpan.FromMinutes(cacheTime) : TimeSpan.FromMinutes(1);
+            CacheLimit = Int32.TryParse(limit, out var cacheLimit) ? cacheLimit : 100;
         }
 
-        public static void Add(EventMessage message)
+        ~MessagesRepository()
+        {
+            FlushCache(true);
+        }
+
+        private bool ForseSave(EventMessage message)
         {
             // messages with action code < 2000 are related to login-history
-            if ((int)message.Action < 2000)
+            if ((int)message.Action < 2000) return true;
+
+            return message.Action == MessageAction.UserSentPasswordChangeInstructions;
+        }
+
+
+        public int Add(EventMessage message)
+        {
+            if (ForseSave(message))
             {
+                int id = 0;
+                if (!string.IsNullOrEmpty(message.UAHeader))
+                {
+                    try
+                    {
+                        MessageSettings.AddInfoMessage(message);
+                    }
+                    catch (Exception e)
+                    {
+                        LogManager.GetLogger("ASC").Error("Add " + message.Id, e);
+                    }
+                }
                 using (var db = DbManager.FromHttpContext(MessagesDbId))
                 {
-                    AddLoginEvent(message, db);
+                    if ((int)message.Action < 2000)
+                    {
+                        id = AddLoginEvent(message, db);
+                    }
+                    else
+                    {
+                        id = AddAuditEvent(message, db);
+                    }
                 }
-                return;
+                return id;
             }
 
             var now = DateTime.UtcNow;
@@ -85,14 +122,19 @@ namespace ASC.MessagingSystem.DbSender
                     timerStarted = true;
                 }
             }
-
+            return 0;
         }
 
-        private static void FlushCache(object state)
+        private void FlushCache(object state)
+        {
+            FlushCache(false);
+        }
+
+        private void FlushCache(bool isDisposed = false)
         {
             List<EventMessage> events = null;
 
-            if (CacheTime < DateTime.UtcNow - lastSave || Cache.Count > 100)
+            if (DateTime.UtcNow > lastSave.Add(CacheTime) || Cache.Count > CacheLimit || isDisposed)
             {
                 lock (Cache)
                 {
@@ -118,24 +160,7 @@ namespace ASC.MessagingSystem.DbSender
                     {
                         try
                         {
-
-                            ClientInfo clientInfo;
-
-                            if (dict.ContainsKey(message.UAHeader))
-                            {
-                                clientInfo = dict[message.UAHeader];
-                            }
-                            else
-                            {
-                                clientInfo = Parser.Parse(message.UAHeader);
-                                dict.Add(message.UAHeader, clientInfo);
-                            }
-
-                            if (clientInfo != null)
-                            {
-                                message.Browser = GetBrowser(clientInfo);
-                                message.Platform = GetPlatform(clientInfo);
-                            }
+                            MessageSettings.AddInfoMessage(message, dict);
                         }
                         catch (Exception e)
                         {
@@ -143,10 +168,13 @@ namespace ASC.MessagingSystem.DbSender
                         }
                     }
 
-                    // messages with action code < 2000 are related to login-history
-                    if ((int)message.Action >= 2000)
+                    if (!ForseSave(message))
                     {
-                        AddAuditEvent(message, db);
+                        // messages with action code < 2000 are related to login-history
+                        if ((int)message.Action < 2000)
+                            AddLoginEvent(message, db);
+                        else
+                            AddAuditEvent(message, db);
                     }
                 }
 
@@ -154,9 +182,10 @@ namespace ASC.MessagingSystem.DbSender
             }
         }
 
-        private static void AddLoginEvent(EventMessage message, IDbManager dbManager)
+        private int AddLoginEvent(EventMessage message, IDbManager dbManager)
         {
             var i = new SqlInsert("login_events")
+                .InColumnValue("id", 0)
                 .InColumnValue("ip", message.IP)
                 .InColumnValue("login", message.Initiator)
                 .InColumnValue("browser", message.Browser)
@@ -165,7 +194,8 @@ namespace ASC.MessagingSystem.DbSender
                 .InColumnValue("tenant_id", message.TenantId)
                 .InColumnValue("user_id", message.UserId)
                 .InColumnValue("page", message.Page)
-                .InColumnValue("action", message.Action);
+                .InColumnValue("action", message.Action)
+                .InColumnValue("active", message.Active);
 
             if (message.Description != null && message.Description.Any())
             {
@@ -176,12 +206,16 @@ namespace ASC.MessagingSystem.DbSender
                     }));
             }
 
-            dbManager.ExecuteNonQuery(i);
+            i = i.Identity(0, 0, true);
+
+            var id = dbManager.ExecuteScalar<int>(i);
+            return id;
         }
 
-        private static void AddAuditEvent(EventMessage message, IDbManager dbManager)
+        private int AddAuditEvent(EventMessage message, IDbManager dbManager)
         {
             var i = new SqlInsert("audit_events")
+                .InColumnValue("id", 0)
                 .InColumnValue("ip", message.IP)
                 .InColumnValue("initiator", message.Initiator)
                 .InColumnValue("browser", message.Browser)
@@ -203,10 +237,13 @@ namespace ASC.MessagingSystem.DbSender
 
             i.InColumnValue("target", message.Target == null ? null : message.Target.ToString());
 
-            dbManager.ExecuteNonQuery(i);
+            i = i.Identity(0, 0, true);
+
+            var id = dbManager.ExecuteScalar<int>(i);
+            return id;
         }
 
-        private static IList<string> GetSafeDescription(IEnumerable<string> description)
+        private IList<string> GetSafeDescription(IEnumerable<string> description)
         {
             const int maxLength = 15000;
 
@@ -230,22 +267,7 @@ namespace ASC.MessagingSystem.DbSender
             return safe;
         }
 
-        private static string GetBrowser(ClientInfo clientInfo)
-        {
-            return clientInfo == null
-                       ? null
-                       : string.Format("{0} {1}", clientInfo.UA.Family, clientInfo.UA.Major);
-        }
-
-        private static string GetPlatform(ClientInfo clientInfo)
-        {
-            return clientInfo == null
-                       ? null
-                       : string.Format("{0} {1}", clientInfo.OS.Family, clientInfo.OS.Major);
-        }
-
-
-        private static void DeleteOldEvents(object state)
+        private void DeleteOldEvents(object state)
         {
             try
             {
@@ -258,9 +280,9 @@ namespace ASC.MessagingSystem.DbSender
             }
         }
 
-        private static void GetOldEvents(string table, string settings)
+        private void GetOldEvents(string table, string settings)
         {
-            var sqlQueryLimit = string.Format("(IFNULL((SELECT JSON_EXTRACT(`Data`, '$.{0}') from webstudio_settings where tt.id = TenantID and id='{1}'), {2})) as tout", settings, TenantAuditSettings.LoadForDefaultTenant().ID, TenantAuditSettings.MaxLifeTime);
+            var sqlQueryLimit = string.Format("(IFNULL((SELECT JSON_EXTRACT(`Data`, '$.{0}') from webstudio_settings where tt.id = TenantID and id='{1}'), {2})) as tout", settings, new TenantAuditSettings().ID, TenantAuditSettings.MaxLifeTime);
             var query = new SqlQuery(table + " t1")
                 .Select("t1.id")
                 .Select(sqlQueryLimit)

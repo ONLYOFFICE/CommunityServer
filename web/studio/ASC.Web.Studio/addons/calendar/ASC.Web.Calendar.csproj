@@ -54,11 +54,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
+      <Version>4.7.11</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\CalendarAddon.cs" />
+    <Compile Include="Configuration\CalendarSpaceUsageStatManager.cs" />
+    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
+      <DependentUpon>DocumentsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
+      <DependentUpon>DocumentsPopup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -66,6 +74,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\FilesUploader.cs" />
     <Compile Include="Notification\CalendarSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\CalendarControl.ascx.cs">
@@ -338,6 +347,9 @@
     <Content Include="App_Themes\default\images\disabledlogo.png" />
     <Content Include="App_Themes\default\images\minilogo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.png" />
+    <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
+    <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
+    <Content Include="Controls\DocumentsPopup\js\documentspopup.js" />
     <Content Include="Default.aspx" />
     <Content Include="UserControls\CalendarTemplates.ascx" />
     <Content Include="UserControls\CalendarControl.ascx" />
@@ -379,9 +391,12 @@
     <Content Include="App_Themes\deep-blue\calendar.less" />
     <Content Include="App_Themes\pure-orange\calendar.less" />
     <Content Include="App_Themes\wild-pink\calendar.less" />
+    <Content Include="UserControls\fullcalendar\css\attachments.less" />
+    <Content Include="Controls\DocumentsPopup\css\documentspopup.less" />
     <None Include="UserControls\fullcalendar\css\fullcalendar.less" />
     <Content Include="UserControls\fullcalendar\css\fullcalendar.print.css" />
     <Content Include="UserControls\fullcalendar\fullcalendar.js" />
+    <Content Include="UserControls\fullcalendar\img\base_sprite.png" />
     <Content Include="UserControls\fullcalendar\img\calendar_16.png" />
     <Content Include="UserControls\fullcalendar\img\circle-close.png" />
     <Content Include="UserControls\fullcalendar\img\edit_pencil.png" />
@@ -402,6 +417,7 @@
     <Content Include="UserControls\fullcalendar\img\resizer.png" />
     <Content Include="UserControls\fullcalendar\img\settings_16.png" />
     <Content Include="UserControls\fullcalendar\img\trash.png" />
+    <Content Include="UserControls\js\calendar.attachments.js" />
     <Content Include="UserControls\js\calendar_controller.js" />
     <Content Include="UserControls\js\calendar_event_page.js" />
     <Content Include="UserControls\js\recurrence_rule.js" />
@@ -448,6 +464,10 @@
     <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

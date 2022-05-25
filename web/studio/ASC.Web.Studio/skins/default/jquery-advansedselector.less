@@ -50,6 +50,7 @@
     z-index: 1000;
     .boxShadow(4px);
     .borderRadius(4px);
+    .noneSelect();
 
     &.onechosen {
         .advanced-selector-block {
@@ -103,7 +104,7 @@
 
 .advanced-selector-block-list {
     float: left;
-    margin-top: 31px;
+    margin-top: 35px;
     margin-left: 12px;
     width: 195px;
 
@@ -149,7 +150,8 @@ input[type="text"].advanced-selector-search-field:focus {
 
 .advanced-selector-add-new-link {
     display: inline-block;
-    margin: 0 0 6px 3px;
+    margin: 6px 0 6px 4px;
+    height: 18px;
 }
 
 .advanced-selector-list {
@@ -161,9 +163,12 @@ input[type="text"].advanced-selector-search-field:focus {
     padding: 0;
 
     li {
-        border-top: 1px solid #d1d1d1;
         cursor: default;
-        padding: 4px;
+        padding: 0 0 0 8px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        text-align: left;
 
         &.selected {
             background-color: #f2f2f2;
@@ -183,6 +188,13 @@ input[type="text"].advanced-selector-search-field:focus {
             vertical-align: top;
         }
     }
+
+    img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin: 0 8px 0 0;
+    }
 }
 
 .div-check() {
@@ -191,8 +203,7 @@ input[type="text"].advanced-selector-search-field:focus {
         background-image: url("images/checkboxes.png");
         background-position: 0px 0px;
         background-repeat: no-repeat;
-        float: left;
-        margin: 3px 4px 1px 0;
+        margin: 0 8px 0 0;
         height: 14px;
         width: 14px;
         border: 0 none;
@@ -209,6 +220,7 @@ input[type="text"].advanced-selector-search-field:focus {
 
     label {
         display: block;
+        flex: 1;
         .text-overflow();
     }
 }
@@ -227,9 +239,10 @@ input[type="text"].advanced-selector-search-field:focus {
 .advanced-selector-all-select {
     .div-check();
 
-    display: block;
-    width: 100%;
-    padding: 4px;
+    padding: 0 0 0 8px;
+    height: 30px;
+    display: flex;
+    align-items: center;
 
     &:hover {
         background-color: #e5e5e5;
@@ -329,10 +342,6 @@ select.advanced-selector-field {
 .advanced-selector-list-groups {
     height: 154px;
     position: relative;
-}
-.advanced-selector-list-groups li label {
-    display: block;
-    .text-overflow();
 }
 
 .advanced-selector-list-groups li.chosen label,

@@ -345,7 +345,7 @@ window.blankPages = (function($) {
         var btnArray = page.find("#{0} .emptyScrBttnPnl a".format(id));
         $.each(btnArray, function (index, value) {
             if (buttons[index] && buttons[index].handler) {
-                $(value).click(buttons[index].handler);
+                $(value).on("click", buttons[index].handler);
             }
         });
 

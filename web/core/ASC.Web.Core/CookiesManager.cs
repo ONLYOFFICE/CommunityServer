@@ -20,8 +20,10 @@ using System.Security;
 using System.Web;
 
 using ASC.Core;
+using ASC.Core.Data;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Web.Studio.Utility;
 
 using SecurityContext = ASC.Core.SecurityContext;
@@ -79,7 +81,7 @@ namespace ASC.Web.Core
 
                         cookies.GetType()
                                .GetProperty("SameSite")
-                               .SetValue(cookies, 0);                            
+                               .SetValue(cookies, 0);
                     }
                 }
 
@@ -107,7 +109,7 @@ namespace ASC.Web.Core
 
                         cookies.GetType()
                                .GetProperty("SameSite")
-                               .SetValue(cookies, 0);                            
+                               .SetValue(cookies, 0);
                     }
                 }
             }
@@ -168,9 +170,13 @@ namespace ASC.Web.Core
 
             TenantCookieSettings.SetForTenant(tenant, settings);
 
-            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
+            if (lifeTime > 0)
+            {
+                DbLoginEventsManager.LogOutAllActiveConnectionsForTenant(tenant);
+            }
 
-            SetCookies(CookiesType.AuthKey, cookie);
+            var userId = SecurityContext.CurrentAccount.ID;
+            AuthenticateMeAndSetCookies(tenant, userId, MessageAction.LoginSuccess);
         }
 
         public static int GetLifeTime()
@@ -180,21 +186,25 @@ namespace ASC.Web.Core
 
         public static void ResetUserCookie(Guid? userId = null)
         {
-            var settings = TenantCookieSettings.GetForUser(userId ?? SecurityContext.CurrentAccount.ID);
+            var currentUserId = SecurityContext.CurrentAccount.ID;
+            var tenant = TenantProvider.CurrentTenantID;
+            var settings = TenantCookieSettings.GetForUser(userId ?? currentUserId);
             settings.Index = settings.Index + 1;
-            TenantCookieSettings.SetForUser(userId ?? SecurityContext.CurrentAccount.ID, settings);
+            TenantCookieSettings.SetForUser(userId ?? currentUserId, settings);
+
+            DbLoginEventsManager.LogOutAllActiveConnections(tenant, userId ?? currentUserId);
 
             if (!userId.HasValue)
             {
-                var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
-
-                SetCookies(CookiesType.AuthKey, cookie);
+                AuthenticateMeAndSetCookies(tenant, currentUserId, MessageAction.LoginSuccess);
             }
         }
 
         public static void ResetTenantCookie()
         {
-            if (!CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID))
+            var userId = SecurityContext.CurrentAccount.ID;
+
+            if (!CoreContext.UserManager.IsUserInGroup(userId, Constants.GroupAdmin.ID))
             {
                 throw new SecurityException();
             }
@@ -204,8 +214,70 @@ namespace ASC.Web.Core
             settings.Index = settings.Index + 1;
             TenantCookieSettings.SetForTenant(tenant, settings);
 
-            var cookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
-            SetCookies(CookiesType.AuthKey, cookie);
+            DbLoginEventsManager.LogOutAllActiveConnectionsForTenant(tenant);
+
+            AuthenticateMeAndSetCookies(tenant, userId, MessageAction.LoginSuccess);
+        }
+
+        public static string AuthenticateMeAndSetCookies(int tenantId, Guid userId, MessageAction action, bool session = false)
+        {
+            bool isSuccess = true;
+            var cookies = string.Empty;
+            Func<int> funcLoginEvent = () => { return GetLoginEventId(action); };
+
+            try
+            {
+                cookies = SecurityContext.AuthenticateMe(userId, funcLoginEvent);
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+                throw;
+            }
+            finally
+            {
+                if (isSuccess)
+                {
+                    SetCookies(CookiesType.AuthKey, cookies, session);
+                    DbLoginEventsManager.ResetCache(tenantId, userId);
+                }
+            }
+
+            return cookies;
+        }
+
+        public static void AuthenticateMeAndSetCookies(string login, string passwordHash, MessageAction action, bool session = false)
+        {
+            bool isSuccess = true;
+            var cookies = string.Empty;
+            Func<int> funcLoginEvent = () => { return GetLoginEventId(action); };
+
+            try
+            {
+                cookies = SecurityContext.AuthenticateMe(login, passwordHash, funcLoginEvent);
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+                throw;
+            }
+            finally
+            {
+                if (isSuccess)
+                {
+                    SetCookies(CookiesType.AuthKey, cookies, session);
+                    DbLoginEventsManager.ResetCache();
+                }
+            }
+        }
+
+        public static int GetLoginEventId(MessageAction action)
+        {
+            var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            var userId = SecurityContext.CurrentAccount.ID;
+            var data = new MessageUserData(tenantId, userId);
+
+            return MessageService.SendLoginMessage(HttpContext.Current == null ? null : HttpContext.Current.Request, data, action);
         }
     }
 }

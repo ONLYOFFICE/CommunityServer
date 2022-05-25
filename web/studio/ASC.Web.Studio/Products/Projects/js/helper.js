@@ -59,7 +59,7 @@ ASC.Projects.Tab.prototype.select = function () {
         var currentHash = location.hash.substring(1);
 
         if (currentHash === this.emptyScreen.button.hash && $addFirstElement.length > 0) {
-            $addFirstElement.click();
+            $addFirstElement.trigger("click");
         }
 
     } else if (this.$container) {
@@ -122,7 +122,7 @@ ASC.Projects.DescriptionTab = (function () {
             var $statusSelector = $tab.find(".status");
             $statusSelector.advancedSelector(
                 {
-                    height: 26 * statuses.length,
+                    height: 30 * statuses.length,
                     itemsChoose: statuses,
                     itemsSelectedIds: [description.status.current.id],
                     showSearch: false,
@@ -394,7 +394,8 @@ ASC.Projects.DescriptionPanel = (function() {
     };
 
     function checkProperty(prop) {
-        return typeof prop !== 'undefined' && jq.trim(prop) !== "" && prop != null;
+        if (!prop) return false;
+        return typeof prop == "string" ? prop.trim() != "" : true;
     }
 
     function showDescPanelByObject($targetObject) {

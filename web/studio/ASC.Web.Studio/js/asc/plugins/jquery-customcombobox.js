@@ -45,7 +45,7 @@
   function onBodyClick(evt) {
     var $target = evt ? jQuery(evt.target) : $();
     if ($target.is('select')) {
-      jQuery(document.body).unbind('click', arguments.callee);
+      jQuery(document.body).off('click', arguments.callee);
       jQuery(document.body).one('click', arguments.callee);
 
       return undefined;
@@ -60,7 +60,7 @@
 
   function onSelectBlur (evt) {
     onBodyClick();
-    jQuery(document.body).unbind('click', onBodyClick);
+    jQuery(document.body).off('click', onBodyClick);
   }
 
   function onSelectChange (evt) {
@@ -103,11 +103,11 @@
       $optionsInd = $options.length;
       while ($optionsInd--) {
         if ($options[$optionsInd].getAttribute('data-value') === value) {
-          jQuery($options[$optionsInd]).find('input').attr('checked', isselected === true);
+          jQuery($options[$optionsInd]).find('input').prop('checked', isselected === true);
           break;
         }
       }
-      //$combobox.find('li.option-item[data-value="' + value + '"]:first').find('input').attr('checked', isselected === true);
+      //$combobox.find('li.option-item[data-value="' + value + '"]:first').find('input').prop('checked', isselected === true);
     }
 
     if (defaultoption && optionstitle.length === 0) {
@@ -149,7 +149,7 @@
     }
 
     onBodyClick();
-    jQuery(document.body).unbind('click', onBodyClick);
+    jQuery(document.body).off('click', onBodyClick);
     resetDefaultValue($combobox.find('select'));
     $combobox.addClass('showed-options').find('div.combobox-container:first').show();
     setTimeout(setBodyEvents, 1);
@@ -163,7 +163,7 @@
       value = $option.attr('data-value');
 
     if (value) {
-      $select.val(value).change();
+      $select.val(value).trigger("change");
     }
   }
 
@@ -184,7 +184,7 @@
     }
 
     if (values) {
-      $select.val(values).change();
+      $select.val(values).trigger("change");
     }
   }
 
@@ -276,7 +276,7 @@
       value = isFinite(+value) ? +value : -1;
 
       if (value > -1 && value < optionsvalueLen) {
-        node.setAttribute('title', (jQuery.trim(optionsvalue[value].title)));
+        node.setAttribute('title', optionsvalue[value].title.trim());
         node.setAttribute('data-value', optionsvalue[value].value);
       }
     }
@@ -316,10 +316,10 @@
   }
 
   function setEvents($select, $combobox) {
-    $select.blur(onSelectBlur).focus(onSelectFocus).change(onSelectChange);
-    $combobox.find('span.combobox-title:first').click(onComboboxTitleClick);
-    $combobox.find('ul.combobox-options:first').click(onComboboxOptionClick);
-    $combobox.find('input').click(onComboboxCheckboxClick);
+    $select.on("blur", onSelectBlur).on("focus", onSelectFocus).on("change", onSelectChange);
+    $combobox.find('span.combobox-title:first').on("click", onComboboxTitleClick);
+    $combobox.find('ul.combobox-options:first').on("click", onComboboxOptionClick);
+    $combobox.find('input').on("click", onComboboxCheckboxClick);
   }
 
   $.fn.advansedFilterCustomCombobox = function () {

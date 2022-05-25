@@ -42,7 +42,7 @@ namespace ASC.Data.Storage.Encryption
 
             if (Builder != null)
             {
-                result = Builder.Resolve<ICrypt>(new TypedParameter(typeof(string), storageName), new TypedParameter(typeof(EncryptionSettings), encryptionSettings));
+                result = ResolutionExtensions.ResolveOptional<ICrypt>(Builder, new TypedParameter(typeof(string), storageName), new TypedParameter(typeof(EncryptionSettings), encryptionSettings));
             }
 
             return result ?? new FakeCrypt(storageName, encryptionSettings);

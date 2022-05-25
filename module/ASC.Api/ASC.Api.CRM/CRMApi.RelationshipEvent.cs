@@ -44,20 +44,20 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///   Returns the list of all events matching the parameters specified in the request
+        /// Returns a list of all the events matching the parameters specified in the request.
         /// </summary>
         /// <short>
-        ///   Get event list
+        /// Get filtered events
         /// </short>
         /// <category>History</category>
         /// <param optional="true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
         /// <param optional="true" name="entityId">Related entity ID</param>
-        /// <param optional="true" name="categoryId">Task category ID</param>
+        /// <param optional="true" name="categoryId">Event category ID</param>
         /// <param optional="true" name="createBy">Event author</param>
-        /// <param optional="true" name="fromDate">Earliest task due date</param>
-        /// <param optional="true" name="toDate">Latest task due date</param>
+        /// <param optional="true" name="fromDate">Earliest event due date</param>
+        /// <param optional="true" name="toDate">Latest event due date</param>
         /// <returns>
-        ///   Event list
+        /// Event list
         /// </returns>
         [Read(@"history/filter")]
         public IEnumerable<RelationshipEventWrapper> GetHistory(
@@ -151,17 +151,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Deletes the event with the ID specified in the request and all the files associated with this event
+        /// Deletes an event with the ID specified in the request and all the files associated with this event.
         /// </summary>
         /// <short>
-        ///     Delete event and related files
+        /// Delete an event and related files
         /// </short>
         /// <category>History</category>
         /// <param name="id">Event ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///   Event
+        /// Event
         /// </returns>
         [Delete(@"history/{id:[0-9]+}")]
         public RelationshipEventWrapper DeleteHistory(int id)
@@ -182,16 +182,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// Creates a text (.txt) file in the selected folder with the title and contents sent in the request
+        /// Creates a text (.txt) file in the selected folder with the title and contents specified in the request.
         /// </summary>
-        /// <short>Create txt</short>
+        /// <short>Create a text file</short>
         /// <category>Files</category>
-        /// <param name="entityType">Entity type</param>
-        /// <param name="entityid">Entity ID</param>
+        /// <param optional = "true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
+        /// <param optional="true" name="entityid">Related entity ID</param>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
         /// <returns>
-        ///     File info
+        /// File information
         /// </returns>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/text")]
         public FileWrapper CreateTextFile(string entityType, int entityid, string title, string content)
@@ -224,27 +224,27 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        /// Upload file 
+        /// Uploads a file to the CRM module with the parameters specified in the request.
         /// </summary>
-        /// <short>Upload file</short>
+        /// <short>Upload a file</short>
         /// <category>Files</category>
         /// <remarks>
         /// <![CDATA[
         ///  Upload can be done in 2 different ways:
         ///  <ol>
-        /// <li>Single file upload. You should set Content-Type &amp; Content-Disposition header to specify filename and content type, and send file in request body</li>
-        /// <li>Using standart multipart/form-data method</li>
+        /// <li>Single file upload. You should set the Content-Type &amp; Content-Disposition headers to specify file name and content type, and send a file in the request body.</li>
+        /// <li>Using standart multipart/form-data method.</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param name="entityType">Entity type</param>
-        /// <param name="entityid">Entity ID</param>
-        /// <param name="file" visible="false">Request Input stream</param>
-        /// <param name="contentType" visible="false">Content-Type Header</param>
-        /// <param name="contentDisposition" visible="false">Content-Disposition Header</param>
+        /// <param optional="true" name="entityType" remark="Allowed values: opportunity, contact or case">Related entity type</param>
+        /// <param optional="true" name="entityid">Related entity ID</param>
+        /// <param name="file" visible="false">Request input stream</param>
+        /// <param name="contentType" visible="false">Content-Type header</param>
+        /// <param name="contentDisposition" visible="false">Content-Disposition header</param>
         /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
-        /// <param name="storeOriginalFileFlag" visible="false">If True, upload documents in original formats as well</param>
+        /// <param name="storeOriginalFileFlag" visible="false">Defines if the documents in the original formats are also uploaded or not</param>
         /// <returns>
-        /// File info
+        /// File informatin
         /// </returns>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/upload")]
         public FileWrapper UploadFileInCRM(
@@ -289,10 +289,10 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///   Creates the event with the parameters specified in the request
+        /// Creates an event with the parameters specified in the request.
         /// </summary>
         /// <short>
-        ///   Create event
+        /// Create an event
         /// </short>
         /// <category>History</category>
         /// <param optional="true" name="contactId">Contact ID</param>
@@ -300,16 +300,16 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="entityId">Related entity ID</param>
         /// <remarks>
         /// <![CDATA[
-        ///  You should obligatorily set the value for 'contactId' if 'entityId' is not set or the value for parameters 'entityId' and 'entityType' if 'contactId' is not set.
+        ///  You should obligatorily set a value for 'contactId' if 'entityId' is not set or the values for the 'entityId' and 'entityType' parameters if 'contactId' is not set.
         /// ]]>
         /// </remarks>
-        /// <param optional="false" name="content">Contents</param>
-        /// <param optional="false" name="categoryId">Category ID</param>
+        /// <param optional="false" name="content">Event contents</param>
+        /// <param optional="false" name="categoryId">Event category ID</param>
         /// <param optional="true" name="created">Event creation date</param>
-        /// <param optional="true" name="fileId">List of IDs of the files associated with the event</param>
-        /// <param optional="true" name="notifyUserList">User field list</param>
+        /// <param optional="true" name="fileId">List of file IDs for the current event</param>
+        /// <param optional="true" name="notifyUserList">List of users who will be notified about the event</param>
         /// <returns>
-        ///   Created event
+        /// Created event
         /// </returns>
         [Create(@"history")]
         public RelationshipEventWrapper AddHistoryTo(
@@ -431,16 +431,16 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Associates the selected file(s) with the entity with the ID or type specified in the request
+        /// Attaches the selected file(s) to the entity specified in the request.
         /// </summary>
         /// <short>
-        ///     Associate file with entity
+        /// Attach files to the entity
         /// </short>
         /// <param name="entityType">Entity type</param>
         /// <param name="entityid">Entity ID</param>
         /// <param name="fileids">List of IDs of the files</param>
         /// <category>Files</category>
-        /// <returns>Entity with the file attached</returns>
+        /// <returns>Entity with the file(s) attached</returns>
         [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public RelationshipEventWrapper AttachFiles(string entityType, int entityid, IEnumerable<int> fileids)
         {
@@ -480,12 +480,12 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Returns the ID for the root folder used to store the files for the CRM module
+        /// Returns the ID for the root folder used to store the files for the CRM module.
         /// </summary>
         /// <short>Get root folder ID</short> 
         /// <category>Files</category>
         /// <returns>
-        ///   Root folder ID
+        /// Root folder ID
         /// </returns>
         [Read(@"files/root")]
         public object GetRootFolderID()
@@ -494,14 +494,14 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///    Returns the list of all files for the entity with the ID or type specified in the request
+        /// Returns a list of all the files for the entity with the ID and type specified in the request.
         /// </summary>
         /// <param name="entityType">Entity type</param>
         /// <param name="entityid">Entity ID</param>
-        /// <short>Get file list</short> 
+        /// <short>Get entity files</short> 
         /// <category>Files</category>
         /// <returns>
-        ///    File list
+        /// List of files
         /// </returns>
         [Read(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public IEnumerable<FileWrapper> GetFiles(string entityType, int entityid)
@@ -523,15 +523,15 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///     Deletes the file with the ID specified in the request
+        /// Deletes a file with the ID specified in the request.
         /// </summary>
-        /// <short>Delete file</short> 
+        /// <short>Delete a file</short> 
         /// <category>Files</category>
         /// <param name="fileid">File ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
-        ///    File Info
+        /// File information
         /// </returns>
         [Delete(@"files/{fileid:[0-9]+}")]
         public FileWrapper DeleteCRMFile(int fileid)

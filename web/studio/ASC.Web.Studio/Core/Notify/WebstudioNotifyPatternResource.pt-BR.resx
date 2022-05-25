@@ -230,30 +230,23 @@ ONLYOFFICE™ Equipe de suporte
 [www.onlyoffice.com](http://onlyoffice.com/)</value>
   </data>
   <data name="pattern_change_email_v115" xml:space="preserve">
-    <value>Deseja alterar o e-mail em sua conta ONLYOFFICE?
+    <value>Quer alterar o e-mail para conta ONLYOFFICE?
 
-Clique no botão abaixo e faça o login* em sua nuvem.
+Clique no botão abaixo e faça login * na sua nuvem.
+
+
 
 $GreenButton
+
+
 
 O link é válido por 7 dias.
 
-*Se você não estiver conectado ao ONLYOFFICE neste navegador, você precisará usar seu e-mail antigo para confirmação. Se você não se lembrar, entre em contato com o administrador de seu portal.
 
-Não deseja alterar seu e-mail? Simplesmente ignore esta mensagem.</value>
-  </data>
-  <data name="pattern_change_password" xml:space="preserve">
-    <value>h1.Solicitação de alteração de senha para o portal "${__VirtualRootPath}":"${__VirtualRootPath}"
 
-Houve uma solicitação de alteração da senha usada para entrar no portal "${__VirtualRootPath}":"${__VirtualRootPath}".
+* Se você não estiver conectado ao ONLYOFFICE neste navegador, precisará usar seu e-mail antigo para confirmação. Se você não se lembra, entre em contato com o administrador do portal.
 
-Por favor, clique no link abaixo para alterar a senha:
-
-$GreenButton
-
-*Observe*: este link é válido apenas por 7 dias. Por favor, complete o processo de alteração de senha dentro do período.
-
-Se você não quiser alterar a sua senha ou recebeu este e-mail por engano, por favor, ignore-o ou entre em contato com o administrador do seu portal "${__VirtualRootPath}":"${__VirtualRootPath}" para descobrir mais informações.</value>
+Não quer alterar seu e-mail? Ignore esta mensagem.</value>
   </data>
   <data name="pattern_change_phone" xml:space="preserve">
     <value>h1.Solicitação de alteração de celular
@@ -1017,31 +1010,23 @@ Atenciosamente,
 Equipe ONLYOFFICE</value>
   </data>
   <data name="pattern_personal_change_email_v115" xml:space="preserve">
-    <value>Deseja alterar o e-mail em sua conta ONLYOFFICE?
+    <value>Quer alterar o e-mail para conta ONLYOFFICE?
 
-Clique no botão abaixo e faça o login* em sua nuvem.
+Clique no botão abaixo e faça login * na sua nuvem.
+
+
 
 $GreenButton
+
+
 
 O link é válido por 7 dias.
 
-*Se você não estiver conectado ao ONLYOFFICE neste navegador, você precisará usar seu e-mail antigo para confirmação.
 
-Não deseja alterar seu e-mail? Simplesmente ignore esta mensagem.</value>
-  </data>
-  <data name="pattern_personal_change_password" xml:space="preserve">
-    <value>Houve um pedido para alterar sua senha utilizada para entrar no portal "${__VirtualRootPath}":"${__VirtualRootPath}".
 
-Por favor, siga o link abaixo para alterar sua senha:
+* Se você não estiver conectado ao ONLYOFFICE neste navegador, precisará usar seu e-mail antigo para confirmação. Se você não se lembra, entre em contato com o administrador do portal.
 
-$GreenButton
-
-*Nota*: este link é válido por apenas 7 dias. Favor completar o processo de mudança de senha dentro desse período.
-
-Se você não deseja alterar sua senha ou recebeu este e-mail por engano, por favor, ignore-a.
-
-Atenciosamente,
-Equipe ONLYOFFICE</value>
+Não quer alterar seu e-mail? Ignore esta mensagem.</value>
   </data>
   <data name="pattern_personal_confirmation" xml:space="preserve">
     <value>Olá,
@@ -1777,10 +1762,7 @@ O link só é válido por 7 dias.</value>
     <value>${LetterLogoText}. Backup do portal ${__VirtualRootPath} criado</value>
   </data>
   <data name="subject_change_email_v115" xml:space="preserve">
-    <value>Confirme a mudança de seu e-mail</value>
-  </data>
-  <data name="subject_change_password" xml:space="preserve">
-    <value>${LetterLogoText} assistência de senha</value>
+    <value>Confirme a alteração do seu e-mail</value>
   </data>
   <data name="subject_change_phone" xml:space="preserve">
     <value>${LetterLogoText}. Solicitação de alteração de celular</value>
@@ -1929,9 +1911,6 @@ O link só é válido por 7 dias.</value>
   <data name="subject_personal_after_registration7" xml:space="preserve">
     <value>Conecte seu armazenamento em nuvem favorito ao ONLYOFFICE</value>
   </data>
-  <data name="subject_personal_change_password" xml:space="preserve">
-    <value>Assistência de senha pessoal ONLYOFFICE</value>
-  </data>
   <data name="subject_personal_confirmation" xml:space="preserve">
     <value>ONLYOFFICE Pessoal. Por favor, ative seu email</value>
   </data>
@@ -2060,5 +2039,26 @@ O link só é válido por 7 dias.</value>
   </data>
   <data name="subject_user_ldap_activation" xml:space="preserve">
     <value>Você foi convidado a juntar-se a ${__VirtualRootPath}</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>Quer alterar a senha da sua conta ONLYOFFICE? Clique no botão abaixo para confirmar.
+
+$GreenButton
+
+O link é válido por 7 dias.
+
+Não quer alterar sua senha? Ignore esta mensagem.</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>Quer alterar a senha da sua conta ONLYOFFICE Personal? Clique no botão abaixo para confirmar.
+
+$GreenButton
+
+O link é válido por 7 dias.
+
+Não quer alterar sua senha? Ignore esta mensagem.</value>
+  </data>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Confirme a alteração da sua senha</value>
   </data>
 </root>

@@ -38,7 +38,7 @@ namespace ASC.Web.Projects.Test
             WebItemManager.Instance.LoadItems();
             CoreContext.TenantManager.SetCurrentTenant(0);
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            SecurityContext.AuthenticateMe(tenant.OwnerId);
+            SecurityContext.CurrentUser = tenant.OwnerId;;
             Users = CoreContext.UserManager.GetUsers().Select(r => r.ID).ToList();
             Fixture = new Fixture();
         }

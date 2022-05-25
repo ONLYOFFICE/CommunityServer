@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -30,6 +31,7 @@ using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
 using ASC.Web.Files.Classes;
@@ -283,6 +285,7 @@ namespace ASC.Web.Files.Utils
             }
 
             SetFileStatus(entries.Where(r => r != null && r.ID != null && r.FileEntryType == FileEntryType.File).Select(r => r as File).ToList());
+            SetIsFavoriteFolders(entries.Where(r => r != null && r.ID != null && r.FileEntryType == FileEntryType.Folder).Select(r => r as Folder).ToList());
 
             return entries;
         }
@@ -682,6 +685,29 @@ namespace ASC.Web.Files.Utils
             }
         }
 
+        public static void SetIsFavoriteFolder(Folder folder)
+        {
+            if (folder == null || folder.ID == null) return;
+
+            SetIsFavoriteFolders(new List<Folder>(1) { folder });
+        }
+
+        public static void SetIsFavoriteFolders(IEnumerable<Folder> folders)
+        {
+            using (var tagDao = Global.DaoFactory.GetTagDao())
+            {
+                var tagsFavorite = tagDao.GetTags(SecurityContext.CurrentAccount.ID, TagType.Favorite, folders);
+
+                foreach (var folder in folders)
+                {
+                    if (tagsFavorite.Any(r => r.EntryId.Equals(folder.ID)))
+                    {
+                        folder.IsFavorite = true;
+                    }
+                }
+            }
+        }
+
         public static bool FileLockedForMe(object fileId, Guid userId = default(Guid))
         {
             var app = ThirdPartySelector.GetAppByFileId(fileId.ToString());
@@ -773,6 +799,8 @@ namespace ASC.Web.Files.Utils
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
                 var sourceId = linkDao.GetSource(linkedFile.ID);
+                if (sourceId == null) return false;
+
                 var sourceFile = fileDao.GetFile(sourceId);
 
                 var fileSecurity = Global.GetFilesSecurity();
@@ -788,12 +816,101 @@ namespace ASC.Web.Files.Utils
             return true;
         }
 
+        public static bool SubmitFillForm(File draft)
+        {
+            if (draft == null) return false;
+            try
+            {
+                using (var linkDao = Global.GetLinkDao())
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                {
+                    var sourceId = linkDao.GetSource(draft.ID);
+                    if (sourceId == null) throw new Exception("Link source is not found");
+
+                    var sourceFile = fileDao.GetFile(sourceId);
+                    if (sourceFile == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound, draft.ID.ToString());
+
+                    if (!FileUtility.CanWebRestrictedEditing(sourceFile.Title)) throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
+
+                    var properties = fileDao.GetProperties(sourceFile.ID);
+                    if (properties == null
+                        || properties.FormFilling == null
+                        || !properties.FormFilling.CollectFillForm) throw new Exception(FilesCommonResource.ErrorMassage_BadRequest);
+
+                    var folderId = properties.FormFilling.ToFolderId;
+                    if (!string.IsNullOrEmpty(folderId))
+                    {
+                        var folder = folderDao.GetFolder(folderId);
+                        if (folder == null)
+                        {
+                            folderId = sourceFile.FolderID.ToString();
+                        }
+                    }
+                    else
+                    {
+                        folderId = sourceFile.FolderID.ToString();
+                    }
+                    //todo: think about right to create in folder
+
+                    if (!string.IsNullOrEmpty(properties.FormFilling.CreateFolderTitle))
+                    {
+                        var newFolderTitle = Global.ReplaceInvalidCharsAndTruncate(properties.FormFilling.CreateFolderTitle);
+
+                        var folder = folderDao.GetFolder(newFolderTitle, folderId);
+                        if (folder == null)
+                        {
+                            folder = new Folder { Title = newFolderTitle, ParentFolderID = folderId };
+                            folderId = folderDao.SaveFolder(folder).ToString();
+
+                            folder = folderDao.GetFolder(folderId);
+                            FilesMessageService.Send(folder, MessageInitiator.DocsService, MessageAction.FolderCreated, folder.Title);
+                        }
+
+                        folderId = folder.ID.ToString();
+                    }
+                    //todo: think about right to create in folder
+
+                    var title = properties.FormFilling.GetTitleByMask(sourceFile.Title);
+
+                    var submitFile = new File
+                    {
+                        Title = title,
+                        FolderID = folderId,
+                        FileStatus = draft.FileStatus,
+                        ConvertedType = draft.ConvertedType,
+                        Comment = FilesCommonResource.CommentSubmitFillForm,
+                        Encrypted = draft.Encrypted,
+                    };
+
+                    using (var stream = fileDao.GetFileStream(draft))
+                    {
+                        submitFile.ContentLength = stream.CanSeek ? stream.Length : draft.ContentLength;
+                        submitFile = fileDao.SaveFile(submitFile, stream);
+                    }
+
+                    FilesMessageService.Send(submitFile, MessageInitiator.DocsService, MessageAction.FileCreated, submitFile.Title);
+
+                    FileMarker.MarkAsNew(submitFile);
+
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Global.Logger.Error(string.Format("Error on submit form {0}", draft.ID), e);
+                return false;
+            }
+        }
+
 
         public static File SaveEditing(String fileId, string fileExtension, string downloadUri, Stream stream, String doc, string comment = null, bool checkRight = true, bool encrypted = false, ForcesaveType? forcesave = null, bool keepLink = false)
         {
             var newExtension = string.IsNullOrEmpty(fileExtension)
                               ? FileUtility.GetFileExtension(downloadUri)
                               : fileExtension;
+            if (!string.IsNullOrEmpty(newExtension))
+                newExtension = "." + newExtension.Trim('.');
 
             var app = ThirdPartySelector.GetAppByFileId(fileId);
             if (app != null)
@@ -805,7 +922,7 @@ namespace ASC.Web.Files.Utils
             File file;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                var editLink = FileShareLink.Check(doc, false, fileDao, out file);
+                var editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare);
                 if (file == null)
                 {
                     file = fileDao.GetFile(fileId);
@@ -836,7 +953,7 @@ namespace ASC.Web.Files.Utils
                 }
                 else
                 {
-                    if (file.Version != 1)
+                    if (file.Version != 1 || string.IsNullOrEmpty(currentExt))
                     {
                         file.VersionGroup++;
                     }
@@ -856,7 +973,8 @@ namespace ASC.Web.Files.Utils
                         path += "new" + fileExt;
 
                         //todo: think about the criteria for saving after creation
-                        if (file.ContentLength != storeTemplate.GetFileSize("", path))
+                        if (!storeTemplate.IsFile("", path)
+                            || file.ContentLength != storeTemplate.GetFileSize("", path))
                         {
                             file.VersionGroup++;
                         }
@@ -885,7 +1003,7 @@ namespace ASC.Web.Files.Utils
                         }
 
                         var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
-                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, null, null, false, out downloadUri);
+                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUri);
 
                         stream = null;
                     }
@@ -961,7 +1079,7 @@ namespace ASC.Web.Files.Utils
             bool editLink;
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                editLink = FileShareLink.Check(doc, false, fileDao, out file);
+                editLink = FileShareLink.Check(doc, false, fileDao, out file, out FileShare linkShare);
                 if (file == null)
                     file = fileDao.GetFile(fileId);
             }
@@ -996,7 +1114,7 @@ namespace ASC.Web.Files.Utils
                 if (version < 1) throw new ArgumentNullException("version");
 
                 File fromFile;
-                var editLink = FileShareLink.Check(doc, false, fileDao, out fromFile);
+                var editLink = FileShareLink.Check(doc, false, fileDao, out fromFile, out FileShare linkShare);
 
                 if (fromFile == null)
                     fromFile = fileDao.GetFile(fileId);

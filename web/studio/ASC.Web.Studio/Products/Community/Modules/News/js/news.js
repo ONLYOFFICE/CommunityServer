@@ -253,7 +253,7 @@ jq(document).ready(function() {
     }
     var $firstInput = jq("input[id$='feedName']");
     if ($firstInput.length) {
-        $firstInput.focus();
+        $firstInput.trigger("focus");
     }
     var anchor = ASC.Controls.AnchorController.getAnchor();
     if (anchor == "addcomment" && CommentsManagerObj) {
@@ -262,7 +262,7 @@ jq(document).ready(function() {
 
     resizeContent();
 
-    jq(window).resize(function () {
+    jq(window).on("resize", function () {
         resizeContent();
     });
 

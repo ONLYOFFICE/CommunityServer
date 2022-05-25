@@ -38,6 +38,11 @@
         {{/if}}
         <td class="address">
             <span class="accountname" title="${email}">${email}</span>
+            {{if imapOn}}
+            <svg class="imap_sync_icon">
+                <title>${ASC.Mail.Resources.MailScriptResource.ImapSync}</title>
+            </svg>
+            {{/if}}
         </td>
         <td class="notify_column">
             {{if !enabled}}

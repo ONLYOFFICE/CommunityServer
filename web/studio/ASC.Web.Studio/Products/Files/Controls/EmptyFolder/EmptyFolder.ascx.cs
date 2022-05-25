@@ -178,7 +178,7 @@ namespace ASC.Web.Files.Controls
                             privacyWithButton = true;
                         }
 
-                        privacyDescr += string.Format("<p id=\"privacyForDesktop\">" + FilesUCResource.EmptyScreenDescrPrivacyBrowser.HtmlEncode() + "</p>",
+                        privacyDescr += string.Format("<p>" + FilesUCResource.EmptyScreenDescrPrivacyBrowser.HtmlEncode() + "</p>",
                             "<a href=\"https://www.onlyoffice.com/private-rooms.aspx\" target=\"_blank\">",
                             "</a>"
                             );

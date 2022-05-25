@@ -25,11 +25,11 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns the string with html of help center page
+        /// Returns the help center page HTML.
         /// </summary>
-        /// <returns>String with html of help center page</returns>
-        /// <short>Get html of help center page</short> 
-        /// <category>HelpCenter</category>
+        /// <returns>String with the help center page HTML</returns>
+        /// <short>Get help center page HTML</short> 
+        /// <category>Help center</category>
         [Read(@"helpcenter")]
         public string GetHelpCenterHtml()
         {

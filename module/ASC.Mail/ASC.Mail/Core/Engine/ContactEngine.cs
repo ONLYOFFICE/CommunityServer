@@ -254,7 +254,7 @@ namespace ASC.Mail.Core.Engine
                 Task.Run(() =>
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
-                    SecurityContext.AuthenticateMe(userGuid);
+                    SecurityContext.CurrentUser = userGuid;
 
                     var engine = new EngineFactory(tenant, userName);
 
@@ -274,7 +274,7 @@ namespace ASC.Mail.Core.Engine
                 Task.Run(() =>
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
-                    SecurityContext.AuthenticateMe(userGuid);
+                    SecurityContext.CurrentUser = userGuid;
 
                     var engine = new EngineFactory(tenant, userGuid.ToString());
                     return engine.AccountEngine.SearchAccountEmails(term);
@@ -283,7 +283,7 @@ namespace ASC.Mail.Core.Engine
                 Task.Run(() =>
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
-                    SecurityContext.AuthenticateMe(userGuid);
+                    SecurityContext.CurrentUser = userGuid;
 
                     return WebItemSecurity.IsAvailableForMe(WebItemManager.CRMProductID)
                         ? apiHelper.SearchCrmEmails(term, maxCountPerSystem)
@@ -293,7 +293,7 @@ namespace ASC.Mail.Core.Engine
                 Task.Run(() =>
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant);
-                    SecurityContext.AuthenticateMe(userGuid);
+                    SecurityContext.CurrentUser = userGuid;
 
                     return WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID)
                         ? apiHelper.SearchPeopleEmails(term, 0, maxCountPerSystem)

@@ -404,7 +404,7 @@ ASC.Projects.AllMilestones = (function () {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        $milestoneList.unbind();
+        $milestoneList.off();
         self.unbindEvents();
         jq("body").off(clickMilestoneInit);
     };

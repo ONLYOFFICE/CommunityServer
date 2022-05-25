@@ -30,13 +30,6 @@ jq(function () {
         ASC.Controls.LoadPhotoImage.showDialog();
     });
 
-    
-
-
-    jq("#joinToAffilliate:not(.disable)").on("click", function () {
-        JoinToAffilliate();
-    });
-
     if (jq("#studio_emailChangeDialog").length == 0) {
         jq(".profile-status.pending div").css("cursor", "default");
     } else {
@@ -61,6 +54,7 @@ jq(function () {
     jq.switcherAction("#switcherContactsPhoneButton", "#contactsPhoneContainer");
     jq.switcherAction("#switcherContactsSocialButton", "#contactsSocialContainer");
     jq.switcherAction("#switcherSubscriptionButton", "#subscriptionContainer");
+    jq.switcherAction("#switcherConnectionsButton", "#connectionsContainer");
 
 });
 
@@ -105,6 +99,9 @@ function initActionMenu() {
         if (jq(parent).hasClass("disable-user")) {
             onChangeUserStatus(userId, 2, isVisitor);
         }
+        if (jq(parent).hasClass("logout-connections")) {
+            logOutAllConnectionsForUser(userId);
+        }
         if (jq(parent).hasClass("psw-change")) {
             PasswordTool.ShowPwdReminderDialog("1", userEmail);
         }
@@ -148,6 +145,8 @@ function onChangeUserStatus(userID, status, isVisitor) {
     if (status == 1 && tenantQuota.availableUsersCount == 0 && isVisitor =="false") {
         if (jq("#tariffLimitExceedUsersPanel").length) {
             TariffLimitExceed.showLimitExceedUsers();
+        } else {
+            toastr.error(ASC.Resources.Master.ResourceJS.UserSelectorErrorLimitUsers);
         }
         return;
     }
@@ -235,27 +234,6 @@ function setStatusPosition() {
     }
 }
 
-function JoinToAffilliate() {
-    Teamlab.joinAffiliate({},
-        {
-            before: function (params) {
-                jq("#joinToAffilliate").addClass("disable");
-                LoadingBanner.displayLoading();
-            },
-            after: function (params) {
-                jq("#joinToAffilliate").removeClass("disable");
-                LoadingBanner.hideLoading();
-            },
-            success: function (params, response) {
-                location.href = response;
-            },
-            error: function (params, errors) {
-                var err = errors[0];
-                jq("#errorAffilliate").text(err);
-            }
-        });
-}
-
 var SendInstrunctionsToRemoveProfile = function () {
 
     Teamlab.removeSelf({},
@@ -265,4 +243,20 @@ var SendInstrunctionsToRemoveProfile = function () {
                 toastr.success(response);
             }
         });
+};
+
+function logOutAllConnectionsForUser(userId) {
+    Teamlab.logoutAllActiveConnectionsForUser({}, userId, {
+        success: function (_, result) {
+            if (result) {
+                toastr.success(ASC.Resources.Master.ResourceJS.ActiveConnectionsWasLoggedOut);
+            }
+            else {
+                toastr.error(ASC.Resources.Master.ResourceJS.OperationFailedError);
+            }
+        },
+        error: function (params, error) {
+            toastr.error(ASC.Resources.Master.ResourceJS.OperationFailedError);
+        }
+    });
 };

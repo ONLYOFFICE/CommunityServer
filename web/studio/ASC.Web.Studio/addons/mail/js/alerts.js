@@ -48,7 +48,7 @@ window.mailAlerts = (function($) {
             if (options &&
                     options.showFailureOnlyMessageId &&
                     value.type === ASC.Mail.Constants.Alerts.DeliveryFailure) {
-                var data = $.parseJSON(value.data);
+                var data = JSON.parse(value.data);
 
                 if (data.message_id === options.showFailureOnlyMessageId) {
                     storeAlert(value);
@@ -96,7 +96,7 @@ window.mailAlerts = (function($) {
     function getAlertPopup(alert) {
         var header,
             body,
-            data = alert.data && $.parseJSON(alert.data),
+            data = alert.data && JSON.parse(alert.data),
             content,
             buttons,
             account,
@@ -125,7 +125,7 @@ window.mailAlerts = (function($) {
                         .replace(/{faq_link_close_tag}/g, "</a>"),
                     buttons: buttons
                 }));
-                body.find('.tryagain').click(function () { popup.hide(); });
+                body.find('.tryagain').on("click", function () { popup.hide(); });
                 break;
             case ASC.Mail.Constants.Alerts.LinkFailure:
                 header = MailScriptResource.LinkFailurePopupHeader;
@@ -185,7 +185,7 @@ window.mailAlerts = (function($) {
                     errorBodyFooter: undefined,
                     buttons: buttons
                 }));
-                body.find('.manage_accounts').click(function () { popup.hide(); });
+                body.find('.manage_accounts').on("click", function () { popup.hide(); });
                 break;
             case ASC.Mail.Constants.Alerts.AuthConnectFailure:
                 account = accountsManager.getAccountById(alert.id_mailbox);
@@ -206,7 +206,7 @@ window.mailAlerts = (function($) {
                 if (!alert.redirectToAccounts)
                     body.find('.manage_account_settings').removeAttr('href');
 
-                body.find('.manage_account_settings').click(function () {
+                body.find('.manage_account_settings').on("click", function () {
                     popup.hide();
                     accountsModal.editBox(account.email, alert.activateOnSuccess);
                 });
@@ -229,7 +229,7 @@ window.mailAlerts = (function($) {
                     errorBodyFooter: undefined,
                     buttons: buttons
                 }));
-                body.find('.manage_accounts').click(function () { popup.hide(); });
+                body.find('.manage_accounts').on("click", function () { popup.hide(); });
                 break;
             case ASC.Mail.Constants.Alerts.QuotaError:
                 header = window.MailScriptResource.QuotaPopupHeader;

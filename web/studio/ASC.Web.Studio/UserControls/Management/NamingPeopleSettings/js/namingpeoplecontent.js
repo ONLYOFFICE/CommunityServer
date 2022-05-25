@@ -65,10 +65,10 @@ NamingPeopleContentViewer = new function() {
 
 jq(document).ready(function() {
     jq('.namingPeopleBox input[type="text"]').each(function(i, el) {
-        jq(el).keypress(function(event) { NamingPeopleContentViewer.ChangeValue(); });
+        jq(el).on("keypress", function(event) { NamingPeopleContentViewer.ChangeValue(); });
     });
     var manager = new NamingPeopleContentManager();
-	jq('#namingPeopleSchema').change(function () {
+	jq('#namingPeopleSchema').on("change", function () {
 		manager.LoadSchemaNames(null);
 	});
     manager.LoadSchemaNames(null);

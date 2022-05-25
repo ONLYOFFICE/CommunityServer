@@ -53,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessRightsSettings" xml:space="preserve">
     <value>Portal Access Rights</value>
@@ -695,6 +695,12 @@
   <data name="RandomPasswordLabel" xml:space="preserve">
     <value>Random password</value>
   </data>
+  <data name="ReadConfirmation" xml:space="preserve">
+    <value>Read receipt.</value>
+  </data>
+  <data name="ReadConfirmationText" xml:space="preserve">
+    <value>The sender requested a read receipt.</value>
+  </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Read Only</value>
   </data>
@@ -718,6 +724,9 @@
   </data>
   <data name="RequestNotificationHint" xml:space="preserve">
     <value>Request notification</value>
+  </data>
+  <data name="RequestReadHint" xml:space="preserve">
+    <value>Request a read receipt</value>
   </data>
   <data name="Review" xml:space="preserve">
     <value>Review</value>
@@ -766,6 +775,14 @@
   </data>
   <data name="SendMail" xml:space="preserve">
     <value>Send mail</value>
+  </data>
+  <data name="SendReceiptHelp" xml:space="preserve">
+    <value>To confirm that you've read the message, click 
+“Send receipt”. 
+If you don’t want to send it, click “×”</value>
+  </data>
+  <data name="SendReceiptLabel" xml:space="preserve">
+    <value>Send receipt</value>
   </data>
   <data name="ServerLabel" xml:space="preserve">
     <value>Server</value>

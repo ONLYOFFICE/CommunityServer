@@ -160,16 +160,12 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     }
 
                     var session = string.IsNullOrEmpty(Request["remember"]);
-
-                    var cookiesKey = SecurityContext.AuthenticateMe(Login, passwordHash);
-                    CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
+                    CookiesManager.AuthenticateMeAndSetCookies(Login, passwordHash, MessageAction.LoginSuccess, session);
 
                     cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
                 catch (InvalidCredentialException ex)
                 {
-                    Auth.ProcessLogout();
                     MessageAction messageAction;
 
                     if (ex is Authorize.BruteForceCredentialException)
@@ -193,20 +189,22 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
                     MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
 
+                    Auth.ProcessLogout();
+
                     return;
                 }
                 catch (System.Security.SecurityException)
                 {
-                    Auth.ProcessLogout();
                     LoginMessage = Resource.ErrorDisabledProfile;
                     MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFailDisabledProfile);
+                    Auth.ProcessLogout();
                     return;
                 }
                 catch (Exception ex)
                 {
-                    Auth.ProcessLogout();
                     LoginMessage = ex.Message;
                     MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFail);
+                    Auth.ProcessLogout();
                     return;
                 }
 
@@ -215,17 +213,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     cache.Insert("loginsec/" + Login, (--loginCounter).ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
                 }
 
-                var refererURL = (string)Session["refererURL"];
-
-                if (string.IsNullOrEmpty(refererURL))
-                {
-                    Response.Redirect(CommonLinkUtility.GetDefault());
-                }
-                else
-                {
-                    Session["refererURL"] = null;
-                    Response.Redirect(refererURL);
-                }
+                Response.Redirect(Context.GetRefererURL());
             }
             else
             {

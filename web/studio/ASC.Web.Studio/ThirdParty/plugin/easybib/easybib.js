@@ -73,7 +73,7 @@
             $('#main-container .buttons-container .active-button').removeClass('active-button');
             $(this).addClass('active-button');
             $('#search')[0].value = "";
-            $('#search').focus();
+            $('#search').trigger("focus");
             switch (this.id) {
                 case 'bookButton':
                     BibList.searchOptions.source = 0;
@@ -220,7 +220,7 @@
                 searchResult.addClass('bottom-border');
             }
         });
-        $("#styles").change(function () {
+        $("#styles").on("change", function () {
             var newStyle = $(this).val();
             $('#bib').empty();
             if (BibList.bibliography.length > 0) {
@@ -291,6 +291,14 @@
     window.Asc.plugin.button = function () {
         this.executeCommand("close", '');
     };
-
+    window.Asc.plugin.onThemeChanged = function(theme)
+    {
+        window.Asc.plugin.onThemeChangedBase(theme);
+        var rule = ".select2-container .selection .select2-selection { background-color : " + window.Asc.plugin.theme["background-normal"] + " !important; }";
+        var styleTheme = document.createElement('style');
+        styleTheme.type = 'text/css';
+        styleTheme.innerHTML = rule;
+        document.getElementsByTagName('head')[0].appendChild(styleTheme);
+    };
    
 })(window);

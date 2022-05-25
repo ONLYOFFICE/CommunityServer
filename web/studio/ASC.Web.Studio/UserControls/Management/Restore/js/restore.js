@@ -80,7 +80,7 @@ ASC.RestoreManager = (function () {
         jq("#fileSelectorTree>ul>li.tree-node:not([data-id=\"" + ASC.Files.Constants.FOLDER_ID_COMMON_FILES + "\"])").remove();
         ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType.ArchiveOnly;
 
-        jq("#restoreChooseTeamlabFile").click(function () {
+        jq("#restoreChooseTeamlabFile").on("click", function () {
             ASC.Files.FileSelector.onSubmit = function (files) {
                 var file = files[0];
                 jq("#restoreChosenTeamlabFile").attr("data-fileId", file.id).val(file.title);
@@ -138,7 +138,7 @@ ASC.RestoreManager = (function () {
 
         buttonObj.on("click", function (e) {
             e.preventDefault();
-            jq("#fileupload").click();
+            jq("#fileupload").trigger("click");
         });
     };
 
@@ -161,7 +161,7 @@ ASC.RestoreManager = (function () {
             })
             .bind("fileuploaddone", function (e, data) {
                 var source = getSourceRestore();
-                source.params.push({ key: "filePath", value: jq.parseJSON(data.result).Data });
+                source.params.push({ key: "filePath", value: JSON.parse(data.result).Data });
                 startRestore(source);
             })
             .bind("fileuploadfail", function () {
@@ -262,7 +262,7 @@ ASC.RestoreManager = (function () {
                     window.location.href = "./PreparationPortal.aspx?type=1";
                 },
                 error: function (params, errors) {
-                    jq(".restore-setting_block input").attr("disabled", false);
+                    jq(".restore-setting_block input").prop("disabled", false);
                     toastr.error(errors[0]);
                 }
             });
@@ -310,8 +310,12 @@ ASC.RestoreManager = (function () {
                 for (var i = 0; i < settingsLength; i++) {
                     var $item = jq($settings[i]);
                     if (!$item.val()) {
-                        $item.addClass(withErrorClass);
-                        isError = true;
+                        if (selectedConsumer == "S3" && $settings[i].getAttribute("data-id") != "region" && $settings[i].getAttribute("data-id") != "bucket") {
+                            source.params.push({ key: $item.attr("data-id"), value: $item.val() });
+                        } else {
+                            $item.addClass(withErrorClass);
+                            isError = true;
+                        }
                     }
                     else {
                         source.params.push({ key: $item.attr("data-id"), value: $item.val() });
@@ -356,12 +360,12 @@ ASC.RestoreManager = (function () {
 
     function lockRestoreBlock () {
         LoadingBanner.showLoaderBtn("#restoreBlock");
-        jq(".restore-setting_block input").attr("disabled", true);
+        jq(".restore-setting_block input").prop("disabled", true);
     }
 
     function unlockRestoreBlock () {
         LoadingBanner.hideLoaderBtn("#restoreBlock");
-        jq(".restore-setting_block input").attr("disabled", false);
+        jq(".restore-setting_block input").prop("disabled", false);
     }
 
     return{

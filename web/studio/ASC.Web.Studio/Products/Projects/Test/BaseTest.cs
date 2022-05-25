@@ -62,7 +62,7 @@ namespace ASC.Web.Projects.Test
 
             CoreContext.TenantManager.SetCurrentTenant(CoreContext.TenantManager.GetTenants().First());
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            SecurityContext.AuthenticateMe(tenant.OwnerId);
+            SecurityContext.CurrentUser = tenant.OwnerId; ;
 
             Scope = DIHelper.Resolve(true);
 
@@ -213,21 +213,21 @@ namespace ASC.Web.Projects.Test
 
         protected void ChangeProjectPrivate(bool @private)
         {
-            SecurityContext.AuthenticateMe(Owner);
+            SecurityContext.CurrentUser = Owner;
             Project.Private = @private;
             SaveOrUpdate(Project);
         }
 
         protected void ChangeProjectStatus(ProjectStatus status)
         {
-            SecurityContext.AuthenticateMe(Owner);
+            SecurityContext.CurrentUser = Owner;
             Project.Status = status;
             SaveOrUpdate(Project);
         }
 
         protected void RestrictAccess(Guid userID, ProjectTeamSecurity projectTeamSecurity, bool visible)
         {
-            SecurityContext.AuthenticateMe(Owner);
+            SecurityContext.CurrentUser = Owner;
             ProjectEngine.SetTeamSecurity(Project, ParticipantEngine.GetByID(userID), projectTeamSecurity, visible);
         }
     }

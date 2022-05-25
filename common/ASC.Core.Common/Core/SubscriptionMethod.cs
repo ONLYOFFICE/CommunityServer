@@ -51,5 +51,39 @@ namespace ASC.Core
             get;
             set;
         }
+
+        public static implicit operator SubscriptionMethod(SubscriptionMethodCache cache)
+        {
+            return new SubscriptionMethod()
+            {
+                Tenant = cache.Tenant,
+                SourceId = cache.SourceId,
+                ActionId = cache.ActionId,
+                RecipientId = cache.RecipientId
+            };
+        }
+
+        public static implicit operator SubscriptionMethodCache(SubscriptionMethod cache)
+        {
+            return new SubscriptionMethodCache
+            {
+                Tenant = cache.Tenant,
+                SourceId = cache.SourceId,
+                ActionId = cache.ActionId,
+                RecipientId = cache.RecipientId
+            };
+        }
+
+    }
+
+
+
+    public class SubscriptionMethodCache
+    {
+        public string RecipientId;
+        public string ActionId;
+        public string SourceId;
+        public string[] Methods;
+        public int Tenant;
     }
 }

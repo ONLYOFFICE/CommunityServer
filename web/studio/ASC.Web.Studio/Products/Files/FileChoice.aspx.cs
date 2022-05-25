@@ -104,6 +104,11 @@ namespace ASC.Web.Files
             get { return !string.IsNullOrEmpty(Request["onlyFolder"]); }
         }
 
+        private bool DisplayPrivacy
+        {
+            get { return !string.IsNullOrEmpty(Request["displayPrivacy"]); }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Master.Master.DisabledSidePanel = true;
@@ -166,12 +171,13 @@ namespace ASC.Web.Files
                 originForPost = origin.Scheme + "://" + origin.Host + ":" + origin.Port;
             }
 
-            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", ({1} == true), \"{2}\", ({3} == true), \"{4}\");",
+            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", ({1} == true), \"{2}\", ({3} == true), \"{4}\", ({5} == true));",
                                 (Request[FilesLinkUtility.FolderId] ?? "").Replace("\"", "\\\""),
                                 OnlyFolder.ToString().ToLower(),
                                 (Request[ThirdPartyParam] ?? "").ToLower().Replace("\"", "\\\""),
                                 FromEditor.ToString().ToLower(),
-                                originForPost);
+                                originForPost,
+                                DisplayPrivacy.ToString().ToLower());
 
             Page.RegisterInlineScript(script.ToString());
         }

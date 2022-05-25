@@ -118,12 +118,16 @@ namespace ASC.Api.Calendar.Notification {
         ///$EventDescription
         ///#end
         /// 
-        /// 
-        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the event reminders, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
+        ///#if($EventAttachmentsBody!=&quot;&quot;)
+        ///$EventAttachmentsHeader
+        ///$EventAttachmentsBody
+        ///#end
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the event reminders, please manage your &quot;subscr [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string EventAlertEmailPattern {
+        public static string EventAlertEmailPatternWithAttachments {
             get {
-                return ResourceManager.GetString("EventAlertEmailPattern", resourceCulture);
+                return ResourceManager.GetString("EventAlertEmailPatternWithAttachments", resourceCulture);
             }
         }
         
@@ -134,11 +138,16 @@ namespace ASC.Api.Calendar.Notification {
         /// Event Description:
         /// 
         ///$EventDescription
+        ///#end
+        ///
+        ///#if($EventAttachmentsBody!=&quot;&quot;)
+        ///$EventAttachmentsHeader
+        ///$EventAttachmentsBody
         ///#end.
         /// </summary>
-        public static string EventAlertJabberPattern {
+        public static string EventAlertJabberPatternWithAttachments {
             get {
-                return ResourceManager.GetString("EventAlertJabberPattern", resourceCulture);
+                return ResourceManager.GetString("EventAlertJabberPatternWithAttachments", resourceCulture);
             }
         }
         
@@ -148,6 +157,15 @@ namespace ASC.Api.Calendar.Notification {
         public static string EventAlertSubject {
             get {
                 return ResourceManager.GetString("EventAlertSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attachments:.
+        /// </summary>
+        public static string EventAttachments {
+            get {
+                return ResourceManager.GetString("EventAttachments", resourceCulture);
             }
         }
     }

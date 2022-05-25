@@ -66,6 +66,18 @@
                             </td>
                         </tr>
                         {{/if}}
+                        {{if typeof(attachments) != 'undefined' && attachments != null && attachments.length > 0}}
+                        <tr class="card_row">
+                            <td class="card_label">${ASC.Mail.Resources.MailResource.Attachments}:</td>
+                            <td class="card_value">
+                                {{each attachments}}
+                                <a href="${$value.fileUrl}" class="card_attachments" target="_blank">
+                                    ${$value.title}
+                                </a>
+                                {{/each}}
+                            </td>
+                        </tr>
+                        {{/if}}
                         {{if showButtons == true}}
                         <tr class="card_row cal_buttons_row" style="display: none;">
                             <td class="card_label">${ASC.Mail.Resources.MailScriptResource.CalendarReplyLabel}:</td>

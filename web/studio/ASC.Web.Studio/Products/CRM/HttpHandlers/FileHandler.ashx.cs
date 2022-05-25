@@ -31,6 +31,8 @@ namespace ASC.Web.CRM.HttpHandlers
 {
     public class FileHandler : IHttpHandler
     {
+        private ILog Log = LogManager.GetLogger("ASC");
+
         public void ProcessRequest(HttpContext context)
         {
             var action = context.Request["action"];
@@ -82,7 +84,7 @@ namespace ASC.Web.CRM.HttpHandlers
             }
             catch (HttpException ex)
             {
-                LogManager.GetLogger("ASC").Error("ResponceContactPhotoUrl", ex);
+                Log.Error("ResponceContactPhotoUrl", ex);
             }
         }
 
@@ -110,7 +112,7 @@ namespace ASC.Web.CRM.HttpHandlers
             }
             catch (HttpException ex)
             {
-                LogManager.GetLogger("ASC").Error("ResponceMailMessageContent", ex);
+                Log.Error("ResponceMailMessageContent", ex);
             }
         }
 

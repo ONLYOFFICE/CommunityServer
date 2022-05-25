@@ -130,26 +130,26 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppLimit.CloudComputing.SharpBox">
-      <Version>1.1.0.452</Version>
+      <Version>1.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Box.V2">
-      <Version>3.23.0</Version>
+      <Version>3.26.0</Version>
     </PackageReference>
     <PackageReference Include="Dropbox.Api">
-      <Version>4.9.4</Version>
+      <Version>6.13.0</Version>
     </PackageReference>
     <PackageReference Include="Google.Apis.Drive.v3">
-      <Version>1.45.0.1911</Version>
+      <Version>1.54.0.2397</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Graph.Core">
-      <Version>1.20.1.4</Version>
+      <Version>1.6.0</Version>
+      <SetTargetFramework>TargetFramework=net45</SetTargetFramework>
     </PackageReference>
     <PackageReference Include="Microsoft.OneDriveSDK">
-      <Version>2.0.7.5</Version>
+      <Version>2.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.SharePointOnline.CSOM">
-      <Version>16.1.20324.12000</Version>
-      <SetTargetFramework>TargetFramework=net45</SetTargetFramework>
+      <Version>16.1.21610.12000</Version>
     </PackageReference>
     <PackageReference Include="System.Net.Http">
       <Version>4.3.4</Version>

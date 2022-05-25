@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>Annunci</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Compleanni</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blog</value>
   </data>
@@ -105,9 +102,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>Crea una chat di gruppo o mailing di massa in Talk.</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>Configura le notifiche relative a documenti condivisi, scadenze e compleanni dei compagni di squadra.</value>
   </data>
   <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
     <value>Usa Firebase per non perdere mai più un messaggio.</value>

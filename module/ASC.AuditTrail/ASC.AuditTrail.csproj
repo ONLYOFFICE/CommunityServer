@@ -30,11 +30,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuditEvent.cs" />
-    <Compile Include="BaseEvent.cs" />
     <Compile Include="LoginEvent.cs" />
     <Compile Include="Mappers\AuditActionMapper.cs" />
-    <Compile Include="AuditReportCreator.cs" />
     <Compile Include="AuditEventsRepository.cs" />
+    <Compile Include="Mappers\IModuleActionMapper.cs" />
+    <Compile Include="Mappers\IProductActionMapper.cs" />
     <Compile Include="Mappers\OthersActionMapper.cs" />
     <Compile Include="Mappers\SettingsActionMapper.cs" />
     <Compile Include="Mappers\DocumentsActionMapper.cs" />
@@ -45,8 +45,15 @@
     <Compile Include="LoginEventsRepository.cs" />
     <Compile Include="Mappers\MessageMaps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\ActionType.cs" />
+    <Compile Include="Types\EntryType.cs" />
+    <Compile Include="Types\ModuleType.cs" />
+    <Compile Include="Types\ProductType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AuditReportResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AuditReportResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>AuditReportResource.resx</DependentUpon>
     </EmbeddedResource>
@@ -145,14 +152,8 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Project>{02C40A64-FE22-41D0-9037-69F0D6F787A9}</Project>
       <Name>ASC.Web.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
@@ -164,7 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CsvHelper">
-      <Version>15.0.4</Version>
+      <Version>27.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

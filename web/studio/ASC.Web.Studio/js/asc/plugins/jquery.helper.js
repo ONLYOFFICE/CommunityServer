@@ -60,7 +60,7 @@
             if (options.close) {
                 if (jq('#' + options.BlockHelperID + ' .closeBlock').length == 0) {
                     $helpBlock.prepend('<div class="closeBlock"></div>');
-                    jq('#' + options.BlockHelperID + ' .closeBlock').click(function() {
+                    jq('#' + options.BlockHelperID + ' .closeBlock').on("click", function() {
                         $helpBlock.hide();
                     });
                 }
@@ -102,12 +102,12 @@
 
             if (options.enableAutoHide) {
 
-                jq(document).click(function(e) {
+                jq(document).on("click", function(e) {
                     if (!jq(e.target).parents().addBack().is(elem)) {
                         $helpBlock.hide();
                     }
                 });
-                //                elem.click(function(e) {
+                //                elem.on("click", function(e) {
                 //                    e.stopPropagation();
                 //                });
             }
@@ -118,7 +118,7 @@
               "left": elemPosLeft + addLeft,
               "position": options.position
             });
-            jq(window).resize(function(){
+            jq(window).on("resize", function(){
                 elemPosLeft = elem.offset().left;
                 if ((elemPosLeft + addLeft + $helpBlock.outerWidth()) > jq(window).width()) {
                     elemPosLeft = elemPosLeft - addLeft - $helpBlock.outerWidth() + 40;

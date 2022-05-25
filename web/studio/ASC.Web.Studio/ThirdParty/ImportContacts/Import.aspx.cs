@@ -31,7 +31,7 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
 
         public static bool Enable
         {
-            get { return Google.Enable || Yahoo.Enable; }
+            get { return Google.Enable; }
         }
 
         protected void Page_Load(object sender, EventArgs e)

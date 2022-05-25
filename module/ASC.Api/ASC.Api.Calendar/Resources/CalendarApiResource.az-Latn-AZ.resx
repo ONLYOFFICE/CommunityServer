@@ -70,6 +70,9 @@
   <data name="DefaultCalendarName" xml:space="preserve">
     <value>Təqvimim</value>
   </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Giriş rədd edildi</value>
+  </data>
   <data name="ErrorEmptyName" xml:space="preserve">
     <value>Ad boş ola bilməz</value>
   </data>
@@ -78,6 +81,15 @@
   </data>
   <data name="FullAccessOption" xml:space="preserve">
     <value>Tam giriş</value>
+  </data>
+  <data name="iCalCalendarsGroup" xml:space="preserve">
+    <value>iCal Təqvimləri</value>
+  </data>
+  <data name="NoNameCalendar" xml:space="preserve">
+    <value>Başlıq yoxdur</value>
+  </data>
+  <data name="NoNameEvent" xml:space="preserve">
+    <value>Başlıq yoxdur</value>
   </data>
   <data name="OwnerOption" xml:space="preserve">
     <value>Sahib</value>
@@ -96,5 +108,8 @@
   </data>
   <data name="SharedEventsCalendarName" xml:space="preserve">
     <value>Mənimlə paylaşılan olaylar</value>
+  </data>
+  <data name="WrongiCalFeedLink" xml:space="preserve">
+    <value>iCal üçün etibarsız istinad</value>
   </data>
 </root>

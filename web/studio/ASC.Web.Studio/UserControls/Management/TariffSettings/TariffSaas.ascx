@@ -6,23 +6,6 @@
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<% if (InRuble)
-    { %>
-<style>
-    @font-face {
-        font-family: rub;
-        src: url('<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/TariffSettings/css/rub.eot") %>');
-        src:
-           url('<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/TariffSettings/css/rub.eot") %>') format("embedded-opentype"),
-           url('<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/TariffSettings/css/rub.woff") %>') format("woff"),
-           url('<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/TariffSettings/css/rub.ttf") %>') format("truetype"),
-           url('<%= VirtualPathUtility.ToAbsolute("~/UserControls/Management/TariffSettings/css/rub.svg") %>') format("svg");
-    }
-    .tariff-price-cur {
-        font-family: rub, calibri;
-    }
-</style>
-<% } %>
 
 <div class="saas-tariff-page display-none">
     <% if (CurrentQuota.NonProfit)
@@ -249,7 +232,6 @@
             { %>
         <%= string.Format(UserControlsCommonResource.SaasTariffTContactUs, string.Format("<a href=\"mailto:{0}\">", SalesEmail), "</a>") %>
         <% } %>
-        <div class="tariff-remark"><%= InRuble ? "*" + string.Format(Resource.TariffsCurrencyRu, SetupInfo.ExchangeRateRuble) : string.Empty %></div>
     </div>
 
     <input id="usersCount" type="hidden" value="<%= CurrentUsersCount %>" />

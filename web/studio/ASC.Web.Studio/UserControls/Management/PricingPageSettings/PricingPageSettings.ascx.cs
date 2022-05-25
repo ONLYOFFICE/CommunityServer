@@ -34,9 +34,13 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected bool Checked { get; set; }
 
+        protected bool Enabled { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!TenantExtra.EnableTariffSettings)
+            Enabled = TenantExtra.Saas && TenantExtra.EnableTariffSettings;
+
+            if (!Enabled)
                 return;
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());

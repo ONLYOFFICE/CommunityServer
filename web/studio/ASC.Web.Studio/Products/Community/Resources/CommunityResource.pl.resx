@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>Ogłoszenia</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Urodziny</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blogi</value>
   </data>
@@ -90,9 +87,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>Utwórz chat grupowy</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>Konfiguruj powiadomienia o</value>
   </data>
   <data name="DashboardShareNewsAndKnowledgeSecondLine" xml:space="preserve">
     <value>Dodaj do zakładek i udostępnij</value>

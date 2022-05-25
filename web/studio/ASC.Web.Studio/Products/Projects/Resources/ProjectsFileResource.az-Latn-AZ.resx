@@ -61,6 +61,12 @@
   <data name="ButtonUpload" xml:space="preserve">
     <value>Yüklə</value>
   </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Faylları yüklə</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Qovluğu yüklə</value>
+  </data>
   <data name="Documents" xml:space="preserve">
     <value>Sənədlər</value>
   </data>

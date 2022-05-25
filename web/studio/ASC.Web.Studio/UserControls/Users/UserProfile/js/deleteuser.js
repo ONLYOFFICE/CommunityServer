@@ -17,14 +17,14 @@
 
 var ProfileManager = new function () {
     this.RemoveUserEnterAction = function () {
-        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").click();
+        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").trigger("click");
     };
     this.RemoveUser = function (userId, displayName, userName, callback) {
         jq("#actionMenu").hide();
 
         jq("#confirmationDeleteUserPanel .confirmationAction").html(jq.format(ASC.Resources.Master.ConfirmRemoveUser, "<b>" + Encoder.htmlEncode(displayName) + "</b>"));
 
-        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").unbind("click").bind("click", function () {
+        jq("#confirmationDeleteUserPanel .middle-button-container .remove-btn").off("click").on("click", function () {
             var dialog = jq("#confirmationDeleteUserPanel");
 
             Teamlab.removeUser({}, userId, {
@@ -52,7 +52,7 @@ var ProfileManager = new function () {
             });
         });
         
-        jq("#confirmationDeleteUserPanel .middle-button-container .reassign-btn").unbind("click").bind("click", function () {
+        jq("#confirmationDeleteUserPanel .middle-button-container .reassign-btn").off("click").on("click", function () {
             window.location.replace("Reassigns.aspx?delete=true&user=" + encodeURIComponent(userName));
         });
 

@@ -67,9 +67,6 @@
   <data name="Announcements" xml:space="preserve">
     <value>お知らせ</value>
   </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>誕生日</value>
-  </data>
   <data name="Blogs" xml:space="preserve">
     <value>ブログ</value>
   </data>
@@ -105,9 +102,6 @@
   </data>
   <data name="DashboardKeepYourTeamPostedFirstLine" xml:space="preserve">
     <value>チャットでグループチャットまたは大量メールを作成する</value>
-  </data>
-  <data name="DashboardKeepYourTeamPostedSecondLine" xml:space="preserve">
-    <value>共有ドキュメント、締め切り、チームメートの誕生日に関する通知を設定する</value>
   </data>
   <data name="DashboardKeepYourTeamPostedThirdLine" xml:space="preserve">
     <value>メッセージを見逃さないようにFirebaseをご使用ください。</value>

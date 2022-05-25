@@ -15,6 +15,7 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 
 namespace ASC.Mail.Data.Contracts
@@ -48,6 +49,8 @@ namespace ASC.Mail.Data.Contracts
         public List<MailAddressInfo> Groups { get; set; }
 
         public bool IsSharedDomainMailbox { get; set; }
+
+        public DateTime? DateCreated { get; set; }
 
         public override string ToString()
         {

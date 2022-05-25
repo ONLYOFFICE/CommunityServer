@@ -238,7 +238,7 @@ namespace ASC.Web.Studio.Core.Backup
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
+            if (!CoreContext.Configuration.Standalone && !SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Backup");
         }
 
@@ -299,9 +299,12 @@ namespace ASC.Web.Studio.Core.Backup
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings("Restore") ||
-                (!CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Restore))
+            if (!CoreContext.Configuration.Standalone
+                && (!SetupInfo.IsVisibleSettings("Restore")
+                    || !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Restore))
+            {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Restore");
+            }
         }
 
         #endregion

@@ -75,7 +75,6 @@
 
 html .fc {
 	font-size: 1em;
-    height: 100%;
 	/*-moz-user-select: none;
 	-khtml-user-select: none;
 	user-select: none;
@@ -83,7 +82,7 @@ html .fc {
 }
 
 main {
-    padding: 24px 24px 24px 0 !important;
+    padding: 24px 24px 0 0 !important;
 }
 
 .fc {
@@ -834,13 +833,22 @@ a.fc-event {
 
 .fc-event-inner {
 	position: relative;
-	width: 100%;
+    width: 100%;
 	height: 100%;
 	border-style: solid;
 	border-width: 0;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.fc-event-inner.fc-event-inner-with-attachments {
+    width: ~"calc(100% - 28px)";
+}
+
+.fc-event-inner .birthday_icon {
+    display: inline-block;
+    padding-right: 5px;
 }
 
 .fc-event-inner .bullet {
@@ -887,6 +895,25 @@ a.fc-event {
 }
 .fc-event-repeat {
 	background-image: url('@{imagepath}event-repeat.png');
+}
+
+.fc-event-has-attachments-not-all-day {
+    display: inline-block;
+    background-position: left;
+    background-repeat: no-repeat;
+    background: url("@{imagepath}base_sprite.png") no-repeat 0px -60px;
+    width: 14px;
+    height: 12px;
+    padding: 0;
+}
+
+.fc-event-has-attachments {
+    background: url("@{imagepath}base_sprite.png") no-repeat 0px -60px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+    right: 12px;
 }
 
 
@@ -1823,9 +1850,9 @@ table.fc-lv-events td .title {
     }
 }
 table.fc-lv-events td .note {
-	color: #808080;
-	padding-left: .5em;
+    color: #808080;
 }
+
 table.fc-lv-events td .time {
 	color: #656565;
     text-align: left;
@@ -1836,6 +1863,18 @@ table.fc-lv-events td .time {
         height: 1px;
         background: #656565;
         margin: 3px 3px;
+    }
+}
+
+table.fc-lv-events td .attachments {
+    width: 32px;
+    padding-left: 3px;
+
+    .has-attachments {
+        margin-top: 3px;
+        background: url("@{imagepath}base_sprite.png") no-repeat 0px -60px;
+        width: 16px;
+        height: 16px;
     }
 }
 
@@ -2623,6 +2662,14 @@ div.fc-todo-list {
     word-wrap: break-word;
 }
 
+#fc_event_editor .viewer .attachments {
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 360px;
+    scrollbar-width: thin;
+}
+
 .event-editor .viewer,
 .event-editor .editor {
 	min-width: 30em;
@@ -3051,6 +3098,12 @@ div.fc-todo-list {
 	
 }
 
+.event-editor .viewer .calendar-status .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .event-editor .viewer .shared-list.hidden,
 .event-editor .editor .shared-list.hidden {
 	display: none;
@@ -3168,12 +3221,9 @@ div.fc-todo-list {
 }
 .event-editor .viewer .description .text {
 	width: 100%;
-	
 	white-space: normal;
 	word-wrap: break-word;
-	
 	height: auto;
-	max-height: 8em;
     overflow: auto;
 }
 #fc_todo_viewer .viewer .description .text > div,
@@ -4473,7 +4523,7 @@ div.fc-todo-list {
 
 #asc_event {
     padding-left: 24px;
-    height: 100%;
+
     .event-editor {
 
         .event-header {
@@ -4486,6 +4536,7 @@ div.fc-todo-list {
         .viewer {
             display: block;
         }
+
         .editor {
             display: none;
         }
@@ -4494,6 +4545,7 @@ div.fc-todo-list {
             .viewer {
                 display: none;
             }
+
             .editor {
                 display: block;
             }
@@ -4529,7 +4581,7 @@ div.fc-todo-list {
 
     .label {
         font-weight: bold;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     .textEdit {
@@ -4545,7 +4597,8 @@ div.fc-todo-list {
 
         &.time {
             width: 45px;
-            &.to-time{
+
+            &.to-time {
                 float: left;
                 margin-right: 12px;
             }
@@ -4589,7 +4642,7 @@ div.fc-todo-list {
         }
 
         &.left .inner {
-            padding: 0 45px 0 0;
+            padding: 0px;
         }
 
         &.right .inner {
@@ -4624,10 +4677,11 @@ div.fc-todo-list {
     .editor .cbx-container {
         margin-top: 0;
 
-        &.all-day{
+        &.all-day {
             margin-right: 10px;
         }
-        &.sent-invitations{
+
+        &.sent-invitations {
             margin-top: 24px;
         }
     }
@@ -4635,7 +4689,7 @@ div.fc-todo-list {
     .owner {
         max-width: 450px;
 
-        .tl-combobox{
+        .tl-combobox {
             max-width: 100%
         }
     }
@@ -4699,15 +4753,15 @@ div.fc-todo-list {
         height: 16px;
         background-repeat: no-repeat;
 
-        &.accepted{
+        &.accepted {
             background-position: 0 0;
         }
 
-        &.declined{
+        &.declined {
             background-position: 0 -32px;
         }
 
-        &.tentative{
+        &.tentative {
             background-position: 0 -16px;
         }
     }
@@ -4742,6 +4796,7 @@ div.fc-todo-list {
             width: 50px;
             height: 22px;
         }
+
         .text-container {
             overflow: hidden;
         }
@@ -4749,7 +4804,7 @@ div.fc-todo-list {
 
     .attendees-noaccount {
         color: #83888d;
-        
+
         a {
             color: #83888d;
         }
@@ -4848,4 +4903,29 @@ div.fc-todo-list {
 #attendeeConfirmNotification .buttons a {
 	display: inline-block;
     margin-right: 8px;
+}
+
+.fc-lv-scroller {
+    background: #F5F5F5;
+}
+
+table.fc-lv-events td .title {
+    white-space: normal;
+    line-height: 16px;
+    max-width: 746px;
+}
+
+.fc-lv-events .title {
+    margin-bottom: 8px;
+}
+
+.fc-lv-events .note p, .fc-lv-events .note ol, .fc-lv-events .note ul {
+    color: #333333;
+    margin-top: 0px;
+    margin-bottom: 12px;
+}
+
+.botttom-indent .text p {
+    margin-top: 0px;
+    margin-bottom: 12px;
 }

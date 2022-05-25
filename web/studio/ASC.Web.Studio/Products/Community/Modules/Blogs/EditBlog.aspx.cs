@@ -178,7 +178,7 @@ namespace ASC.Web.Community.Blogs
 
         protected override string RenderRedirectUpload()
         {
-            return string.Format("{0}://{1}:{2}{3}", Request.GetUrlRewriter().Scheme, Request.GetUrlRewriter().Host, Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?newEditor=true&esid=blogs&iid=" + BlogId);
+            return string.Format("{0}://{1}:{2}{3}", Request.GetUrlRewriter().Scheme, Request.GetUrlRewriter().Host, Request.GetUrlRewriter().Port, VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?esid=blogs&iid=" + BlogId);
         }
 
         public void UpdatePost(Post post, BlogsEngine engine)

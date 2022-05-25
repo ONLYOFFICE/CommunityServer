@@ -151,7 +151,7 @@ namespace AjaxPro
             }
 
             etag = type.AssemblyQualifiedName;
-            etag = MD5Helper.GetHash(System.Text.Encoding.Default.GetBytes(etag));
+            etag = Hash5Helper.GetHash(System.Text.Encoding.Default.GetBytes(etag));
 
             DateTime now = DateTime.Now;
             DateTime lastMod = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second); // .ToUniversalTime();

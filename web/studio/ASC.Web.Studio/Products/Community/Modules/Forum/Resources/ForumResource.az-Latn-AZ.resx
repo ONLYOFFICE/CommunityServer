@@ -100,6 +100,9 @@
   <data name="EmptyScreenForumText" xml:space="preserve">
     <value>Öz forumlarınızı yaradın, mövzularda iştirak edin, bəzi maraqlı məlumatları paylaşın, forumu daha interaktiv edən sorğular təşkil edin.</value>
   </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>Forumları ziyarət edin, müzakirələrdə iştirak edin və sizi maraqlandıran mövzulara şərhlər bildirin.</value>
+  </data>
   <data name="EmptyScreenSearchCaption" xml:space="preserve">
     <value>Mövzular tapılmadı</value>
   </data>

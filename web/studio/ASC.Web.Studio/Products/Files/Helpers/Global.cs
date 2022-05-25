@@ -145,6 +145,11 @@ namespace ASC.Web.Files.Classes
 
         public static string ThumbnailExtension;
 
+        public static bool EnableShareDialogV115
+        {
+            get { return Boolean.TrueString.Equals(ConfigurationManagerExtension.AppSettings["files.sharedialog-v115"] ?? "false", StringComparison.InvariantCultureIgnoreCase); }
+        }
+
         public static bool EnableUploadFilter
         {
             get { return Boolean.TrueString.Equals(ConfigurationManagerExtension.AppSettings["files.upload-filter"] ?? "false", StringComparison.InvariantCultureIgnoreCase); }

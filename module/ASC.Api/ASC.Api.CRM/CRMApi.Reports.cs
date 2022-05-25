@@ -31,7 +31,7 @@ namespace ASC.Api.CRM
 {
     public partial class CRMApi
     {
-        /// <summary>Returns a list of all user report files</summary>
+        /// <summary>Returns a list of all the user report files.</summary>
         /// <short>Get report files</short>
         /// <category>Reports</category>
         /// <returns>Report files</returns>
@@ -61,13 +61,13 @@ namespace ASC.Api.CRM
             return files.ConvertAll(file => new FileWrapper(file)).OrderByDescending(file => file.Id);
         }
 
-        /// <summary>Delete the report file with the ID specified in the request</summary>
+        /// <summary>Deletes a report file with the ID specified in the request.</summary>
         /// <param name="fileid">File ID</param>
-        /// <short>Delete report file</short>
+        /// <short>Delete a report file</short>
         /// <category>Reports</category>
         /// <exception cref="SecurityException">if user can't create reports</exception>
-        /// <exception cref="ArgumentException">if fileid les than 0</exception>
-        /// <exception cref="ItemNotFoundException">if file not found</exception>
+        /// <exception cref="ArgumentException">if file ID is less than 0</exception>
+        /// <exception cref="ItemNotFoundException">if file is not found</exception>
         [Delete(@"report/file/{fileid:[0-9]+}")]
         public void DeleteFile(int fileid)
         {
@@ -83,7 +83,7 @@ namespace ASC.Api.CRM
             DaoFactory.ReportDao.DeleteFile(fileid);
         }
 
-        /// <summary>Get the state of the report generation task</summary>
+        /// <summary>Returns a state of the report generation task.</summary>
         /// <short>Get report generation state</short>
         /// <category>Reports</category>
         /// <returns>Report state</returns>
@@ -97,8 +97,8 @@ namespace ASC.Api.CRM
             return DocbuilderReportsUtility.Status(ReportOrigin.CRM);
         }
 
-        /// <summary>Terminate the report generation task</summary>
-        /// <short>Terminate report generation</short>
+        /// <summary>Terminates the report generation task.</summary>
+        /// <short>Terminate the report generation</short>
         /// <category>Reports</category>
         /// <exception cref="SecurityException">if user can't create reports</exception>
         [Read(@"report/terminate")]
@@ -110,13 +110,13 @@ namespace ASC.Api.CRM
             DocbuilderReportsUtility.Terminate(ReportOrigin.CRM);
         }
 
-        /// <summary>Check data availability for a report</summary>
+        /// <summary>Checks report data for the parameters specified in the request.</summary>
         /// <param name="type">Report type</param>
         /// <param name="timePeriod">Time period</param>
         /// <param name="managers">Managers</param>
         /// <short>Check report data</short>
         /// <category>Reports</category>
-        /// <returns>Object</returns>
+        /// <returns>Report information</returns>
         /// <exception cref="SecurityException">if user can't create reports</exception>
         [Create(@"report/check")]
         public object CheckReportData(ReportType type, ReportTimePeriod timePeriod, Guid[] managers)
@@ -131,11 +131,11 @@ namespace ASC.Api.CRM
             };
         }
 
-        /// <summary>Run the report generation task</summary>
+        /// <summary>Runs the report generation task with the parameters specified in the request.</summary>
         /// <param name="type">Report type</param>
         /// <param name="timePeriod">Time period</param>
         /// <param name="managers">Managers</param>
-        /// <short>Generate report</short>
+        /// <short>Generate a report</short>
         /// <category>Reports</category>
         /// <returns>Report state</returns>
         /// <exception cref="SecurityException">if user can't create reports</exception>

@@ -45,12 +45,12 @@ namespace ASC.Data.Backup.Storage
             CoreContext.TenantManager.SetCurrentTenant(tenantId);
             if (!userId.Equals(Guid.Empty))
             {
-                SecurityContext.AuthenticateMe(userId);
+                SecurityContext.CurrentUser = userId;
             }
             else
             {
                 var tenant = CoreContext.TenantManager.GetTenant(tenantId);
-                SecurityContext.AuthenticateMe(tenant.OwnerId);
+                SecurityContext.CurrentUser = tenant.OwnerId;
             }
 
             using (var folderDao = GetFolderDao())

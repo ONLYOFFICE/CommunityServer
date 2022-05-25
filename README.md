@@ -17,7 +17,7 @@
 </p>
 <p align="center">
   <a href="http://www.apache.org/licenses/LICENSE-2.0"><img alt="http://www.apache.org/licenses/LICENSE-2.0" src="https://img.shields.io/badge/License-Apache%20v2.0-green.svg?style=flat"></a>
-  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
+  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-11.5.0-blue.svg"></a>
 </p>
 
 ## Overview

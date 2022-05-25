@@ -9,6 +9,7 @@
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
     <asp:PlaceHolder ID="SettingsContainer" runat="server" />
+    <asp:PlaceHolder ID="AdminHelper" runat="server" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="SidePanel" runat="server">
@@ -71,7 +72,7 @@
 
             <asp:PlaceHolder ID="InviteUserHolder" runat="server"/>
 
-            <% if (TenantExtra.EnableTariffSettings)
+            <% if (!DisableTariff)
                { %>
             <li class="menu-item none-sub-list add-block">
                 <div class="category-wrapper">
@@ -92,8 +93,10 @@
             <asp:PlaceHolder ID="SupportHolder" runat="server"/>
             <asp:PlaceHolder ID="UserForumHolder" runat="server"/>
             <asp:PlaceHolder ID="VideoGuides" runat="server"/>
+            
         </ul>
     </div>
+    
     <% if (!string.IsNullOrEmpty(SetupInfo.UserVoiceURL))
        { %>
     <script type="text/javascript" src="<%= SetupInfo.UserVoiceURL %>"></script>

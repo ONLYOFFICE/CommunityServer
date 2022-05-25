@@ -283,9 +283,6 @@
   <data name="TariffPerYear" xml:space="preserve">
     <value>leto</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Le na leto</value>
-  </data>
   <data name="TariffStorageLimitHeader" xml:space="preserve">
     <value>Prostor za shranjevanje na portalu je presežen</value>
   </data>

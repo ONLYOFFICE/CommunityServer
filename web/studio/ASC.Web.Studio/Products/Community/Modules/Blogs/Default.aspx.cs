@@ -128,7 +128,7 @@ namespace ASC.Web.Community.Blogs
 
             var jsResource = new StringBuilder();
             jsResource.Append(String.Format("ASC.Community.BlogsJSResource = {{}};ASC.Community.BlogsJSResource.ReadMoreLink = \"{0}\";", BlogsResource.ReadMoreLink));
-            jsResource.Append("jq('#tableForNavigation select').val(" + BlogsPageSize + ").change(function(evt) {changeBlogsCountOfRows(this.value);}).tlCombobox();");
+            jsResource.Append("jq('#tableForNavigation select').val(" + BlogsPageSize + ").on('change', function(evt) {changeBlogsCountOfRows(this.value);}).tlCombobox();");
             Page.RegisterInlineScript(jsResource.ToString(), true);
         }
 

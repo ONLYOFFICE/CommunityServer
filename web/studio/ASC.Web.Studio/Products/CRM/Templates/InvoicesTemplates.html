@@ -215,8 +215,10 @@
                 <div class="header-base-small">${ASC.CRM.Resources.CRMInvoiceResource.FormInvoiceItemPrice}</div>
                 <input type="text" class="textEdit" id="newItemPrice" maxlength="11">
             </div>
+            <div id="priceTip" class="gray-text">${ASC.CRM.Resources.CRMInvoiceResource.PriceTip}</div>
             <div class="button-container">
                 <a class="button gray disable create-btn">${ASC.CRM.Resources.CRMCommonResource.Create}</a>
+                <span class="splitter-buttons"></span>
                 <a class="button gray cancel-btn">${ASC.CRM.Resources.CRMCommonResource.Cancel}</a>
             </div>
         </div>
@@ -310,6 +312,7 @@
         <div class="action">
             <a class="crm-removeLink"></a>
         </div>
+        <div class="price-error-text">${ASC.CRM.Resources.CRMInvoiceResource.ErrorIncorrectPrice} (max ${ASC.CRM.Data.MaxInvoiceItemPrice})</div>
     </div>
 </script>
 

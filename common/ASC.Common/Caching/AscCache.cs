@@ -171,7 +171,7 @@ namespace ASC.Common.Caching
 
             if (onchange != null)
             {
-                onchange.ToArray().ForEach(r => r(obj, action));
+                onchange.ToList().ForEach(r => r(obj, action));
             }
         }
 

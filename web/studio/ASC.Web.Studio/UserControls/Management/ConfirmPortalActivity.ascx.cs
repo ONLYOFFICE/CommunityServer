@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Linq;
 using System.ServiceModel.Security;
 using System.Web;
 using System.Web.UI;
@@ -66,18 +65,6 @@ namespace ASC.Web.Studio.UserControls.Management
             switch (_type)
             {
                 case ConfirmType.PortalContinue:
-                    if (TenantExtra.Enterprise)
-                    {
-                        var countPortals = TenantExtra.GetTenantQuota().CountPortals;
-                        var activePortals = CoreContext.TenantManager.GetTenants().Count();
-                        if (countPortals <= activePortals)
-                        {
-                            _successMessage = UserControlsCommonResource.TariffPortalLimitHeaer;
-                            _confirmContentHolder.Visible = false;
-                            return;
-                        }
-                    }
-
                     _buttonTitle = Resource.ReactivatePortalButton;
                     _title = Resource.ConfirmReactivatePortalTitle;
                     break;
@@ -152,7 +139,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     if (!SecurityContext.IsAuthenticated)
                     {
-                        SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                        SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                         authed = true;
                     }
 
@@ -254,7 +241,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 if (!SecurityContext.IsAuthenticated)
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                     authed = true;
                 }
 

@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -49,9 +48,9 @@ namespace ASC.Web.Files.Services.DocumentService
     {
         public static readonly Dictionary<FileType, string> DocType = new Dictionary<FileType, string>
             {
-                { FileType.Document, "text" },
-                { FileType.Spreadsheet, "spreadsheet" },
-                { FileType.Presentation, "presentation" }
+                { FileType.Document, "word" },
+                { FileType.Spreadsheet, "cell" },
+                { FileType.Presentation, "slide" }
             };
 
         public enum EditorType
@@ -140,6 +139,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
         }
 
+
         #region Nested Classes
 
         [DataContract(Name = "document", Namespace = "")]
@@ -209,16 +209,24 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 public EditorType Type = EditorType.Desktop;
                 private string _breadCrumbs;
+                private bool? _favorite;
+                private bool _favoriteIsSet;
 
 
                 [DataMember(Name = "favorite", EmitDefaultValue = false)]
                 public bool? Favorite
                 {
-                    set { }
+                    set
+                    {
+                        _favoriteIsSet = true;
+                        _favorite = value;
+                    }
                     get
                     {
+                        if (_favoriteIsSet) return _favorite;
                         if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
-                        if (File.Encrypted) return null;
+                        if (File.FolderID == null
+                            || File.Encrypted) return null;
                         return File.IsFavorite;
                     }
                 }
@@ -281,7 +289,6 @@ namespace ASC.Web.Files.Services.DocumentService
             [DataContract(Name = "permissions", Namespace = "")]
             public class PermissionsConfig
             {
-                //todo: obsolete since DS v5.5
                 [DataMember(Name = "changeHistory")]
                 public bool ChangeHistory = false;
 
@@ -303,7 +310,6 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "modifyFilter")]
                 public bool ModifyFilter = true;
 
-                //todo: obsolete since DS v6.0
                 [DataMember(Name = "rename")]
                 public bool Rename = false;
 
@@ -346,6 +352,22 @@ namespace ASC.Web.Files.Services.DocumentService
 
             [DataMember(Name = "actionLink", EmitDefaultValue = false)]
             public ActionLinkConfig ActionLink;
+
+            [DataMember(Name = "coEditing", EmitDefaultValue = false)]
+            public CoEditingConfig CoEditing
+            {
+                set { }
+                get
+                {
+                    return !ModeWrite && User == null
+                      ? new CoEditingConfig
+                      {
+                          Fast = false,
+                          Change = false
+                      }
+                      : null;
+                }
+            }
 
             public string ActionLinkString
             {
@@ -400,7 +422,6 @@ namespace ASC.Web.Files.Services.DocumentService
                                                 new TemplatesConfig
                                                 {
                                                     Image = CommonLinkUtility.GetFullAbsolutePath("skins/default/images/filetype/thumb/" + extension + ".png"),
-                                                    Name = file.Title,
                                                     Title = file.Title,
                                                     Url = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID))
                                                 };
@@ -410,7 +431,11 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             [DataMember(Name = "callbackUrl", EmitDefaultValue = false)]
-            public string CallbackUrl;
+            public string CallbackUrl
+            {
+                set { }
+                get { return ModeWrite ? DocumentServiceTracker.GetCallbackUrl(_configuration.Document.Info.File.ID.ToString()) : null; }
+            }
 
             [DataMember(Name = "createUrl", EmitDefaultValue = false)]
             public string CreateUrl
@@ -536,6 +561,7 @@ namespace ASC.Web.Files.Services.DocumentService
                        + "&" + FilesLinkUtility.FileTitle + "=" + HttpUtility.UrlEncode(title);
             }
 
+
             #region Nested Classes
 
             [DataContract(Name = "actionLink", Namespace = "")]
@@ -544,6 +570,8 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "action", EmitDefaultValue = false)]
                 public ActionConfig Action;
 
+
+                #region Nested Classes
 
                 [DataContract(Name = "action", Namespace = "")]
                 public class ActionConfig
@@ -555,6 +583,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     public string Data;
                 }
 
+                #endregion
 
                 public static string Serialize(ActionLinkConfig actionLinkConfig)
                 {
@@ -566,6 +595,22 @@ namespace ASC.Web.Files.Services.DocumentService
                         return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
                     }
                 }
+            }
+
+            [DataContract(Name = "coEditing", Namespace = "")]
+            public class CoEditingConfig
+            {
+                public bool Fast;
+
+                [DataMember(Name = "mode", EmitDefaultValue = false)]
+                public string Mode
+                {
+                    set { }
+                    get { return Fast ? "fast" : "strict"; }
+                }
+
+                [DataMember(Name = "change", EmitDefaultValue = false)]
+                public bool Change;
             }
 
             [DataContract(Name = "embedded", Namespace = "")]
@@ -652,7 +697,9 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     _configuration = configuration;
 
-                    Customer = new CustomerConfig(_configuration);
+                    if (CoreContext.Configuration.Standalone)
+                        Customer = new CustomerConfig(_configuration);
+
                     Logo = new LogoConfig(_configuration);
                 }
 
@@ -668,7 +715,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     get { return !CoreContext.Configuration.Standalone || CoreContext.Configuration.CustomMode; }
                 }
 
-                [DataMember(Name = "customer")]
+                [DataMember(Name = "customer", EmitDefaultValue = false)]
                 public CustomerConfig Customer;
 
                 [DataMember(Name = "feedback", EmitDefaultValue = false)]
@@ -678,13 +725,14 @@ namespace ASC.Web.Files.Services.DocumentService
                     get
                     {
                         if (CoreContext.Configuration.Standalone) return null;
-                        if (!AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportEnabled) return null;
+
+                        var link = CommonLinkUtility.GetFeedbackAndSupportLink();
+
+                        if (string.IsNullOrEmpty(link)) return null;
 
                         return new FeedbackConfig
                         {
-                            Url = CommonLinkUtility.GetRegionalUrl(
-                                    AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportUrl,
-                                    CultureInfo.CurrentCulture.TwoLetterISOLanguageName),
+                            Url = link
                         };
                     }
                 }
@@ -780,6 +828,34 @@ namespace ASC.Web.Files.Services.DocumentService
                     get { return _configuration.EditorConfig.ModeWrite ? null : "markup"; }
                 }
 
+                [DataMember(Name = "submitForm", EmitDefaultValue = false)]
+                public bool SubmitForm
+                {
+                    set { }
+                    get
+                    {
+                        if (_configuration.EditorConfig.ModeWrite
+                          && _configuration.Document.Info.File.Access == ASC.Files.Core.Security.FileShare.FillForms)
+                        {
+                            using (var linkDao = Global.GetLinkDao())
+                            using (var fileDao = Global.DaoFactory.GetFileDao())
+                            {
+                                var sourceId = linkDao.GetSource(_configuration.Document.Info.File.ID);
+                                if (sourceId != null)
+                                {
+                                    var properties = fileDao.GetProperties(sourceId);
+                                    return properties != null
+                                        && properties.FormFilling != null
+                                        && properties.FormFilling.CollectFillForm;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                }
+
+
+                #region Nested Classes
 
                 [DataContract(Name = "customer", Namespace = "")]
                 public class CustomerConfig
@@ -792,22 +868,39 @@ namespace ASC.Web.Files.Services.DocumentService
                     private readonly Configuration _configuration;
 
 
+                    [DataMember(Name = "address")]
+                    public string Address
+                    {
+                        set { }
+                        get { return CompanyWhiteLabelSettings.Instance.Address; }
+                    }
+
                     [DataMember(Name = "logo")]
                     public string Logo
                     {
                         set { }
-                        get { return CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark, !_configuration.EditorConfig.Customization.IsRetina)); }
+                        get { return CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !_configuration.EditorConfig.Customization.IsRetina)); }
+                    }
+
+                    [DataMember(Name = "mail")]
+                    public string Mail
+                    {
+                        set { }
+                        get { return CompanyWhiteLabelSettings.Instance.Email; }
                     }
 
                     [DataMember(Name = "name")]
                     public string Name
                     {
                         set { }
-                        get
-                        {
-                            return (TenantWhiteLabelSettings.Load().LogoText ?? "")
-                                .Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("/", "\\/");
-                        }
+                        get { return CompanyWhiteLabelSettings.Instance.CompanyName; }
+                    }
+
+                    [DataMember(Name = "www")]
+                    public string Www
+                    {
+                        set { }
+                        get { return CompanyWhiteLabelSettings.Instance.Site; }
                     }
                 }
 
@@ -885,6 +978,8 @@ namespace ASC.Web.Files.Services.DocumentService
                         get { return CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetDefault()); }
                     }
                 }
+
+                #endregion
             }
 
             [DataContract(Name = "recentconfig", Namespace = "")]
@@ -905,10 +1000,6 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 [DataMember(Name = "image", EmitDefaultValue = false)]
                 public string Image;
-
-                //todo: obsolete since DS v6.0
-                [DataMember(Name = "name", EmitDefaultValue = false)]
-                public string Name;
 
                 [DataMember(Name = "title", EmitDefaultValue = false)]
                 public string Title;

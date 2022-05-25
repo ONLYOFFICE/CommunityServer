@@ -103,11 +103,11 @@ Prosim sledite tej povezavi za prenos arhiva: "exportdata.zip":"${EntityRelative
 *Opozorilo*: Ta povezava je veljavna le 24 ur.
 
 Če imate kakršno koli vprašanje, ali potrebujete pomoč, nas prosim kontaktirajte na
-"support.onlyoffice.com":"http://support.onlyoffice.com"
+"support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Lep pozdrav,
 ONLYOFFICE™ Ekipa za pomoč 
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^To e-sporočilo prejemate, ker ste registriran uporabnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Za spreminjanje vrste obvestila prosim uredite svoje "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
   </data>
@@ -117,11 +117,11 @@ ONLYOFFICE™ Ekipa za pomoč
 Pojdite v "Kontakte":"$__VirtualRootPath/Products/CRM/" seznam.
 
 Če imate kakršno koli vprašanje, ali potrebujete pomoč, nas prosim kontaktirajte na
-"support.onlyoffice.com":"http://support.onlyoffice.com"
+"support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Lep pozdrav,
 ONLYOFFICE™ ekipa za pomoč
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^To e-sporočilo prejemate, ker ste registriran uporabnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Za spreminjanje vrste nastavitve, prosim uredite svoje "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
   </data>

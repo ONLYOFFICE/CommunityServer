@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>有効なユーザーは「お客様」と「無効」ステータスを持っているユーザー以外の全てのポータル参加者です。</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>世論調査の答えを追加する</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>プロジェクトドキュメントからファイルを添付する</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Bitlyを使用してポータルの招待リンクと文書モジュール共有リンクをを短くにします。</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>ソーシャルアカウントを使用してポータルにログインし、連絡先を検索します</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>お気に入りのクラウドストレージサービスを接続し、ファイルを1か所にまとめます。</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>{0}ONLYOFFICE Twilio{1}統合により、顧客にCRMから直接に電話できます。</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -461,9 +446,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>技術質問のサポート：{0}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>基本価格</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>通貨の全リストについては、Avangateをご覧ください</value>
   </data>
@@ -473,14 +455,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>無料</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>フル価格リストを表示する</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>あなたは、新しい料金プランを選択しますか？</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>期間限定</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>はい、プランをアップグレード</value>
@@ -490,9 +466,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}１年{2}{1}サブスクリプション</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}３年{1}サブスクリプション</value>
   </data>
   <data name="TariffOverdueDesktop" xml:space="preserve">
     <value>{0} ポータル支払は期限切れです。{1}{2}ONLYOFFICEの共同作業機能を使い続けるように、{2}既存の料金プランを延長し、または別の料金プランを選択してください。</value>
@@ -517,12 +490,6 @@
   </data>
   <data name="TariffPop" xml:space="preserve">
     <value>一番人気が高いサブスクリプション</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>新しいポータル追加のは既存の料金プランで許可されているポータル最大数を超えるようになります。</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>保存{0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0}ユーザー／月あたり</value>

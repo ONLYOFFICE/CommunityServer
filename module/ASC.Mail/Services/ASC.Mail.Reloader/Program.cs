@@ -21,7 +21,9 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
+
 using ASC.Common.Logging;
+using ASC.Common.Utils;
 using ASC.Mail.Clients;
 using ASC.Mail.Core;
 using ASC.Mail.Core.Dao.Expressions.Mailbox;
@@ -194,21 +196,21 @@ namespace ASC.Mail.Reloader
                                 continue;
                             }
 
-                            if (!storedMessage.From.Equals(MailUtil.NormalizeStringForMySql(message.From)) ||
-                                !storedMessage.To.Equals(MailUtil.NormalizeStringForMySql(message.To)) ||
-                                !storedMessage.Subject.Equals(MailUtil.NormalizeStringForMySql(message.Subject)))
+                            if (!storedMessage.From.Equals(StringUtils.NormalizeStringForMySql(message.From)) ||
+                                !storedMessage.To.Equals(StringUtils.NormalizeStringForMySql(message.To)) ||
+                                !storedMessage.Subject.Equals(StringUtils.NormalizeStringForMySql(message.Subject)))
                             {
                                 Console.WriteLine(@"storedMessage.From = '{0}'", storedMessage.From);
                                 Console.WriteLine(@"message.From = '{0}'",
-                                    MailUtil.NormalizeStringForMySql(message.From));
+                                    StringUtils.NormalizeStringForMySql(message.From));
 
                                 Console.WriteLine(@"storedMessage.To = '{0}'", storedMessage.To);
                                 Console.WriteLine(@"message.To = '{0}'",
-                                    MailUtil.NormalizeStringForMySql(message.To));
+                                    StringUtils.NormalizeStringForMySql(message.To));
 
                                 Console.WriteLine(@"storedMessage.Subject = '{0}'", storedMessage.Subject);
                                 Console.WriteLine(@"message.Subject = '{0}'",
-                                    MailUtil.NormalizeStringForMySql(message.Subject));
+                                    StringUtils.NormalizeStringForMySql(message.Subject));
 
                                 Console.WriteLine(@"[ERROR] Stored message not equals to server message");
                                 continue;

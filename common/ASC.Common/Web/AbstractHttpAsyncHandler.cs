@@ -20,11 +20,11 @@ using System.Globalization;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
-using System.Web.SessionState;
+
 
 namespace ASC.Common.Web
 {
-    public abstract class AbstractHttpAsyncHandler : IHttpAsyncHandler, IReadOnlySessionState
+    public abstract class AbstractHttpAsyncHandler : IHttpAsyncHandler
     {
         private Action<HttpContext> processRequest;
         private IPrincipal principal;

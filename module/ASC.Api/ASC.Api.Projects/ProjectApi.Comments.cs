@@ -40,10 +40,10 @@ namespace ASC.Api.Projects
         #region comments
 
         ///<summary>
-        ///Returns the information about the comment with the ID specified in the request
+        ///Returns the information about a comment with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Get comment
+        ///Get a comment
         ///</short>
         ///<category>Comments</category>
         ///<param name="commentid">Comment ID</param>
@@ -59,15 +59,15 @@ namespace ASC.Api.Projects
         }
 
         /////<summary>
-        /////Updates the seleted comment using the comment text specified in the request
+        /////Updates the seleted comment using the comment text specified in the request.
         /////</summary>
         /////<short>
-        /////Update comment
+        /////Update a comment
         /////</short>
         /////<category>Comments</category>
-        /////<param name="commentid">comment ID</param>
-        /////<param name="content">comment text</param>
-        /////<returns>Comment</returns>
+        /////<param name="commentid">Comment ID</param>
+        /////<param name="content">Comment text</param>
+        /////<returns>Updated comment</returns>
         /////<exception cref="ItemNotFoundException"></exception>
         /////<example>
         /////<![CDATA[
@@ -95,14 +95,15 @@ namespace ASC.Api.Projects
         //}
 
         ///<summary>
-        ///Get preview
+        ///Get a preview of a project comment with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Get preview
+        ///Get a comment preview
         ///</short>
         ///<category>Comments</category>
-        ///<param name="htmltext">html to create preview</param>
-        ///<param name="commentid">guid of editing comment or empty string if comment is new</param>
+        ///<param name="htmltext">Comment text in the HTML format</param>
+        ///<param name="commentid">Comment ID or empty string if a comment is new</param>
+        ///<returns>Comment information</returns>
         [Create(@"comment/preview")]
         public CommentInfo GetProjectCommentPreview(string htmltext, string commentid)
         {
@@ -145,12 +146,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Remove comment with the id specified in the request
+        ///Removes a comment with the ID specified in the request.
         ///</summary>
-        ///<short>Remove comment</short>
+        ///<short>Remove a comment</short>
         ///<section>Comments</section>
         ///<param name="commentid">Comment ID</param>
-        ///<returns>Comment id</returns>
+        ///<returns>Comment ID</returns>
         ///<category>Comments</category>
         [Delete("comment/{commentid}")]
         public string RemoveProjectComment(string commentid)
@@ -172,14 +173,15 @@ namespace ASC.Api.Projects
         }
 
         /// <summary>
-        /// 
+        /// Adds a project comment with the parameters specified in the request. The parent comment ID can also be selected.
         /// </summary>
-        /// <param name="parentcommentid"></param>
-        /// <param name="entityid"></param>
-        /// <param name="content"></param>
-        /// <param name="type"></param>
+        /// <short>Add a project comment</short>
+        /// <param name="parentcommentid">Parent comment ID</param>
+        /// <param name="entityid">Entity ID</param>
+        /// <param name="content">Comment text</param>
+        /// <param name="type">Comment type (message or task)</param>
         /// <category>Comments</category>
-        /// <returns></returns>
+        /// <returns>Comment information</returns>
         [Create("comment")]
         public CommentInfo AddProjectComment(string parentcommentid, int entityid, string content, string type)
         {
@@ -206,12 +208,13 @@ namespace ASC.Api.Projects
         }
 
         /// <summary>
-        /// 
+        /// Updates the seleted comment using the comment text specified in the request.
         /// </summary>
-        /// <param name="commentid"></param>
-        /// <param name="content"></param>
+        /// <short>Update a comment</short>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="content">New comment text</param>
         ///<category>Comments</category>
-        /// <returns></returns>
+        /// <returns>Updated comment</returns>
         [Update("comment/{commentid}")]
         public string UpdateComment(string commentid, string content)
         {

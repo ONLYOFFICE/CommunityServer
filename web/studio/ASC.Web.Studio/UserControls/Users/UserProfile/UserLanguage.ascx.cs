@@ -50,7 +50,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
             HelpLink = CommonLinkUtility.GetHelpLink();
 
-            ShowHelper = !(CoreContext.Configuration.Standalone && !CompanyWhiteLabelSettings.Instance.IsDefault);
+            ShowHelper = !CoreContext.Configuration.CustomMode && CompanyWhiteLabelSettings.Instance.IsDefault;
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]

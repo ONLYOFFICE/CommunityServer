@@ -19,7 +19,7 @@ namespace ASC.Web.Studio.Core.Notify {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class WebstudioNotifyPatternResource {
@@ -57,6 +57,15 @@ namespace ASC.Web.Studio.Core.Notify {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting at.
+        /// </summary>
+        public static string ActionBirthday {
+            get {
+                return ResourceManager.GetString("ActionBirthday", resourceCulture);
             }
         }
         
@@ -201,6 +210,15 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string ActionCreateTask {
             get {
                 return ResourceManager.GetString("ActionCreateTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added at.
+        /// </summary>
+        public static string ActionNewEmployee {
+            get {
+                return ResourceManager.GetString("ActionNewEmployee", resourceCulture);
             }
         }
         
@@ -524,21 +542,17 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1.Password change request for the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal
-        ///
-        ///There has been a request to change your password used to enter the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
-        ///
-        ///Please follow the link below to change your password:
+        ///   Looks up a localized string similar to Want to change the password on your ONLYOFFICE account? Click the button below to confirm.
         ///
         ///$GreenButton
         ///
-        ///*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
+        ///The link is valid for 7 days.
         ///
-        ///If you do not want to change your password or received this email by mistake, please ignore it or contact your &quot;${__Virtual [rest of string was truncated]&quot;;.
+        ///Don’t want to change your password? Just ignore this message.
         /// </summary>
-        public static string pattern_change_password {
+        public static string pattern_change_password_v115 {
             get {
-                return ResourceManager.GetString("pattern_change_password", resourceCulture);
+                return ResourceManager.GetString("pattern_change_password_v115", resourceCulture);
             }
         }
         
@@ -1538,22 +1552,17 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There has been a request to change your password used to enter the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
+        ///   Looks up a localized string similar to Want to change the password on your ONLYOFFICE Personal account? Click the button below to confirm.
         ///
-        ///Please follow the link below to change your password:
+        ///$GreenButton 
         ///
-        ///$GreenButton
+        ///The link is valid for 7 days.
         ///
-        ///*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
-        ///
-        ///If you do not want to change your password or received this email by mistake, please ignore it.
-        ///
-        ///Sincerely,
-        ///ONLYOFFICE team.
+        ///Don’t want to change your password? Just ignore this message..
         /// </summary>
-        public static string pattern_personal_change_password {
+        public static string pattern_personal_change_password_v115 {
             get {
-                return ResourceManager.GetString("pattern_personal_change_password", resourceCulture);
+                return ResourceManager.GetString("pattern_personal_change_password_v115", resourceCulture);
             }
         }
         
@@ -2598,11 +2607,11 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ${LetterLogoText} password assistance.
+        ///   Looks up a localized string similar to Confirm changing your password.
         /// </summary>
-        public static string subject_change_password {
+        public static string subject_change_password_v115 {
             get {
-                return ResourceManager.GetString("subject_change_password", resourceCulture);
+                return ResourceManager.GetString("subject_change_password_v115", resourceCulture);
             }
         }
         
@@ -3044,15 +3053,6 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string subject_personal_after_registration7 {
             get {
                 return ResourceManager.GetString("subject_personal_after_registration7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ONLYOFFICE Personal password assistance.
-        /// </summary>
-        public static string subject_personal_change_password {
-            get {
-                return ResourceManager.GetString("subject_personal_change_password", resourceCulture);
             }
         }
         

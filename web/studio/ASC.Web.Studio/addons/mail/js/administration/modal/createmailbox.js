@@ -25,9 +25,9 @@ window.createMailboxModal = (function ($) {
 
         var html = $.tmpl('createMailboxPopupTmpl', { domain: domain });
 
-        $(html).find('.save').unbind('click').bind('click', addMailbox);
+        $(html).find('.save').off('click').on('click', addMailbox);
 
-        $(html).find('.cancel').unbind('click').bind('click', function () {
+        $(html).find('.cancel').off('click').on('click', function () {
             if ($(this).hasClass('disable')) {
                 return false;
             }
@@ -42,7 +42,7 @@ window.createMailboxModal = (function ($) {
 
         $rootEl = $('#mail_server_create_mailbox_popup');
 
-        $rootEl.find('#mail_server_add_mailbox .mailboxName').unbind('textchange').bind('textchange', function () {
+        $rootEl.find('#mail_server_add_mailbox .mailboxName').off('textchange').on('textchange', function () {
             turnOffAllRequiredError();
         });
 
@@ -167,7 +167,7 @@ window.createMailboxModal = (function ($) {
     }
 
     function setFocusToMailboxInput() {
-        $rootEl.find('.mailboxName').focus();
+        $rootEl.find('.mailboxName').trigger("focus");
     }
 
     return {

@@ -525,7 +525,7 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
     }
 }
 
-.error-popup {
+.error-popup, .read-confirmation-popup {
     ul {
         padding-left: 20px;
         margin-bottom: 0;
@@ -533,7 +533,16 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
     }
 
     .text {
-        margin-right:10px;
+        margin-right: 8px;
+    }
+
+    .info-text {
+        font-weight: normal;
+        margin-right: 8px;
+    }
+
+    .link {
+        margin-right: 4px;
     }
 
     li {
@@ -678,7 +687,7 @@ noindex:-moz-any-link {
 
 .menu-main-button {
     span:first-child {
-        width: 145px !important;
+        width: 154px !important;
     }
 }
 
@@ -1184,9 +1193,23 @@ textarea {
     }
 }
 
-div.error-popup {
+div.error-popup, .read-confirmation-popup {
     font-weight: bold;
     margin-top: 5px;
+}
+
+.read-confirmation-popup .close-info-popup {
+    color: #000000;
+    filter: alpha(Opacity=40);
+    opacity: 0.4;
+}
+
+.read-confirmation-popup #receiptHelpCenterSwitcher {
+    margin: 0px 0px -2.7px;
+
+    &:after {
+        color: #d0eaf5;
+    }
 }
 
 .fromAccountSelector {

@@ -23,6 +23,9 @@ const filenamify = require('filenamify-url');
 const webshot = require('./webshot/webshot');
 const config = require('../config');
 const log = require('./log.js');
+const fetch = require("node-fetch");
+const dns = require("dns");
+const Address = require("ipaddr.js");
 
 const linkReg = /http(s)?:\/\/.*/;
 let urls = [];
@@ -36,6 +39,29 @@ const cache = new nodeCache({
     checkperiod: 60 * 60,
     useClones: false
 });
+
+function checkValidUrl(url) {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then(res => {
+        var host = new URL(res.url).host;
+        dns.lookup(host, (err, ip, family) => {
+          if (err) {
+            log.error(error);
+            resolve(false);
+            return;
+          }
+          const address = Address.parse(ip);
+          const range = address.range();
+          resolve(range === 'unicast');
+        });
+      })
+      .catch(error => {
+        log.error(error);
+        resolve(false);
+      });
+  });
+}
 
 function checkFileExist(pathToFile) {
   return new Promise((resolve, reject) => {
@@ -101,6 +127,12 @@ module.exports = function (req, res) {
       }
   
       co(function* () {
+        const isValidUrl = yield checkValidUrl(url);
+        if (!isValidUrl) {
+          res.sendFile(noThumb);
+          return;
+        }
+        
         const exists = yield checkFileExist(pathToFile);
         if (exists) {
           success();

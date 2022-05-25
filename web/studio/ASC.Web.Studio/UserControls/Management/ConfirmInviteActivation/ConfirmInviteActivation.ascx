@@ -72,12 +72,27 @@
                         <input type="password" id="studio_confirm_pwd" value="" class="textEdit" autocomplete="off"
                             data-maxlength="<%= PasswordSettings.MaxLength %>"
                             data-regex="<%: PasswordSettings.GetPasswordRegex(PasswordSettings.Load()) %>"
-                            data-help="<%= ASC.Web.Studio.Core.Users.UserManagerWrapper.GetPasswordHelpMessage() %>" />
+                            data-help="<%= UserManagerWrapper.GetPasswordHelpMessage() %>"/>
                         <input type="hidden" id="passwordHash" name="passwordHash" />
+                        <label class="eye-label hide-label" id="passwordShowLabel"></label>
                     </div>
                     <div class="popup_helper" id="InvitePasswordHelp">
                         <%= UserManagerWrapper.GetPasswordHelpMessage() %>
-                        </div>
+                    </div>
+                </div>
+                <%--Pwd Match--%>
+                <div class="property">
+                    <div class="name">
+                        <%= Resource.InviteRepeatPassword %>
+                    </div>
+                    <div class="value">
+                        <input type="password" id="studio_confirm_pwd_match" value="" class="textEdit" autocomplete="off"
+                            data-maxlength="<%= PasswordSettings.MaxLength %>"/>
+                        <label class="eye-label hide-label" id="passwordShowLabelMatch"></label>
+                    </div>
+                </div>
+                <div class="name">
+                    <p id="password-do-not-match-text"><%= Resource.PasswordDoNotMatch %></p>
                 </div>
 
                 <div class="big-button-container">

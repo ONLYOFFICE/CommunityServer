@@ -86,6 +86,18 @@ namespace ASC.Core
             return tariffService.GetShoppingUri(null, quotaId, affiliateId, currency, language, customerId, quantity);
         }
 
+        // used in www
+        public Uri GetShoppingUri(string productId, string currency = null, string language = null, string customerId = null, string quantity = null, string affiliateId = null)
+        {
+            return tariffService.GetShoppingUri(new[] { productId }, affiliateId, currency, language, customerId, quantity);
+        }
+
+        // used in www
+        public Uri GetShoppingUri(string[] productIds, string currency = null, string language = null, string customerId = null, string quantity = null, string affiliateId = null)
+        {
+            return tariffService.GetShoppingUri(productIds, affiliateId, currency, language, customerId, quantity);
+        }
+
 
 
         public void ActivateKey(string key)

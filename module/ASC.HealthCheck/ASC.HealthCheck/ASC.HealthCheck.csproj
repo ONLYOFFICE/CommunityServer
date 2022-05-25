@@ -102,6 +102,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\HealthCheckResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\HealthCheckResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
       <DependentUpon>HealthCheckResource.resx</DependentUpon>
     </EmbeddedResource>

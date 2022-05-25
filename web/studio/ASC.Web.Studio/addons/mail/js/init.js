@@ -58,14 +58,14 @@
 
         accountsPage.setDefaultAccountIfItDoesNotExist();
 
-        $('#createNewMailBtn').click(function (e) {
+        $('#createNewMailBtn').on("click", function (e) {
             if (e.isPropagationStopped()) {
                 return;
             }
             createNewMail();
         });
 
-        $('#check_email_btn').click(function (e) {
+        $('#check_email_btn').on("click", function (e) {
             if (e.isPropagationStopped()) {
                 return;
             }
@@ -82,7 +82,7 @@
             mailAlerts.check();
         });
 
-        $('#settingsLabel').click(function () {
+        $('#settingsLabel').on("click", function () {
             var $settingsPanel = $(this).parents('.menu-item.sub-list');
             if ($settingsPanel.hasClass('open')) {
                 $settingsPanel.removeClass('open');
@@ -91,7 +91,7 @@
             }
         });
 
-        $('#addressBookLabel').click(function () {
+        $('#addressBookLabel').on("click", function () {
             var $settingsPanel = $(this).parents('.menu-item.sub-list');
             if ($settingsPanel.hasClass('open')) {
                 $settingsPanel.removeClass('open');
@@ -126,7 +126,7 @@
             TMMail.resizeContent();
         });
 
-        $(window).resize(function () {
+        $(window).on("resize", function () {
             TMMail.resizeContent();
         });
 
@@ -138,8 +138,10 @@
     };
 
     function setupSelectable() {
+        var minVisibleY = 0;
+
         function deselectAll() {
-            $(window).click(); // initiate global event for other dropdowns close
+            $(window).trigger("click"); // initiate global event for other dropdowns close
 
             if (TMMail.pageIs("sysfolders") || TMMail.pageIs("userfolder")) {
                 mailBox.deselectAll();
@@ -148,14 +150,21 @@
                 TMMail.pageIs("personalContact")) {
                 contactsPage.deselectAll();
             }
+
+            minVisibleY = $(".mainPageContent").offset().top;
         }
 
         function updateSelection() {
+            var $row = $(this);
+            var middle = $row.offset().top + this.offsetHeight / 2;
+            if (middle < minVisibleY) {
+                return;
+            }
             if (TMMail.pageIs("sysfolders") || TMMail.pageIs("userfolder")) {
-                mailBox.selectRow($(this));
+                mailBox.selectRow($row);
             }
             else if (TMMail.pageIs("tlContact") || TMMail.pageIs("crmContact") || TMMail.pageIs("personalContact")) {
-                contactsPage.selectRow($(this));
+                contactsPage.selectRow($row);
             }
         }
 

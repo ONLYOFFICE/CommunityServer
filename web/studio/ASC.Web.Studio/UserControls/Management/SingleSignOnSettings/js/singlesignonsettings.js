@@ -316,21 +316,21 @@ var SsoSettings = (function () {
         $ssoEntityId.val(defaultSettings.IdpSettings.EntityId);
 
         if (defaultSettings.IdpSettings.SsoBinding === ssoConstants.SsoBindingType.Saml20HttpPost) {
-            $ssoSignPostRbx.click();
+            $ssoSignPostRbx.trigger("click");
             $ssoSignPostUrl.val(defaultSettings.IdpSettings.SsoUrl);
             $ssoSignRedirectUrl.val("");
         } else {
-            $ssoSignRedirectRbx.click();
+            $ssoSignRedirectRbx.trigger("click");
             $ssoSignPostUrl.val("");
             $ssoSignRedirectUrl.val(defaultSettings.IdpSettings.SsoUrl);
         }
 
         if (defaultSettings.IdpSettings.SloBinding === ssoConstants.SsoBindingType.Saml20HttpPost) {
-            $ssoLogoutPostRbx.click();
+            $ssoLogoutPostRbx.trigger("click");
             $ssoLogoutPostUrl.val(defaultSettings.SloUrl);
             $ssoLogoutRedirectUrl.val("");
         } else {
-            $ssoLogoutRedirectRbx.click();
+            $ssoLogoutRedirectRbx.trigger("click");
             $ssoLogoutPostUrl.val("");
             $ssoLogoutRedirectUrl.val(defaultSettings.SloUrl);
         }
@@ -470,13 +470,13 @@ var SsoSettings = (function () {
             value = getPropValue(metadata.singleSignOnService, ssoConstants.SsoBindingType.Saml20HttpPost);
             if (value) {
                 $ssoSignPostUrl.val(value);
-                $ssoSignPostRbx.click();
+                $ssoSignPostRbx.trigger("click");
             }
 
             value = getPropValue(metadata.singleSignOnService, ssoConstants.SsoBindingType.Saml20HttpRedirect);
             if (value) {
                 $ssoSignRedirectUrl.val(value);
-                $ssoSignRedirectRbx.click();
+                $ssoSignRedirectRbx.trigger("click");
             }
         }
 
@@ -485,13 +485,13 @@ var SsoSettings = (function () {
 
             if (value) {
                 $ssoLogoutPostUrl.val(value);
-                $ssoLogoutPostRbx.click();
+                $ssoLogoutPostRbx.trigger("click");
             }
 
             value = getPropValue(metadata.singleLogoutService, ssoConstants.SsoBindingType.Saml20HttpRedirect);
             if (value) {
                 $ssoLogoutRedirectUrl.val(value);
-                $ssoLogoutRedirectRbx.click();
+                $ssoLogoutRedirectRbx.trigger("click");
             }
         }
 
@@ -657,7 +657,7 @@ var SsoSettings = (function () {
         if (!array.length) return;
 
         if ($ssoSpCertificateSpoiler.hasClass("display-none"))
-            $ssoSpCertificateSpoilerLink.click();
+            $ssoSpCertificateSpoilerLink.trigger("click");
 
         if (!changeSpAdvancedSettings) return;
 
@@ -824,7 +824,7 @@ var SsoSettings = (function () {
 
         HideRequiredError();
 
-        $ssoSpCertificateDialog.find("input, textarea").attr("disabled", false).val("");
+        $ssoSpCertificateDialog.find("input, textarea").prop("disabled", false).val("");
         $ssoSpCertificateDialog.find(".selectBox, .radioBox, .checkBox, .button").removeClass("disable");
 
         if (certificate) {
@@ -880,7 +880,7 @@ var SsoSettings = (function () {
         if (!array.length) return;
 
         if ($ssoIdpCertificateSpoiler.hasClass("display-none"))
-            $ssoIdpCertificateSpoilerLink.click();
+            $ssoIdpCertificateSpoilerLink.trigger("click");
 
         if (!changeIdpAdvancedSettings) return;
 
@@ -1020,7 +1020,7 @@ var SsoSettings = (function () {
         tmpCertificateIndex = index;
 
         HideRequiredError();
-        $ssoIdpCertificateDialog.find("input, textarea").attr("disabled", false).val("");
+        $ssoIdpCertificateDialog.find("input, textarea").prop("disabled", false).val("");
         $ssoIdpCertificateDialog.find(".selectBox, .radioBox, .checkBox, .button").removeClass("disable");
 
         if (certificate) {
@@ -1188,7 +1188,7 @@ var SsoSettings = (function () {
         }
 
         if (typeof (withouthFocus) == "undefined" || withouthFocus == false) {
-            jq(item).focus();
+            jq(item).trigger("focus");
         }
     }
 
@@ -1224,7 +1224,7 @@ var SsoSettings = (function () {
         $ssoEnableBtn.toggleClass("off", !on).toggleClass("on", on);
 
         if (on && $ssoSPSettingsSpoiler.hasClass("display-none")) {
-            $ssoSPSettingsSpoilerLink.click();
+            $ssoSPSettingsSpoilerLink.trigger("click");
         }
 
         enableInputs(on);
@@ -1238,7 +1238,7 @@ var SsoSettings = (function () {
 
     function enableIdpAdvancedSettings(on) {
 
-        $ssoIdpCertificateSpoiler.find("input[type=checkbox], select").attr("disabled", true);
+        $ssoIdpCertificateSpoiler.find("input[type=checkbox], select").prop("disabled", true);
         $ssoIdPCertificateContainer.addClass("disable");
 
         if (!on) return;
@@ -1249,20 +1249,20 @@ var SsoSettings = (function () {
             var _item = setKeysToLowerCase(item);
 
             if (_item.action == ssoConstants.SsoIdpCertificateActionType.Verification || _item.action == ssoConstants.SsoIdpCertificateActionType.VerificationAndDecrypt) {
-                $ssoVerifyAuthResponsesSignCbx.attr("disabled", false);
-                $ssoVerifyLogoutRequestsSignCbx.attr("disabled", false);
-                $ssoVerifyLogoutResponsesSignCbx.attr("disabled", false);
-                $ssoDefaultSignVerifyingAlgorithm.attr("disabled", false);
+                $ssoVerifyAuthResponsesSignCbx.prop("disabled", false);
+                $ssoVerifyLogoutRequestsSignCbx.prop("disabled", false);
+                $ssoVerifyLogoutResponsesSignCbx.prop("disabled", false);
+                $ssoDefaultSignVerifyingAlgorithm.prop("disabled", false);
             }
             if (_item.action == ssoConstants.SsoIdpCertificateActionType.Decrypt || _item.action == ssoConstants.SsoIdpCertificateActionType.VerificationAndDecrypt) {
-                $ssoDecryptAssertionsCbx.attr("disabled", false);
-                $ssoDefaultDecryptAlgorithm.attr("disabled", false);
+                $ssoDecryptAssertionsCbx.prop("disabled", false);
+                $ssoDefaultDecryptAlgorithm.prop("disabled", false);
             }
         });
     }
 
     function enableSpAdvancedSettings(on) {
-        $ssoSpCertificateSpoiler.find("input[type=checkbox], select").attr("disabled", true);
+        $ssoSpCertificateSpoiler.find("input[type=checkbox], select").prop("disabled", true);
         $ssoSPCertificateContainer.addClass("disable");
         if (!on) return;
 
@@ -1272,14 +1272,14 @@ var SsoSettings = (function () {
             var _item = setKeysToLowerCase(item);
 
             if (_item.action == ssoConstants.SsoSpCertificateActionType.Signing || _item.action == ssoConstants.SsoSpCertificateActionType.SigningAndEncrypt) {
-                $ssoSignAuthRequestsCbx.attr("disabled", false);
-                $ssoSignLogoutRequestsCbx.attr("disabled", false);
-                $ssoSignLogoutResponsesCbx.attr("disabled", false);
-                $ssoSigningAlgorithm.attr("disabled", false);
+                $ssoSignAuthRequestsCbx.prop("disabled", false);
+                $ssoSignLogoutRequestsCbx.prop("disabled", false);
+                $ssoSignLogoutResponsesCbx.prop("disabled", false);
+                $ssoSigningAlgorithm.prop("disabled", false);
             }
             if (_item.action == ssoConstants.SsoSpCertificateActionType.Encrypt || _item.action == ssoConstants.SsoSpCertificateActionType.SigningAndEncrypt) {
-                $ssoEncryptAssertionsCbx.attr("disabled", false);
-                $ssoEncryptAlgorithm.attr("disabled", false);
+                $ssoEncryptAssertionsCbx.prop("disabled", false);
+                $ssoEncryptAlgorithm.prop("disabled", false);
             }
         });
     }
@@ -1298,7 +1298,7 @@ var SsoSettings = (function () {
 
     function enableInputs(enabled, parent) {
         parent = parent || $ssoMainContainer;
-        parent.find("input:not(.blocked), textarea:not(.blocked), select").attr("disabled", !enabled);
+        parent.find("input:not(.blocked), textarea:not(.blocked), select").prop("disabled", !enabled);
         parent.find(".radioBox, .checkBox, .button:not(.on-off-button)").toggleClass("disable", !enabled);
     }
 

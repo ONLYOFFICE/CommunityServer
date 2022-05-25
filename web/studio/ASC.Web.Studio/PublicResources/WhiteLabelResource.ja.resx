@@ -70,9 +70,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>{0}ポータルロゴ設定{1}の機能は支払い済みのポータルのみに利用可能です。</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>詳細/ログインページのためのロゴ</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>エディター・ヘッダーためのロゴ</value>
   </data>

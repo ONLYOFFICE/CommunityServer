@@ -135,6 +135,11 @@ namespace ASC.Web.Projects.Classes
             }
         }
 
+        public bool CanDownload(FileEntry entry, Guid userId)
+        {
+            return CanRead(entry, userId);
+        }
+
         private enum SecurityAction
         {
             Read,

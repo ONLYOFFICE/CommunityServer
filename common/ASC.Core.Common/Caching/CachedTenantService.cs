@@ -53,7 +53,7 @@ namespace ASC.Core.Caching
             CacheExpiration = TimeSpan.FromMinutes(2);
             SettingsExpiration = TimeSpan.FromMinutes(2);
             cacheNotify = AscCache.Notify;
-            cacheNotify.Subscribe<Tenant>((t, a) =>
+            cacheNotify.Subscribe<TenantCacheItem>((t, a) =>
             {
                 var tenants = GetTenantStore();
                 tenants.Remove(t.TenantId);
@@ -134,14 +134,14 @@ namespace ASC.Core.Caching
         public Tenant SaveTenant(Tenant tenant)
         {
             tenant = service.SaveTenant(tenant);
-            cacheNotify.Publish(new Tenant() { TenantId = tenant.TenantId }, CacheNotifyAction.InsertOrUpdate);
+            cacheNotify.Publish(new TenantCacheItem() { TenantId = tenant.TenantId }, CacheNotifyAction.InsertOrUpdate);
             return tenant;
         }
 
         public void RemoveTenant(int id, bool auto = false)
         {
             service.RemoveTenant(id, auto);
-            cacheNotify.Publish(new Tenant() { TenantId = id }, CacheNotifyAction.InsertOrUpdate);
+            cacheNotify.Publish(new TenantCacheItem() { TenantId = id }, CacheNotifyAction.InsertOrUpdate);
         }
 
         public IEnumerable<TenantVersion> GetTenantVersions()
@@ -259,5 +259,10 @@ namespace ASC.Core.Caching
                 }
             }
         }
+    }
+
+    public class TenantCacheItem
+    {
+        public int TenantId { get; set; }
     }
 }

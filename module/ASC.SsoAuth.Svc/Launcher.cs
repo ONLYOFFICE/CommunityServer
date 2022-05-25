@@ -23,6 +23,9 @@ using System.Reflection;
 
 using ASC.Common.Logging;
 using ASC.Common.Module;
+using ASC.Core.Common.Contracts;
+
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.SsoAuth.Svc
 {
@@ -32,6 +35,10 @@ namespace ASC.SsoAuth.Svc
         private Process proc;
         private static readonly ILog Logger = LogManager.GetLogger("ASC");
         private static string LogDir;
+        private const string ResultOfPing = "OK";
+        private const string PathToPing = "/isLife";
+        private HealthCheckSvc HealthCheckSvc;
+
         public void Start()
         {
             try
@@ -57,6 +64,8 @@ namespace ASC.SsoAuth.Svc
                 startInfo.EnvironmentVariables.Add("logPath", LogDir);
 
                 StartNode();
+                HealthCheckSvc = new HealthCheckSvc(cfg.Port, ResultOfPing, Logger, PathToPing);
+                HealthCheckSvc.StartPing();
             }
             catch (Exception e)
             {
@@ -70,6 +79,8 @@ namespace ASC.SsoAuth.Svc
             {
                 if (proc != null && !proc.HasExited)
                 {
+                    HealthCheckSvc.StopPing();
+
                     proc.Kill();
                     proc.WaitForExit(10000);
 

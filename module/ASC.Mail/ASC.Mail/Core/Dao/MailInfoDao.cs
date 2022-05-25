@@ -87,7 +87,9 @@ namespace ASC.Mail.Core.Dao
                     MailTable.Columns.Stream.Prefix(MM_ALIAS),
                     MailTable.Columns.Uidl.Prefix(MM_ALIAS),
                     MailTable.Columns.IsRemoved.Prefix(MM_ALIAS),
-                    MailTable.Columns.Introduction.Prefix(MM_ALIAS));
+                    MailTable.Columns.Introduction.Prefix(MM_ALIAS),
+                    MailTable.Columns.ReadRequestStatus.Prefix(MM_ALIAS));
+
 
             if (exp.TagIds != null && exp.TagIds.Any())
             {
@@ -348,7 +350,8 @@ namespace ASC.Mail.Core.Dao
                 Stream = Convert.ToString(r[20]),
                 Uidl = Convert.ToString(r[21]),
                 IsRemoved = Convert.ToBoolean(r[22]),
-                Intoduction = Convert.ToString(r[23])
+                Intoduction = Convert.ToString(r[23]),
+                ReadRequestStatus = Convert.ToBoolean(r[24])
             };
 
             return mailInfo;

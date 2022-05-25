@@ -72,7 +72,7 @@ namespace ASC.Api.Impl
 
         public virtual IHttpHandler GetHandler(RequestContext requestContext)
         {
-            return Container.BeginLifetimeScope().Resolve<IApiHttpHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
+            return Container.BeginLifetimeScope().Resolve<ApiHttpAsyncHandler>(new TypedParameter(typeof(RouteData), requestContext.RouteData));
         }
     }
 

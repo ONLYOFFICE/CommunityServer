@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using ASC.Common.Caching;
@@ -78,7 +79,7 @@ namespace ASC.Files.Core.Data
             return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
         }
 
-        protected SqlQuery GetFileQuery(Exp where, bool checkShared = true)
+        protected SqlQuery GetFileQuery(Exp where, bool checkShared = true, bool checkDenyActions = true)
         {
             return Query("files_file f")
                 .Select("f.id")
@@ -99,6 +100,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.forcesave")
                 .Select("f.thumb")
                 .Select(GetIsLinked())
+                .Select(checkDenyActions ? GetEntryDenyQuery(FileEntryType.File) : new SqlQuery().Select("''"))
                 .Where(where);
         }
 
@@ -148,7 +150,19 @@ namespace ASC.Files.Core.Data
                 .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
                 .Where("s.entry_type", (int)type)
+                .Where(!Exp.In("s.subject", new[] { FileConstant.DenyDownloadId, FileConstant.DenySharingId }))
                 .SetMaxResults(1);
+
+            return result;
+        }
+
+        protected SqlQuery GetEntryDenyQuery(FileEntryType type)
+        {
+            var result = Query("files_security s")
+                .Select("group_concat(s.subject)")
+                .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
+                .Where("s.entry_type", (int)type)
+                .Where(Exp.In("s.subject", new[] { FileConstant.DenyDownloadId, FileConstant.DenySharingId }));
 
             return result;
         }
@@ -225,6 +239,34 @@ namespace ASC.Files.Core.Data
         public static Exp BuildSearch(string column, string text, SqlLike like = SqlLike.AnyWhere)
         {
             return Exp.Like(string.Format("lower({0})", column), text.ToLower().Trim().Replace("%", "\\%").Replace("_", "\\_"), like);
+        }
+
+        public void SetEntryDenyProperties(FileEntry entry, string securityActions)
+        {
+            if (string.IsNullOrEmpty(securityActions))
+            {
+                return;
+            }
+
+            var items = securityActions.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var item in items)
+            {
+                if (!Guid.TryParse(item, out Guid action))
+                {
+                    continue;
+                }
+
+                if (action.Equals(FileConstant.DenyDownloadId))
+                {
+                    entry.DenyDownload = true;
+                }
+
+                if (action.Equals(FileConstant.DenySharingId))
+                {
+                    entry.DenySharing = true;
+                }
+            }
         }
     }
 }

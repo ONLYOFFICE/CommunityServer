@@ -1,0 +1,50 @@
+source https://www.nuget.org/api/v2
+redirects: on
+
+nuget Flurl.Http.Signed ~> 0.7.0
+nuget Flurl.Signed ~> 1.0.10
+nuget ILMerge
+nuget Marvin.JsonPatch.Signed ~> 0.7.0
+nuget Moq
+nuget Newtonsoft.Json >= 6.0
+nuget NuGet.CommandLine = 3.4.4-rtm-final
+nuget SharpZipLib
+nuget SimpleRESTServices = 1.3.0.2
+nuget xunit ~> 2.0
+nuget xunit.abstractions
+nuget xunit.assert
+nuget xunit.core
+nuget xunit.extensibility.core
+nuget xunit.runner.console
+nuget xunit.runner.visualstudio
+
+source https://www.myget.org/F/openstacknetsdk/api/v2
+nuget EWSoftware.SHFB = 2014.11.22-beta
+
+                    
+group History-1.5
+	redirects: on
+	source https://www.nuget.org/api/v2
+	framework: net45
+	strategy: min
+
+	nuget openstack.net = 1.5.0.2
+	nuget SimpleRESTServices = 1.3.0.1
+
+group History-1.4
+	redirects: on
+	source https://www.nuget.org/api/v2
+	framework: net45
+	strategy: min
+
+	nuget openstack.net = 1.4.0.2
+	nuget SimpleRESTServices = 1.3.0.1
+
+group History-1.3.6
+	redirects: on
+	source https://www.nuget.org/api/v2
+	framework: net35
+	strategy: min
+
+	nuget openstack.net = 1.3.6.1
+	nuget SimpleRESTServices = 1.3.0.1

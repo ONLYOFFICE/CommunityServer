@@ -21,7 +21,7 @@ using ASC.Api.Interfaces;
 namespace ASC.Api.Community
 {
     ///<summary>
-    ///Provides access to community data api
+    ///Provides access to the community data api.
     ///</summary>
     public partial class CommunityApi : IApiEntryPoint
     {
@@ -29,7 +29,7 @@ namespace ASC.Api.Community
 
 
         ///<summary>
-        /// Starting entry point name
+        /// Starting entry point name.
         ///</summary>
         public string Name
         {

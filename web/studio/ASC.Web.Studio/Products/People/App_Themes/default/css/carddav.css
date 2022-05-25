@@ -1,0 +1,66 @@
+﻿
+.url-link.cardDav {
+    margin-bottom: 0.5em;
+}
+
+.url-link {
+    word-wrap: break-word;
+    margin-bottom: 2.5em;
+    position: relative;
+}
+
+    .url-link .title {
+        font-weight: bold;
+        margin: 1em 0 0.5em;
+    }
+
+input[type="text" i] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.url-link .control.disabled .button {
+    background-color: #efefef;
+    color: #666562;
+}
+
+.cardDav-settings-label-checkbox {
+    margin: 0 2px 22px 0;
+    float: left;
+    clear: both;
+}
+
+.settings-checkbox-text {
+    display: inline-block;
+    width: calc(100% - 50px);
+    vertical-align: top;
+    margin-left: 5px;
+}
+
+.url-link .button {
+    border-radius: 0;
+    color: #333333;
+    font-size: 11px;
+    font-weight: normal;
+    background: #fff;
+    cursor: pointer;
+    padding: 0;
+}
+
+    .url-link .button span.text {
+        text-decoration: none !important;
+        border-bottom: 1px dotted;
+    }
+
+
+    .url-link .button:hover {
+        background-color: #fff;
+        color: #333333;
+    }
+
+span.move-or-copy {
+    padding: 0 20px 0 17px;
+    background-repeat: no-repeat;
+    background-position: -3px center;
+    background-image: url("/skins/default/images/svg/context/icon_move_or_copy.svg");
+}

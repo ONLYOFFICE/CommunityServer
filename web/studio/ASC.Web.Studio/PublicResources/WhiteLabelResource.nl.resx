@@ -76,9 +76,6 @@
   <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
     <value>De functie {0}Instellingen portallogo{1} is alleen beschikbaar voor betaalde portals.</value>
   </data>
-  <data name="LogoDark" xml:space="preserve">
-    <value>Logo voor de Over/Inloggen pagina</value>
-  </data>
   <data name="LogoDocsEditor" xml:space="preserve">
     <value>Logo voor de bewerkerstitel</value>
   </data>

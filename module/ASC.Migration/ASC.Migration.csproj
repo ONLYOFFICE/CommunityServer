@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72D10CCA-CCF1-4E2F-A17D-443917B154CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <RootNamespace>ASC.Migration</RootNamespace>
+    <AssemblyName>ASC.Migration</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\AbstractMigration.cs" />
+    <Compile Include="Core\IMigration.cs" />
+    <Compile Include="Core\ImportableEntity.cs" />
+    <Compile Include="Core\MigrationLogger.cs" />
+    <Compile Include="Core\Models\Api\ApiMigratorAttribute.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiGroup.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiMail.cs" />
+    <Compile Include="Core\Models\Api\MigrationCore.cs" />
+    <Compile Include="Core\Models\Api\ImportableApiEntity.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiCalendar.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiContacts.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiFiles.cs" />
+    <Compile Include="Core\Models\Api\MigratingApiUser.cs" />
+    <Compile Include="Core\Models\Api\MigrationApiInfo.cs" />
+    <Compile Include="Core\Models\Api\MigrationLogApiContentResponce.cs" />
+    <Compile Include="Core\Models\Api\MigratorMeta.cs" />
+    <Compile Include="Core\Models\IMigrationInfo.cs" />
+    <Compile Include="Core\Models\MigratingCalendar.cs" />
+    <Compile Include="Core\Models\MigratingContacts.cs" />
+    <Compile Include="Core\Models\MigratingGroup.cs" />
+    <Compile Include="Core\Models\MigratingMail.cs" />
+    <Compile Include="Core\Models\MigratingFiles.cs" />
+    <Compile Include="Core\Models\MigratingUser.cs" />
+    <Compile Include="Core\Models\MigrationInfo.cs" />
+    <Compile Include="Core\Models\MigrationModules.cs" />
+    <Compile Include="GoogleWorkspace\GoogleWorkspaceMigration.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingGroups.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingMail.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingUser.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingFiles.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingContacts.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigratingCalendar.cs" />
+    <Compile Include="GoogleWorkspace\Models\GWSMigrationInfo.cs" />
+    <Compile Include="GoogleWorkspace\Models\Parse\GWSContact.cs" />
+    <Compile Include="GoogleWorkspace\Models\Parse\GWSDriveFileInfo.cs" />
+    <Compile Include="GoogleWorkspace\Models\Parse\GWSMail.cs" />
+    <Compile Include="GoogleWorkspace\Models\Parse\GWSProfile.cs" />
+    <Compile Include="GoogleWorkspace\Models\Parse\GWSTasks.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingGroups.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingMail.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCAddressbooks.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCCalendars.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingCalendar.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingContacts.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingFiles.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigratingUser.cs" />
+    <Compile Include="NextcloudWorkspace\Models\NCMigrationInfo.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCContact.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCGroup.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCStorages.cs" />
+    <Compile Include="NextcloudWorkspace\Models\Parse\NCUser.cs" />
+    <Compile Include="NextcloudWorkspace\NextcloudWorkspaceMigration.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingCalendar.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingContacts.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingFiles.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingGroups.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingMail.cs" />
+    <Compile Include="OwnCloud\Models\OCMigratingUser.cs" />
+    <Compile Include="OwnCloud\Models\OCMigrationinfo.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCAddressbooks.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCCalendars.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCContact.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCGroup.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCStorages.cs" />
+    <Compile Include="OwnCloud\Models\Parse\OCUser.cs" />
+    <Compile Include="OwnCloud\OwnCloudMigration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MigrationResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MigrationResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76DE7717-3D4B-4A5B-B740-15B8913DF0CB}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{A51D0454-4AFA-46DE-89D4-B03D37E1816C}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Calendar\ASC.Api.Calendar.csproj">
+      <Project>{5f7dc7bd-d831-449a-908d-5a419e4dfe71}</Project>
+      <Name>ASC.Api.Calendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49F07FFF-98A5-47D2-A9E9-A46B98C41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail\ASC.Mail\ASC.Mail.csproj">
+      <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
+      <Name>ASC.Mail</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FolkerKinzel.VCards">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.6.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MigrationResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MigrationResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

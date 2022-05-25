@@ -244,9 +244,6 @@
   <data name="AdminSettings" xml:space="preserve">
     <value>Администраторы</value>
   </data>
-  <data name="AffilliateStatus" xml:space="preserve">
-    <value>Статус аффилиата</value>
-  </data>
   <data name="AllMailDomains" xml:space="preserve">
     <value>Любые домены</value>
   </data>
@@ -535,12 +532,6 @@
   </data>
   <data name="ConsumersBitly" xml:space="preserve">
     <value>Bitly</value>
-  </data>
-  <data name="ConsumersbitlyClientId" xml:space="preserve">
-    <value>login</value>
-  </data>
-  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
-    <value>apiKey</value>
   </data>
   <data name="ConsumersBitlyDescription" xml:space="preserve">
     <value>Подключите это приложение для сокращения пригласительных ссылок на портал и ссылок для доступа к файлам в модуле 'Документы' с помощью сервиса Bitly.</value>
@@ -1120,30 +1111,6 @@
   </data>
   <data name="ConsumerswpClientSecret" xml:space="preserve">
     <value>Секретный ключ WordPress</value>
-  </data>
-  <data name="ConsumersYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ConsumersyahooClientId" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersyahooClientSecret" xml:space="preserve">
-    <value>Client Secret</value>
-  </data>
-  <data name="ConsumersYahooDescription" xml:space="preserve">
-    <value>Подключите приложение для импорта контактов Yahoo.</value>
-  </data>
-  <data name="ConsumersYahooInstruction" xml:space="preserve">
-    <value>Добавив приложение сервиса Yahoo, Вы сможете добавлять новых пользователей на портал ONLYOFFICE из списка контактов.</value>
-  </data>
-  <data name="ConsumersYahooInstructionV11" xml:space="preserve">
-    <value>Подключите это приложение, чтобы добавлять новых пользователей портала из вашего списка контактов Yahoo. {0}Перейдите на страницу создания приложения в сети разработчиков Yahoo Developer Network и создайте новое приложение для интеграции ONLYOFFICE. Вставьте полученные данные ниже:</value>
-  </data>
-  <data name="ConsumersYahooKey" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="ConsumersYahooSecret" xml:space="preserve">
-    <value>Client Secret</value>
   </data>
   <data name="ConsumersYandex" xml:space="preserve">
     <value>Yandex</value>
@@ -1730,9 +1697,6 @@
   <data name="ErrorPasswordMessage" xml:space="preserve">
     <value>Пароль должен содержать</value>
   </data>
-  <data name="ErrorPasswordMessageStart" xml:space="preserve">
-    <value>Пароль должен содержать</value>
-  </data>
   <data name="ErrorPasswordNoDigits" xml:space="preserve">
     <value>цифры</value>
   </data>
@@ -1956,9 +1920,6 @@
   <data name="HelpCenter" xml:space="preserve">
     <value>Справочный центр</value>
   </data>
-  <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>Цель программы заключается в том, чтобы законно рекламировать ONLYOFFICE™ для получения комиссионных за подписки, купленные лицами, которых Вы привлекли.</value>
-  </data>
   <data name="HelpPrivacyRoomSettings" xml:space="preserve">
     <value>Включите эту опцию, чтобы создать защищенную среду для редактирования документов и совместной работы над ними. Все документы, сохраненные в Приватной комнате, а также данные, передаваемые при совместном редактировании документов, будут зашифрованы с помощью алгоритма шифрования AES-256 для предотвращения несанкционированного доступа к вашим данным.{0} Приватная комната доступна через {3}десктопные редакторы ONLYOFFICE{4}. Чтобы начать работу, пользователи должны войти в облако ONLYOFFICE в разделе десктопных редакторов 'Подключиться к облаку'. После подключения пользователи автоматически получают пару ключей шифрования. Узнайте, как это работает {5}здесь{6}.</value>
   </data>
@@ -2121,9 +2082,6 @@
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Импорт из Google</value>
   </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Импорт из Yahoo</value>
-  </data>
   <data name="ImportSelectAnotherSource" xml:space="preserve">
     <value>Выбрать другой источник</value>
   </data>
@@ -2201,9 +2159,6 @@
   </data>
   <data name="IUnderstand" xml:space="preserve">
     <value>Я понимаю и хочу продолжить</value>
-  </data>
-  <data name="JoinToAffilliateProgram" xml:space="preserve">
-    <value>Станьте нашим аффилиатом</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
     <value>Вы можете продолжить добавление пользователей в качестве участников портала со статусом {!Guests} или сменить тарифный план на план с большим количеством пользователей.</value>
@@ -2606,6 +2561,12 @@
   </data>
   <data name="LogoSettingsTitle" xml:space="preserve">
     <value>Настройки логотипа</value>
+  </data>
+  <data name="LogOutAllActiveConnections" xml:space="preserve">
+    <value>Выйти из всех активных подключений</value>
+  </data>
+  <data name="LogoutFromAllActiveConnectionsInfo" xml:space="preserve">
+    <value>Произойдет выход со всех подключений, кроме Этого подключения, так как оно используется в данный момент.</value>
   </data>
   <data name="MailAutoGeneratedText" xml:space="preserve">
     <value>Это сообщение создано автоматически, и отвечать на него не нужно.</value>
@@ -3789,15 +3750,6 @@
   <data name="SuccessResendInvitesText" xml:space="preserve">
     <value>Приглашения были успешно отправлены повторно</value>
   </data>
-  <data name="SupportBlockEmailBth" xml:space="preserve">
-    <value>Отправить письмо</value>
-  </data>
-  <data name="SupportBlockTitle" xml:space="preserve">
-    <value>Свяжитесь с нами, чтобы узнать о специальных предложениях</value>
-  </data>
-  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
-    <value>Уменьшите требуемый параметр или выберите другой тарифный план.</value>
-  </data>
   <data name="TariffButtonBuy" xml:space="preserve">
     <value>Купить сейчас</value>
   </data>
@@ -3809,18 +3761,6 @@
   </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Выберите план, который вам больше всего подходит. Рекомендуемый план выделен ниже.</value>
-  </data>
-  <data name="TariffDowngrade" xml:space="preserve">
-    <value>Этот план нельзя выбрать</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
-    <value>Разрешенное дисковое пространство: {0}. Текущее дисковое пространство: {1}.</value>
-  </data>
-  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
-    <value>Разрешенное количество пользователей портала: {0}. Текущее количество пользователей: {1}</value>
-  </data>
-  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
-    <value>Нельзя выбрать этот план, так как или дисковое пространство, или количество пользователей превышает ограничения выбранного тарифного плана:</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Регулярные платежи включены</value>
@@ -3852,9 +3792,6 @@
   <data name="TariffPaymentDelayText" xml:space="preserve">
     <value>Ваш портал ONLYOFFICE™ будет заблокирован {2}. {0}Нажмите сюда{1}, чтобы продлить существующий план или изменить его на наиболее подходящий.</value>
   </data>
-  <data name="TariffPortalStatistics" xml:space="preserve">
-    <value>Количество порталов, которые вы создали: {0}</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>Этот тарифный план недоступен до окончания оплаченного года.</value>
   </data>
@@ -3867,14 +3804,8 @@
   <data name="TariffRemarkProlongEnable" xml:space="preserve">
     <value>Чтобы отменить регулярные платежи, перейдите в свой аккаунт Avangate.</value>
   </data>
-  <data name="TariffRemarkSale" xml:space="preserve">
-    <value>Только до {0}.</value>
-  </data>
   <data name="Tariffs" xml:space="preserve">
     <value>Тарифные планы</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Для вашего удобства при оплате в рублях расчет происходит по фиксированному курсу {0} рублей за 1 доллар.</value>
   </data>
   <data name="TariffSettings" xml:space="preserve">
     <value>Платежи</value>
@@ -4161,5 +4092,17 @@
   </data>
   <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
     <value>Вы решили присоединиться к этому порталу.</value>
+  </data>
+  <data name="PasswordDoNotMatch" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="PasswordMatch" xml:space="preserve">
+    <value>Пароли совпадают</value>
+  </data>
+  <data name="InviteRepeatPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="ConfirmPasswordMatch" xml:space="preserve">
+    <value>Повторите новый пароль</value>
   </data>
 </root>

@@ -73,6 +73,9 @@
   <data name="AddMembers" xml:space="preserve">
     <value>Voeg leden toe</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Verjaardagen</value>
+  </data>
   <data name="BlockedMessage" xml:space="preserve">
     <value>Gedeactiveerd</value>
   </data>

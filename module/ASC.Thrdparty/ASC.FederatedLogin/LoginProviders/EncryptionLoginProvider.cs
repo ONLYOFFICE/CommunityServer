@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 
+using ASC.Common.Logging;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
 using ASC.Security.Cryptography;
@@ -54,8 +55,17 @@ namespace ASC.Web.Studio.Core
             var profile = linker.GetLinkedProfiles(userId.ToString(), ProviderConstants.Encryption).FirstOrDefault();
             if (profile == null) return null;
 
-            var keys = InstanceCrypto.Decrypt(profile.Name);
-            return keys;
+            try
+            {
+                var keys = InstanceCrypto.Decrypt(profile.Name);
+                return keys;
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format("Can not decrypt {0} keys for {1}", ProviderConstants.Encryption, userId);
+                LogManager.GetLogger("ASC").Error(message, ex);
+                return null;
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Actions.DnsChange,
                     Actions.ConfirmOwnerChange,
                     Actions.EmailChangeV115,
-                    Actions.PasswordChange,
+                    Actions.PasswordChangeV115,
                     Actions.ActivateEmail,
                     Actions.ProfileDelete,
                     Actions.ProfileHasDeletedItself,
@@ -135,7 +135,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Actions.PersonalAfterRegistration21,
                     Actions.PersonalAfterRegistration28,
                     Actions.PersonalConfirmation,
-                    Actions.PersonalPasswordChange,
+                    Actions.PersonalPasswordChangeV115,
                     Actions.PersonalEmailChangeV115,
                     Actions.PersonalProfileDelete,
 
@@ -146,9 +146,8 @@ namespace ASC.Web.Studio.Core.Notify
                     Actions.MailboxWithoutSettingsCreated,
 
                     Actions.PersonalCustomModeAfterRegistration1,
-                    Actions.PersonalCustomModeAfterRegistration7,
                     Actions.PersonalCustomModeConfirmation,
-                    Actions.PersonalCustomModePasswordChange,
+                    Actions.PersonalCustomModePasswordChangeV115,
                     Actions.PersonalCustomModeEmailChangeV115,
                     Actions.PersonalCustomModeProfileDelete,
 

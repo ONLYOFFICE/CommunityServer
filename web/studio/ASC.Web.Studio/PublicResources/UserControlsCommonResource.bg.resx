@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Активните потребители са членовете на портала, с изключение на гости и потребители със статус "изключени"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Добавете избор на анкета</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Прикачете файла от документите на проекта</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Съкращавайте връзките с покани за портала и връзките за споделени документи, използвайки Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Влезте в портала чрез социалните си сметки и потърсете контакти</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Свържете любимите си услуги за съхранение в облака и съхранете всичките си файлове на едно място</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Обадете се на клиентите си директно от CRM, благодарение на интеграцията на {0} ONLYOFFICE Twilio {1}</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -433,9 +418,6 @@
   <data name="SourceCode" xml:space="preserve">
     <value>Изходният код е наличен на {0} GitHub {1}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>Основна цена</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Вижте Avangate за пълния списък на валутите</value>
   </data>
@@ -448,14 +430,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Безплатно</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Отворете пълната ценова листа</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Искате ли да изберете нов план за ценообразуване?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Ограничено време</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Да, план за надграждане</value>
@@ -465,9 +441,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 година{2}{1} Абонамент</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0} 3 Година {1} Абонамент</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Използвате план за организация с нестопанска цел.</value>
@@ -496,17 +469,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>3 години</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>Офертата е достъпна само за годишни абонати. </value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Най-популярен абонамент</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>Добавянето на нов портал ще надхвърли максималния брой портали, позволени от текущия Ви ценови план.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Запазване {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} на потребител/месец</value>
@@ -531,9 +495,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Няма достатъчно свободно място за съхранение</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>Използвате ONLYOFFICE™ Enterprise Edition. {0} Текущата инсталация е актуализирана без предоставен подходящ лиценз. {1} {2} Моля, качете актуализирания лиценз, за ​​да продължите да използвате изданието ONLYOFFICE Enterprise.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Изберете броя на съотборниците си</value>

@@ -16,7 +16,7 @@
 
 
 jq(function () {
-    jq("input[name='PortalAccess']").click(PortalAccess.SwitchAccessType);
+    jq("input[name='PortalAccess']").on("click", PortalAccess.SwitchAccessType);
     jq("input[type=radio][name=PortalAccess][checked=checked]").prop("checked", true);
     jq("#cbxRegisterUsers[checked=checked]").prop("checked", true);
     PortalAccess.SwitchAccessType();

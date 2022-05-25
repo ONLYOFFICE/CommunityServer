@@ -29,10 +29,10 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns list of the tags used in Mail
+        /// Returns a list of filters used in all the mails.
         /// </summary>
-        /// <returns>Filters list. Filters represented as JSON.</returns>
-        /// <short>Get filters list</short> 
+        /// <returns>List of filters which is represented as JSON</returns>
+        /// <short>Get filters</short> 
         /// <category>Filters</category>
         [Read(@"filters")]
         public IEnumerable<MailSieveFilterData> GetFilters()
@@ -42,13 +42,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Creates a new filter
+        /// Creates a new filter with the parameters specified in the request.
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="filter">Filter parameters: ID, name, position, enabled, conditions, actions, options</param>
         /// <returns>Filter</returns>
-        /// <short>Create filter</short> 
+        /// <short>Create a filter</short> 
         /// <category>Filters</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Create(@"filters")]
         public MailSieveFilterData CreateFilter(MailSieveFilterData filter)
         {
@@ -58,13 +58,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Updates the selected filter
+        /// Updates the selected filter with the parameters specified in the request.
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="filter">New filter parameters: ID, name, position, enabled, conditions, actions, options</param>
         /// <returns>Updated filter</returns>
-        /// <short>Update filter</short> 
+        /// <short>Update a filter</short> 
         /// <category>Filters</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Update(@"filters")]
         public MailSieveFilterData UpdateFilter(MailSieveFilterData filter)
         {
@@ -74,13 +74,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Deletes the selected filter
+        /// Deletes a filter with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Filter id</param>
-        /// <returns>Deleted Filter id</returns>
-        /// <short>Delete filter</short> 
+        /// <param name="id">Filter ID</param>
+        /// <returns>Filter ID</returns>
+        /// <short>Delete a filter</short> 
         /// <category>Filters</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Delete(@"filters/{id}")]
         public int DeleteFilter(int id)
         {
@@ -89,15 +89,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Check filter result
+        /// Checks the results of a filter specified in the request.
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="filter">Filter parameters: ID, name, position, enabled, conditions, actions, options</param>
         /// <param optional="true" name="page">Page number</param>
-        /// <param optional="true" name="pageSize">Number of messages on page</param>
-        /// <returns>List messages</returns>
-        /// <short>Check filter</short> 
+        /// <param optional="true" name="pageSize">Number of messages on the page</param>
+        /// <returns>List of messages</returns>
+        /// <short>Check filter results</short> 
         /// <category>Filters</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Read(@"filters/check")]
         public List<MailMessageData> CheckFilter(MailSieveFilterData filter, int? page, int? pageSize)
         {
@@ -116,13 +116,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Apply filter to existing messages
+        /// Applies a filter to the existing messages.
         /// </summary>
-        /// <param name="id">Filter id</param>
-        /// <returns>MailOperationResult object</returns>
-        /// <short>Check filter</short> 
+        /// <param name="id">Filter ID</param>
+        /// <returns>Mail operation status</returns>
+        /// <short>Apply a filter</short> 
         /// <category>Filters</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Read(@"filters/{id}/apply")]
         public MailOperationStatus ApplyFilter(int id)
         {

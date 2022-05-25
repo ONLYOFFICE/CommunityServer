@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Linq;
 
 using ASC.Api.Calendar.BusinessObjects;
 using ASC.Common.Logging;
@@ -102,6 +103,17 @@ namespace ASC.Api.Calendar.Notification
                                 : endDate.Add(data.TimeZone.GetOffset()));
                         }
 
+                        var attachmentText = string.Empty;
+                        Func<string> funcEventAttachmentResource = () => CalendarPatternResource.EventAttachments;
+                        if (data.Event.HasAttachments)
+                        {
+                            var eventHistory = provider.GetEventHistory(int.Parse(data.Event.Id));
+                            if (eventHistory != null)
+                            {
+                                attachmentText = GetTagValueWithAttachmentText(eventHistory);
+                            }
+                        }
+
                         _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,
                             null,
                             r,
@@ -114,6 +126,8 @@ namespace ASC.Api.Calendar.Notification
                                 (endDate > startDate)
                                     ? (endDate.ToShortDateString() + " " + endDate.ToShortTimeString())
                                     : ""),
+                            new TagActionValue("EventAttachmentsHeader", funcEventAttachmentResource),
+                            new TagValue("EventAttachmentsBody", attachmentText),
                             new TagValue("Priority", 1));
                     }
                 }
@@ -198,6 +212,23 @@ namespace ASC.Api.Calendar.Notification
         private static string PerformUrl(string url)
         {
             return CommonLinkUtility.GetFullAbsolutePath(url);
+        }
+
+        private static string GetTagValueWithAttachmentText(EventHistory eventHistory)
+        {
+            var attachmentText = string.Empty;
+            var mergedCalendar = eventHistory.GetMerged();
+            if (mergedCalendar != null && mergedCalendar.Events != null && mergedCalendar.Events.Any())
+            {
+                var mergedEvent = mergedCalendar.Events.First();
+                foreach (var attachment in mergedEvent.Attachments)
+                {
+                    attachmentText += string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a><br />",
+                        attachment.Uri.ToString(),
+                        attachment.Parameters.FirstOrDefault(x => x.Name.Equals("FILENAME")).Value);
+                }
+            }
+            return attachmentText;
         }
     }
 

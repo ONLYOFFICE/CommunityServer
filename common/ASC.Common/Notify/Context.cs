@@ -19,11 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using ASC.Common.Logging;
 using ASC.Notify.Channels;
 using ASC.Notify.Engine;
 using ASC.Notify.Model;
 using ASC.Notify.Sinks;
+
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.Notify
 {

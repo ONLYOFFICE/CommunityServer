@@ -53,10 +53,10 @@ namespace ASC.Api.Projects
         #region Read
 
         ///<summary>
-        ///Returns the list of all the portal projects with base information about them
+        ///Returns a list of all the portal projects with the base information about them.
         ///</summary>
         ///<short>
-        ///Projects
+        ///Get projects
         ///</short>
         ///<category>Projects</category>
         ///<returns>List of projects</returns>
@@ -67,10 +67,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all projects in which the current user participates
+        ///Returns a list of all the projects in which the current user participates.
         ///</summary>
         ///<short>
-        ///Participated projects
+        ///Get my projects
         ///</short>
         ///<category>Projects</category>
         ///<returns>List of projects</returns>
@@ -85,10 +85,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all projects which the current user follows
+        ///Returns a list of all the projects which the current user follows.
         ///</summary>
         ///<short>
-        ///Followed projects
+        ///Get my followed projects
         ///</short>
         ///<category>Projects</category>
         ///<returns>List of projects</returns>
@@ -103,13 +103,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all projects with the status specified in the request
+        ///Returns a list of all the projects with a status specified in the request.
         ///</summary>
         ///<short>
-        ///Project by status
+        ///Get projects by status
         ///</short>
         ///<category>Projects</category>
-        ///<param name="status">"open"|"paused"|"closed"</param>
+        ///<param name="status">Project status: "open"|"paused"|"closed"</param>
         ///<returns>List of projects</returns>
         [Read("{status:(open|paused|closed)}")]
         public IEnumerable<ProjectWrapper> GetProjects(ProjectStatus status)
@@ -118,10 +118,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed information about the project with ID specified in the request
+        ///Returns the detailed information about a project with ID specified in the request.
         ///</summary>
         ///<short>
-        ///Project by ID
+        ///Get a project by ID
         ///</short>
         ///<category>Projects</category>
         ///<param name="id">Project ID</param>
@@ -136,19 +136,19 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all the portal projects filtered using project title, status or participant ID and 'Followed' status specified in the request
+        ///Returns a list of all the portal projects filtered by project title, status, participant ID and other parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Projects
+        ///Get filtered projects
         ///</short>
         ///<category>Projects</category>
         ///<param name="tag" optional="true">Project tag</param>
-        ///<param name="status" optional="true">Project status</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
+        ///<param name="status" optional="true">Project status: "open"|"paused"|"closed"</param>
+        ///<param name="participant" optional="true">Project participant GUID</param>
         ///<param name="manager" optional="true">Project manager GUID</param>
-        ///<param name="departament"></param>
-        ///<param name="follow" optional="true">My followed project</param>
-        ///<returns>Projects list</returns>
+        ///<param name="departament">Project department</param>
+        ///<param name="follow" optional="true">Specifies if the current user follows this project or not</param>
+        ///<returns>List of projects</returns>
         [Read(@"filter")]
         public IEnumerable<ProjectWrapperFull> GetProjectsByFilter(int tag, ProjectStatus? status, Guid participant,
             Guid manager, Guid departament, bool follow)
@@ -176,10 +176,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the search results for the project containing the words/phrases matching the query specified in the request
+        ///Returns the search results for a project containing the words/phrases matching the query specified in the request.
         ///</summary>
         ///<short>
-        ///Search project
+        ///Search in a project
         ///</short>
         ///<category>Projects</category>
         ///<param name="id">Project ID</param>
@@ -194,10 +194,10 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all projects matching the query specified in the request
+        ///Returns a list of all the projects matching the query specified in the request.
         ///</summary>
         ///<short>
-        ///Search all projects
+        ///Search projects
         ///</short>
         ///<category>Projects</category>
         ///<param name="query">Search query</param>
@@ -214,22 +214,22 @@ namespace ASC.Api.Projects
         #region Create
 
         /// <summary>
-        /// Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
+        /// Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request.
         /// </summary>
         /// <short>
-        /// Create project
+        /// Create a project
         /// </short>
         ///  <category>Projects</category>
-        /// <param name="title">Title</param>
-        /// <param name="description">Description</param>
-        /// <param name="responsibleId">Responsible ID</param>
-        /// <param name="tags">Tags</param>
-        /// <param name="private">Is project private</param>
+        /// <param name="title">Project title</param>
+        /// <param name="description">Project description</param>
+        /// <param name="responsibleId">Project responsible ID</param>
+        /// <param name="tags">Project tags</param>
+        /// <param name="private">Private project or not</param>
         /// <param name="participants" optional="true">Project participants</param>
-        /// <param name="notify" optional="true">Notify project manager</param>
-        /// <param name="tasks"></param>
-        /// <param name="milestones"></param>
-        /// <param name="notifyResponsibles"></param>
+        /// <param name="notify" optional="true">Notifies a project manager about the project actions or not</param>
+        /// <param name="tasks">Project tasks</param>
+        /// <param name="milestones">Project milestones</param>
+        /// <param name="notifyResponsibles">Notifies responsibles about the project actions or not</param>
         /// <returns>Newly created project</returns>
         /// <exception cref="ArgumentException"></exception>
         [Create("")]
@@ -325,6 +325,24 @@ namespace ASC.Api.Projects
             return new ProjectWrapperFull(this, project, EngineFactory.FileEngine.GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1 };
         }
 
+        /// <summary>
+        /// Creates a new project with team security using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request.
+        /// </summary>
+        /// <short>
+        /// Create a project with team security
+        /// </short>
+        ///  <category>Projects</category>
+        /// <param name="title">Project title</param>
+        /// <param name="description">Project description</param>
+        /// <param name="responsibleId">Project responsible ID</param>
+        /// <param name="tags">Project tags</param>
+        /// <param name="private">Private project or not</param>
+        /// <param name="participants" optional="true">Project participants</param>
+        /// <param name="notify" optional="true">Notifies a project manager about the project actions or not</param>
+        /// <param name="tasks">Project tasks</param>
+        /// <param name="milestones">Project milestones</param>
+        /// <param name="notifyResponsibles">Notifies responsibles about the project actions or not</param>
+        /// <returns>Newly created project</returns>
         [Create("withSecurity")]
         public ProjectWrapperFull CreateProject(string title,
             string description,
@@ -353,21 +371,21 @@ namespace ASC.Api.Projects
         #region Update
 
         ///<summary>
-        ///Updates the existing project information using all the parameters (project ID, title, description, responsible ID, etc) specified in the request
+        ///Updates the existing project using all the parameters (project ID, title, description, responsible ID, etc) specified in the request.
         ///</summary>
         ///<short>
-        ///Update project
+        ///Update a project
         ///</short>
         ///<category>Projects</category>
         ///<param name="id">Project ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="responsibleId">Responsible ID</param>
-        ///<param name="tags">Tags</param>
-        ///<param name="participants">participants</param>
-        ///<param name="private">Is project private</param>
-        ///<param name="status">Status. One of (Open|Closed)</param>
-        ///<param name="notify">Notify project manager</param>
+        ///<param name="title">New project title</param>
+        ///<param name="description">New project description</param>
+        ///<param name="responsibleId">New project responsible ID</param>
+        ///<param name="tags">New project tags</param>
+        ///<param name="participants">New project participants</param>
+        ///<param name="status">New project status: Open, Paused or Closed</param>
+        ///<param name="private">Private project or not</param>
+        ///<param name="notify">Notifies a project manager about the project actions or not</param>
         ///<returns>Updated project</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -389,7 +407,7 @@ namespace ASC.Api.Projects
             }
 
             project.Title = Update.IfNotEmptyAndNotEquals(project.Title, title);
-            project.StatusChangedOn = DateTime.Now;
+            project.StatusChangedOn = TenantUtil.DateTimeNow();
 
             if (status.HasValue)
             {
@@ -418,6 +436,23 @@ namespace ASC.Api.Projects
             return ProjectWrapperFullSelector(project, EngineFactory.FileEngine.GetRoot(id));
         }
 
+        ///<summary>
+        ///Updates the existing project with team security using all the parameters (project ID, title, description, responsible ID, etc) specified in the request.
+        ///</summary>
+        ///<short>
+        ///Update a project with team security
+        ///</short>
+        ///<category>Projects</category>
+        ///<param name="id">Project ID</param>
+        ///<param name="title">New project title</param>
+        ///<param name="description">New project description</param>
+        ///<param name="responsibleId">New project responsible ID</param>
+        ///<param name="tags">New project tags</param>
+        ///<param name="participants">New project participants</param>
+        ///<param name="status">New project status: Open, Paused or Closed</param>
+        ///<param name="private">Private project or not</param>
+        ///<param name="notify">Notifies a project manager about the project actions or not</param>
+        ///<returns>Updated project</returns>
         [Update(@"{id:[0-9]+}/withSecurityInfo")]
         public ProjectWrapperFull UpdateProject(int id, string title, string description, Guid responsibleId,
             string tags, IEnumerable<Participant> participants, ProjectStatus? status, bool? @private, bool notify)
@@ -437,14 +472,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the status of the project with the ID specified in the request
+        ///Updates a status of a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Update project status
+        ///Update a project status
         ///</short>
         ///<category>Projects</category>
         ///<param name="id">Project ID</param>
-        ///<param name="status">Status. One of (Open|Paused|Closed)</param>
+        ///<param name="status">New project status: Open, Paused or Closed</param>
         ///<returns>Updated project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{id:[0-9]+}/status")]
@@ -464,10 +499,10 @@ namespace ASC.Api.Projects
         #region Delete
 
         ///<summary>
-        ///Deletes the project with the ID specified in the request from the portal
+        ///Deletes a project with the ID specified in the request from the portal.
         ///</summary>
         ///<short>
-        ///Delete project
+        ///Delete a project
         ///</short>
         ///<category>Projects</category>
         ///<param name="id">Project ID</param>
@@ -489,14 +524,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes the project with the ID specified in the request from the portal
+        ///Deletes the projects with the IDs specified in the request from the portal.
         ///</summary>
         ///<short>
-        ///Delete project
+        ///Delete projects
         ///</short>
         ///<category>Projects</category>
-        ///<param name="projectids">Project IDs</param>
-        ///<returns>Deleted project</returns>
+        ///<param name="projectids">List of project IDs</param>
+        ///<returns>Deleted projects</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"")]
         public IEnumerable<ProjectWrapperFull> DeleteProjects(int[] projectids)
@@ -523,10 +558,10 @@ namespace ASC.Api.Projects
         #region Follow, Tags, Time
 
         ///<summary>
-        ///Subscribe or unsubscribe to notifications about the actions performed with the project with the ID specified in the request
+        ///Subscribes to or unsubscribes from the notifications about the actions performed in the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Following/Unfollowing project
+        ///Project subscription
         ///</short>
         ///<category>Projects</category>
         ///<param name="projectId">Project ID</param>
@@ -556,15 +591,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the tags for the project with the selected project ID with the tags specified in the request
+        ///Updates a tag for the selected project with a tag specified in the request.
         ///</summary>
         ///<short>
-        ///Update project tags
+        ///Update a project tag
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Tags</category>
         ///<param name="id">Project ID</param>
-        ///<param name="tags">Tags</param>
-        ///<returns>project</returns>
+        ///<param name="tags">New project tag</param>
+        ///<returns>Project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{id:[0-9]+}/tag")]
         public ProjectWrapperFull UpdateProjectTags(int id, string tags)
@@ -578,15 +613,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the tags for the project with the selected project ID with the tags specified in the request
+        ///Updates the tags for the selected project with the tags specified in the request.
         ///</summary>
         ///<short>
         ///Update project tags
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Tags</category>
         ///<param name="id">Project ID</param>
-        ///<param name="tags">Tags</param>
-        ///<returns>project</returns>
+        ///<param name="tags">New project tags</param>
+        ///<returns>Project</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{id:[0-9]+}/tags")]
         public ProjectWrapperFull UpdateProjectTags(int id, IEnumerable<int> tags)
@@ -600,14 +635,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed information about the time spent on the project with the ID specified in the request
+        ///Returns the detailed information about the time spent on the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Project time spent
+        ///Get project time
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Time</category>
         ///<param name="id">Project ID</param>
-        ///<returns>List of time spent</returns>
+        ///<returns>List of project time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"{id:[0-9]+}/time")]
         public IEnumerable<TimeWrapper> GetProjectTime(int id)
@@ -617,11 +652,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///
+        ///Returns the total time spent on the project with the ID specified in the request.
         ///</summary>
-        ///<category>Projects</category>
+        ///<short>Get total project time</short>
+        ///<category>Time</category>
         ///<param name="id">Project ID</param>
-        ///<returns>List of time spent</returns>
+        ///<returns>Project time</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"{id:[0-9]+}/time/total")]
         public string GetTotalProjectTime(int id)
@@ -635,21 +671,21 @@ namespace ASC.Api.Projects
         #region Milestones
 
         ///<summary>
-        ///Creates a new milestone using the parameters (project ID, milestone title, deadline, etc) specified in the request
+        ///Adds a new milestone using the parameters (project ID, milestone title, deadline, etc) specified in the request.
         ///</summary>
         ///<short>
-        ///Add milestone
+        ///Add a milestone
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Milestones</category>
         ///<param name="id">Project ID</param>
         ///<param name="title">Milestone title</param>
         ///<param name="deadline">Milestone deadline</param>
-        ///<param name="isKey">Is milestone key or not</param>
-        ///<param name="isNotify">Remind me 48 hours before the due date</param>
+        ///<param name="isKey">Specifies if this is a key milestone or not</param>
+        ///<param name="isNotify">Reminds me 48 hours before the milestone due date</param>
         ///<param name="description">Milestone description</param>
         ///<param name="responsible">Milestone responsible</param>
-        ///<param name="notifyResponsible">Notify responsible</param>
-        ///<returns>Created milestone</returns>
+        ///<param name="notifyResponsible">Notifies the responsible about the milestone actions or not</param>
+        ///<returns>Added milestone</returns>
         ///<exception cref="ArgumentNullException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"{id:[0-9]+}/milestone")]
@@ -679,12 +715,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all the milestones within the project with the ID specified in the request
+        ///Returns a list of all the milestones within a project with the ID specified in the request.
         ///</summary>
         ///<short>
         ///Get milestones by project ID
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Milestones</category>
         ///<param name="id">Project ID</param>
         ///<returns>List of milestones</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -702,12 +738,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all the milestones with the selected status within the project with the ID specified in the request
+        ///Returns a list of all the milestones with the selected status within a project with the ID specified in the request.
         ///</summary>
         ///<short>
         ///Get milestones by project ID and milestone status
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Milestones</category>
         ///<param name="id">Project ID</param>
         ///<param name="status">Milestone status</param>
         ///<returns>List of milestones</returns>
@@ -729,12 +765,12 @@ namespace ASC.Api.Projects
         #region Team
 
         ///<summary>
-        ///Returns the list of all users participating in the project with the ID specified in the request
+        ///Returns a list of all the users participating in the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Project team
+        ///Get a project team
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectid">Project ID</param>
         ///<returns>List of team members</returns>
         [Read(@"{projectid:[0-9]+}/team")]
@@ -749,12 +785,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all users participating in the project with the ID specified in the request
+        ///Returns a list of all the current and excluded project team members.
         ///</summary>
         ///<short>
-        ///Project team
+        ///Get a project team with excluded members
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectid">Project ID</param>
         ///<returns>List of team members</returns>
         [Read(@"{projectid:[0-9]+}/teamExcluded")]
@@ -769,13 +805,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all users participating in the project with the ID specified in the request
+        ///Returns a list of all the users participating in the projects with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Project team
+        ///Get team members of projects
         ///</short>
-        ///<category>Team</category>
-        ///<param name="ids">Project IDs</param>
+        ///<category>Teams</category>
+        ///<param name="ids">List of project IDs</param>
         ///<returns>List of team members</returns>
         [Create(@"team")]
         public IEnumerable<ParticipantWrapper> GetProjectTeam(List<int> ids)
@@ -786,14 +822,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds the user with the ID specified in the request to the selected project team
+        ///Adds a user with the ID specified in the request to the selected project team.
         ///</summary>
         ///<short>
-        ///Add to team
+        ///Add a user to the team
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="userId">ID of the user to add</param>
+        ///<param name="userId">User ID</param>
         ///<returns>List of team members</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"{projectid:[0-9]+}/team")]
@@ -810,16 +846,16 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Sets the security rights for the user or users with the IDs specified in the request within the selected project
+        ///Sets the security rights to the user with the ID specified in the request within the selected project.
         ///</summary>
         ///<short>
         ///Set team security
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="userId">ID of the user to set</param>
+        ///<param name="userId">User ID</param>
         ///<param name="security">Security rights</param>
-        ///<param name="visible">Visible</param>
+        ///<param name="visible">Specifies if the security rights for the user will be visible or not</param>
         ///<returns>List of team members</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{projectid:[0-9]+}/team/security")]
@@ -848,14 +884,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Removes the user with the ID specified in the request from the selected project team
+        ///Removes a user with the ID specified in the request from the selected project team.
         ///</summary>
         ///<short>
-        ///Remove from team
+        ///Remove a user from the team
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="userId">ID of the user to add</param>
+        ///<param name="userId">User ID</param>
         ///<returns>List of team members</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"{projectid:[0-9]+}/team")]
@@ -875,16 +911,16 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the project team with the users IDs specified in the request
+        ///Updates a project team with the user IDs specified in the request.
         ///</summary>
         ///<short>
-        ///Updates project team
+        ///Update a project team
         ///</short>
-        ///<category>Team</category>
+        ///<category>Teams</category>
         ///<param name="projectId">Project ID</param>
-        ///<param name="participants">IDs of users to update team</param>
-        ///<param name="notify">Notify project team</param>
-        ///<returns>String with the number of project participants</returns>
+        ///<param name="participants">List of user IDs</param>
+        ///<param name="notify">Notifies a project team about the updated project or not</param>
+        ///<returns>Number of project participants</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{projectid:[0-9]+}/team")]
         public IEnumerable<ParticipantWrapper> UpdateProjectTeam(int projectId, IEnumerable<Guid> participants, bool notify)
@@ -908,14 +944,14 @@ namespace ASC.Api.Projects
         #region Task
 
         ///<summary>
-        ///Returns the list of all the tasks within the project with the ID specified in the request
+        ///Returns a list of all the tasks within a project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Tasks
+        ///Get tasks
         ///</short>
         ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
-        ///<returns></returns>
+        ///<returns>List of tasks</returns>
         ///<exception cref="ItemNotFoundException">List of tasks</exception>
         [Read(@"{projectid:[0-9]+}/task")]
         public IEnumerable<TaskWrapper> GetProjectTasks(int projectid)
@@ -929,22 +965,22 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds the task to the selected project with the parameters (responsible user ID, task description, deadline time, etc) specified in the request
+        ///Adds a task to the selected project with the parameters (responsible user ID, task description, deadline time, etc) specified in the request.
         ///</summary>
         ///<short>
-        ///Add task
+        ///Add a task
         ///</short>
         ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="description">Description</param>
-        ///<param name="deadline">Deadline time</param>
-        ///<param name="priority">Priority: Low|Normal|High</param>
-        ///<param name="title">Title</param>
-        ///<param name="milestoneid">Milestone ID</param>
-        ///<param name="responsibles">List responsibles</param>
-        ///<param name="notify">Notify responsible</param>
-        ///<param name="startDate"></param>
-        ///<returns>Created task</returns>
+        ///<param name="description">Task description</param>
+        ///<param name="deadline">Task deadline time</param>
+        ///<param name="priority">Task priority: Low|Normal|High</param>
+        ///<param name="title">Task title</param>
+        ///<param name="milestoneid">Task milestone ID</param>
+        ///<param name="responsibles">List of responsibles</param>
+        ///<param name="notify">Notifies the responsibles about the task actions or not</param>
+        ///<param name="startDate">Task start date</param>
+        ///<returns>Added task</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"{projectid:[0-9]+}/task")]
         public TaskWrapper AddProjectTask(int projectid, string description, ApiDateTime deadline,
@@ -985,15 +1021,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Adds the task to the selected project 
+        ///Adds a task to the selected project by message ID specified in the request.
         ///</summary>
         ///<short>
-        ///Add task
+        ///Add a task by message ID
         ///</short>
         ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
         ///<param name="messageid">Message ID</param>
-        ///<returns>Created task</returns>
+        ///<returns>Added task</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Create(@"{projectid:[0-9]+}/task/{messageid:[0-9]+}")]
         public TaskWrapper AddProjectTaskByMessage(int projectid, int messageid)
@@ -1069,14 +1105,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all tasks with the selected status in the project with the ID specified in the request
+        ///Returns a list of all the tasks with the selected status in the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Tasks with status
+        ///Get tasks by status
         ///</short>
         ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="status">Task status. Can be one of: notaccept|open|closed|disable|unclassified|notinmilestone</param>
+        ///<param name="status">Task status: not accept|open|closed|disable|unclassified|not in milestone</param>
         ///<returns>List of tasks</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"{projectid:[0-9]+}/task/{status:(notaccept|open|closed|disable|unclassified|notinmilestone)}")]
@@ -1089,14 +1125,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all tasks for the current user with the selected status in the project with the ID specified in the request
+        ///Returns a list of all the tasks for the current user with the selected status in the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///My tasks
+        ///Get my tasks by status and project ID
         ///</short>
         ///<category>Tasks</category>
         ///<param name="projectid">Project ID</param>
-        ///<param name="status">Task status. Can be one of: notaccept|open|closed|disable|unclassified|notinmilestone</param>
+        ///<param name="status">Task status: not accept|open|closed|disable|unclassified|not in milestone</param>
         ///<returns>List of tasks</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"{projectid:[0-9]+}/task/@self/{status:(notaccept|open|closed|disable|unclassified|notinmilestone)}")]
@@ -1115,12 +1151,12 @@ namespace ASC.Api.Projects
         #region Files
 
         ///<summary>
-        ///Returns the detailed list of all files and folders for the project with the ID specified in the request
+        ///Returns the detailed list of all the files and folders for the project with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///Project files by project ID
+        ///Get project files by project ID
         ///</short>
-        ///<category>Projects</category>
+        ///<category>Files</category>
         ///<param name="id">Project ID</param>
         ///<returns>Project files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1136,15 +1172,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the list of all files within the entity (project, milestone, task) with the type and ID specified
+        ///Returns a list of all the files within the entity (message or task) with the type and ID specified in the request.
         ///</summary>
         ///<short>
-        ///Entity files
+        ///Get entity files
         ///</short>
         ///<category>Files</category>
         ///<param name="entityType">Entity type</param>
         ///<param name="entityID">Entity ID</param>
-        ///<returns>Message</returns>
+        ///<returns>Files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Read(@"{entityID:[0-9]+}/entityfiles")]
         public IEnumerable<FileWrapper> GetEntityFiles(EntityType entityType, int entityID)
@@ -1162,15 +1198,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified
+        ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified in the request.
         ///</summary>
         ///<short>
-        ///Upload file to entity
+        ///Upload files to the entity
         ///</short>
         ///<category>Files</category>
         ///<param name="entityType">Entity type </param>
         ///<param name="entityID">Entity ID</param>
-        ///<param name="files">File IDs</param>
+        ///<param name="files">List of file IDs</param>
         ///<returns>Uploaded files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<visible>false</visible>
@@ -1197,13 +1233,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Detaches the selected file from the entity (project, milestone, task) with the type and ID specified
+        ///Detaches the selected file from the entity (project, milestone, task) with the type and ID specified in the request.
         ///</summary>
         ///<short>
-        ///Detach file from entity
+        ///Detach a file from the entity
         ///</short>
         ///<category>Files</category>
-        ///<param name="entityType">Entity type </param>
+        ///<param name="entityType">Entity type</param>
         ///<param name="entityID">Entity ID</param>
         ///<param name="fileid">File ID</param>
         ///<returns>Detached file</returns>
@@ -1228,16 +1264,16 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Detaches the selected file from the entity (project, milestone, task) with the type and ID specified
+        ///Detaches the selected files from the entity (project, milestone, task) with the type and ID specified in the request.
         ///</summary>
         ///<short>
-        ///Detach file from entity
+        ///Detach files from the entity
         ///</short>
         ///<category>Files</category>
-        ///<param name="entityType">Entity type </param>
+        ///<param name="entityType">Entity type</param>
         ///<param name="entityID">Entity ID</param>
-        ///<param name="files">files</param>
-        ///<returns>Detached file</returns>
+        ///<param name="files">List of file IDs</param>
+        ///<returns>Detached files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<visible>false</visible>
         [Delete(@"{entityID:[0-9]+}/entityfilesmany")]
@@ -1263,21 +1299,21 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified
+        ///Uploads the selected files to the entity (project, milestone, task) with the type and ID specified in the request.
         ///</summary>
         ///<short>
-        ///Upload file to entity
+        ///Upload files to the entity
         ///</short>
         ///<category>Files</category>
-        ///<param name="entityType">Entity type </param>
+        ///<param name="entityType">Entity type</param>
         ///<param name="entityID">Entity ID</param>
-        ///<param name="folderid">ID of the folder to upload to</param>
-        ///<param name="file" visible="false">Request enput stream</param>
-        ///<param name="contentType" visible="false">Content-type header</param>
-        ///<param name="contentDisposition" visible="false">Content disposition header</param>
+        ///<param name="folderid">Folder ID</param>
+        ///<param name="file" visible="false">Request input stream</param>
+        ///<param name="contentType" visible="false">Content-Type header</param>
+        ///<param name="contentDisposition" visible="false">Content-Disposition header</param>
         ///<param name="files" visible="false">List of files when posted as multipart/form-data</param>
-        ///<param name="createNewIfExist" visible="false">Create new if exist</param>
-        ///<param name="storeOriginalFileFlag" visible="false">If true, upload documents in original formats as well</param>
+        ///<param name="createNewIfExist" visible="false">Creates a new file if it already exists</param>
+        ///<param name="storeOriginalFileFlag" visible="false">If true, then upload files in the original formats as well</param>
         ///<returns>Uploaded files</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<visible>false</visible>
@@ -1324,13 +1360,13 @@ namespace ASC.Api.Projects
         #region contacts
 
         ///<summary>
-        /// Returns the list of all the projects linked with the contact with the ID specified in the request
+        /// Returns a list of all the projects linked with a contact with the ID specified in the request.
         ///</summary>
         ///<param name="contactid">Contact ID</param>
         ///<category>Contacts</category>
-        ///<short>Get projects for contact</short> 
+        ///<short>Get contact projects</short> 
         ///<returns>
-        ///    Projects list
+        ///List of projects
         ///</returns>
         ///<exception cref="ArgumentException"></exception>
         [Read("contact/{contactid:[0-9]+}")]
@@ -1343,12 +1379,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        /// Adds the selected contact to the project with the ID specified in the request
+        /// Adds the selected contact to the project with the ID specified in the request.
         ///</summary>
         ///<param name="projectid">Project ID</param>
         ///<param name="contactid">Contact ID</param>
         ///<category>Contacts</category>
-        ///<short>Add project contact</short> 
+        ///<short>Add a project contact</short> 
         ///<returns>Project</returns>
         ///<exception cref="ArgumentException"></exception>
         [Create(@"{projectid:[0-9]+}/contact")]
@@ -1371,12 +1407,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        /// Deletes the selected contact from the project with the ID specified in the request
+        /// Deletes the selected contact from the project with the ID specified in the request.
         ///</summary>       
         ///<param name="projectid">Project ID</param>
         ///<param name="contactid">Contact ID</param>
         ///<category>Contacts</category>
-        ///<short>Delete project contact</short> 
+        ///<short>Delete a project contact</short> 
         ///<returns>Project</returns>
         ///<exception cref="ArgumentException"></exception>
         [Delete("{projectid:[0-9]+}/contact")]
@@ -1403,12 +1439,12 @@ namespace ASC.Api.Projects
         #region templates
 
         ///<summary>
-        ///Returns the list of all the templates with base information about them
+        ///Returns a list of all the templates with the base information about them.
         ///</summary>
         ///<short>
-        ///Templates
+        ///Get templates
         ///</short>
-        ///<category>Template</category>
+        ///<category>Templates</category>
         ///<returns>List of templates</returns>
         [Read("template")]
         public IEnumerable<object> GetAllTemplates()
@@ -1417,12 +1453,12 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Returns the detailed information about the template with ID specified in the request
+        ///Returns the detailed information about a template with ID specified in the request.
         ///</summary>
         ///<short>
-        ///Template by ID
+        ///Get a template by ID
         ///</short>
-        ///<category>Template</category>
+        ///<category>Templates</category>
         ///<param name="id">Template ID</param>
         ///<returns>Template</returns>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1434,14 +1470,14 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Creates a new template 
+        ///Creates a new template with the title and description specified in the request. 
         ///</summary>
         ///<short>
-        ///Create template
+        ///Create a template
         ///</short>
-        ///<category>Template</category>
-        ///<param name="title">Title</param>
-        ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
+        ///<category>Templates</category>
+        ///<param name="title">Template title</param>
+        ///<param name="description">JSON template structure in the following format: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"milestone task"}]}]}</param>
         ///<returns>Newly created template</returns>
         ///<exception cref="ArgumentException"></exception>
         [Create("template")]
@@ -1464,15 +1500,15 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Updates the existing template information 
+        ///Updates the existing template information with the parameters specified in the request.
         ///</summary>
         ///<short>
-        ///Update template
+        ///Update a template
         ///</short>
-        ///<category>Template</category>
+        ///<category>Templates</category>
         ///<param name="id">Template ID</param>
-        ///<param name="title">Title</param>
-        ///<param name="description">JSON template structure. Sample: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"task milestone"}]}]}</param>
+        ///<param name="title">New template title</param>
+        ///<param name="description">New JSON template structure in the following format: {"tasks":[{"title":"Task without milestone"}],"milestones":[{"title":"milestone title","duration":0.5,"tasks":[{"title":"milestone task"}]}]}</param>
         ///<returns>Updated template</returns>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
@@ -1495,13 +1531,13 @@ namespace ASC.Api.Projects
         }
 
         ///<summary>
-        ///Deletes the template with the ID specified in the request from the portal
+        ///Deletes a template with the ID specified in the request from the portal.
         ///</summary>
         ///<short>
-        ///Delete template
+        ///Delete a template
         ///</short>
-        ///<category>Template</category>
-        ///<param name="id">Project ID</param>
+        ///<category>Templates</category>
+        ///<param name="id">Template ID</param>
         ///<returns>Deleted template</returns>
         ///<exception cref="ItemNotFoundException"></exception>
         [Delete(@"template/{id:[0-9]+}")]
@@ -1521,13 +1557,13 @@ namespace ASC.Api.Projects
         #region HACK: Hidden api methods
 
         ///<summary>
-        /// Returns the basic information about the access rights
+        /// Returns the basic information about the access rights.
         ///</summary>
         ///<short>
-        ///  Access rights info
+        /// Get security information
         ///</short>
         ///<category>Projects</category>
-        ///<returns>Basic information about access rights</returns>
+        ///<returns>Basic information about the access rights</returns>
         ///<visible>false</visible>
         [Read("securityinfo")]
         public CommonSecurityInfo GetProjectSecurityInfo()
@@ -1535,6 +1571,14 @@ namespace ASC.Api.Projects
             return new CommonSecurityInfo();
         }
 
+        ///<summary>
+        /// Returns the last modified project.
+        ///</summary>
+        ///<short>
+        /// Get the last modified project
+        ///</short>
+        ///<category>Projects</category>
+        ///<returns>Last modified project</returns>
         ///<visible>false</visible>
         [Read("maxlastmodified")]
         public string GetProjectMaxLastModified()
@@ -1545,6 +1589,15 @@ namespace ASC.Api.Projects
             return result + EngineFactory.ProjectEngine.Count().ToString();
         }
 
+        ///<summary>
+        /// Returns the current task order in the project with the ID specified in the request.
+        ///</summary>
+        ///<short>
+        /// Get the task order
+        ///</short>
+        ///<category>Tasks</category>
+        ///<param name="id">Project ID</param>
+        ///<returns>Task order</returns>
         ///<visible>false</visible>
         [Read(@"{id:[0-9]+}/order")]
         public string GetTaskOrder(int id)
@@ -1555,6 +1608,16 @@ namespace ASC.Api.Projects
             return projectEngine.GetTaskOrder(project);
         }
 
+        ///<summary>
+        /// Sets the task order to the project with the ID specified in the request.
+        ///</summary>
+        ///<short>
+        /// Set the task order
+        ///</short>
+        ///<category>Tasks</category>
+        ///<param name="id">Project ID</param>
+        ///<param name="order">Task order</param>
+        ///<returns>Task order</returns>
         ///<visible>false</visible>
         [Update(@"{id:[0-9]+}/order")]
         public void SetTaskOrder(int id, string order)

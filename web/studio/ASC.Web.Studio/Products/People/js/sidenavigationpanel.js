@@ -75,9 +75,9 @@
     }
 
     function initToolbar() {
-        jq("#studio_sidePanel").find("a.dropdown-item:not(.invite-link)").bind("click", onButtonClick);
+        jq("#studio_sidePanel").find("a.dropdown-item:not(.invite-link)").on("click", onButtonClick);
 
-        jq("#actionGroupMenu").find("a.dropdown-item").bind("click", onButtonClick);
+        jq("#actionGroupMenu").find("a.dropdown-item").on("click", onButtonClick);
 
         bindClipboardEvent();
     }
@@ -108,7 +108,7 @@
     };
 
     function initGroupList() {
-        var groupList = jq.tmpl("groupListTemplate", { groups: window.GroupManager.getAllGroups() });
+        var groupList = jq.tmpl("groupListTemplate", { groups: window.GroupManager.getGroupsArray() });
 
         jq("#groupList").empty().append(groupList);
 
@@ -118,7 +118,7 @@
     };
 
     function initMenuList() {
-        jq(window).bind("change-group", onChangeGroup);
+        jq(window).on("change-group", onChangeGroup);
     }
 
     function changeAnchor (group) {

@@ -117,7 +117,7 @@ namespace ASC.Mail.Core.Engine
                 if (file == null)
                     throw new AttachmentsException(AttachmentsException.Types.DocumentNotFound, "File not found.");
 
-                if (!FilesIntegration.GetFileSecurity().CanRead(file))
+                if (!FilesIntegration.GetFileSecurity().CanDownload(file))
                     throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied,
                                                    "Access denied.");
 

@@ -60,7 +60,7 @@ ASC.Projects.ProjectTeam = (function() {
             project = prj;
 
             // calculate width
-            jq(window).resize(calculateWidthBlockUserInfo);
+            jq(window).on("resize", calculateWidthBlockUserInfo);
 
 
             //--change partisipant security

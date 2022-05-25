@@ -39,6 +39,10 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{A51D0454-4AFA-46DE-89D4-B03D37E1816C}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -47,9 +51,9 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
+      <Version>4.7.11</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

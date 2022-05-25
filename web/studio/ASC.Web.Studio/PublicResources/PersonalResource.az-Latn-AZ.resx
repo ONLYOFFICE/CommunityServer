@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsAccess" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="AuthDocsAccessAndroidIOSText" xml:space="preserve">
+    <value>IOS və Android üçün ONLYOFFICE ilə hərəkət halında olarkən redaktə edin və əməkdaşlıq edin</value>
+  </data>
+  <data name="AuthDocsAccessFromAnywhere" xml:space="preserve">
+    <value>Brauzerinizdə onlayn işləyin.</value>
+  </data>
+  <data name="AuthDocsAccessOffline" xml:space="preserve">
+    <value>Oflayn</value>
+  </data>
+  <data name="AuthDocsAccessOfflineText" xml:space="preserve">
+    <value>İnternet bağlantısı yoxdur? {0} tətbiqinə keçin və istənilən yerdən oflayn redaktə edin.</value>
+  </data>
+  <data name="AuthDocsAccessOnline" xml:space="preserve">
+    <value>Onlayn</value>
+  </data>
+  <data name="AuthDocsAccessOnlineText" xml:space="preserve">
+    <value>İstənilən brauzerdən və əməliyyat sistemindən format itkisi olmadan onlayn işləyin.</value>
+  </data>
+  <data name="AuthDocsAccessOnlyofficeDesktop" xml:space="preserve">
+    <value>ONLYOFFICE masa üstü</value>
+  </data>
+  <data name="AuthDocsAccessOnMobile" xml:space="preserve">
+    <value>Mobildə</value>
+  </data>
+  <data name="AuthDocsAccessQuickly" xml:space="preserve">
+    <value>ONLYOFFICE şəxsi xidmətinə sürətlə daxil olun.</value>
+  </data>
+  <data name="AuthDocsAccessYourDocs" xml:space="preserve">
+    <value>İstənilən yerdən sənədlərinizə daxil olun.</value>
+  </data>
+  <data name="AuthDocsAlready" xml:space="preserve">
+    <value>Hesabınız artıq var?</value>
+  </data>
+  <data name="AuthDocsAvailableOnChrome" xml:space="preserve">
+    <value>Chrome Web Store-da mövcuddur</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextOne" xml:space="preserve">
+    <value>ONLYOFFICE Office formatları ilə tam uyğundur və DOC, DOCX, ODT, RTF, TXT, PDF, HTML, EPUB, DjVu, XLS, XLSX, ODS, CSV, PPT, PPTX və ODP-ni dəstəkləyir.</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextThree" xml:space="preserve">
+    <value>Redaktənizdən maksimum yararlanmaq üçün əlavələrdən istifadə edin: videolar daxil edin, şəkilləri redaktə edin, mətnləri tərcümə edin və s.</value>
+  </data>
+  <data name="AuthDocsCapabilitiesTextTwo" xml:space="preserve">
+    <value>Bütün formatlaşdırma alətləri, avtomatik formalardan və diaqramlardan tutmuş riyazi tənliklərə və Mətn İncəsənətinə qədər istənilən obyektlə birlikdə istifadənizdədir.</value>
+  </data>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Hesabı təsdiqləmək üçün e-poçt qutunuzu yoxlayın.</value>
+  </data>
+  <data name="AuthDocsCompatibleText" xml:space="preserve">
+    <value>Microsoft Office formatları ilə 100% uyğundur</value>
+  </data>
+  <data name="AuthDocsConnect" xml:space="preserve">
+    <value>İstənilən buluda qoşulun</value>
+  </data>
+  <data name="AuthDocsCreate" xml:space="preserve">
+    <value>Yaradın</value>
+  </data>
+  <data name="AuthDocsCreateCaptivatingPres" xml:space="preserve">
+    <value>Cəlbedici təqdimatlar</value>
+  </data>
+  <data name="AuthDocsCreateCaptivatingPresText" xml:space="preserve">
+    <value>Çoxsaylı tərtibat və üslub variantları arasından seçim edin, istənilən məqsəd üçün sxemlər və infoqrafika yaradın, Presenter View ilə rahat şəkildə təqdim edin.</value>
+  </data>
+  <data name="AuthDocsCreateProfSpreadsheets" xml:space="preserve">
+    <value>Peşəkar elektron cədvəllər</value>
+  </data>
+  <data name="AuthDocsCreateProfSpreadsheetsText" xml:space="preserve">
+    <value>Çoxsaylı xana və sıra hərəkətləri ilə məlumatlarınızı təşkil edin və 430-dan çox düsturla mürəkkəb hesablamalar aparın. Son toxunuşları etmək üçün üslub və şablonları tətbiq edin.</value>
+  </data>
+  <data name="AuthDocsCreateSterlingDocuments" xml:space="preserve">
+    <value>Sterlinq sənədləri</value>
+  </data>
+  <data name="AuthDocsCreateSterlingDocumentsText" xml:space="preserve">
+    <value>Nəzərdən keçirmə xüsusiyyətləri, səhifənin görünüşü parametrləri və alt qeydlər və başlıqlar kimi əlavə tərtibat elementləri ilə peşəkar yazı imkanlarından faydalanın.</value>
+  </data>
+  <data name="AuthDocsCustomerExperience" xml:space="preserve">
+    <value>Müştəri təcrübəsi</value>
+  </data>
+  <data name="AuthDocsDisclaimer" xml:space="preserve">
+    <value>İstifadəçi rəyləri {0}Capterra.com{1} saytından götürülüb. Capterra rəyləri fərdi son istifadəçilərin öz təcrübələrinə əsaslanan subyektiv fikirlərini təşkil edir və Capterra və ya onun filiallarının fikirlərini təmsil etmir.</value>
+  </data>
+  <data name="AuthDocsDontHave" xml:space="preserve">
+    <value>Hesabınız yoxdur?</value>
+  </data>
+  <data name="AuthDocsDownload" xml:space="preserve">
+    <value>Endir</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Elektron poçt ünvanınızı daxil edin</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Və ya sosial şəbəkələr vasitəsilə daxil olun</value>
+  </data>
+  <data name="AuthDocsExtend" xml:space="preserve">
+    <value>Uzadın</value>
+  </data>
+  <data name="AuthDocsExtendKeeping" xml:space="preserve">
+    <value>Faylları artıq {0} və ya {1} kimi bulud yaddaşlarında saxlayırsınız?</value>
+  </data>
+  <data name="AuthDocsExtendKeepingText" xml:space="preserve">
+    <value>İnteqrasiya edilmiş sənəd idarəetmə sahəsi yaratmaq və sənədlərinizlə birbaşa istənilən buluddan işləmək üçün üçüncü tərəf xidmətlərini birləşdirin.</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Şifrəni unutmusunuz?</value>
+  </data>
+  <data name="AuthDocsFreeChargeText" xml:space="preserve">
+    <value>Ödənişsiz</value>
+  </data>
+  <data name="AuthDocsFreeDesktop" xml:space="preserve">
+    <value>Faylları oflayn rejimdə redaktə etmək və ya buludunuza qoşulmaq üçün pulsuz iş masası proqramını endirin.</value>
+  </data>
+  <data name="AuthDocsFreeDesktopApp" xml:space="preserve">
+    <value>Faylları oflayn rejimdə redaktə etmək və ya buludunuza qoşulmaq üçün {0}pulsuz masaüstü proqramı{1} endirin.</value>
+  </data>
+  <data name="AuthDocsHearTheWeb" xml:space="preserve">
+    <value>İnterneti dinləyin</value>
+  </data>
+  <data name="AuthDocsLogIn" xml:space="preserve">
+    <value>Daxil olun</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal fərdi bulud yaddaşı olan mətn sənədləri, cədvəllər və təqdimatlar üçün ödənişsiz onlayn redaktə dəstidir.</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>onlayn word redaktə, onlayn word editoru, onlayn pulsuz word, onlayn word office</value>
+  </data>
+  <data name="AuthDocsNotRegistered" xml:space="preserve">
+    <value>Hələ qeydiyyatdan keçməmisiniz?</value>
+  </data>
+  <data name="AuthDocsOnlineDesktopMobile" xml:space="preserve">
+    <value>Onlayn, Masaüstü və Mobil</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>və ya daxil olun</value>
+  </data>
+  <data name="AuthDocsPowerful" xml:space="preserve">
+    <value>Güclü yaradın</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaboration" xml:space="preserve">
+    <value>Onlayn əməkdaşlıq edin</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaborationSub" xml:space="preserve">
+    <value>Hər kəsi birlikdə sənədləri redaktə etməyə və ya işiniz haqqında rəylər almağa dəvət edin.</value>
+  </data>
+  <data name="AuthDocsPowerfulSheets" xml:space="preserve">
+    <value>Elektron cədvəllərdə məlumatları təşkil edin</value>
+  </data>
+  <data name="AuthDocsPowerfulSheetsSub" xml:space="preserve">
+    <value>İstənilən mürəkkəb məlumatları təşkil edin, yoxlayın və hesablayın.</value>
+  </data>
+  <data name="AuthDocsPowerfulSlides" xml:space="preserve">
+    <value>Təqdimatlar yaradın</value>
+  </data>
+  <data name="AuthDocsPowerfulSlidesSub" xml:space="preserve">
+    <value>Fikirlərinizi ifadə edin və onları asanlıqla auditoriyaya təqdim edin.</value>
+  </data>
+  <data name="AuthDocsPowerfulTexts" xml:space="preserve">
+    <value>Mətn sənədləri ilə işləyin</value>
+  </data>
+  <data name="AuthDocsPowerfulTextSub" xml:space="preserve">
+    <value>İstənilən sənədi redaktə və format etmək üçün lazım olan bütün alətləri əldə edin.</value>
+  </data>
+  <data name="AuthDocsRightBrowserText" xml:space="preserve">
+    <value>Birbaşa brauzerinizdə</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Aktivləşdirmə e-poçtunuz göndərildi</value>
+  </data>
+  <data name="AuthDocsShareСollaborate" xml:space="preserve">
+    <value>Paylaşın və əməkdaşlıq edin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateDiscuss" xml:space="preserve">
+    <value>Prosesi müzakirə et</value>
+  </data>
+  <data name="AuthDocsShareСollaborateDiscussText" xml:space="preserve">
+    <value>Şərhlər və söhbətlərlə redaktə prosesini müzakirə edin və redaktordan ayrılmadan ünsiyyət qurun.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateEmberDocuments" xml:space="preserve">
+    <value>Sənədlərinizi yerləşdirin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateEmberDocumentsText" xml:space="preserve">
+    <value>Xüsusi yerləşdirmə xüsusiyyətlərindən istifadə edərək, istədiyiniz yerə, bloq və ya vebsayta sənədlər əlavə edin.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateInviteUsers" xml:space="preserve">
+    <value>İstifadəçiləri əməkdaşlığa dəvət edin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateInviteUsersText" xml:space="preserve">
+    <value>Xarici keçidlər vasitəsilə hər kəsi sənədləri birlikdə redaktə etmək və ya işiniz haqqında rəylər almaq üçün dəvət edin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateNavigateHistory" xml:space="preserve">
+    <value>Sənəd tarixçəsinə keçin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateNavigateHistoryText" xml:space="preserve">
+    <value>Sənədinizdə hər kəs tərəfindən daxil edilmiş hər girişi görmək və nəzarət etmək üçün Versiya Tarixçəsini yoxlayın.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateReviewResults" xml:space="preserve">
+    <value>Nəticələri nəzərdən keçirin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateReviewResultsText" xml:space="preserve">
+    <value>Daxiletmələrinizi vurğulamaq üçün Dəyişiklikləri İzləmə rejimindən istifadə edin. Müxtəlif önizləmə rejimləri mətnlərinizin dəyişikliklərlə və ya dəyişikliklər olmadan necə görünəcəyini görməyinizə kömək edəcək.</value>
+  </data>
+  <data name="AuthDocsShareСollaborateSelectRight" xml:space="preserve">
+    <value>Düzgün birgə redaktə rejimini seçin</value>
+  </data>
+  <data name="AuthDocsShareСollaborateSelectRightText" xml:space="preserve">
+    <value>Real vaxt rejimində işləmək üçün Sürətli rejimi və ya sənədin hissələrini şəxsi redaktə etmək üçün Ciddi rejimi seçin.</value>
+  </data>
+  <data name="AuthDocsSignIn" xml:space="preserve">
+    <value>Daxil ol</value>
+  </data>
+  <data name="AuthDocsSignUp" xml:space="preserve">
+    <value>Abunə ol</value>
+  </data>
+  <data name="AuthDocsSoftpedia" xml:space="preserve">
+    <value>Softpedia</value>
+  </data>
+  <data name="AuthDocsSoftpediaQuote" xml:space="preserve">
+    <value>ONLYOFFICE Personal Microsoft-a uyğun sənədlər, cədvəllər və təqdimatlar yaratmaq və real vaxt rejimində birgə işləmək üçün lazımi alətləri özündə cəmləşdirən onlayn redaktordur.</value>
+  </data>
+  <data name="AuthDocsSubtitle" xml:space="preserve">
+    <value>MS Office formatları ilə yüksək uyğunluq</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Şəxsi ONLYOFFICE™-inizi qeydiyyatdan keçirdiyiniz üçün təşəkkür edirik.</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Şəxsi onlayn ofisiniz</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Şəxsi onlayn ofis</value>
+  </data>
+  <data name="AuthDocsToLogin" xml:space="preserve">
+    <value>Girişə qayıdın</value>
+  </data>
+  <data name="AuthDocsToMainPage" xml:space="preserve">
+    <value>Əsas səhifəyə keçin</value>
+  </data>
+  <data name="AuthDocsUsingChrome" xml:space="preserve">
+    <value>Sürətli giriş üçün Chrome genişləndirilməsi əldə edin.</value>
+  </data>
+  <data name="AuthDocsWorkWithDocs" xml:space="preserve">
+    <value>{2}ONLYOFFICE mobil proqramları{3} ilə {0}yolda olarkən də{1} sənədlərlə işləyin.</value>
+  </data>
+  <data name="AuthDocsWorkWithDocuments" xml:space="preserve">
+    <value>Ödənişsiz ONLYOFFICE Sənədləri ilə {0} yolda olarkən{1} sənədlərlə işləyin.</value>
+  </data>
+  <data name="AuthDocsYourEmail" xml:space="preserve">
+    <value>Sizin e-poçtunuz*</value>
+  </data>
+  <data name="AuthFooterBlog" xml:space="preserve">
+    <value>Bloq</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>Anladım!</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>Bu vebsayt kukilərdən istifadə edir. Vebsayta baxmağa davam etməklə siz {0}məxfilik siyasətimizlə{1} razılaşırsınız</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>Pulsuz ofisinizi yaradın</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-poçt</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>Hesaba giriş</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>İndi yaradın</value>
+  </data>
+  <data name="RegistryButtonStartEditing" xml:space="preserve">
+    <value>Redaktə etməyə başla</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>Mən ONLYOFFICE xəbər bülleteninə abunə olmaq istəyirəm</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>Mən ONLYOFFICE {0}Qaydaları və şərtləri{1} və {2}Məxfilik bəyanatı{3} ilə razıyam</value>
+  </data>
+</root>

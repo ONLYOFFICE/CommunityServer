@@ -89,7 +89,7 @@ ASC.Projects.Contacts = (function($) {
             teamlab.getCrmContactsForProject(makeParams(), currentProjectId);
         }, 0);
 
-        jq("#escNoContacts .emptyScrBttnPnl>a").bind("click", function() {
+        jq("#escNoContacts .emptyScrBttnPnl>a").on("click", function() {
             $escNoContacts.addClass(displayNoneClass);
             $contactsForProjectPanel.show();
         });

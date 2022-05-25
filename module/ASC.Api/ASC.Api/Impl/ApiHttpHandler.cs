@@ -20,11 +20,13 @@ using System.Net;
 using System.Reflection;
 using System.Security;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
 
 using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
+using ASC.Core;
 
 using Autofac;
 
@@ -41,7 +43,7 @@ namespace ASC.Api.Impl
 
         }
 
-        protected override void DoProcess(HttpContextBase context)
+        protected override async Task DoProcess(HttpContextBase context)
         {
             Log.DebugFormat("strating request. context: '{0}'", ApiContext);
 
@@ -49,16 +51,17 @@ namespace ASC.Api.Impl
             context.Response.Buffer = true;
             context.Response.BufferOutput = true;
 
-            IApiEntryPoint instance = null;
-
             try
             {
+                var currentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 Log.Debug("method invoke");
                 ApiResponce.Count = ApiContext.Count;
                 ApiResponce.StartIndex = ApiContext.StartIndex;
 
                 if (Method != null)
                 {
+
+                    IApiEntryPoint instance;
                     if (!string.IsNullOrEmpty(Method.Name))
                     {
                         instance = Container.ResolveNamed<IApiEntryPoint>(Method.Name, new TypedParameter(typeof(ApiContext), ApiContext));
@@ -69,6 +72,21 @@ namespace ASC.Api.Impl
                     }
 
                     var responce = ApiManager.InvokeMethod(Method, ApiContext, instance);
+
+                    if (responce is Task)
+                    {
+                        if (Method.MethodCall.ReturnType.IsGenericType)
+                        {
+                            responce = await (dynamic)responce;
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                        }
+                        else
+                        {
+                            await (Task)responce;
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                            responce = null;
+                        }
+                    }
                     if (responce is Exception)
                     {
                         SetError(context, (Exception)responce, HttpStatusCode.InternalServerError);

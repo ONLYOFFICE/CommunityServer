@@ -62,7 +62,7 @@ namespace ASC.Web.Studio.HttpHandlers
                         false);
                     return;
                 }
-                if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
+                if (!(CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
                 {
                     _log.DebugFormat("Single sign-on settings are not paid");
                     context.Response.Redirect(
@@ -136,9 +136,9 @@ namespace ASC.Web.Studio.HttpHandlers
                         if (!Equals(userInfo, authenticatedUserInfo))
                         {
                             var loginName = authenticatedUserInfo.DisplayUserName(false);
+                            MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
                             CookiesManager.ResetUserCookie();
                             SecurityContext.Logout();
-                            MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
                         }
                         else
                         {
@@ -148,11 +148,7 @@ namespace ASC.Web.Studio.HttpHandlers
 
                     userInfo = AddUser(userInfo);
 
-                    var authKey = SecurityContext.AuthenticateMe(userInfo.ID);
-
-                    CookiesManager.SetCookies(CookiesType.AuthKey, authKey);
-
-                    MessageService.Send(context.Request, MessageAction.LoginSuccessViaSSO);
+                    var authKey = CookiesManager.AuthenticateMeAndSetCookies(userInfo.Tenant, userInfo.ID, MessageAction.LoginSuccessViaSSO);
 
                     context.Response.Redirect(CommonLinkUtility.GetDefault() + "?token=" + HttpUtility.UrlEncode(authKey), false);
                 }
@@ -187,14 +183,14 @@ namespace ASC.Web.Studio.HttpHandlers
                         return;
                     }
 
-                    SecurityContext.AuthenticateMe(userInfo.ID);
+                    SecurityContext.CurrentUser = userInfo.ID;
 
                     var loginName = userInfo.DisplayUserName(false);
+                    MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
 
                     CookiesManager.ResetUserCookie();
                     SecurityContext.Logout();
 
-                    MessageService.Send(HttpContext.Current.Request, loginName, MessageAction.Logout);
                     context.Response.Redirect(AUTH_PAGE, false);
                 }
             }
@@ -224,7 +220,7 @@ namespace ASC.Web.Studio.HttpHandlers
 
                 _log.DebugFormat("Adding or updating user in database, userId={0}", userInfo.ID);
 
-                SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
 
                 if (string.IsNullOrEmpty(newUserInfo.UserName))
                 {

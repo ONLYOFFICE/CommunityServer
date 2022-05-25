@@ -33,7 +33,7 @@ var BlogsManager = new function() {
     };
     this.CheckData = function() {
         var titleText = jq("input[id$='PageContent_CommunityPageContent_txtTitle']").val();
-        if (jq.trim(titleText) == "") {
+        if (titleText.trim() == "") {
             ShowRequiredError(jq("input[id$='PageContent_CommunityPageContent_txtTitle']"));
             BlogsManager.UnBlockButtons();
         }
@@ -312,7 +312,7 @@ jq(document).ready(function() {
     });
     resizeContent();
 
-    jq(window).resize(function() {
+    jq(window).on("resize", function() {
         resizeContent();
     });
 
@@ -346,5 +346,5 @@ jq(document).ready(function() {
     }
     var textInput = jq("input[id$='CommunityPageContent_txtTitle']");
     if (textInput.length)
-        textInput.focus();
+        textInput.trigger("focus");
 });

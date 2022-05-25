@@ -24,8 +24,27 @@
                     <span title="${ASC.Mail.Resources.MailResource.FolderNameTemplates}">${ASC.Mail.Resources.MailResource.FolderNameTemplates}</span>
                     <div class="down_arrow"></div>
                 </li>
-                <li style="float: left; padding: 1px 5px 1px;">
+                <li style="float: left; padding: 1px 5px 1px; min-width: 8px">
                     <span id="newMessageSaveMarker"></span>
+                </li>
+                <li style="float: left; margin-top:-2px;">
+                    <div class="newMessageWrap">
+                        <div class="requestReceipt pull-right" title="${ASC.Mail.Resources.MailResource.RequestNotificationHint}">
+                            <svg class="requestReceipt-svg" width="16" height="16">
+                                <use base="/" href="/skins/default/images/svg/mail-icons.svg#mailRequestNotification" />
+                            </svg>
+                        </div>
+                        <div class="importance pull-right" title="${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}">
+                            <svg class="importance-svg" width="16" height="16">
+                                <use base="/" href="/skins/default/images/svg/mail-icons.svg#mailImportance" />
+                            </svg>
+                        </div>
+                        <div class="requestRead pull-right" title="${ASC.Mail.Resources.MailResource.RequestReadHint}">
+                            <svg class="requestRead-svg" width="16" height="16">
+                                <use base="/" href="/skins/default/images/svg/mail-icons.svg#mailRequestRead" />
+                            </svg>
+                        </div>
+                    </div>
                 </li>
                 <li class="menu-action-on-close pull-right">
                     <a class="on-close-link">
@@ -199,21 +218,7 @@
                         </div>
                     </div>
                     <div class="value-group">
-                        <label>${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:</label>
-                        <div class="pull-right" style="display: inline-block; padding-top: 4px;">
-                            <div class="requestReceipt pull-right" title="${ASC.Mail.Resources.MailResource.RequestNotificationHint}">
-                                <svg class="requestReceipt-svg" width="18" height="18">
-                                    <use base="/" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenumail" />
-                                </svg>
-                            </div>
-                            <div class="importance pull-right" style="padding-right: 4px; padding-top: 1.5px;">
-                                {{if typeof(important) != 'undefined' && important == true}}
-                                <i class="icon-important" title="${ASC.Mail.Resources.MailResource.ImportantLabel}" />
-                                {{else}}
-                                <i class="icon-unimportant" title="${ASC.Mail.Resources.MailScriptResource.NotImportantLabel}" />
-                                {{/if}}
-                            </div>
-                        </div>
+                        <label>${ASC.Mail.Resources.MailScriptResource.SubjectLabel}:</label>                        
                         <div class="value with-right" style="margin-right: 124px;">
                             <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" tabindex="4" value="${subject}" />
                         </div>

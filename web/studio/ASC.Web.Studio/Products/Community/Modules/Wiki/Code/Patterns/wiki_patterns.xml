@@ -18,7 +18,7 @@ $URL
   </pattern>
   <pattern id="new wiki page" sender="telegram.sender">
     <subject resource="|subject_1_tg|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $PagePreview
     </body>
@@ -42,7 +42,7 @@ $URL
   </pattern>
   <pattern id="edit wiki page" sender="telegram.sender">
     <subject resource="|subject_2_tg|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $PagePreview
     </body>
@@ -65,7 +65,28 @@ $URL
   </pattern>
   <pattern id="new wiki page comment" sender="telegram.sender">
     <subject resource="|subject_3_tg|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
+    </body>
+  </pattern>
+	<pattern id="mention for wiki comment" sender="email.sender">
+    <subject resource="|subject_MentionForWikiComment|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_MentionForWikiComment|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+  </pattern>
+
+  <pattern id="mention for wiki comment" sender="messanger.sender">
+    <subject resource="|subject_MentionForWikiComment|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
+
+$URL
+    </body>
+  </pattern>
+  <pattern id="mention for wiki comment" sender="telegram.sender">
+    <subject resource="|subject_MentionForWikiComment_tg|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.MarkDownStyler,ASC.Notify.Textile">$UserName
 
 $CommentBody
     </body>

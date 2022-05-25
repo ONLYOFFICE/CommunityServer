@@ -21,7 +21,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using ASC.Core;
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Core.Utility
@@ -35,31 +34,82 @@ namespace ASC.Web.Core.Utility
             get { return new Guid("aa93a4d1-012d-4ccd-895a-e094e809c840"); }
         }
 
+        private static bool? printableASCII;
+
+        private static bool PrintableASCII
+        {
+            get
+            {
+                if (printableASCII == null)
+                {
+                    printableASCII = true;
+
+                    if (bool.TryParse(ConfigurationManagerExtension.AppSettings["web.password.ascii.cut"], out bool cut))
+                    {
+                        printableASCII = !cut;
+                    }
+                }
+
+                return printableASCII.Value;
+            }
+        }
+
+
+        [DataMember]
         public const int MaxLength = 30;
 
-        /// <summary>
-        /// Minimal length password has
-        /// </summary>
         [DataMember]
         public int MinLength { get; set; }
 
-        /// <summary>
-        /// Password must contains upper case
-        /// </summary>
+
+        [DataMember]
+        public static string AllowedCharactersRegexStr
+        {
+            get
+            {
+                return PrintableASCII ? @"[\x21-\x7E]" : @"[0-9a-zA-Z!""#$%&()*+,.:;<>?@^_{}~]"; // excluding SPACE or (SPACE and '-/=[\]`|)
+            }
+        }
+
+
         [DataMember]
         public bool UpperCase { get; set; }
 
-        /// <summary>
-        /// Password must contains digits
-        /// </summary>
+        [DataMember]
+        public static string UpperCaseRegexStr
+        {
+            get
+            {
+                return @"(?=.*[A-Z])";
+            }
+        }
+
+
         [DataMember]
         public bool Digits { get; set; }
 
-        /// <summary>
-        /// Password must contains special symbols
-        /// </summary>
+        [DataMember]
+        public static string DigitsRegexStr
+        {
+            get
+            {
+                return @"(?=.*\d)";
+            }
+        }
+
+
         [DataMember]
         public bool SpecSymbols { get; set; }
+
+        [DataMember]
+        public static string SpecSymbolsRegexStr
+        {
+            get
+            {
+                return PrintableASCII ? @"(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])" : @"(?=.*[!""#$%&()*+,.:;<>?@^_{}~])";
+            }
+        }
+
 
         private static PasswordSettings _default;
 
@@ -82,44 +132,18 @@ namespace ASC.Web.Core.Utility
 
         public static string GetPasswordRegex(PasswordSettings passwordSettings)
         {
-            var pwdBuilder = new StringBuilder();
+            var pwdBuilder = new StringBuilder("^");
 
-            if (CoreContext.Configuration.CustomMode)
-            {
-                pwdBuilder.Append(@"^(?=.*[a-z]{0,})");
+            if (passwordSettings.Digits)
+                pwdBuilder.Append(DigitsRegexStr);
 
-                if (passwordSettings.Digits)
-                    pwdBuilder.Append(@"(?=.*\d)");
+            if (passwordSettings.UpperCase)
+                pwdBuilder.Append(UpperCaseRegexStr);
 
-                if (passwordSettings.UpperCase)
-                    pwdBuilder.Append(@"(?=.*[A-Z])");
+            if (passwordSettings.SpecSymbols)
+                pwdBuilder.Append(SpecSymbolsRegexStr);
 
-                if (passwordSettings.SpecSymbols)
-                    pwdBuilder.Append(@"(?=.*[_\-.~!$^*()=|])");
-
-                pwdBuilder.Append(@"[0-9a-zA-Z_\-.~!$^*()=|]");
-            }
-            else
-            {
-                pwdBuilder.Append(@"^(?=.*\p{Ll}{0,})");
-
-                if (passwordSettings.Digits)
-                    pwdBuilder.Append(@"(?=.*\d)");
-
-                if (passwordSettings.UpperCase)
-                    pwdBuilder.Append(@"(?=.*\p{Lu})");
-
-                if (passwordSettings.SpecSymbols)
-                    pwdBuilder.Append(@"(?=.*[\W])");
-
-                pwdBuilder.Append(@".");
-            }
-
-            pwdBuilder.Append(@"{");
-            pwdBuilder.Append(passwordSettings.MinLength);
-            pwdBuilder.Append(@",");
-            pwdBuilder.Append(MaxLength);
-            pwdBuilder.Append(@"}$");
+            pwdBuilder.Append(AllowedCharactersRegexStr + "{" + passwordSettings.MinLength + "," + MaxLength +"}$");
 
             return pwdBuilder.ToString();
         }

@@ -225,7 +225,7 @@ namespace ASC.Web.UserControls.Forum
         private void InitScripts()
         {
             var jsResource = new StringBuilder();
-            jsResource.Append("jq('#tableForNavigation select').val(" + PostPageSize + ").change(function(evt) {changePostCountOfRows(this.value);}).tlCombobox();");
+            jsResource.Append("jq('#tableForNavigation select').val(" + PostPageSize + ").on('change', function(evt) {changePostCountOfRows(this.value);}).tlCombobox();");
             Page.RegisterInlineScript(jsResource.ToString(), true);
         }
     }

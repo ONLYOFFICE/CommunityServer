@@ -208,7 +208,7 @@ AjaxPro.IFrameXmlHttp.prototype = {
         if (this.iframe == null) {
             var iframeID = "hans";
             if (document.createElement && document.documentElement &&
-				(window.opera || navigator.userAgent.indexOf('MSIE 5.0') == -1)) {
+                (window.opera || navigator.userAgent.indexOf('MSIE 5.0') == -1)) {
                 var ifr = document.createElement('iframe');
                 ifr.setAttribute('id', iframeID);
                 ifr.style.visibility = 'hidden';
@@ -331,36 +331,44 @@ Object.extend(AjaxPro, {
     cryptProvider: null,
     queue: null,
     token: "",
-    version: "9.2.17.1",
+    version: "21.12.22.2",
     ID: "AjaxPro",
     noActiveX: false,
     timeoutPeriod: 15 * 1000,
     queue: null,
     noUtcTime: false,
     regExDate: function (str, p1, p2, offset, s) {
-        str = str.substring(1).replace('"', '');
-        var date = str;
-
-        if (str.substring(0, 7) == "\\\/Date(") {
-            str = str.match(/Date\((.*?)\)/)[1];
-            date = "new Date(" + parseInt(str) + ")";
+        var date = str.substring(1).replace('"', '');
+        if (date.substring(0, 7) == "\\\/Date(") {
+            var d = date.match(/Date\((.*?)\)/)[1];
+            return "new Date(" + parseInt(d) + ")";
         }
-        else { // ISO Date 2007-12-31T23:59:59Z                                     
-            var matches = str.split(/[-,:,T,Z]/);
-            matches[1] = (parseInt(matches[1], 0) - 1).toString();
-            date = "new Date(Date.UTC(" + matches.join(",") + "))";
-        }
-        return date;
+        /*else { // ISO Date 2007-12-31T23:59:59Z
+            var matches = date.split(/[-,:,T,Z]/);
+            if (matches.length == 7) {
+                matches[1] = (parseInt(matches[1], 0) - 1).toString();
+                var isDate = true;
+                var s = "";
+                for (var i = 0; i < matches.length; i++) {
+                    if (isNaN(parseInt(matches[i], 10))) {
+                        isDate = false;
+                        break;
+                    }
+                    if (i > 0) {
+                        s += ",";
+                    }
+                    s += parseInt(matches[i], 10);
+                    console.log(s);
+                }
+                if (isDate) {
+                    return "new Date(Date.UTC(" + s + "))";
+                }
+            }
+        }*/
+        return str;
     },
     parse: function (text) {
-        // not yet possible as we still return new type() JSON
-        //		if (!(!(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(
-        //		text.replace(/"(\\.|[^"\\])*"/g, '')))  ))
-        //			throw new Error("Invalid characters in JSON parse string.");                 
-
-        var regEx = /(\"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}.*?\")|(\"\\\/Date\(.*?\)\\\/")/g;
-        text = text.replace(regEx, this.regExDate);
-
+        text = text.replace(/(\"\\\/Date\(\d+\)\\\/")/g, this.regExDate);
         return eval('(' + text + ')');
     },
     m: {
@@ -392,8 +400,8 @@ Object.extend(AjaxPro, {
                     }
                     c = b.charCodeAt();
                     return '\\u00' +
-						Math.floor(c / 16).toString(16) +
-						(c % 16).toString(16);
+                        Math.floor(c / 16).toString(16) +
+                        (c % 16).toString(16);
                 });
             }
             return '"' + o + '"';
@@ -403,25 +411,6 @@ Object.extend(AjaxPro, {
             }
             return "[" + v.join(",") + "]";
         } else if (c == Date) {
-            //			var d = {};
-            //			d.__type = "System.DateTime";
-            //			if(AjaxPro.noUtcTime == true) {
-            //				d.Year = o.getFullYear();
-            //				d.Month = o.getMonth() +1;
-            //				d.Day = o.getDate();
-            //				d.Hour = o.getHours();
-            //				d.Minute = o.getMinutes();
-            //				d.Second = o.getSeconds();
-            //				d.Millisecond = o.getMilliseconds();
-            //			} else {
-            //				d.Year = o.getUTCFullYear();
-            //				d.Month = o.getUTCMonth() +1;
-            //				d.Day = o.getUTCDate();
-            //				d.Hour = o.getUTCHours();
-            //				d.Minute = o.getUTCMinutes();
-            //				d.Second = o.getUTCSeconds();
-            //				d.Millisecond = o.getUTCMilliseconds();
-            //			}
             return AjaxPro.toJSON("/Date(" + new Date(Date.UTC(o.getUTCFullYear(), o.getUTCMonth(), o.getUTCDate(), o.getUTCHours(), o.getUTCMinutes(), o.getUTCSeconds(), o.getUTCMilliseconds())).getTime() + ")/");
         }
         if (typeof o.toJSON == "function") {
@@ -517,7 +506,8 @@ AjaxPro.Request.prototype = {
             clearTimeout(this.timeoutTimer);
         }
         var res = this.getEmptyRes();
-        if (this.xmlHttp.status == 200 && (this.xmlHttp.statusText == "OK" || !this.xmlHttp.statusText)) {
+        //Ignore empty statustext to be http2 compatible
+        if (this.xmlHttp.status == 200 && this.xmlHttp.statusText == "OK" || !this.xmlHttp.statusText) {
             res = this.createResponse(res);
         } else {
             res = this.createResponse(res, true);
@@ -554,8 +544,8 @@ AjaxPro.Request.prototype = {
             }
         }
         /* if(this.xmlHttp.getResponseHeader("X-" + AjaxPro.ID + "-Cache") == "server") {
-			r.isCached = true;
-		} */
+            r.isCached = true;
+        } */
         return r;
     },
     timeout: function () {
@@ -606,8 +596,8 @@ AjaxPro.Request.prototype = {
         }
 
         /* if(!MS.Browser.isIE) {
-			this.xmlHttp.setRequestHeader("Connection", "close");
-		} */
+            this.xmlHttp.setRequestHeader("Connection", "close");
+        } */
 
         this.timeoutTimer = setTimeout(this.timeout.bind(this), AjaxPro.timeoutPeriod);
 

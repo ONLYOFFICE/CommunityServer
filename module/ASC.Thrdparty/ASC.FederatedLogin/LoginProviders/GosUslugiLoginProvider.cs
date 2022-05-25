@@ -28,6 +28,9 @@ using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
 
 using JWT;
+using JWT.Algorithms;
+using JWT.Builder;
+using JWT.Serializers;
 
 using Newtonsoft.Json.Linq;
 
@@ -185,8 +188,11 @@ namespace ASC.FederatedLogin.LoginProviders
         }
 
         public override LoginProfile GetLoginProfile(string accessToken)
-        {
-            var tokenPayloadString = JsonWebToken.Decode(accessToken, string.Empty, false);
+        {            
+            var tokenPayloadString = JwtBuilder.Create()
+                                    .WithAlgorithm(new HMACSHA256Algorithm())
+                                    .Decode(accessToken);
+
             var tokenPayload = JObject.Parse(tokenPayloadString);
             if (tokenPayload == null)
             {

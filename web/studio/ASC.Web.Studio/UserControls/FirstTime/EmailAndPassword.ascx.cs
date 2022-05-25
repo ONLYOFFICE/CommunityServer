@@ -94,6 +94,8 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected string OpensourceLicenseAgreementsUrl { get; set; }
 
+        private ILog Log = LogManager.GetLogger("ASC.Web.FirstTime");
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Settings = AdditionalWhiteLabelSettings.Instance;
@@ -119,7 +121,6 @@ namespace ASC.Web.Studio.UserControls.FirstTime
         {
             Page.RegisterBodyScripts(
                 "~/js/uploader/jquery.fileupload.js",
-                "~/js/third-party/xregexp.js",
                 "~/UserControls/FirstTime/js/manager.js")
                 .RegisterStyle("~/UserControls/FirstTime/css/emailandpassword.less");
 
@@ -160,13 +161,12 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     tenant = CoreContext.TenantManager.GetTenant(tenant.TenantId);
                     if (tenant.OwnerId == Guid.Empty)
                     {
-                        LogManager.GetLogger("ASC.Web.FirstTime").Error(tenant.TenantId + ": owner id is empty.");
+                        Log.Error(tenant.TenantId + ": owner id is empty.");
                     }
                 }
 
                 var currentUser = CoreContext.UserManager.GetUsers(CoreContext.TenantManager.GetCurrentTenant().OwnerId);
-                var cookie = SecurityContext.AuthenticateMe(currentUser.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookie);
+                CookiesManager.AuthenticateMeAndSetCookies(currentUser.Tenant, currentUser.ID, MessageAction.LoginSuccess);
 
                 if (!UserManagerWrapper.ValidateEmail(email))
                 {
@@ -194,7 +194,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     }
                     catch (Exception err)
                     {
-                        LogManager.GetLogger("ASC.Web.FirstTime").Error("Incorrect Promo: " + promocode, err);
+                        Log.Error("Incorrect Promo: " + promocode, err);
                         throw new Exception(Resource.EmailAndPasswordIncorrectPromocode);
                     }
                 }
@@ -238,7 +238,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC.Web.FirstTime").Error(ex);
+                Log.Error(ex);
                 return new { Status = 0, Message = ex.Message };
             }
         }

@@ -243,7 +243,7 @@ ASC.Projects.projectNavPanel = (function() {
         });
 
         function parseTime(data) {
-            var text = jq.trim(data);
+            var text = data.trim();
             if (typeof data === "number") {
                 text = jq.timeFormat(text);
             }

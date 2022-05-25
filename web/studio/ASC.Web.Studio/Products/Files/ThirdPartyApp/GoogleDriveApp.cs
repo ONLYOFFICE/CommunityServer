@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -206,7 +207,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     Global.Logger.Debug("GoogleDriveApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
                     var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, null, null, false, out downloadUrl);
+                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUrl);
                     stream = null;
                 }
                 catch (Exception e)
@@ -322,9 +323,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     throw new Exception("Profile is null");
                 }
 
-                var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
-                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialApp);
+                CookiesManager.AuthenticateMeAndSetCookies(userInfo.Tenant, userInfo.ID, MessageAction.LoginSuccessViaSocialApp);
 
                 if (isNew)
                 {
@@ -529,7 +528,6 @@ namespace ASC.Web.Files.ThirdPartyApp
         {
             var linker = new AccountLinker("webstudio");
             var linkedProfiles = linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.Google, googleId)));
-            linkedProfiles = linkedProfiles.Concat(linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.OpenId, googleId))));
             Guid tmp;
             return
                 linkedProfiles.Any(profileId => Guid.TryParse(profileId, out tmp) && tmp == SecurityContext.CurrentAccount.ID);
@@ -588,7 +586,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                     userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword());
                 }
                 finally
@@ -729,7 +727,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 Global.Logger.Debug("GoogleDriveApp: GetConvertedUri- " + downloadUrl);
 
                 var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                DocumentServiceConnector.GetConvertedUri(downloadUrl, fromExt, toExt, key, null, null, null, false, out downloadUrl);
+                DocumentServiceConnector.GetConvertedUri(downloadUrl, fromExt, toExt, key, null, CultureInfo.CurrentUICulture.Name, null, null, false, out downloadUrl);
             }
             catch (Exception e)
             {

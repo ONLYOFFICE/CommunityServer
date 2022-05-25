@@ -34,16 +34,18 @@ namespace ASC.Api.Mail
     public partial class MailApi
     {
         /// <summary>
-        ///    Returns the list of default folders
+        /// Returns a list of default folders.
         /// </summary>
-        /// <returns>Folders list</returns>
-        /// <short>Get folders</short> 
+        /// <returns>List of default folders</returns>
+        /// <short>Get the default folders</short> 
         /// <category>Folders</category>
         [Read(@"folders")]
         public IEnumerable<MailFolderData> GetFolders()
         {
             if (!Defines.IsSignalRAvailable)
                 MailEngineFactory.AccountEngine.SetAccountsActivity();
+
+            SendUserActivity(new List<int>());
 
             return MailEngineFactory.FolderEngine.GetFolders()
                                  .Where(f => f.id != FolderType.Sending)
@@ -52,11 +54,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Removes all the messages from the folder. Trash or Spam.
+        /// Removes all the messages from the trash or spam folder.
         /// </summary>
-        /// <param name="folderid">Selected folder id. Trash - 4, Spam 5.</param>
-        /// <short>Remove all messages from folder</short> 
+        /// <param name="folderid">Folder ID: 4 - Trash, 5 - Spam</param>
+        /// <short>Remove folder messages</short> 
         /// <category>Folders</category>
+        /// <returns>Folder ID</returns>
         [Delete(@"folders/{folderid:[0-9]+}/messages")]
         public int RemoveFolderMessages(int folderid)
         {
@@ -72,10 +75,10 @@ namespace ASC.Api.Mail
 
 
         /// <summary>
-        ///    Recalculate folders counters
+        /// Recalculates folder counters.
         /// </summary>
-        /// <returns>MailOperationResult object</returns>
-        /// <short>Get folders</short> 
+        /// <returns>Operation status</returns>
+        /// <short>Recalculate folders</short> 
         /// <category>Folders</category>
         /// <visible>false</visible>
         [Read(@"folders/recalculate")]
@@ -85,12 +88,12 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns the list of user folders
+        /// Returns a list of user folders with the IDs specified in the request.
         /// </summary>
-        /// <param name="ids" optional="true">List of folder's id</param>
-        /// <param name="parentId" optional="true">Selected parent folder id (root level equals 0)</param>
-        /// <returns>Folders list</returns>
-        /// <short>Get folders</short> 
+        /// <param name="ids" optional="true">List of folder IDs</param>
+        /// <param name="parentId" optional="true">Parent folder ID (root level equals to 0)</param>
+        /// <returns>List of folders</returns>
+        /// <short>Get the user folders</short> 
         /// <category>Folders</category>
         [Read(@"userfolders")]
         public IEnumerable<MailUserFolderData> GetUserFolders(List<uint> ids, uint? parentId)
@@ -100,14 +103,14 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Create user folder
+        /// Creates a user folder with the name specified in the request.
         /// </summary>
         /// <param name="name">Folder name</param>
-        /// <param name="parentId">Parent folder id (default = 0)</param>
-        /// <returns>Folders list</returns>
-        /// <short>Create folder</short> 
+        /// <param name="parentId">Parent folder ID (default = 0)</param>
+        /// <returns>List of folders</returns>
+        /// <short>Create a folder</short> 
         /// <category>Folders</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Create(@"userfolders")]
         public MailUserFolderData CreateUserFolder(string name, uint parentId = 0)
         {
@@ -135,15 +138,15 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Update user folder
+        /// Updates a user folder with the parameters specified in the request.
         /// </summary>
-        /// <param name="id">Folder id</param>
-        /// <param name="name">new Folder name</param>
-        /// <param name="parentId">new Parent folder id (default = 0)</param>
-        /// <returns>Folders list</returns>
-        /// <short>Update folder</short> 
+        /// <param name="id">Folder ID</param>
+        /// <param name="name">New folder name</param>
+        /// <param name="parentId">New parent folder ID (default = 0)</param>
+        /// <returns>List of folders</returns>
+        /// <short>Update a folder</short> 
         /// <category>Folders</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
         [Update(@"userfolders/{id}")]
         public MailUserFolderData UpdateUserFolder(uint id, string name, uint? parentId = null)
         {
@@ -171,13 +174,13 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Delete user folder
+        /// Deletes a user folder with the ID specified in the request.
         /// </summary>
-        /// <param name="id">Folder id</param>
-        /// <short>Delete folder</short> 
+        /// <param name="id">Folder ID</param>
+        /// <short>Delete a folder</short> 
         /// <category>Folders</category>
-        /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
-        /// <returns>MailOperationResult object</returns>
+        /// <exception cref="ArgumentException">Exception happens when the parameters are invalid. Text description contains parameter name and text description.</exception>
+        /// <returns>Operation status</returns>
         [Delete(@"userfolders/{id}")]
         public MailOperationStatus DeleteUserFolder(uint id)
         {
@@ -195,11 +198,11 @@ namespace ASC.Api.Mail
         }
 
         /// <summary>
-        ///    Returns the user folders by mail id
+        /// Returns a user folder by the mail ID specified in the request.
         /// </summary>
-        /// <param name="mailId">List of folder's id</param>
-        /// <returns>User Folder</returns>
-        /// <short>Get folder by mail id</short> 
+        /// <param name="mailId">Mail ID</param>
+        /// <returns>User folder</returns>
+        /// <short>Get a folder by mail ID</short> 
         /// <category>Folders</category>
         [Read(@"userfolders/bymail")]
         public MailUserFolderData GetUserFolderByMailId(uint mailId)

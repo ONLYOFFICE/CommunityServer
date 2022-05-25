@@ -206,6 +206,14 @@
                 }
             }
 
+            &.can-move {
+                background: #fcf6e0;
+
+                &.move-dest {
+                    background: #F9EEC2;
+                }
+            }
+
             .user {
                 white-space: nowrap;
                 float: right;
@@ -487,6 +495,7 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
         float: left;
         width: 13px;
         height: 29px;
+        margin: 0 8px;
 
         input {
             margin-top: 5px;
@@ -545,8 +554,8 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
 }
 
 .quickAddSubTaskLink {
-    margin: 8px 0 6px 0;
-    border: #fff 1px solid;    
+    margin: 8px 0 6px 8px;
+    border: #fff 1px solid;
 }
 
 .subtask-loader {
@@ -577,7 +586,8 @@ body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
 
     .subtask-name {
         border-right: none;
-        padding-left: 24px;
+        padding-left: 36px;
+        padding-right: 8px;
     }
 
     input.subtask-name-input,
@@ -622,12 +632,12 @@ body.media-width-0-1200 .subtask-responsible-selector
 }
 
 .subtasks { 
-  margin:8px 0;
+  padding:8px 0;
 }
 
 .taskList .subtasks { /*---for list tasks---*/
     display: none;
-    margin-left: @actionListWidth;
+    padding-left: @actionListWidth;
 }
 *:first-child+html .subtask .check input {
     margin-top:5px;
@@ -827,4 +837,3 @@ body.media-width-0-1200 .subtask .taskName {
     clear: both;
 }
 .tabContent { display: none;}
-

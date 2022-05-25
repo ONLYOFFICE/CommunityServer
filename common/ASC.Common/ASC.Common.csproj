@@ -104,7 +104,6 @@
     <Compile Include="DependencyInjection\TypeManipulation.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
-    <Compile Include="Logging\SelfCleaningTarget.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\SelfCleaningAppender.cs" />
     <Compile Include="Logging\SpecialFolderPathConverter.cs" />
@@ -166,6 +165,16 @@
     <Compile Include="Notify\Sinks\DispatchSink.cs" />
     <Compile Include="Notify\Sinks\ISink.cs" />
     <Compile Include="Notify\Sinks\Sink.cs" />
+    <Compile Include="Radicale\CalDavCalendar.cs" />
+    <Compile Include="Radicale\CardDavAddressbook.cs" />
+    <Compile Include="Radicale\CardDavItem.cs" />
+    <Compile Include="Radicale\Core\DbRadicale.cs" />
+    <Compile Include="Radicale\Core\RadicaleClient.cs" />
+    <Compile Include="Radicale\Core\RadicaleException.cs" />
+    <Compile Include="Radicale\DavRequest.cs" />
+    <Compile Include="Radicale\DavResponse.cs" />
+    <Compile Include="Radicale\IRadicaleEntity.cs" />
+    <Compile Include="Radicale\RadicaleEntity.cs" />
     <Compile Include="Security\AscRandom.cs" />
     <Compile Include="Security\Authentication\SystemAccount.cs" />
     <Compile Include="Security\Authorizing\AzObjectIdHelper.cs" />
@@ -213,6 +222,7 @@
     <Compile Include="Utils\RandomString.cs" />
     <Compile Include="Utils\TimeZoneConverter\TimeZoneConverter.cs" />
     <Compile Include="Utils\Signature.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\VelocityFormatter.cs" />
     <Compile Include="Utils\HtmlUtil.cs" />
     <Compile Include="Utils\Wildcard.cs" />
@@ -241,34 +251,40 @@
       <Version>2.2.9</Version>
     </PackageReference>
     <PackageReference Include="Autofac">
-      <Version>5.1.2</Version>
+      <Version>6.2.0</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.6.0.1</Version>
     </PackageReference>
     <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
+      <Version>2.0.9</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
       <Version>3.1.4</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.25</Version>
+      <Version>8.0.29</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
+      <Version>4.7.11</Version>
     </PackageReference>
     <PackageReference Include="NVelocity">
       <Version>1.2.0</Version>
     </PackageReference>
     <PackageReference Include="StackExchange.Redis">
-      <Version>2.0.519</Version>
+      <Version>2.2.88</Version>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis.Extensions.Core">
+      <Version>7.2.1</Version>
     </PackageReference>
     <PackageReference Include="StackExchange.Redis.Extensions.LegacyConfiguration">
-      <Version>4.0.5</Version>
+      <Version>5.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft">
+      <Version>7.2.1</Version>
     </PackageReference>
     <PackageReference Include="System.Buffers">
       <Version>4.5.1</Version>
@@ -276,15 +292,14 @@
     <PackageReference Include="System.Memory">
       <Version>4.5.4</Version>
     </PackageReference>
-    <PackageReference Include="Ubiety.Dns.Core">
-      <Version>2.4.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

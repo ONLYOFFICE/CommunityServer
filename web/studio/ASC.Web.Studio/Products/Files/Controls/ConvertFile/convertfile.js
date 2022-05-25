@@ -30,9 +30,7 @@ window.ASC.Files.Converter = (function () {
     var checkCanOpenEditor = function (fileId, fileTitle, version, forEdit) {
         if (!ASC.Files.Utility.MustConvert(fileTitle) || forEdit == false) {
             if (forEdit == false || !ASC.Files.Utility.CanWebEdit(fileTitle)) {
-                var url = ASC.Files.Utility.GetFileWebViewerUrl(fileId, forEdit ? null : version );
-                window.open(url, "_blank");
-                var result = ASC.Files.Marker.removeNewIcon("file", fileId);
+                var result = ASC.Files.Actions.checkViewFile(fileId, forEdit ? null : version);
 
                 ASC.Files.UI.updateMainContentHeader();
                 return result;
@@ -65,7 +63,7 @@ window.ASC.Files.Converter = (function () {
 
         jq("#convertPassword").val("");
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#confirmCopyConvert .blue:visible:not(.disable):first\").click()";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#confirmCopyConvert .blue:visible:not(.disable):first\").trigger('click')";
 
         jq("#progressCopyConvert, #convertPasswordPanel, #copyAndConvertOpen").hide();
         jq("#copyConvertDescript, #confirmCopyAndConvert").show();
@@ -84,7 +82,7 @@ window.ASC.Files.Converter = (function () {
                 }
             } else if (ASC.Files.UI.accessDelete(fileObj) && !ASC.Files.UI.lockedForMe(fileObj)) {
                 jq("#confirmCopyConvertLabelText").show();
-                jq("#confirmCopyConvertLabelText input").attr("disabled", false);
+                jq("#confirmCopyConvertLabelText input").prop("disabled", false);
             }
         } else if (Teamlab.profile.isVisitor) {
             PopupKeyUpActionProvider.CloseDialog();
@@ -128,10 +126,10 @@ window.ASC.Files.Converter = (function () {
 
         jq("#copyAndConvertOpen").removeClass("disable");
 
-        var sourceFile = jq.parseJSON(jsonStringSource);
+        var sourceFile = JSON.parse(jsonStringSource);
         var sourceFileId = sourceFile.id;
 
-        var file = jq.parseJSON(jsonStringData);
+        var file = JSON.parse(jsonStringData);
         var fileId = file.id;
         var fileTitle = file.title;
         jq("#progressCopyConvertId").val(fileId);
@@ -197,7 +195,7 @@ window.ASC.Files.Converter = (function () {
         jq("#progressCopyConvert, #copyAndConvertOpen").hide();
         jq("#convertPasswordPanel, #confirmCopyAndConvert").show();
 
-        jq("#convertPassword").val("").focus();
+        jq("#convertPassword").val("").trigger("focus");
     };
 
     var showToConvert = function (selectedElements) {
@@ -214,6 +212,11 @@ window.ASC.Files.Converter = (function () {
 
         jq(selectedElements).each(function () {
             var entryData = ASC.Files.UI.getObjectData(this);
+
+            if (ASC.Files.UI.denyDownload(entryData)) {
+                return;
+            }
+
             var entryTitle = entryData.title;
             var entryId = entryData.id;
             var formats;
@@ -519,7 +522,7 @@ window.ASC.Files.Converter = (function () {
             }
         });
 
-        jq("#buttonStartConvert").click(function () {
+        jq("#buttonStartConvert").on("click", function () {
             var data = new Array();
 
             jq("#convertFileList .cnvrt-file-block-body select.select-format").each(function () {
@@ -568,7 +571,7 @@ window.ASC.Files.Converter = (function () {
             ASC.Files.Folders.bulkDownload(data);
         });
 
-        jq("#confirmCopyAndConvert").click(ASC.Files.Converter.convertCurrentFile);
+        jq("#confirmCopyAndConvert").on("click", ASC.Files.Converter.convertCurrentFile);
 
         jq("#confirmCopyConvert").on("click", "#copyAndConvertOpen:not(.disable)", function () {
             ASC.Files.Converter.convertFileOpen();

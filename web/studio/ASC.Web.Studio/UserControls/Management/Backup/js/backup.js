@@ -125,7 +125,7 @@ window.BackupManager = new function() {
                     .removeAttr('title')
                     .removeClass('disabled')
                     .find(':radio')
-                    .attr('disabled', false);
+                    .prop('disabled', false);
             };
             ASC.Files.FileSelector.createThirdPartyTree();
         };
@@ -263,7 +263,7 @@ window.BackupManager = new function() {
         if (!storages.length) return;
 
         var $input = $view.find("#backupConsumerStorage,#scheduleConsumerStorage");
-        $input.removeAttr("disabled");
+        $input.prop("disabled", false);
         $input.parent("li").removeClass("disabled");
 
         var $backupConsumerStorageSettingsBox = $view.find("#backupConsumerStorageSettingsBox");
@@ -293,17 +293,20 @@ window.BackupManager = new function() {
             $box.find("[data-id='" + newVal + "']").removeClass(displayNoneClass);
             $startBackupBtn.addClass(disable);
         });
-        $box.find("select option[value='" + selectedConsumer.id + "']").attr("selected", "selected");
+        $box.find("select option[value='" + selectedConsumer.id + "']").prop("selected", true);
         $box.find("select");
         $box.off("input" + textBoxClass).on("input" + textBoxClass, textBoxClass, function () {
             var $self = $(this);
             var $siblings = Array.from($self.siblings());
             $siblings.push(this);
-
+            
             $self.removeClass(withErrorClass);
 
             function notEmpty(item) {
                 return item.value.length > 0;
+            }
+            if (selectedConsumer.id == "S3") {
+                $siblings = $siblings.filter(s => s.getAttribute("data-id") == "region" || s.getAttribute("data-id") == "bucket");
             }
 
             if ($siblings.every(notEmpty)) {
@@ -321,7 +324,7 @@ window.BackupManager = new function() {
             
             if (autoBackupInitOff) {
                 autoBackupInitOff = false;
-                $autoBackupSettingsTeamlabStorage.click();
+                $autoBackupSettingsTeamlabStorage.trigger("click");
             }
         } else {
             $autoBackuSettingsBlock.hide();
@@ -420,11 +423,7 @@ window.BackupManager = new function() {
                 var settingsLength = $settings.length;
                 for (var i = 0; i < settingsLength; i++) {
                     var $item = $($settings[i]);
-                    if (!$item.val()) {
-                        $item.addClass(withErrorClass);
-                        isError = true;
-                    }
-                    else {
+                    if ($item.val()) {
                         storage.storageParams.push({ key: $item.attr("data-id"), value: $item.val() });
                     }
                 }

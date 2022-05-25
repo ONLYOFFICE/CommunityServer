@@ -91,7 +91,7 @@
                 });
             }
 
-            if (jq.isArray(value))
+            if (Array.isArray(value))
                 attendees = value;
 
             var result = [];
@@ -109,7 +109,7 @@
 
         this.addItem = function (value, insertOrganizer) {
 
-            var hasValue = jq.isArray(value) ? value.length : value;
+            var hasValue = Array.isArray(value) ? value.length : value;
 
             var parsedItems = self.parseEmails(value);
 
@@ -287,7 +287,7 @@
                     });
                 },
                 create: function() {
-                    jq(window).resize(function () {
+                    jq(window).on("resize", function () {
                         self.closeSelector();
                     });
                 },
@@ -343,9 +343,9 @@
             self.addItem(items);
             
             if (self.canEdit) {
-                self.input.removeAttr("disabled").parents(".input-container").removeClass("display-none").find(".button").removeClass("disable");
+                self.input.prop("disabled", false).parents(".input-container").removeClass("display-none").find(".button").removeClass("disable");
             } else {
-                self.input.attr("disabled", true).parents(".input-container").addClass("display-none").find(".button").addClass("disable");
+                self.input.prop("disabled", true).parents(".input-container").addClass("display-none").find(".button").addClass("disable");
             }
             
             if (items.length){

@@ -72,7 +72,7 @@ window.peopleActions = (function() {
 
         delete_group: function(evt, $btn) {
             jq("#confirmationDeleteDepartmentPanel .confirmationAction").html(jq.format(ASC.Resources.Master.ConfirmRemoveDepartment, "<b>" + jq(".profile-title:first>.header").html() + "</b>"));
-            jq("#confirmationDeleteDepartmentPanel .middle-button-container>.button.blue.middle").unbind("click").bind("click", function() {
+            jq("#confirmationDeleteDepartmentPanel .middle-button-container>.button.blue.middle").off("click").on("click", function() {
                 ASC.People.PeopleController.deleteGroup();
             });
             StudioBlockUIManager.blockUI("#confirmationDeleteDepartmentPanel", 500);

@@ -35,6 +35,7 @@ namespace ASC.Web.Studio.Core
         private static readonly string ChangeLogPatternFilePath = string.Concat(HttpContext.Current.Server.MapPath("~/"), "change.log");
         private static readonly string ChangeLogFilePath = string.Concat(HttpContext.Current.Server.MapPath("~/"), "changelog.xml");
         private static readonly string debugString;
+        private static ILog Log = LogManager.GetLogger("ASC");
         public static bool ShowDebugInfo;
 
         static DebugInfo()
@@ -111,7 +112,7 @@ namespace ASC.Web.Studio.Core
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                Log.Error("DebugInfo", e);
             }
 
             return "";
@@ -157,7 +158,7 @@ namespace ASC.Web.Studio.Core
                 }
                 catch (Exception e)
                 {
-                    LogManager.GetLogger("ASC").Error("DebugInfo", e);
+                    Log.Error("DebugInfo", e);
                 }
 
                 return "";

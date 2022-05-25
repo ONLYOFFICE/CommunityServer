@@ -34,12 +34,13 @@ namespace ASC.Api.Settings
     public partial class SettingsApi
     {
         /// <summary>
-        /// Returns current portal SMTP settings
+        /// Returns the current portal SMTP settings.
         /// </summary>
         /// <short>
-        /// Get SMTP settings
+        /// Get the SMTP settings
         /// </short>
-        /// <returns>SmtpSettings data</returns>
+        /// <category>SMTP</category>
+        /// <returns>SMTP settings</returns>
         [Read("smtp")]
         public SmtpSettingsWrapper GetSmtpSettings()
         {
@@ -51,13 +52,14 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Save SMTP settings for current portal
+        /// Saves the SMTP settings for the current portal.
         /// </summary>
         /// <short>
-        /// Save SMTP settings
+        /// Save the SMTP settings
         /// </short>
-        /// <param name="smtpSettings">SMTP settings data</param>
-        /// <returns>SmtpSettings data</returns>
+        /// <category>SMTP</category>
+        /// <param name="smtpSettings">SMTP settings</param>
+        /// <returns>SMTP settings</returns>
         [Create("smtp")]
         public SmtpSettingsWrapper SaveSmtpSettings(SmtpSettingsWrapper smtpSettings)
         {
@@ -80,12 +82,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Reset SMTP settings for current portal
+        /// Resets SMTP settings of the current portal.
         /// </summary>
         /// <short>
-        /// Reset SMTP settings
+        /// Reset the SMTP settings
         /// </short>
-        /// <returns>SmtpSettings data</returns>
+        /// <category>SMTP</category>
+        /// <returns>Default SMTP settings</returns>
         [Delete("smtp")]
         public SmtpSettingsWrapper ResetSmtpSettings()
         {
@@ -103,12 +106,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Test SMTP settings for current portal (send test message to user email)
+        /// Tests the SMTP settings for the current portal (send test message to the user email).
         /// </summary>
         /// <short>
-        /// Test SMTP settings
+        /// Test the SMTP settings
         /// </short>
-        /// <returns>SmtpOperationStatus data</returns>
+        /// <category>SMTP</category>
+        /// <returns>SMTP operation status</returns>
         [Read("smtp/test")]
         public SmtpOperationStatus TestSmtpSettings()
         {
@@ -124,12 +128,13 @@ namespace ASC.Api.Settings
         }
 
         /// <summary>
-        /// Returns SMTP test process status
+        /// Returns the SMTP test process status.
         /// </summary>
         /// <short>
-        /// Get SMTP test process status
+        /// Get the SMTP test process status
         /// </short>
-        /// <returns>SmtpOperationStatus object</returns>
+        /// <category>SMTP</category>
+        /// <returns>SMTP operation status</returns>
         [Read("smtp/test/status")]
         public SmtpOperationStatus GetSmtpOperationStatus()
         {

@@ -8,3 +8,4 @@ Files/god/* etc/god/
 Files/Tools/* var/www/{{package_sysname}}/Tools/
 Files/licenses/* usr/share/doc/{{package_sysname}}-communityserver/licenses/
 Files/ApiSystem/* var/www/{{package_sysname}}/ApiSystem/
+Files/mail-config/* etc/{{package_sysname}}/communityserver/

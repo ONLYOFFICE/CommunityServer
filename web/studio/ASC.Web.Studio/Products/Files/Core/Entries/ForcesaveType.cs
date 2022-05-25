@@ -28,6 +28,8 @@ namespace ASC.Files.Core
 
         [EnumMember] User = 2,
 
-        [EnumMember] Timer = 3
+        [EnumMember] Timer = 3,
+
+        [EnumMember] UserSubmit = 4,
     }
 }

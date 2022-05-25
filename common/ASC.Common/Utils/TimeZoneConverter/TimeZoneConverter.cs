@@ -26,6 +26,8 @@ using System.Xml.XPath;
 
 using ASC.Common.Logging;
 
+using LogManager = ASC.Common.Logging.BaseLogManager;
+
 namespace ASC.Common.Utils
 {
     public class TimeZoneConverter

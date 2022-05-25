@@ -36,7 +36,7 @@ namespace ASC.Core.Common.Notify.Telegram
             _databaseID = dbid;
         }
 
-        public void RegisterUser(Guid userId, int tenantId, int telegramId)
+        public void RegisterUser(Guid userId, int tenantId, long telegramId)
         {
             using (var db = GetDbManager())
             {

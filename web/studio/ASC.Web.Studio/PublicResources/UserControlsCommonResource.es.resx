@@ -58,9 +58,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ActiveUserDescr" xml:space="preserve">
-    <value>Los usuarios activos son los miembros del portal con la excepción de los clientes y usuarios con el estado "desactivado"</value>
-  </data>
   <data name="AddAnswerVariantButton" xml:space="preserve">
     <value>Añadir variante de respuesta</value>
   </data>
@@ -90,18 +87,6 @@
   </data>
   <data name="AttachOfProjectDocuments" xml:space="preserve">
     <value>Adjuntar archivo de Documentos de proyecto</value>
-  </data>
-  <data name="BannerBitly" xml:space="preserve">
-    <value>Acorte los enlaces de invitación al portal y los enlaces a documentos compartidos usando el servicio Bitly</value>
-  </data>
-  <data name="BannerSocial" xml:space="preserve">
-    <value>Se registre en el portal usando sus cuentas sociales y busque los contactos</value>
-  </data>
-  <data name="BannerStorage" xml:space="preserve">
-    <value>Conecte sus servicios de almacenamiento en la nube favoritos y almacene todos sus archivos en un solo lugar</value>
-  </data>
-  <data name="BannerTwilio2" xml:space="preserve">
-    <value>Llame a sus clientes directamente del CRM gracias a la integración de {0}ONLYOFFICE Twilio{1}.</value>
   </data>
   <data name="BtnHiddenFilter" xml:space="preserve">
     <value>...</value>
@@ -701,9 +686,6 @@
   <data name="SupportQuestionsV11" xml:space="preserve">
     <value>Para resolver problemas técnicos, use {0}</value>
   </data>
-  <data name="TariffBasicPrice" xml:space="preserve">
-    <value>precio básico</value>
-  </data>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>Consultar Avangate para la lista completa de las monedas</value>
   </data>
@@ -716,14 +698,8 @@
   <data name="TariffFree" xml:space="preserve">
     <value>Gratis</value>
   </data>
-  <data name="TariffFullPrice" xml:space="preserve">
-    <value>Abrir la lista completa de precios</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>¿Usted quiere elegir el plan de precios nuevo?</value>
-  </data>
-  <data name="TariffLimitedPrice" xml:space="preserve">
-    <value>Oferta por tiempo limitado</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Si, actualizar el plan</value>
@@ -733,9 +709,6 @@
   </data>
   <data name="TariffNameSYear" xml:space="preserve">
     <value>{0}1 Año{2}{1} Suscripción</value>
-  </data>
-  <data name="TariffNameSYear3" xml:space="preserve">
-    <value>{0}3 Año{1} Suscripción</value>
   </data>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>Usted está usando el plan de precios para organizaciones sin fines de lucro.</value>
@@ -776,17 +749,8 @@
   <data name="TariffPerYear3" xml:space="preserve">
     <value>de 3 años</value>
   </data>
-  <data name="TariffPerYearOnly" xml:space="preserve">
-    <value>La oferta está disponible solo para suscriptores anuales.</value>
-  </data>
   <data name="TariffPop" xml:space="preserve">
     <value>Suscripción Más Popular</value>
-  </data>
-  <data name="TariffPortalLimitHeaer" xml:space="preserve">
-    <value>La adición de un portal nuevo excederá un número de portales máximo permitido por el plan de precios actual.</value>
-  </data>
-  <data name="TariffPriceOffer" xml:space="preserve">
-    <value>Guardar {0}</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} por usuario/mes</value>
@@ -811,9 +775,6 @@
   </data>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>No hay bastante espacio de almacenamiento libre</value>
-  </data>
-  <data name="TariffUpdateWithoutLicense" xml:space="preserve">
-    <value>Usted está usando ONLYOFFICE Enterprise Edition. {0}La instalación actual ha sido actualizada sin una licencia adecuada proporcionada.{1}{2} Por favor, cargue la licencia actualizada para seguir usando ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TariffUserChoose" xml:space="preserve">
     <value>Elija el número de sus compañeros de equipo</value>

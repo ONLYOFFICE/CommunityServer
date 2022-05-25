@@ -15,15 +15,12 @@
 */
 
 
-#region usings
-
 using System;
 using System.Linq;
 
-using ASC.Common.Logging;
 using ASC.Notify.Recipients;
 
-#endregion
+using LogManager = ASC.Common.Logging.BaseLogManager;
 
 namespace ASC.Notify.Model
 {

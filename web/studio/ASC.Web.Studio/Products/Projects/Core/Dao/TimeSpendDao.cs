@@ -237,7 +237,6 @@ namespace ASC.Projects.Data.DAO
         public TimeSpend Save(TimeSpend timeSpend)
         {
             timeSpend.Date = TenantUtil.DateTimeToUtc(timeSpend.Date);
-            timeSpend.StatusChangedOn = TenantUtil.DateTimeToUtc(timeSpend.StatusChangedOn);
 
             var insert = Insert(TimeTrackingTable)
                 .InColumnValue("id", timeSpend.ID)

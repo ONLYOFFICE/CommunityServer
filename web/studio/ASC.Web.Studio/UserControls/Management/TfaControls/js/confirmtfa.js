@@ -33,7 +33,7 @@ ASC.Controls.ConfirmTfaManager = (function () {
             return false;
         });
 
-        $tfaAuthCode.keydown(function (event) {
+        $tfaAuthCode.on("keydown", function (event) {
             if (!e) {
                 var e = event;
             }

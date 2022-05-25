@@ -54,12 +54,12 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 try
                 {
-                    SecurityContext.AuthenticateMe(new Guid(user));
+                    SecurityContext.CurrentUser = new Guid(user);
                 }
                 catch
                 {
                     // User was removed
-                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                    SecurityContext.CurrentAccount = ASC.Core.Configuration.Constants.CoreSystem;
                 }
 
                 SetProgress((int?)MailOperationRemoveMailboxProgress.RemoveFromDb, "Remove mailbox from Db");

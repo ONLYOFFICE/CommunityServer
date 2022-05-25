@@ -32,7 +32,7 @@ using ASC.MessagingSystem;
 namespace ASC.Api.Employee
 {
     ///<summary>
-    ///Groups access
+    /// Access to the groups.
     ///</summary>
     public class GroupsApi : IApiEntryPoint
     {
@@ -51,14 +51,14 @@ namespace ASC.Api.Employee
         }
 
         ///<summary>
-        ///Returns the general information about all groups, such as group ID and group manager
+        ///Returns the general information about all the groups, such as group ID and group manager.
         ///</summary>
         ///<short>
-        ///All groups
+        ///Get all groups
         ///</short>
         ///<returns>List of groups</returns>
         /// <remarks>
-        /// This method returns partial group info
+        /// This method returns partial group information.
         /// </remarks>
         [Read("")]
         public IEnumerable<GroupWrapperSummary> GetAll()
@@ -67,15 +67,35 @@ namespace ASC.Api.Employee
         }
 
         ///<summary>
-        ///Returns the detailed information about the selected group: group name, category, description, manager, users and parent group if any
+        ///Returns a list of all the groups by the group name specified in the request.
         ///</summary>
         ///<short>
-        ///Specific group
+        ///Get groups by a group name
+        ///</short>
+        ///<param name="groupName">Group name</param>
+        ///<returns>List of groups</returns>
+        [Read("search")]
+        public IEnumerable<GroupWrapperSummary> GetTagsByName(string groupName)
+        {
+            groupName = (groupName ?? "").Trim();
+
+            if (string.IsNullOrEmpty(groupName)) return new List<GroupWrapperSummary>();
+
+            return CoreContext.UserManager.GetDepartments()
+                .Where(x => x.Name.Contains(groupName))
+                .Select(x => new GroupWrapperSummary(x));
+        }
+
+        ///<summary>
+        ///Returns the detailed information about the selected group: group name, category, description, manager, members and parent group if it exists.
+        ///</summary>
+        ///<short>
+        ///Get a group
         ///</short>
         ///<param name="groupid">Group ID</param>
         ///<returns>Group</returns>
         /// <remarks>
-        /// That method returns full group info
+        /// That method returns full group information.
         /// </remarks>
         [Read("{groupid}")]
         public GroupWrapperFull GetById(Guid groupid)
@@ -84,16 +104,13 @@ namespace ASC.Api.Employee
         }
 
         ///<summary>
-        ///Returns the group list for user
+        ///Returns a list of groups for the user with the ID specified in the request.
         ///</summary>
         ///<short>
-        ///User groups
+        ///Get user groups
         ///</short>
         ///<param name="userid">User ID</param>
         ///<returns>Group</returns>
-        /// <remarks>
-        /// That method returns user groups
-        /// </remarks>
         [Read("user/{userid}")]
         public IEnumerable<GroupWrapperSummary> GetByUserId(Guid userid)
         {
@@ -101,14 +118,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Adds a new group with the group manager, name and users specified
+        /// Adds a new group with the group manager, name and members specified in the request.
         /// </summary>
         /// <short>
-        /// Add new group
+        /// Add a new group
         /// </short>
         /// <param name="groupManager">Group manager</param>
         /// <param name="groupName">Group name</param>
-        /// <param name="members">List of group users</param>
+        /// <param name="members">List of group members</param>
         /// <returns>Newly created group</returns>
         [Create("")]
         public GroupWrapperFull AddGroup(Guid groupManager, string groupName, IEnumerable<Guid> members)
@@ -132,16 +149,16 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Updates an existing group changing the group manager, name and/or users
+        /// Updates the existing group changing the group manager, name and/or members.
         /// </summary>
         /// <short>
-        /// Update existing group
+        /// Update a group
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <param name="groupManager">Group manager</param>
-        /// <param name="groupName">Group name</param>
-        /// <param name="members">List of group users</param>
-        /// <returns>Newly created group</returns>
+        /// <param name="groupManager">New group manager</param>
+        /// <param name="groupName">New group name</param>
+        /// <param name="members">New list of group members</param>
+        /// <returns>Updated group</returns>
         [Update("{groupid}")]
         public GroupWrapperFull UpdateGroup(Guid groupid, Guid groupManager, string groupName, IEnumerable<Guid> members)
         {
@@ -172,13 +189,13 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Deletes the selected group from the list of groups on the portal
+        /// Deletes a group with the ID specified in the request from the list of groups on the portal.
         /// </summary>
         /// <short>
-        /// Delete group
+        /// Delete a group
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <returns></returns>
+        /// <returns>Group</returns>
         [Delete("{groupid}")]
         public GroupWrapperFull DeleteGroup(Guid groupid)
         {
@@ -204,14 +221,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Move all the users from the selected group to another one specified
+        /// Moves all the members from the selected group to another one specified in the request.
         /// </summary>
         /// <short>
-        /// Move group users
+        /// Move group members
         /// </short>
-        /// <param name="groupid">ID of group to move from</param>
-        /// <param name="newgroupid">ID of group to move to</param>
-        /// <returns>Group info which users were moved</returns>
+        /// <param name="groupid">Group ID to move from</param>
+        /// <param name="newgroupid">Group ID to move to</param>
+        /// <returns>New group information</returns>
         [Update("{groupid}/members/{newgroupid}")]
         public GroupWrapperFull TransferMembersTo(Guid groupid, Guid newgroupid)
         {
@@ -229,14 +246,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Manages the group users deleting the current users and setting new ones instead
+        /// Manages the group members deleting the current members and setting new ones specified in the request instead.
         /// </summary>
         /// <short>
-        /// Set group users
+        /// Set group members
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <param name="members">User list</param>
-        /// <returns></returns>
+        /// <param name="members">List of new members</param>
+        /// <returns>Group information</returns>
         [Create("{groupid}/members")]
         public GroupWrapperFull SetMembersTo(Guid groupid, IEnumerable<Guid> members)
         {
@@ -246,14 +263,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Add new group users keeping the current users and adding new ones
+        /// Manages the group members keeping the current members and adding new ones specified in the request instead.
         /// </summary>
         /// <short>
-        /// Add group users
+        /// Add group members
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <param name="members">User list</param>
-        /// <returns></returns>
+        /// <param name="members">List of new members</param>
+        /// <returns>Group information</returns>
         [Update("{groupid}/members")]
         public GroupWrapperFull AddMembersTo(Guid groupid, IEnumerable<Guid> members)
         {
@@ -268,14 +285,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Sets the user with the ID sent as a manager to the selected group
+        /// Sets a user with the ID specified in the request as a manager.
         /// </summary>
         /// <short>
-        /// Set group manager
+        /// Set a group manager
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <param name="userid">User ID to become manager</param>
-        /// <returns></returns>
+        /// <param name="userid">User ID</param>
+        /// <returns>Group information</returns>
         /// <exception cref="ItemNotFoundException"></exception>
         [Update("{groupid}/manager")]
         public GroupWrapperFull SetManager(Guid groupid, Guid userid)
@@ -293,14 +310,14 @@ namespace ASC.Api.Employee
         }
 
         /// <summary>
-        /// Removes the specified group users with all the rest current group users retained
+        /// Removes the group members specified in the request from the selected group.
         /// </summary>
         /// <short>
-        /// Remove group users
+        /// Remove group members
         /// </short>
         /// <param name="groupid">Group ID</param>
-        /// <param name="members">User list</param>
-        /// <returns></returns>
+        /// <param name="members">List of members</param>
+        /// <returns>Group information</returns>
         [Delete("{groupid}/members")]
         public GroupWrapperFull RemoveMembersFrom(Guid groupid, IEnumerable<Guid> members)
         {

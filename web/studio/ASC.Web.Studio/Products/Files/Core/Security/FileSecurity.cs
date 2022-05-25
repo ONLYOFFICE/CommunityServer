@@ -109,6 +109,26 @@ namespace ASC.Files.Core.Security
             return Can(entry, userId, FilesSecurityActions.Delete);
         }
 
+        public bool CanDownload(FileEntry entry, Guid userId)
+        {
+            if (!CanRead(entry, userId))
+            {
+                return false;
+            }
+
+            return CheckDenyDownload(entry);
+        }
+
+        public bool CanShare(FileEntry entry, Guid userId)
+        {
+            if (!CanEdit(entry, userId))
+            {
+                return false;
+            }
+
+            return CheckDenySharing(entry);
+        }
+
         public bool CanRead(FileEntry entry)
         {
             return CanRead(entry, SecurityContext.CurrentAccount.ID);
@@ -147,6 +167,16 @@ namespace ASC.Files.Core.Security
         public bool CanDelete(FileEntry entry)
         {
             return CanDelete(entry, SecurityContext.CurrentAccount.ID);
+        }
+
+        public bool CanDownload(FileEntry entry)
+        {
+            return CanDownload(entry, SecurityContext.CurrentAccount.ID);
+        }
+
+        public bool CanShare(FileEntry entry)
+        {
+            return CanShare(entry, SecurityContext.CurrentAccount.ID);
         }
 
         public IEnumerable<Guid> WhoCanRead(FileEntry entry)
@@ -294,6 +324,30 @@ namespace ASC.Files.Core.Security
         private bool Can(FileEntry entry, Guid userId, FilesSecurityActions action, IEnumerable<FileShareRecord> shares = null)
         {
             return Filter(new[] { entry }, action, userId, shares).Any();
+        }
+
+        public List<T> FilterDownload<T>(List<T> entries) where T : FileEntry
+        {
+            return FilterRead(entries).FindAll(CheckDenyDownload);
+        }
+
+        private bool CheckDenyDownload(FileEntry entry)
+        {
+            return entry.DenyDownload
+                ? entry.Access != FileShare.Read && entry.Access != FileShare.Comment
+                : true;
+        }
+
+        public IEnumerable<T> FilterSharing<T>(IEnumerable<T> entries) where T : FileEntry
+        {
+            return FilterEdit(entries).Where(CheckDenySharing);
+        }
+
+        private bool CheckDenySharing(FileEntry entry)
+        {
+            return entry.DenySharing
+                ? entry.Access != FileShare.ReadWrite
+                : true;
         }
 
         private List<Tuple<FileEntry, bool>> Can(IEnumerable<FileEntry> entry, Guid userId, FilesSecurityActions action)
@@ -494,12 +548,12 @@ namespace ASC.Files.Core.Security
                         if (shares == null)
                         {
                             shares = GetShares(entries);
-                            // shares ordered by level
                         }
                         shares = shares
                             .Join(subjects, r => r.Subject, s => s, (r, s) => r)
                             .ToList();
                     }
+
                     FileShareRecord ace;
                     if (e.FileEntryType == FileEntryType.File)
                     {
@@ -771,6 +825,7 @@ namespace ASC.Files.Core.Security
                 entries = entries.Where(f =>
                                         f.RootFolderType == FolderType.USER // show users files
                                         && f.RootFolderCreator != SecurityContext.CurrentAccount.ID // don't show my files
+                                        && (!f.ProviderEntry || FilesSettings.EnableThirdParty) // show thirdparty provider only if enabled
                     ).ToList();
 
                 if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())

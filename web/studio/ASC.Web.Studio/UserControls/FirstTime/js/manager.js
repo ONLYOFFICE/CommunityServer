@@ -51,9 +51,9 @@ ASC.Controls.EmailAndPasswordManager = new function() {
 
     var uploadInit = function () {
 
-        jq("#licenseKey").click(function (e) {
+        jq("#licenseKey").on("click", function (e) {
             e.preventDefault();
-            jq("#uploadButton").click();
+            jq("#uploadButton").trigger("click");
         });
 
         var upload = jq("#uploadButton")
@@ -67,7 +67,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
             .bind("fileuploaddone", function (e, data) {
                 LoadingBanner.hideLoaderBtn(".step");
                 try {
-                    var result = jq.parseJSON(data.result);
+                    var result = JSON.parse(data.result);
                 } catch (e) {
                     result = {Success: false};
                 }
@@ -80,7 +80,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
     };
 
     this.ShowChangeEmailAddress = function() {
-        var email = jQuery.trim(jq('.emailAddress').html());
+        var email = jq('.emailAddress').html().trim();
         jq('.emailAddress').html('');
         jq('.emailAddress').append('<input type="textbox" id="newEmailAddress" maxlength="64" class="textEdit newEmail">');
         jq('.emailAddress #newEmailAddress').val(email);
@@ -103,9 +103,8 @@ ASC.Controls.EmailAndPasswordManager = new function() {
             return;
         }
 
-        var email = jQuery.trim(jq('#requiredStep .emailBlock .email .emailAddress #newEmailAddress').val()); //
-        if (email == '' || email == null)
-            email = jQuery.trim(jq('#requiredStep .emailBlock .email .emailAddress').html());
+        var input = jq('#requiredStep .emailBlock .email .emailAddress #newEmailAddress');
+        var email = input.length ? input.val().trim() : jq('#requiredStep .emailBlock .email .emailAddress').html().trim();
         var pwd = jq('.passwordBlock .pwd #newPwd').val();
         var cpwd = jq('.passwordBlock .pwd #confPwd').val();
         var promocode = jq('.passwordBlock .promocode #promocode_input').val();
@@ -127,7 +126,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
             return;
         }
 
-        if (!(new XRegExp(jq(".passwordBlock .pwd #newPwd").data("regex"), "ig")).test(pwd)) {
+        if (!(new RegExp(jq(".passwordBlock .pwd #newPwd").data("regex"), "g")).test(pwd)) {
             jq(".passwordBlock .pwd #newPwd").css("border-color", "#DF1B1B");
 
             res = { "Status": 0, "Message": jq(".passwordBlock .pwd #newPwd").data("help") };
@@ -178,7 +177,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
 };
 
 jq(function() {
-    if (jQuery.trim(jq('.emailAddress').html()) == '') {
+    if (jq('.emailAddress').html().trim() == '') {
         ASC.Controls.EmailAndPasswordManager.ShowChangeEmailAddress();
     }
 });

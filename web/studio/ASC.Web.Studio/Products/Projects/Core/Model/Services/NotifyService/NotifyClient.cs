@@ -21,25 +21,21 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Notify;
 using ASC.Core.Common.Notify.Push;
-
 using ASC.Notify;
 using ASC.Notify.Engine;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Core.Model.Services.NotifyService;
 using ASC.Web.Projects.Resources;
-
 using Autofac;
 
 namespace ASC.Projects.Core.Services.NotifyService
@@ -188,7 +184,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title),
-                    ReplyToTagProvider.Message(project.ID),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Project, project.ID.ToString(CultureInfo.InvariantCulture), project.Title)),
                     new TagValue(PushConstants.PushModuleTagName, PushModule.Projects),
@@ -207,8 +202,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new[] { recipient },
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, project.ID),
-                    new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title),
-                    ReplyToTagProvider.Message(project.ID));
+                    new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title));
             }
         }
 
@@ -226,8 +220,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_ProjectTitle, milestone.Project.Title),
                     new TagValue(NotifyConstants.Tag_EntityTitle, milestone.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, milestone.ID),
-                    new TagValue(NotifyConstants.Tag_Priority, 1),
-                    ReplyToTagProvider.Comment("project.milestone", milestone.ID.ToString(CultureInfo.InvariantCulture)));
+                    new TagValue(NotifyConstants.Tag_Priority, 1));
             }
         }
 
@@ -246,7 +239,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_ProjectID, project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title),
                     new TagValue(NotifyConstants.Tag_AdditionalData, description),
-                    ReplyToTagProvider.Message(project.ID),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Project, project.ID.ToString(CultureInfo.InvariantCulture), project.Title)),
                     new TagValue(PushConstants.PushModuleTagName, PushModule.Projects),
@@ -270,7 +262,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, milestone.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, milestone.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "MilestoneDescription", description } }),
-                    ReplyToTagProvider.Comment("project.milestone", milestone.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Milestone, milestone.ID.ToString(CultureInfo.InvariantCulture), milestone.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, milestone.Project.ID.ToString(CultureInfo.InvariantCulture), milestone.Project.Title)),
@@ -296,7 +287,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, task.Project.ID.ToString(CultureInfo.InvariantCulture), task.Project.Title)),
@@ -325,8 +315,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_ProjectTitle, task.Project.Title),
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
-                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }));
             }
             finally
             {
@@ -355,7 +344,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                         new TagValue(NotifyConstants.Tag_SubEntityTitle, subtask.Title),
                         new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                         new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                        ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                         new AdditionalSenderTag("push.sender"),
                         new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Subtask, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title)),
                         new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
@@ -383,8 +371,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                 new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                 new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                new TagValue(NotifyConstants.Tag_Priority, 1),
-                ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                new TagValue(NotifyConstants.Tag_Priority, 1));
         }
 
         public void SendReminderAboutTaskDeadline(IEnumerable<Guid> recipients, Task task)
@@ -405,17 +392,39 @@ namespace ASC.Projects.Core.Services.NotifyService
                                      {"TaskDescription", description},
                                      {"TaskDeadline", task.Deadline.ToString(CultureInfo.InvariantCulture)}
                                  }),
-                new TagValue(NotifyConstants.Tag_Priority, 1),
-                ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                new TagValue(NotifyConstants.Tag_Priority, 1));
         }
 
 
         public void SendNewComment(List<IRecipient> recipients, ProjectEntity entity, Comment comment, bool isNew)
         {
             INotifyAction action;
-            if (entity.GetType() == typeof(Message)) action = isNew ? NotifyConstants.Event_NewCommentForMessage : NotifyConstants.Event_EditedCommentForMessage;
-            else if (entity.GetType() == typeof(Task)) action = isNew ? NotifyConstants.Event_NewCommentForTask : NotifyConstants.Event_EditedCommentForTask;
+            INotifyAction mentionAction;
+            if (entity.GetType() == typeof(Message))
+            {
+                action = isNew ? NotifyConstants.Event_NewCommentForMessage : NotifyConstants.Event_EditedCommentForMessage;
+                mentionAction = NotifyConstants.Event_MentionForMessageComment;
+            }
+            else if (entity.GetType() == typeof(Task))
+            {
+                action = isNew ? NotifyConstants.Event_NewCommentForTask : NotifyConstants.Event_EditedCommentForTask;
+                mentionAction = NotifyConstants.Event_MentionForTaskComment;
+            }
             else return;
+
+            var mentionedUsers = MentionProvider.GetMentionedUsers(comment.Content);
+            var mentionedUserIds = mentionedUsers.Select(u => u.ID.ToString());
+
+            var notMentionedRecipients = recipients.Where(r => !mentionedUserIds.Contains(r.ID)).ToArray();
+
+            var tags = new ITagValue[]{
+                new TagValue(NotifyConstants.Tag_ProjectID, entity.Project.ID),
+                new TagValue(NotifyConstants.Tag_ProjectTitle, entity.Project.Title),
+                new TagValue(NotifyConstants.Tag_EntityTitle, entity.Title),
+                new TagValue(NotifyConstants.Tag_EntityID, entity.ID),
+                new TagValue(NotifyConstants.Tag_AdditionalData, comment.Content),
+                new TagValue(NotifyConstants.Tag_CommentID, comment.OldGuidId)
+            };
 
             var interceptor = new InitiatorInterceptor(new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), ""));
             try
@@ -424,15 +433,19 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     action,
                     entity.NotifyId,
-                    recipients.ToArray(),
+                    notMentionedRecipients,
                     true,
-                    new TagValue(NotifyConstants.Tag_ProjectID, entity.Project.ID),
-                    new TagValue(NotifyConstants.Tag_ProjectTitle, entity.Project.Title),
-                    new TagValue(NotifyConstants.Tag_EntityTitle, entity.Title),
-                    new TagValue(NotifyConstants.Tag_EntityID, entity.ID),
-                    new TagValue(NotifyConstants.Tag_AdditionalData, comment.Content),
-                    new TagValue(NotifyConstants.Tag_CommentID, comment.OldGuidId),
-                    GetReplyToEntityTag(entity, comment));
+                    tags);
+
+                if (mentionedUsers.Length > 0)
+                {
+                    client.SendNoticeToAsync(
+                        mentionAction,
+                        entity.NotifyId,
+                        mentionedUsers,
+                        true,
+                        tags);
+                }
             }
             finally
             {
@@ -519,7 +532,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, description),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, task.Project.ID.ToString(CultureInfo.InvariantCulture), task.Project.Title)),
@@ -549,7 +561,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_SubEntityTitle, subtask.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Subtask, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
@@ -580,7 +591,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, description),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, task.Project.ID.ToString(CultureInfo.InvariantCulture), task.Project.Title)),
@@ -611,7 +621,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_SubEntityTitle, subtask.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Subtask, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
@@ -763,7 +772,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_Responsible, resp),
                     new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable { { "TaskDescription", description } }),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, task.Project.ID.ToString(CultureInfo.InvariantCulture), task.Project.Title)),
@@ -795,7 +803,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_Responsible,
                                  !subtask.Responsible.Equals(Guid.Empty) ? ToRecipient(subtask.Responsible).Name : PatternResource.subtaskWithoutResponsible),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Subtask, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
@@ -841,8 +848,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_ProjectID, task.Project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, task.Project.Title),
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
-                    new TagValue(NotifyConstants.Tag_EntityID, task.ID),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                    new TagValue(NotifyConstants.Tag_EntityID, task.ID));
             }
             finally
             {
@@ -870,8 +876,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_Responsible,
                                  !subtask.Responsible.Equals(Guid.Empty)
                                      ? ToRecipient(subtask.Responsible).Name
-                                     : PatternResource.subtaskWithoutResponsible),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                                     : PatternResource.subtaskWithoutResponsible));
             }
             finally
             {
@@ -879,6 +884,33 @@ namespace ASC.Projects.Core.Services.NotifyService
             }
         }
 
+        public void SendAboutSubTaskMoved(List<IRecipient> recipients, Task task, Subtask subtask)
+        {
+            var interceptor = new InitiatorInterceptor(new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), ""));
+            client.AddInterceptor(interceptor);
+
+            try
+            {
+                client.SendNoticeToAsync(
+                    NotifyConstants.Event_SubTaskMoved,
+                    task.NotifyId,
+                    recipients.ToArray(),
+                    true,
+                    new TagValue(NotifyConstants.Tag_ProjectID, task.Project.ID),
+                    new TagValue(NotifyConstants.Tag_ProjectTitle, task.Project.Title),
+                    new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
+                    new TagValue(NotifyConstants.Tag_SubEntityTitle, subtask.Title),
+                    new TagValue(NotifyConstants.Tag_EntityID, task.ID),
+                    new TagValue(NotifyConstants.Tag_Responsible,
+                                 !subtask.Responsible.Equals(Guid.Empty)
+                                     ? ToRecipient(subtask.Responsible).Name
+                                     : PatternResource.subtaskWithoutResponsible));
+            }
+            finally
+            {
+                client.RemoveInterceptor(interceptor.Name);
+            }
+        }
 
         public void SendAboutMilestoneResumed(IEnumerable<Guid> recipients, Milestone milestone)
         {
@@ -927,7 +959,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, description),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Project, task.Project.ID.ToString(CultureInfo.InvariantCulture), task.Project.Title)),
@@ -957,7 +988,6 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_SubEntityTitle, subtask.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)),
                     new AdditionalSenderTag("push.sender"),
                     new TagValue(PushConstants.PushItemTagName, new PushItem(PushItemType.Subtask, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title)),
                     new TagValue(PushConstants.PushParentItemTagName, new PushItem(PushItemType.Task, task.ID.ToString(CultureInfo.InvariantCulture), task.Title)),
@@ -986,36 +1016,12 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, task.ID),
                     new TagValue(NotifyConstants.Tag_SubEntityTitle, milestone != null ? milestone.Title : TaskResource.None),
-                    new TagValue(NotifyConstants.Tag_AdditionalData, description),
-                    ReplyToTagProvider.Comment("project.task", task.ID.ToString(CultureInfo.InvariantCulture)));
+                    new TagValue(NotifyConstants.Tag_AdditionalData, description));
             }
             finally
             {
                 client.RemoveInterceptor(interceptor.Name);
             }
-        }
-
-
-        private static TagValue GetReplyToEntityTag(ProjectEntity entity, Comment comment)
-        {
-            string type = string.Empty;
-            if (entity is Task)
-            {
-                type = "project.task";
-            }
-            if (entity is Message)
-            {
-                type = "project.message";
-            }
-            if (entity is Milestone)
-            {
-                type = "project.milestone";
-            }
-            if (!string.IsNullOrEmpty(type))
-            {
-                return ReplyToTagProvider.Comment(type, entity.ID.ToString(CultureInfo.InvariantCulture), comment != null ? comment.ID.ToString() : null);
-            }
-            return null;
         }
 
         public void SendAboutMessageAction(List<IRecipient> recipients, Message message, bool isNew, List<Tuple<string, string>> fileListInfoHashtable)
@@ -1027,8 +1033,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, message.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, message.ID),
                     new TagValue(NotifyConstants.Tag_EventType, isNew ? NotifyConstants.Event_MessageCreated.ID : NotifyConstants.Event_MessageEdited.ID),
-                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable {{"MessagePreview", message.Description}, {"Files", fileListInfoHashtable}}),
-                    ReplyToTagProvider.Comment("project.message", message.ID.ToString(CultureInfo.InvariantCulture))
+                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable {{"MessagePreview", message.Description}, {"Files", fileListInfoHashtable}})
                 };
 
             if (isNew) //don't send push about edited message!

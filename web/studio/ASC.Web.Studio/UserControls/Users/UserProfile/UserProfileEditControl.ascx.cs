@@ -53,6 +53,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected bool CurrentUserIsMailAdmin;
         protected bool IsPersonal;
         protected bool IsTrial;
+        protected bool CanCreateEmailOnDomain;
         protected string HelpLink;
         protected List<LdapMapping> LdapFields;
 
@@ -125,6 +126,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             CurrentUserIsMailAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.MailProductID, SecurityContext.CurrentAccount.ID);
             IsPersonal = CoreContext.Configuration.Personal;
             IsTrial = TenantExtra.GetTenantQuota().Trial;
+            CanCreateEmailOnDomain = !IsPageEditProfileFlag && CurrentUserIsMailAdmin && !(TenantExtra.Saas && IsTrial);
             HelpLink = CommonLinkUtility.GetHelpLink();
             LdapFields = ActiveDirectory.Base.Settings.LdapSettings.GetImportedFields;
 

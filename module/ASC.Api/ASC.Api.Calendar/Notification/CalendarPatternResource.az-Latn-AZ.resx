@@ -60,22 +60,62 @@
   </resheader>
   <data name="CalendarSharingEmailPattern" xml:space="preserve">
     <value>#if($SharingType == "calendar")
-h1.Təqvimə giriş verilib: $CalendarName
-
-
-İstifadəçi "$UserName":"$UserLink" Sizə təqvimə giriş veri: $CalendarName
-
-
-^Portalda qeydiyyatdan keçdiyiniz üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Giriş aldığınız hadisələr haqqında məlumatlar almaq istəmirsinizsə, lütfən, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" istəyinizə uyğun şəkildə dəyişin.^
-#end
+h1.Təqvimə İcazə Verilir: $CalendarName
+ 
+ 
+"$UserName":"$UserLink" sizə təqvimə giriş icazəsi verdi: $CalendarName
+ 
+^Siz bu e-məktubu alırsınız, çünki siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisisiniz. Sizinlə paylaşılan təqvimlər haqqında bildirişləri almaq istəmirsinizsə, lütfən, "abunəlik parametrlərinizi":"$RecipientSubscriptionConfigURL" idarə edin.^
+#son
 #if($SharingType == "event")
-h1.Access Granted to Event: $EventName
+h1.Tədbirə Giriş: $EventName
  
  
-"$UserName":"$UserLink" has granted you the access to the event: $EventName
+"$UserName":"$UserLink" sizə tədbirə giriş icazəsi verdi: $EventName
  
  
-^Portalda qeydiyyatdan keçdiyiniz üçün bu mıktubu alırsınız "${__VirtualRootPath}":"${__VirtualRootPath}". Giriş aldığınız hadisələr haqqında məlumatlar almaq istəmirsinizsə, lütfən, "abunəlik ayarlarını":"$RecipientSubscriptionConfigURL" istəyinizə uyğun şəkildə dəyişin.^
+^Siz bu e-məktubu alırsınız, çünki siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş istifadəçisisiniz. Sizinlə paylaşılan tədbirlər haqqında bildirişlər almaq istəmirsinizsə, lütfən, "abunəlik parametrlərinizi" idarə edin:"$RecipientSubscriptionConfigURL".^
+#son</value>
+  </data>
+  <data name="CalendarSharingJabberPattern" xml:space="preserve">
+    <value>#if($SharingType == "təqvim")
+Təqvim. Təqvimə giriş verildi:$CalendarName
+#end
+#if($SharingType == "hadisə")
+Təqvim. Tədbirə giriş verildi:$EventName
 #end</value>
+  </data>
+  <data name="CalendarSharingSubject" xml:space="preserve">
+    <value>#if($SharingType == "təqvim")
+Təqvim. Təqvimə icazə verildi:$CalendarName
+#end
+#if($SharingType == "tədbir")
+Təqvim. Tədbirə giriş verildi: $EventName
+#end</value>
+  </data>
+  <data name="EventAlertEmailPattern" xml:space="preserve">
+    <value>h1.Tədbir haqqında xatırlatma: $EventName
+
+$EventName hadisəsi $EventStartDate #if($EventEndDate!="")- $EventEndDate #end
+#if($EventDescription!="")
+
+Hadisənin təsviri:
+
+$EventDescription
+#end
+
+^Siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalının qeydiyyatdan keçmiş üzvü olduğunuz üçün bu e-məktubu alırsınız. Tədbir xatırlatma bildirişini almaq istəmirsinizsə, "abunəlik parametrlərini":"$RecipientSubscriptionConfigURL" dəyişdirin.^</value>
+  </data>
+  <data name="EventAlertJabberPattern" xml:space="preserve">
+    <value>$EventName tədbiri, üçün təyin edilir $EventStartDate #if($EventEndDate!="")- $EventEndDate #end
+#if($EventDescription!="")
+ 
+  Hadisənin təsviri:
+ 
+$EventDescription
+#end</value>
+  </data>
+  <data name="EventAlertSubject" xml:space="preserve">
+    <value>Təqvim. Tədbir haqqında xatırlatma: $EventName</value>
   </data>
 </root>

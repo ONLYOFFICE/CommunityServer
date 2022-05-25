@@ -33,7 +33,7 @@ window.customFilter = (function ($) {
                     { id: 'displayName', title: MailScriptResource.FilterByTitle, sortOrder: 'ascending', def: true }
                 ],
                 filters: []
-            }).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
+            }).on('setfilter', onSetFilter).on('resetfilter', onResetFilter).on('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advanced filter plugin call - because
             // its replace target element with new markup

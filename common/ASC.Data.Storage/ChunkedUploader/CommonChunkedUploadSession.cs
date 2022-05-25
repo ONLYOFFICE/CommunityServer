@@ -18,7 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+
+using Newtonsoft.Json;
 
 namespace ASC.Core.ChunkedUploader
 {
@@ -79,19 +80,39 @@ namespace ASC.Core.ChunkedUploader
 
         public T GetItemOrDefault<T>(string key)
         {
-            return Items.ContainsKey(key) && Items[key] is T ? (T)Items[key] : default(T);
+            if (Items.ContainsKey(key) && Items[key] != null)
+            {
+                if (Items[key] is T)
+                {
+                    return (T)Items[key];
+                }
+
+                var jToken = Items[key] as Newtonsoft.Json.Linq.JToken;
+                if (jToken != null)
+                {
+                    var item = jToken.ToObject<T>();
+                    Items[key] = item;
+                    return item;
+                }
+            }
+            return default(T);
         }
 
         public Stream Serialize()
         {
-            var stream = new MemoryStream();
-            new BinaryFormatter().Serialize(stream, this);
-            return stream;
+            var str = JsonConvert.SerializeObject(this);
+            var res = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(str));
+            return res;
         }
 
-        public static CommonChunkedUploadSession Deserialize(Stream stream)
+        public static T Deserialize<T>(Stream stream)
         {
-            return (CommonChunkedUploadSession)new BinaryFormatter().Deserialize(stream);
+            using (var reader = new StreamReader(stream, System.Text.Encoding.UTF8))
+            {
+                var str = reader.ReadToEnd();
+                var res = JsonConvert.DeserializeObject<T>(str);
+                return res;
+            }
         }
 
         public virtual object Clone()

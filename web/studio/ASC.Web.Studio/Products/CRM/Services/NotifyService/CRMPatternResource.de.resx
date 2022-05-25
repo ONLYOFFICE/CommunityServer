@@ -104,11 +104,11 @@ Bitte folgen Sie diesem Link, um das Archiv herunterzuladen: "exportdata.zip":"$
 *Hinweis*: Dieser Link ist nur 24 Stunden gültig.
 
 Wenn Sie Fragen haben oder Unterstützung brauchen, wenden Sie sich bitte an uns unter
-"support.onlyoffice.com":"http://support.onlyoffice.com"
+"support.onlyoffice.com":"https://support.onlyoffice.com"
 
 Mit freundlichen Grüßen
 ONLYOFFICE™-Kundendienst
-"www.onlyoffice.com":"http://onlyoffice.com/"
+"www.onlyoffice.com":"https://onlyoffice.com/"
 
 ^Sie erhalten diese E-Mail, weil Sie ein registrierter Benutzer bzw. Benutzerin des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Um den Benachrichtigungstyp zu ändern, bearbeiten Sie Ihre "Einstellungen Ihrer Benachrichtigungen":"$RecipientSubscriptionConfigURL".^
 </value>
@@ -118,11 +118,11 @@ ONLYOFFICE™-Kundendienst
 
 Gehen Sie zur Liste mit den "Kontakten":"$__VirtualRootPath/Products/CRM/" über.
 
-Wenn Sie Fragen haben oder Hilfe brauchen, wenden Sie sich bitte an uns unter "support.onlyoffice.com":"http://support.onlyoffice.com" 
+Wenn Sie Fragen haben oder Hilfe brauchen, wenden Sie sich bitte an uns unter "support.onlyoffice.com":"https://support.onlyoffice.com" 
 
 Mit freundlichen Grüßen 
 ONLYOFFICE™-Kundendienst 
-"www.onlyoffice.com":"http://onlyoffice.com/" 
+"www.onlyoffice.com":"https://onlyoffice.com/" 
 
 ^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer bzw. Benutzerin des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Um den Benachrichtigungstyp zu ändern, verwalten Sie Ihre "Einstellungen Ihrer Benachrichtigungen":"$RecipientSubscriptionConfigURL".^</value>
   </data>

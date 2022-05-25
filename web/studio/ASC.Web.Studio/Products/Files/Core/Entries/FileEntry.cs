@@ -49,14 +49,19 @@ namespace ASC.Files.Core
         public string CreateOnString
         {
             get { return CreateOn.Equals(default(DateTime)) ? null : CreateOn.ToString("g"); }
-            set { throw new NotImplementedException(); }
+            set { }
         }
 
         [DataMember(Name = "modified_on")]
         public string ModifiedOnString
         {
-            get { return ModifiedOn.Equals(default(DateTime)) ? null : ModifiedOn.ToString("g"); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                if (ModifiedOn.Equals(default(DateTime)))
+                    return null;
+                return ModifiedOn.ToString("g");
+            }
+            set { }
         }
 
         [DataMember(Name = "modified_by_id")]
@@ -101,6 +106,28 @@ namespace ASC.Files.Core
             }
             set { _folderIdDisplay = value; }
         }
+
+        [DataMember(Name = "deleted_permanently_date")]
+        public string DeletedPermanentlyOnString
+        {
+            get
+            {
+                if (!ModifiedOn.Equals(default(DateTime)) && Equals(FolderIdDisplay, Global.FolderTrash) && FilesSettings.AutomaticallyCleanUp.IsAutoCleanUp)
+                {
+                    var deletedPermanentlyOn = FileDateTime.GetModifiedOnWithAutoCleanUp(ModifiedOn, FilesSettings.AutomaticallyCleanUp.Gap);
+                    return deletedPermanentlyOn.ToString("g");
+                }
+                else
+                    return null;
+            }
+            set { }
+        }
+
+        [DataMember(Name = "deny_download")]
+        public bool DenyDownload { get; set; }
+
+        [DataMember(Name = "deny_sharing")]
+        public bool DenySharing { get; set; }
 
         public bool ProviderEntry
         {

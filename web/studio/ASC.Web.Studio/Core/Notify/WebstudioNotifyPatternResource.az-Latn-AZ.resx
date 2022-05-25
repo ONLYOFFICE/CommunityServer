@@ -1,0 +1,2089 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Bloq yaradıldı:</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Əlfəcin yaradıldı:</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM əməliyyatı yaradıldı</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Şərh əlavə edildi:</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM əlaqəsi yaradıldı</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>CRM imkanı yaradıldı</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Müzakirə yaradıldı:</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Tədbir yaradıldı:</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Sənəd yaradıldı/endirildi:</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Qovluq yaradıldı:</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Forum yaradıldı:</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Sorğu yaradılıb</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Post yaradılıb</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Mərhələ yaradılmışdır</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Layihə yaradılıb</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Tapşırıq yaradıldı</value>
+  </data>
+  <data name="ButtonAccept" xml:space="preserve">
+    <value>Qəbul et</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>İdarə PAnelinə Daxil Olun</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Portalınıza daxil olun</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Veb-Ofisinizə Daxil Olun</value>
+  </data>
+  <data name="ButtonActivateEmail" xml:space="preserve">
+    <value>E-poçt ünvanınızı aktiv etmək üçün bura klikləyin</value>
+  </data>
+  <data name="ButtonChangeEmail" xml:space="preserve">
+    <value>E-poçt ünvanını dəyişin</value>
+  </data>
+  <data name="ButtonChangePassword" xml:space="preserve">
+    <value>Parolu dəyişin</value>
+  </data>
+  <data name="ButtonChangePhone" xml:space="preserve">
+    <value>Mobil telefon nömrəsini dəyişin</value>
+  </data>
+  <data name="ButtonChangeTfa" xml:space="preserve">
+    <value>Doğrulama üçün proqramı konfiqurasiya edin</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Elə İndi Konfiqurasiya Edin</value>
+  </data>
+  <data name="ButtonConfirm" xml:space="preserve">
+    <value>Təsdiq edin</value>
+  </data>
+  <data name="ButtonConfirmPortalAddressChange" xml:space="preserve">
+    <value>Portal Ünvanının Dəyişdirilməsini Təsdiq Edin</value>
+  </data>
+  <data name="ButtonConfirmPortalOwnerUpdate" xml:space="preserve">
+    <value>Portal Sahibinin Yenilənməsini Təsdiq Edin</value>
+  </data>
+  <data name="ButtonConfirmTermination" xml:space="preserve">
+    <value>Hesabın dayandırılmasını təsdiq edin</value>
+  </data>
+  <data name="ButtonDeactivatePortal" xml:space="preserve">
+    <value>Portalı Deaktiv Edin</value>
+  </data>
+  <data name="ButtonDeletePortal" xml:space="preserve">
+    <value>Portalı Silin</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>İndi Dəvət Edin</value>
+  </data>
+  <data name="ButtonJoin" xml:space="preserve">
+    <value>Portala qoşulmaq üçün bura klikləyin</value>
+  </data>
+  <data name="ButtonLeaveFeedback" xml:space="preserve">
+    <value>Fikrinizi bildirin</value>
+  </data>
+  <data name="ButtonRemoveProfile" xml:space="preserve">
+    <value>Profili silin</value>
+  </data>
+  <data name="ButtonRenewNow" xml:space="preserve">
+    <value>İndi yeniləyin</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Zəng tələb edin</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Qiymət Planlarını İndi Seçin</value>
+  </data>
+  <data name="ButtonSetPassword" xml:space="preserve">
+    <value>Parol təyin edin</value>
+  </data>
+  <data name="ButtonStartFreeTrial" xml:space="preserve">
+    <value>Ödənişsiz sınağa başlayın</value>
+  </data>
+  <data name="ButtonUseDiscount" xml:space="preserve">
+    <value>Endirimdən istifadə edin</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Ətraflı məlumat &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.E-poçt ünvanınızın "${__VirtualRootPath}":"$InviteLink" portalında aktivləşdirilməsi.
+
+Sabahınız xeyir!
+
+Siz "${__VirtualRootPath}":"$InviteLink" portalına qoşulmağa dəvət olundunuz. Təhlükəsizlik məqsədilə aşağıdakı linkə klikləməklə hesabınızı aktivləşdirməlisiniz.
+
+$GreenButton
+
+Nəzərə alın ki, bu link yalnız 7 gün ərzində etibarlıdır.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalının ehtiyat nüsxəsi yaradıldı
+
+Hörmətli $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal məlumatınız olan ehtiyat faylı yaradıldı
+
+Yedəkləmə proseduru haqqında daha çox öyrənmək üçün "Məlumatların Yedəklənməsi": "http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" istifadəçi təlimatımıza baxın
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support.onlyoffice.com": "http://support.onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək komandası
+"www.onlyoffice.com":"http://onlyoffice.com</value>
+  </data>
+  <data name="pattern_backup_created_tg" xml:space="preserve">
+    <value>Portal ehtiyat nüsxəsi [${__VirtualRootPath}](${__VirtualRootPath}) yaradıldı
+
+Hörmətli $OwnerName,
+
+Portal məlumatlarınızı ehtiva edən ehtiyat faylı [${__VirtualRootPath}](${__VirtualRootPath}) yaradıldı.
+
+Yedəkləmə prosesi haqqında ətraflı məlumat üçün bu İstifadəçi Təlimatına baxın [Məlumatların ehtiyat nüsxəsi](${__HelpLink} /tipstricks/data-backup-restore.aspx).
+
+Hər hansı bir sualınız varsa və ya köməyə ehtiyacınız varsa, [support.onlyoffice.com](http://support.onlyoffice.com) ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin.
+
+Sizin,
+ONLYOFFICE ™ komandası
+[www.onlyoffice.com](http://onlyoffice.com/)</value>
+  </data>
+  <data name="pattern_change_email_v115" xml:space="preserve">
+    <value>ONLYOFFICE hesabınızdakı e-poçtu dəyişmək istəyirsiniz?
+
+Aşağıdakı düyməni basın və buludunuza daxil olun*.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+*Bu brauzerdə ONLYOFFICE-a daxil olmamısınızsa, təsdiq üçün köhnə e-poçtunuzdan istifadə etməlisiniz. Əgər xatırlamırsınızsa, portal admininizlə əlaqə saxlayın.
+
+E-poçtunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalı üçün parol dəyişikliyi sorğusu: 
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalına daxil olmaq üçün istifadə edilən parolunuzu dəyişdirmək üçün sorğu olub.
+
+Şifrənizi dəyişmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində parol dəyişdirmə prosesini tamamlayın.
+
+Əgər parolunuzu dəyişmək və ya bu mesajı səhvən almaq istəmirsinizsə, zəhmət olmasa, ona məhəl qoymayın və ya əlavə məlumat üçün "${__VirtualRootPath}":"${__VirtualRootPath}" portal administratorunuzla əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_change_password_v115" xml:space="preserve">
+    <value>ONLYOFFICE hesabınızdakı parolu dəyişmək istəyirsiniz? Təsdiqləmək üçün aşağıdakı düyməni basın.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+Parolunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Mobil telefon dəyişmə sorğusu
+
+Siz ${LetterLogoText} portalına daxil olmaq üçün istifadə olunan mobil telefonunuzu dəyişdirməyi tələb etdiniz.
+
+Mobil telefonunuzu dəyişmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+Mobil telefonunuzu dəyişmək istəmirsinizsə və ya bu mesajı səhvən alırsınızsa, zəhmət olmasa, ona məhəl qoymayın və ya ətraflı məlumat tapmaq üçün portal administratorunuzla əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_change_tfa" xml:space="preserve">
+    <value>h1.Təhlükəsizlik bildirişi
+
+${LetterLogoText} portalına daxil olmaq üçün istifadə etdiyiniz autentifikator tətbiqi üçün parametrlər sıfırlanıb.
+
+Portala giriş səhifəsinə keçmək və autentifikasiya proqramını konfiqurasiya etmək üçün bu linkə klikləyin:
+
+$GreenButton</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1. "${__VirtualRootPath}":"${__VirtualRootPath}" portalının sahibinin dəyişdirilməsi
+
+Salam, $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalının sahibinin dəyişdirilməsi sorğusu göndərilib:  $UserName.
+
+Əməliyyatı təsdiqləmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+* Qeyd *: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portal sahibinin dəyişdirilməsi prosesini tamamlayın.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Portal ünvanının dəyişdirilməsi
+
+Salam, $OwnerName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portal ünvanını "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end olaraq dəyişdirmək üçün sorğu göndərilib.
+
+Əməliyyatı təsdiqləmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+* Qeyd *: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portal ünvanının dəyişdirilməsi prosesini tamamlayın.</value>
+  </data>
+  <data name="pattern_enterprise_admin_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz indicə komandanızın daxili əməkdaşlığı gücləndirəcək bulud ofisi olan ONLYOFFICE portalını yaratdınız. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Zəhmət olmasa e-poçtunuzu təsdiqləyin:
+
+$GreenButton
+
+Siz e-poçt və ya parolunuzu "şəxsi profil səhifənizdə":"$MyStaffLink" dəyişə bilərsiniz.
+
+Bildirişlər göndərmək üçün biz ONLYOFFICE poçt serverinin SMTP parametrlərindən istifadə edirik. Onları dəyişdirmək üçün "burada":"${__HelpLink}/server/windows/community/smtp-settings.aspx" təlimatlara əməl edin.
+
+Ətraflı məlumat ONLYOFFICE "Yardım Mərkəzində":"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE-i ehtiyaclarınız üçün fərdiləşdirə bilərsiniz, məsələn:
+
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+
+$GreenButton
+   
+Tamamlandı. Komanda yoldaşlarını veb-ofisinizə dəvət etməyin vaxtıdır!
+
+Ətraflı məlumat "Yardım Mərkəzimizdə":"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_3rdparty" xml:space="preserve">
+    <value>Komanda üzvlərinizə daxil olmaq üçün Facebook, Twitter, Google və ya LinkedIn istifadə etməyə icazə verin. Sənədlərinizi ötürmək üçün portalınızı Box, Dropbox, OneDrive və Google ilə əlaqələndirin. E-imzadan istifadə etmək üçün DocuSign-a, VoIP üçün Twilio-a, keçidləri qısaltmaq üçün Bitly-ə və oflayn olduğunuz zaman bildirişlər almaq üçün Firebase-ə qoşulun.</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_3rdparty_hdr" xml:space="preserve">
+    <value>Məsləhət #5: 3-cü tərəf xidmətlərini birləşdirin</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_brand" xml:space="preserve">
+    <value>İdarəetmə Panelinə şirkətinizin loqolarının yüklənməsi. Salamlama səhifəsində göstərilən standart portal başlığını dəyişmək üçün Parametrlər &gt;&gt; Ümumi &gt;&gt; Fərdiləşdirmə &gt;&gt; Salamlama Səhifəsi Parametrləri bölməsinə keçin.</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_brand_hdr" xml:space="preserve">
+    <value>Məsləhət №1: Onu markaya çevirin</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_customize" xml:space="preserve">
+    <value>Parametrlər &gt;&gt; Ümumi &gt;&gt; Fərdiləşdirmə &gt;&gt; Komanda Şablonundan sonra portal qruplarını, üzvlərini və fəaliyyətlərini adlandırın. Şirkətinizin markasına ən uyğun rəng mövzusunu seçin.</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_customize_hdr" xml:space="preserve">
+    <value>Məsləhət №3: İnterfeysi fərdiləşdirin</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_modules" xml:space="preserve">
+    <value>Parametrlər &gt;&gt; Ümumi &gt;&gt; Modullar və Alətlər bölməsini izləməklə işiniz üçün lazım olan alətləri aktiv edin. Deaktiv alətlər gizlədiləcək</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_modules_hdr" xml:space="preserve">
+    <value>Məsləhət # 4: Alətlərinizi seçin</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_regional" xml:space="preserve">
+    <value>Dili seçib düzgün vaxt qurşağını təyin edin. Bildirişlər və dəqiq təqvim işi üçün xüsusilə vacibdir. Parametrlər &gt;&gt; Ümumi &gt;&gt; Fərdiləşdirməyə keçin.</value>
+  </data>
+  <data name="pattern_enterprise_admin_customize_portal_v10_item_regional_hdr" xml:space="preserve">
+    <value>Məsləhət #2: Regional parametrləri tənzimləyin</value>
+  </data>
+  <data name="pattern_enterprise_admin_invite_teammates_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Bulud ofisiniz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında hazırdır. Komanda yoldaşlarınızı dəvət etməyin vaxtı gəldi!
+
+Komandanızı əlavə etməyin ən asan yolu LDAP Serverindən (məsələn, OpenLDAP Server və ya Microsoft Active Directory) lazımi istifadəçiləri və qrupları idxal etməkdir. LDAP parametrləri İdarəetmə Panelinizdə mövcuddur. Təlimatlar "Yardım Mərkəzimiz":"${__HelpLink}/server/windows/community/ldap-settings.aspx" də mövcuddur.
+
+Siz həmçinin istifadəçiləri portala dəvət et seçimindən istifadə edərək dəvət linkini yaya və ya *İnsanlar* modulunda *Yeni Yarat...* düyməsindən istifadə edərək komanda yoldaşlarınızı əl ilə bir-bir əlavə edə və ya istifadəçiləri aşağıdakılardan ixrac edə bilərsiniz:
+     "Yahoo və ya Google hesabınız":"${__HelpLink}/administratorguides/import-contacts-from-web.aspx";
+     "poçt müştərinizin ünvan kitabçası":"${__HelpLink}/administratorguides/import-contacts-from-mail-client.aspx";
+     "a CSV faylı":"${__HelpLink}/administratorguides/import-contacts-from-csv.aspx".</value>
+  </data>
+  <data name="pattern_enterprise_admin_payment_warning_before7_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Nəzərə alın ki, ONLYOFFICE abunəliyiniz bir həftədən sonra başa çatmaq üzrədir. Abunəliyinizi uzatmaq üçün siz ONLYOFFICE üçün yenilənmiş məhsulu almalısınız.
+
+Yeniləmə prosesinə başlamaq üçün aşağıdakı linkə klikləyin:
+"Qiymətləndirmə səhifəsi":"$PricingPage"
+
+Hər hansı əlavə ONLYOFFICE quraşdırılması, aktivləşdirilməsi və texniki dəstək məsələləri üçün "https://support.onlyoffice.com/":"https://support.onlyoffice.com/" ünvanında dəstək komandamızla əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_enterprise_admin_payment_warning_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Nəzərə alın ki, ONLYOFFICE abunəliyiniz bu gün başa çatır. Abunəliyinizi uzatmaq üçün siz ONLYOFFICE üçün yenilənmiş məhsulu almalısınız.
+
+Yeniləmə prosesinə başlamaq üçün aşağıdakı linkə klikləyin:
+"Qiymətləndirmə səhifəsi":"$PricingPage"
+
+Hər hansı əlavə məhsulun quraşdırılması, aktivləşdirilməsi və texniki dəstək məsələləri üçün "https://support.onlyoffice.com/":"https://support.onlyoffice.com/" ünvanında dəstək komandamızla əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_enterprise_admin_trial_warning_before7_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE seçdiyiniz üçün təşəkkür edirik. Sadəcə sizə xatırlatmaq istəyirik ki, Enterprise Edition üçün sınaq müddəti yeddi gün ərzində başa çatacaq.
+
+Zəhmət olmasa, Enterprise Edition üçün bütün mövcud qiymət planlarını yoxlayın və biznesiniz üçün ən uyğununu seçin.
+
+$GreenButton
+
+$BlueButton
+
+Satınalma ilə bağlı hər hansı sualınız üçün "sales@onlyoffice.com":"mailto:sales@onlyoffice.com" ünvanında bizimlə əlaqə saxlayın. Hər hansı texniki problemi həll etmək üçün "support@onlyoffice.com ünvanına yazın":"mailto:support@onlyoffice.com"</value>
+  </data>
+  <data name="pattern_enterprise_admin_trial_warning_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE İş Sahəsini seçdiyiniz üçün təşəkkür edirik. Sınaq müddətiniz bu gün bitir. Pro xüsusiyyətlərindən istifadə etməyə davam etmək üçün tam lisenziyanı satın alın.
+
+İndi satın alın: "https://www.onlyoffice.com/workspace-enterprise-prices.aspx":"https://www.onlyoffice.com/workspace-enterprise-prices.aspx"
+
+Satınalma ilə bağlı hər hansı sualınız üçün "sales@onlyoffice.com":"mailto:sales@onlyoffice.com" ünvanında bizimlə əlaqə saxlayın. Hər hansı texniki problemi həll etmək üçün "support@onlyoffice.com":"mailto:support@onlyoffice.com" ünvanına yazın</value>
+  </data>
+  <data name="pattern_enterprise_admin_user_apps_tips_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+İstənilən cihazınızda sənədlər və layihələr üzərində işləmək üçün ödənişsiz ONLYOFFICE proqramları əldə edin.
+
+# Windows, Linux və Mac-də sənədlərlə oflayn işləmək üçün "ONLYOFFICE Desktop Editors" proqramını endirin:"https://www.onlyoffice.com/apps.aspx".
+# Mobil cihazlarda sənədləri redaktə etmək üçün "iOS" üçün ONLYOFFICE Sənədlər proqramı:"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" və ya "Android":"https://play.google .com/store/apps/details?id=com.onlyoffice.documents".
+# Komanda performansınıza yolda olarkən də nəzarət etmək üçün "iOS" üçün ONLYOFFICE Layihələri əldə edin:"https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".</value>
+  </data>
+  <data name="pattern_enterprise_admin_user_docs_tips_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Ümid edirik ki, veb-ofisinizdə mövcud olan sənəd redaktorlarından istifadədən məmnun qalacaqsınız. Bunu daha effektiv etmək üçün bəzi məsləhətlər.
+
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm</value>
+  </data>
+  <data name="pattern_enterprise_admin_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Veb-ofisinizi daha da təhlükəsiz etmək üçün nə edə bilərsiniz:
+
+İstifadəçiləriniz üçün təkcə lokal deyil, həm də xarici portal girişini təmin etmək istəyirsinizsə, *SSL sertifikatı əldə edin*. İdarəetmə Panelində yeni imzalanmış sertifikat yaradın və ya etibar etdiyiniz provayderdən sertifikat əldə edin.
+
+İdarəetmə Panelində *Avtomatik ehtiyat nüsxələrini aktivləşdirin*. Biz həmçinin üçüncü tərəf xidmətlərindən istifadə etməyi və vaxtaşırı quraşdırılmış ONLYOFFICE ilə serverin ehtiyat nüsxəsini çıxarmağı tövsiyə edirik. "Yardım Mərkəzimiz"dəki təlimatlar:"${__HelpLink}/server/controlpanel/enterprise/backup-restore.aspx".
+
+*Portal təhlükəsizlik parametrlərini tənzimləyin*: Məqbul IP siyahısından istifadə edərək girişi məhdudlaşdırın, etibarlı poçt domenlərini təyin edin, parol uzunluğunu təyin edin və s. "Ətraflı məlumat &gt;&gt;":"${__HelpLink}/server/enterprise/configure-enterprise.aspx"
+
+SMS və ya autentifikator proqramı vasitəsilə *2 faktorlu autentifikasiyanı aktivləşdirin*. Təlimatlar "burada":"${__HelpLink}/guides/two-factor-authentication.aspx".
+
+*Girişin mərkəzləşdirilməsi üçün LDAP-dan istifadə edin*. LDAP serverinizdən (məsələn, OpenLDAP Server və ya Microsoft Active Directory) lazımi istifadəçiləri və qrupları portalınıza asanlıqla idxal edin. Ətraflı məlumatı "buradan" əldə edin:"${__HelpLink}/server/windows/community/ldap-settings.aspx".
+
+*Öz SMPT serverinizdən istifadə edin*. ONLYOFFICE İş sahəsi istifadəçiləri üçün standart bildirişlər (məsələn, onlara sənədə giriş icazəsi verilirsə) standart ONLYOFFICE SMPT serveri vasitəsilə təmin edilir. Öz SMTP serverinizi konfiqurasiya edin ki, bildirişləriniz heç bir üçüncü tərəf serverindən keçməsin. "Təlimatlar &gt;&gt;":"${__HelpLink}/server/enterprise/configure-enterprise.aspx"
+
+*Bütün lazımsız portları bağlayın*. ONLYOFFICE üçün açılmalı olan bütün portların siyahısı "burada"dır:"${__HelpLink}/server/docker/community/open-ports.aspx".
+
+ONLYOFFICE-inizi indi daha təhlükəsiz edin.
+
+$GreenButton
+
+Ətraflı məlumat "Yardım Mərkəzimiz"də:"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_enterprise_admin_without_activity_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Ümid edirik ki, ONLYOFFICE istifadə etməkdən zövq alacaqsınız. Sınaq prosesi necə gedir? Bu barədə rəyinizi bildirsəniz, sizə minnətdar olarıq!
+
+Sualınız və ya bizimlə bölüşmək istədiyiniz ideyalarınız olduqda, lütfən "support.onlyoffice.com":"https://support.onlyoffice.com" ünvanında bizimlə əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_enterprise_guest_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+$__AuthorName sizi "${__VirtualRootPath}":"${__VirtualRootPath}" üçün qonaq istifadəçi kimi dəvət etdi. Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz veb-ofisinizdən necə istifadə etmək barədə daha çox məsləhət əldə edəcəksiniz. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_enterprise_guest_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Qonaq profiliniz uğurla "${__VirtualRootPath}":"${__VirtualRootPath}" -a əlavə edildi. İndi edə bilərsiniz:
+
+# "Profilinizi":"$MyStaffLink" redaktə edin.
+# "İcma":"${__VirtualRootPath}/Products/Community/" da mövcud olan məzmuna baxın və şərh verin və "Layihələr":"${__VirtualRootPath}/Products/Projects/".
+# "Sənədlər":"${__VirtualRootPath}/Products/Files/" də sizin üçün mövcud olan faylları əlavə edin və endirin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə cədvəlinizi təşkil edin.
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton</value>
+  </data>
+  <data name="pattern_enterprise_user_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+$__AuthorName sizi şirkətinizin təhlükəsiz internet ofisinə qoşulmağa dəvət etdi, bu, eyni zamanda sizin əməkdaşlığınızı gücləndirəcək. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz ofisinizdən necə istifadə etmək barədə daha çox məsləhət əldə edəcəksiniz. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_enterprise_user_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+İstifadəçi profiliniz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında uğurla portala əlavə edildi. İndi edə bilərsiniz:
+
+# "Sənədlər":"${__VirtualRootPath}/Products/Files/" yaradın və redaktə edin, onları komanda yoldaşları ilə paylaşın və real vaxtda əməkdaşlıq edin.
+# E-poçt hesablarınızı əlavə edin və "Mail":"${__VirtualRootPath}/addons/mail/" ilə bütün yazışmaları bir yerdə idarə edin.
+# "Layihələr":"${__VirtualRootPath}/Products/Projects/" ilə iş axınınızı və "CRM":"${__VirtualRootPath}/Products/CRM/" istifadə edərək müştəri münasibətlərinizi idarə edin.
+# Bloqlarınızı, forumlarınızı başlamaq, tədbirlər əlavə etmək, əlfəcinləri paylaşmaq üçün "İcma":"${__VirtualRootPath}/Products/Community/" istifadə edin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə iş qrafikinizi təşkil edin.
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_admin_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz yenicə korporativ veb-ofisinizi, komandanızın daxili əməkdaşlığı gücləndirəcək bulud ofisini yaratdınız. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Zəhmət olmasa e-poçtunuzu təsdiqləyin:
+
+$GreenButton
+
+Siz e-poçt və ya parolunuzu "şəxsi profil səhifənizdə":"$MyStaffLink" dəyişə bilərsiniz.</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_admin_customize_portal_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz veb-ofisinizi fərdiləşdirə bilərsiniz, məsələn:
+
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItemsBtm
+
+$GreenButton
+
+Tamamlandı. Komanda yoldaşlarını veb-ofisinizə dəvət etməyin vaxtıdır!</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_admin_payment_warning_before7_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Nəzərə alın ki, veb-ofis abunəliyiniz bir həftədən sonra başa çatmaq üzrədir. Abunəliyinizi uzatmaq üçün yenilənmiş məhsulu satın almalısınız.
+
+Yeniləmə prosesinə başlamaq üçün aşağıdakı linkə klikləyin:
+"Qiymətləndirmə səhifəsi":"$PricingPage"</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_admin_payment_warning_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Nəzərə alın ki, veb-ofis abunəliyiniz bu gün başa çatır. Abunəliyinizi uzatmaq üçün yenilənmiş məhsulu satın almalısınız.
+
+Yeniləmə prosesinə başlamaq üçün aşağıdakı linkə klikləyin:
+"Qiymətləndirmə səhifəsi":"$PricingPage"</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_admin_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Veb-ofisinizi daha da təhlükəsiz etmək üçün nə edə bilərsiniz:
+
+İstifadəçiləriniz üçün təkcə lokal deyil, həm də xarici portal girişini təmin etmək istəyirsinizsə, *SSL sertifikatı əldə edin*. İdarəetmə Panelində yeni imzalanmış sertifikat yaradın və ya etibar etdiyiniz provayderdən sertifikat əldə edin.
+
+İdarəetmə Panelində *Avtomatik ehtiyat nüsxələrini aktivləşdirin*. Biz həmçinin üçüncü tərəf xidmətlərindən istifadə etməyi və vaxtaşırı serverin ehtiyat nüsxəsini çıxarmağı tövsiyə edirik.
+
+*Portal təhlükəsizlik parametrlərini tənzimləyin*: məqbul IP siyahısından istifadə edərək girişi məhdudlaşdırın, etibarlı poçt domenlərini təyin edin, parol uzunluğunu təyin edin və s.
+
+SMS və ya autentifikator proqramı vasitəsilə *2 faktorlu autentifikasiyanı aktivləşdirin*.
+
+*Girişin mərkəzləşdirilməsi üçün LDAP-dan istifadə edin*. LDAP serverinizdən (məsələn, OpenLDAP Server və ya Microsoft Active Directory) lazımi istifadəçiləri və qrupları portalınıza asanlıqla idxal edin.
+
+*Öz SMPT serverinizdən istifadə edin* və bütün lazımsız portları bağlayın.
+
+Onlayn ofisinizi indi daha təhlükəsiz edin.</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_guest_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+$__AuthorName sizi "${__VirtualRootPath}":"${__VirtualRootPath}" üçün qonaq istifadəçi kimi dəvət etdi. Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz veb-ofisinizdən necə istifadə etmək barədə daha çox məsləhət əldə edəcəksiniz. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_guest_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Qonaq profiliniz uğurla "${__VirtualRootPath}":"${__VirtualRootPath}" -a əlavə edildi. İndi edə bilərsiniz:
+
+# "Profilinizi":"$MyStaffLink" redaktə edin.
+# "İcma":"${__VirtualRootPath}/Products/Community/" da mövcud olan məzmuna baxın və şərh verin və "Layihələr":"${__VirtualRootPath}/Products/Projects/".
+# "Sənədlər":"${__VirtualRootPath}/Products/Files/" də sizin üçün mövcud olan faylları əlavə edin və endirin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə cədvəlinizi təşkil edin.
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_activation_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+$__AuthorName sizi şirkətinizin təhlükəsiz internet ofisinə qoşulmağa dəvət etdi, bu, eyni zamanda sizin əməkdaşlığınızı gücləndirəcək. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz ofisinizdən necə istifadə etmək barədə daha çox məsləhət əldə edəcəksiniz. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_v10" xml:space="preserve">
+    <value>Salam, $UserName!
+
+İstifadəçi profiliniz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında uğurla portala əlavə edildi. İndi edə bilərsiniz:
+
+# "Sənədlər":"${__VirtualRootPath}/Products/Files/" yaradın və redaktə edin, onları komanda yoldaşları ilə paylaşın və real vaxtda əməkdaşlıq edin.
+# E-poçt hesablarınızı əlavə edin və "Mail":"${__VirtualRootPath}/addons/mail/" ilə bütün yazışmaları bir yerdə idarə edin.
+# "Layihələr":"${__VirtualRootPath}/Products/Projects/" ilə iş axınınızı və "CRM":"${__VirtualRootPath}/Products/CRM/" istifadə edərək müştəri münasibətlərinizi idarə edin.
+# Bloqlarınızı, forumlarınızı başlamaq, tədbirlər əlavə etmək, əlfəcinləri paylaşmaq üçün "İcma":"${__VirtualRootPath}/Products/Community/" istifadə edin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə iş qrafikinizi təşkil edin.
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalından mesaj:
+E-poçt: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_for_admin_notify_tg" xml:space="preserve">
+    <value>[${__VirtualRootPath}](${__VirtualRootPath}) portalından mesaj
+
+E-poçt: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"$InviteLink" portalına qoşulmaq üçün dəvət
+
+Salam,
+
+Siz "${__VirtualRootPath}":"$InviteLink" portalına qoşulmaq üçün müraciət etdiniz - ${LetterLogoText}, sənəd və layihənin idarə edilməsi üçün platforma. Portala qoşulun və həmkarlarınız və ya dostlarınızla əməkdaşlığa başlayın.
+
+Dəvəti qəbul etmək üçün bu linkə daxil olaraq ad və şifrənizi daxil edin:
+
+$GreenButton
+
+* Qeyd *: bu link yalnız 48 saat etibarlıdır. Bu müddət ərzində əməliyyatı tamamlayın.</value>
+  </data>
+  <data name="pattern_mailbox_created" xml:space="preserve">
+    <value>Salam $UserName,
+
+      Admin "${__VirtualRootPath}":"${__VirtualRootPath}" portalında sizin üçün yeni &lt;b&gt;$Address&lt;/b&gt; poçt qutusu yaratdı.
+
+      Digər e-poçt müştəriləri üçün aşağıdakı parametrlərdən istifadə edin:
+
+      Giriş: &lt;b&gt;$Login&lt;/b&gt;
+      Parol: "&lt;b&gt;set password&lt;/b&gt;":"$MyStaffLink"
+
+      Gələn poçt (IMAP):
+      Server: &lt;b&gt;$Server&lt;/b&gt;
+      Port: &lt;b&gt;$ImapPort&lt;/b&gt;
+      SSL / TLS:  &lt;b&gt;$Encryption&lt;/b&gt;
+
+      Gedən poçt (SMTP):
+      Server: &lt;b&gt;$Server&lt;/b&gt;
+      Port: &lt;b&gt;$SmtpPort&lt;/b&gt;
+      SSL / TLS: &lt;b&gt;$Encryption&lt;/b&gt;
+      Doğrulama Tələb olunur: &lt;b&gt;Bəli&lt;/b&gt;
+
+      Əgər bu məktubu səhvən almısınızsa, ona məhəl qoymayın və ya dəqiqləşdirmək üçün portal admininizlə əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_mailbox_password_changed" xml:space="preserve">
+    <value>   Salam $UserName,
+
+       &lt;b&gt;$Address&lt;/b&gt; poçt qutusunun parolu dəyişdirildi.
+
+       Əgər bu məktubu səhvən almısınızsa, ona məhəl qoymayın və ya dəqiqləşdirmək üçün portal admininizlə əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_mailbox_without_settings_created" xml:space="preserve">
+    <value>Salam, $UserName,
+
+       Admin sizin üçün "${__VirtualRootPath}":"${__VirtualRootPath}" portalında yeni &lt;b&gt;$Address&lt;/b&gt; poçt qutusu yaratdı.
+
+       Əgər bu məktubu səhvən almısınızsa, ona məhəl qoymayın və ya dəqiqləşdirmək üçün portal admininizlə əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Portalın başqa bölgəyə köçürülməsi zamanı xəta
+
+$RegionName bölgəsinə köçürülərkən xəta baş verdi. Zəhmət olmasa bir az sonra yenidən cəhd edin.
+Portalınız indi köhnə "$PortalUrl":"$PortalUrl" ünvanında mövcuddur: 
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa,  ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bildiriş növünü dəyişdirmək üçün "abunəlik parametrlərinizi idarə edin":"$RecipientSubscriptionConfigURL".^
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Portalı başqa bölgəyə köçürərkən xəta
+
+Başqa bölgəyə köçürülərkən xəta baş verdi. Zəhmət olmasa bir az sonra yenidən
+ cəhd edin.
+Portalınız indi köhnə "$PortalUrl":"$PortalUrl" ünvanında mövcuddur.
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto: support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bildiriş növünü dəyişdirmək üçün "abunəlik parametrlərinizi idarə edin":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Portalın başqa bölgəyə köçürülməsi başlandı
+
+Portalın $RegionName bölgəsinə köçürülməsi başladı. Məlumatınızın həcmindən asılı olaraq proses vaxt ala bilər.
+
+* Qeyd *: Portal köçürmə prosesi zamanı əlçatan olmayacaq. Köçürmə tamamlandıqdan sonra portalın linki dəyişdiriləcək və paylaşılan sənədlərdəki bütün keçidlər əlçatmaz olacaq.
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Qrupu
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_migration_success" xml:space="preserve">
+    <value>h1.Portalın başqa regiona miqrasiyası başlandı
+
+$RegionName bölgəsinə portal miqrasiyası başladı. Məlumatınızın miqdarından asılı olaraq bir müddət çəkə bilər.
+
+* Qeyd *: Portal miqrasiya prosesi zamanı mövcud olmayacaq. Miqrasiya tamamlandıqdan sonra portalın URL-i dəyişdiriləcək və paylaşılan sənədlərdəki bütün keçidlər h1 olacaq. Portalın başqa bölgəyə miqrasiyası uğurla tamamlandı.
+
+$RegionName bölgəsinə portal miqrasiyası uğurla tamamlandı.
+Portalınız indi "$PortalUrl":"$PortalUrl" ünvanında mövcuddur
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız olarsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Qrupu
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_migration_success_v115" xml:space="preserve">
+    <value>h1. Portal miqrasiyası
+h1."$PortalUrl":"$PortalUrl"
+
+Portalınız yeni domenə köçürüldü. Zəhmət olmasa, əlaqə zamanı istifadə olunacaq parolu daxil etməklə girişinizi bərpa edin.
+
+Hesab parolunuzu qurmaq üçün aşağıdakı linki izləyin:
+$GreenButton
+
+* Qeyd *: bu link yalnız 7 gün ərzində etibarlıdır. Zəhmət olmasa bu müddət ərzində bərpa prosesini tamamlayın.
+
+Bu e-məktubu səhvən almısınızsa, ona məhəl qoymayın və ya əlavə məlumat üçün "$PortalUrl":"$PortalUrl" portalınızın administratoru ilə əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_opensource_admin_activation_v11" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz indicə komandanızın daxili əməkdaşlığı gücləndirəcək bulud ofisi olan ONLYOFFICE portalını yaratdınız. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Zəhmət olmasa, "link":"$ActivateUrl" dən sonra e-poçtunuzu təsdiqləyin.
+
+E-poçt və ya parolunuzu "şəxsi profil səhifənizdə":"$MyStaffLink" dəyişə bilərsiniz.
+
+Bildirişlər göndərmək üçün biz ONLYOFFICE poçt serverinin SMTP parametrlərindən istifadə edirik. Onları dəyişdirmək üçün "burada":"${__HelpLink}/server/windows/community/smtp-settings.aspx" təlimatları izləyin.
+
+Ətraflı məlumat ONLYOFFICE "Yardım Mərkəzində":"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_opensource_admin_docs_tips_v11" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Ümid edirik ki, inteqrasiya olunmuş ONLYOFFICE sənəd redaktorlarından istifadə etməkdən zövq alacaqsınız. Faydalı ola biləcək bəzi məsləhətlər:
+
+*#1. Sənədləri* fərdlərə və qruplara paylaşın. Onların giriş səviyyəsini seçin - Yalnız oxumaq, Şərh etmək, Forma Doldurmaq, Baxış və ya Tam Giriş. Digər istifadəçilərə həmmüəllifləri narahat etmədən öz filtrlərini elektron cədvəllərdə tətbiq etməyə icazə verin. "ONLYOFFICE API":"https://api.onlyoffice.com/editors/config/document/permissions" istifadə edərək endirmə və çapı məhdudlaşdırın.
+
+*#2. Sənədin işlərdə necə saxlandığını öyrənin* və onu öz ehtiyaclarınıza uyğunlaşdırın. "Ətraflı məlumat":"https://www.onlyoffice.com/blog/2020/04/save-and-force-save-in-onlyoffice-never-lose-a-document/"
+
+*#3. "GitHub":"https://github.com/ONLYOFFICE/DocumentServer/issues" -də suallar yaradaraq və ya "forumumuzda":"https://dev.onlyoffice.org/" suallar verməklə icmadan kömək* alın. Siz həmçinin premium dəstəyə abunəlik ala və ya sadəcə olaraq dəstək komandamızdan müəyyən hallarda kömək etməsini xahiş edə bilərsiniz. "Ətraflı məlumat":"https://github.com/ONLYOFFICE/DocumentServer/issues"
+
+*#4. Ödənişsiz proqramlar əldə edin*. Windows, Linux və macOS-da sənədlərlə oflayn işləmək üçün "bu ödənişsiz iş masası proqramını endirin":"https://www.onlyoffice.com/apps.aspx". Mobil cihazlarda sənədləri redaktə etmək üçün "iOS":"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" üçün ödənişsiz Sənədlər proqramı əldə edin və ya "Android":"https://play.google .com/store/apps/details?id=com.onlyoffice.documents".
+
+*#5. Şifrələnmiş əməkdaşlıq üçün şəxsi otaqları aktivləşdirin*. Bu otaqlarda saxlanılan bütün sənədlər, eləcə də əməkdaşlıq müddətində məlumat transferi arzuolunmaz girişin qarşısını almaq üçün AES-256 şifrələmə alqoritmi ilə şifrələnir. "Ətraflı məlumat":"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_opensource_admin_welcome_v11" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Veb-ofisinizi daha da təhlükəsiz etmək üçün nə edə bilərsiniz:
+
+İstifadəçiləriniz üçün təkcə lokal deyil, həm də xarici portal girişini təmin etmək istəyirsinizsə, *SSL sertifikatı əldə edin*. İdarəetmə Panelində yeni imzalanmış sertifikat yaradın və ya etibar etdiyiniz provayderdən sertifikat əldə edin.
+
+İdarəetmə Panelində *Avtomatik ehtiyat nüsxələrini aktivləşdirin*. Biz həmçinin 3-cü xidmətlərdən istifadə etməyi və vaxtaşırı ONLYOFFICE quraşdırılmış serverin ehtiyat nüsxəsini çıxarmağı tövsiyə edirik. "Yardım Mərkəzimiz"dəki təlimatlar:"${__HelpLink}/server/controlpanel/enterprise/backup-restore.aspx".
+
+*Portal təhlükəsizlik parametrlərini tənzimləyin*: Məqbul IP siyahısından istifadə edərək girişi məhdudlaşdırın, etibarlı poçt domenlərini təyin edin, parol uzunluğunu təyin edin və s. "Ətraflı məlumat&gt;&gt;":"${__HelpLink}/server/enterprise/configure-enterprise.aspx?_ga=2.111477636.160074001.1555312634-699576329.1539952318"
+
+SMS və ya autentifikator proqramı vasitəsilə *2 faktorlu autentifikasiyanı aktivləşdirin*. Təlimatlar "burada"dır:"${__HelpLink}/guides/two-factor-authentication.aspx?_ga=2.115795846.160074001.1555312634-699576329.1539952318".
+
+*Girişin mərkəzləşdirilməsi üçün LDAP-dan istifadə edin*. LDAP serverinizdən (məsələn, OpenLDAP Server və ya Microsoft Active Directory) lazımi istifadəçiləri və qrupları portalınıza asanlıqla idxal edin. Ətraflı məlumata "burada" baxın:"${__HelpLink}/server/windows/community/ldap-settings.aspx".
+
+*Öz SMPT serverinizdən istifadə edin*. Defolt olaraq istifadəçilər üçün bildirişlər (məsələn, onlara sənədə giriş icazəsi verilirsə) standart ONLYOFFICE SMPT serveri vasitəsilə təmin edilir. Öz SMTP serverinizi konfiqurasiya edin ki, bildirişləriniz heç bir üçüncü tərəf serverindən keçməsin. "Təlimatlar&gt;&gt;":"${__HelpLink}/server/windows/community/smtp-settings.aspx"
+
+*Bütün lazımsız portları bağlayın*. ONLYOFFICE üçün açılmalı olan bütün portların siyahısı "burada"dır:"${__HelpLink}/server/docker/community/open-ports.aspx".
+
+*İstirahət zamanı məlumatlarınızı şifrələyin*. Bunu etmək üçün "təlimatlara əməl edin":"${__HelpLink}". Əgər əməkdaşlıq prosesini qorumaq istəyirsinizsə, Şəxsi Otaqları aktivləşdirin. "Ətraflı məlumat":"${__HelpLink}"
+
+Veb-ofisinizi qorumaq üçün "link"ə daxil olun:"$ControlPanelUrl"
+
+Ətraflı məlumat "Yardım Mərkəzimiz"də mövcuddur:"${__HelpLink}".</value>
+  </data>
+  <data name="pattern_opensource_guest_activation_v11" xml:space="preserve">
+    <value>Salam!
+
+Siz qonaq istifadəçi kimi "${__VirtualRootPath}":"${__VirtualRootPath}" proqramına qoşulmağa dəvət olunursunuz. Linkə klikləməklə dəvəti qəbul edin:
+
+"$ActivateUrl":"$ActivateUrl"
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz veb-ofisinizdən necə istifadə etmək barədə daha çox məsləhətlər alacaqsınız. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_opensource_guest_welcome_v11" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz indi "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında qonaq istifadəçisiniz. İndi edə bilərsiniz:
+
+*Profilinizi redaktə edərək komandaya özünüzü təqdim edin*.
+
+*Paylaşılan sənədlərə baxın*, həmçinin onları endirin və paylaşılan qovluqlara yeni faylları yükləyin.
+
+*Dəvət olunduğunuz layihələrə*, həmçinin blog və forum yazılarına baxın və şərh verin.
+
+*Ani mesajlar mübadiləsi* və Söhbətdən istifadə edərək faylları daha sürətli şəkildə paylaşın.
+
+Görüşlər təşkil etmək, xatırladıcılar qurmaq və görüləcək işlər siyahıları yaratmaq üçün *Şəxsi və paylaşılan təqvimlərdən* istifadə edin!
+
+Veb-ofisinizə daxil olmaq üçün "link":"${__VirtualRootPath}" ə daxil olun.
+
+Öz veb-ofisinizi yaratmaq istəyirsinizsə, "ONLYOFFICE rəsmi internet saytına":"https://www.onlyoffice.com/" daxil olun.</value>
+  </data>
+  <data name="pattern_opensource_user_activation_v11" xml:space="preserve">
+    <value>Salam!
+
+Siz şirkətinizin təhlükəsiz internet ofisinə qoşulmağa dəvət olunursunuz, bu, eyni zamanda əməkdaşlığınızı gücləndirəcək. Ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+"Link":"$ActivateUrl" ə daxil olaraq dəvəti qəbul edin
+
+Link yalnız 7 gün ərzində etibarlıdır.
+
+Siz veb-ofisinizdən necə istifadə etmək barədə daha çox məsləhət əldə edəcəksiniz. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.</value>
+  </data>
+  <data name="pattern_opensource_user_docs_tips_v11" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Ümid edirik ki, inteqrasiya olunmuş ONLYOFFICE sənəd redaktorlarından istifadədən məmnun qalacaqsınız. Faydalı ola biləcək bəzi məsləhətlər:
+
+*#1. Qabaqcıl formatlaşdırmanı kəşf edin*. Doc redaktorları sizə üslub və formatlaşdırma alətlərinin tam dəstini təqdim edir.
+
+*#2. Sənədləri* ayrı-ayrı şəxslərə və ya istifadəçi qruplarına paylaşın. Onların giriş səviyyəsini seçin - Yalnız oxumaq, Şərh etmək, Forma Doldurmaq, Baxış və ya Tam Giriş.
+
+*#3. Birgə redaktə rejimini seçin*. Komandanızla real vaxt rejimində sənədi redaktə edərkən, həmmüəllifiniz yazarkən dəyişiklikləri görmək üçün Sürətli rejimə və ya daha çox məxfilik əldə etmək üçün Sərt rejimə keçin. "Videoya baxın":"https://youtu.be/8z1iLv32J2M"
+
+*#4. Nəzərdən keçirin, şərh verin və söhbət edin*. Orijinal sənədə dəyişiklik etmədən dəyişikliklər təklif etmək üçün "Baxış":"https://youtu.be/D1tbffuQeUA" istifadə edin, konkret çıxarış haqqında fikirlərinizi bölüşmək üçün Şərhlər əlavə edin və ya sənədinizdə ani mesajlar vasitəsilə söhbət edin.
+
+*#5. Fayllarınızı bir yerdə idarə etmək üçün Dropbox və ya Google Disk kimi 3-cü tərəf buludlarını* birləşdirin.
+
+*#6. Proqramları əldə edin*. Windows, Linux və macOS-da sənədlərlə oflayn işləmək üçün "bu ödənişsiz iş masası proqramını" endirin:"https://www.onlyoffice.com/apps.aspx". Mobil cihazlarda sənədləri redaktə etmək üçün "iOS" üçün ödənişsiz Sənədlər proqramı əldə edin:"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" və ya "Android":"https://play.google .com/store/apps/details?id=com.onlyoffice.documents".</value>
+  </data>
+  <data name="pattern_opensource_user_welcome_v11" xml:space="preserve">
+    <value>Təbrik edirik, $UserName!
+
+Siz "${__VirtualRootPath}"komandanızın rəqəmsal ofisinə qoşuldunuz:"${__VirtualRootPath}". İndi edə bilərsiniz:
+
+* Sənədləri saxlayın, idarə edin və paylaşın *. Şəkillərə baxın, videoları və audioları oxuyun. "Ətraflı məlumat":"${__HelpLink} /gettingstarted/documents.aspx"
+
+* Daxili ONLYOFFICE redaktorlarından istifadə edərək mətn sənədləri, cədvəllər və təqdimatlar üzərində redaktə edin və əməkdaşlıq edin. Yüzlərlə formatlaşdırma və əməkdaşlıq alətindən istifadə edin. "Videoya baxın":"https://youtu.be/ep1VLGlmsdI"
+
+* Tapşırıqlarınızı idarə edin *. Fəaliyyətlərinizi planlaşdırmaq, tapşırıqları və son tarixləri müəyyən etmək üçün "ONLYOFFICE Layihələri"ndən istifadə edin:"${__HelpLink}/projects.aspx".
+
+* Müştəri münasibətlərini idarə edin *. "CRM ONLYOFFICE":"${__HelpLink}/crm.aspx" ilə müştəri məlumat bazası yaradın, fəaliyyətlərinizi idarə edin, perspektivləri təhlil edin və satışları izləyin.
+
+* Şəxsi və kollektiv gündəliyi yaradın *. Görüşlər və görüşlər təşkil edin, xatırlatmaları planlaşdırın, işlər siyahıları yaradın! "Ətraflı məlumat":"${__HelpLink}/calendar.aspx"
+
+* Viki və daxili ünsiyyət vasitələri ilə mübadilə *. Yeni işçilərin tez uyğunlaşmasına imkan verəcək bilik bazası yaradın. Bloqlar, forumlar və sorğular vasitəsilə fikirlərinizi paylaşın. "Ətraflı məlumat":"${__HelpLink}/community.aspx"
+
+* Bütün e-poçtlarınızı bir yerdə saxlayın və peşəkar poçt qutuları yaradın *. Bütün e-poçtlarınızı bir yerə toplayın və ya administratorunuzdan yeni peşəkar poçt qutusu yaratmağı xahiş edin. "Ətraflı məlumat":"${__HelpLink}/mail.aspx"
+
+* Ani mesajlaşma vasitəsilə əlaqə saxlayın * və Talk-dan istifadə edərək faylları sürətlə paylaşın. "Ətraflı məlumat":"${__HelpLink}/talk.aspx"
+
+Rəqəmsal masaüstünə daxil olmaq üçün bu "link i izləyin":"${__VirtualRootPath}".</value>
+  </data>
+  <data name="pattern_personal_activate" xml:space="preserve">
+    <value>Salam, $UserName
+Siz ONLYOFFICE Personal-da"${__VirtualRootPath}":"${__VirtualRootPath}" uğurla qeydiyyatdan keçmisiniz.
+
+Sevimli bulud yaddaşınızı birləşdirin: Sənədləriniz üçün hər yerdə əlçatan olaniş sahəsi yaratmaq üçün Dropbox, Google Drive, OneDrive və ya Box-dan istifadə edin.
+
+"Bloqumuzda" ONLYOFFICE Personal haqqında ətraflı məlumat əldə edin:"$TagBlogLink".
+
+Burada olmağınıza şadıq. Bizimlə qalın!
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_after_registration1" xml:space="preserve">
+    <value>h1.ONLYOFFICE Personal-a xoş gəlmisiniz
+
+Siz indicə şəxsi bulud ofisinizi yaratdınız.
+
+h3.Bu, dostlarınız və ya həmkarlarınıza girişi təmin edən istənilən yerdən sənədləri redaktə edə və saxlaya, onlarla işləyə biləcəyiniz virtual iş sahəsidir.
+
+ONLYOFFICE Microsoft Office ™ sənəd formatları ilə uyğun gəlir və yaradılmış obyektlərin formatının və keyfiyyətinin itirilməməsinə zəmanət verir. Sizi formatlaşdırmanın çətinliyindən azad etməyə və peşəkar redaktə vasitələrinin tam dəstini təmin edəcəyimizə söz veririk.
+
+h3. Sürətlə başlama üçün ONLYOFFICE ilə edə biləcəyiniz şeylər bunlardır:
+
+- Kompüterinizdən faylları yükləyin və ya yenilərini yaradın;
+
+- Bütün məşhur fayl formatları ilə işləmək;
+
+- Avtomatik formaları, diaqramları, cədvəlləri, tənlikləri və digər obyektləri redaktə etmək;
+
+- Genişləndirilmiş redaktə funksiyası üçün müxtəlif əlavələrdən istifadə edin.
+
+- "Chrome genişləndirilməsi" ilə buludda şəxsi iş masanıza asanlıqla daxil olun: "https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US".
+ 
+Siz həmçinin pulsuz "masa üstü redaktorlarımız" vasitəsilə sənədləri oflayn rejimdə redaktə edə bilərsiniz: "https://www.onlyoffice.com/download-desktop.aspx" və ya "mobil redaktə dəsti" əldə edə bilərsiniz: "https://www.onlyoffice.com/mobile.aspx" iOS cihazınız üçün.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_after_registration14" xml:space="preserve">
+    <value>$PersonalHeaderStart Frilanserlərə kömək etmək üçün ipucular $PersonalHeaderEnd
+
+h3. ONLYOFFICE, müqavilə əsasında və ya layihə üzrə fərdi işləməyinizdən asılı olmayaraq frilanser icmasına bir sıra funksiyalar təqdim edir:
+
+- Sənədlərə baxmaq, nəzərdən keçirmək və ya əməkdaşlıq etmək üçün girişin təmin edilməsi;
+
+- Real vaxt rejimində işləmək üçün Sürətli birgə redaktə və şərh rejimi;
+
+- Sənədin hissələrini özəl olaraq redaktə etməyə imkan verən Sərt birgə redaktə rejimi;
+
+- Versiya Tarixçəsi;
+
+- Dəyişiklikləri izləmək və təklif etmək;
+
+- Daxili söhbət.
+
+Faylları endirməyə və e-poçtla göndərməyə ehtiyac yoxdur. Sadəcə onları bulud iş ofisindən xarici linklərlə paylaşın və harada olursunuzsa olun üzərində işləyin.
+
+
+Daha çox iş alətləri lazımdır?
+
+Biznes üçün ONLYOFFICE həlləri 30 günlük sınaq müddəti üçün pulsuzdur və sizə sərbəst və uzaqdan iş üçün daha çox imkanlar verir. Məsələn, siz müştərilərinizə hesab-fakturalar yarada və təqdim edə, e-poçt və VoIP vasitəsilə onlarla əlaqə saxlaya bilərsiniz. Ticarət üçün ONLYOFFICE haqqında daha çox öyrənmək üçün "CRM İcmal ımıza baxın":"http://www.onlyoffice.com/crm.aspx"
+
+
+
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_after_registration21" xml:space="preserve">
+    <value>$PersonalHeaderStart Daha çox funksionallıq və avtomatlaşdırma lazımdır? komandaları üçün ONLYOFFICE-i sınayın $PersonalHeaderEnd
+
+h3.Əgər siz komanda ilə əməkdaşlıq edirsinizsə və ya layihəni idarə edirsinizsə, biz sizə biznes üçün ONLYOFFICE-i sınamağı təklif edirik. Onlayn redaktorlara və sənəd idarəetmə funksiyalarına əlavə olaraq siz aşağıdakıları edə biləcəksiniz:
+
+- Tapşırıqlara nəzarət edin və layihənin idarə edilməsi modulunda * Gantt * diaqramından istifadə edin;
+
+- Satışları, müştəri münasibətlərini izləmək və * CRM*-də faktura yaratmaq;
+
+- Bütün e-poçt hesablarınızı * e-poçt toplayıcısında * idarə edin;
+
+- Mesajlaşma, blog, forumlar və viki ilə komanda əlaqəsini qurun.
+
+Siz və komanda yoldaşlarınız üçün unikal əməkdaşlıq sahəsi yaradın.
+
+"Buludda sınağa başlayın":"https://www.onlyoffice.com/registration.aspx" və ya "serverinizdə":"https://www.onlyoffice.com/download-workspace.aspx?from= müəssisə nəşri "30 gün ərzində heç bir funksional məhdudiyyət olmadan və iş axınınızın dərhal necə yaxşılaşdığına baxın!
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_after_registration28" xml:space="preserve">
+    <value>$PersonalHeaderStart Veb masaüstünüzün təhlükəsizliyini necə artırmaq olar $PersonalHeaderEnd
+
+Verilənlərinizi qorumaq üçün yollar axtarırsınız?
+
+h3.Sənədlərinizi şəxsi server həllərimizlə təhlükəsiz saxlamaq üçün əlavə alətləri birləşdirməyi düşünün:
+
+- Öz serverinizdə * şəxsi bulud * ilə məlumatlarınıza tam nəzarət edin;
+
+- * iki faktorlu autentifikasiyanı * konfiqurasiya edin və üçüncü tərəf xidmətləri ilə * Tək Giriş * funksiyasından istifadə edin;
+
+- * Bağlantı təhlükəsizliyi parametrlərini * bir neçə səviyyədə tətbiq edin;
+
+- Veb iş masanızda * istifadəçi fəaliyyətinə * nəzarət edin;
+
+- Məlumatlarınızın əllə və ya avtomatik * ehtiyat nüsxəsini * yerinə yetirin.
+
+$GreenButton
+
+ONLYOFFICE-in məlumatlarınızı necə qoruduğu haqqında təhlükəsizlik icmalımızda ətraflı öyrənin.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart Sevimli bulud yaddaşınızı ONLYOFFICE-ə qoşun $PersonalHeaderEnd
+
+Bulud ofisi yaratmağınızdan bir həftə keçib, ona görə də qaçırdığınız bəzi faydalı funksiyaları açıqlamağın vaxtıdır.
+
+*Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* və ya *Yandex.Disk*-i ONLYOFFICE ilə əlaqələndirib bütün sənədləriniz üçün vahid idarəetməsahəsi yaradın. Xarici faylları da ONLYOFFICE daxilində redaktə edə və onları faylları saxladığınız yaddaşa əlavə edə biləcəksiniz. Fayl yaddaşlarını ONLYOFFICE ilə əlaqələndirməklə bağlı ətraflı məlumatı "buradan":"${__HelpLink}/tipstricks/add-resource.aspx" əldə edə bilərsiniz.
+
+Siz, həmçinin, "əlaqələndirici tətbiqimizdən" istifadə edərək ONLYOFFICE redaktorlarını Google Diskə inteqrasiya edə bilərsiniz: "https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
+
+Sənəd İdarəetməsi haqqında daha çox bilmək istəyirsiniz?
+
+h3."Buludda":"https://www.onlyoffice.com/cloud-office.aspx" və ya "serverinizdə":"https://www.onlyoffice.com/server-solutions.aspx" Biznes üçün ONLYOFFICE-i 30 gün ərzində pulsuz sınayın və biznes alət dəsti ilə genişləndirilmiş sənəd idarəetmə imkanlarını yoxlayın:
+
+- Layihələr üzrə komanda sənədlərini idarə etmək;
+
+- Sənədləri CRM və Email ilə inteqrasiya etmək;
+
+- Faylları istifadəçi qrupları ilə paylaşmaq;
+
+- Komandanın ünsiyyət vasitələri ilə iş prosesinizi optimallaşdırmaq.
+
+Maraqlıdır? "Biznes üçün ONLYOFFICE" haqqında ətraflı məlumat əldə edin: "http://www.onlyoffice.com/document-management.aspx".
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_change_email_v115" xml:space="preserve">
+    <value>ONLYOFFICE hesabınızdakı e-poçtu dəyişmək istəyirsiniz?
+
+Aşağıdakı düyməni basın və buludunuza daxil olun*.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+*Bu brauzerdə ONLYOFFICE-a daxil olmamısınızsa, təsdiq üçün köhnə e-poçtunuzdan istifadə etməlisiniz.
+
+E-poçtunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
+  </data>
+  <data name="pattern_personal_change_password" xml:space="preserve">
+    <value>"${__VirtualRootPath}":"${__VirtualRootPath}" portalına daxil olmaq üçün istifadə etdiyiniz parolu dəyişmək üçün sorğu olub.
+
+Şifrənizi dəyişmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır. Zəhmət olmasa, həmin müddət ərzində parol dəyişmə prosesini tamamlayın.
+
+Əgər parolunuzu dəyişmək istəmirsinizsə və ya bu e-poçt səhvən göndərilibsə, ona əhəmiyyə verməyin.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_change_password_v115" xml:space="preserve">
+    <value>ONLYOFFICE Şəxsi hesabınızdakı parolu dəyişmək istəyirsiniz? Təsdiqləmək üçün aşağıdakı düyməni basın.
+
+$GreenButton
+
+Link 7 gün ərzində etibarlıdır.
+
+Parolunuzu dəyişmək istəmirsiniz? Sadəcə bu mesaja əhəmiyyət verməyin.</value>
+  </data>
+  <data name="pattern_personal_confirmation" xml:space="preserve">
+    <value>Salam,
+
+Siz indicə şəxsi istifadə üçün ONLYOFFICE həllində hesabı qeydiyyatdan keçirdiniz. Qeydiyyatı təsdiqləmək və parol yaratmaq üçün "bura":"$InviteLink" üzərinə klikləyin.
+
+Əgər linki aça bilmirsinizsə, aşağıdakı "$InviteLink"i kopyalayın:"$InviteLink" və onu brauzerinizin ünvan çubuğuna yapışdırın.
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_personal_profile_delete" xml:space="preserve">
+    <value>Personal.onlyoffice.com saytında hesabınıza xitam verilməsini xahiş etmisiniz. Sorğunu tamamlamaq üçün linkə daxil olun (link 7 gün ərzində aktivdir):
+
+$GreenButton
+
+*Qeyd*: Silindikdən sonra hesabınız və onunla əlaqəli bütün məlumatlar "Məxfilik bəyanatımız":"https://help.onlyoffice.com/Products/Files/doceditor.aspx?fileid= 5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0" a uyğun olaraq həmişəlik silinəcək.
+
+Davam etmək istəmirsinizsə, bu e-poçta əhəmiyyət verməyin.
+
+Hər hansı sualınız varsa, "support@onlyoffice.com":"mailto:support@onlyoffice.com" ünvanında bizimlə əlaqə saxlayın
+
+Hörmətlə,
+ONLYOFFICE komandası</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1. "${__VirtualRootPath}":"${__VirtualRootPath}" portalını deaktiv edin:
+
+Salam $OwnerName,
+
+Siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalınızın müvəqqəti deaktiv edilməsini tələb etdiniz. Əməliyyatı təsdiqləmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+* Qeyd *: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portalın deaktivasiya prosesini tamamlayın.
+
+Aşağıdakı linkə klikləməklə, istənilən vaxt portalınızı yenidən aktivləşdirə bilərsiniz:
+p =. "Portalı yenidən aktivləşdirin":"$ActivateUrl" (bu linkin vaxt məhdudiyyəti yoxdur)
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız varsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE dəstək komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_deactivate_tg" xml:space="preserve">
+    <value>Portalın deaktiv edilməsi: [${__VirtualRootPath}](${__VirtualRootPath})
+
+Hörmətli $OwnerName,
+
+Siz [${__VirtualRootPath}](${__VirtualRootPath}) portalınızı müvəqqəti olaraq deaktiv etmək üçün sorğu göndərmisiniz. Əməliyyatı təsdiqləmək üçün aşağıdakı linkə daxil olun:
+
+$GreenButton
+
+_Qeyd_: Bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portalın deaktivasiya prosesini tamamlayın.
+
+
+Bu linkdən istifadə edərək istənilən vaxt portalınızı yenidən aktivləşdirə bilərsiniz:
+[Portalı yenidən aktivləşdirin]($ActivateUrl) (bu keçid vaxtla məhdudlaşmır)
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız varsa, [support@onlyoffice.com](mailto:support@onlyoffice.com) ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin.
+
+
+ONLYOFFICE ™ komandası
+[www.onlyoffice.com](http://onlyoffice.com/)</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalının silinməsi: 
+
+Salam $OwnerName,
+
+Siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalınızı həmişəlik silməyi tələb etdiniz.
+
+* Vacib! Portalınızda saxlanılan bütün məlumatlar, eləcə də qeydiyyat məlumatlarınız itiriləcək və onları bərpa etmək mümkün olmayacaq.
+
+#if($AutoRenew == "True")
+Portalı silməzdən əvvəl təkrar ödəniş seçiminin deaktiv edilib-edilmədiyini yoxlayın. Bunu "Avangate saytındakı şəxsi hesabınızda" edə bilərsiniz: "https://secure.avangate.com/myaccount/".
+#end
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalınızı silmək istəyirsinizsə, əməliyyatı təsdiqləmək üçün aşağıdakı linki izləyin:
+
+$GreenButton
+
+* Qeyd *: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portalın silinməsi prosesini tamamlayın.
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız varsa, ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Qrupu
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete_success_v115" xml:space="preserve">
+    <value>ONLYOFFICE uğurla deaktiv edildi. Nəzərə alın ki, bütün məlumatlarınız "Məxfilik bəyanatımıza":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk12YJJeUVtS0kyYk12YLBGM0000KYk14YLBJNRd" uyğun olaraq silinəcək
+
+Niyə ONLYOFFICE istifadəsini dayandırmaq qərarına gəldiniz? Təcrübənizi bizimlə paylaşın.
+
+$GreenButton
+
+Təşəkkür edir və sizə uğurlar arzulayırıq!
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete_tg" xml:space="preserve">
+    <value>[${__VirtualRootPath}](${__VirtualRootPath}) portalının silinməsi
+
+Hörmətli $OwnerName,
+
+[${__VirtualRootPath}](${__VirtualRootPath}) portalınızı müvəqqəti silmək üçün sorğu göndərmisiniz.
+
+_Vacib! Portalınızda saxlanılan bütün məlumatlar, eləcə də qeydiyyat məlumatlarınız silinəcək və onları bərpa etmək mümkün olmayacaq.
+
+#if($AutoRenew == "True")
+Portalı silməzdən əvvəl avtomatik ödənişləri deaktiv etdiyinizə əmin olun. Siz avtomatik ödənişlərin statusunu [Avangate Hesabınızda yoxlaya bilərsiniz](https://secure.avangate.com/myaccount/").
+#end
+
+[${__VirtualRootPath}](${__VirtualRootPath}) portalını silmək istəyirsinizsə, əməliyyatı təsdiqləmək üçün bu linki izləyin:
+
+$GreenButton
+
+_Qeyd_: bu link yalnız 7 gün ərzində etibarlıdır. Bu müddət ərzində portalın silinməsi prosesini tamamlayın.
+
+Hər hansı bir sualınız və ya köməyə ehtiyacınız varsa, [support@onlyoffice.com](mailto:support@onlyoffice.com) ünvanında bizimlə əlaqə saxlamaqdan çəkinməyin.
+
+
+ONLYOFFICE ™ Dəstək Komandası
+[www.onlyoffice.com](http://onlyoffice.com/)</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1. Portal ünvanının dəyişdirilməsi
+
+Salam, $UserDisplayName,
+
+$PortalUrl portalınızın ünvanı yeni "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanına dəyişdirilib.
+
+* Qeyd *: Paylaşılan sənədlərdəki bütün keçidlər əlçatmazdır, ona görə də siz onları dəyişdirənə qədər DNS parametrləri və Tək Giriş seçimləri deaktiv edilib. Təqviminizəəlavəedilən üçüncü tərəf iCal keçidləri onları yenidən yükləməyincə yenilənməyəcək.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Profile "${__VirtualRootPath}" portalından silinir:"${__VirtualRootPath}"
+
+Siz "${__VirtualRootPath}":"${__VirtualRootPath}" portalından profilinizi həmişəlik silmək üçün sorğu göndərmisiniz.
+
+Profilinizi silmək istəyirsinizsə, aşağıdakı linki izləyin:
+
+$GreenButton
+
+*Qeyd*: bu link 7 gün ərzində etibarlı olacaq. Bu müddət ərzində profilin silinməsini tamamlayın.</value>
+  </data>
+  <data name="pattern_profile_has_deleted_itself" xml:space="preserve">
+    <value>İstifadəçi "$FromUserName":"$FromUserLink" öz profilini silib və bu profil indi bloklanıb. Bütün istifadəçi faylları hələ də ona təyin edilir və diskdə yer tutur.
+
+Siz istifadəçinin başqaları ilə paylaşılan sənədlərini başqa aktiv istifadəçiyə təyin edə və ya portal disk yerini boşaltmaq üçün onları silə bilərsiniz.
+
+Sənədləri başqa istifadəçiyə təyin etmək və ya məlumatları silmək üçün "bu link":"$FromUserLink" istifadə edərək istifadəçi profilinə keçin.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" profiliniz dəyişdirildi
+
+Salam $UserName,
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" istifadəçi profiliniz "$__AuthorName":"$__AuthorUrl" olaraq dəyişdirildi.
+
+Profilinizə baxmaq üçün aşağıdakı linkə daxil olun:
+"$UserName":"$MyStaffLink"</value>
+  </data>
+  <data name="pattern_profile_updated_tg" xml:space="preserve">
+    <value>[${__VirtualRootPath}](${__VirtualRootPath}) ünvanındakı profiliniz dəyişdirildi
+
+Hörmətli $UserName,
+
+[${__VirtualRootPath}](${__VirtualRootPath}) ünvanındakı istifadəçi profilinizin təfərrüatları [$__AuthorName]($__AuthorUrl) tərəfindən dəyişdirilib.
+
+Profilinizə baxmaq üçün aşağıdakı linkə daxil olun:
+[$UserName]($MyStaffLink)</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+Məlumatın "$FromUserName":"$FromUserLink" istifadəçisindən "$ToUserName":"$ToUserLink" istifadəçisinə ötürülməsi prosesi uğurla tamamlandı.</value>
+  </data>
+  <data name="pattern_reassigns_failed" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+Məlumatın "$FromUserName":"$FromUserLink" istifadəçisindən "$ToUserName":"$ToUserLink" istifadəçisinə ötürülməsi prosesi alınmadı.
+
+İstisna mesajı: $Message</value>
+  </data>
+  <data name="pattern_remove_user_data_completed" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+"$FromUserName":"$FromUserLink" adlı istifadəçi üçün məlumatların silinməsi prosesi uğurla tamamlandı.
+Şəxsi məlumatların silinməsinə icazə verildi:
+
+# Sənədlər - $DocsSpace
+# CRM - $CrmSpace
+# Poçt - $MailSpace
+# Söhbət - $TalkSpace</value>
+  </data>
+  <data name="pattern_remove_user_data_failed" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+"$FromUserName":"$FromUserLink" adlı istifadəçi üçün məlumatların silinməsi prosesi uğursuz oldu.
+
+İstisna mesajı: $Message</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Enterprise lisenziya sorğusu
+
+h3. Ad
+$UserName
+
+h3.Ad
+$UserLastName
+
+h3.Mövqe
+$Position
+
+h3.E-poçt
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefon
+$Phone
+
+h3.Şirkətin internet saytı
+$Website
+
+h3.Şirkətin adı
+$CompanyTitle
+
+h3.Şirkət ölçüsü
+$CompanySize
+
+h3. Sorğunun məzmunu
+$Body
+
+h3. Portal ünvanı
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_request_tariff1" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" üçün SAAS Tarif Sorğusu
+
+h3.Ad
+$UserName
+
+h3.Soyad
+$UserLastName
+
+h3.Vəzifə
+$Position
+
+h3.E-poçt
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefon
+$Phone
+
+h3.Şirkət Veb-saytı
+$Website
+
+h3.Şirkət adı
+$CompanyTitle
+
+h3.Şirkət ölçüsü
+$CompanySize
+
+h3.Sorğu məzmunu
+$Body</value>
+  </data>
+  <data name="pattern_restore_completed" xml:space="preserve">
+    <value>h1. Portalın bərpası başa çatıb
+
+Portalın bərpası prosesi uğurla tamamlandı.
+
+Portalınız yenidən əlçatandır.
+
+Hörmətlə,
+ONLYOFFICE ™ Dəstək Qrupu
+"www.onlyoffice.com": "http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_restore_completed_v115" xml:space="preserve">
+    <value>h1 Portalın bərpası
+h1."${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Portalınız bərpa edildi. Ona daxil olmaq üçün yeni parol təyin etməlisiniz:
+
+$GreenButton
+
+*Qeyd*: bu link yalnız 7 gün ərzində etibarlıdır.
+
+Bu e-məktubu səhvən almısınızsa, ona məhəl qoymayın və ya təfərrüatları öyrənmək üçün "${__VirtualRootPath}":"${__VirtualRootPath}" portal administratorunuzla əlaqə saxlayın.</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Portal bərpası başladı
+
+Portalın bərpası başladı. Məlumatın miqdarından asılı olaraq bir az vaxt tələb oluna bilər.
+
+*Qeyd*: bərpa prosesi zamanı portal deaktiv ediləcək.
+
+Əgər köməyə ehtiyacınız varsa və ya suallarınız varsa, "support@onlyoffice.com":"mailto:support@onlyoffice.com" ünvanında bizimlə əlaqə saxlaya bilərsiniz.
+
+Hörmətlə,
+ONLYOFFICE™ Dəstək Qrupu
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_activation_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Siz indicə komandanızın daxili əməkdaşlığı gücləndirəcək bulud ofisi olan ONLYOFFICE portalını yaratdınız. Onun ünvanı "${__VirtualRootPath}":"${__VirtualRootPath}" -dir.
+
+Zəhmət olmasa e-poçtunuzu təsdiqləyin:
+
+$GreenButton
+
+Link 7 gün ərzində etibarlı olacaq.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_comfort_tips_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE ilə işinizi daha rahat etmək üçün bir neçə məsləhət hazırlamışıq.
+
+*#1 Tez cavablar alın*
+
+Tapşırığınızı necə yerinə yetirəcəyinizə əmin olmadığınız zaman "Yardım Mərkəzi"nə baxın:"${__HelpLink}". Texniki problemlərlə üzləşsəniz, "dəstək komandamız"la əlaqə saxlayın:"https://helpdesk.onlyoffice.com/hc/en-us".
+
+*#2 Üçüncü tərəf genişləndirmələrini unutmayın*
+
+ONLYOFFICE funksionallığı 3-cü tərəf genişləndirmələri ilə təkmilləşdirilə bilər. Məsələn, siz Twilio ilə VoIP zəngləri edə və ya sənədlərinizi DocuSign ilə e-imzalaya bilərsiniz. "Ətraflı məlumat &gt;&gt;":"${__HelpLink}/server/windows/community/authorization-keys.aspx"
+
+*#3 Abunəliklərinizi idarə edin*
+
+Paylaşılan sənədlər, layihə yeniləmələri və həmkarlarınızın ad günləri haqqında bildiriş alacaqsınız. Profil səhifənizdə bildirişləri yandırın/söndürün. "Ətraflı məlumat &gt;&gt;":"${__HelpLink}/tipstricks/managing-subscriptions.aspx"
+
+*#4 Xüsusi təlim tələb edin*
+
+ONLYOFFICE ilə real sürətli başlanğıc əldə etmək üçün bizdən bütün komandanıza bütün modullardan və funksiyalardan istifadə etməyi öyrətməyimizi xahiş edin. Bu ödənişli seçimdir. "Bizimlə əlaqə saxlayın &gt;&gt;":"https://support.onlyoffice.com"
+
+*#5 VIP buludunu nəzərdən keçirin*
+VIP bulud korporativ səviyyəli təhlükəsizlik və genişlənmə qabiliyyətinə ehtiyacı olanlara təklif olunur:
+#Bir komanda yoldaşına 250 Gb yaddaş ilə portal üzrə 5000-ə qədər istifadəçi.
+#Avropa provayderindən xüsusi server.
+#Multitenancy: şirkət filialları üçün ayrıca portallar.
+#İstirahət zamanı şifrələmə və Şəxsi Otaqlar vasitəsilə şifrəli əməkdaşlıq.
+
+$GreenButton
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_modules_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE bütün gündəlik işlərinizdə sizə kömək edəcək. Onun modulları ilə nə edə bilərsiniz:
+
+# *Sənədlər.* Sənədləri, vərəqləri və slaydları saxlayın və idarə edin. Onları redaktə edin və komandanızla əməkdaşlıq edin.
+# *Layihələr.* Fəaliyyətləri planlaşdırın, tapşırıqlar yaradın və təyin edin, son tarixləri təyin edin.
+# *CRM.* Müştərilərin məlumat bazasını saxlayın, satışları izləyin, faktura yaradın.
+# *Təqvim.* Paylaşıla bilən təqvimlərlə görüşlər təşkil edin və xatırlatmalar təyin edin.
+# *Mail.* Müxtəlif hesablardan məktubları bir yerdə toplayın. Korporativ poçt qutuları yaratmaq üçün öz domeninizi əlavə edin.
+# *İcma.* Öz sosial şəbəkənizi yaradın və korporativ vikini qoruyun.
+# *Danışmaq.* Komandanızla ani mesajlar mübadiləsi edin.
+
+$GreenButton
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_payment_warning_every_2months_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+ONLYOFFICE-i seçdiyiniz üçün təşəkkür edirik! Biznes planınızı bu gün yenidən aktivləşdirin və Reactivate20 kuponu ilə 20% ENDİRİM qazanın! Sadəcə satın alarkən ondan istifadə edin:
+
+# *Hər biri üçün 100 Gb olan 1000-ə qədər istifadəçi əlavə edin və limitsiz sayda admin təyin edin.
+# *Onlayn ofisinizi* stilinizi brendinqinizə uyğunlaşdırın.
+# *Limitsiz sayda sənəd*, vərəq və slaydları eyni vaxtda redaktə edin.
+# *Təhlükəsizliyi təmin edin:* 2FA-nı aktivləşdirin, avtomatik ehtiyat nüsxələrini konfiqurasiya edin, istifadəçi hərəkətlərini izləyin.
+# *İnfrastrukturunuzla inteqrasiya edin:* Portal ünvanı üçün LDAP, SSO və domen adınızı istifadə edin.
+# *Məhsuldar iş üçün proqramları birləşdirin:* Twilio, DocuSign və s.
+
+$GreenButton
+
+Suallarınız varsa, sales@onlyoffice.com ünvanında bizimlə əlaqə saxlayın.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_trial_warning_after_half_year_v115" xml:space="preserve">
+    <value>Siz 6 aydan artıqdır ki, ONLYOFFICE "${__VirtualRootPath}":"${__VirtualRootPath}" daxil olmamısınız. Ondan artıq istifadə etməmək qərarına gəldiyiniz üçün veb-ofisiniz və bütün məlumatlarınız "Məxfilik bəyanatımıza":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid =5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0" uyğun olaraq silinəcək.
+
+Rəyiniz üçün təşəkkür edirik. Niyə ONLYOFFICE istifadəsini dayandırmaq qərarına gəldiniz?
+
+$GreenButton
+
+Bunun səhv olduğunu düşünürsünüzsə və ONLYOFFICE-dan istifadə etməyə davam etmək istəyirsinizsə, "dəstək komandamız":"mailto:support@onlyoffice.com" la əlaqə saxlayın.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_trial_warning_after1_v115" xml:space="preserve">
+    <value>ONLYOFFICE abunəliyiniz bitdi. İstifadəyə davam etmək üçün ONLYOFFICE abunəliyinizi yeniləyin.
+    
+$GreenButton
+
+Siz "Ödənişlər səhifəsində":"$PricingPage" ödənişsiz Başlanğıc planına keçə bilərsiniz.
+
+Ödənişsiz planda 5-ə qədər istifadəçi və hər portal üçün 2Gb yaddaş var. Bəzi funksiyalar, o cümlədən LDAP, SSO, brendinq, avtomatik ehtiyat nüsxələr əlçatan olmayacaq. "Planları müqayisə et":"https://www.onlyoffice.com/saas.aspx"
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_trial_warning_before5_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında hesabınız üçün sınaq müddəti 5 gün ərzində bitəcək.
+
+*Bu gün 10% endirimlə abunəlik alın!*
+
+Sadəcə alış zamanı bu kupon kodundan istifadə edin: *$Kupon*. Növbəti 10 gün ərzində etibarlı olacaq.
+
+$GreenButton
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_trial_warning_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${__VirtualRootPath}":"${__VirtualRootPath}" portalınız üçün sınaq müddəti bu gün başa çatır. ONLYOFFICE Business istifadə etməyə davam etmək üçün "abunəlik əldə edin":"$PricingPage".
+
+Sınaq müddətinizi uzatmaq üçün "satış komandamızla əlaqə saxlayın":"mailto:sales@onlyoffice.com".
+
+Siz "Ödənişlər səhifəsində":"$PricingPage" ödənişsiz Başlanğıc planına keçə bilərsiniz. Ödənişsiz planda 5-ə qədər istifadəçi və hər portal üçün 2Gb yaddaş var. Bəzi funksiyalar, o cümlədən LDAP, SSO, brendinq, avtomatik ehtiyat nüsxələr əlçatan olmayacaq. "Planları müqayisə et":"https://www.onlyoffice.com/saas.aspx".
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_user_apps_tips_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+İstənilən cihazınızda sənədlər və layihələr üzərində işləmək üçün ödənişsiz ONLYOFFICE proqramları əldə edin.
+
+# Windows, Linux və macOS-da sənədlərlə oflayn işləmək üçün "ONLYOFFICE Desktop Editors" proqramını endirin:"https://www.onlyoffice.com/apps.aspx".
+# Mobil cihazlarda sənədləri redaktə etmək üçün "iOS" üçün ONLYOFFICE Sənədlər proqramı:"https://itunes.apple.com/us/app/onlyoffice-documents/id944896972" və ya "Android":"https://play.google .com/store/apps/details?id=com.onlyoffice.documents".
+# Komanda performansınıza yolda olarkən də nəzarət etmək üçün "iOS" üçün ONLYOFFICE Layihələri əldə edin:"https://itunes.apple.com/us/app/onlyoffice-projects/id1353395928".
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Ümid edirik ki, ONLYOFFICE redaktorlarından zövq alacaqsınız. Bunu daha effektiv etmək üçün bəzi məsləhətlər.
+
+$TableItemsTop $TableItem1 $TableItem2 $TableItem3 $TableItem4 $TableItem5 $TableItem6 $TableItem7 $TableItemsBtm
+
+$GreenButton
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_3rdparty" xml:space="preserve">
+    <value>Fayllarınızı bir yerdə idarə etmək üçün Dropbox, Google Disk və ya digər xidmətlərə qoşulun.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_3rdparty_hdr" xml:space="preserve">
+    <value>*3-cü tərəf buludları qoşun*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_apps" xml:space="preserve">
+    <value>Sənədlər üzərində işləmək üçün proqramları endirin &lt;a target="_blank" style="color: #0078bd; font-family: Arial; font-size: 14px;" href="https://www.onlyoffice.com/apps.aspx"&gt;offline&lt;/a&gt; as well as on &lt;a target="_blank" style="color: #0078bd; font-family: Arial; font-size: 14px;" href="https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"&gt;iOS&lt;/a&gt; and &lt;a target="_blank" style="color: #0078bd; font-family: Arial; font-size: 14px;" href="https://play.google.com/store/apps/details?id=com.onlyoffice.documents"&gt;Android&lt;/a&gt; devices.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_apps_hdr" xml:space="preserve">
+    <value>*Tətbiqləri əldə edin*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_attach" xml:space="preserve">
+    <value>Sənədlər modulu digər ONLYOFFICE modulları ilə inteqrasiya olunub ki, siz artıq sənədləri başqa yerlərdən yükləməli və endirməli olmayacaqsınız.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_attach_hdr" xml:space="preserve">
+    <value>* Layihələrinizə və e-poçtlarınıza sənədlər əlavə edin *</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_coediting" xml:space="preserve">
+    <value>Komandanızla real vaxt rejimində sənədi redaktə edərkən, həmmüəllifiniz yazarkən dəyişiklikləri görmək üçün Sürətli rejimə və ya daha çox məxfilik əldə etmək üçün Ciddi rejimə keçin.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_coediting_hdr" xml:space="preserve">
+    <value>*Birgə redaktə rejimini seçin*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_contentcontrols" xml:space="preserve">
+    <value>Fərdiləşdirilə bilən formalar yaratmaq üçün Məzmun Nəzarətlərindən istifadə edin.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_contentcontrols_hdr" xml:space="preserve">
+    <value>*Məzmuən nəzarətlərindən istifadə edin*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_differences" xml:space="preserve">
+    <value>Sənədləri müqayisə et funksiyası ilə eyni sənədin iki versiyasında fərqləri tez tapın.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_differences_hdr" xml:space="preserve">
+    <value>* Fərqləri tez tapın *</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_formatting" xml:space="preserve">
+    <value>ONLYOFFICE sizə üslub və formatlaşdırma alətlərinin tam dəstini təqdim edir.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_formatting_hdr" xml:space="preserve">
+    <value>* Qabaqcıl formatlaşdırma alətlərini araşdırın *</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_review" xml:space="preserve">
+    <value>Orijinal sənədə dəyişiklik etmədən dəyişikliklər təklif etmək, konkret çıxarış haqqında fikirlərinizi bölüşmək üçün Şərhlər əlavə etmək və ya sənədinizdə ani mesajlar vasitəsilə söhbət etmək üçün Baxış-dan istifadə edin.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_review_hdr" xml:space="preserve">
+    <value>*Nəzərdən keçirin, şərh yazın və söhbət edin*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_share" xml:space="preserve">
+    <value>Sənədləri fərdlərə və ya istifadəçi qruplarına bölüşdürün. Onların giriş səviyyəsini seçin - Yalnız oxumaq, Şərh etmək, Forma Doldurmaq, Baxış və ya Tam Giriş.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_share_hdr" xml:space="preserve">
+    <value>*Sənədləri paylaşın*</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_spreadsheets" xml:space="preserve">
+    <value>Komandanıza təsir etmədən yalnız məlumatlarınızın görünüşünü dəyişdirən və filtr yaratmağa imkan verən Cədvəl Görünüşü funksiyası ilə cədvəllərdə rahat işləyin.</value>
+  </data>
+  <data name="pattern_saas_admin_user_docs_tips_v115_item_spreadsheets_hdr" xml:space="preserve">
+    <value>*Elektron cədvəllər üzərində rahatlıqla işləyin*</value>
+  </data>
+  <data name="pattern_saas_admin_welcome_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE Business buludunu 30 gün ərzində pulsuz sınaqdan keçirin:
+
+# *Hər biri 100 Gb olan 30-a qədər istifadəçi əlavə edin*. Abunəliyi satın aldıqdan sonra istənilən sayda istifadəçi əlavə edə biləcəksiniz.
+# *Onlayn ofis* stilinizi brendinqinizə uyğunlaşdırın.
+# *Limitsiz sayda sənəd*, vərəq və slaydları eyni vaxtda redaktə edin.
+# *Təhlükəsizliyi təmin edin:* 2FA-nı aktivləşdirin, avtomatik ehtiyat nüsxələrini konfiqurasiya edin, istifadəçi hərəkətlərini izləyin.
+# *İnfrastrukturunuzla inteqrasiya edin:* Portal ünvanı üçün LDAP, SSO və domen adınızı istifadə edin.
+# *Məhsuldar iş üçün proqramları birləşdirin:* Twilio, DocuSign və s.
+
+ONLYOFFICE-ın konfiqurasiyası/istifadəsi ilə bağlı təlimatlara ehtiyacınız varsa, "Yardım Mərkəzimizə daxil olun":"${__HelpLink}"!
+
+Siz "Ödənişlər Səhifəsi":"$PricingPage" ndə abunəlik ala bilərsiniz və ya sınaq üçün daha çox vaxta ehtiyacınız olarsa, sınaq müddətinizi uzatmağımızı xahiş edə bilərsiniz.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_guest_activation_v115" xml:space="preserve">
+    <value>Salam!
+
+Siz qonaq istifadəçi kimi "${__VirtualRootPath}":"${__VirtualRootPath}" proqramına qoşulmağa dəvət olunursunuz. Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Biz həmçinin vaxtaşırı sizə faydalı məsləhətlər və ən son ONLYOFFICE xəbərləri göndərəcəyik. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_guest_welcome_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+Qonaq profiliniz uğurla "${__VirtualRootPath}":"${__VirtualRootPath}" -a əlavə edildi. İndi edə bilərsiniz:
+
+# "Profilinizi":"$MyStaffLink" redaktə edin.
+# "İcma":"${__VirtualRootPath}/Products/Community/" da mövcud olan məzmuna baxın və şərh verin və "Layihələr":"${__VirtualRootPath}/Products/Projects/".
+# "Sənədlər":"${__VirtualRootPath}/Products/Files/" də sizin üçün mövcud olan faylları əlavə edin və endirin.
+# Daxili "Təqvim":"${__VirtualRootPath}/addons/calendar/" ilə cədvəlinizi təşkil edin.
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton
+
+Əgər köməyə ehtiyacınız varsa, "Yardım Mərkəzimiz":"${__HelpLink}" ə nəzər salın.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_user_activation_v115" xml:space="preserve">
+    <value>Salam!
+
+Siz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında ONLYOFFICE-ə qoşulmağa dəvət olunursunuz. Linkə klikləməklə dəvəti qəbul edin:
+
+$GreenButton
+
+Biz həmçinin vaxtaşırı sizə faydalı məsləhətlər və ən son ONLYOFFICE xəbərləri göndərəcəyik. İstənilən vaxt Profil səhifənizdə abunəlikləri ləğv edə və onları yenidən aktivləşdirə bilərsiniz.
+
+Hörmətlə,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_saas_user_welcome_v115" xml:space="preserve">
+    <value>Salam, $UserName!
+
+ONLYOFFICE-ə xoş gəlmisiniz! İstifadəçi profiliniz "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında uğurla portala əlavə edildi. İndi edə bilərsiniz:
+
+# "Sənədlər yaradın və redaktə edin":"${__VirtualRootPath}/Products/Files/", onları komanda yoldaşları ilə paylaşın və real vaxtda əməkdaşlıq edin.
+# E-poçt hesablarınızı əlavə edin və "Mail ilə bütün yazışmaları bir yerdə idarə edin":"${__VirtualRootPath}/addons/mail/".
+# "Layihələr":"${__VirtualRootPath}/Products/Projects/" ilə iş axınınızı və "CRM":"${__VirtualRootPath}/Products/CRM/" istifadə edərək müştəri münasibətlərinizi idarə edin.
+# Bloqlarınızı, forumlarınızı başlamaq, tədbirlər əlavə etmək, əlfəcinləri paylaşmaq üçün "İcma":"${__VirtualRootPath}/Products/Community/" istifadə edin.
+# Daxili "Təqvim ilə iş qrafikinizi təşkil edin":"${__VirtualRootPath}/addons/calendar/".
+# Ani mesaj mübadiləsi üçün "Söhbət":"${__VirtualRootPath}/addons/talk/" istifadə edin.
+
+$GreenButton
+
+Əgər köməyə ehtiyacınız varsa, "Yardım Mərkəzimizə nəzər salın":"${__HelpLink}" və ya "dəstək komandamıza müraciət edin":"https://support.onlyoffice.com".
+
+Həqiqətən sənin,
+ONLYOFFICE Komandası
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" Portal profilinin dəyişdirilməsi barədə bildiriş:
+
+"$__AuthorName":"$__AuthorUrl", "${__VirtualRootPath}":"${__VirtualRootPath}" portalındakı öz profil məlumatlarını dəyişdi.
+
+^Əgər profil dəyişiklikləri ilə bağlı bildirişlər almaq istəmirsinizsə, "abunəlik parametrlərinizi idarə edin":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_self_profile_updated_tg" xml:space="preserve">
+    <value>[${__VirtualRootPath}](${__VirtualRootPath}) portal profilinin dəyişdirilməsi haqqında bildiriş
+[$__AuthorName]($__AuthorUrl), [${__VirtualRootPath}](${__VirtualRootPath}) portalında profil detallarını dəyişib.</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portalında yeniliklər: $Date üçün 
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" portalında yeni hadisələr haqqında bildirişlər almaq istəmirsinizsə, zəhmət olmasa, "abunəlik parametrlərinizi idarə edin":"$RecipientSubscriptionConfigURL^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP test mesajı
+
+Bu mesaj SMTP parametrlərinizi yoxlamaq üçün avtomatik olaraq yaradılıb. Əgər ona baxırsınızsa, bu o deməkdir ki, parametrlər düzgündür və siz onları portalınızda istifadə edə bilərsiniz.
+
+
+Hörmətlə,
+ONLYOFFICE Komandası</value>
+  </data>
+  <data name="pattern_storage_decryption_error" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalınızda faylın şifrəsinin açılması prosesi uğursuz oldu.
+
+Bəzi faylların şifrəsini açmaq mümkün olmadı. Ətraflı məlumata "İdarəetmə Paneli"ndə baxın:"${ControlPanelUrl}/storage".</value>
+  </data>
+  <data name="pattern_storage_decryption_start" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalınızda faylın şifrəsinin açılması prosesi başlayıb.
+
+Şifrənin açılması bir qədər vaxt apara bilər, ona görə də portal müvəqqəti olaraq əlçatmaz olacaq. Şifrənin açılması başa çatan kimi siz yenidən məlumatlarınızla işləyə biləcəksiniz.</value>
+  </data>
+  <data name="pattern_storage_decryption_success" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalınızda faylın şifrəsinin açılması prosesi uğurla tamamlandı.
+
+Portalınız yenidən əlçatandır.</value>
+  </data>
+  <data name="pattern_storage_encryption_error" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalında fayl şifrələmə prosesi uğursuz oldu.
+
+Bəzi fayllar şifrələnə bilmədi. Ətraflı məlumata "İdarəetmə Paneli"ndə baxın:"${ControlPanelUrl}/storage".</value>
+  </data>
+  <data name="pattern_storage_encryption_start" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalınızda fayl şifrələmə prosesi başladıldı.
+
+Şifrələmə bir müddət vaxt apara bilər, ona görə də portal müvəqqəti olaraq əlçatan olmayacaq. Şifrələmə bitən kimi siz yenidən məlumatlarınızla işləyə biləcəksiniz.</value>
+  </data>
+  <data name="pattern_storage_encryption_success" xml:space="preserve">
+    <value>Salam, $UserName!
+
+"${PortalUrl}":"${PortalUrl}" portalınızda fayl şifrələmə prosesi uğurla tamamlandı.
+
+Portalınız yenidən əlçatandır.</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1. "${__VirtualRootPath}":"${__VirtualRootPath}" portalına yeni istifadəçi əlavə edildi
+
+"$__AuthorName":"$__AuthorUrl" portalınıza "${__VirtualRootPath}":"${__VirtualRootPath}" ünvanında qoşuldu.
+
+^Əgər siz artıq yeni istifadəçilər haqqında bildirişlər almaq istəmirsinizsə, zəhmət olmasa, "abunəlik parametrlərinizi idarə edin": "$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_user_has_join_tg" xml:space="preserve">
+    <value>[${__VirtualRootPath}](${__VirtualRootPath}) portalına yeni istifadəçi əlavə edildi
+[$__AuthorName]($__AuthorUrl) [${__VirtualRootPath}](${__VirtualRootPath}) ünvanında portalınıza qoşuldu.</value>
+  </data>
+  <data name="pattern_user_ldap_activation" xml:space="preserve">
+    <value>Hörmətli $UserName,
+
+Siz şirkət daxilində əməkdaşlığı yaxşılaşdırmaq üçün təhlükəsiz platformaya qoşulmağa dəvət olundunuz. Ünvanı: "${__VirtualRootPath}": "${__VirtualRootPath}". Bu linki əlfəcinlərə əlavə etmək çox yaxşı fikirdir, çünki ondan çox istifadə edəcəksiniz.
+
+Dəvəti qəbul etmək üçün aşağıdakı linkə klikləyin və peşəkar hesabınızın istifadəçi adı və parolunu daxil edin.
+
+$GreenButton
+
+Link yalnız 7 gün üçün keçərli olacaq.</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. E-poçt ünvanınızı aktiv edin</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath} portal yedəkləməsi yaradıldı</value>
+  </data>
+  <data name="subject_change_email_v115" xml:space="preserve">
+    <value>E-poçtunuzun dəyişdirilməsini təsdiq edin</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText}. Şifrə yardımı</value>
+  </data>
+  <data name="subject_change_password_v115" xml:space="preserve">
+    <value>Parolun dəyişdirilməsini təsdiq edin</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Mobil telefonun dəyişdirilmə tələbi </value>
+  </data>
+  <data name="subject_change_tfa" xml:space="preserve">
+    <value>${LetterLogoText}. Təhlükəsizlik haqqında bildiriş</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portal sahibinin dəyişdirilməsi</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portal ünvanının dəyişdirilməsi</value>
+  </data>
+  <data name="subject_enterprise_admin_activation_v10" xml:space="preserve">
+    <value>E-poçtunuzu təsdiq edin</value>
+  </data>
+  <data name="subject_enterprise_admin_customize_portal_v10" xml:space="preserve">
+    <value>ONLYOFFICE-i fərdiləşdirin</value>
+  </data>
+  <data name="subject_enterprise_admin_invite_teammates_v10" xml:space="preserve">
+    <value>Komanda yoldaşlarınızı dəvət edin</value>
+  </data>
+  <data name="subject_enterprise_admin_payment_warning_before7_v10" xml:space="preserve">
+    <value>ONLYOFFICE Yeniləmə Bildirişi</value>
+  </data>
+  <data name="subject_enterprise_admin_payment_warning_v10" xml:space="preserve">
+    <value>ONLYOFFICE Yeniləmə Bildirişi</value>
+  </data>
+  <data name="subject_enterprise_admin_trial_warning_before7_v10" xml:space="preserve">
+    <value>Sınaq prosesiniz indiyə qədər necə gedir?</value>
+  </data>
+  <data name="subject_enterprise_admin_trial_warning_v10" xml:space="preserve">
+    <value>Enterprise Edition sınaq müddəti bu gün bitir</value>
+  </data>
+  <data name="subject_enterprise_admin_user_apps_tips_v10" xml:space="preserve">
+    <value>Ödənişsiz ONLYOFFICE tətbiqlərini əldə edin</value>
+  </data>
+  <data name="subject_enterprise_admin_user_docs_tips_v10" xml:space="preserve">
+    <value>Sənədləriniz üzərində səmərəli şəkildə işləmək üçün 7 məsləhət</value>
+  </data>
+  <data name="subject_enterprise_admin_welcome_v10" xml:space="preserve">
+    <value>ONLYOFFICE-inizi daha təhlükəsiz edin</value>
+  </data>
+  <data name="subject_enterprise_admin_without_activity_v10" xml:space="preserve">
+    <value>ONLYOFFICE komandasından izləmə</value>
+  </data>
+  <data name="subject_enterprise_guest_activation_v10" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_enterprise_guest_welcome_v10" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_enterprise_user_activation_v10" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_enterprise_user_welcome_v10" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_admin_activation_v10" xml:space="preserve">
+    <value>E-poçtunuzu təsdiq edin</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_admin_customize_portal_v10" xml:space="preserve">
+    <value>Veb-ofisinizi fərdiləşdirin</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_admin_payment_warning_before7_v10" xml:space="preserve">
+    <value>Veb ofisinizin yenilənməsi barədə bildirişiniz</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_admin_payment_warning_v10" xml:space="preserve">
+    <value>Veb ofisinizin yenilənməsi barədə bildirişiniz</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_admin_welcome_v10" xml:space="preserve">
+    <value>Onlayn ofisinizi daha təhlükəsiz edin</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_guest_activation_v10" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_guest_welcome_v10" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_user_activation_v10" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_enterprise_whitelabel_user_welcome_v10" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>İnzibatçılara istifadəçi mesajı</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>${__VirtualRootPath} portalına qoşulmağa dəvət</value>
+  </data>
+  <data name="subject_mailbox_created" xml:space="preserve">
+    <value>${LetterLogoText}. Poçt qutusunun yaradılması</value>
+  </data>
+  <data name="subject_mailbox_password_changed" xml:space="preserve">
+    <value>${LetterLogoText}. Poçt qutusu parolunun dəyişdirilməsi</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Portalı başqa bölgəyə köçürmə xətası</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Portalın başqa bölgəyə köçürülməsi başladıldı</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Portalın başqa bölgəyə köçürülməsi uğurla tamamlandı</value>
+  </data>
+  <data name="subject_opensource_admin_activation_v11" xml:space="preserve">
+    <value>E-poçtunuzu təsdiq edin</value>
+  </data>
+  <data name="subject_opensource_admin_docs_tips_v11" xml:space="preserve">
+    <value>Sənədləriniz üzərində səmərəli şəkildə işləmək üçün 5 məsləhət</value>
+  </data>
+  <data name="subject_opensource_admin_welcome_v11" xml:space="preserve">
+    <value>ONLYOFFICE-inizi daha təhlükəsiz edin</value>
+  </data>
+  <data name="subject_opensource_guest_activation_v11" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_opensource_guest_welcome_v11" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_opensource_user_activation_v11" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_opensource_user_docs_tips_v11" xml:space="preserve">
+    <value>Sənədləriniz üzərində səmərəli şəkildə işləmək üçün 6 məsləhət</value>
+  </data>
+  <data name="subject_opensource_user_welcome_v11" xml:space="preserve">
+    <value>Veb ofisinizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_personal_activate" xml:space="preserve">
+    <value>Şəxsi istifadə üçün ONLYOFFICE-a xoş gəlmisiniz!</value>
+  </data>
+  <data name="subject_personal_after_registration1" xml:space="preserve">
+    <value>ONLYOFFICE Personala xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_personal_after_registration14" xml:space="preserve">
+    <value>Frilans kimi işləmək üçün bir neçə məsləhət</value>
+  </data>
+  <data name="subject_personal_after_registration21" xml:space="preserve">
+    <value>Daha çox funksiya lazımdır? Komandalar üçün ONLYOFFICE-ı sınayın</value>
+  </data>
+  <data name="subject_personal_after_registration28" xml:space="preserve">
+    <value>Veb ofisinizin təhlükəsizliyini necə artırmaq olar</value>
+  </data>
+  <data name="subject_personal_after_registration7" xml:space="preserve">
+    <value>Sevimli bulud yaddaşınızı ONLYOFFICE-ə qoşun</value>
+  </data>
+  <data name="subject_personal_change_password" xml:space="preserve">
+    <value>ONLYOFFICE Personal parol yardımı</value>
+  </data>
+  <data name="subject_personal_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Zəhmət olmasa e-poçt ünvanınızı aktivləşdirin</value>
+  </data>
+  <data name="subject_personal_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE Personal hesabın ləğvi</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>${__VirtualRootPath} portalının deaktiv edilməsi</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portalının silinməsi</value>
+  </data>
+  <data name="subject_portal_delete_success_v115" xml:space="preserve">
+    <value>ONLYOFFICE deaktiv edilib</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Portal ünvanının dəyişdirilməsi</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portalında profilinizin silinməsi</value>
+  </data>
+  <data name="subject_profile_has_deleted_itself" xml:space="preserve">
+    <value>İstifadəçi öz profilini silib</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} ünvanındakı profiliniz dəyişdirilib</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. İstifadəçi məlumatlarının ötürülməsi tamamlandı</value>
+  </data>
+  <data name="subject_reassigns_failed" xml:space="preserve">
+    <value>${LetterLogoText}. İstifadəçi məlumatlarını ötürmək alınmadı</value>
+  </data>
+  <data name="subject_remove_user_data_completed" xml:space="preserve">
+    <value>${LetterLogoText}. İstifadəçi məlumatlarının silinməsi tamamlandı</value>
+  </data>
+  <data name="subject_remove_user_data_failed" xml:space="preserve">
+    <value>${LetterLogoText}. İstifadəçi məlumatlarının silinməsi alınmadı</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Müəssisə lisenziyası sorğusu</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>SaaS qiymət planı sorğusu</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Bərpa prosesi tamamlandı</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Bərpa prosesi başladıldı</value>
+  </data>
+  <data name="subject_saas_admin_activation_v115" xml:space="preserve">
+    <value>E-poçtunuzu təsdiq edin</value>
+  </data>
+  <data name="subject_saas_admin_comfort_tips_v115" xml:space="preserve">
+    <value>Rahat işləmək üçün məsləhətlər</value>
+  </data>
+  <data name="subject_saas_admin_modules_v115" xml:space="preserve">
+    <value>ONLYOFFICE modullarına ümumi baxış</value>
+  </data>
+  <data name="subject_saas_admin_payment_warning_every_2months_v115" xml:space="preserve">
+    <value>Biznesi yenidən aktivləşdirin və qiymətin 20%-nə qənaət edin</value>
+  </data>
+  <data name="subject_saas_admin_trial_warning_after_half_year_v115" xml:space="preserve">
+    <value>ONLYOFFICE-niz silinəcək</value>
+  </data>
+  <data name="subject_saas_admin_trial_warning_after1_v115" xml:space="preserve">
+    <value>Yeniləmə bildirişi</value>
+  </data>
+  <data name="subject_saas_admin_trial_warning_before5_v115" xml:space="preserve">
+    <value>Sınaq müddətiniz bitmədən bu endirimdən istifadə edin</value>
+  </data>
+  <data name="subject_saas_admin_trial_warning_v115" xml:space="preserve">
+    <value>ONLYOFFICE sınaq müddətiniz bu gün başa çatır</value>
+  </data>
+  <data name="subject_saas_admin_user_apps_tips_v115" xml:space="preserve">
+    <value>Ödənişsiz ONLYOFFICE tətbiqlərini əldə edin</value>
+  </data>
+  <data name="subject_saas_admin_user_docs_tips_v115" xml:space="preserve">
+    <value>Sənədləriniz üzərində səmərəli şəkildə işləmək üçün 7 məsləhət</value>
+  </data>
+  <data name="subject_saas_admin_welcome_v115" xml:space="preserve">
+    <value>ONLYOFFICE-ə xoş gəlmisiniz!</value>
+  </data>
+  <data name="subject_saas_guest_activation_v115" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_saas_guest_welcome_v115" xml:space="preserve">
+    <value>ONLYOFFICE-inizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_saas_user_activation_v115" xml:space="preserve">
+    <value>${__VirtualRootPath}-a qoşulun</value>
+  </data>
+  <data name="subject_saas_user_welcome_v115" xml:space="preserve">
+    <value>ONLYOFFICE-inizə xoş gəlmisiniz</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} portalının profilinin dəyişdirilməsi ilə bağlı bildiriş</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>$Date üçün portalınızdakı yeniliklər</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP test mesajı</value>
+  </data>
+  <data name="subject_storage_decryption_error" xml:space="preserve">
+    <value>${LetterLogoText}. Deşifrələmə prosesi alınmadı</value>
+  </data>
+  <data name="subject_storage_decryption_start" xml:space="preserve">
+    <value>${LetterLogoText}. Deşifrələmə prosesi başladıldı</value>
+  </data>
+  <data name="subject_storage_decryption_success" xml:space="preserve">
+    <value>${LetterLogoText}. Deşifrələmə prosesi tamamlandı</value>
+  </data>
+  <data name="subject_storage_encryption_error" xml:space="preserve">
+    <value>${LetterLogoText}. Şifrələmə prosesi alınmadı</value>
+  </data>
+  <data name="subject_storage_encryption_start" xml:space="preserve">
+    <value>${LetterLogoText}. Şifrələmə prosesi başladıldı</value>
+  </data>
+  <data name="subject_storage_encryption_success" xml:space="preserve">
+    <value>${LetterLogoText}. Şifrələmə prosesi tamamlandı</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>${LetterLogoText} portalına yeni istifadəçi əlavə edildi</value>
+  </data>
+  <data name="subject_user_ldap_activation" xml:space="preserve">
+    <value>Siz ${__VirtualRootPath} proqramına qoşulmağa dəvət olundunuz</value>
+  </data>
+</root>

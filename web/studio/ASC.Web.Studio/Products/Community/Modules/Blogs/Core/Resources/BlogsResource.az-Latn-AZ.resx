@@ -109,6 +109,9 @@
   <data name="EmptyScreenBlogText" xml:space="preserve">
     <value>Öz səhifənizi yaradın ki, maraqlı məlumat, fikir və təəssürat paylaşasınız, fikrinizi ifadə edəsiniz və digər istifadəçilərdən cavab şərhləri alasınız.</value>
   </data>
+  <data name="EmptyScreenBlogTextVisitor" xml:space="preserve">
+    <value>Maraqlı məlumatlar, rəylər və digər istifadəçilərin rəyləri olan səhifələrə baxın, fikirlərinizi bölüşün və şərhlərdə müzakirə edin.</value>
+  </data>
   <data name="EnterTagsMessage" xml:space="preserve">
     <value>Gərəkli etiketləri vergül ilə ayıraraq daxil edin</value>
   </data>

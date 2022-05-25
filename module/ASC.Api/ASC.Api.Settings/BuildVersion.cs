@@ -31,6 +31,8 @@ namespace ASC.Api.Settings
     [DataContract(Name = "buildversion", Namespace = "")]
     public class BuildVersion
     {
+        private static ILog Log = LogManager.GetLogger("ASC");
+
         [DataMember]
         public string CommunityServer { get; set; }
 
@@ -80,7 +82,7 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Warn(e.Message, e);
+                Log.Warn(e.Message, e);
             }
 
             return null;
@@ -97,7 +99,7 @@ namespace ASC.Api.Settings
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("ASC").Warn(e.Message, e);
+                Log.Warn(e.Message, e);
             }
 
             return null;

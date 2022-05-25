@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="8b286b82-7aaf-4e45-9ffc-adbd7dbcfaa6" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <autoOutline/>
+    </introduction>
+
+    <section address="LicenseAgreement">
+      <title>The MIT License</title>
+      <content>
+        <para>
+          This license governs use of the accompanying software. If you use the software, you accept this
+          license. If you do not accept the license, do not use the software.
+        </para>
+
+        <quote>Copyright &#169; 2013 Rackspace US, Inc.</quote>
+
+        <quote>
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+          and associated documentation files (the "Software"), to deal in the Software without restriction,
+          including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+          and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+          subject to the following conditions:
+        </quote>
+
+        <quote>
+          The above copyright notice and this permission notice shall be included in all copies or
+          substantial portions of the Software.
+        </quote>
+
+        <quote>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+          BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+          NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+          DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </quote>
+
+        <quote>
+          Except as contained in this notice, the name of Rackspace US, Inc. shall not be used in
+          advertising or otherwise to promote the sale, use or other dealings in this Software without
+          prior written authorization from Rackspace US, Inc.
+        </quote>
+      </content>
+    </section>
+
+    <section>
+      <title>Open Source Licenses</title>
+      <content>
+        <para>
+          This project uses other open source projects, which are used under the terms of the following licenses.
+        </para>
+      </content>
+      <sections>
+        <section>
+          <title>Flurl</title>
+          <content>
+            <quote>The MIT License (MIT)</quote>
+
+            <quote>Copyright (c) 2014 Todd Menier</quote>
+
+            <quote>
+            Permission is hereby granted, free of charge, to any person obtaining a copy of
+            this software and associated documentation files (the "Software"), to deal in
+            the Software without restriction, including without limitation the rights to
+            use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+            the Software, and to permit persons to whom the Software is furnished to do so,
+            subject to the following conditions:
+            </quote>
+
+            <quote>
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+            </quote>
+
+            <quote>
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+            FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+            IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+            CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+            </quote>
+          </content>
+        </section>
+        
+        <section>
+          <title>JSON Patch for .NET</title>
+          <content>
+            <quote>The MIT License (MIT)</quote>
+
+            <quote>Copyright (c) 2014 Kevin Dockx</quote>
+
+            <quote>
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+            </quote>
+
+            <quote>
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+            </quote>
+
+            <quote>
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+            </quote>
+          </content>
+        </section>
+
+        <section>
+          <title>JSI Studios SimpleRESTServices</title>
+          <content>
+            <quote>Copyright &#169; 2013 JSI Studios, LLC</quote>
+
+            <quote>
+              Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+              and associated documentation files (the "Software"), to deal in the Software without restriction,
+              including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+              and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+              subject to the following conditions:
+            </quote>
+
+            <quote>
+              The above copyright notice and this permission notice shall be included in all copies or
+              substantial portions of the Software.
+            </quote>
+
+            <quote>
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+              BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+              NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+              DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+            </quote>
+
+            <quote>
+              Except as contained in this notice, the name of JSI Studios, LLC shall not be used in
+              advertising or otherwise to promote the sale, use or other dealings in this Software without
+              prior written authorization from JSI Studios, LLC.
+            </quote>
+          </content>
+        </section>
+
+        <section>
+          <title>Newtonsoft Json.NET</title>
+          <content>
+            <quote>Copyright &#169; 2007 James Newton-King</quote>
+
+            <quote>
+              Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+              and associated documentation files (the "Software"), to deal in the Software without restriction,
+              including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+              and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+              subject to the following conditions:
+            </quote>
+
+            <quote>
+              The above copyright notice and this permission notice shall be included in all copies or
+              substantial portions of the Software.
+            </quote>
+
+            <quote>
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+              BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+              NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+              DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+            </quote>
+          </content>
+        </section>
+
+        <section>
+          <title>The Mono Project</title>
+          <content>
+            <quote>
+              Copyright &#169; 2009 Novell
+            </quote>
+
+            <quote>
+              Permission is hereby granted, free of charge, to any person obtaining
+              a copy of this software and associated documentation files (the
+              "Software"), to deal in the Software without restriction, including
+              without limitation the rights to use, copy, modify, merge, publish,
+              distribute, sublicense, and/or sell copies of the Software, and to
+              permit persons to whom the Software is furnished to do so, subject to
+              the following conditions:
+            </quote>
+
+            <quote>
+              The above copyright notice and this permission notice shall be
+              included in all copies or substantial portions of the Software.
+            </quote>
+
+            <quote>
+              THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+              EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+              MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+              NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+              LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+              OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+              WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+            </quote>
+          </content>
+        </section>
+      </sections>
+    </section>
+
+    <relatedTopics/>
+  </developerConceptualDocument>
+</topic>

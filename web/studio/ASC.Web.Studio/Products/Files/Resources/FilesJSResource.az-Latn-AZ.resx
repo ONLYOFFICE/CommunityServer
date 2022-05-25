@@ -58,6 +58,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessSettingsHeader" xml:space="preserve">
+    <value>{0} üçün Hesab Parametrləri</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Şərh</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Fərdi Filter</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formanın doldurulması</value>
+  </data>
   <data name="AceStatusEnum_Owner" xml:space="preserve">
     <value>Sahib</value>
   </data>
@@ -70,8 +82,26 @@
   <data name="AceStatusEnum_Restrict" xml:space="preserve">
     <value>Girişi yasaqla</value>
   </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Nəzərdən keçirmə</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Fərqlənir</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arxivlər</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Müəllif</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Alt-qovluğu çıxarın</value>
+  </data>
   <data name="ButtonFilterDocument" xml:space="preserve">
     <value>Sənədlər</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Bütün Fayllar</value>
   </data>
   <data name="ButtonFilterFolder" xml:space="preserve">
     <value>Qovluqlar</value>
@@ -79,11 +109,23 @@
   <data name="ButtonFilterImage" xml:space="preserve">
     <value>Şəkillər</value>
   </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>Məzmuna görə</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Axtarış</value>
+  </data>
   <data name="ButtonFilterPresentation" xml:space="preserve">
     <value>Təqdimatlar</value>
   </data>
   <data name="ButtonFilterSpreadsheet" xml:space="preserve">
     <value>Cədvəllər</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Növ</value>
   </data>
   <data name="ButtonShowMore" xml:space="preserve">
     <value>Daha çox göstər {0}</value>
@@ -97,6 +139,12 @@
   <data name="ButtonSortAuthor" xml:space="preserve">
     <value>Müəllif</value>
   </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Yaradılma tarixi</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Son dəyişdirildiyi tarix</value>
+  </data>
   <data name="ButtonSortName" xml:space="preserve">
     <value>Başlıq</value>
   </data>
@@ -105,6 +153,9 @@
   </data>
   <data name="ButtonSortType" xml:space="preserve">
     <value>Tip</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Kod mübadilə buferinə kopyalanıb</value>
   </data>
   <data name="ConfirmDeleteThirdParty" xml:space="preserve">
     <value>Siz gerçəkdən mi {0} 'Sənədlər' modulundan silmək istəyirsiniz? Bunun Sizin hesabınıza heç bir təsiri olmayacaq {1}.</value>
@@ -118,17 +169,44 @@
   <data name="ConfirmRemoveFile" xml:space="preserve">
     <value>Sənədi silmək istədiyinizə əminsinizmi?</value>
   </data>
+  <data name="ConfirmRemoveFilePermanently" xml:space="preserve">
+    <value>Bu faylı silmək istəyirsiniz? Nəzərə alın ki, bunu kimləsə paylaşsanız, o, əlçatan olmayacaq. Fayl {0} sonra həmişəlik silinəcək.</value>
+  </data>
   <data name="ConfirmRemoveFolder" xml:space="preserve">
     <value>Qovluğu silmək istədiyinizə əminsinizmi?</value>
   </data>
+  <data name="ConfirmRemoveFolderPermanently" xml:space="preserve">
+    <value>Bu qovluğu silmək istəyirsiniz? Nəzərə alın ki, onu kimləsə paylaşsanız, o, əlçatan olmayacaq. Qovluq {0} sonra həmişəlik silinəcək.</value>
+  </data>
   <data name="ConfirmRemoveList" xml:space="preserve">
     <value>Bu elementləri silmək istədiyinizə əminsinizmi?</value>
+  </data>
+  <data name="ConfirmRemoveListPermanently" xml:space="preserve">
+    <value>Bu elementləri silmək istəyirsiniz? Nəzərə alın ki, bu fayl/qovluqları kimsə ilə paylaşsanız, onlar əlçatan olmayacaq. Fayllar/qovluqlar {0} sonra həmişəlik silinəcək.</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Siz {1} kataloqundan elementləri köçürmək üzrəsiniz. Bu halda, onlar {1} hesabınızdan silinəcək və əvvəllər bu elementlərə giriş icazəsi verdiyiniz digər istifadəçilər üçün əlçatan olmayacaq. {0} Elementləri köçürmək istədiyinizə əminsiniz?</value>
   </data>
   <data name="CorporateFiles" xml:space="preserve">
     <value>Ortaq sənədlər</value>
   </data>
   <data name="CustomFormat" xml:space="preserve">
     <value>İstifadəçi formatı</value>
+  </data>
+  <data name="DateOneMonth" xml:space="preserve">
+    <value>1 ay</value>
+  </data>
+  <data name="DateOneWeek" xml:space="preserve">
+    <value>1 həftə</value>
+  </data>
+  <data name="DateThreeMonths" xml:space="preserve">
+    <value>3 ay</value>
+  </data>
+  <data name="DateTwoMonths" xml:space="preserve">
+    <value>2 ay</value>
+  </data>
+  <data name="DateTwoWeeks" xml:space="preserve">
+    <value>2 həftə</value>
   </data>
   <data name="Departments" xml:space="preserve">
     <value>Bölmələr</value>
@@ -139,11 +217,17 @@
   <data name="DescriptChangeInfo" xml:space="preserve">
     <value>Verilənləri dəyişdir</value>
   </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Versiya tamamlanır</value>
+  </data>
   <data name="DescriptCopy" xml:space="preserve">
     <value>Köçür</value>
   </data>
   <data name="DescriptCreate" xml:space="preserve">
     <value>Yaradılma</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>DocuSign vasitəsilə imzalayın</value>
   </data>
   <data name="DescriptLoadVersion" xml:space="preserve">
     <value>Versiyalar yüklənir...</value>
@@ -163,11 +247,26 @@
   <data name="DescriptSetVersion" xml:space="preserve">
     <value>Versiya yenilənir</value>
   </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Fayl, şifrələnmə üçün hazırlanır</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Faylın şifrələnməsi</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Şifrələnmiş fayl yadda saxlanılır</value>
+  </data>
   <data name="Documents" xml:space="preserve">
     <value>Sənədlər</value>
   </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Sənədi({0}) imzalayın</value>
+  </data>
   <data name="EmptyListSelectedForDownload" xml:space="preserve">
     <value>Endirmək üçün ən azı bir qovluq/sənəd seçin</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Şərh daxil edin</value>
   </data>
   <data name="ErrorMassage_EmptyFile" xml:space="preserve">
     <value>Boş sənədi və ya qovluğu yükləmək olmaz</value>
@@ -178,8 +277,17 @@
   <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
     <value>Bütün sətirlərin doldurulması mütləqdir</value>
   </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Maksimum fayl ölçüsü keçildi</value>
+  </data>
   <data name="ErrorMassage_MustLogin" xml:space="preserve">
     <value>Əlavə etmək imkanının olması üçün daxil olmalısınız</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Bu fayl formatı dəstəklənmir</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Yanlış parol daxil etmisiniz. Zəhmət olmasa yenidən daha cəhd edin</value>
   </data>
   <data name="ErrorMassage_SecondDownload" xml:space="preserve">
     <value>Öncəki endirmənin tamamlanmasını gözləyin və ya ləğv edin</value>
@@ -192,6 +300,12 @@
   </data>
   <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
     <value>Başlıq bu simvollardan ibarət olmamalıdır: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Portalda kifayət qədər boş yer yoxdur. {0} ölçüsündən böyük fayllar yüklənə bilməz.</value>
+  </data>
+  <data name="ExternalLink" xml:space="preserve">
+    <value>Xarici bağlantı</value>
   </data>
   <data name="FileAlreadyExist" xml:space="preserve">
     <value>{0} adlı fayl {1} qovluğunda artıq var.</value>
@@ -214,17 +328,41 @@
   <data name="FolderTitleBoxNet" xml:space="preserve">
     <value>Box kataloqu</value>
   </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign hesabı</value>
+  </data>
   <data name="FolderTitleDropBox" xml:space="preserve">
     <value>Dropbox kataloqu</value>
   </data>
   <data name="FolderTitleGoogle" xml:space="preserve">
     <value>Google kataloqu</value>
   </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>kDrive kataloqu</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint Kataloqu</value>
+  </data>
   <data name="FolderTitleSkyDrive" xml:space="preserve">
     <value>OneDrive kataloqu</value>
   </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Kataloqu</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Kataloqu</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>İndi '{0}', '{1}' sahibidir</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>İndi '{0}', {1} elementin sahibidir</value>
+  </data>
   <data name="InfoChangeThirdParty" xml:space="preserve">
     <value>'{0}' dəyişdirildi</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Kopyalayın:{1}{0}{2}</value>
   </data>
   <data name="InfoCopyGroup" xml:space="preserve">
     <value>{0} köçürülmüş element</value>
@@ -232,8 +370,14 @@
   <data name="InfoCopyItem" xml:space="preserve">
     <value>'{0}' köçürüldü</value>
   </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} element</value>
+  </data>
   <data name="InfoCrateFile" xml:space="preserve">
     <value>Yeni fayl '{0}' yaradıldı</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Yeni fayl '{0}' '{1}' qovluğunda yaradıldı</value>
   </data>
   <data name="InfoCrateFolder" xml:space="preserve">
     <value>Yeni qovluq '{0}' yaradıldı</value>
@@ -243,6 +387,12 @@
   </data>
   <data name="InfoFolderMoveError" xml:space="preserve">
     <value>Qovluğu öz alt qovluğuna yerləşdirmək olmaz</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Bəzi faylları köçürmək icazəniz yoxdur</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Köçürün: {1}{0}{2}</value>
   </data>
   <data name="InfoMoveGroup" xml:space="preserve">
     <value>{0} element daşındı</value>
@@ -271,6 +421,12 @@
   <data name="InfoSaveThirdParty" xml:space="preserve">
     <value>'{0}' '{1}' üçün əlavə olundu</value>
   </data>
+  <data name="InfoTemplateAdd" xml:space="preserve">
+    <value>Fayllar Şablonlara əlavə edildi</value>
+  </data>
+  <data name="InfoTemplateRemove" xml:space="preserve">
+    <value>Fayllar Şablonlardan silindi</value>
+  </data>
   <data name="InfoUploadedSuccess" xml:space="preserve">
     <value>{0} ədəd sənəd uğurla yükləndi</value>
   </data>
@@ -286,8 +442,35 @@
   <data name="Presentations" xml:space="preserve">
     <value>Təqdimatlar</value>
   </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>{0} faylını göstərmək üçün yükləmək alınmadı</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>Şəxsi Otaq</value>
+  </data>
   <data name="ProjectFiles" xml:space="preserve">
     <value>Layihə sənədləri</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>reviziya: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Sizə {0} sənədinə giriş icazəsi verilib. Sənədi indi açmaq üçün aşağıdakı linkə klikləyin: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>{0} sənədinə giriş icazəsi aldınız</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>İstifadəçilər və ya qruplar əlavə edin.{0} Onlara sənədləri oxumaq, nəzərdən keçirmək və ya redaktə etmək üçün icazəsi verin.</value>
+  </data>
+  <data name="SharingSettingsHeader" xml:space="preserve">
+    <value>{0} üçün Parametrlər Paylaşılır</value>
+  </data>
+  <data name="Shortened" xml:space="preserve">
+    <value>Qısaldılıb</value>
   </data>
   <data name="Spreedsheets" xml:space="preserve">
     <value>Cədvəllər</value>
@@ -325,6 +508,21 @@
   <data name="TitleEditingFileBy" xml:space="preserve">
     <value>Bu, indi: {0} tərəfindən redaktə olunur</value>
   </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Kilidlənib</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Kilidlənib: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Əlavə Funksiyalar</value>
+  </data>
+  <data name="TitleNewFileFormTemplate" xml:space="preserve">
+    <value>Yeni Forma şablonu</value>
+  </data>
+  <data name="TitleNewFileMasterForm" xml:space="preserve">
+    <value>Yeni Master Forması</value>
+  </data>
   <data name="TitleNewFilePresentation" xml:space="preserve">
     <value>Yeni təqdimat</value>
   </data>
@@ -337,8 +535,23 @@
   <data name="TitleNewFolder" xml:space="preserve">
     <value>Yeni qovluq</value>
   </data>
+  <data name="TitleSettingsAdmin" xml:space="preserve">
+    <value>Admin Parametrləri</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Ümumi Parametrlər</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Əlaqələndirilmiş Buludlar</value>
+  </data>
   <data name="TypeTitleBoxNet" xml:space="preserve">
     <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
   </data>
   <data name="TypeTitleDropBox" xml:space="preserve">
     <value>Dropbox</value>
@@ -346,11 +559,35 @@
   <data name="TypeTitleGoogle" xml:space="preserve">
     <value>Google Drive</value>
   </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
   <data name="TypeTitleSkyDrive" xml:space="preserve">
     <value>OneDrive</value>
   </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Bilinməyən xəta...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Yükləmə tamamlandı</value>
+  </data>
   <data name="Uploading" xml:space="preserve">
     <value>Yüklənir</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>{0} fayl yüklənir ({1}% tamamlandı)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} / {1}  istifadə edilib</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>İstifadəçilər</value>

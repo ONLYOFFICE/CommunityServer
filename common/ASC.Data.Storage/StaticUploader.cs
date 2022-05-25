@@ -177,7 +177,7 @@ namespace ASC.Data.Storage
             {
                 var tenant = CoreContext.TenantManager.GetTenant(tenantId);
                 CoreContext.TenantManager.SetCurrentTenant(tenant);
-                SecurityContext.AuthenticateMe(tenant.OwnerId);
+                SecurityContext.CurrentUser = tenant.OwnerId;
 
                 var dataStore = CdnStorageSettings.Load().DataStore;
 
@@ -192,7 +192,7 @@ namespace ASC.Data.Storage
                     }
 
                     Result = dataStore.GetInternalUri("", path, TimeSpan.Zero, null).AbsoluteUri.ToLower();
-                    LogManager.GetLogger("ASC").DebugFormat("UploadFile {0}", Result);
+                    Log.DebugFormat("UploadFile {0}", Result);
                     return Result;
                 }
             }

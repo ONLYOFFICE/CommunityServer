@@ -244,14 +244,8 @@
   <data name="ButtonRemoveFavorite" xml:space="preserve">
     <value>Eliminar de Favoritos</value>
   </data>
-  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
-    <value>Eliminar</value>
-  </data>
   <data name="ButtonRemoveTemplate" xml:space="preserve">
     <value>Eliminar de plantillas</value>
-  </data>
-  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
-    <value>Eliminar</value>
   </data>
   <data name="ButtonRename" xml:space="preserve">
     <value>Renombrar</value>

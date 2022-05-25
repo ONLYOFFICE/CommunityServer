@@ -1079,7 +1079,7 @@ namespace ASC.Web.UserControls.Forum
         protected string RenderRedirectUpload()
         {
             return string.Format("{0}://{1}:{2}{3}", Request.GetUrlRewriter().Scheme, Request.GetUrlRewriter().Host, Request.GetUrlRewriter().Port,
-                                 VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?newEditor=true&esid=" + _settings.FileStoreModuleID + (PostAction == PostAction.Edit ? "&iid=" + EditedPost.ID.ToString() : ""));
+                                 VirtualPathUtility.ToAbsolute("~/") + "fckuploader.ashx?esid=" + _settings.FileStoreModuleID + (PostAction == PostAction.Edit ? "&iid=" + EditedPost.ID.ToString() : ""));
         }
 
         protected void OnUnSubscribeForSubscriptionType(INotifyAction action, string objId, Guid userId)
