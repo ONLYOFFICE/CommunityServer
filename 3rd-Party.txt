@@ -292,7 +292,7 @@ NodaTime - Noda Time is a date and time API acting as an alternative to the buil
 License:        Apache 2.0 license
 License File:   NodaTime.license
 
-Novell.Directory.LDAP - LDAP Libraries for C# enables you to write applications that access, manage, and update information stored in Novell eDirectory™ or other LDAP-aware directories.
+Novell.Directory.LDAP - LDAP Libraries for C# enables you to write applications that access, manage, and update information stored in Novell eDirectory?or other LDAP-aware directories.
 License:        MIT
 License File:   Novell.Directory.LDAP.license
 
