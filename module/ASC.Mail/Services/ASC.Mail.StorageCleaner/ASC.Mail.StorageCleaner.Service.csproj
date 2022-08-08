@@ -111,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net">
-      <Version>2.0.9</Version>
+      <Version>2.0.10</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
       <Version>8.0.29</Version>
