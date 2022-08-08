@@ -757,7 +757,7 @@ $AdditionalData
     <value>Projets [$ProjectTitle]. Tâche reprise: $EntityTitle</value>
   </data>
   <data name="subject_TaskResumed_tg" xml:space="preserve">
-    <value>Projets [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tâche reprise : [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+    <value>Projets [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tâche reprise : [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>Sans responsable</value>

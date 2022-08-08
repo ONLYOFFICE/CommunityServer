@@ -1,5 +1,94 @@
 # Change log
 
+## Version 12.0.1
+
+### General portal changes
+
+* Fixed issue with deep linking.
+* Fixed Migration feature.
+* Storing indexing status as a list instead of a field for ElasticSearch API.
+* Enhanced Backup service.
+* Fixed unavailable Feed after data restoring (Bug #58135).
+* Fixed invalid ‘Fork me on GitHub’ button link in the Sample (Bug #57588).
+* Portal users and guests are no more able to make the API SMTP settings request (Bug #57244).
+* Fixed issue with displaying a new company name (after changing White Label settings) in the password change emails and other similar requests (Bug #56435).
+* Personal user info is hidden from those who has no access to the People module (Bug #57851).
+* A drop-down menu in the calendar added when clicking on a month/year (Bug #54767).
+* Displaying an input cursor in the search bar when filtering with a drop-down list of users (Bug #57317).
+
+### Server installations
+
+* Removed storage_root parameter when starting Mail services.
+* Fixed dotnet dependency installation.
+* Fixed msttcore-fonts installation.
+* Upgraded elasticsearch to version 7.16.3 in packages.
+* Fixed memory allocation for elasticsearch.
+* Fixed issue with config files after updating on Windows (Bug #50992).
+* Fixed issue with security configs when making GET requests (Bug #57254).
+* Fixed issue with mail services when installing on RedHat 8.6 and Centos 8 (Bug #57624).
+
+### Documents module
+
+* Changed frequency of displaying a hint page when opening a file in Private Room from the web version.
+* Updated layout of the files list due to new Favorites icons.
+* Restriction to open DOC files for editing on mobile devices (Bug #57373).
+* Added new filtering parameters searchInContent and withSubfolders to API methods.
+* Changed type of some API methods from GET to PUT/POST (Bug #57371).
+* Users and their emails are not displayed in mentions if there isn’t access to the People module (Bug #58037).
+
+### Mail module
+
+* Added ‘On top’ button when zooming in empty folders (Bug #57671).
+* Fixed issue with sending an email with a link to a non-editable file in the trial portal version (Bug #54637).
+* Fixed DOCXF and OFORM icons when attaching files as a link (Bug #57657).
+* Fixed issue with forwarding emails added to the Templates (Bug #57466).
+* Fixed issue with filter settings (Bug #57200).
+* Fixed issue with selecting emails as read/unread (Bug #57390).
+* Fixed issue with the pop-up notification about a disabled account when printing out emails (Bug #57324).
+* Fixed issue with re-opening of email signature settings (Bug #57322).
+* Fixed issue with using the filter when selecting a date by custom period (Bug #57510).
+* Fixed issue with downloading a file when clicking on the .docxf/.oform format link in Chrome (Bug #57651).
+
+### People module
+
+* Fixed Active connections check.
+* Fixed issue with generating a CardDav book in case user emails contain capital letters (Bug #57831).
+* Updated drop-down tooltip when setting a password (Bug #57673).
+* Fixed issue with the https link in the invitation email when importing users (Bug #57519).
+
+### Projects module
+
+* Fixed issue with displaying the Time Tracking entry after its creation (Bug #57901)
+* Fixed issue with closing CKEditor window after editing a task title (Bug #57625).
+* Restriction of using XSS script in the milestone title (Bug #57559).
+* Restriction of using XSS script in the Gantt Chart status (Bug #57256).
+* Fixed issue with the incorrect link to the re-opened task in Telegram notifications (Bug #58107).
+* Fixed issue with custom task status when re-opening it (Bug #57140).
+* Administrator is automatically added to the project team when administrator assigns a task to themselves (Bug #57052).
+* Fixed issue with filtering overdue milestones (Bug #57356).
+* Fixed issue with filtering tasks when changing the Responsible: Me filter (Bug #57354).
+* Fixed displaying of date format in Gantt Chart to match the format set on the portal (Bug #57370).
+
+### CRM module
+
+* Restriction of using XSS script in the Products & Services settings (Bug #57242).
+* Fixed issue with the drop-down list in Invoices when page scrolling (Bug #57578).
+* Removed ‘Show total amount’ link for deals without a budget (Bug #57386).
+
+### Calendar module
+
+* Updated functionality of attaching files from the Documents module. 
+* Restriction to access events of other users using the historybyid.json method (Bug #58057).
+* Fixed issue with unsubscribing from the event (Bug #58118).
+* Restriction of using XSS script in To-do list (Bug #57307).
+* Fixed issue with the doubled window in the mini-calendar when selecting a month/year (Bug #57480)
+* Fixed issue with the CalDav link when the HTTPS certificate is activated (Bug #53265).
+
+### Control Panel
+
+* Fixed issue with brand logos after updating in the Docker installation (Bug #57331).
+* Fixed issue with data import from Google Workspace in case the archive contains incorrect meta-information files (Bug #57617).
+
 ## Version 12.0.0
 
 ### General portal changes

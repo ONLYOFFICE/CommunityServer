@@ -1428,7 +1428,7 @@ ASC.Projects.GantChartPage = (function () {
             id = project.id,
             description = "", // need?
             respName = "",
-            createdDate = project.created ? new Date(project.created) : new Date(), // нужна ли эта дата вообще?
+            createdDate = project.created ? new Date(project.created) : new Date(), // need?
             ganttIndex = project.ganttIndex;
 
         var respUser = window.UserManager.getUser(project.responsibleId) || window.UserManager.getRemovedProfile(project.responsibleId);

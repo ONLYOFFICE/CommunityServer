@@ -19,7 +19,6 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-using ASC.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio;
 using ASC.Web.Studio.PublicResources;
@@ -35,7 +34,7 @@ namespace ASC.Web.UserControls.WhiteLabel
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!TenantLogoManager.WhiteLabelEnabled)
+            if (!TenantLogoManager.IsVisibleWhiteLabelSettings)
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
@@ -71,7 +70,7 @@ namespace ASC.Web.UserControls.WhiteLabel
             }
         }
 
-        protected bool WhiteLabelEnabledForPaid = CoreContext.Configuration.Standalone || TenantLogoManager.WhiteLabelPaid;
+        protected bool WhiteLabelEnabledForPaid = TenantLogoManager.WhiteLabelEnabled;
 
         private void RegisterScript()
         {

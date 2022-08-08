@@ -173,6 +173,21 @@ namespace ASC.Projects.Data.DAO
                     .ConvertAll(converter);
         }
 
+        public List<Milestone> GetRecentMilestones(int offset, int max, params int[] projects)
+        {
+            var query = CreateQuery()
+                .SetFirstResult(offset)
+                .SetMaxResults(max)
+                .OrderBy("t.create_on", false);
+
+            if (projects != null && 0 < projects.Length)
+            {
+                query.Where(Exp.In("p.id", projects));
+            }
+
+            return Db.ExecuteList(query).ConvertAll(converter);
+        }
+
         public List<Milestone> GetUpcomingMilestones(int offset, int max, params int[] projects)
         {
             var query = CreateQuery()

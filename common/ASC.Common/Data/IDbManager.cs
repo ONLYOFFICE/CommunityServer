@@ -30,6 +30,7 @@ namespace ASC.Common.Data
         DbConnection Connection { get; }
         string DatabaseId { get; }
         bool InTransaction { get; }
+        bool IsDisposed { get; }
 
         IDbTransaction BeginTransaction();
 

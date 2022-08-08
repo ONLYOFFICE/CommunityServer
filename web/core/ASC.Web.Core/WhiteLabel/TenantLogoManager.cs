@@ -38,6 +38,14 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static bool WhiteLabelEnabled
         {
+            get
+            {
+                return CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).WhiteLabel;
+            }
+        }
+
+        public static bool IsVisibleWhiteLabelSettings
+        {
             get;
             private set;
         }
@@ -46,7 +54,7 @@ namespace ASC.Web.Core.WhiteLabel
         static TenantLogoManager()
         {
             var hideSettings = (ConfigurationManagerExtension.AppSettings["web.hide-settings"] ?? "").Split(new[] { ',', ';', ' ' });
-            WhiteLabelEnabled = !hideSettings.Contains("WhiteLabel", StringComparer.CurrentCultureIgnoreCase);
+            IsVisibleWhiteLabelSettings = !hideSettings.Contains("WhiteLabel", StringComparer.CurrentCultureIgnoreCase);
         }
 
 
@@ -88,6 +96,11 @@ namespace ASC.Web.Core.WhiteLabel
             {
                 var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
                 return tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
+            }
+
+            if (IsVisibleWhiteLabelSettings)
+            {
+                return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
             }
 
             /*** simple scheme ***/
@@ -144,14 +157,6 @@ namespace ASC.Web.Core.WhiteLabel
             return !SecurityContext.IsAuthenticated;
         }
 
-        public static bool WhiteLabelPaid
-        {
-            get
-            {
-                return CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).WhiteLabel;
-            }
-        }
-
         /// <summary>
         /// Get logo stream or null in case of default logo
         /// </summary>
@@ -161,6 +166,11 @@ namespace ASC.Web.Core.WhiteLabel
             {
                 var tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
                 return tenantWhiteLabelSettings.GetWhitelabelLogoData(WhiteLabelLogoTypeEnum.Dark, true);
+            }
+
+            if (IsVisibleWhiteLabelSettings)
+            {
+                return TenantWhiteLabelSettings.GetPartnerStorageLogoData(WhiteLabelLogoTypeEnum.Dark, true);
             }
 
             /*** simple scheme ***/

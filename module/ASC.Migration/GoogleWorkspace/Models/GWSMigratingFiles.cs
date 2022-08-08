@@ -48,8 +48,14 @@ namespace ASC.Migration.GoogleWorkspace.Models
 
             foreach (var entry in entries)
             {
-                if (ShouldIgnoreFile(entry, entries)) continue;
-
+                try
+                {
+                    if (ShouldIgnoreFile(entry, entries)) continue;
+                }
+                catch (Exception ex)
+                {
+                    Log($"Metainformation file {entry} is invalid", ex);
+                }
                 filteredEntries.Add(entry);
             }
 
@@ -349,7 +355,15 @@ namespace ASC.Migration.GoogleWorkspace.Models
             if (commentsVersionMatch.Success)
             {
                 var baseName = entry.Substring(0, entry.Length - commentsVersionMatch.Groups[0].Value.Length);
-                baseName = baseName.Insert(baseName.LastIndexOf("."), commentsVersionMatch.Groups[1].Value);
+                var lastIndex = baseName.LastIndexOf(".");
+                if (lastIndex < 0)
+                {
+                    baseName = baseName + commentsVersionMatch.Groups[1].Value;
+                }
+                else
+                {
+                    baseName = baseName.Insert(baseName.LastIndexOf("."), commentsVersionMatch.Groups[1].Value);
+                }
 
                 if (entries.Contains(baseName)) return true;
                 if (entries
@@ -362,7 +376,15 @@ namespace ASC.Migration.GoogleWorkspace.Models
             if (infoVersionMatch.Success)
             {
                 var baseName = entry.Substring(0, entry.Length - infoVersionMatch.Groups[0].Length);
-                baseName = baseName.Insert(baseName.LastIndexOf("."), infoVersionMatch.Groups[1].Value);
+                var lastIndex = baseName.LastIndexOf(".");
+                if (lastIndex < 0)
+                {
+                    baseName = baseName + infoVersionMatch.Groups[1].Value;
+                }
+                else
+                {
+                    baseName = baseName.Insert(baseName.LastIndexOf("."), infoVersionMatch.Groups[1].Value);
+                }
 
                 if (entries.Contains(baseName)) return true;
                 if (entries

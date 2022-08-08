@@ -128,13 +128,24 @@ window.mailBox = (function($) {
     function getScrolledGroupOptions() {
         var options = undefined;
         if (TMMail.pageIs('sysfolders')) {
-            options = {
-                menuSelector: "#MessagesListGroupButtons",
-                menuAnchorSelector: "#SelectAllMessagesCB",
-                menuSpacerSelector: "#actionContainer .contentMenuWrapper.messagesList .header-menu-spacer",
-                userFuncInTop: function () { $("#MessagesListGroupButtons .menu-action-on-top").hide(); },
-                userFuncNotInTop: function () { $("#MessagesListGroupButtons .menu-action-on-top").show(); }
-            };
+            if ($("#MessagesListGroupButtons").parent().first().css("display") == "block") {
+                options = {
+                    menuSelector: "#MessagesListGroupButtons",
+                    menuAnchorSelector: "#SelectAllMessagesCB",
+                    menuSpacerSelector: "#actionContainer .contentMenuWrapper.messagesList .header-menu-spacer",
+                    userFuncInTop: function () { $("#MessagesListGroupButtons .menu-action-on-top").hide(); },
+                    userFuncNotInTop: function () { $("#MessagesListGroupButtons .menu-action-on-top").show(); }
+                };
+            }
+            else {
+                options = {
+                    menuSelector: "#blankPage",
+                    menuAnchorSelector: "#folderEmptyScreen",
+                    menuSpacerSelector: ".mainContainerClass .header-menu-spacer",
+                    userFuncInTop: function () { $(".mainContainerClass .menu-action-on-top").hide(); },
+                    userFuncNotInTop: function () { $(".mainContainerClass .menu-action-on-top").show(); }
+                };
+            }
         } else if (TMMail.pageIs('tlContact') || TMMail.pageIs('crmContact') || TMMail.pageIs('personalContact')) {
             options = {
                 menuSelector: "#ContactsListGroupButtons",
@@ -458,10 +469,13 @@ window.mailBox = (function($) {
     function hideContentDivs(skipFolderFilter) {
         var itemContainer = $('#itemContainer');
         var actionContainer = $('#actionContainer');
+        var mainContainerClass = $('.mainContainerClass');
 
         itemContainer.find('.messages').remove();
 
         actionContainer.find('.contentMenuWrapper').hide();
+        mainContainerClass.find('.header-menu-spacer').hide();
+        mainContainerClass.find('.menu-action-on-top').hide();
         itemContainer.find('.itemWrapper').remove();
         itemContainer.find('.mailContentWrapper').remove();
         itemContainer.find('.simpleWrapper').remove();
@@ -1240,7 +1254,8 @@ window.mailBox = (function($) {
                 history.pushState({}, null, newUrl);
             }
 
-            if (!hasNext && Math.ceil(totalMsgInFolder / MailFilter.getPageSize()) < MailFilter.getPage()) {
+            anchor = ASC.Controls.AnchorController.getAnchor().includes("forward") || ASC.Controls.AnchorController.getAnchor().includes("reply");
+            if (!anchor && !hasNext && Math.ceil(totalMsgInFolder / MailFilter.getPageSize()) < MailFilter.getPage()) {
                 MailFilter.setPage(Math.floor(totalMsgInFolder / MailFilter.getPageSize()));
                 onChangePageSize(MailFilter.getPageSize());
             }
@@ -1807,6 +1822,7 @@ window.mailBox = (function($) {
             else
                 setMessagesReadUnread(messageIds, read, isFiltered);
         }
+        if (!isFiltered)
         overallDeselectAll();
     }
 

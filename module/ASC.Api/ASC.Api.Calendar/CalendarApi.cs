@@ -494,10 +494,10 @@ namespace ASC.Api.Calendar
             if (int.TryParse(calendarId, out calId))
             {
                 var cal = _dataProvider.GetCalendarById(calId);
-                return (cal != null ? new CalendarWrapper(cal) : null);
+                return CanRead(cal) ? new CalendarWrapper(cal) : null;
             }
 
-            //external                
+            //external
             var extCalendar = CalendarManager.Instance.GetCalendarForUser(SecurityContext.CurrentAccount.ID, calendarId);
             if (extCalendar != null)
             {
@@ -828,11 +828,13 @@ namespace ASC.Api.Calendar
                             if (CheckUserEmail(owner))
                             {
                                 await UpdateCalDavCalendar(name, description, backgroundColor, oldCal.calDavGuid, myUri, owner.Email);
+                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
                             }
                         }
                         else
                         {
                             await UpdateCalDavCalendar(name, description, backgroundColor, oldCal.calDavGuid, myUri, _email);
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
                         }
                         var pic = PublicItemCollection.GetForCalendar(oldCal);
                         if (pic.Items.Count > 1)
@@ -857,6 +859,7 @@ namespace ASC.Api.Calendar
                             {
                                 await UpdateSharedCalDavCalendarAsync(dataProvider, name, description, backgroundColor, oldCal.calDavGuid, myUri, sharingOptionsList, events, calendarId, cal.calDavGuid, tenant.TenantId, DateTime.Now, targetCalendar.TimeZones[0], cal.TimeZone)
                                     .ConfigureAwait(false);
+                                CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
                             }
 
 
@@ -867,6 +870,7 @@ namespace ASC.Api.Calendar
                         if (oldSharingList.Count > 0)
                         {
                             await ReplaceUpdateCalDavSharingEvent(oldSharingList, myUri, cal).ConfigureAwait(false);
+                            CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
                         }
 
                         return new CalendarWrapper(cal);
@@ -937,11 +941,14 @@ namespace ASC.Api.Calendar
         public async Task RemoveCalendar(int calendarId)
         {
             var cal = _dataProvider.GetCalendarById(calendarId);
+
+            //check permissions
+            CheckPermissions(cal, CalendarAccessRights.FullAccessAction);
+
             var events = cal.LoadEvents(SecurityContext.CurrentAccount.ID, DateTime.MinValue, DateTime.MaxValue);
 
             var pic = PublicItemCollection.GetForCalendar(cal);
-            //check permissions
-            CheckPermissions(cal, CalendarAccessRights.FullAccessAction);
+
             //clear old rights
             CoreContext.AuthorizationManager.RemoveAllAces(cal);
             var caldavGuid = _dataProvider.RemoveCalendar(calendarId);
@@ -954,7 +961,6 @@ namespace ASC.Api.Calendar
             var caldavHost = myUri.Host;
             if (caldavGuid != Guid.Empty)
             {
-                Logger.Info("RADICALE REWRITE URL: " + myUri);
 
                 var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                 var currentUserEmail = CheckUserEmail(currentUser) ? CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email : null;
@@ -1138,7 +1144,6 @@ namespace ASC.Api.Calendar
                         var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
                         var caldavHost = myUri.Host;
 
-                        Logger.Info("RADICALE REWRITE URL: " + myUri);
 
                         if (userEmail == null) return;
 
@@ -1525,10 +1530,10 @@ namespace ASC.Api.Calendar
 
 
 
-                        Logger.Info(String.Format("UpdateCalDavEvent eventURl: {0}", eventURl));
+                        Logger.Debug(String.Format("UpdateCalDavEvent eventURl: {0}", eventURl));
 
                         string ics = calDavCal.GetCollection(eventURl, authorization).Result.Data;
-                        Logger.Info(String.Format("UpdateCalDavEvent: {0}", ics));
+                        Logger.Debug(String.Format("UpdateCalDavEvent: {0}", ics));
                         var existEvent = _dataProvider.GetEventIdByUid(eventGuid + "%", calendarId); // new function
                         var existCalendar = _dataProvider.GetCalendarById(calendarId);
 
@@ -1929,6 +1934,16 @@ namespace ASC.Api.Calendar
         [Read("{calendarId}/icalurl")]
         public string GetCalendariCalUrl(string calendarId)
         {
+            int calId;
+            if (int.TryParse(calendarId, out calId))
+            {
+                var cal = _dataProvider.GetCalendarById(calId);
+                if (!CanRead(cal))
+                {
+                    return null;
+                }
+            }
+
             var sig = Signature.Create(SecurityContext.CurrentAccount.ID, calendarId);
             var path = UrlPath.ResolveUrl(() => new CalendarApi().GetCalendariCalStream(calendarId, sig));
             return new Uri(_context.RequestContext.HttpContext.Request.GetUrlRewriter(), VirtualPathUtility.ToAbsolute("~/" + path)).ToString();
@@ -2127,7 +2142,6 @@ namespace ASC.Api.Calendar
                 var calDavCalendar = new CalDavCalendar(calDavGuid.ToString(), isShared);
                 var calUrl = calDavCalendar.GetRadicaleUrl(myUri.ToString(), userName, isShared, false, true, calDavGuid.ToString());
 
-                Logger.Info("RADICALE REWRITE URL: " + myUri);
 
                 var calDavResponse = calDavCalendar.GetCollection(calUrl, GetUserAuthorization(userName)).Result;
 
@@ -2635,6 +2649,8 @@ namespace ASC.Api.Calendar
                         }
                     }
                 }
+
+                return 0;
             }
 
             var calendar = LoadInternalCalendars().First(x => (!x.IsSubscription && x.IsTodo != 1));
@@ -2677,12 +2693,12 @@ namespace ASC.Api.Calendar
         private async Task<int> ImportEvents(int calendarId, IEnumerable<Ical.Net.Calendar> cals, IEnumerable<HttpPostedFileBase> docs = null)
         {
             var counter = 0;
+            var existCalendar = _dataProvider.GetCalendarById(calendarId);
 
-            CheckPermissions(_dataProvider.GetCalendarById(calendarId), CalendarAccessRights.FullAccessAction);
+            CheckPermissions(existCalendar, CalendarAccessRights.FullAccessAction);
 
             if (cals == null) return counter;
 
-            var existCalendar = _dataProvider.GetCalendarById(calendarId);
             var existCalendarViewSettings = existCalendar.ViewSettings == null ? null : existCalendar.ViewSettings.FirstOrDefault();
             var existCalendarTimeZone = existCalendarViewSettings == null ? existCalendar.TimeZone : existCalendarViewSettings.TimeZone;
 
@@ -4260,7 +4276,6 @@ namespace ASC.Api.Calendar
             var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
             var caldavHost = myUri.Host;
 
-            Logger.Info("RADICALE REWRITE URL: " + myUri);
 
             var currentUserName = userSharingInfo.Email.ToLower() + "@" + caldavHost;
 
@@ -4334,7 +4349,6 @@ namespace ASC.Api.Calendar
                 var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
                 var caldavHost = myUri.Host;
 
-                Logger.Info("RADICALE REWRITE URL: " + myUri);
 
                 var currentUserName = user.Email.ToLower() + "@" + caldavHost;
 
@@ -4344,6 +4358,7 @@ namespace ASC.Api.Calendar
 
                 try
                 {
+                    updatedEvents.Add(guid);
                     var calDavCalendar = new CalDavCalendar(calendarId, false);
                     var authorization = calDavCalendar.GetSystemAuthorization();
                     var davRequest = new DavRequest()
@@ -4351,7 +4366,7 @@ namespace ASC.Api.Calendar
                         Url = requestDeleteUrl,
                         Authorization = authorization
                     };
-                    await RadicaleClient.RemoveAsync(davRequest).ConfigureAwait(false);
+                    RadicaleClient.Remove(davRequest);
                 }
                 catch (WebException ex)
                 {
@@ -4412,7 +4427,6 @@ namespace ASC.Api.Calendar
                                 var calDavServerUrl = myUri.Scheme + "://" + myUri.Host + "/caldav";
                                 var caldavHost = myUri.Host;
 
-                                Logger.Info("RADICALE REWRITE URL: " + myUri);
 
                                 var currentUserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email.ToLower() + "@" + caldavHost;
                                 var _email = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email;
@@ -4811,10 +4825,6 @@ namespace ASC.Api.Calendar
 
                         if (caldavGuid != "")
                         {
-
-                            Logger.Info("RADICALE REWRITE URL: " + myUri);
-
-
                             try
                             {
                                 var calDavCalendar = new CalDavCalendar(calendarId, false);
@@ -4939,6 +4949,11 @@ namespace ASC.Api.Calendar
                 cal = _dataProvider.GetCalendarById(calId);
 
             if (cal == null) return null;
+
+            if (!CanRead(cal, evt))
+            {
+                return null;
+            }
 
             int evtId;
             EventHistory history = null;
@@ -5105,6 +5120,21 @@ namespace ASC.Api.Calendar
             return true;
         }
 
+        private bool CanRead(BusinessObjects.Calendar cal, Event evt = null)
+        {
+            if (cal != null  && (cal.OwnerId == SecurityContext.CurrentAccount.ID || cal.SharingOptions.PublicForItem(SecurityContext.CurrentAccount.ID)))
+            {
+                return true;
+            }
+
+            if (evt != null && evt.SharingOptions.PublicForItem(SecurityContext.CurrentAccount.ID))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Returns the sharing access parameters to the calendar with the ID specified in the request.
         /// </summary>
@@ -5120,6 +5150,11 @@ namespace ASC.Api.Calendar
             var cal = _dataProvider.GetCalendarById(calendarId);
             if (cal == null)
                 throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
+
+            if (!CanRead(cal))
+            {
+                return null;
+            }
 
             return PublicItemCollection.GetForCalendar(cal);
         }

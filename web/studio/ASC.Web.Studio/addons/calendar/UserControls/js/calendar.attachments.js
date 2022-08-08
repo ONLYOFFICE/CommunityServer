@@ -15,18 +15,17 @@
 */
 
 
-(function ($) {
+window.CalendarAttachmentManager = (function ($) {
 
     var instances = [],
         attachments = [],
-        selectedFiles = [],
         attachedFiles = [],
-        copiedFiles = [];
+        copiedFiles = [],
+        unattachedFilesInTrialVersion = [];
 
     var attachmentResources = g_fcOptions.attachments;
 
-    var nextId = 0,
-        nextOrderNumber = 0,
+    var nextOrderNumber = 0,
         maxFileSizeInMegaBytes = attachmentResources.maxFileSizeInMegaBytes,
         maxFileSize = maxFileSizeInMegaBytes * 1024 * 1024,
 
@@ -34,7 +33,6 @@
         filesContainer = 'calendar_event_attachments',
         maxFileNameLen = 53,
         filenameColumnPaddingConst = 4,
-        warningDialog = null;
 
         uploader = null,
         uploadQueue = new Array(),
@@ -113,6 +111,7 @@
                 return false;
             });
 
+            window.CalendarPopupQueue.init();
             self.renderContainer();
         };
 
@@ -242,16 +241,7 @@
             Success: false,
             Title: file.title,
             FileURL: '',
-            Data: {
-                contentId: null,
-                contentType: '',
-                id: -1,
-                title: file.title,
-                size: 0,
-                orderNumber: file.orderNumber,
-                fileUrl: '',
-                isNew: true
-            },
+            Data: getFailedAttachmentData(file),
             Message: errorMsg
         });
 
@@ -260,6 +250,20 @@
 
     function onUploadAlways() {
         runFileUploading();
+    }
+
+    function getFailedAttachmentData(file, errorMsg) {
+        return {
+            contentId: null,
+            contentType: '',
+            id: -1,
+            error: errorMsg || '',
+            title: file.title,
+            size: 0,
+            orderNumber: file.orderNumber,
+            fileUrl: '',
+            isNew: true
+        };
     }
 
     function createFileuploadInput(buttonId) {
@@ -616,7 +620,6 @@
         attachments = [];
         dataBeforeSave = [];
         documentsInLoad = [];
-        selectedFiles = [];
         attachedFiles = [];
         copiedFiles = [];
         failedUploadedFiles = [];
@@ -658,19 +661,12 @@
         return attachment;
     }
 
-    function getNextId() {
-        return ++nextId;
-    }
-
     function getOrderNumber() {
         return nextOrderNumber++;
     }
 
     function selectDocuments(e, res) {
         var documents = res.data;
-
-        selectedFiles = selectedFiles.concat(documents);
-
         attachFileLinks(documents);
         correctFileNameWidth();
     }
@@ -683,6 +679,15 @@
                 continue;
             }
 
+            if (ASC.Resources.Master.TenantIsPremium == 'No' && !ASC.Resources.Master.Standalone && !ASC.Files.Utility.CanWebView(file.title)) {
+                unattachedFilesInTrialVersion.push(file);
+                continue;
+            }
+
+            if (!file.orderNumber) {
+                file.orderNumber = getOrderNumber();
+            }
+
             if (file.shareable && !file.denySharing) {
                 attachedFiles.push(file);
             } else {
@@ -690,43 +695,44 @@
             }
         }
 
+        window.CalendarPopupQueue.hide();
+
+        if (unattachedFilesInTrialVersion.length) {
+            setTimeout(function () {
+                window.CalendarPopupQueue.addPopup(attachmentResources.warningLabel, $('#filesMultimediaCannotBeAttachedTmpl').tmpl());
+            }, 0);
+        }
+
         if (copiedFiles.length) {
-
-            setTimeout(showWarningDialog, 0);
-
+            setTimeout(function () {
+                window.CalendarPopupQueue.addPopup(attachmentResources.warningLabel, $('#filesCannotBeAttachedAsLinksTmpl').tmpl());
+            }, 0);
         } else {
-            for (var i = 0; i < attachedFiles.length; i++) {
-                insertFileLinkToEvent(attachedFiles[i]);
-
-                var attachment = attachedFiles[i];
-                attachment.size = 0;
-                attachment.orderNumber = getOrderNumber();
-                addAttachment(attachment);
-            }
-
-            completeCopiedFileLinkAttachmentsProgressStatus(attachedFiles);
-
+            addAttachedFilesToEvent(attachedFiles);
             clearAttachedFiles();
         }
     }
 
-    function completeCopiedFileLinkAttachmentsProgressStatus(files) {
-        for (var i = 0; i < files.length; i++) {
-            displayAttachmentProgress(files[i].orderNumber, true);
-            updateFileLinkAttachmentProgressStatus(files[i].orderNumber, 100, attachmentResources.uploadedLabel);
-            files[i].isUploaded = true;
+    function addAttachedFilesToEvent(attachedFiles) {
+        for (var i = 0; i < attachedFiles.length; i++) {
+            var attachment = attachedFiles[i];
+            attachment.size = 0;
+            addAttachment(attachment);
         }
 
-        correctFileNameWidth();
+        completeCopiedFileLinkAttachmentsProgressStatus(attachedFiles);
     }
 
-    function insertFileLinkToEvent(file) {
-        if (!file.fileUrl) {
-            var fileUrl = location.origin + ASC.Files.Utility.GetFileDownloadUrl(file.id);
-            if (ASC.Files.Utility.CanWebView(file.title)) {
-                fileUrl = location.origin + ASC.Files.Utility.GetFileWebViewerUrl(file.id);
+    function insertFileLinksToEvent(files) {
+        for (var i = 0; i < files.length; i++) {
+            if (!files[i].fileUrl) {
+                var fileUrl = location.origin + ASC.Files.Utility.GetFileDownloadUrl(files[i].id);
+                if (ASC.Files.Utility.CanWebView(files[i].title)) {
+                    fileUrl = location.origin + ASC.Files.Utility.GetFileWebViewerUrl(files[i].id);
+                }
+                files[i].fileUrl = fileUrl;
             }
-            file.fileUrl = fileUrl;
+            updateAttachment(files[i].orderNumber, files[i]);
         }
     }
 
@@ -734,26 +740,31 @@
         var aFiles = attachedFiles.slice(0);
         var cFiles = copiedFiles.slice(0);
 
-        for (var i = 0; i < aFiles.length; i++) {
-            if (!aFiles[i].orderNumber) {
-                aFiles[i].orderNumber = getOrderNumber();
-            }
-        }
-
-        hideWarningDialog();
+        addAttachedFilesToEvent(aFiles);
+        addSharingFileLinkAttachments(cFiles);
+        window.CalendarPopupQueue.hide();
 
         cFiles = cFiles.filter(function (item) {
             if (item.denyDownload) {
-                showFileLinkAttachmentErrorStatus(item.orderNumber, attachmentResources.documentAccessDeniedError);
+                cFiles[i] = getFailedAttachmentData(cFiles[i], attachmentResources.documentAccessDeniedError);
+                updateAttachment(cFiles[i].orderNumber, cFiles[i]);
                 return false;
             }
             return true;
         });
 
+        ASC.CalendarController.Busy = true;
+        window.LoadingBanner.displayLoading();
+
         copyFilesToMyDocuments(cFiles, function (err, files) {
+
+            ASC.CalendarController.Busy = false;
+            window.LoadingBanner.hideLoading();
+
             if (err) {
                 for (i = 0; i < cFiles.length; i++) {
-                    showFileLinkAttachmentErrorStatus(cFiles[i].orderNumber, attachmentResources.copyFileToMyDocumentsFolderErrorMsg);
+                    cFiles[i] = getFailedAttachmentData(cFiles[i], attachmentResources.copyFileToMyDocumentsFolderErrorMsg);
+                    updateAttachment(cFiles[i].orderNumber, cFiles[i]);
                 }
                 correctFileNameWidth();
                 clearAttachedFiles();
@@ -762,21 +773,19 @@
 
                 if (files.length == cFiles.length) {
                     for (i = 0; i < cFiles.length; i++) {
-                        files[i].orderNumber = getOrderNumber();
+                        files[i].orderNumber = cFiles[i].orderNumber;
                         files[i].originalId = cFiles[i].id;
                     }
                 }
 
-                var allFiles = aFiles.concat(files);
-                addSharingFileLinkAttachments(allFiles);
-                completeCopiedFileLinkAttachmentsProgressStatus(allFiles);
+                insertFileLinksToEvent(files);
+                completeCopiedFileLinkAttachmentsProgressStatus(files);
             }
         });
     }
 
     function cancelCopyingFilesToMyDocuments() {
         clearAttachedFiles();
-        hideWarningDialog();
     }
 
     function copyFilesToMyDocuments(files, cb) {
@@ -845,8 +854,6 @@
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
 
-            insertFileLinkToEvent(file);
-
             var attachment = convertDocumentToAttachment(file);
             attachment.size = 0;
 
@@ -868,42 +875,13 @@
         for (var i = 0; i < files.length; i++) {
             updateFileLinkAttachmentProgressStatus(files[i].orderNumber, 100, attachmentResources.insertedViaLink);
         }
-
         correctFileNameWidth();
-    }
-
-    function initWarningDialog() {
-        warningDialog = $('#commonPopup');
-        warningDialog.find('div.containerHeaderBlock:first td:first').html(attachmentResources.warningLabel);
-        warningDialog.find('div.containerBodyBlock:first').html($('#filesCannotBeAttachedAsLinksTmpl').tmpl());
-
-        jq("#copyFilesToMyDocuments").on("click", function () {
-            copyFilesToMyDocumentsAndInsertFileLinksToEvent();
-            return false;
-        });
-
-        jq("#cancelCopyingToMyDocuments").on("click", function () {
-            cancelCopyingFilesToMyDocuments();
-            return false;
-        });
-    }
-
-    function showWarningDialog() {
-        if (warningDialog == null) {
-            initWarningDialog();
-        }
-        StudioBlockUIManager.blockUI(warningDialog, 530, { bindEvents: false });
-    }
-
-    function hideWarningDialog() {
-        if (warningDialog.is(':visible')) {
-            $.unblockUI();
-        }
     }
 
     function clearAttachedFiles() {
         attachedFiles = [];
         copiedFiles = [];
+        unattachedFilesInTrialVersion = [];
     }
 
     var methods = {
@@ -940,5 +918,9 @@
         return this;
     };
 
+    return {
+        cancelCopyingFilesToMyDocuments: cancelCopyingFilesToMyDocuments,
+        copyFilesToMyDocumentsAndInsertFileLinksToEvent: copyFilesToMyDocumentsAndInsertFileLinksToEvent
+    };
 
 })(jQuery);

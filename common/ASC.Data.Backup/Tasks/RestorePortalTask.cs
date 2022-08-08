@@ -224,7 +224,7 @@ namespace ASC.Data.Backup.Tasks
                 {
                     if (u.Contains(".upgrade."))
                     {
-                        RunMysqlFile(s, null).Wait();
+                        RunMysqlFile(s, "default", null).Wait();
                     }
                     else if (u.Contains(".data") || u.Contains(".upgrade"))
                     {

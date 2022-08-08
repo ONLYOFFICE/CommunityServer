@@ -247,12 +247,6 @@ namespace ASC.Web.Studio.Core.Notify
                 product = WebItemManager.Instance[(Guid)CallContext.GetData("asc.web.product_id")] as IProduct;
             }
 
-            var logoText = TenantWhiteLabelSettings.DefaultLogoText;
-            if ((TenantExtra.Enterprise || CoreContext.Configuration.CustomMode) && !MailWhiteLabelSettings.Instance.IsDefault)
-            {
-                logoText = TenantLogoManager.GetLogoText();
-            }
-
             request.Arguments.Add(new TagValue(CommonTags.AuthorID, aid));
             request.Arguments.Add(new TagValue(CommonTags.AuthorName, aname));
             request.Arguments.Add(new TagValue(CommonTags.AuthorUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(aid))));
@@ -265,7 +259,7 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(CommonTags.ProfileUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetMyStaff())));
             request.Arguments.Add(new TagValue(CommonTags.RecipientSubscriptionConfigURL, CommonLinkUtility.GetMyStaff()));
             request.Arguments.Add(new TagValue(CommonTags.HelpLink, CommonLinkUtility.GetHelpLink(false)));
-            request.Arguments.Add(new TagValue(CommonTags.LetterLogoText, logoText));
+            request.Arguments.Add(new TagValue(CommonTags.LetterLogoText, TenantLogoManager.GetLogoText()));
             request.Arguments.Add(new TagValue(CommonTags.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
             request.Arguments.Add(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
             request.Arguments.Add(new TagValue(CommonTags.ImagePath, StudioNotifyHelper.GetNotificationImageUrl("").TrimEnd('/')));

@@ -104,6 +104,11 @@ namespace ASC.Web.Files.Utils
 
         public static Stream Exec(File file, string toExtension)
         {
+            if ((toExtension == FileUtility.MasterFormExtension || FileUtility.ExtsWebRestrictedEditing.Contains(toExtension)) && CoreContext.Configuration.CustomMode)
+            {
+                throw new Exception(FilesCommonResource.ErrorMassage_BadRequest);
+            }
+
             if (!EnableConvert(file, toExtension))
             {
                 using (var fileDao = Global.DaoFactory.GetFileDao())

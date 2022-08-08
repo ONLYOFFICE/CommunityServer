@@ -703,7 +703,7 @@ Projekt: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?p
     <value>Projekty [$ProjectTitle]. Obnoven úkol: $EntityTitle</value>
   </data>
   <data name="subject_TaskResumed_tg" xml:space="preserve">
-    <value>Projekty [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Obnoven úkol: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+    <value>Projekty [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Obnoven úkol: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>Nikdo</value>

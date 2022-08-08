@@ -336,9 +336,9 @@ ASC.CRM.ListDealView = (function() {
         _renderSimpleDealsPageNavigator();
 
         if (ASC.CRM.ListDealView.bidList.length == 0) {
-            jq("#dealList .showTotalAmount").hide();
+            jq("#showTotalAmount").hide();
         } else {
-            jq("#dealList .showTotalAmount").show();
+            jq("#showTotalAmount").show();
         }
 
         window.scrollTo(0, 0);
@@ -2696,9 +2696,9 @@ ASC.CRM.DealTabView = (function () {
         jq.tmpl("dealTmpl", ASC.CRM.DealTabView.dealList).prependTo("#dealTable tbody");
 
         if (ASC.CRM.ListDealView.bidList.length == 0) {
-            jq("#dealList .showTotalAmount").hide();
+            jq("#showTotalAmount").hide();
         } else {
-            jq("#dealList .showTotalAmount").show();
+            jq("#showTotalAmount").show();
         }
         LoadingBanner.hideLoading();
     };
@@ -2712,9 +2712,9 @@ ASC.CRM.DealTabView = (function () {
         ASC.CRM.Common.RegisterContactInfoCard();
 
         if (ASC.CRM.ListDealView.bidList.length == 0) {
-            jq("#dealList .showTotalAmount").hide();
+            jq("#showTotalAmount").hide();
         } else {
-            jq("#dealList .showTotalAmount").show();
+            jq("#showTotalAmount").show();
         }
     };
 

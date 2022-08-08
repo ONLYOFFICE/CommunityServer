@@ -37,7 +37,7 @@ namespace ASC.Web.Studio.Utility
                 }
                 else
                 {
-                    if (type == WhiteLabelLogoTypeEnum.Dark)
+                    if (type == WhiteLabelLogoTypeEnum.Dark && !TenantLogoManager.IsVisibleWhiteLabelSettings)
                     {
                         /*** simple scheme ***/
                         var _tenantInfoSettings = TenantInfoSettings.Load();

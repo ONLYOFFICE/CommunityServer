@@ -455,7 +455,7 @@ namespace ASC.Data.Backup.Tasks
                                 var s = obj[i] as string;
                                 if (s != null)
                                 {
-                                    sw.Write("'" + s.Replace("\r", "\\r").Replace("\n", "\\n") + "'");
+                                    sw.Write("'" + s.Replace("\\", "\\\\").Replace("\r", "\\r").Replace("'", "\\'").Replace("\n", "\\n") + "'");
                                 }
                                 else
                                 {

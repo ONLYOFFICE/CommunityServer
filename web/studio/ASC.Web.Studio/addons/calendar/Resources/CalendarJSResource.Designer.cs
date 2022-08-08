@@ -19,7 +19,7 @@ namespace ASC.Web.Calendar.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CalendarJSResource {
@@ -471,6 +471,24 @@ namespace ASC.Web.Calendar.Resources {
         public static string calendarEventAttachments_megabytes {
             get {
                 return ResourceManager.GetString("calendarEventAttachments_megabytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In the trial version, files in uneditable formats (.jpg, .mp3, .mp4, .webp, etc.) cannot be sent as external links..
+        /// </summary>
+        public static string calendarEventAttachments_multimediaFilesCannotBeAttached_Body {
+            get {
+                return ResourceManager.GetString("calendarEventAttachments_multimediaFilesCannotBeAttached_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files in this format cannot be sent as links.
+        /// </summary>
+        public static string calendarEventAttachments_multimediaFilesCannotBeAttached_Header {
+            get {
+                return ResourceManager.GetString("calendarEventAttachments_multimediaFilesCannotBeAttached_Header", resourceCulture);
             }
         }
         

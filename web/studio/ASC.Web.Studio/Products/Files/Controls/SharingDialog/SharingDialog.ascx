@@ -80,7 +80,7 @@
                             <input type="text" readonly="readonly" />
                         </div>
                         <div class="link-share-action-block">
-                            <% if (!Request.DesktopApp() && !CoreContext.Configuration.CustomMode)
+                            <% if (!Request.DesktopApp() || !CoreContext.Configuration.CustomMode)
                                { %>
                             <div class="link-share-social">
                                 <span><%= FilesUCResource.ShareTo %>:</span>

@@ -292,8 +292,28 @@ ASC.Projects.TaskDescriptionPage = (function() {
             }
         });
     };
-    
+
+    function checkUnsavedData() {
+        var ask = false;
+
+        var $subtaskNameInput = jq("#subtaskContainer .subtask-name-input:visible");
+        if ($subtaskNameInput.length) {
+            ask = $subtaskNameInput.val().length > 0;
+        }
+
+        var $commentBox = jq("#commonCommentsContainer #commentBox:visible");
+        if ($commentBox.length) {
+            ask = CommentsManagerObj.editorInstance.getData().length > 0;
+        }
+
+        return ask ? confirm(projectsJsResource.ConfirmContinueMessage) : true;
+    }
+
     function taAcceptHandler() {
+        if (!checkUnsavedData()) {
+            return;
+        }
+
         var data = {
             title: currentTask.title,
             responsibles: [currentUserId],
@@ -333,6 +353,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
     };
 
     function taEditHandler() {
+        if (!checkUnsavedData()) {
+            return;
+        }
+
         baseObject.TaskAction.showUpdateTaskForm(currentTask);
     };
 
@@ -398,7 +422,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
         
         descriptionTab.init()
             .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "Tasks.aspx?prjID=" + task.projectOwner.id)
-            .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}] {1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
+            .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}] {1}', task.milestone.displayDateDeadline, formatDescription(task.milestone.title)) : '')
             .push(TaskResource.TaskStartDate, task.displayDateStart)
             .push(TaskResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
             .push(TaskResource.Priority, task.priority === 1 ? TaskResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
@@ -1097,7 +1121,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
     };
 
     function cancelCloseTask() {
-        ASC.Projects.DescriptionTab.resetStatus(currentTask.status);
+        ASC.Projects.DescriptionTab.resetStatus(currentTask.customTaskStatus || currentTask.status);
         jq.unblockUI();
     }
 

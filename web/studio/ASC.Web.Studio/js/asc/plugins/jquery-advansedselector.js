@@ -353,7 +353,10 @@
 
     function setFocusOnSearch() {
         var that = this;
-        that.$advancedSelector.find(".advanced-selector-search-field").trigger("focus");
+        var searchField = that.$advancedSelector.find(".advanced-selector-search-field");
+        if (searchField.length) {
+            searchField.get(0).focus();
+        }
     }
 
     function onClickCancelSelector() {

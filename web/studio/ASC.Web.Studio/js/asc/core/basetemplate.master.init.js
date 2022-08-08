@@ -85,8 +85,8 @@ var defineBodyMediaClass = function () {
     // init jQuery Datepicker
     if (jQuery && jQuery.datepicker) {
         jQuery.datepicker.setDefaults({
-            //changeMonth: true,
-            //changeYear: true,
+            changeMonth: true,
+            changeYear: true,
             prevText: "",
             nextText: "",
             firstDay: ASC.Resources.Master.FirstDay,
@@ -94,7 +94,7 @@ var defineBodyMediaClass = function () {
             dayNamesMin: ASC.Resources.Master.DayNames,
             dayNamesShort: ASC.Resources.Master.DayNames,
             dayNames: ASC.Resources.Master.DayNamesFull,
-            monthNamesShort: ASC.Resources.Master.MonthNames,
+            monthNamesShort: ASC.Resources.Master.MonthNamesFull,
             monthNames: ASC.Resources.Master.MonthNamesFull
         });
     }
@@ -355,7 +355,7 @@ var defineBodyMediaClass = function () {
         pageContent.find(".studio-action-panel, .popup_helper, .advanced-selector-container").hide();
         jq("#studioPageContent main .menu-small.active").removeClass("active");
         jq("#studioPageContent main .entity-menu.active").removeClass("active");
-        jq('#ui-datepicker-div, .asc-popupmenu').hide();
+        jq('#ui-datepicker-div, .asc-popupmenu, body>ul.ui-autocomplete').hide();
     };
 
     navContent.on("scroll", function() {

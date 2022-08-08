@@ -265,73 +265,14 @@ namespace ASC.Data.Backup.Tasks
 
                             try
                             {
-                                commandText = commandText.Replace("\\r", "\r").Replace("\\n", "\n");
                                 await dbManager.ExecuteNonQueryAsync(commandText, null);
                             }
                             catch (Exception)
                             {
                                 try
                                 {
-                                    if (commandText.StartsWith("REPLACE INTO"))
-                                    {
-                                        var innerValues = commandText.Split(',').ToList();
-                                        for (int i = 0; i < innerValues.Count(); i++)
-                                        {
-                                            var flag1 = false;
-                                            var flag2 = false;
-                                            if (innerValues[i].StartsWith("("))
-                                            {
-                                                flag1 = true;
-                                                innerValues[i] = innerValues[i].TrimStart('(');
-                                            }
-                                            else if (innerValues[i].EndsWith(")") && !innerValues[i].StartsWith("'")
-                                                || innerValues[i].EndsWith("')") && innerValues[i] != "')")
-                                            {
-                                                flag2 = true;
-                                                innerValues[i] = innerValues[i].TrimEnd(')');
-                                            }
-                                            if (i == innerValues.Count() - 1)
-                                            {
-                                                innerValues[i] = innerValues[i].Remove(innerValues[i].Length - 2, 2);
-                                            }
-                                            if (innerValues[i].StartsWith("\'") && ((!innerValues[i].EndsWith("\'") || innerValues[i] == "'")
-                                                || i != innerValues.Count() - 1 && (!innerValues[i + 1].StartsWith("\'") && innerValues[i + 1].EndsWith("\'") && !innerValues[i + 1].StartsWith("(\'") || innerValues[i + 1] == "'")))
-                                            {
-                                                innerValues[i] += "," + innerValues[i + 1];
-                                                innerValues.RemoveAt(i + 1);
-                                            }
-                                            if (innerValues[i].StartsWith("\'") && innerValues[i].EndsWith("\'"))
-                                            {
-                                                if (innerValues[i] != "''")
-                                                {
-                                                    var sw = new StringWriter();
-                                                    sw.Write("0x");
-                                                    foreach (var b in Encoding.UTF8.GetBytes(innerValues[i].Trim('\'')))
-                                                        sw.Write("{0:x2}", b);
-                                                    innerValues[i] = string.Format("CONVERT({0} USING utf8)", sw.ToString());
-                                                }
-                                            }
-                                            if (flag1)
-                                            {
-                                                innerValues[i] = "(" + innerValues[i];
-                                            }
-                                            else if (flag2)
-                                            {
-                                                innerValues[i] = innerValues[i] + ")";
-                                            }
-                                            if (i == innerValues.Count() - 1)
-                                            {
-                                                innerValues[i] = innerValues[i] + ");";
-                                            }
-                                        }
-                                        commandText = string.Join(",", innerValues).ToString();
-                                        await dbManager.ExecuteNonQueryAsync(commandText, null);
-                                    }
-                                    else
-                                    {
-                                        Thread.Sleep(1000);//avoiding deadlock
-                                        await dbManager.ExecuteNonQueryAsync(commandText, null);
-                                    }
+                                    Thread.Sleep(2000);//avoiding deadlock
+                                    await dbManager.ExecuteNonQueryAsync(commandText, null);
                                 }
                                 catch (Exception ex)
                                 {

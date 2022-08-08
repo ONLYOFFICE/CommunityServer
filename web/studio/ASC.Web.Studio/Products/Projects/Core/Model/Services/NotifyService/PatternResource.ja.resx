@@ -760,7 +760,7 @@ $AdditionalData
     <value>プロジェクト [$ProjectTitle]. タスクが再開： $EntityTitle</value>
   </data>
   <data name="subject_TaskResumed_tg" xml:space="preserve">
-    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクが再開されました: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+    <value>プロジェクト [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). タスクが再開されました: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>誰もない</value>

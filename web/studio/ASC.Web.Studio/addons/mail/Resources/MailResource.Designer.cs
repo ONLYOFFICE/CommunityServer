@@ -1709,6 +1709,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In the trial version, files in uneditable formats (.jpg, .mp3, .mp4, .webp, etc.) cannot be sent as external links. {0}{0} Please send this file as an attachment..
+        /// </summary>
+        public static string MultimediaFilesCannotBeAttachedInTrial_Body {
+            get {
+                return ResourceManager.GetString("MultimediaFilesCannotBeAttachedInTrial_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files in this format cannot be sent as links.
+        /// </summary>
+        public static string MultimediaFilesCannotBeAttachedInTrial_Header {
+            get {
+                return ResourceManager.GetString("MultimediaFilesCannotBeAttachedInTrial_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string NameLabel {

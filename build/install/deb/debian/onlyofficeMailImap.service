@@ -8,7 +8,7 @@ Type=notify
 User=onlyoffice
 Group=onlyoffice
 WorkingDirectory=/var/www/onlyoffice/Services/MailImap/
-ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailImap/ASC.Mail.ImapSync.dll --urls=http://0.0.0.0:5026 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --'$STORAGE_ROOT'=/var/www/onlyoffice/Data --log:dir=/var/log/onlyoffice/mail --log:name=mail-imapsync --ENVIRONMENT=production
+ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailImap/ASC.Mail.ImapSync.dll --urls=http://0.0.0.0:5026 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-imapsync --ENVIRONMENT=production
 Environment=OPENSSL_CONF=/etc/onlyoffice/communityserver/openssl.cnf
 TimeoutSec=600
 

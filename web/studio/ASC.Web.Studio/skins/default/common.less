@@ -211,9 +211,16 @@ input,textarea, select {
 }
 .ui-datepicker-title {
     .ui-datepicker-month, .ui-datepicker-year {
-        border-bottom: 1px dotted black;
+        border: 1px solid #ffffff;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        font-weight: bold;
+        text-align: center;
         cursor: pointer;
         padding-bottom: 0.1em;
+        appearance: none;
+        background-color: transparent;
+        width: auto;
     }
 }
 .asc-datepicker .ui-datepicker .ui-datepicker-calendar td, .ui-datepicker .ui-datepicker-calendar td {
@@ -223,6 +230,7 @@ input,textarea, select {
 
 .ui-datepicker.ui-corner-all {
     width: 20em;
+    padding: 5px 10px;
 }
 
 .ui-datepicker.ui-corner-all th {

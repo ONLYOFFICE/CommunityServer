@@ -66,13 +66,15 @@ namespace ASC.Web.Files.Controls
                     ? string.Format(@"<div class=""empty-folder-create empty-folder-create-editor"">
 <a class=""link dotline plus empty-folder-create-document"">{0}</a>,
 <a class=""link dotline empty-folder-create-spreadsheet"">{1}</a>,
-<a class=""link dotline empty-folder-create-presentation"">{2}</a>,
-<a class=""link dotline empty-folder-create-masterform"">{3}</a>
+<a class=""link dotline empty-folder-create-presentation"">{2}</a>{3}
 </div>",
                                     FilesUCResource.ButtonCreateText,
                                     FilesUCResource.ButtonCreateSpreadsheet,
                                     FilesUCResource.ButtonCreatePresentation,
-                                    FilesUCResource.ButtonCreateFormTemplate)
+                                    CoreContext.Configuration.CustomMode
+                                        ? string.Empty
+                                        : string.Format(@",{0}<a class=""link dotline empty-folder-create-masterform"">{1}</a>", Environment.NewLine, FilesUCResource.ButtonCreateFormTemplate)
+                                    )
                     : string.Empty;
 
             var strCreateFolder =

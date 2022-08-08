@@ -178,11 +178,14 @@
                 <input type="checkbox" value="<%= (int)FileShare.CustomFilter %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.CustomFilter) ? "checked=\"checked\"" : string.Empty %> />
                 <%= FilesJSResource.AceStatusEnum_CustomFilter %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingCustomFilterInfo %>)</span>
             </label>
+            <% if (!CoreContext.Configuration.CustomMode)
+               { %>
             <br />
             <label>
                 <input type="checkbox" value="<%= (int)FileShare.FillForms %>" <%= DefaultSharingAccessRightsSetting.Contains(FileShare.FillForms) ? "checked=\"checked\"" : string.Empty %> />
                 <%= FilesJSResource.AceStatusEnum_FillForms %> <span class="gray-text">(<%= FilesUCResource.DefaultSharingAccessRightsSettingFillFormsInfo %>)</span>
             </label>
+            <% } %>
         </div>
 
         <% } %>

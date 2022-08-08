@@ -879,7 +879,13 @@ namespace ASC.Web.Files.Services.DocumentService
                     public string Logo
                     {
                         set { }
-                        get { return CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !_configuration.EditorConfig.Customization.IsRetina)); }
+                        get
+                        {
+                            return
+                                CoreContext.Configuration.Standalone
+                                    ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(!_configuration.EditorConfig.Customization.IsRetina))
+                                    : CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !_configuration.EditorConfig.Customization.IsRetina));
+                        }
                     }
 
                     [DataMember(Name = "mail")]

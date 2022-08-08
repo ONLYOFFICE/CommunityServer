@@ -376,29 +376,33 @@ ASC.Projects.GantChart = (function (window) {
     if (!Array.prototype.last) { Array.prototype.last = function () { return this[this.length - 1]; } }
     if (!Date.prototype.dateFormat) {
         Date.prototype.dateFormat = function () {
-            var day = this.getUTCDate();
-            var month = this.getMonth() + 1;
-            var year = this.getFullYear().toString();
+            //var day = this.getUTCDate();
+            //var month = this.getMonth() + 1;
+            //var year = this.getFullYear().toString();
 
-            if (month < 10) month = '0' + month.toString();
-            if (day < 10) day = '0' + day.toString();
+            //if (month < 10) month = '0' + month.toString();
+            //if (day < 10) day = '0' + day.toString();
 
-            year = year.slice(year.length - 2, year.length);
+            //year = year.slice(year.length - 2, year.length);
 
-            return day + '.' + month + '.' + year;
+            //return day + '.' + month + '.' + year;
+
+            return this.toLocaleDateString(ASC.Resources.Master.CurrentCulture, { year: '2-digit', month: '2-digit', day: '2-digit' });
         }
     }
     if (!Date.prototype.dateFormatFullYear) {
         Date.prototype.dateFormatFullYear = function () {
 
-            var day = this.getUTCDate();
-            var month = this.getMonth() + 1;
-            var year = this.getFullYear().toString();
+            //var day = this.getUTCDate();
+            //var month = this.getMonth() + 1;
+            //var year = this.getFullYear().toString();
 
-            if (month < 10) month = '0' + month.toString();
-            if (day < 10) day = '0' + day.toString();
+            //if (month < 10) month = '0' + month.toString();
+            //if (day < 10) day = '0' + day.toString();
 
-            return day + '.' + month + '.' + year;
+            //return day + '.' + month + '.' + year;
+
+            return this.toLocaleDateString(ASC.Resources.Master.CurrentCulture, { year: 'numeric', month: '2-digit', day: '2-digit' });
         }
     }
 
@@ -7209,14 +7213,16 @@ ASC.Projects.GantChart = (function (window) {
             this.ctx.fillStyle = kDateScaleTextColor;
 
             function format(data) {
-                var s = '', day = data.getDate(), month = data.getMonth() + 1;
+                //var s = '', day = data.getDate(), month = data.getMonth() + 1;
 
-                if (day < 10) s += '0' + day; else s += day;
-                if (month < 10) s += '.0' + month; else s += '.' + month;
+                //if (day < 10) s += '0' + day; else s += day;
+                //if (month < 10) s += '.0' + month; else s += '.' + month;
 
-                s += '.' + String(data.getUTCFullYear()).substring(2, 4);
+                //s += '.' + String(data.getUTCFullYear()).substring(2, 4);
 
-                return s;
+                //return s;
+
+                return data.dateFormat();
             }
 
             this.ctx.fillText(format(this.leftTextDate), 5, this.ctxHeight * 0.6);
@@ -8825,27 +8831,30 @@ ASC.Projects.GantChart = (function (window) {
         },
         formatBeginEndDays: function () {
 
-            this._beginDate.setHours(12);
+            //this._beginDate.setHours(12);
 
-            var day = this._beginDate.getUTCDate();
-            if (day < 10) day = '0' + day.toString();
-            var month = this._beginDate.getMonth() + 1;
-            if (month < 10) month = '0' + month.toString();
+            //var day = this._beginDate.getUTCDate();
+            //if (day < 10) day = '0' + day.toString();
+            //var month = this._beginDate.getMonth() + 1;
+            //if (month < 10) month = '0' + month.toString();
 
-            this._beginDate.setHours(0);
+            //this._beginDate.setHours(0);
 
-            var txt = day + '.' + month + '. - ';
+            //var txt = day + '.' + month + '. - ';
 
-            this._endDate.setHours(12);
+            //this._endDate.setHours(12);
 
-            day = this._endDate.getUTCDate();
-            if (day < 10) day = '0' + day.toString();
-            month = this._endDate.getMonth() + 1;
-            if (month < 10) month = '0' + month.toString();
+            //day = this._endDate.getUTCDate();
+            //if (day < 10) day = '0' + day.toString();
+            //month = this._endDate.getMonth() + 1;
+            //if (month < 10) month = '0' + month.toString();
 
-            this._endDate.setHours(0);
+            //this._endDate.setHours(0);
 
-            txt += day + '.' + month + ' (' + (this.endTime - this.beginTime) / 24;
+            //txt += day + '.' + month + ' (' + (this.endTime - this.beginTime) / 24;
+
+            var txt = this._beginDate.dateFormat().slice(0, 6) + ' - ' + this._endDate.dateFormat().slice(0, 5) + ' (' + (this.endTime - this.beginTime) / 24;
+
             if ((this.endTime - this.beginTime) / 24 < 2) {
                 txt += ' ' + window['Gantt']['Localize_strings']['day'] + ')';
             } else {
@@ -9192,12 +9201,14 @@ ASC.Projects.GantChart = (function (window) {
             this._beginDate = new Date((Task.curTime + this.beginTime * 3600000));      //  * 1000 * 60 * 60
             this._endDate = new Date((Task.curTime + this.endTime * 3600000));
 
-            var endMonth = this._endDate.getMonth() + 1;
+            //var endMonth = this._endDate.getMonth() + 1;
 
-            this.titleWithDate = this._title +
-                ' ' + ((this._endDate.getDate() > 9) ? this._endDate.getDate() : ('0' + this._endDate.getDate())) +
-                '.' + ((endMonth > 9) ? endMonth : ('0' + endMonth)) +
-                '.' + (this._endDate.getFullYear() % 100);
+            //this.titleWithDate = this._title +
+            //    ' ' + ((this._endDate.getDate() > 9) ? this._endDate.getDate() : ('0' + this._endDate.getDate())) +
+            //    '.' + ((endMonth > 9) ? endMonth : ('0' + endMonth)) +
+            //    '.' + (this._endDate.getFullYear() % 100);
+
+            this.titleWithDate = this._title + ' ' + this._endDate.dateFormat();
         },
 
         setCollapse: function (value) {

@@ -1166,7 +1166,7 @@ namespace ASC.Api.Projects
             var project = EngineFactory.ProjectEngine.GetByID(id).NotFoundIfNull();
 
             if (ProjectSecurity.CanReadFiles(project))
-                return documentsApi.GetFolder(EngineFactory.FileEngine.GetRoot(id).ToString(), Guid.Empty, FilterType.None);
+                return documentsApi.GetFolder(EngineFactory.FileEngine.GetRoot(id).ToString(), Guid.Empty, FilterType.None, false, false);
 
             throw new SecurityException("Access to files is denied");
         }

@@ -413,16 +413,13 @@ ASC.Projects.MilestoneAction = (function() {
         $milestoneDeadlineInputBox.val('');
         $milestoneDeadlineInputBox.datepicker({ popupContainer: '#milestoneActionPanel', selectDefaultDate: true });
         $milestoneDeadlineInputBox.mask(ASC.Resources.Master.DatePatternJQ);
-        $milestoneDeadlineInputBox.on("keydown", onDatePickerKeyDown).on("change", onDatePickerChange);
 
-        if (jq.browser.mobile)
-            jq("#ui-datepicker-div").addClass("blockMsg");
+        jq("#ui-datepicker-div").addClass("blockMsg");
 
         var date = new Date();
         date.setDate(date.getDate() + 7);
         $milestoneDeadlineInputBox.datepicker('setDate', date);
         boldDeadlineLeft(7);
-
 
         $milestoneResponsibleContainer.removeClass(requiredFieldErrorClass);
         $milestoneResponsible.projectadvancedSelector("reset");
@@ -437,19 +434,6 @@ ASC.Projects.MilestoneAction = (function() {
         $milestoneNotifyManagerCheckBox.prop("checked", false);
         loadingBanner.hideLoaderBtn($milestoneActionPanel);
     };
-
-    function onDatePickerKeyDown(e) {
-        if (e.keyCode === 13) {
-            onDatePickerChange(e);
-        }
-    }
-
-    function onDatePickerChange(e) {
-        var obj = jq(e.target);
-        var date = obj.datepicker("getDate");
-        obj.unmask().trigger("blur").mask(ASC.Resources.Master.DatePatternJQ);
-        obj.datepicker("setDate", date);
-    }
 
     function boldDeadlineLeft(dataValue) {
         var dotline = "dotline", bold = "bold";

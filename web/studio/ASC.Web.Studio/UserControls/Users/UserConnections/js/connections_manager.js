@@ -16,6 +16,12 @@
 
 
 jq(document).ready(function () {
+    jq("#emptyDbipSwitcher").on("click", function () {
+        jq(this).helper({
+            BlockHelperID: "emptyDbipHelper"
+        });
+    });
+
     jq('#switcherConnectionsButton').one('click', function () {
         if (!jq('#connectionsBlockContainer').hasClass('connectionsLoaded') &&
             typeof (window.CommonConnectionsManager) != 'undefined' &&

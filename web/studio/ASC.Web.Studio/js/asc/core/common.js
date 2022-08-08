@@ -1738,6 +1738,8 @@ window.GroupManager = new function () {
                 }
             }
         }
+
+        delete ASC.Resources.Master.ApiResponses_Groups;
     }
 
     function getAllGroups() {

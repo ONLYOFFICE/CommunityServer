@@ -752,7 +752,7 @@ $AdditionalData
     <value>Proyectos [$ProjectTitle]. Tarea reanudada: $EntityTitle</value>
   </data>
   <data name="subject_TaskResumed_tg" xml:space="preserve">
-    <value>Proyectos [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tarea reanudada: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID)</value>
+    <value>Proyectos [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Tarea reanudada: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID)</value>
   </data>
   <data name="subtaskWithoutResponsible" xml:space="preserve">
     <value>Sin responsable</value>

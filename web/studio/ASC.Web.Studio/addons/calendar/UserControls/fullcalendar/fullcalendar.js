@@ -1070,7 +1070,10 @@ var fcDatepicker = function fcDPModule() {
 						showArrow: false,
 						showModal: true});
 			_dp = _frame.find(".asc-datepicker").datepicker({
-					firstDay: calendar.options.firstDay});
+				firstDay: calendar.options.firstDay,
+				changeMonth: false,
+				changeYear: false
+			});
 		}
 	}
 
@@ -4931,6 +4934,8 @@ function CategoriesList(calendar) {
 
 		_datepicker = result.find("#fc_datepicker").datepicker({
 			firstDay: calendar.options.firstDay,
+			changeMonth: false,
+			changeYear: false,
 			onChangeMonthYear: function(year, month, inst) {
 				if (_dpSettingDate == true) {return;}
 				_dpVisibleDate = new Date(year, month - 1, 1);
@@ -5742,7 +5747,7 @@ function TodoList(calendar) {
 	    var curTodo = src.todos[elem.data("todoId")];
 
 	    var $lbl = $(this), text = $lbl.text(),
-	    $txt = $('<input type="text" class="editable-label-text" maxlength="150" value="' + text + '" />');
+	    $txt = $('<input type="text" class="editable-label-text" maxlength="150" />');
 
 	    var container = $($(elem).parent()[0]);
 	    var containerDate = container.data("date") != null ? new Date(container.data("date")) : null;
@@ -5750,7 +5755,7 @@ function TodoList(calendar) {
 	    elem.addClass('edit');
 
         $lbl.replaceWith($txt);
-        $txt.trigger("focus");
+        $txt.val(text).trigger("focus");
 
 	    $txt.on("blur", function () {
 	        var newText = $(this).val();

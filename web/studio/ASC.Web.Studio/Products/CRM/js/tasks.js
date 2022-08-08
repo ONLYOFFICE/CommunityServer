@@ -1384,8 +1384,7 @@ ASC.CRM.TaskActionView = new function() {
                 }
             });
 
-            if (jq.browser.mobile)
-                jq("#ui-datepicker-div").addClass("blockMsg");
+            jq("#ui-datepicker-div").addClass("blockMsg");
 
             _initTaskCategorySelector();
 

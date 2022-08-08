@@ -1041,10 +1041,12 @@
         $toDateContainer = $filteritem.find('span.to-daterange-selector:first span.datepicker-container:first')
 
         $datepicker = createDatepicker($fromDateContainer, $container, $filteritem, filtervalue, defaultFromDate);
+        $datepicker.datepicker("option", "yearRange", "-30:+0");
         $datepicker.datepicker("option", "maxDate", defaultToDate);
         $filteritem.find('span.from-daterange-selector:first span.btn-show-datepicker-title:first').text($.datepicker.formatDate($datepicker.datepicker("option", "dateFormat"), $datepicker.datepicker("getDate")));
 
         $datepicker = createDatepicker($toDateContainer, $container, $filteritem, filtervalue, defaultToDate);
+        $datepicker.datepicker("option", "yearRange", "-30:+0");
         $datepicker.datepicker("option", "minDate", defaultFromDate);
         $filteritem.find('span.to-daterange-selector:first span.btn-show-datepicker-title:first').text($.datepicker.formatDate($datepicker.datepicker("option", "dateFormat"), $datepicker.datepicker("getDate")));
 
@@ -1058,6 +1060,8 @@
 
         //onBodyClick(evt);
         jQuery(document.body).off('click', onBodyClick);
+
+        hideDatepicker();
 
         var $datepicker = $dateselector.addClass('showed-datepicker').find('span.advansed-filter-datepicker-container:first').css('display', 'block');
 
@@ -1770,7 +1774,7 @@
             jQuery(document.body).off('click', arguments.callee);
             jQuery(document.body).one('click', arguments.callee);
 
-            jQuery('div.advansed-filter').find('span.advansed-filter-dateselector-date').removeClass('showed-datepicker').find('span.advansed-filter-datepicker-container').hide();
+            hideDatepicker();
             return undefined;
         }
 
@@ -1784,6 +1788,10 @@
         jQuery('div.advansed-filter').removeClass('showed-userselector').find('div.advansed-filter-userselector-container:first').hide();
         jQuery('div.advansed-filter').removeClass('showed-groupselector').find('div.advansed-filter-groupselector-container:first').hide();
 
+        hideDatepicker();
+    }
+
+    function hideDatepicker() {
         jQuery('div.advansed-filter').find('span.advansed-filter-dateselector-date').removeClass('showed-datepicker').find('span.advansed-filter-datepicker-container').hide();
     }
 

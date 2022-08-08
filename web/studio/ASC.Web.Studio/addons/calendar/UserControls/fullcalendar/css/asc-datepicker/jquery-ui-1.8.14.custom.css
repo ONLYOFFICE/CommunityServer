@@ -357,4 +357,4 @@
 }
 
 .asc-datepicker .ui-datepicker-title .ui-datepicker-month, 
-.asc-datepicker .ui-datepicker-title .ui-datepicker-year { border-bottom: 1px dotted black; cursor: pointer; padding-bottom: 0.1em; width: 49%;}
+.asc-datepicker .ui-datepicker-title .ui-datepicker-year { border-bottom: 1px dotted black; cursor: pointer; padding-bottom: 0.1em; width: 49%; text-decoration: none}

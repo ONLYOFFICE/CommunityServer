@@ -1753,7 +1753,7 @@ namespace ASC.Web.Projects.Core.Model.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Projects [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Task resumed: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID).
+        ///   Looks up a localized string similar to Projects [$ProjectTitle](${__VirtualRootPath}/products/projects/projects.aspx?prjID=$ProjectID). Task resumed: [$EntityTitle](${__VirtualRootPath}/products/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID).
         /// </summary>
         public static string subject_TaskResumed_tg {
             get {

@@ -88,6 +88,15 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All unsaved data will be lost. Continue?.
+        /// </summary>
+        public static string ConfirmContinueMessage {
+            get {
+                return ResourceManager.GetString("ConfirmContinueMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contacts.
         /// </summary>
         public static string ContactsModule {

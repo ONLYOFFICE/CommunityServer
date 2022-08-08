@@ -204,8 +204,7 @@ namespace ASC.Web.Studio.Core.Users
 
             text.AppendFormat("{0} ", Resource.ErrorPasswordMessage);
             text.AppendFormat(Resource.ErrorPasswordLength, passwordSettings.MinLength, PasswordSettings.MaxLength);
-            text.AppendFormat(", {0}", Resource.ErrorPasswordOnlyLatinLetters);
-            text.AppendFormat(", {0}", Resource.ErrorPasswordNoSpaces);
+            text.AppendFormat(", {0}", Resource.ErrorPasswordOnlyASCII);
 
             if (passwordSettings.UpperCase)
                 text.AppendFormat(", {0}", Resource.ErrorPasswordNoUpperCase);

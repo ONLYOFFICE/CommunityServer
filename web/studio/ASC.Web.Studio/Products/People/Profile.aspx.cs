@@ -21,6 +21,7 @@ using System.Web;
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Geolocation;
 using ASC.Web.Core;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core.Users;
@@ -33,6 +34,10 @@ namespace ASC.Web.People
     public partial class Profile : MainPage
     {
         public ProfileHelper ProfileHelper;
+
+        protected string HelpLink;
+
+        protected bool IsEmptyDbip;
 
         protected bool IsAdmin()
         {
@@ -69,6 +74,9 @@ namespace ASC.Web.People
 
         private void InitConnectionsView()
         {
+            HelpLink = CommonLinkUtility.GetHelpLink();
+            IsEmptyDbip = CoreContext.Configuration.Standalone && !new GeolocationHelper("teamlabsite").HasData();
+
             _phConnectionsView.Controls.Add(LoadControl(UserConnections.Location));
         }
 

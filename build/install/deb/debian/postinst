@@ -50,7 +50,7 @@ apply_connection_string(){
 		sed "s!\"database\":.*!\"database\":\"${DB_NAME}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
 
 	fi
-	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" /etc/onlyoffice/communityserver/appsettings.production.json
+	sed -i "s/Server=.*/Server=$DB_HOST;Port=3306;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false;SSL Mode=none;AllowPublicKeyRetrieval=True;ConnectionReset=false\",/g" /etc/{{package_sysname}}/communityserver/appsettings.production.json
 }
 
 apply_core_machinekey(){
@@ -67,7 +67,7 @@ apply_core_machinekey(){
 	
 	if [ ! -z $CORE_MACHINEKEY ]; then
 		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
-		sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/onlyoffice/communityserver/appsettings.production.json		
+		sed "s!\"machinekey\":.*!\"machinekey\":\"${CORE_MACHINEKEY}\",!" -i /etc/{{package_sysname}}/communityserver/appsettings.production.json		
 	fi			
 }
 
@@ -312,6 +312,12 @@ END
 			echo "-Dlog4j2.formatMsgNoLookups=true" >> /etc/elasticsearch/jvm.options
 		else
 			sed -i "s/Dlog4j2.formatMsgNoLookups.*/Dlog4j2.formatMsgNoLookups=true/" /etc/elasticsearch/jvm.options
+		fi
+
+		if ! grep -q "ingest.geoip.downloader.enabled" /etc/elasticsearch/elasticsearch.yml; then
+			echo "ingest.geoip.downloader.enabled: false" >> /etc/elasticsearch/elasticsearch.yml
+		else
+			sed -i "s/ingest.geoip.downloader.enabled.*/ingest.geoip.downloader.enabled: false/" /etc/elasticsearch/elasticsearch.yml 
 		fi
 
 		TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);

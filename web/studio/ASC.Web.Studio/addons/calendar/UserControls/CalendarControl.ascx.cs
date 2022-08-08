@@ -60,6 +60,7 @@ namespace ASC.Web.Calendar.UserControls
                     "~/addons/calendar/UserControls/js/recurrence_rule.js",
                     "~/addons/calendar/UserControls/js/calendar_event_page.js",
                     "~/addons/calendar/UserControls/js/calendar.attachments.js",
+                    "~/addons/calendar/UserControls/js/calendar.popupqueue.js",
                     "~/addons/calendar/UserControls/js/jquery.jscrollpane.min.js",
                     "~/addons/calendar/UserControls/js/jquery.mousewheel.js",
                     "~/addons/calendar/UserControls/js/jquery.cookie.js",

@@ -28,6 +28,7 @@ using System.Web;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
+using ASC.Web.Core;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
@@ -497,7 +498,7 @@ namespace ASC.Web.Files
                 DefaultType = (IsMobile ? Services.DocumentService.Configuration.EditorType.Mobile : Services.DocumentService.Configuration.EditorType.Desktop).ToString().ToLower(),
                 TabId = _tabId.ToString(),
                 ThirdPartyApp = _thirdPartyApp,
-                CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal,
+                CanGetUsers = SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal && WebItemSecurity.IsAvailableForMe(WebItemManager.PeopleProductID),
                 PageTitlePostfix = GetPageTitlePostfix()
             };
 

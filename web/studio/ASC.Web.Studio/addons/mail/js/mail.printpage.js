@@ -139,6 +139,8 @@ window.printPage = (function($) {
             messages[i].printedHtmlBody = getMessageBodyForPrint(messages[i]);
         }
 
+        window.toastr.remove();
+
         $view = $.tmpl(viewTmpl, { messages: messages }, {
             fileSizeToStr: AttachmentManager.GetSizeString,
             cutFileName: AttachmentManager.CutFileName,

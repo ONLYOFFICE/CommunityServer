@@ -58,5 +58,5 @@ sed 's_\(\"DefaultApiSchema":\).*,_\1 "https",_' -i ${APP_CONFIG_DIR}/mail.produ
 
 mv -f default-onlyoffice-ssl.conf ${NGINX_CONF_DIR}/onlyoffice.conf
 
-service onlyofficeMailAggregator restart
-service nginx reload
+systemctl restart onlyofficeMailAggregator
+systemctl reload nginx

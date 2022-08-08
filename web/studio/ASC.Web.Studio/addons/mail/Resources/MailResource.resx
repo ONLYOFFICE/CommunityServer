@@ -608,6 +608,12 @@
   <data name="MoveTo" xml:space="preserve">
     <value>Move to</value>
   </data>
+  <data name="MultimediaFilesCannotBeAttachedInTrial_Body" xml:space="preserve">
+    <value>In the trial version, files in uneditable formats (.jpg, .mp3, .mp4, .webp, etc.) cannot be sent as external links. {0}{0} Please send this file as an attachment.</value>
+  </data>
+  <data name="MultimediaFilesCannotBeAttachedInTrial_Header" xml:space="preserve">
+    <value>Files in this format cannot be sent as links</value>
+  </data>
   <data name="NameLabel" xml:space="preserve">
     <value>Name</value>
   </data>

@@ -1082,10 +1082,49 @@ namespace ASC.Web.Studio.Core.Notify
         {
             var confirmUrl = CommonLinkUtility.GetConfirmationUrl(user.Email, ConfirmType.Activation);
 
+            if (HttpContext.Current == null)
+            {
+                confirmUrl = CorrectUrlScheme(confirmUrl);
+            }
+
             return confirmUrl + String.Format("&uid={0}&firstname={1}&lastname={2}",
                                               SecurityContext.CurrentAccount.ID,
                                               HttpUtility.UrlEncode(user.FirstName),
                                               HttpUtility.UrlEncode(user.LastName));
+        }
+
+        private static string CorrectUrlScheme(string url)
+        {
+            try
+            {
+                var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+                var cachedRewriteUrlStr = Common.Caching.AscCache.Default.Get<string>("REWRITE_URL" + tenantId);
+
+                if (string.IsNullOrEmpty(cachedRewriteUrlStr))
+                {
+                    return url;
+                }
+
+                var cachedRewriteUriScheme = new Uri(cachedRewriteUrlStr).Scheme;
+                var uriBuilder = new UriBuilder(url);
+
+                if (uriBuilder.Scheme == cachedRewriteUriScheme)
+                {
+                    return url;
+                }
+
+                var hadDefaultPort = uriBuilder.Uri.IsDefaultPort;
+
+                uriBuilder.Scheme = cachedRewriteUriScheme;
+                uriBuilder.Port = hadDefaultPort ? -1 : uriBuilder.Port;
+
+                return uriBuilder.ToString();
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Notify").Error(ex);
+                return url;
+            }
         }
 
         #endregion

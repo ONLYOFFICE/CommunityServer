@@ -8,7 +8,7 @@ Type=notify
 User=onlyoffice
 Group=onlyoffice
 WorkingDirectory=/var/www/onlyoffice/Services/MailAggregator
-ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.Service.dll --urls=http://0.0.0.0:5025 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --'$STORAGE_ROOT'=/var/www/onlyoffice/Data --log:dir=/var/log/onlyoffice/mail --log:name=mail-aggregator --ENVIRONMENT=production
+ExecStart=/usr/bin/dotnet /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.Service.dll --urls=http://0.0.0.0:5025 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-aggregator --ENVIRONMENT=production
 TimeoutSec=600
 
 Restart=no

@@ -141,6 +141,7 @@ namespace IpGeolocationConverter
 
             var cells = line.Split(Separator);
             var newCells = new List<string>();
+            var numericСolumns = new List<string>() { "Latitude", "Longitude", "Unique geoname ID", "Time Zone offset" };
 
             for (var i = 0; i < ColumnNames.Count; i++)
             {
@@ -162,6 +163,11 @@ namespace IpGeolocationConverter
                 if (columnName == "Country ISO-3166-alpha2 code" && value == "ZZ")
                 {
                     return false;
+                }
+
+                if (string.IsNullOrEmpty(value) && numericСolumns.Contains(columnName))
+                {
+                    value = "0";
                 }
 
                 newCells.Add(value);

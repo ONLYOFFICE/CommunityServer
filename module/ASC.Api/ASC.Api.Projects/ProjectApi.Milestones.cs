@@ -35,6 +35,20 @@ namespace ASC.Api.Projects
         #region milestone
 
         ///<summary>
+        ///Returns a list of the recent milestones within all the portal projects.
+        ///</summary>
+        ///<short>
+        ///Get recent milestones
+        ///</short>
+        ///<category>Milestones</category>
+        ///<returns>List of milestones</returns>
+        [Read(@"milestone")]
+        public IEnumerable<MilestoneWrapper> GetRecentMilestones()
+        {
+            return EngineFactory.MilestoneEngine.GetRecentMilestones((int)Count).Select(MilestoneWrapperSelector).ToList();
+        }
+
+        ///<summary>
         ///Returns a list of all the upcoming milestones within all the portal projects.
         ///</summary>
         ///<short>
@@ -42,8 +56,8 @@ namespace ASC.Api.Projects
         ///</short>
         ///<category>Milestones</category>
         ///<returns>List of milestones</returns>
-        [Read(@"milestone")]
-        public IEnumerable<MilestoneWrapper> GetMilestones()
+        [Read(@"milestone/upcoming")]
+        public IEnumerable<MilestoneWrapper> GetUpcomingMilestones()
         {
             return EngineFactory.MilestoneEngine.GetUpcomingMilestones((int)Count).Select(MilestoneWrapperSelector).ToList();
         }

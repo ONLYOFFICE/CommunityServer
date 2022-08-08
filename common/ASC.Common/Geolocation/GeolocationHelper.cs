@@ -40,6 +40,21 @@ namespace ASC.Geolocation
             this.dbid = dbid;
         }
 
+        public bool HasData()
+        {
+            try
+            {
+                using (var db = DbManager.FromHttpContext(dbid))
+                {
+                    return db.ExecuteScalar<bool>("select exists(select 1 from dbip_location)");
+                }
+            }
+            catch (Exception error)
+            {
+                log.Error(error);
+                return false;
+            }
+        }
 
         public IPGeolocationInfo GetIPGeolocation(string ip)
         {

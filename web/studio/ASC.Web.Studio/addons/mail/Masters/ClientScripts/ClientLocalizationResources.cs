@@ -52,6 +52,7 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     ErrorOpenMessageHelp = string.Format(MailScriptResource.ErrorOpenMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
                     ErrorParseMessageHelp = string.Format(MailScriptResource.ErrorParseMessageHelp.HtmlEncode(), "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">", "</a>"),
                     FilesCannotBeAttachedAsLinks = string.Format(MailResource.FilesCannotBeAttachedAsLinks_Body, "<br/>"),
+                    MultimediaFilesCannotBeAttachedAsLinksInTrial = string.Format(MailResource.MultimediaFilesCannotBeAttachedInTrial_Body, "<br/>"),
                     Autoreply = string.Format(MailResource.AutoreplyInformationText, string.Format(GrammaticalHelper.ChooseNumeralCase(autoreplyDaysInterval, Resource.DrnAgoDaysI, Resource.DrnAgoDaysR1, Resource.DrnAgoDaysRm), autoreplyDaysInterval)),
                     Resource.ErrorPasswordMessage,
                     Resource.ErrorPasswordLength,
@@ -62,7 +63,8 @@ namespace ASC.Web.Mail.Masters.ClientScripts
                     Resource.EmailAndPasswordCopiedToClipboard,
                     Resource.ChangePasswordSuccess,
                     Resource.ErrorPasswordOnlyLatinLetters,
-                    Resource.ErrorPasswordNoSpaces
+                    Resource.ErrorPasswordNoSpaces,
+                    Resource.ErrorPasswordOnlyASCII
                 })
             };
         }

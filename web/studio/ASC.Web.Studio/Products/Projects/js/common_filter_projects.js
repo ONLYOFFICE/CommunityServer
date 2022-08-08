@@ -400,7 +400,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
                     break;
                 case meTasksCreatorFilter:
                 case tasksCreatorFilter:
-                    data.creator = id;
+                    data.creator = getIdOrValue(params);
                     anchor = changeParamValue(anchor, tasksCreatorFilter, data.creator);
                     break;
                 case meAuthorFilter:
@@ -1514,7 +1514,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function () {
             personHashmark,
             groupBy,
             currentProjectId ? teamForFilter : null,
-            { id: currentUserId });
+            currentProjectId ? { value: currentUserId } : { id: currentUserId });
     }
 
     function pushFilterItemGroup(visible, filters, group, groupBy) {

@@ -132,10 +132,12 @@
                 <span class="characteristic"><%= Resource.UserType%>:</span>
                 <span class="small_chat_post">${UserType}</span>
             </div>
+            {{if Email != "" && Email != undefined}}
             <div class="small_chat_character">
                 <span class="characteristic"><%= Resource.Email%>:</span>
                 <a class="small_chat_mail mail link" target="_blank" href="/addons/mail/#composeto/email=${Email}" title="${Email}">${Email}</a>
             </div>
+            {{/if}}
             {{if Departments != undefined}}
             <div class="small_chat_character">
                 <span class="characteristic"><%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode()%>:</span>

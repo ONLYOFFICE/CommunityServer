@@ -76,7 +76,10 @@
         },
 
         getTooltip: function (profile) {
-            var tooltip = Encoder.htmlDecode(profile.displayName) + "\n" + profile.email;
+            var tooltip = Encoder.htmlDecode(profile.displayName);
+            if (profile.email) {
+                tooltip += "\n" + profile.email;
+            }
             if (profile.isPending || profile.isActivated === false) {
                 tooltip += " (" + ASC.Resources.Master.ResourceJS.UserPending + ")";
             }

@@ -41,8 +41,13 @@ namespace ASC.ElasticSearch
 
         internal static ServiceHost Searcher { get; private set; }
         internal static bool IsStarted { get; private set; }
-        internal static string Indexing { get; private set; }
+        internal static List<string> Indexing { get; private set; }
         internal static DateTime? LastIndexed { get; private set; }
+
+        static Launcher()
+        {
+            Indexing = new List<string>();
+        }
 
         public void Start()
         {
@@ -101,8 +106,9 @@ namespace ASC.ElasticSearch
                     if (!IsStarted) return;
 
                     logger.DebugFormat("Product check {0}", product.IndexName);
-                    Indexing = product.IndexName;
+                    Indexing.Add(product.IndexName);
                     product.Check();
+                    Indexing.Remove(product.IndexName);
                 }
                 catch (Exception e)
                 {
@@ -112,7 +118,7 @@ namespace ASC.ElasticSearch
             });
 
             IsStarted = false;
-            Indexing = null;
+            Indexing.Clear();
 
             timer = new Timer(_ => IndexAll(), null, TimeSpan.Zero, TimeSpan.Zero);
         }
@@ -155,8 +161,9 @@ namespace ASC.ElasticSearch
                         if (!IsStarted) return;
 
                         logger.DebugFormat("Product {0}", product.IndexName);
-                        Indexing = product.IndexName;
+                        Indexing.Add(product.IndexName);
                         product.IndexAll();
+                        Indexing.Remove(product.IndexName);
                     }
                     catch (Exception e)
                     {
@@ -168,7 +175,7 @@ namespace ASC.ElasticSearch
                 timer.Change(Period, Period);
                 LastIndexed = DateTime.UtcNow;
                 IsStarted = false;
-                Indexing = null;
+                Indexing.Clear();
             }
             catch (Exception e)
             {

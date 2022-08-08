@@ -420,6 +420,7 @@
     <Content Include="UserControls\js\calendar.attachments.js" />
     <Content Include="UserControls\js\calendar_controller.js" />
     <Content Include="UserControls\js\calendar_event_page.js" />
+    <Content Include="UserControls\js\calendar.popupqueue.js" />
     <Content Include="UserControls\js\recurrence_rule.js" />
     <Content Include="UserControls\js\jquery.cookie.js" />
     <Content Include="UserControls\js\jquery.jscrollpane.min.js" />

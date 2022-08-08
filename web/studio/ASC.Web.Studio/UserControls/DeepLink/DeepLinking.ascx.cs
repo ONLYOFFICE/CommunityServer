@@ -97,7 +97,7 @@ namespace ASC.Web.Studio.UserControls
             else if (userAgent.Contains("iphone;") || userAgent.Contains("ipad;"))
             {
                 DeepLinkUrl = ConfigurationManagerExtension.AppSettings["deeplink.documents.url"] + "?" + Request.QueryString;
-                storeLink = "https://itunes.apple.com/app/id" + ConfigurationManagerExtension.AppSettings["deeplink.documents.iospackageid"];
+                storeLink = "https://apps.apple.com/app/id" + ConfigurationManagerExtension.AppSettings["deeplink.documents.iospackageid"];
             }
             else
             {

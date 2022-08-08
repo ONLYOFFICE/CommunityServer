@@ -41,7 +41,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get
             {
-                return !TenantLogoManager.WhiteLabelEnabled;
+                return !TenantLogoManager.IsVisibleWhiteLabelSettings && !TenantLogoManager.WhiteLabelEnabled;
             }
         }
 
@@ -111,14 +111,6 @@ namespace ASC.Web.Studio.UserControls.Management
                 _tenantInfoSettings = TenantInfoSettings.Load();
                 _tenantInfoSettings.RestoreDefaultLogo();
                 _tenantInfoSettings.Save();
-
-                if (TenantLogoManager.WhiteLabelEnabled)
-                {
-
-                    var _tenantWhiteLabelSettings = TenantWhiteLabelSettings.Load();
-                    _tenantWhiteLabelSettings.RestoreDefault(WhiteLabelLogoTypeEnum.Dark);
-                    _tenantWhiteLabelSettings.Save(tenantId);
-                }
 
                 return new
                 {

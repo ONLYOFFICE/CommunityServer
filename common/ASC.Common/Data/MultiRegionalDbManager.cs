@@ -38,6 +38,7 @@ namespace ASC.Common.Data
 
         public string DatabaseId { get; private set; }
         public bool InTransaction { get { return localDb.InTransaction; } }
+        public bool IsDisposed { get { return disposed; } }
 
         public DbConnection Connection
         {

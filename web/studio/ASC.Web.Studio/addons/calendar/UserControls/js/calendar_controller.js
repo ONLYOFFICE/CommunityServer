@@ -279,13 +279,15 @@ ASC.CalendarController = new function() {
 
         if (attachments && attachments.length) {
             for (var i = 0; i < attachments.length; i++) {
-                var attach = new ICAL.Property("ATTACH");
-                attach.setParameter("FILENAME", attachments[i].title);
-                if (attachments[i].contentType) {
-                    attach.setParameter("FMTTYPE", attachments[i].contentType);
+                if (!attachments[i].error) {
+                    var attach = new ICAL.Property("ATTACH");
+                    attach.setParameter("FILENAME", attachments[i].title);
+                    if (attachments[i].contentType) {
+                        attach.setParameter("FMTTYPE", attachments[i].contentType);
+                    }
+                    attach.setValue(attachments[i].fileUrl);
+                    vevent.addProperty(attach);
                 }
-                attach.setValue(attachments[i].fileUrl);
-                vevent.addProperty(attach);
             }
         }
 

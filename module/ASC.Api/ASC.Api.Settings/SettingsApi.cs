@@ -1937,8 +1937,7 @@ namespace ASC.Api.Settings
 
         private static void DemandWhiteLabelPermission()
         {
-            if (!CoreContext.Configuration.Standalone
-                && (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid))
+            if (!TenantLogoManager.WhiteLabelEnabled)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
             }
@@ -1947,11 +1946,6 @@ namespace ASC.Api.Settings
         private static void DemandRebrandingPermission()
         {
             TenantExtra.DemandControlPanelPermission();
-
-            if (!CoreContext.Configuration.Standalone)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "SSBranding");
-            }
 
             if (CoreContext.Configuration.CustomMode)
             {

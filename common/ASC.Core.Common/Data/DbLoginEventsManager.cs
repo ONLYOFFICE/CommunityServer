@@ -51,29 +51,38 @@ namespace ASC.Core.Data
             MessageAction.LoginSuccessViaApiTfa
         };
 
-        public static List<int> GetLoginEventIds(int tenantId, Guid userId)
+        public static bool IsActiveLoginEvent(int tenantId, Guid userId, int loginEventId)
         {
-            var commonKey = GetCacheKey(tenantId, userId);
-            var cacheKeys = cache.Get<List<int>>(commonKey);
-            if (cacheKeys != null)
+            if (loginEventId == 0) return true;
+
+            var cacheKey = GetCacheKey(tenantId, userId);
+
+            var cachedLoginEvents = cache.Get<Dictionary<int, bool>>(cacheKey);
+            if (cachedLoginEvents != null)
             {
-                return cacheKeys;
+                if (cachedLoginEvents.ContainsKey(loginEventId))
+                {
+                    return cachedLoginEvents[loginEventId];
+                }
+            }
+            else
+            {
+                cachedLoginEvents = new Dictionary<int, bool>();
             }
 
             using (var db = GetDbManager())
             {
-                var where = GetActiveConnectionsWhere(tenantId, userId);
                 var query = new SqlQuery("login_events")
-                    .Select("id")
-                    .Where(where);
-                var resultList = db.ExecuteList(query).Select(row => (int)row[0]).ToList();
+                    .Select("active")
+                    .Where("id", loginEventId);
 
-                if (resultList != null)
-                {
-                    cache.Insert(commonKey, resultList, expirationTimeout);
-                }
+                var isActive = db.ExecuteScalar<bool>(query);
 
-                return resultList;
+                cachedLoginEvents.Add(loginEventId, isActive);
+
+                cache.Insert(cacheKey, cachedLoginEvents, expirationTimeout);
+
+                return isActive;
             }
         }
 

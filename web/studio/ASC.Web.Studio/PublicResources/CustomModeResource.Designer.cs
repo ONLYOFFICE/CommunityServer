@@ -179,6 +179,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share files with your team or publicly..
+        /// </summary>
+        public static string DashboardShareFilesFirstLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesFirstLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grant access for viewing, editing, reviewing, commenting..
+        /// </summary>
+        public static string DashboardShareFilesSecondLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesSecondLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Embed docs into websites..
+        /// </summary>
+        public static string DashboardShareFilesThirdLine {
+            get {
+                return ResourceManager.GetString("DashboardShareFilesThirdLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document Discussion.
         /// </summary>
         public static string DiscussionDocumentCustomMode {

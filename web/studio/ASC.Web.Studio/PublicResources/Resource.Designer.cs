@@ -4692,6 +4692,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ASCII symbols (a-z, 0-9, special characters, no spaces).
+        /// </summary>
+        public static string ErrorPasswordOnlyASCII {
+            get {
+                return ResourceManager.GetString("ErrorPasswordOnlyASCII", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to only latin letters.
         /// </summary>
         public static string ErrorPasswordOnlyLatinLetters {
@@ -5057,6 +5066,15 @@ namespace ASC.Web.Studio.PublicResources {
         public static string GeneralSubscriptionName {
             get {
                 return ResourceManager.GetString("GeneralSubscriptionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location detection is not currently available..
+        /// </summary>
+        public static string GeolocationNotAvailable {
+            get {
+                return ResourceManager.GetString("GeolocationNotAvailable", resourceCulture);
             }
         }
         

@@ -19,6 +19,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 
+using ASC.Core;
 using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Common.LoaderPage
@@ -35,7 +36,7 @@ namespace ASC.Web.Studio.UserControls.Common.LoaderPage
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            DefaultSettings = CompanyWhiteLabelSettings.Instance.IsDefault;
+            DefaultSettings = !CoreContext.Configuration.CustomMode && CompanyWhiteLabelSettings.Instance.IsDefault;
 
             Page.RegisterStyle("~/UserControls/Common/LoaderPage/css/loaderpage.less");
         }

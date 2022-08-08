@@ -151,7 +151,7 @@
                         <div id="bubleBlock">
                         <div id="passwordInfo" style="display:none;"><%= Resource.ErrorPasswordMessage %>:
                             <br /><span id="passMinLength" class="infoItem"><%= String.Format(Resource.ErrorPasswordLength.HtmlEncode(), UserPasswordMinLength, PasswordSettings.MaxLength) %></span>
-                            <br /><span id="passLatinLetters" class="infoItem"><%= Resource.ErrorPasswordOnlyLatinLetters + ", " + Resource.ErrorPasswordNoSpaces %></span>
+                            <br /><span id="passLatinLetters" class="infoItem"><%= Resource.ErrorPasswordOnlyASCII %></span>
                             <% if (UserPasswordDigits) { %>
                             <br /><span id="passDigits" class="infoItem"><%= Resource.ErrorPasswordNoDigits %></span>
                             <% } if (UserPasswordUpperCase) { %>

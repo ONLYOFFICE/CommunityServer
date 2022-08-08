@@ -119,6 +119,23 @@ namespace ASC.Projects.Engine
             return milestones;
         }
 
+        public List<Milestone> GetRecentMilestones(int max, params int[] projects)
+        {
+            var offset = 0;
+            var milestones = new List<Milestone>();
+            while (true)
+            {
+                var packet = DaoFactory.MilestoneDao.GetRecentMilestones(offset, 2 * max, projects);
+                milestones.AddRange(packet.Where(CanRead));
+                if (max <= milestones.Count || packet.Count() < 2 * max)
+                {
+                    break;
+                }
+                offset += 2 * max;
+            }
+            return milestones.Count <= max ? milestones : milestones.GetRange(0, max);
+        }
+
         public List<Milestone> GetUpcomingMilestones(int max, params int[] projects)
         {
             var offset = 0;

@@ -35,6 +35,8 @@ namespace ASC.Projects.Core.DataInterfaces
 
         List<Milestone> GetByStatus(int projectId, MilestoneStatus milestoneStatus);
 
+        List<Milestone> GetRecentMilestones(int offset, int max, params int[] projects);
+
         List<Milestone> GetUpcomingMilestones(int offset, int max, params int[] projects);
 
         List<Milestone> GetLateMilestones(int offset, int max);

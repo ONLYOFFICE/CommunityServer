@@ -4084,4 +4084,10 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="HelpAnswerDNSSettingsSaas" xml:space="preserve">
     <value>DNS Settings allow you to set an alternative URL address for your ONLYOFFICE portal. Send your request to our support team, and our specialists will help you with the settings.</value>
   </data>
+  <data name="GeolocationNotAvailable" xml:space="preserve">
+    <value>Location detection is not currently available.</value>
+  </data>
+  <data name="ErrorPasswordOnlyASCII" xml:space="preserve">
+    <value>ASCII symbols (a-z, 0-9, special characters, no spaces)</value>
+  </data>
 </root>

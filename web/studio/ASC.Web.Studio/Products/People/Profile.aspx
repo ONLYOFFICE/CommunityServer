@@ -50,6 +50,15 @@
         <div id="connectionsBlockContainer" class="user-block">
             <div class="tabs-section">
                 <span class="header-base"><%= PeopleResource.LblActiveConnections %></span>
+                <% if (IsEmptyDbip) { %>
+                <span id="emptyDbipSwitcher"class="HelpCenterSwitcher expl"></span>
+                <div id="emptyDbipHelper"class="popup_helper">
+                    <%= Resource.GeolocationNotAvailable %>
+                    <% if (!string.IsNullOrEmpty(HelpLink)) { %>
+                    <a href="<%= HelpLink + "/administration/active-connections.aspx" %>" target="_blank"><%= Resource.LearnMore %></a>
+                    <% } %>
+                </div>
+                <% } %>
                 <span id="switcherConnectionsButton" class="toggle-button"
                       data-switcher="1" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
                     <%= Resource.Show %>

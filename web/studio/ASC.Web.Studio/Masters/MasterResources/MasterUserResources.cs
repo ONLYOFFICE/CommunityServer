@@ -128,6 +128,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         private static object PrepareUserInfo(UserInfo userInfo)
         {
+            var displayPrivate = userInfo.CanViewPrivateData();
+
             return new
             {
                 id = userInfo.ID,
@@ -143,9 +145,9 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 isOutsider = userInfo.IsOutsider(),
                 isAdmin = userInfo.IsAdmin(),
                 isOwner = userInfo.IsOwner(),
-                contacts = GetContacts(userInfo),
+                contacts = displayPrivate ? GetContacts(userInfo) : null,
                 created = userInfo.CreateDate,
-                email = userInfo.Email,
+                email = displayPrivate ? userInfo.Email : string.Empty,
                 isLDAP = userInfo.IsLDAP(),
                 isSSO = userInfo.IsSSO(),
                 isTerminated = userInfo.Status == EmployeeStatus.Terminated

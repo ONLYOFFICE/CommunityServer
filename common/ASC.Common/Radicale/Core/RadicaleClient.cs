@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -57,6 +59,27 @@ namespace ASC.Common.Radicale
             return GetDavResponse(response);
         }
 
+        public static void Remove(DavRequest davRequest)
+        {
+            var request = WebRequest.Create(davRequest.Url);
+            request.Method = "DELETE";
+
+            request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(davRequest.Authorization)));
+            request.Headers.Add("X_REWRITER_URL", davRequest.Header);
+
+            using (var response = request.GetResponse())
+            using (var responseStream = response.GetResponseStream())
+            {
+                if (responseStream != null)
+                {
+                    using (var readStream = new StreamReader(responseStream)){
+                        var result = readStream.ReadToEnd();
+                    }
+                }
+            }
+
+
+        }
         public async static Task RemoveAsync(DavRequest davRequest)
         {
             davRequest.Method = "DELETE";
@@ -67,7 +90,15 @@ namespace ASC.Common.Radicale
         {
             try
             {
-                using (var hc = new HttpClient())
+                var httpHandler = new HttpClientHandler();
+
+                //HACK: http://ubuntuforums.org/showthread.php?t=1841740
+                if (Type.GetType("Mono.Runtime") != null)
+                {
+                    httpHandler.ServerCertificateCustomValidationCallback = delegate { return true; };
+                }
+
+                using (var hc = new HttpClient(httpHandler))
                 {
                     hc.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(davRequest.Authorization)));
                     if (!String.IsNullOrEmpty(davRequest.Header)) hc.DefaultRequestHeaders.Add("X_REWRITER_URL", davRequest.Header);

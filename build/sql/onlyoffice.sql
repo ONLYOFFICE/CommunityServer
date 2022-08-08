@@ -1380,7 +1380,8 @@ CREATE TABLE IF NOT EXISTS `login_events` (
   `active` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `date` (`date`),
-  KEY `tenant_id` (`tenant_id`,`user_id`)
+  KEY `tenant_id` (`tenant_id`,`user_id`),
+  KEY `active` (`active`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mail_alerts` (

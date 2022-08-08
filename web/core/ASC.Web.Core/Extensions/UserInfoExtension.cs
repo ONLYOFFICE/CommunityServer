@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
+using ASC.Web.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 
@@ -107,10 +108,22 @@ namespace ASC.Core.Users
             return sb.ToString();
         }
 
+        public static bool CanViewPrivateData(this UserInfo userInfo)
+        {
+            if (SecurityContext.CurrentAccount.ID == userInfo.ID)
+            {
+                return true;
+            }
+
+            var peopleModule = WebItemManager.Instance[WebItemManager.PeopleProductID];
+
+            return peopleModule != null && !peopleModule.IsDisabled();
+        }
+
         /// <summary>
         /// return absolute profile link
         /// </summary>
-        /// <param name="userInfo"></param>        
+        /// <param name="userInfo"></param>
         /// <returns></returns>
         private static string GetUserProfilePageURLGeneral(this UserInfo userInfo)
         {

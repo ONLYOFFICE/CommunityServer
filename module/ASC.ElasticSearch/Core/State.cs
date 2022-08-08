@@ -16,6 +16,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ASC.ElasticSearch.Core
@@ -24,7 +25,7 @@ namespace ASC.ElasticSearch.Core
     public class State
     {
         [DataMember]
-        public string Indexing { get; set; }
+        public List<string> Indexing { get; set; }
 
         [DataMember]
         public DateTime? LastIndexed { get; set; }

@@ -121,6 +121,12 @@
   <data name="calendarEventAttachments_megabytes" xml:space="preserve">
     <value>MB</value>
   </data>
+  <data name="calendarEventAttachments_multimediaFilesCannotBeAttached_Body" xml:space="preserve">
+    <value>In the trial version, files in uneditable formats (.jpg, .mp3, .mp4, .webp, etc.) cannot be sent as external links.</value>
+  </data>
+  <data name="calendarEventAttachments_multimediaFilesCannotBeAttached_Header" xml:space="preserve">
+    <value>Files in this format cannot be sent as links</value>
+  </data>
   <data name="calendarEventAttachments_uploadFile" xml:space="preserve">
     <value>Upload file</value>
   </data>

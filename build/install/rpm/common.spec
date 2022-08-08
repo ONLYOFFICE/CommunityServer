@@ -397,6 +397,12 @@ else
 	sed -i "s/Dlog4j2.formatMsgNoLookups.*/Dlog4j2.formatMsgNoLookups=true/" ${ELASTIC_SEARCH_JAVA_CONF_PATH} 
 fi
 
+if ! grep -q "ingest.geoip.downloader.enabled" ${ELASTIC_SEARCH_CONF_PATH}; then
+	echo "ingest.geoip.downloader.enabled: false" >> ${ELASTIC_SEARCH_CONF_PATH}
+else
+	sed -i "s/ingest.geoip.downloader.enabled.*/ingest.geoip.downloader.enabled: false/" ${ELASTIC_SEARCH_CONF_PATH}
+fi
+
 TOTAL_MEMORY=$(free -m | grep -oP '\d+' | head -n 1);
 MEMORY_REQUIREMENTS=12228; #RAM ~4*3Gb
 

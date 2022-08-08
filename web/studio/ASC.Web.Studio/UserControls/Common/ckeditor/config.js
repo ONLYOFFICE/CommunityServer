@@ -35,7 +35,7 @@ CKEDITOR.editorConfig = function( config ) {
                 if (displayName.toLowerCase().indexOf(opts.query.toLowerCase()) != -1) {
                     data.push({
                         id: user.id,
-                        email: user.email,
+                        email: user.email || displayName,
                         displayName: displayName,
                         profileUrl: user.profileUrl
                     });
@@ -52,7 +52,7 @@ CKEDITOR.editorConfig = function( config ) {
         pattern: /\@[\w^\S]{0,}$/
     }
     ];
- 
+
     CKEDITOR.config.allowedContent = true; // don't filter my data
 
     //--------main settings

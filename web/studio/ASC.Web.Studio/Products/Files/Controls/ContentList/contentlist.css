@@ -1104,55 +1104,55 @@ body.mobile #contentVersions .version-comment-edit {
 body.media-width-1620-0 .file-row .entry-title,
 body.media-width-1620-0 .file-row .entry-descr { width: 952px; }
 body.media-width-1620-0 .file-row .entry-title .name { max-width: 768px; }
-body.media-width-1620-0 .file-row.folder-row .entry-title .name { max-width: 894px; }
+body.media-width-1620-0 .file-row.folder-row .entry-title .name { max-width: 870px; }
 body.media-width-1620-0 #filesMainContent.compact .file-row .entry-title { width: 854px; }
 body.media-width-1620-0 #filesMainContent.compact .file-row .entry-title .name { max-width: 670px; }
-body.media-width-1620-0 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 796px; }
+body.media-width-1620-0 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 772px; }
 
 
 body.media-width-0-1620 .file-row .entry-title,
 body.media-width-0-1620 .file-row .entry-descr { width: 752px; }
 body.media-width-0-1620 .file-row .entry-title .name { max-width: 568px; }
-body.media-width-0-1620 .file-row.folder-row .entry-title .name { max-width: 694px; }
+body.media-width-0-1620 .file-row.folder-row .entry-title .name { max-width: 670px; }
 body.media-width-0-1620 #filesMainContent.compact .file-row .entry-title { width: 654px; }
 body.media-width-0-1620 #filesMainContent.compact .file-row .entry-title .name { max-width: 470px; }
-body.media-width-0-1620 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 596px; }
+body.media-width-0-1620 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 572px; }
 
 
 body.media-width-0-1420 .file-row .entry-title,
 body.media-width-0-1420 .file-row .entry-descr { width: 600px; }
 body.media-width-0-1420 .file-row .entry-title .name { max-width: 416px; }
-body.media-width-0-1420 .file-row.folder-row .entry-title .name { max-width: 542px; }
+body.media-width-0-1420 .file-row.folder-row .entry-title .name { max-width: 518px; }
 body.media-width-0-1420 #filesMainContent.compact .file-row .entry-title { width: 494px; }
 body.media-width-0-1420 #filesMainContent.compact .file-row .entry-title .name { max-width: 310px; }
-body.media-width-0-1420 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 436px; }
+body.media-width-0-1420 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 412px; }
 
 
 body.media-width-0-1260 .file-row .entry-title,
 body.media-width-0-1260 .file-row .entry-descr { width: 540px; }
 body.media-width-0-1260 .file-row .entry-title .name { max-width: 356px; }
-body.media-width-0-1260 .file-row.folder-row .entry-title .name { max-width: 482px; }
+body.media-width-0-1260 .file-row.folder-row .entry-title .name { max-width: 458px; }
 body.media-width-0-1260 #filesMainContent.compact .file-row .entry-title { width: 434px; }
 body.media-width-0-1260 #filesMainContent.compact .file-row .entry-title .name { max-width: 250px; }
-body.media-width-0-1260 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 376px; }
+body.media-width-0-1260 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 352px; }
 
 
 body.media-width-0-1200 .file-row .entry-title,
 body.media-width-0-1200.file-row .entry-descr { width: 480px; }
 body.media-width-0-1200 .file-row .entry-title .name { max-width: 296px; }
-body.media-width-0-1200 .file-row.folder-row .entry-title .name { max-width: 422px; }
+body.media-width-0-1200 .file-row.folder-row .entry-title .name { max-width: 398px; }
 body.media-width-0-1200 #filesMainContent.compact .file-row .entry-title { width: 374px; }
 body.media-width-0-1200 #filesMainContent.compact .file-row .entry-title .name { max-width: 190px; }
-body.media-width-0-1200 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 316px; }
+body.media-width-0-1200 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 292px; }
 
 
 body.media-width-0-1140 .file-row .entry-title,
 body.media-width-0-1140 .file-row .entry-descr { width: 420px; }
 body.media-width-0-1140 .file-row .entry-title .name { max-width: 236px; }
-body.media-width-0-1140 .file-row.folder-row .entry-title .name { max-width: 362px; }
+body.media-width-0-1140 .file-row.folder-row .entry-title .name { max-width: 338px; }
 body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title { width: 283px; }
-body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title .name { max-width: 130px; }
-body.media-width-0-1140 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 256px; }
+body.media-width-0-1140 #filesMainContent.compact .file-row .entry-title .name { max-width: 82px; }
+body.media-width-0-1140 #filesMainContent.compact .file-row.folder-row .entry-title .name { max-width: 184px; }
 
 
 body[class*='media-width'] .file-row.row-rename .entry-title .name,

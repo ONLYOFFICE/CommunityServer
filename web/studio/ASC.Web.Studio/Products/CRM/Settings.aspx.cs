@@ -207,7 +207,7 @@ namespace ASC.Web.CRM
                                               CRMInvoiceResource.CreateNewInvoiceItem :
                                               String.Format(CRMInvoiceResource.UpdateInvoiceItem, targetInvoiceItem.Title);
 
-                        headerView.HeaderText = PageTitle;
+                        headerView.HeaderText = PageTitle.HtmlEncode();
                         TitleContentHolder.Controls.Add(headerView);
 
                         var invoiceProductsViewControl = (InvoiceItemActionView)LoadControl(InvoiceItemActionView.Location);

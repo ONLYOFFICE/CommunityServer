@@ -336,6 +336,7 @@ window.ASC.Files.ServiceManager = (function () {
                 }
                 break;
             case "post":
+            case "put":
                 data = (contentType == "text/xml" || contentType == "application/xml"
                     ? ASC.Files.Common.jsonToXml(arguments[4])
                     : (contentType == "application/json"
@@ -489,12 +490,12 @@ window.ASC.Files.ServiceManager = (function () {
 
     var createFolder = function (eventType, params) {
         params.ajaxsync = true;
-        request("get", "xml", eventType, params, "folders-create?parentId=" + encodeURIComponent(params.parentFolderID) + "&title=" + encodeURIComponent(params.title));
+        request("post", "xml", eventType, params, null, "folders-create?parentId=" + encodeURIComponent(params.parentFolderID) + "&title=" + encodeURIComponent(params.title));
     };
 
     var createNewFile = function (eventType, params) {
         params.ajaxsync = true;
-        request("get", "xml", eventType, params, "folders-files-createfile?parentId=" + encodeURIComponent(params.folderID || "") + "&title=" + encodeURIComponent(params.fileTitle) + "&templateId=" + encodeURIComponent(params.templateId || ""));
+        request("post", "xml", eventType, params, null, "folders-files-createfile?parentId=" + encodeURIComponent(params.folderID || "") + "&title=" + encodeURIComponent(params.fileTitle) + "&templateId=" + encodeURIComponent(params.templateId || ""));
     };
 
     var getFolderItems = function (eventType, params, data) {
@@ -528,15 +529,15 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var setCurrentVersion = function (eventType, params) {
-        request("get", "json", eventType, params, "folders-files-updateToVersion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version);
+        request("put", "json", eventType, params, null, "folders-files-updateToVersion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version);
     };
 
     var updateComment = function (eventType, params) {
-        request("get", "json", eventType, params, "folders-files-updateComment?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&comment=" + encodeURIComponent(params.comment));
+        request("put", "json", eventType, params, null, "folders-files-updateComment?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&comment=" + encodeURIComponent(params.comment));
     };
 
     var completeVersion = function (eventType, params) {
-        request("get", "json", eventType, params, "folders-files-completeversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&continueVersion=" + params.continueVersion);
+        request("put", "json", eventType, params, null, "folders-files-completeversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&continueVersion=" + params.continueVersion);
     };
 
     var getSiblingsImage = function (eventType, params, data) {
@@ -548,11 +549,11 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var renameFolder = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders-rename?folderId=" + encodeURIComponent(params.folderId) + "&title=" + encodeURIComponent(params.newname));
+        request("put", "xml", eventType, params, null, "folders-rename?folderId=" + encodeURIComponent(params.folderId) + "&title=" + encodeURIComponent(params.newname));
     };
 
     var renameFile = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders-files-rename?fileId=" + encodeURIComponent(params.fileId) + "&title=" + encodeURIComponent(params.newname));
+        request("put", "xml", eventType, params, null, "folders-files-rename?fileId=" + encodeURIComponent(params.fileId) + "&title=" + encodeURIComponent(params.newname));
     };
 
     var moveFilesCheck = function (eventType, params, data) {
@@ -560,21 +561,21 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var moveItems = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "moveorcopy?destFolderId=" + encodeURIComponent(params.folderToId) + "&resolve=" + params.resolve + "&ic=" + (params.isCopyOperation == true));
+        request("put", "json", eventType, params, data, "moveorcopy?destFolderId=" + encodeURIComponent(params.folderToId) + "&resolve=" + params.resolve + "&ic=" + (params.isCopyOperation == true));
     };
 
     var deleteItem = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders-files?action=delete");
+        request("put", "json", eventType, params, data, "folders-files?action=delete");
     };
 
     var emptyTrash = function (eventType, params) {
-        request("get", "json", eventType, params, "emptytrash");
+        request("put", "json", eventType, params, null, "emptytrash");
     };
 
     var download = function (eventType, params, data) {
         params.showLoading = true;
         params.ajaxcontentType = "application/json";
-        request("post", "json", eventType, params, data, "bulkdownload");
+        request("put", "json", eventType, params, data, "bulkdownload");
     };
 
     var getTasksStatuses = function (eventType, params) {
@@ -582,7 +583,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var terminateTasks = function (eventType, params) {
-        request("get", "json", eventType, params, "tasks");
+        request("put", "json", eventType, params, null, "tasks");
     };
 
     var checkEditing = function (eventType, params, data) {
@@ -590,7 +591,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var setAceLink = function (eventType, params) {
-        request("get", "json", eventType, params, "setacelink?fileId=" + encodeURIComponent(params.fileId) + "&share=" + params.share);
+        request("put", "json", eventType, params, null, "setacelink?fileId=" + encodeURIComponent(params.fileId) + "&share=" + params.share);
     };
 
     var getSharedInfo = function (eventType, params, data) {
@@ -626,11 +627,11 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var changeExternalShareSettings = function (eventType, params) {
-        request("get", "json", eventType, params, "external?enable=" + (params.enable === true));
+        request("put", "json", eventType, params, null, "external?enable=" + (params.enable === true));
     };
 
     var changeExternalShareSocialMediaSettings = function (eventType, params) {
-        request("get", "json", eventType, params, "externalsocialmedia?enable=" + (params.enable === true));
+        request("put", "json", eventType, params, null, "externalsocialmedia?enable=" + (params.enable === true));
     };
 
     var checkConversion = function (eventType, params, data) {
@@ -638,19 +639,19 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var updateIfExist = function (eventType, params) {
-        request("get", "json", eventType, params, "updateifexist?set=" + params.value);
+        request("put", "json", eventType, params, null, "updateifexist?set=" + params.value);
     };
 
     var forcesave = function (eventType, params) {
-        request("get", "json", eventType, params, "forcesave?set=" + params.value);
+        request("put", "json", eventType, params, null, "forcesave?set=" + params.value);
     };
 
     var storeForcesave = function (eventType, params) {
-        request("get", "json", eventType, params, "storeforcesave?set=" + params.value);
+        request("put", "json", eventType, params, null, "storeforcesave?set=" + params.value);
     };
 
     var changeDeleteConfrim = function (eventType, params) {
-        request("get", "json", eventType, params, "changedeleteconfrim?set=" + params.value);
+        request("put", "json", eventType, params, null, "changedeleteconfrim?set=" + params.value);
     };
 
     var getThirdParty = function (eventType, params) {
@@ -664,11 +665,11 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var deleteThirdParty = function (eventType, params) {
-        request("get", "json", eventType, params, "thirdparty-delete?providerId=" + params.providerId);
+        request("delete", "json", eventType, params, "thirdparty-delete?providerId=" + params.providerId);
     };
 
     var changeAccessToThirdparty = function (eventType, params) {
-        request("get", "json", eventType, params, "thirdparty?enable=" + (params.enable === true));
+        request("put", "json", eventType, params, null, "thirdparty?enable=" + (params.enable === true));
     };
 
     var saveDocuSign = function (eventType, params, data) {
@@ -677,7 +678,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var deleteDocuSign = function (eventType, params) {
-        request("get", "json", eventType, params, "docusign-delete");
+        request("delete", "json", eventType, params, "docusign-delete");
     };
 
     var sendDocuSign = function (eventType, params, data) {
@@ -685,7 +686,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var markAsRead = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "markasread");
+        request("put", "json", eventType, params, data, "markasread");
     };
 
     var getNews = function (eventType, params) {
@@ -698,11 +699,11 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var lockFile = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders-files-lock?fileId=" + encodeURIComponent(params.fileId) + "&lockfile=" + (params.lock === true));
+        request("put", "xml", eventType, params, null, "folders-files-lock?fileId=" + encodeURIComponent(params.fileId) + "&lockfile=" + (params.lock === true));
     };
 
     var toggleFavorite = function (eventType, params) {
-        request("get", "json", eventType, params, "file-favorite?fileId=" + encodeURIComponent(params.fileId) + "&favorite=" + (params.favorite === true));
+        request("put", "json", eventType, params, null, "file-favorite?fileId=" + encodeURIComponent(params.fileId) + "&favorite=" + (params.favorite === true));
     };
 
     var getEditHistory  = function (eventType, params) {
@@ -714,7 +715,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var restoreVersion = function (eventType, params) {
-        request("get", "json", eventType, params, "restore-version?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + "&url=" + encodeURIComponent(params.url) + params.shareLinkParam);
+        request("put", "json", eventType, params, null, "restore-version?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + "&url=" + encodeURIComponent(params.url) + params.shareLinkParam);
     };
 
     var getMailAccounts = function (eventType, params) {

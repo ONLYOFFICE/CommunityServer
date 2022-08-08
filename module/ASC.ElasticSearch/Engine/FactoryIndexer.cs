@@ -178,23 +178,7 @@ namespace ASC.ElasticSearch
 
                 if (e.Response != null)
                 {
-                    Logger.Error(e.Response.HttpStatusCode);
-
-                    if (e.Response.HttpStatusCode == 413 || e.Response.HttpStatusCode == 403 || e.Response.HttpStatusCode == 408)
-                    {
-                        data.Where(r => r != null).ToList().ForEach(r => Index(r, immediately));
-                    }
-                    else if (e.Response.HttpStatusCode == 429)
-                    {
-                        Thread.Sleep(60000);
-                        if (retry < 10)
-                        {
-                            Index(data.Where(r => r != null).ToList(), immediately, retry++);
-                            return;
-                        }
-
-                        throw;
-                    }
+                    IndexRetry(e, data, immediately, retry);
                 }
             }
             catch (AggregateException e) //ElasticsearchClientException
@@ -203,32 +187,35 @@ namespace ASC.ElasticSearch
 
                 var inner = e.InnerExceptions.OfType<ElasticsearchClientException>().FirstOrDefault();
 
-
                 if (inner != null)
                 {
-                    Logger.Error(inner);
-
-                    if (inner.Response.HttpStatusCode == 413 || inner.Response.HttpStatusCode == 403)
-                    {
-                        Logger.Error(inner.Response.HttpStatusCode);
-                        data.Where(r => r != null).ToList().ForEach(r => Index(r, immediately));
-                    }
-                    else if (inner.Response.HttpStatusCode == 429)
-                    {
-                        Thread.Sleep(60000);
-                        if (retry < 10)
-                        {
-                            Index(data.Where(r => r != null).ToList(), immediately, retry++);
-                            return;
-                        }
-
-                        throw;
-                    }
+                    IndexRetry(inner, data, immediately, retry);
                 }
                 else
                 {
                     throw;
                 }
+            }
+        }
+
+        private static void IndexRetry(ElasticsearchClientException e, List<T> data, bool immediately = true, int retry = 0)
+        {
+            Logger.Error(e);
+
+            if (e.Response.HttpStatusCode == 413 || e.Response.HttpStatusCode == 403 || e.Response.HttpStatusCode == 408)
+            {
+                data.Where(r => r != null).ToList().ForEach(r => Index(r, immediately));
+            }
+            else if (e.Response.HttpStatusCode == 429)
+            {
+                Thread.Sleep(60000);
+                if (retry < 10)
+                {
+                    Index(data.Where(r => r != null).ToList(), immediately, retry++);
+                    return;
+                }
+
+                throw e;
             }
         }
 
@@ -246,23 +233,7 @@ namespace ASC.ElasticSearch
 
                 if (e.Response != null)
                 {
-                    Logger.Error(e.Response.HttpStatusCode);
-
-                    if (e.Response.HttpStatusCode == 413 || e.Response.HttpStatusCode == 403 || e.Response.HttpStatusCode == 408)
-                    {
-                        data.Where(r => r != null).ToList().ForEach(r => Index(r, immediately));
-                    }
-                    else if (e.Response.HttpStatusCode == 429)
-                    {
-                        await Task.Delay(60000);
-                        if (retry < 10)
-                        {
-                            await IndexAsync(data.Where(r => r != null).ToList(), immediately, retry++);
-                            return;
-                        }
-
-                        throw;
-                    }
+                    await IndexRetryAsync(e, data, immediately, retry);
                 }
             }
             catch (AggregateException e) //ElasticsearchClientException
@@ -271,32 +242,38 @@ namespace ASC.ElasticSearch
 
                 var inner = e.InnerExceptions.OfType<ElasticsearchClientException>().FirstOrDefault();
 
-
                 if (inner != null)
                 {
-                    Logger.Error(inner);
-
-                    if (inner.Response.HttpStatusCode == 413 || inner.Response.HttpStatusCode == 403)
-                    {
-                        Logger.Error(inner.Response.HttpStatusCode);
-                        data.Where(r => r != null).ToList().ForEach(r => Index(r, immediately));
-                    }
-                    else if (inner.Response.HttpStatusCode == 429)
-                    {
-                        await Task.Delay(60000);
-                        if (retry < 10)
-                        {
-                            await IndexAsync(data.Where(r => r != null).ToList(), immediately, retry++);
-                            return;
-                        }
-
-                        throw;
-                    }
+                    await IndexRetryAsync(inner, data, immediately, retry);
                 }
                 else
                 {
                     throw;
                 }
+            }
+        }
+
+        private static async Task IndexRetryAsync(ElasticsearchClientException e, List<T> data, bool immediately = true, int retry = 0)
+        {
+            Logger.Error(e);
+
+            if (e.Response.HttpStatusCode == 413 || e.Response.HttpStatusCode == 403 || e.Response.HttpStatusCode == 408)
+            {
+                foreach (var r in data.Where(r => r != null))
+                {
+                    await IndexAsync(r, immediately);
+                }
+            }
+            else if (e.Response.HttpStatusCode == 429)
+            {
+                await Task.Delay(60000);
+                if (retry < 10)
+                {
+                    await IndexAsync(data.Where(r => r != null).ToList(), immediately, retry++);
+                    return;
+                }
+
+                throw e;
             }
         }
 

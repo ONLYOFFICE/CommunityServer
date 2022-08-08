@@ -605,6 +605,7 @@ namespace ASC.Api.Projects
             TaskStatus? status,
             int? progress)
         {
+            var projectEngine = EngineFactory.ProjectEngine;
             var taskEngine = EngineFactory.TaskEngine;
             var task = taskEngine.GetByID(taskid).NotFoundIfNull();
 
@@ -616,6 +617,8 @@ namespace ASC.Api.Projects
             }
 
             var distinctResponsibles = new List<Guid>(responsibles.Distinct());
+
+            var acceptance = task.Responsibles.Count == 0 && distinctResponsibles.Count == 1 && distinctResponsibles.First() == CurrentUserId;
 
             var hasChanges = !(task.Responsibles.Count == distinctResponsibles.Count && task.Responsibles.All(distinctResponsibles.Contains));
 
@@ -637,7 +640,7 @@ namespace ASC.Api.Projects
             {
                 if (task.Project.ID != projectID.Value)
                 {
-                    var project = EngineFactory.ProjectEngine.GetByID(projectID.Value).NotFoundIfNull();
+                    var project = projectEngine.GetByID(projectID.Value).NotFoundIfNull();
                     task.Project = project;
                     hasChanges = true;
                 }
@@ -651,6 +654,14 @@ namespace ASC.Api.Projects
             if (hasChanges)
             {
                 taskEngine.SaveOrUpdate(task, null, notify);
+
+                if (acceptance)
+                {
+                    if (!projectEngine.IsInTeam(task.Project.ID, CurrentUserId))
+                    {
+                        projectEngine.AddToTeam(task.Project, CurrentUserId, false);
+                    }
+                }
             }
 
             if (status.HasValue)
@@ -1024,6 +1035,7 @@ namespace ASC.Api.Projects
             var subtask = task.SubTasks.Find(r => r.ID == subtaskid).NotFoundIfNull();
 
             var hasChanges = false;
+            var acceptance = subtask.Responsible == Guid.Empty && responsible == CurrentUserId;
 
             subtask.Responsible = Update.IfNotEquals(subtask.Responsible, responsible, ref hasChanges);
             subtask.Title = Update.IfNotEmptyAndNotEquals(subtask.Title, title, ref hasChanges);
@@ -1031,6 +1043,16 @@ namespace ASC.Api.Projects
             if (hasChanges)
             {
                 EngineFactory.SubtaskEngine.SaveOrUpdate(subtask, task);
+
+                if (acceptance)
+                {
+                    var projectEngine = EngineFactory.ProjectEngine;
+                    if (!projectEngine.IsInTeam(task.Project.ID, responsible))
+                    {
+                        projectEngine.AddToTeam(task.Project, responsible, false);
+                    }
+                }
+
                 MessageService.Send(Request, MessageAction.SubtaskUpdated, MessageTarget.Create(subtask.ID), task.Project.Title, task.Title, subtask.Title);
             }
 

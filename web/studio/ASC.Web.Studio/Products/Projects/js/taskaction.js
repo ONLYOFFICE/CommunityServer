@@ -120,15 +120,12 @@ ASC.Projects.TaskAction = (function () {
         
         jq($taskProjectSelector, $taskMilestoneSelector, $taskResponsiblesSelector).css('max-width', 300);
 
-        if (jq.browser.mobile) {
-            jq("#ui-datepicker-div").addClass("blockMsg");
-        }
-
-        
         var datePickers = jq($taskDeadlineDate).add($taskStartDate);
         datePickers.datepicker({ selectDefaultDate: false });
         datePickers.mask(ASC.Resources.Master.DatePatternJQ);
-        datePickers.on("keydown", onDatePickerKeyDown).off("change").on("change", onDatePickerChange);
+
+        jq("#ui-datepicker-div").addClass("blockMsg");
+
         $taskDeadlineDate.on("change",
             function () {
                 var date = getTaskDataDate($taskDeadlineDate);
@@ -150,19 +147,6 @@ ASC.Projects.TaskAction = (function () {
                 }
             });
     };
-
-    function onDatePickerKeyDown(e) {
-        if (e.keyCode === 13) {
-            onDatePickerChange(e);
-        }
-    }
-
-    function onDatePickerChange(e) {
-        var obj = jq(e.target);
-        var date = obj.datepicker("getDate");
-        obj.unmask().trigger("blur").mask(ASC.Resources.Master.DatePatternJQ);
-        obj.datepicker("setDate", date);
-    }
 
     function boldDeadlineLeft(dataValue) {
         var dotline = "dotline", bold = "bold";

@@ -296,7 +296,7 @@
     <div id="statusListTaskContainer" class="studio-action-panel gantt-context-menu">
         <ul id="statusListTask" class="dropdown-content">
             <% foreach(var s in Statuses) {  %>
-            <li data-id="<%= s.Id %>" class="<%= s.Id %> dropdown-item" style="background: url('data:<%= s.ImageType %>;base64,<%= s.Image %>') no-repeat 2px 4px"><%= s.Title %></li>
+            <li data-id="<%= s.Id %>" class="<%= s.Id %> dropdown-item" style="background: url('data:<%= s.ImageType %>;base64,<%= s.Image %>') no-repeat 2px 4px"><%: s.Title %></li>
             <%} %>
         </ul>
     </div>

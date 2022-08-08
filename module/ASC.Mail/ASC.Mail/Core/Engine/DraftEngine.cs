@@ -316,7 +316,7 @@ namespace ASC.Mail.Core.Engine
 
                     draft.ChangeSmileLinks(Log);
 
-                    draft.ChangeAttachedFileLinksAddresses(Log);
+                    draft.ChangeAttachedFileLinksAddresses(Log, scheme);
 
                     draft.ChangeAttachedFileLinksImages(Log);
 

@@ -7,7 +7,9 @@
         var listFun = new Array();
 
         var load = function (fun) {
-            onReady(fun);
+            if (onReady(fun)) {
+                return;
+            }
 
             var ckeditorScript = loadScript("ckeditor.js?ver=4.16.1");
             ckeditorScript.onload = function () {

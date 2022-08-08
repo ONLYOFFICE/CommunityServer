@@ -227,6 +227,7 @@ ASC.Projects.projectNavPanel = (function() {
         });
 
         bind(events.updatePrjTime, function (params, data) {
+            if (!project) return;
             var oldTime = params.oldTime,
                 newTime = parseTime(data.hours),
                 currentTime = parseTime(project.timeTrackingTotal);
@@ -243,7 +244,7 @@ ASC.Projects.projectNavPanel = (function() {
         });
 
         function parseTime(data) {
-            var text = data.trim();
+            var text = data ? (data + "").trim() : "";
             if (typeof data === "number") {
                 text = jq.timeFormat(text);
             }

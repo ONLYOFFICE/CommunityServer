@@ -313,11 +313,17 @@ ASC.Projects.Common = (function () {
                         ProjectsCommonResource.DashboardManageAccessRightsThirdLine
                     ]),
                 newBlock("use-more-tools.png", ProjectsCommonResource.DashboardUseMoreTools,
-                    [
-                        ProjectsCommonResource.DashboardUseMoreToolsFirstLine,
-                        ProjectsCommonResource.DashboardUseMoreToolsSecondLine,
-                        ProjectsCommonResource.DashboardUseMoreToolsThirdLine
-                    ])
+                    ASC.Resources.Master.CustomMode
+                        ? [
+                            ProjectsCommonResource.DashboardUseMoreToolsFirstLine,
+                            ProjectsCommonResource.DashboardUseMoreToolsSecondLine
+                        ]
+                        : [
+                            ProjectsCommonResource.DashboardUseMoreToolsFirstLine,
+                            ProjectsCommonResource.DashboardUseMoreToolsSecondLine,
+                            ProjectsCommonResource.DashboardUseMoreToolsThirdLine
+                        ]
+                    )
             ]
         };
         jq.tmpl("projects_dashboard_empty_screen", tmplObj).appendTo("body");

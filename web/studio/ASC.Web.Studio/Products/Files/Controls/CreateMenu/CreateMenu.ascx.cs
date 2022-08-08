@@ -18,6 +18,7 @@
 using System;
 using System.Web.UI;
 
+using ASC.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 
@@ -31,14 +32,19 @@ namespace ASC.Web.Files.Controls
         }
 
         protected bool EnableCreateFile;
+        protected bool EnableCreateForm;
 
         public object FolderIDCurrentRoot { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             EnableCreateFile = FileUtility.ExtsWebEdited.Count != 0;
+            EnableCreateForm = !CoreContext.Configuration.CustomMode;
 
-            FileChoisePopupHolder.Controls.Add(LoadControl(FileChoisePopup.Location));
+            if (EnableCreateForm)
+            {
+                FileChoisePopupHolder.Controls.Add(LoadControl(FileChoisePopup.Location));
+            }
         }
     }
 }

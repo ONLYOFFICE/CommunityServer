@@ -57,7 +57,8 @@ namespace ASC.Web.Studio
                     "ServerError.aspx",
                     "Tariffs.aspx",
                     "Terms.aspx",
-                    "Wizard.aspx"
+                    "Wizard.aspx",
+                    "DeepLink.aspx"
                 };
             }
         }

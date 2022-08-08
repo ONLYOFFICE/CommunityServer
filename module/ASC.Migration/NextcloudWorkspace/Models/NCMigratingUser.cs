@@ -62,12 +62,16 @@ namespace ASC.Migration.NextcloudWorkspace.Models.Parse
 
             if (!hasPhoto)
             {
-                var appdataDir = Directory.GetDirectories(Path.Combine(rootFolder, "data")).Where(dir => dir.Split(Path.DirectorySeparatorChar).Last().StartsWith("appdata_")).First();
-                if (appdataDir != null)
+                var appdataDirs = Directory.GetDirectories(Path.Combine(rootFolder, "data")).Where(dir => dir.Split(Path.DirectorySeparatorChar).Last().StartsWith("appdata_"));
+                if (appdataDirs.Any())
                 {
-                    var pathToAvatarDir = Path.Combine(appdataDir, "avatar", Key);
-                    pathToPhoto = File.Exists(Path.Combine(pathToAvatarDir, "generated")) ? null : Path.Combine(pathToAvatarDir, "avatar.jpg");
-                    hasPhoto = pathToPhoto != null ? true : false;
+                    var appdataDir = appdataDirs.First();
+                    if (appdataDir != null)
+                    {
+                        var pathToAvatarDir = Path.Combine(appdataDir, "avatar", Key);
+                        pathToPhoto = File.Exists(Path.Combine(pathToAvatarDir, "generated")) ? null : Path.Combine(pathToAvatarDir, "avatar.jpg");
+                        hasPhoto = pathToPhoto != null ? true : false;
+                    }
                 }
             }
             string[] userName = User.Data.DisplayName.Split(' ');

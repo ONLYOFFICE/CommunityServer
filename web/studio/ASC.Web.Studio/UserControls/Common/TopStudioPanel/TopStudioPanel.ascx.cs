@@ -90,7 +90,7 @@ namespace ASC.Web.Studio.UserControls.Common
 
                 var width = TenantWhiteLabelSettings.logoDarkSize.Width / 2;
 
-                if (CoreContext.Configuration.Standalone && TenantLogoManager.WhiteLabelEnabled)
+                if (CoreContext.Configuration.Standalone)
                 {
                     return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat; background-size: {1}px {0}px;",
                                          height, width, TenantLogoManager.GetLogoDark(general));

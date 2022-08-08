@@ -562,7 +562,8 @@ window.EditProfileManager = (function () {
                     var date = jq(this).trigger("blur").datepicker("getDate");
                     birthDateInp.datepicker("option", "maxDate", date);
                     jQuery.datepicker._hideDatepicker();
-                }
+                },
+                yearRange: '1990:+0'
             }).val(fromDateInp.attr("data-value"));
 
             birthDateInp.datepicker({
@@ -570,7 +571,8 @@ window.EditProfileManager = (function () {
                     var date = jq(this).trigger("blur").datepicker("getDate");
                     fromDateInp.datepicker("option", "minDate", date);
                     jQuery.datepicker._hideDatepicker();
-                }
+                },
+                yearRange: '-80:+0'
             }).val(birthDateInp.attr("data-value"));
 
             IsInitDatePicker = true;

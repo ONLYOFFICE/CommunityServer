@@ -63,8 +63,8 @@ jq(document).ready(function () {
             var customContent = wrapper.find(".custom-nav-items");
             var specContent = wrapper.find(".spec-nav-items");
 
-            var customLeft = wrapper.find(".custom-nav-items").position().left;
-            var specLeft = wrapper.find(".spec-nav-items").position().left;
+            var customLeft = customContent.length ? customContent.position().left : 0;
+            var specLeft = specContent.length ? specContent.position().left : 0;
 
             var customCount = customContent.find("li").length;
             var specCount = specContent.find("li").length;

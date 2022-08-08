@@ -72,6 +72,11 @@ namespace ASC.Common.Data
             get { return Command.Transaction != null; }
         }
 
+        public bool IsDisposed
+        {
+            get { return disposed; }
+        }
+
         public DbConnection Connection
         {
             get { return Command.Connection; }
@@ -298,7 +303,7 @@ namespace ASC.Common.Data
         public DbConnection Connection { get { return dbManager.Connection; } }
         public string DatabaseId { get { return dbManager.DatabaseId; } }
         public bool InTransaction { get { return dbManager.InTransaction; } }
-
+        public bool IsDisposed { get { return dbManager.IsDisposed; } }
         public IDbTransaction BeginTransaction()
         {
             return dbManager.BeginTransaction();

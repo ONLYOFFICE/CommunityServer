@@ -136,7 +136,6 @@ namespace ASC.Api.Employee
             Terminated = (ApiDateTime)userInfo.TerminatedDate;
 
             WorkFrom = (ApiDateTime)userInfo.WorkFromDate;
-            Email = userInfo.Email;
 
             if (!string.IsNullOrEmpty(userInfo.Location))
             {
@@ -148,11 +147,6 @@ namespace ASC.Api.Employee
                 Notes = userInfo.Notes;
             }
 
-            if (!string.IsNullOrEmpty(userInfo.MobilePhone))
-            {
-                MobilePhone = userInfo.MobilePhone;
-            }
-
             MobilePhoneActivationStatus = userInfo.MobilePhoneActivationStatus;
 
             if (!string.IsNullOrEmpty(userInfo.CultureName))
@@ -160,7 +154,17 @@ namespace ASC.Api.Employee
                 CultureName = userInfo.CultureName;
             }
 
-            FillConacts(userInfo);
+            if (userInfo.CanViewPrivateData())
+            {
+                Email = userInfo.Email;
+
+                if (!string.IsNullOrEmpty(userInfo.MobilePhone))
+                {
+                    MobilePhone = userInfo.MobilePhone;
+                }
+
+                FillConacts(userInfo);
+            }
 
             if (CheckContext(context, "groups") || CheckContext(context, "department"))
             {

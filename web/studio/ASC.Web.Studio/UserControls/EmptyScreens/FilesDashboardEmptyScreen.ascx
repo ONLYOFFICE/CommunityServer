@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FilesDashboardEmptyScreen.ascx.cs" Inherits="ASC.Web.Studio.UserControls.EmptyScreens.FilesDashboardEmptyScreen" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 
 <div id="dashboardBackdrop" class="backdrop display-none" blank-page=""></div>
@@ -23,9 +25,9 @@
                 <div class="img share-files"></div>
                 <div class="text">
                     <div class="title"><%= FilesCommonResource.DashboardShareFiles %></div>
-                    <p><%= FilesCommonResource.DashboardShareFilesFirstLine %></p>
-                    <p><%= FilesCommonResource.DashboardShareFilesSecondLine %></p>
-                    <p><%= FilesCommonResource.DashboardShareFilesThirdLine %></p>
+                    <p><%= CoreContext.Configuration.CustomMode ? CustomModeResource.DashboardShareFilesFirstLine : FilesCommonResource.DashboardShareFilesFirstLine %></p>
+                    <p><%= CoreContext.Configuration.CustomMode ? CustomModeResource.DashboardShareFilesSecondLine : FilesCommonResource.DashboardShareFilesSecondLine %></p>
+                    <p><%= CoreContext.Configuration.CustomMode ? CustomModeResource.DashboardShareFilesThirdLine : FilesCommonResource.DashboardShareFilesThirdLine %></p>
                 </div>
             </div>
             <div class="module-block slick-carousel-item clearFix">

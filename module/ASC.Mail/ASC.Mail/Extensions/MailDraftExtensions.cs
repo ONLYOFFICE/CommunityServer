@@ -355,7 +355,7 @@ namespace ASC.Mail.Extensions
             };
         }
 
-        public static void ChangeAttachedFileLinksAddresses(this MailDraftData draft, ILog log = null)
+        public static void ChangeAttachedFileLinksAddresses(this MailDraftData draft, ILog log = null, string scheme = default(string))
         {
             if (log == null)
                 log = new NullLog();
@@ -404,9 +404,10 @@ namespace ASC.Mail.Extensions
                 var sharedInfo =
                     fileStorageService.GetSharedInfo(new ItemList<string> { objectId })
                                       .Find(r => r.SubjectId == FileConstant.ShareLinkId);
-                linkNode.SetAttributeValue("href", sharedInfo.Link);
+                var link = CorrectUrlScheme(sharedInfo.Link, scheme, log);
+                linkNode.SetAttributeValue("href", link);
                 log.InfoFormat("ChangeAttachedFileLinks() Change file link href: {0}", fileId);
-                setLinks.Add(new Tuple<string, string>(fileId, sharedInfo.Link));
+                setLinks.Add(new Tuple<string, string>(fileId, link));
             }
 
             linkNodes = doc.DocumentNode.SelectNodes("//div[contains(@class,'mailmessage-filelink')]");
@@ -661,6 +662,36 @@ namespace ASC.Mail.Extensions
                 tenant = tenant,
                 mailboxId = mailboxId
             };
+        }
+
+        private static string CorrectUrlScheme(string url, string scheme, ILog log)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(scheme))
+                {
+                    return url;
+                }
+
+                var uriBuilder = new UriBuilder(url);
+
+                if (uriBuilder.Scheme == scheme)
+                {
+                    return url;
+                }
+
+                var hadDefaultPort = uriBuilder.Uri.IsDefaultPort;
+
+                uriBuilder.Scheme = scheme;
+                uriBuilder.Port = hadDefaultPort ? -1 : uriBuilder.Port;
+
+                return uriBuilder.ToString();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                return url;
+            }
         }
     }
 }

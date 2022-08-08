@@ -193,7 +193,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     {
                         id = r.UserInfo.ID,
                         displayName = DisplayUserSettings.GetFullUserName(r.UserInfo.ID),
-                        email = r.UserInfo.Email,
+                        email = r.UserInfo.CanViewPrivateData() ? r.UserInfo.Email : string.Empty,
                         userName = r.UserInfo.UserName,
                         avatarSmall = UserPhotoManager.GetSmallPhotoURL(r.UserInfo.ID),
                         avatar = UserPhotoManager.GetBigPhotoURL(r.UserInfo.ID),

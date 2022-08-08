@@ -113,7 +113,7 @@
         <% } %>
         <li id="filesOpen"><a class="dropdown-item with-icon preview first-section">
             <%= FilesUCResource.OpenFile %></a></li>
-        <% if (!Global.IsOutsider)
+        <% if (!Global.IsOutsider && !CoreContext.Configuration.CustomMode)
            { %>
         <li id="filesCreateForm"><a class="dropdown-item with-icon create-form first-section">
             <%= FilesUCResource.ButtonMakeForm %></a></li>

@@ -1235,10 +1235,27 @@
         </div>
         
         <div class="buttons">
-            <button class="button middle blue" type="button" id="copyFilesToMyDocuments">
+            <button class="button middle blue" type="button" onclick="window.CalendarAttachmentManager.copyFilesToMyDocumentsAndInsertFileLinksToEvent();">
                 <%=CalendarJSResource.calendarEventAttachments_copyFilesToMyDocumentsBtn%>
             </button>
-            <button class="button middle gray cancel" type="button" id="cancelCopyingToMyDocuments">
+            <button class="button middle gray cancel" type="button" onclick="window.CalendarAttachmentManager.cancelCopyingFilesToMyDocuments();">
+                <%=CalendarJSResource.calendarEventEditor_cancelButton%>
+            </button>
+        </div>
+    </div>
+</script>
+
+<script id="filesMultimediaCannotBeAttachedTmpl" type="text/x-jquery-tmpl">
+    <div id="filesMultimediaCannotBeAttachedBox">
+        
+        <div class="warning-box"></div>
+        <div class="description-box">
+            <div class="header"><%=CalendarJSResource.calendarEventAttachments_multimediaFilesCannotBeAttached_Header%></div>
+            <div><%:CalendarJSResource.calendarEventAttachments_multimediaFilesCannotBeAttached_Body%></div>
+        </div>
+        
+        <div class="buttons">
+            <button class="button middle gray cancel" type="button" id="cancelUploadMultimediaFiles">
                 <%=CalendarJSResource.calendarEventEditor_cancelButton%>
             </button>
         </div>

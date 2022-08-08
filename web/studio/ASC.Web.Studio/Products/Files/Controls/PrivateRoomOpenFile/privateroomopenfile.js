@@ -21,7 +21,7 @@ window.ASC.Files.PrivateRoomOpenFile = (function () {
                 console.log("custom protocol not detected");
             },
             function () {
-                localStorage.setItem('protocoldetector', 1);
+                sessionStorage.setItem('protocoldetector', 1);
             },
             function () {
                 console.log("custom protocol detection is not supported");

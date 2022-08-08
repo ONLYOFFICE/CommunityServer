@@ -24,6 +24,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 
 using ASC.Common.Logging;
+using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
 using ASC.Data.Storage;
@@ -467,7 +468,7 @@ namespace ASC.Web.Core.WhiteLabel
             return storage.IsFile(fileName) ? storage.GetReadStream(fileName) : null;
         }
 
-        private Stream GetPartnerStorageLogoData(WhiteLabelLogoTypeEnum type, bool general)
+        public static Stream GetPartnerStorageLogoData(WhiteLabelLogoTypeEnum type, bool general)
         {
             var partnerSettings = LoadForDefaultTenant();
 
@@ -595,11 +596,15 @@ namespace ASC.Web.Core.WhiteLabel
 
         private void SetNewLogoText(int tenantId, bool restore = false)
         {
-            WhiteLabelHelper.DefaultLogoText = DefaultLogoText;
-
             var partnerSettings = LoadForDefaultTenant();
 
-            if (restore && String.IsNullOrEmpty(partnerSettings._logoText))
+            var logoText = partnerSettings._logoText;
+
+            WhiteLabelHelper.DefaultLogoText = CoreContext.Configuration.CustomMode && !string.IsNullOrEmpty(logoText)
+                ? logoText
+                : DefaultLogoText;
+
+            if (restore && string.IsNullOrEmpty(logoText))
             {
                 WhiteLabelHelper.RestoreOldText(tenantId);
             }

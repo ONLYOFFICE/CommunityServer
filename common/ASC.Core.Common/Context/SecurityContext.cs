@@ -115,8 +115,7 @@ namespace ASC.Core
                             return false;
                         }
 
-                        var settingLoginEvents = DbLoginEventsManager.GetLoginEventIds(tenant, userid);
-                        if (loginEventId != 0 && !settingLoginEvents.Contains(loginEventId))
+                        if (!DbLoginEventsManager.IsActiveLoginEvent(tenant, userid, loginEventId))
                         {
                             return false;
                         }

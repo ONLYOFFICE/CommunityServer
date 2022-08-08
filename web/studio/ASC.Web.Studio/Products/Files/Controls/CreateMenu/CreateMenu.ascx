@@ -16,6 +16,8 @@
 <li>
     <a id="createPresentation" class="dropdown-item"><%= FilesUCResource.ButtonCreatePresentation %></a>
 </li>
+<% if (EnableCreateForm)
+   { %>
 <li>
     <a id="createMasterFormPointer" class="dropdown-item dropdown-with-item"><%= FilesUCResource.ButtonCreateFormTemplate %></a>
     <div id="createMasterFormPanel" class="studio-action-panel">
@@ -30,6 +32,7 @@
     </div>
     <asp:PlaceHolder ID="FileChoisePopupHolder" runat="server"></asp:PlaceHolder>
 </li>
+<% } %>
 <% if (FileUtility.ExtsWebTemplate.Any())
    { %>
 <li>

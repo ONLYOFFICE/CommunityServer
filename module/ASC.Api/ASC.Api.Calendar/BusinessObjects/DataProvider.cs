@@ -38,7 +38,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 {
     public class DataProvider : IDisposable
     {
-        private readonly IDbManager db;
+        private IDbManager _db;
         private const string DBId = "calendar";
         private const string _calendarTable = "calendar_calendars cal";
         private const string _calendarItemTable = "calendar_calendar_item cal_itm";
@@ -63,9 +63,21 @@ namespace ASC.Api.Calendar.BusinessObjects
             }
         }
 
+        private IDbManager db
+        {
+            get
+            {
+                if (_db == null || _db.IsDisposed)
+                {
+                    _db = DbManager.FromHttpContext(DBId);
+                }
+                return _db;
+            }
+        }
+
         public DataProvider()
         {
-            db = DbManager.FromHttpContext(DBId);
+            _db = DbManager.FromHttpContext(DBId);
         }
 
         public List<UserViewSettings> GetUserViewSettings(Guid userId, List<string> calendarIds)
@@ -116,9 +128,6 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public List<Calendar> LoadTodoCalendarsForUser(Guid userId)
         {
-            var groups = CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID).ToList();
-            groups.AddRange(
-                CoreContext.UserManager.GetUserGroups(userId, Core.Users.Constants.SysGroupCategoryId).Select(g => g.ID));
             var currentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
             var queryGetCalIds = new SqlQuery(_calendarTable)
                            .Select("cal.id")
@@ -145,10 +154,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         }
         public List<Calendar> LoadCalendarsForUser(Guid userId, out int newCalendarsCount)
         {
-            var groups = CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID).ToList();
-            groups.AddRange(
-                CoreContext.UserManager.GetUserGroups(userId, Core.Users.Constants.SysGroupCategoryId).Select(g => g.ID));
-
+            var groups = GetUserGroups(userId);
             var currentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
             var queryGetCalIds = new SqlQuery(_calendarItemTable)
                 .Select("cal_itm.calendar_id")
@@ -191,8 +197,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public List<Calendar> LoadSubscriptionsForUser(Guid userId)
         {
-            var groups = CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID).ToList();
-            groups.AddRange(CoreContext.UserManager.GetUserGroups(userId, Core.Users.Constants.SysGroupCategoryId).Select(g => g.ID));
+            var groups = GetUserGroups(userId);
 
             var calIds = db.ExecuteList(new SqlQuery(_calendarItemTable).Select("cal_itm.calendar_id")
                                                 .InnerJoin(_calendarTable, Exp.EqColumns("cal.id", "cal_itm.calendar_id"))
@@ -675,12 +680,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                             {
                                 using (var tr = db.BeginTransaction())
                                 {
-                                    var groups =
-                                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId).Select(g => g.ID).ToList();
-                                    groups.AddRange(
-                                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId,
-                                                                                Core.Users.Constants.SysGroupCategoryId)
-                                                    .Select(g => g.ID));
+                                    var groups = GetUserGroups(viewSettings.UserId);
 
                                     var q = new SqlQuery("calendar_events e")
                                         .Select(cc.SelectQuery)
@@ -949,8 +949,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         }
         internal List<Event> LoadSharedEvents(Guid userId, int tenantId, DateTime utcStartDate, DateTime utcEndDate)
         {
-            var groups = CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID).ToList();
-            groups.AddRange(CoreContext.UserManager.GetUserGroups(userId, Core.Users.Constants.SysGroupCategoryId).Select(g => g.ID));
+            var groups = GetUserGroups(userId);
 
             var evIds = db.ExecuteList(
                 new SqlQuery(_eventTable).Select("evt.id")
@@ -1470,6 +1469,15 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         }
 
+        public List<Guid> GetUserGroups(Guid userId)
+        {
+            var groups = CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID).ToList();
+
+            groups.AddRange(CoreContext.UserManager.GetUserGroups(userId, Core.Users.Constants.SysGroupCategoryId).Select(g => g.ID));
+
+            return groups;
+        }
+
         #region Event Notifications
 
         internal static int GetBeforeMinutes(EventAlertType eventAlertType)
@@ -1792,9 +1800,9 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public void Dispose()
         {
-            if (HttpContext.Current == null && db != null)
+            if (HttpContext.Current == null && _db != null)
             {
-                db.Dispose();
+                _db.Dispose();
             }
         }
     }

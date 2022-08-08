@@ -971,7 +971,7 @@ window.ASC.Files.Actions = (function () {
             if (winEditor && winEditor.location) {
                 winEditor.location.href = urlForFileOpenWebEditor;
             } else {
-                if (localStorage.getItem("protocoldetector") == 1) {
+                if (sessionStorage.getItem("protocoldetector") == 1) {
                     openCustomProtocolInIframe(customUrlForFileOpenDesktopEditor);
                 } else {
                     window.open(urlForOpenPrivate, "_blank");
@@ -1046,7 +1046,7 @@ window.ASC.Files.Actions = (function () {
         var entryData = ASC.Files.UI.getObjectData(fileObj);
         if (!ASC.Desktop && entryData && entryData.encrypted) {
             var viewerParameters = viewerUrl.slice(viewerUrl.indexOf("&"));
-            if (localStorage.getItem("protocoldetector") == 1) {
+            if (sessionStorage.getItem("protocoldetector") == 1) {
                 var customProtocolViewerUrl = ASC.Files.Utility.GetFileCustomProtocolEditorUrl(fileId) + viewerParameters;
                 openCustomProtocolInIframe(customProtocolViewerUrl);
             } else {

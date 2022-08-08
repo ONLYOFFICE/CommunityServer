@@ -23,6 +23,7 @@ window.AttachmentManager = (function($) {
         attachedFiles = [],
         copiedFiles = [],
         failedUploadedFiles = [],
+        unattachedFilesInTrialVersion = [],
 
         nextId = 0,
         nextOrderNumber = 0,
@@ -1079,6 +1080,12 @@ window.AttachmentManager = (function($) {
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
 
+
+            if (ASC.Resources.Master.TenantIsPremium == 'No' && !ASC.Resources.Master.Standalone && !ASC.Files.Utility.CanWebView(file.title)) {
+                unattachedFilesInTrialVersion.push(file);
+                continue;
+            }
+
             if (file.shareable && !file.denySharing) {
                 attachedFiles.push(file);
             } else {
@@ -1086,14 +1093,21 @@ window.AttachmentManager = (function($) {
             }
         }
 
+        window.popup.hide();
+
+        if (unattachedFilesInTrialVersion.length) {
+            setTimeout(function () {
+                window.popup.addBig(MailScriptResource.Warning, $.tmpl('multimediafilesCannotBeAttachedTmpl'));
+            }, 0);
+        }
+
         if (copiedFiles.length) {
-            window.popup.hide();
             setTimeout(function() {
                 window.popup.addBig(MailScriptResource.Warning, $.tmpl('filesCannotBeAttachedAsLinksTmpl'));
             }, 0);
         } else {
-            completeCopiedFileLinkAttachmentsProgressStatus(files);
-            insertFileLinksToMessage(files);
+            completeCopiedFileLinkAttachmentsProgressStatus(attachedFiles);
+            insertFileLinksToMessage(attachedFiles);
             clearAttachedFiles();
         }
     }
@@ -1292,6 +1306,7 @@ window.AttachmentManager = (function($) {
     function clearAttachedFiles() {
         attachedFiles = [];
         copiedFiles = [];
+        unattachedFilesInTrialVersion = [];
     }
 
     //#endregion

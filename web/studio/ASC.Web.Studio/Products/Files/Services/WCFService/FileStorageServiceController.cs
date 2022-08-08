@@ -250,7 +250,7 @@ namespace ASC.Web.Files.Services.WCFService
             return new ItemList<FileEntry>(entries);
         }
 
-        [ActionName("folders-create"), HttpGet]
+        [ActionName("folders-create"), HttpPost]
         public Folder CreateNewFolder(String parentId, String title)
         {
             if (string.IsNullOrEmpty(title) || String.IsNullOrEmpty(parentId)) throw new ArgumentException();
@@ -276,7 +276,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("folders-rename"), HttpGet]
+        [ActionName("folders-rename"), HttpPut]
         public Folder FolderRename(String folderId, String title)
         {
             using (var tagDao = GetTagDao())
@@ -423,7 +423,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("folders-files-createfile"), HttpGet]
+        [ActionName("folders-files-createfile"), HttpPost]
         public File CreateNewFile(String parentId, String title, String templateId, bool enableExternalExt = false)
         {
             using (var fileDao = GetFileDao())
@@ -456,6 +456,9 @@ namespace ASC.Web.Files.Services.WCFService
                 }
 
                 var fileExt = FileUtility.GetFileExtension(title);
+
+                ErrorIf(fileExt == FileUtility.MasterFormExtension && CoreContext.Configuration.CustomMode, FilesCommonResource.ErrorMassage_BadRequest);
+
                 if (!enableExternalExt && fileExt != FileUtility.MasterFormExtension)
                 {
                     fileExt = FileUtility.GetInternalExtension(title);
@@ -671,7 +674,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("startedit"), HttpGet, AllowAnonymous]
+        [ActionName("startedit"), HttpPost, AllowAnonymous]
         public string StartEdit(String fileId, bool editingAlone = false, String doc = null)
         {
             try
@@ -728,7 +731,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("folders-files-rename"), HttpGet]
+        [ActionName("folders-files-rename"), HttpPut]
         public File FileRename(String fileId, String title)
         {
             try
@@ -775,7 +778,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("folders-files-updateToVersion"), HttpGet]
+        [ActionName("folders-files-updateToVersion"), HttpPut]
         public KeyValuePair<File, ItemList<File>> UpdateToVersion(String fileId, int version)
         {
             var file = EntryManager.UpdateToVersionFile(fileId, version);
@@ -794,7 +797,7 @@ namespace ASC.Web.Files.Services.WCFService
             return new KeyValuePair<File, ItemList<File>>(file, GetFileHistory(fileId));
         }
 
-        [ActionName("folders-files-updateComment"), HttpGet]
+        [ActionName("folders-files-updateComment"), HttpPut]
         public string UpdateComment(String fileId, int version, String comment)
         {
             using (var fileDao = GetFileDao())
@@ -813,7 +816,7 @@ namespace ASC.Web.Files.Services.WCFService
             return comment;
         }
 
-        [ActionName("folders-files-completeVersion"), HttpGet]
+        [ActionName("folders-files-completeVersion"), HttpPut]
         public KeyValuePair<File, ItemList<File>> CompleteVersion(String fileId, int version, bool continueVersion)
         {
             var file = EntryManager.CompleteVersionFile(fileId, version, continueVersion);
@@ -835,7 +838,7 @@ namespace ASC.Web.Files.Services.WCFService
             return new KeyValuePair<File, ItemList<File>>(file, GetFileHistory(fileId));
         }
 
-        [ActionName("folders-files-lock"), HttpGet]
+        [ActionName("folders-files-lock"), HttpPut]
         public File LockFile(String fileId, bool lockfile)
         {
             using (var tagDao = GetTagDao())
@@ -1006,7 +1009,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("restore-version"), HttpGet, AllowAnonymous]
+        [ActionName("restore-version"), HttpPut, AllowAnonymous]
         public ItemList<EditHistory> RestoreVersion(String fileId, int version, String url = null, String doc = null)
         {
             File file;
@@ -1181,7 +1184,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("markasread"), HttpPost]
+        [ActionName("markasread"), HttpPut]
         public ItemList<FileOperationResult> MarkAsRead([FromBody] ItemList<String> items)
         {
             if (items.Count == 0) return GetTasksStatuses();
@@ -1320,7 +1323,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("thirdparty-delete"), HttpGet]
+        [ActionName("thirdparty-delete"), HttpDelete]
         public object DeleteThirdParty(String providerId)
         {
             using (var providerDao = GetProviderDao())
@@ -1345,7 +1348,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("thirdparty"), HttpGet]
+        [ActionName("thirdparty"), HttpPut]
         public bool ChangeAccessToThirdparty(bool enable)
         {
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
@@ -1370,7 +1373,7 @@ namespace ASC.Web.Files.Services.WCFService
             return true;
         }
 
-        [ActionName("docusign-delete"), HttpGet]
+        [ActionName("docusign-delete"), HttpDelete]
         public object DeleteDocuSign()
         {
             DocuSignToken.DeleteToken();
@@ -1406,7 +1409,7 @@ namespace ASC.Web.Files.Services.WCFService
             return fileOperations.GetOperationResults();
         }
 
-        [ActionName("tasks"), HttpGet]
+        [ActionName("tasks"), HttpPut]
         public ItemList<FileOperationResult> TerminateTasks()
         {
             ErrorIf(!SecurityContext.IsAuthenticated, FilesCommonResource.ErrorMassage_SecurityException);
@@ -1414,7 +1417,7 @@ namespace ASC.Web.Files.Services.WCFService
             return fileOperations.CancelOperations();
         }
 
-        [ActionName("bulkdownload"), HttpPost]
+        [ActionName("bulkdownload"), HttpPut]
         public ItemList<FileOperationResult> BulkDownload([FromBody] Dictionary<String, String> items)
         {
             Dictionary<object, string> folders;
@@ -1495,7 +1498,7 @@ namespace ASC.Web.Files.Services.WCFService
             return result;
         }
 
-        [ActionName("moveorcopy"), HttpPost]
+        [ActionName("moveorcopy"), HttpPut]
         public ItemList<FileOperationResult> MoveOrCopyItems([FromBody] ItemList<string> items, string destFolderId, FileConflictResolveType resolve, bool ic, bool deleteAfter = false)
         {
             ErrorIf(resolve == FileConflictResolveType.Overwrite && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(), FilesCommonResource.ErrorMassage_SecurityException);
@@ -1516,7 +1519,7 @@ namespace ASC.Web.Files.Services.WCFService
             return result;
         }
 
-        [ActionName("folders-files"), HttpPost]
+        [ActionName("folders-files"), HttpPut]
         public ItemList<FileOperationResult> DeleteItems(string action, [FromBody] ItemList<String> items, bool ignoreException = false, bool deleteAfter = false, bool immediately = false)
         {
             List<object> foldersId;
@@ -1526,7 +1529,7 @@ namespace ASC.Web.Files.Services.WCFService
             return fileOperations.Delete(foldersId, filesId, ignoreException, !deleteAfter, immediately, GetHttpHeaders());
         }
 
-        [ActionName("emptytrash"), HttpGet]
+        [ActionName("emptytrash"), HttpPut]
         public ItemList<FileOperationResult> EmptyTrash()
         {
             using (var folderDao = GetFolderDao())
@@ -1733,7 +1736,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         #region Favorites Manager
 
-        [ActionName("file-favorite"), HttpGet]
+        [ActionName("file-favorite"), HttpPut]
         public bool ToggleFileFavorite(String fileId, bool favorite)
         {
             if (favorite)
@@ -2108,7 +2111,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
-        [ActionName("setacelink"), HttpGet]
+        [ActionName("setacelink"), HttpPut]
         public bool SetAceLink(String fileId, FileShare share)
         {
             FileEntry file;
@@ -2295,7 +2298,7 @@ namespace ASC.Web.Files.Services.WCFService
             return new ItemList<EncryptionKeyPair>(fileKeyPair);
         }
 
-        [ActionName("external"), HttpGet]
+        [ActionName("external"), HttpPut]
         public bool ChangeExternalShareSettings(bool enable)
         {
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
@@ -2312,7 +2315,7 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.ExternalShare;
         }
 
-        [ActionName("externalsocialmedia"), HttpGet]
+        [ActionName("externalsocialmedia"), HttpPut]
         public bool ChangeExternalShareSocialMediaSettings(bool enable)
         {
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
@@ -2480,7 +2483,7 @@ namespace ASC.Web.Files.Services.WCFService
             return true;
         }
 
-        [ActionName("updateifexist"), HttpGet]
+        [ActionName("updateifexist"), HttpPut]
         public bool UpdateIfExist(bool set)
         {
             ErrorIf(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(), FilesCommonResource.ErrorMassage_SecurityException);
@@ -2491,7 +2494,7 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.UpdateIfExist;
         }
 
-        [ActionName("forcesave"), HttpGet]
+        [ActionName("forcesave"), HttpPut]
         public bool Forcesave(bool set)
         {
             FilesSettings.Forcesave = set;
@@ -2500,7 +2503,7 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.Forcesave;
         }
 
-        [ActionName("storeforcesave"), HttpGet]
+        [ActionName("storeforcesave"), HttpPut]
         public bool StoreForcesave(bool set)
         {
             ErrorIf(!Global.IsAdministrator, FilesCommonResource.ErrorMassage_SecurityException);
@@ -2538,7 +2541,7 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.TemplatesSection;
         }
 
-        [ActionName("changedeleteconfrim"), HttpGet]
+        [ActionName("changedeleteconfrim"), HttpPut]
         public bool ChangeDeleteConfrim(bool set)
         {
             FilesSettings.ConfirmDelete = set;
@@ -2566,7 +2569,7 @@ namespace ASC.Web.Files.Services.WCFService
             return FilesSettings.DefaultSharingAccessRights;
         }
 
-        [ActionName("downloadtargz"), HttpGet]
+        [ActionName("downloadtargz"), HttpPut]
         public ICompress ChangeDownloadTarGz(bool set)
         {
             FilesSettings.DownloadTarGz = set;

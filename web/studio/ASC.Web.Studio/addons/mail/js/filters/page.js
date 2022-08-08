@@ -245,7 +245,10 @@ window.filtersPage = (function($) {
 
         filtersManager.refresh()
             .then(function() {
-                    window.LoadingBanner.hideLoading();
+                window.LoadingBanner.hideLoading();
+
+                if (ASC.Controls.AnchorController.getAnchor() !== "filtersettings")
+                    return;
 
                     var filters = filtersManager.getList();
 
@@ -370,7 +373,7 @@ window.filtersPage = (function($) {
 
                                     row.toggleClass("disable");
 
-                                    show();
+                                    show(); 
 
                                     return false;
                                 });

@@ -67,6 +67,9 @@
   <data name="ChooseResponsible" xml:space="preserve">
     <value>Choose Responsible</value>
   </data>
+  <data name="ConfirmContinueMessage" xml:space="preserve">
+    <value>All unsaved data will be lost. Continue?</value>
+  </data>
   <data name="ContactsModule" xml:space="preserve">
     <value>Contacts</value>
   </data>

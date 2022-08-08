@@ -509,7 +509,7 @@ $AdditionalData
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
       $__AuthorName
 
-      ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID
+      ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID
     </body>
   </pattern>
   <pattern id="TaskResumed" sender="telegram.sender">

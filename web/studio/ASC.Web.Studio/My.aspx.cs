@@ -20,6 +20,7 @@ using System.Web;
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Geolocation;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users;
@@ -46,6 +47,10 @@ namespace ASC.Web.Studio
         }
 
         protected ProfileHelper Helper;
+
+        protected string HelpLink;
+
+        protected bool IsEmptyDbip;
 
         protected override void OnPreInit(EventArgs e)
         {
@@ -95,6 +100,10 @@ namespace ASC.Web.Studio
             {
                 _phSubscriptionView.Controls.Add(LoadControl(UserSubscriptions.Location));
             }
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
+            IsEmptyDbip = CoreContext.Configuration.Standalone && !new GeolocationHelper("teamlabsite").HasData();
+
             _phConnectionsView.Controls.Add(LoadControl(UserConnections.Location));
         }
 

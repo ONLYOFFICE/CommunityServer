@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvitePanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.InvitePanel" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
@@ -54,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <% if (CompanyWhiteLabelSettings.Instance.IsDefault) { %>
+        <% if (!CoreContext.Configuration.CustomMode && CompanyWhiteLabelSettings.Instance.IsDefault) { %>
         <ul id="shareInviteLinkViaSocPanel" class="clearFix">
             <li><a class="facebook" target="_blank" title="<%= Resource.TitleFacebook %>"></a></li>
             <li><a class="twitter" target="_blank" title="<%= Resource.TitleTwitter %>"></a></li>

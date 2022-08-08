@@ -98,6 +98,15 @@ portal users or use any other email to invite people to your event.</value>
   <data name="CreateOfficeCustomMode" xml:space="preserve">
     <value>Create cloud</value>
   </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>Share files with your team or publicly.</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>Grant access for viewing, editing, reviewing, commenting.</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>Embed docs into websites.</value>
+  </data>
   <data name="DiscussionDocumentCustomMode" xml:space="preserve">
     <value>Document Discussion</value>
   </data>

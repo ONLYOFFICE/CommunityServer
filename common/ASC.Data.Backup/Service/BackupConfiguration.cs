@@ -87,7 +87,7 @@ namespace ASC.Data.Backup.Service
             set { this["period"] = value; }
         }
 
-        [ConfigurationProperty("workerCount", DefaultValue = 1)]
+        [ConfigurationProperty("workerCount", DefaultValue = 2)]
         public int WorkerCount
         {
             get { return (int)this["workerCount"]; }
