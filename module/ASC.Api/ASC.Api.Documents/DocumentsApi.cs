@@ -1914,7 +1914,7 @@ namespace ASC.Api.Documents
                                                                                startIndex,
                                                                                Convert.ToInt32(_context.Count) - 1, //NOTE: in ApiContext +1
                                                                                filterType,
-                                                                               filterType == FilterType.ByUser,
+                                                                               filterType == FilterType.ByDepartment,
                                                                                userIdOrGroupId.ToString(),
                                                                                _context.FilterValue,
                                                                                searchInContent,

@@ -32,6 +32,8 @@ using ASC.Web.CRM.Core;
 
 using Autofac;
 
+using HtmlAgilityPack;
+
 namespace ASC.Web.CRM.Classes
 {
 
@@ -254,25 +256,43 @@ namespace ASC.Web.CRM.Classes
         private static bool TryGetRatesFromFile(string filepath, CurrencyInfo curCI)
         {
             var success = false;
-            var currencyLines = File.ReadAllLines(filepath);
-            for (var i = 0; i < currencyLines.Length; i++)
+
+            var doc = new HtmlDocument();
+            doc.Load(filepath);
+
+            var targets = new[] { "major-currency-table", "minor-currency-table", "exotic-currency-table" };
+            var tables = doc.DocumentNode.SelectNodes("//table");
+
+            foreach (var table in tables)
             {
-                var line = currencyLines[i];
-
-                if (line.Contains("id=\"major-currency-table\"") || line.Contains("id=\"minor-currency-table\"") || line.Contains("id=\"exotic-currency-table\""))
+                var idAttr = table.Attributes["id"];
+                if (idAttr == null || !targets.Contains(idAttr.Value))
                 {
-                    var currencyInfos = CurRateRegex.Matches(line);
+                    continue;
+                }
 
-                    if (currencyInfos.Count > 0)
+                string abbreviation = null;
+                decimal rate = 0;
+
+                var tds = table.SelectNodes(".//td");
+                foreach (var td in tds)
+                {
+                    var em = td.SelectSingleNode(".//em");
+                    if (em != null)
                     {
-                        foreach (var curInfo in currencyInfos)
-                        {
-                            _exchangeRates.Add(
-                                String.Format("{0}/{1}", (curInfo as Match).Groups["Currency"].Value.Trim(), curCI.Abbreviation),
-                                Convert.ToDecimal((curInfo as Match).Groups["Rate"].Value.Trim(), CultureInfo.InvariantCulture.NumberFormat));
+                        var classAttr = em.Attributes["class"];
+                        abbreviation = classAttr != null ? classAttr.Value : null;
+                    }
 
+                    var dataValueAttr = td.Attributes["data-value"];
+                    if (dataValueAttr != null)
+                    {
+                        if (decimal.TryParse(dataValueAttr.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out rate) && !string.IsNullOrEmpty(abbreviation))
+                        {
+                            _exchangeRates.Add(string.Format("{0}/{1}", abbreviation, curCI.Abbreviation), rate);
                             success = true;
                         }
+                        abbreviation = null;
                     }
                 }
             }

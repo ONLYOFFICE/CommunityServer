@@ -96,6 +96,7 @@
       .header {
         margin-bottom: 8px;
         line-height: 19px;
+        display: flex;
 
         .action {
           font-size: 14px;
@@ -119,9 +120,8 @@
 
         .new-indicator {
           .limitedSingleText(100px);
-          margin-top: -4px;
           margin-left: 4px;
-          padding: 2px 4px 2px;
+          padding: 0 4px;
           .borderRadius(2px);
           color: #648c45;
           background-color: #d6eabe;
@@ -222,6 +222,7 @@
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
+        -webkit-text-size-adjust: none;
 
         .show-all-btn {
           font-weight: bold;

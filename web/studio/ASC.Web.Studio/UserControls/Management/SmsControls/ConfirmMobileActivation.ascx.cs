@@ -166,12 +166,18 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var mustConfirm = StudioSmsNotificationSettings.Enable;
 
+            var refererUrl = HttpUtility.ParseQueryString(query)["refererurl"];
+            if (string.IsNullOrEmpty(refererUrl))
+            {
+                refererUrl = Context.GetRefererURL();
+            }
+
             return
                 new
                 {
                     phoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
                     confirm = mustConfirm,
-                    RefererURL = mustConfirm ? string.Empty : Context.GetRefererURL()
+                    RefererURL = mustConfirm ? string.Empty : refererUrl
                 };
         }
 
@@ -211,7 +217,13 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw;
             }
 
-            return new { RefererURL = Context.GetRefererURL() };
+            var refererUrl = HttpUtility.ParseQueryString(query)["refererurl"];
+            if (string.IsNullOrEmpty(refererUrl))
+            {
+                refererUrl = Context.GetRefererURL();
+            }
+
+            return new { RefererURL = refererUrl };
         }
 
         #endregion

@@ -336,7 +336,7 @@ namespace ASC.Mail.Core.Engine
         }
 
         //TODO: Simplify
-        public bool SetUnread(List<int> ids, bool unread, bool allChain = false)
+        public List<int> SetUnread(List<int> ids, bool unread, bool allChain = false)
         {
             var factory = new EngineFactory(Tenant, User);
 
@@ -352,14 +352,14 @@ namespace ASC.Mail.Core.Engine
                     chainedMessages = factory.ChainEngine.GetChainedMessagesInfo(daoFactory, ids);
 
                     if (!chainedMessages.Any())
-                        return true;
+                        return ids2Update;
 
                     var listIds = allChain
                         ? chainedMessages.Where(x => x.IsNew == !unread).Select(x => x.Id).ToList()
                         : ids;
 
                     if (!listIds.Any())
-                        return true;
+                        return ids2Update;
 
                     daoMailInfo.SetFieldValue(
                         SimpleMessagesExp.CreateBuilder(Tenant, User)
@@ -468,7 +468,7 @@ namespace ASC.Mail.Core.Engine
 
             factory.IndexEngine.Update(data, s => s.In(m => m.Id, ids2Update.ToArray()), wrapper => wrapper.Unread);
 
-            return true;
+            return ids2Update;
         }
 
         public bool SetImportant(List<int> ids, bool importance)

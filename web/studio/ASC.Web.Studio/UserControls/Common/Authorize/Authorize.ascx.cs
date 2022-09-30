@@ -460,7 +460,13 @@ namespace ASC.Web.Studio.UserControls.Common
             if (!string.IsNullOrEmpty(tfaLoginUrl))
             {
                 if (Request.DesktopApp())
+                {
                     tfaLoginUrl += "&desktop=true";
+                }
+                else
+                {
+                    tfaLoginUrl += "&refererurl=" + HttpUtility.UrlEncode(Context.GetRefererURL());
+                }
 
                 Response.Redirect(tfaLoginUrl, true);
             }

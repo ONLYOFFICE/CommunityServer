@@ -97,6 +97,7 @@ namespace ASC.Core
                 INotifySender jabberSender = new NotifyServiceSender();
                 INotifySender emailSender = new NotifyServiceSender();
                 INotifySender telegramSender = new TelegramSender();
+                INotifySender pushSender = new PushSender();
 
                 var postman = ConfigurationManagerExtension.AppSettings["core.notify.postman"];
 
@@ -123,6 +124,7 @@ namespace ASC.Core
                 notifyContext.NotifyService.RegisterSender(Constants.NotifyEMailSenderSysName, new EmailSenderSink(emailSender));
                 notifyContext.NotifyService.RegisterSender(Constants.NotifyMessengerSenderSysName, new JabberSenderSink(jabberSender));
                 notifyContext.NotifyService.RegisterSender(Constants.NotifyTelegramSenderSysName, new TelegramSenderSink(telegramSender));
+                notifyContext.NotifyService.RegisterSender(Constants.NotifyPushSenderSysName, new PushSenderSink(pushSender));
 
                 notifyContext.NotifyEngine.BeforeTransferRequest += NotifyEngine_BeforeTransferRequest;
                 notifyContext.NotifyEngine.AfterTransferRequest += NotifyEngine_AfterTransferRequest;

@@ -308,6 +308,11 @@ namespace ASC.Web.Studio.Core
                 UseProxy = false
             };
 
+            if (CoreContext.Configuration.Standalone)
+            {
+                handler.ServerCertificateCustomValidationCallback = delegate { return true; };
+            }
+
             using (var hc = new HttpClient(handler))
             {
                 hc.Timeout = TimeSpan.FromMinutes(5);

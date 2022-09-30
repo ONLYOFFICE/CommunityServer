@@ -37,9 +37,13 @@ namespace ASC.Web.Files.Services.NotifyService
 
         public static readonly string Tag_DocumentTitle = "DocumentTitle";
         public static readonly string Tag_DocumentUrl = "DocumentURL";
+        public static readonly string Tag_DocumentExtension = "DocumentExtension";
         public static readonly string Tag_AccessRights = "AccessRights";
         public static readonly string Tag_Message = "Message";
         public static readonly string Tag_MailsCount = "MailsCount";
+        public static readonly string Tag_FolderId = "FolderId";
+        public static readonly string Tag_FolderParentId = "FolderParentId";
+        public static readonly string Tag_FolderRootFolderType = "FolderRootFolderType";
 
         #endregion
     }

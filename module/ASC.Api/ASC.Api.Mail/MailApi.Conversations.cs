@@ -83,7 +83,7 @@ namespace ASC.Api.Mail
                 ? FolderType.UserFolder
                 : folder.HasValue ? (FolderType)folder.Value : FolderType.Inbox;
 
-            SendUserAlive(folder ?? -1, tags);
+            ActionEngine.SendUserAlive(folder ?? -1, tags);
 
             var filter = new MailSearchFilterData
             {
@@ -149,6 +149,11 @@ namespace ASC.Api.Mail
                 Defines.NeedProxyHttp,
                 needSanitize.GetValueOrDefault(false),
                 markRead.GetValueOrDefault(false));
+
+            if (markRead.GetValueOrDefault(false))
+            {
+                ActionEngine.SendUserActivity(list.Select(x=>x.Id).ToList(), MailUserAction.SetAsRead);
+            }
 #if DEBUG
             watch.Stop();
             Logger.DebugFormat("Mail->GetConversation(id={0})->Elapsed {1}ms (NeedProxyHttp={2}, NeedSanitizer={3})", id,
@@ -260,9 +265,9 @@ namespace ASC.Api.Mail
             if (!MailFolder.IsIdOk(toFolder))
                 throw new ArgumentException(@"Invalid folder id", "folder");
 
-            MailEngineFactory.ChainEngine.SetConversationsFolder(ids, toFolder, userFolderId);
+            List<int> idsToImapSync = MailEngineFactory.ChainEngine.SetConversationsFolder(ids, toFolder, userFolderId);
 
-            SendUserActivity(ids, MailUserAction.MoveTo, folder);
+            ActionEngine.SendUserActivity(idsToImapSync, MailUserAction.MoveTo, folder, userFolderId);
 
             if (toFolder != FolderType.Spam)
                 return ids;
@@ -290,7 +295,9 @@ namespace ASC.Api.Mail
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
-            MailEngineFactory.ChainEngine.RestoreConversations(TenantId, Username, ids);
+            List<int> idsToImapSync=MailEngineFactory.ChainEngine.RestoreConversations(TenantId, Username, ids);
+
+            ActionEngine.SendUserActivity(idsToImapSync, MailUserAction.Restore);
 
             if (learnSpamTrainer)
             {
@@ -314,9 +321,10 @@ namespace ASC.Api.Mail
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
-            SendUserActivity(ids, MailUserAction.SetAsDeleted);
+            List<int> idsToImapSync = MailEngineFactory.ChainEngine.DeleteConversations(TenantId, Username, ids);
 
-            MailEngineFactory.ChainEngine.DeleteConversations(TenantId, Username, ids);
+            ActionEngine.SendUserActivity(idsToImapSync, MailUserAction.SetAsDeleted);
+
             return ids;
         }
 
@@ -335,31 +343,32 @@ namespace ASC.Api.Mail
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
             MailUserAction mailUserAction = MailUserAction.Nothing;
+            List<int> idsToImapSync = new List<int>();
 
             switch (status)
             {
                 case "read":
-                    MailEngineFactory.MessageEngine.SetUnread(ids, false, true);
+                    idsToImapSync=MailEngineFactory.MessageEngine.SetUnread(ids, false, true);
                     mailUserAction = MailUserAction.SetAsRead;
                     break;
 
                 case "unread":
-                    MailEngineFactory.MessageEngine.SetUnread(ids, true, true);
+                    idsToImapSync = MailEngineFactory.MessageEngine.SetUnread(ids, true, true);
                     mailUserAction = MailUserAction.SetAsUnread;
                     break;
 
                 case "important":
-                    MailEngineFactory.ChainEngine.SetConversationsImportanceFlags(TenantId, Username, true, ids);
+                    idsToImapSync = MailEngineFactory.ChainEngine.SetConversationsImportanceFlags(TenantId, Username, true, ids);
                     mailUserAction = MailUserAction.SetAsImportant;
                     break;
 
                 case "normal":
-                    MailEngineFactory.ChainEngine.SetConversationsImportanceFlags(TenantId, Username, false, ids);
+                    idsToImapSync = MailEngineFactory.ChainEngine.SetConversationsImportanceFlags(TenantId, Username, false, ids);
                     mailUserAction = MailUserAction.SetAsNotImpotant;
                     break;
             }
 
-            SendUserActivity(ids, mailUserAction);
+            ActionEngine.SendUserActivity(idsToImapSync, mailUserAction);
 
             return ids;
         }

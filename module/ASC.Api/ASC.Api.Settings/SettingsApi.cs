@@ -39,6 +39,8 @@ using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Common.Notify;
+using ASC.Core.Common.Notify.FireBase.Dao;
+using ASC.Core.Common.Notify.Push;
 using ASC.Core.Encryption;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -1060,6 +1062,61 @@ namespace ASC.Api.Settings
             return string.Empty;
         }
 
+        /// <summary>
+        /// Saves a documents firebase device token specified in the request.
+        /// </summary>
+        /// <short>Saves a firebase device token</short>
+        /// <param name="firebaseDeviceToken">firebase device token</param>
+        /// <returns>FireBase user</returns>
+        [Create("push/docregisterdevice")]
+        public FireBaseUser DocRegisterPusnNotificationDevice(string firebaseDeviceToken)
+        {
+            var firebaseDao = new FirebaseDao();
+            return firebaseDao.RegisterUserDevice(SecurityContext.CurrentAccount.ID, CoreContext.TenantManager.GetCurrentTenant().TenantId, firebaseDeviceToken, false, PushConstants.PushDocAppName);
+        }
+
+        /// <summary>
+        /// Saves a projects firebase device token specified in the request.
+        /// </summary>
+        /// <short>Saves a firebase device token</short>
+        /// <param name="firebaseDeviceToken">firebase device token</param>
+        /// <returns>FireBase user</returns>
+        [Create("push/projregisterdevice")]
+        public FireBaseUser ProjRegisterPusnNotificationDevice(string firebaseDeviceToken)
+        {
+            var firebaseDao = new FirebaseDao();
+            return firebaseDao.RegisterUserDevice(SecurityContext.CurrentAccount.ID, CoreContext.TenantManager.GetCurrentTenant().TenantId, firebaseDeviceToken, false, PushConstants.PushProjAppName);
+        }
+
+        /// <summary>
+        /// Subscribe to documents push notification.
+        /// </summary>
+        /// <short> Subscribe to push notification </short>
+        /// <param name="firebaseDeviceToken">firebase device token</param>
+        /// <param name="isSubscribed">is subscribed</param>
+        /// <returns>FireBase user</returns>
+        /// <visible>false</visible>
+        [Update("push/docsubscribe")]
+        public FireBaseUser SubscribeDocumentsPushNotification(string firebaseDeviceToken, bool isSubscribed)
+        {
+            var firebaseDao = new FirebaseDao();
+            return firebaseDao.UpdateUser(SecurityContext.CurrentAccount.ID, CoreContext.TenantManager.GetCurrentTenant().TenantId, firebaseDeviceToken, isSubscribed, PushConstants.PushDocAppName);
+        }
+
+        /// <summary>
+        /// Subscribe to projects push notification.
+        /// </summary>
+        /// <short> Subscribe to push notification </short>
+        /// <param name="firebaseDeviceToken">firebase device token</param>
+        /// <param name="isSubscribed">is subscribed</param>
+        /// <returns>FireBase user</returns>
+        /// <visible>false</visible>
+        [Update("push/projsubscribe")]
+        public FireBaseUser SubscribeProjectsPushNotification(string firebaseDeviceToken, bool isSubscribed)
+        {
+            var firebaseDao = new FirebaseDao();
+            return firebaseDao.UpdateUser(SecurityContext.CurrentAccount.ID, CoreContext.TenantManager.GetCurrentTenant().TenantId, firebaseDeviceToken, isSubscribed, PushConstants.PushProjAppName);
+        }
 
         /// <summary>
         /// Returns a link that will connect Telegram Bot to your account.
@@ -1796,6 +1853,8 @@ namespace ASC.Api.Settings
         [Read("rebranding/company")]
         public CompanyWhiteLabelSettings GetCompanyWhiteLabelSettings()
         {
+            DemandRebrandingPermission();
+
             return CompanyWhiteLabelSettings.Instance;
         }
 
@@ -1845,6 +1904,8 @@ namespace ASC.Api.Settings
         [Read("rebranding/additional")]
         public AdditionalWhiteLabelSettings GetAdditionalWhiteLabelSettings()
         {
+            DemandRebrandingPermission();
+
             return AdditionalWhiteLabelSettings.Instance;
         }
 
@@ -1913,6 +1974,8 @@ namespace ASC.Api.Settings
         [Read("rebranding/mail")]
         public MailWhiteLabelSettings GetMailWhiteLabelSettings()
         {
+            DemandRebrandingPermission();
+
             return MailWhiteLabelSettings.Instance;
         }
 
@@ -1945,6 +2008,8 @@ namespace ASC.Api.Settings
 
         private static void DemandRebrandingPermission()
         {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             TenantExtra.DemandControlPanelPermission();
 
             if (CoreContext.Configuration.CustomMode)

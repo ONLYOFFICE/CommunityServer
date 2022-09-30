@@ -701,7 +701,9 @@ window.mailCalendar = (function ($) {
                                     iCal.eventDisplayInfoClass = "error-region";
                                     break;
                             }
-                            
+
+                            iCal.attachments = calEventInfo.attachments || [];
+
                         } else {
                             switch (iCal.method) {
                                 case "REQUEST":
@@ -760,8 +762,6 @@ window.mailCalendar = (function ($) {
                             iCal.eventDisplayInfo = undefined;
                             iCal.eventDisplayInfoClass = undefined;
                         }
-
-                        iCal.attachments = calEventInfo.attachments;
 
                         iCal.dateEvent = ASC.Mail.Utility.ToCalendarDateString(iCal.dtStart, iCal.dtEnd, iCal.dtStartAllDay, iCal.dtEndAllDay);
                         if (iCal.recurrence)

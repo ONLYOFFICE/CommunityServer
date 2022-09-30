@@ -86,7 +86,7 @@ namespace ASC.Api.Mail
                 ? FolderType.UserFolder
                 : folder.HasValue ? (FolderType)folder.Value : FolderType.Inbox;
 
-            SendUserAlive(folder ?? -1, tags);
+            ActionEngine.SendUserAlive(folder ?? -1, tags);
 
             var filter = new MailSearchFilterData
             {
@@ -167,7 +167,7 @@ namespace ASC.Api.Mail
                 MailEngineFactory.MessageEngine.SetUnread(ids, false);
                 item.IsNew = false;
 
-                SendUserActivity(ids, MailUserAction.SetAsRead);
+                ActionEngine.SendUserActivity(ids, MailUserAction.SetAsRead);
             }
 
             if (needSanitizeHtml)
@@ -387,7 +387,7 @@ namespace ASC.Api.Mail
                     break;
             }
 
-            SendUserActivity(ids, mailUserAction);
+            ActionEngine.SendUserActivity(ids, mailUserAction);
 
             return ids;
         }
@@ -434,7 +434,7 @@ namespace ASC.Api.Mail
 
             MailEngineFactory.MessageEngine.SetFolder(ids, toFolder, userFolderId);
 
-            SendUserActivity(ids, MailUserAction.MoveTo, folder);
+            ActionEngine.SendUserActivity(ids, MailUserAction.MoveTo, folder, userFolderId);
 
             if (toFolder == FolderType.Spam || toFolder == FolderType.Sent || toFolder == FolderType.Inbox)
                 MailEngineFactory.OperationEngine.ApplyFilters(ids);
@@ -764,7 +764,7 @@ namespace ASC.Api.Mail
 
             MailEngineFactory.MessageEngine.SetRemoved(ids);
 
-            SendUserActivity(ids, MailUserAction.SetAsDeleted);
+            ActionEngine.SendUserActivity(ids, MailUserAction.SetAsDeleted);
 
             return ids;
         }

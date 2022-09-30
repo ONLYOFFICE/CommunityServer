@@ -886,7 +886,7 @@
     <value>Display Favorites</value>
   </data>
   <data name="SettingForcesave" xml:space="preserve">
-    <value>Keep intermediate versions when editing</value>
+    <value>Save revisions when the document version is changed</value>
   </data>
   <data name="SettingRecent" xml:space="preserve">
     <value>Display Recent</value>
@@ -895,7 +895,7 @@
     <value>Additional sections</value>
   </data>
   <data name="SettingStoreForcesave" xml:space="preserve">
-    <value>Keep all saved intermediate versions</value>
+    <value>Always save revisions when the version is changed</value>
   </data>
   <data name="SettingTemplates" xml:space="preserve">
     <value>Display Templates</value>
@@ -1100,5 +1100,8 @@
   </data>
   <data name="SharingSettings" xml:space="preserve">
     <value>Sharing settings</value>
+  </data>
+  <data name="SettingForcesaveHelper" xml:space="preserve">
+    <value>Save revisions to track intermediate versions of the documents</value>
   </data>
 </root>

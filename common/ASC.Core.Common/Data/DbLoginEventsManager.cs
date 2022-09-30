@@ -78,7 +78,7 @@ namespace ASC.Core.Data
 
                 var isActive = db.ExecuteScalar<bool>(query);
 
-                cachedLoginEvents.Add(loginEventId, isActive);
+                cachedLoginEvents[loginEventId] = isActive;
 
                 cache.Insert(cacheKey, cachedLoginEvents, expirationTimeout);
 

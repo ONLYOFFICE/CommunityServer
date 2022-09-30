@@ -114,9 +114,9 @@
         <br />
         <br />
         <input type="checkbox" id="cbxForcesave" class="on-off-checkbox" <%= FilesSettings.Forcesave ? "checked='checked'" : "" %> />
-        <label for="cbxForcesave">
-            <%= FilesUCResource.SettingForcesave %>
-        </label>
+        <label for="cbxForcesave"><%= FilesUCResource.SettingForcesave %></label>
+        <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'forcesaveHelper'});"></span>
+        <div class="popup_helper" id="forcesaveHelper"><%= FilesUCResource.SettingForcesaveHelper %></div>
         <br />
         <br />
         <br />

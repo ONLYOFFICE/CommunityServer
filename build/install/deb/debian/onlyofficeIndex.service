@@ -1,7 +1,7 @@
 [Unit]
 Description=Start ONLYOFFICE Index Service
-After=network.target syslog.target elasticsearch.service mysqld.service redis-server.service
-Wants=elasticsearch.service mysqld.service redis-server.service
+After=network.target syslog.target elasticsearch.service mysql.service redis-server.service
+Wants=elasticsearch.service mysql.service redis-server.service
 
 [Service]
 Type=forking

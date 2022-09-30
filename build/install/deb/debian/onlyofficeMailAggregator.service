@@ -1,18 +1,18 @@
 [Unit]
 Description=ONLYOFFICE MailAggregator Service
-After=network.target syslog.target mysqld.service
-Wants=mysqld.service
+After=network.target syslog.target mysql.service
+Wants=mysql.service
 
 [Service]
 Type=notify
 User=onlyoffice
 Group=onlyoffice
 WorkingDirectory=/var/www/onlyoffice/Services/MailAggregator
-ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.Service.dll --urls=http://0.0.0.0:5025 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-aggregator --ENVIRONMENT=production
+ExecStart=/usr/bin/dotnet /var/www/onlyoffice/Services/MailAggregator/ASC.Mail.Aggregator.Service.dll --urls=http://0.0.0.0:5025 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-aggregator --ENVIRONMENT=production
 Environment=OPENSSL_CONF=/etc/onlyoffice/communityserver/openssl.cnf
 TimeoutSec=600
 
-Restart=no
+Restart=always
 PrivateTmp=false
 
 [Install]

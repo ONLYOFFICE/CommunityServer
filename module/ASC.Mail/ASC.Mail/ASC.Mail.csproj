@@ -163,6 +163,7 @@
     <Compile Include="Core\Engine\SpamEngine.cs" />
     <Compile Include="Core\Engine\TemplateEngine.cs" />
     <Compile Include="Core\Engine\TestEngine.cs" />
+    <Compile Include="Core\Engine\UserActionEngine.cs" />
     <Compile Include="Core\Engine\UserFolderEngine.cs" />
     <Compile Include="Core\Entities\CashedMailUserAction.cs" />
     <Compile Include="Core\Entities\CashedTenantUserMailBox.cs" />

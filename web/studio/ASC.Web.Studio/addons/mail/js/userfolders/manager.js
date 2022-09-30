@@ -380,7 +380,8 @@ window.userFoldersManager = (function($) {
 
                                 window.LoadingBanner.displayMailLoading();
 
-                                var removeUfIntervalId = setInterval(serviceManager.getMailOperationStatus(operation.id,
+                                var removeUfIntervalId = setInterval(function () {
+                                    return serviceManager.getMailOperationStatus(operation.id,
                                     null,
                                     {
                                         success: function (_, data) {
@@ -421,7 +422,7 @@ window.userFoldersManager = (function($) {
 
                                             removeInProgress = false;
                                         }
-                                    }),
+                                    })},
                                     getStatusTimeout);
                             },
                             error: function (_, errors) {

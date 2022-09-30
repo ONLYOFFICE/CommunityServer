@@ -30,6 +30,7 @@ using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Mail.Core;
 using ASC.Mail.Core.Dao.Expressions.Mailbox;
+using ASC.Mail.Core.Engine;
 using ASC.Mail.Core.Engine.Operations.Base;
 using ASC.Mail.Core.Entities;
 using ASC.Web.Mail.Resources;
@@ -42,13 +43,11 @@ namespace ASC.Api.Mail
 
         private EngineFactory _engineFactory;
 
+        private UserActionEngine _actionEngine;
+
         private ILog _log;
 
         public const int DEFAULT_PAGE_SIZE = 25;
-
-        public const string RedisClientPrefix = "ASC.MailAction:";
-        public const string RedisClientQueuesKey = RedisClientPrefix + "Queues";
-
 
         ///<summary>
         /// Api name entry
@@ -63,51 +62,9 @@ namespace ASC.Api.Mail
             get { return _engineFactory ?? (_engineFactory = new EngineFactory(TenantId, Username, Logger)); }
         }
 
-        private void SendUserAlive(int folder, IEnumerable<int> tags)
+        private UserActionEngine ActionEngine
         {
-            if (!IsSendUserActivity) return;
-
-            if (!(AscCache.Default is RedisCache cache)) return;
-
-            CachedTenantUserMailBox cashedTenantUserMailBox = new CachedTenantUserMailBox()
-            {
-                Tenant = TenantId,
-                UserName = Username,
-                Tags = tags,
-                Folder = folder
-            };
-
-            cache.Publish(cashedTenantUserMailBox, CacheNotifyAction.Insert);
-        }
-
-        private void SendUserActivity(List<int> ids, MailUserAction action = MailUserAction.StartImapClient, int destinationFolder = -1)
-        {
-            if (!IsSendUserActivity) return;
-
-            if (!(AscCache.Default is RedisCache cache)) return;
-
-            var exp = new UserMailboxesExp(TenantId, Username, onlyTeamlab: true);
-
-            var mailboxes = MailEngineFactory.MailboxEngine.GetMailboxDataList(exp);
-
-            var mailboxesOnlyoffice = mailboxes.ToList();
-
-            if (!mailboxesOnlyoffice.Any()) return;
-
-            string key = RedisClientPrefix + Username;
-
-            CashedMailUserAction cashedMailUserAction = new CashedMailUserAction()
-            {
-                Tenant = TenantId,
-                UserName = Username,
-                Uds = ids,
-                Action = action,
-                Destination = destinationFolder
-            };
-
-            cache.PushMailAction(key, cashedMailUserAction);
-
-            SendUserAlive(-1, null);
+            get { return _actionEngine ?? (_actionEngine = new UserActionEngine(TenantId, Username, MailEngineFactory)); }
         }
 
         private ILog Logger
@@ -154,18 +111,6 @@ namespace ASC.Api.Mail
                 return count;
             }
         }
-
-        private static bool IsSendUserActivity
-        {
-            get
-            {
-                if (ConfigurationManagerExtension.AppSettings["mail.send-user-activity"] == null)
-                    return false;
-
-                return Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.send-user-activity"]); ;
-            }
-        }
-
 
         /// <summary>
         /// Timeout in milliseconds

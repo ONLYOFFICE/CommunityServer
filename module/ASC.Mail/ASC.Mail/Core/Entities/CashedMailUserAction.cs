@@ -9,6 +9,8 @@ namespace ASC.Mail.Core.Entities
         public List<int> Uds { get; set; }
         public MailUserAction Action { get; set; }
         public int Destination { get; set; }
+        public string Data { get; set; }
+        public uint? UserFolderId  { get; set; }
     }
 
     public enum MailUserAction
@@ -21,6 +23,8 @@ namespace ASC.Mail.Core.Entities
         SetAsDeleted,
         StartImapClient,
         MoveTo,
-        ReceiptStatusChanged
+        ReceiptStatusChanged,
+        Restore,
+        CreateFolder
     }
 }

@@ -710,7 +710,10 @@
     <value>Показывать избранное</value>
   </data>
   <data name="SettingForcesave" xml:space="preserve">
-    <value>Хранить промежуточные версии при редактировании</value>
+    <value>Сохранять ревизии при редактировании версии документа</value>
+  </data>
+  <data name="SettingForcesaveHelper" xml:space="preserve">
+    <value>Ревизии позволяют хранить промежуточные версии документа при редактировании</value>
   </data>
   <data name="SettingRecent" xml:space="preserve">
     <value>Показывать последние</value>
@@ -719,7 +722,7 @@
     <value>Дополнительные разделы</value>
   </data>
   <data name="SettingStoreForcesave" xml:space="preserve">
-    <value>Хранить все сохраненные промежуточные версии</value>
+    <value>Всегда сохранять ревизии при редактировании версии</value>
   </data>
   <data name="SettingTemplates" xml:space="preserve">
     <value>Показывать шаблоны</value>

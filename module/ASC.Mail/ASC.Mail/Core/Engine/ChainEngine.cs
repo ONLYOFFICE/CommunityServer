@@ -326,7 +326,7 @@ namespace ASC.Mail.Core.Engine
             return result;
         }
 
-        public void SetConversationsFolder(List<int> ids, FolderType folder, uint? userFolderId = null)
+        public List<int> SetConversationsFolder(List<int> ids, FolderType folder, uint? userFolderId = null)
         {
             if (!ids.Any())
                 throw new ArgumentNullException("ids");
@@ -334,26 +334,29 @@ namespace ASC.Mail.Core.Engine
             var engine = new EngineFactory(Tenant, User, Log);
 
             List<MailInfo> listObjects;
+            List<int> result = new List<int>();
 
             using (var daoFactory = new DaoFactory())
             {
                 listObjects = GetChainedMessagesInfo(daoFactory, ids);
 
                 if (!listObjects.Any())
-                    return;
+                    return result;
 
                 using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     engine.MessageEngine.SetFolder(daoFactory, listObjects, folder, userFolderId);
                     tx.Commit();
                 }
+
+                result = listObjects.Select(x => x.Id).ToList();
             }
 
             if (folder == FolderType.Inbox || folder == FolderType.Sent || folder == FolderType.Spam)
                 engine.OperationEngine.ApplyFilters(listObjects.Select(o => o.Id).ToList());
 
             if (!FactoryIndexer<MailWrapper>.Support)
-                return;
+                return result;
 
             var data = new MailWrapper
             {
@@ -375,9 +378,11 @@ namespace ASC.Mail.Core.Engine
             engine.IndexEngine.Update(data, exp, w => w.Folder);
 
             engine.IndexEngine.Update(data, exp, UpdateAction.Replace, w => w.UserFolders);
+
+            return result;
         }
 
-        public void RestoreConversations(int tenant, string user, List<int> ids)
+        public List<int> RestoreConversations(int tenant, string user, List<int> ids)
         {
             if (!ids.Any())
                 throw new ArgumentNullException("ids");
@@ -385,19 +390,22 @@ namespace ASC.Mail.Core.Engine
             var engine = new EngineFactory(tenant, user, Log);
 
             List<MailInfo> listObjects;
+            List<int> result = new List<int>();
 
             using (var daoFactory = new DaoFactory())
             {
                 listObjects = GetChainedMessagesInfo(daoFactory, ids);
 
                 if (!listObjects.Any())
-                    return;
+                    return result;
 
                 using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     engine.MessageEngine.Restore(daoFactory, listObjects);
                     tx.Commit();
                 }
+
+                result = listObjects.Select(x => x.Id).ToList();
             }
 
             var filterApplyIds =
@@ -410,7 +418,7 @@ namespace ASC.Mail.Core.Engine
                 engine.OperationEngine.ApplyFilters(filterApplyIds);
 
             if (!FactoryIndexer<MailWrapper>.Support)
-                return;
+                return result;
 
             var mails = listObjects.ConvertAll(m => new MailWrapper
             {
@@ -419,9 +427,11 @@ namespace ASC.Mail.Core.Engine
             });
 
             engine.IndexEngine.Update(mails, wrapper => wrapper.Folder);
+
+            return result;
         }
 
-        public void DeleteConversations(int tenant, string user, List<int> ids)
+        public List<int> DeleteConversations(int tenant, string user, List<int> ids)
         {
             if (!ids.Any())
                 throw new ArgumentNullException("ids");
@@ -431,34 +441,40 @@ namespace ASC.Mail.Core.Engine
             var engine = new EngineFactory(tenant, user);
 
             List<MailInfo> listObjects;
+            List<int> result = new List<int>();
 
             using (var daoFactory = new DaoFactory())
             {
                 listObjects = GetChainedMessagesInfo(daoFactory, ids);
 
                 if (!listObjects.Any())
-                    return;
+                    return result;
 
                 using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     usedQuota = engine.MessageEngine.SetRemoved(daoFactory, listObjects);
                     tx.Commit();
                 }
+
+                result = listObjects.Select(x => x.Id).ToList();
             }
 
             engine.QuotaEngine.QuotaUsedDelete(usedQuota);
 
             if (!FactoryIndexer<MailWrapper>.Support)
-                return;
+                return result;
 
             engine.IndexEngine.Remove(listObjects.Select(info => info.Id).ToList(), Tenant, new Guid(User));
+
+            return result;
         }
 
         private const string MM_ALIAS = "mm";
 
-        public void SetConversationsImportanceFlags(int tenant, string user, bool important, List<int> ids)
+        public List<int> SetConversationsImportanceFlags(int tenant, string user, bool important, List<int> ids)
         {
             List<MailInfo> mailInfos;
+            List<int> result = new List<int>();
 
             using (var daoFactory = new DaoFactory())
             {
@@ -537,6 +553,8 @@ namespace ASC.Mail.Core.Engine
 
                     tx.Commit();
                 }
+
+                result= mailInfos.Select(x =>x.Id).ToList();
             }
 
             var factory = new EngineFactory(Tenant, User);
@@ -548,6 +566,8 @@ namespace ASC.Mail.Core.Engine
 
             factory.IndexEngine.Update(data, s => s.In(m => m.Id, mailInfos.Select(o => o.Id).ToArray()),
                 wrapper => wrapper.Importance);
+
+            return result;
         }
 
         public void UpdateMessageChainAttachmentsFlag(IDaoFactory daoFactory, int tenant, string user, int messageId)

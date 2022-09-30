@@ -1,6 +1,6 @@
-dictionary = { "teamlabNotify" => 9811, "teamlabBackup" => 9812, "teamlabIndex" => 9813, "teamlabStorageMigrate" => 9814, "teamlabTelegram" => 9815, "teamlabStorageEncryption" => 9816, "teamlabThumbnailBuilder" => 9817, "teamlabMailCleaner" => 9819, "teamlabMailWatchdog" => 9818, "teamlabFeed" => 9808 };
+dictionary = { "teamlabNotify" => 9811, "teamlabBackup" => 9812, "teamlabIndex" => 9813, "teamlabStorageMigrate" => 9814, "teamlabTelegram" => 9815, "teamlabStorageEncryption" => 9816, "teamlabThumbnailBuilder" => 9817, "teamlabFeed" => 9808 };
 
-%w{Notify Backup Index StorageMigrate Telegram StorageEncryption ThumbnailBuilder MailCleaner MailWatchdog Feed}.each do |serviceName|
+%w{Notify Backup Index StorageMigrate Telegram StorageEncryption ThumbnailBuilder Feed}.each do |serviceName|
     God.watch do |w|
       w.name = "onlyoffice#{serviceName}"
       w.group = "onlyoffice"

@@ -89,9 +89,15 @@ var requestAuth = async function (ctx, username, password) {
             "userName": username,
             "password": password
         });
+        if (response && response.config && response.config.data) {
+            response.config.data = username; //don't show password in log file
+        }
         logResponse(ctx, response, "requestAPI.requestAuth");
         return response.data.response.token;
     } catch (error) {
+        if (error && error.response && error.response.config && error.response.config.data) {
+            error.response.config.data = username; //don't show password in log file
+        }
         logError(error, "requestAPI.requestAuth");
         throw error;
     }

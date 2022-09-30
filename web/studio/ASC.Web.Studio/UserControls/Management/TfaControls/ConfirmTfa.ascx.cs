@@ -141,7 +141,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 throw;
             }
 
-            var refererUrl = Context.GetRefererURL();
+            var refererUrl = HttpUtility.ParseQueryString(query)["refererurl"];
+            if (string.IsNullOrEmpty(refererUrl))
+            {
+                refererUrl = Context.GetRefererURL();
+            }
 
             if (newBackupCodes)
             {

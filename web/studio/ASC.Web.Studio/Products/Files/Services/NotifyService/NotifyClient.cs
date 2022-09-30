@@ -96,6 +96,21 @@ namespace ASC.Web.Files.Services.NotifyService
                               ? FilesLinkUtility.GetFileWebPreviewUrl(fileEntry.Title, fileEntry.ID)
                               : PathProvider.GetFolderUrl((Folder)fileEntry);
 
+                var folder = new Folder();
+
+                string fileExtension = "";
+
+                if (fileEntry.FileEntryType == FileEntryType.File)
+                {
+                    var file = fileEntry as File;
+                    fileExtension = file.ConvertedExtension;
+                    folder = folderDao.GetFolder(file.FolderID);
+                }
+                else
+                {
+                    folder = (Folder)fileEntry;
+                }
+
                 var recipientsProvider = NotifySource.Instance.GetRecipientsProvider();
 
                 var action = fileEntry.FileEntryType == FileEntryType.File
@@ -120,9 +135,14 @@ namespace ASC.Web.Files.Services.NotifyService
                         recipient,
                         true,
                         new TagValue(NotifyConstants.Tag_DocumentTitle, fileEntry.Title),
+                        new TagValue(NotifyConstants.Tag_DocumentExtension, fileExtension),
                         new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(url)),
                         new TagValue(NotifyConstants.Tag_AccessRights, aceString),
                         new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode()),
+                        new TagValue(NotifyConstants.Tag_FolderId, folder.ID),
+                        new TagValue(NotifyConstants.Tag_FolderParentId, folder.RootFolderId),
+                        new TagValue(NotifyConstants.Tag_FolderRootFolderType, folder.RootFolderType),
+                        new AdditionalSenderTag("push.sender"),
                         Studio.Core.Notify.TagValues.Image(0, "privacy.png")
                         );
                 }
@@ -148,7 +168,9 @@ namespace ASC.Web.Files.Services.NotifyService
                     true,
                     new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title),
                     new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(documentUrl)),
-                    new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode())
+                    new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode()),
+                    new TagValue(NotifyConstants.Tag_FolderId, (file as File).FolderID),
+                    new AdditionalSenderTag("push.sender")
                     );
             }
         }

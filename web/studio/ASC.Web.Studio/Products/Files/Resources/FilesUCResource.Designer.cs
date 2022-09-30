@@ -2473,11 +2473,20 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep intermediate versions when editing.
+        ///   Looks up a localized string similar to Save revisions when the document version is changed.
         /// </summary>
         public static string SettingForcesave {
             get {
                 return ResourceManager.GetString("SettingForcesave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save revisions to track intermediate versions of the documents.
+        /// </summary>
+        public static string SettingForcesaveHelper {
+            get {
+                return ResourceManager.GetString("SettingForcesaveHelper", resourceCulture);
             }
         }
         
@@ -2500,7 +2509,7 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep all saved intermediate versions.
+        ///   Looks up a localized string similar to Always save revisions when the version is changed.
         /// </summary>
         public static string SettingStoreForcesave {
             get {

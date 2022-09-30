@@ -11,7 +11,7 @@ WorkingDirectory=/var/www/onlyoffice/Services/MailWatchdog/
 ExecStart=/usr/bin/dotnet /var/www/onlyoffice/Services/MailWatchdog/ASC.Mail.Watchdog.Service.dll --urls=http://0.0.0.0:5031 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-watchdog --ENVIRONMENT=production
 TimeoutSec=600
 
-Restart=no
+Restart=always
 PrivateTmp=false
 
 [Install]

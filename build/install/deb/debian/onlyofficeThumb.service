@@ -12,7 +12,7 @@ Group=onlyoffice
 # Give up if ping don't get an answer
 TimeoutSec=600
 
-Restart=no
+Restart=always
 PrivateTmp=false
 
 [Install]

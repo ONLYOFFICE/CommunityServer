@@ -45,7 +45,7 @@ namespace ASC.Api.Mail
             if (!Defines.IsSignalRAvailable)
                 MailEngineFactory.AccountEngine.SetAccountsActivity();
 
-            SendUserActivity(new List<int>());
+            ActionEngine.SendUserActivity(new List<int>());
 
             return MailEngineFactory.FolderEngine.GetFolders()
                                  .Where(f => f.id != FolderType.Sending)
@@ -120,6 +120,9 @@ namespace ASC.Api.Mail
             try
             {
                 var userFolder = MailEngineFactory.UserFolderEngine.Create(name, parentId);
+
+                ActionEngine.SendUserActivity(name, ASC.Mail.Core.Entities.MailUserAction.CreateFolder);
+
                 return userFolder;
             }
             catch (AlreadyExistsFolderException)

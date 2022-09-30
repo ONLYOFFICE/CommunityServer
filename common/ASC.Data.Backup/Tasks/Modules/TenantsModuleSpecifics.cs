@@ -41,7 +41,11 @@ namespace ASC.Data.Backup.Tasks.Modules
                         DateColumns = new Dictionary<string, bool> {{"workfromdate", false}, {"terminateddate", false}, {"last_modified", false}}
                     },
                 new TableInfo("core_group", "tenant", "id", IdType.Guid),
-                new TableInfo("tenants_iprestrictions", "tenant", "id", IdType.Autoincrement)
+                new TableInfo("tenants_iprestrictions", "tenant", "id", IdType.Autoincrement),
+                new TableInfo("firebase_users", "tenant_id", "id", IdType.Autoincrement)
+                    {
+                        UserIDColumns = new[] {"user_id"}
+                    }
             };
 
         private readonly RelationInfo[] _tableRelations = new[]

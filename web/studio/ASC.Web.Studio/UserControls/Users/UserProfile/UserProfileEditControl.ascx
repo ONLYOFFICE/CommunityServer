@@ -146,7 +146,7 @@
                         <p class="gray-text" style="margin-top: 2px;"><%= Resource.TemporaryPasswordToAccess %></p>
                     </div>
                     <div class="validationBlock">
-                        <input id="password" autocomplete="off" class="textEdit" type="password" maxlength="<%= PasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
+                        <input id="password" autocomplete="new-password" class="textEdit" type="password" maxlength="<%= PasswordSettings.MaxLength %> " size="10" title="<%= Resource.Password %>"/>
                         <a class="infoChecking" id="passwordGen">&nbsp;</a>
                         <div id="bubleBlock">
                         <div id="passwordInfo" style="display:none;"><%= Resource.ErrorPasswordMessage %>:

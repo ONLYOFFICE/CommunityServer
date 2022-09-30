@@ -155,4 +155,25 @@ $Message</value>
   <data name="subject_EditorMentions_tg" xml:space="preserve">
     <value>Documents. Mentioned in document: [$DocumentTitle]($DocumentURL)</value>
   </data>
+  <data name="subject_DocuSignComplete_push" xml:space="preserve">
+    <value>All signers completed $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus_push" xml:space="preserve">
+    <value>Sign status changed</value>
+  </data>
+  <data name="subject_EditorMentions_push" xml:space="preserve">
+    <value>Mentioned in document</value>
+  </data>
+  <data name="subject_MailMergeEnd_push" xml:space="preserve">
+    <value>Mailing is complete.</value>
+  </data>
+  <data name="subject_ShareDocument_push" xml:space="preserve">
+    <value>Access granted to document: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument_push" xml:space="preserve">
+    <value>Access granted to the encrypted document: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder_push" xml:space="preserve">
+    <value>Access granted to folder: $DocumentTitle</value>
+  </data>
 </root>

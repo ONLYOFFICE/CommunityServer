@@ -118,8 +118,16 @@
     <Compile Include="Context\WorkContext.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Notify\DirectSubscriptionProvider.cs" />
+    <Compile Include="Notify\FirebaseApiKey.cs" />
     <Compile Include="Notify\MentionProvider.cs" />
+    <Compile Include="Notify\Push\Dao\NotifyData.cs" />
+    <Compile Include="Notify\Push\Dao\NotifyFileData.cs" />
+    <Compile Include="Notify\Push\Dao\NotifyFolderData.cs" />
+    <Compile Include="Notify\Senders\PushSender.cs" />
     <Compile Include="Notify\Signalr\MailNotificationState.cs" />
+    <Compile Include="Notify\Push\Dao\FirebaseDao.cs" />
+    <Compile Include="Notify\Push\Dao\FireBaseUser.cs" />
+    <Compile Include="Notify\Push\FirebaseHelper.cs" />
     <Compile Include="Notify\Telegram\Dao\CachedTelegramDao.cs" />
     <Compile Include="Notify\Telegram\Dao\TelegramDao.cs" />
     <Compile Include="Notify\Telegram\Dao\TelegramUser.cs" />
@@ -213,6 +221,18 @@
     </PackageReference>
     <PackageReference Include="AWSSDK.SimpleEmail">
       <Version>3.7.0.57</Version>
+    </PackageReference>
+    <PackageReference Include="FirebaseAdmin">
+      <Version>2.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Api.Gax">
+      <Version>3.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Apis.Auth">
+      <Version>1.54.0</Version>
+    </PackageReference>
+    <PackageReference Include="Google.Api.Gax.Rest">
+      <Version>3.5.0</Version>
     </PackageReference>
     <PackageReference Include="MailKit">
       <Version>2.15.0</Version>

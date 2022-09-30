@@ -466,13 +466,17 @@ namespace ASC.Mail.Core.Engine
 
         public void ApplyAction(List<int> ids, MailSieveFilterActionData action)
         {
+            UserActionEngine userActionEngine = new UserActionEngine(Tenant, User, Factory);
+
             switch (action.Action)
             {
                 case ActionType.DeleteForever:
                     Factory.MessageEngine.SetRemoved(ids);
+                    userActionEngine.SendUserActivity(ids, MailUserAction.SetAsDeleted);
                     break;
                 case ActionType.MarkAsRead:
                     Factory.MessageEngine.SetUnread(ids, false);
+                    userActionEngine.SendUserActivity(ids, MailUserAction.SetAsRead);
                     break;
                 case ActionType.MoveTo:
                     var dataJson = JObject.Parse(action.Data);
@@ -485,13 +489,15 @@ namespace ASC.Mail.Core.Engine
                         throw new ArgumentException("Not valid type value in json data of 'Move to' action");
                     }
 
-                    uint folderId;
+                    int folderId;
+
+                    uint? userActivityUserFolderId=null;
 
                     if (folderType == FolderType.UserFolder)
                     {
-                        var userFolderId = uint.Parse(dataJson["userFolderId"].ToString());
+                        var userFolderId = int.Parse(dataJson["userFolderId"].ToString());
 
-                        var userFolder = Factory.UserFolderEngine.Get(userFolderId);
+                        var userFolder = Factory.UserFolderEngine.Get((uint)userFolderId);
                         if (userFolder == null)
                         {
                             throw new NotFoundFilterDataException(string.Format("User folder with id={0} not found",
@@ -499,14 +505,18 @@ namespace ASC.Mail.Core.Engine
                         }
 
                         folderId = userFolderId;
+                        userActivityUserFolderId = (uint?)userFolderId;
                     }
                     else
                     {
-                        folderId = (uint)folderType;
+                        folderId = (int)folderType;
                     }
 
                     Factory.MessageEngine.SetFolder(ids, folderType,
-                        folderType == FolderType.UserFolder ? folderId : (uint?)null);
+                        folderType == FolderType.UserFolder ? (uint)folderId : (uint?)null);
+
+                    userActionEngine.SendUserActivity(ids, MailUserAction.MoveTo, (int)folderType, userActivityUserFolderId);
+
                     break;
                 case ActionType.MarkTag:
                     var tagId = Convert.ToInt32(action.Data);
@@ -522,6 +532,7 @@ namespace ASC.Mail.Core.Engine
                     break;
                 case ActionType.MarkAsImportant:
                     Factory.MessageEngine.SetImportant(ids, true);
+                    userActionEngine.SendUserActivity(ids, MailUserAction.SetAsImportant);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

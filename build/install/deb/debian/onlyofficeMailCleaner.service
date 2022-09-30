@@ -1,17 +1,17 @@
 [Unit]
 Description=ONLYOFFICE MailCleaner Service
-After=network.target syslog.target mysqld.service
-Wants=mysqld.service
+After=network.target syslog.target mysql.service
+Wants=mysql.service
 
 [Service]
 Type=notify
 User=onlyoffice
 Group=onlyoffice
 WorkingDirectory=/var/www/onlyoffice/Services/MailCleaner/
-ExecStart=/usr/share/dotnet/dotnet /var/www/onlyoffice/Services/MailCleaner/ASC.Mail.StorageCleaner.Service.dll --urls=http://0.0.0.0:5032 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-storagecleaner  --ENVIRONMENT=production
+ExecStart=/usr/bin/dotnet /var/www/onlyoffice/Services/MailCleaner/ASC.Mail.StorageCleaner.Service.dll --urls=http://0.0.0.0:5032 --pathToConf=/etc/onlyoffice/communityserver --pathToNlogConf=/etc/onlyoffice/communityserver --log:dir=/var/log/onlyoffice/mail --log:name=mail-storagecleaner  --ENVIRONMENT=production
 TimeoutSec=600
 
-Restart=no
+Restart=always
 PrivateTmp=false
 
 [Install]

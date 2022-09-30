@@ -117,16 +117,18 @@ namespace ASC.Web.Studio.Masters
                 TopContent.Controls.Add(TopStudioPanel);
             }
 
-            if (!EmailActivated && !CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated && EmailActivationSettings.LoadForCurrentUser().Show)
-            {
-                activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
-            }
-
-
             var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
             if (!DisabledSidePanel)
             {
+                if (curUser.ActivationStatus != EmployeeActivationStatus.Activated &&
+                    curUser.CreateDate.Date != DateTime.UtcNow.Date &&
+                    !CoreContext.Configuration.Personal &&
+                    SecurityContext.IsAuthenticated &&
+                    EmailActivationSettings.LoadForCurrentUser().Show)
+                {
+                    activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
+                }
                 TariffNotifyHolder.Controls.Add(LoadControl(TariffNotify.Location));
             }
 
@@ -153,15 +155,6 @@ namespace ASC.Web.Studio.Masters
 
             var page = HttpUtility.UrlEncode(Page.AppRelativeVirtualPath.Replace("~", ""));
             return String.Format("<img style=\"display:none;\" src=\"{0}\"/>", SetupInfo.StatisticTrackURL + "&page=" + page);
-        }
-
-        protected bool EmailActivated
-        {
-            get
-            {
-                var usr = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                return usr.CreateDate.Date == DateTime.UtcNow.Date || usr.ActivationStatus == EmployeeActivationStatus.Activated;
-            }
         }
 
         protected string ColorThemeClass

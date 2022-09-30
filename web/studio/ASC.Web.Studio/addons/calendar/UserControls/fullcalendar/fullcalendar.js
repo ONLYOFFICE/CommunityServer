@@ -10710,11 +10710,6 @@ function EventPage(calendar) {
             return confirmSettings.selectedViewMode;
 		}
 
-		var oldAttachments = oldEvent.attachments || [];
-		var newAttachments = _eventObj.attachments || [];
-
-		if (oldAttachments.length == 0 && newAttachments.length == 0)
-			return confirmSettings.selectedViewMode;
 
         var oldOrganizerEmail = oldEvent.organizer ? oldEvent.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase() : "";
         var organizerChanged = oldOrganizerEmail && oldOrganizerEmail != organizerEmail;

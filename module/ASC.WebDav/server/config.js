@@ -33,7 +33,7 @@ module.exports = {
   // root virtual directory
   virtualPath: "webdav",
   // Logging level
-  logLevel: "debug",
+  logLevel: "error",
   // Maximum execution time of long-running operations
   maxExecutionTime: 600000,
   // User cache storage time (msec)

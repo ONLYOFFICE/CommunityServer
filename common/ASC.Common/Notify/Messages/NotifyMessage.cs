@@ -107,6 +107,27 @@ namespace ASC.Notify.Messages
             get;
             set;
         }
+
+        [DataMember(Order = 13)]
+        public string ProductID
+        {
+            get;
+            set;
+        }
+
+        [DataMember(Order = 14)]
+        public string ObjectID
+        {
+            get;
+            set;
+        }
+        [DataMember(Order = 15)]
+        public string Data
+        {
+            get;
+            set;
+        }
+        
     }
 
     [Serializable]

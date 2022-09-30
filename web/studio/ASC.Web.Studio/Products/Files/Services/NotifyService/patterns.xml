@@ -13,6 +13,10 @@
     <subject resource="|subject_DocuSignComplete_tg|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.MarkDownStyler, ASC.Notify.Textile"></body>
   </pattern>
+  <pattern id="DocuSignComplete" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_DocuSignComplete_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
+  </pattern>
 
   <pattern id="DocuSignStatus" sender="email.sender">
     <subject resource="|subject_DocuSignStatus|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
@@ -26,10 +30,18 @@
     <subject resource="|subject_DocuSignStatus|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.MarkDownStyler, ASC.Notify.Textile">$Message: $DocumentTitle</body>
   </pattern>
+  <pattern id="DocuSignStatus" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_DocuSignStatus_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
+  </pattern>
 
   <pattern id="MailMergeEnd" sender="email.sender">
     <subject resource="|subject_MailMergeEnd|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_MailMergeEnd|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="MailMergeEnd" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_MailMergeEnd_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
   </pattern>
   <pattern id="MailMergeEnd" sender="messanger.sender">
     <subject resource="|subject_MailMergeEnd|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
@@ -49,6 +61,10 @@ $Message
   <pattern id="ShareDocument" sender="email.sender">
     <subject resource="|subject_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="ShareDocument" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_ShareDocument_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
   </pattern>
   <pattern id="ShareDocument" sender="messanger.sender">
     <subject resource="|subject_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
@@ -74,6 +90,10 @@ $Message
   <pattern id="ShareEncryptedDocument" sender="email.sender">
     <subject resource="|subject_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="ShareEncryptedDocument" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_ShareEncryptedDocument_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
   </pattern>
   <pattern id="ShareEncryptedDocument" sender="messanger.sender">
     <subject resource="|subject_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
@@ -102,6 +122,10 @@ $Message
     <subject resource="|subject_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
   </pattern>
+  <pattern id="ShareFolder" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_ShareFolder_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
+  </pattern>
   <pattern id="ShareFolder" sender="messanger.sender">
     <subject resource="|subject_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
@@ -126,6 +150,10 @@ $Message
   <pattern id="EditorMentions" sender="email.sender">
     <subject resource="|subject_EditorMentions|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_EditorMentions|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="EditorMentions" sender="push.sender">
+    <subject></subject>
+    <body styler="ASC.Notify.Textile.PushStyler, ASC.Notify.Textile" resource="|subject_EditorMentions_push|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files"/>
   </pattern>
   <pattern id="EditorMentions" sender="messanger.sender">
     <subject resource="|subject_EditorMentions|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />

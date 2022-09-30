@@ -2,9 +2,7 @@
 
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
-<% if (IsAuthenticated)
-    { %>
-<div class="info-box excl display-none">
+<div class="info-box excl">
     <div class="btn-close" onclick="ASC.EmailOperationManager.closeActivateEmailPanel(this);"></div>
     <div>
         <div class="first-step">
@@ -21,4 +19,3 @@
         </div>
     </div>
 </div>
-<% } %>
