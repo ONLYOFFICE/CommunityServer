@@ -1,5 +1,53 @@
 # Change log
 
+## Version 12.1.0
+
+### General portal changes
+
+* Fixed issue with processing mail messages containing a calendar event in the attachment (Bug #58533).
+* Fixed issue with group filtering (Bug #58230).
+* Fixed issue with loading of the currency convertor in CRM Opportunities (Bug #58651).
+* Fixed issue with synchronizing between portal and mail client when grouping email chains (Bug #57194).
+* Fixed issue with synchronizing between portal and mail client when filtering emails (Bug #57201).
+* Fixed issue with Mail Services when installing on Ubuntu 22.04 (Bug #58608).
+* Fixed issue with Redis and MySQL service dependencies in the systemd service files (Bug #58550).
+* Fixed issue with functioning of the god service /etc/god/conf.d/services.god (Bug #58547).
+* Fixed issue with installing on Ubuntu via Hetzner hosting (Bug #58609).
+* Updated mysql-apt-config package (Bug #58374).
+* Fixed issue with opening a document after successful 2FA authorization (Bug #58709).
+* Fixed issue with sending notification emails about updates in the calendar event when changing it through the editing window (Bug #58726).
+* Fixed issue with deleting a folder with several emails (Bug #58921).
+* Fixed issue with unread/read emails when synchronizing between portal and mail client (Bug #57173).
+* Fixed issue with installing a DEB package on Ubuntu 20.04 and Debian 10 (Bug #58920).
+* Fixed SSL issues with WarmUp of Docker installations under https when restarting the container.  
+* API methods for changing email/password without mail activation added.
+* The autocomplete="new-password" attribute is set in the password setting field when creating a user.
+* Fixed displaying of the notification window for unactivated emails.
+* Fixed Feed styles for mobile devices.
+* API rebranding methods (for the default tenant) are available only to the administrator.
+* Updated MySQL version to 8.0.30.
+* Added mysql-apt-config update.
+* Added automatic getting of the MySQL repository version.
+* Corrected OCI for Ubuntu 22.04.
+* Fixed restart confirmation for Ubuntu Jammy.
+* Fixed and updated Node.js installation for Ubuntu Jammy.
+* Fixed and updated MySQL installation for Ubuntu Jammy.
+* Added always restart for Node.js/DotNet services.
+* Removed restart of mail services by using the god service.
+* Updated monoserve.service.
+
+### Documents module
+
+* Added push notifications for events related to folders and files. Subscription/unsubscription within mobile applications.
+
+### Mail module
+
+* Added functionality for receiving emails from custom folders and their synchronization with the Mail Server for ImapSync.
+* Fixed issue with emails moved to the custom folder (Bug #58742).
+* Fixed issue with synchronizing between portal and mail client when making changes in the client (Bug #55800).
+* Fixed issue with lost email in the web when moving it to the custom folder in the synchronized email client (Bug #56745).
+* Fixed issue marking an email as important when sending/receiving it from a custom mailbox (Bug #56932).
+
 ## Version 12.0.1
 
 ### General portal changes
