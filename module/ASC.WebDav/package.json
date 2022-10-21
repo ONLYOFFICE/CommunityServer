@@ -11,7 +11,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.2",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "get-byte": "0.0.0",
