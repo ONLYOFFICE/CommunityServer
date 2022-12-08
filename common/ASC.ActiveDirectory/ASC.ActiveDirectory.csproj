@@ -92,7 +92,7 @@
       <Version>3.2.3</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="Novell.Directory.LDAP">
       <Version>2.3.8.1</Version>
