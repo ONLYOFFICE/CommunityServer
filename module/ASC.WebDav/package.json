@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "form-data": "^3.0.0",
     "get-byte": "0.0.0",
     "help": "^3.0.2",
